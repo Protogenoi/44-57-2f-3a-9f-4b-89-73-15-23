@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+
+
+Options -Indexes
+
+ErrorDocument 404 https://dev.adlcrm.com/error/404.php 
+ErrorDocument 403 https://dev.adlcrm.com/error/403.php 
+ErrorDocument 500 https://dev.adlcrm.com/error/500.php
+
+
+
+
+AuthUserFile /home/var/www/dev.adlcrm.com/.htpasswd
+AuthType Basic
+AuthName "Please Enter Password"
+
+<Files "users.php">
+  Require valid-user
+</Files>
+

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
+    <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
+    <style>.message-item {
+margin-bottom: 25px;
+margin-left: 40px;
+position: relative;
+}
+.message-item .message-inner {
+background: #fff;
+border: 1px solid #ddd;
+border-radius: 3px;
+padding: 10px;
+position: relative;
+}
+.message-item .message-inner:before {
+border-right: 10px solid #ddd;
+border-style: solid;
+border-width: 10px;
+color: rgba(0,0,0,0);
+content: "";
+display: block;
+height: 0;
+position: absolute;
+left: -20px;
+top: 6px;
+width: 0;
+}
+.message-item .message-inner:after {
+border-right: 10px solid #fff;
+border-style: solid;
+border-width: 10px;
+color: rgba(0,0,0,0);
+content: "";
+display: block;
+height: 0;
+position: absolute;
+left: -18px;
+top: 6px;
+width: 0;
+}
+.message-item:before {
+background: #fff;
+border-radius: 2px;
+bottom: -30px;
+box-shadow: 0 0 3px rgba(0,0,0,0.2);
+content: "";
+height: 100%;
+left: -30px;
+position: absolute;
+width: 3px;
+}
+.message-item:after {
+background: #fff;
+border: 2px solid #ccc;
+border-radius: 50%;
+box-shadow: 0 0 5px rgba(0,0,0,0.1);
+content: "";
+height: 15px;
+left: -36px;
+position: absolute;
+top: 10px;
+width: 15px;
+}
+.clearfix:before, .clearfix:after {
+content: " ";
+display: table;
+}
+.message-item .message-head {
+border-bottom: 1px solid #eee;
+margin-bottom: 8px;
+padding-bottom: 8px;
+}
+.message-item .message-head .avatar {
+margin-right: 20px;
+}
+.message-item .message-head .user-detail {
+overflow: hidden;
+}
+.message-item .message-head .user-detail h5 {
+font-size: 16px;
+font-weight: bold;
+margin: 0;
+}
+.message-item .message-head .post-meta {
+float: left;
+padding: 0 15px 0 0;
+}
+.message-item .message-head .post-meta >div {
+color: #333;
+font-weight: bold;
+text-align: right;
+}
+.post-meta > div {
+color: #777;
+font-size: 12px;
+line-height: 22px;
+}
+.message-item .message-head .post-meta >div {
+color: #333;
+font-weight: bold;
+text-align: right;
+}
+.post-meta > div {
+color: #777;
+font-size: 12px;
+line-height: 22px;
+}
+img {
+ min-height: 40px;
+ max-height: 40px;
+}</style>
+    </head>
+    <body>
+        <div class="container">
+	<div class="row">
+		<h2>Time Line</h2>
+	</div>
+    <div class="qa-message-list" id="wallmessages">
+    				<div class="message-item" id="m16">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">Oleg Kolesnichenko</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Jan 21</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko">Oleg Kolesnichenko</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Yo!
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m9">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=amiya"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">amiya</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Nov 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=amiya">amiya</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Nice theme . Excellent one .
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m7">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=russell"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">russell</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 25, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=russell">russell</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Nullam porta leo vitae ipsum feugiat viverra. In sed placerat mi. Nullam euismod, quam in euismod rhoncus, tellus velit posuere tortor, non cursus nunc velit et lacus.
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m6">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=juggornot"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">juggornot</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=juggornot">juggornot</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Integer vitae arcu vitae ligula Cras vestibulum suscipit odio ac dapibus. In hac habitasse platea dictumst. Cras pulvinar erat et nunc fringilla, quis molestie
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m5">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=one_eyed"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">one_eyed</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=one_eyed">one_eyed</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Nulla dui ante, pulvinar ac auctor vitae, sollicitudin et tortor. Cras vestibulum suscipit odio ac dapibus. In hac habitasse platea dictumst. Cras pulvinar erat et nunc fringilla, quis molestie diam pulvinar.
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m4">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=muboy"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">muboy</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=muboy">muboy</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum iaculis mi, non dapibus nulla eleifend sed. Etiam ac commodo leo. <br>
+Donec non sem id tellus mattis convallis. Morbi dapibus nulla ac dui lacinia,
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m3">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=monu"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">monu</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=monu">monu</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Suspendisse varius mi consectetur nulla volutpat, nec fermentum turpis vehicula. Curabitur dapibus odio mauris, vitae accumsan sapien auctor non. Duis tempus ante id nulla vestibulum mattis.
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m2">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=Fynn"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">Fynn</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Fynn">Fynn</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Nunc ante neque, feugiat at dictum ut, dignissim sed sapien. Pellentesque congue eu nisl sit amet cursus. Integer dapibus adipiscing metus ac vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							</div>
+					</div></div>
+					
+					<div class="message-item" id="m1">
+						<div class="message-inner">
+							<div class="message-head clearfix">
+								<div class="avatar pull-left"><a href="./index.php?qa=user&qa_1=admin"><img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png"></a></div>
+								<div class="user-detail">
+									<h5 class="handle">admin</h5>
+									<div class="post-meta">
+										<div class="asker-meta">
+											<span class="qa-message-what"></span>
+											<span class="qa-message-when">
+												<span class="qa-message-when-data">Oct 24, 2013</span>
+											</span>
+											<span class="qa-message-who">
+												<span class="qa-message-who-pad">by </span>
+												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=admin">admin</a></span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="qa-message-content">
+								Nunc ante neque, feugiat at dictum ut, dignissim sed sapien. Pellentesque congue eu nisl sit amet cursus. Integer dapibus adipiscing metus ac vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus fermentum iaculis mi, non dapibus nulla eleifend sed. Etiam ac commodo leo. Donec non sem id tellus mattis convallis. Morbi dapibus nulla ac dui lacinia,
+							</div>
+					</div></div>
+					
+				</div>
+</div>
+        
+                <script type="text/javascript">
+$('.clockpicker').clockpicker();
+</script>
+
+
+<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker()
+	.find('input').change(function(){
+		console.log(this.value);
+	});
+
+</script>
+<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
+<script>
+        document.querySelector('#clientnotessubtab').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Submit notes?",
+                text: "Confirm to send notes!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Notes submitted!',
+                        text: 'Notes saved!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+<script>
+        document.querySelector('#ClientTaskForm').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Update Task?",
+                text: "Confirm to Update Task!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Updated!',
+                        text: 'Task Updated!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script>var maxLength = 2000;
+$('textarea').keyup(function() {
+  var length = $(this).val().length;
+  var length = maxLength-length;
+  $('#chars').text(length);
+});</script>
+<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+ <script>
+  $(function() {
+    $( "#callback_date" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true
+        });
+  });
+    $( "#CLICKTOHIDEDEALSHEET" ).click(function() {
+  $( "#HIDEDEALSHEET" ).fadeOut( "slow", function() {
+
+  });
+});
+  $( "#CLICKTOHIDECLOSERKF" ).click(function() {
+  $( "#HIDECLOSERKF" ).fadeOut( "slow", function() {
+
+  });
+});
+
+$( "#CLICKTOHIDELGKEY" ).click(function() {
+  $( "#HIDELGKEY" ).fadeOut( "slow", function() {
+
+  });
+});
+
+$( "#CLICKTOHIDELGAPP" ).click(function() {
+  $( "#HIDELGAPP" ).fadeOut( "slow", function() {
+
+  });
+});
+
+$( "#CLICKTOHIDEDUPEPOL" ).click(function() {
+  $( "#HIDEDUPEPOL" ).fadeOut( "slow", function() {
+
+  });
+});
+$( "#CLICKTOHIDENEWPOLICY" ).click(function() {
+  $( "#HIDENEWPOLICY" ).fadeOut( "slow", function() {
+
+  });
+});
+
+$( "#clickme" ).click(function() {
+  $( "#HIDELGAPP,#HIDELGKEY,#HIDECLOSERKF,#HIDEDEALSHEET,#HIDEDUPEPOL,#HIDENEWPOLICY").fadeIn( "slow", function() {
+    // Animation complete
+  });
+});
+  </script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+<script src="/js/sweet-alert.min.js"></script>
+<script>
+
+$(document).ready(function() {
+   if(window.location.href.split('#').length > 1 )
+      {
+      $tab_to_nav_to=window.location.href.split('#')[1];
+      if ($(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']").length)
+         {
+         $(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']")[0].click();
+         }
+      }
+});
+
+</script>
+    </body>
+</html>

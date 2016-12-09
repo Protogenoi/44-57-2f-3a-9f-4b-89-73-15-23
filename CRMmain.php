@@ -489,7 +489,9 @@ while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
 </audio> <?php } elseif($SANTA_TIME=='16') { ?>
 <source src="/sounds/ChristmasScat.mp3" type="audio/mpeg">
 </audio> <?php }
-
+elseif($SANTA_TIME=='17') { ?>
+<source src="/sounds/Buzz-your-girl-friend-Woof.mp3" type="audio/mpeg">
+</audio> <?php }
 }
 }
 ?>

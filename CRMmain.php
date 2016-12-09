@@ -31,7 +31,7 @@ include('includes/adlfunctions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>ADL CRM</title>
+<title>ADL CRM | asdasd</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />

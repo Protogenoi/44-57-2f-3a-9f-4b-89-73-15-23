@@ -103,6 +103,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
   <label for="custtype">Product:</label>
   <select class="form-control" name="custype" id="custype" style="width: 170px" required>
                     <option value="The Review Bureau">TRB Life Insurance</option>
+                    <option value="TRB WOL">TRB WOL</option>
                     <option value="TRB Vitality">TRB Vitality</option>
                     <option value="TRB Home Insurance">TRB Home Insurance</option>
                     <option value="Assura">Assura Life Insurance</option>

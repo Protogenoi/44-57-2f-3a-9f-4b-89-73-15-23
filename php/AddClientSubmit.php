@@ -171,7 +171,7 @@ if(isset($fferror)) {
             
         }
         
-        if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality') {
+        if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL') {
             
             ?>
 
@@ -513,7 +513,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
 
 <input type="hidden" name="client_id" value="<?php echo $lastid;?>">
 
-<?php if($custype=='The Review Bureau' || 'Assura') { ?>
+<?php if($custype=='The Review Bureau' || 'Assura' || 'TRB WOL') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life" required>
 <?php }
 if($custype=='TRB Vitality') { ?>
@@ -546,7 +546,7 @@ if($custype=='TRB Home Insurance') { ?>
 
 
 <label for="application_number">Application Number:</label>
-<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" required>
+<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "placeholder='WOL'"; } } ?> required>
 <label for="application_number"></label>
 <span class="help-block">For WOL use One Family</span>  
 <br>

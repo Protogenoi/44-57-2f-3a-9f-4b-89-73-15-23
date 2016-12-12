@@ -1,18 +1,8 @@
 <?php
 
-if(empty($leadid1)) {
-        echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
-        
+if(isset($WHICH_COMPANY)){
+    
 }
-
- if(empty($closeraudit)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
-
- if(empty($leadaudit)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
-     
- }
- 
 if($companynamere=='Assura') {
     
  if(!empty($closeraudit)) {
@@ -53,8 +43,38 @@ if($companynamere=='Assura') {
 
 
 }
+if(isset($WHICH_COMPANY)){ 
+    
+    if(empty($leadid1)) {
+        echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
+        
+}
 
+if($WHICH_COMPANY=='TRB WOL') {
+
+ if(empty($WOL_CLOSER_AUDIT)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No WOL Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
+
+  if(empty($WOL_LEAD_AUDIT)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No WOL Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
+     
+ }        
+        
+    }
+    
+
+ 
 if($WHICH_COMPANY=='The Review Bureau') {
+
+
+ if(empty($closeraudit)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
+
+ if(empty($leadaudit)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
+     
+ }
+    
 
             $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :searchplaceholder");
             $database->bind(':searchplaceholder', $likesearch);
@@ -97,6 +117,14 @@ if($WHICH_COMPANY=='The Review Bureau') {
 }
 
 if($WHICH_COMPANY=='Assura') {
+    
+ if(empty($closeraudit)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
+
+ if(empty($leadaudit)) {
+     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
+     
+ }   
 
             $database->query("select uploadtype from tbl_uploads where uploadtype='AssuraPol' and file like :searchplaceholder");
             $database->bind(':searchplaceholder', $likesearch);
@@ -110,6 +138,8 @@ if($WHICH_COMPANY=='Assura') {
          
      }
      
+}
+
 }
 if(!isset($dealsheet_id)) {
     $database->query("select uploadtype from tbl_uploads where uploadtype='Dealsheet' and file like :searchplaceholder");

@@ -3,204 +3,250 @@ include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php");
 $test_access_level = new Access_user;
 $test_access_level->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
-?>
-<!DOCTYPE html>
-<html lang="en">
-<title>ADL | Closer Edit Submit</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../datatables/css/layoutcrm.css" type="text/css" />
-<script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<style type="text/css">
-	.loginnote{
-		margin: 20px;
-	}
-</style>
-</head>
-<body>
 
-<?php include('../../includes/navbar.php'); ?>
-    <?php include('../../includes/ADL_MYSQLI_CON.php'); ?>
+include('../../includes/ADL_MYSQLI_CON.php');
 
+$q1= filter_input(INPUT_POST, 'q1', FILTER_SANITIZE_SPECIAL_CHARS);
+$q2= filter_input(INPUT_POST, 'q2', FILTER_SANITIZE_SPECIAL_CHARS);
+$q3= filter_input(INPUT_POST, 'q3', FILTER_SANITIZE_SPECIAL_CHARS);
+$q4= filter_input(INPUT_POST, 'q4', FILTER_SANITIZE_SPECIAL_CHARS);
+$q5= filter_input(INPUT_POST, 'q5', FILTER_SANITIZE_SPECIAL_CHARS);
+$q6= filter_input(INPUT_POST, 'q6', FILTER_SANITIZE_SPECIAL_CHARS);
+$q7= filter_input(INPUT_POST, 'q7', FILTER_SANITIZE_SPECIAL_CHARS);
+$q8= filter_input(INPUT_POST, 'q8', FILTER_SANITIZE_SPECIAL_CHARS);
+$q9= filter_input(INPUT_POST, 'q9', FILTER_SANITIZE_SPECIAL_CHARS);
+$q10= filter_input(INPUT_POST, 'q10', FILTER_SANITIZE_SPECIAL_CHARS);
 
-  <div class="container">
+$q11= filter_input(INPUT_POST, 'q11', FILTER_SANITIZE_SPECIAL_CHARS);
+$q12= filter_input(INPUT_POST, 'q12', FILTER_SANITIZE_SPECIAL_CHARS);
+$q13= filter_input(INPUT_POST, 'q13', FILTER_SANITIZE_SPECIAL_CHARS);
+$q14= filter_input(INPUT_POST, 'q14', FILTER_SANITIZE_SPECIAL_CHARS);
+$q15= filter_input(INPUT_POST, 'q15', FILTER_SANITIZE_SPECIAL_CHARS);
+$q16= filter_input(INPUT_POST, 'q16', FILTER_SANITIZE_SPECIAL_CHARS);
+$q17= filter_input(INPUT_POST, 'q17', FILTER_SANITIZE_SPECIAL_CHARS);
+$q18= filter_input(INPUT_POST, 'q18', FILTER_SANITIZE_SPECIAL_CHARS);
+$q19= filter_input(INPUT_POST, 'q19', FILTER_SANITIZE_SPECIAL_CHARS);
+$q20= filter_input(INPUT_POST, 'q20', FILTER_SANITIZE_SPECIAL_CHARS);
 
-<?php
+$q21= filter_input(INPUT_POST, 'q21', FILTER_SANITIZE_SPECIAL_CHARS);
+$q22= filter_input(INPUT_POST, 'q22', FILTER_SANITIZE_SPECIAL_CHARS);
+$q23= filter_input(INPUT_POST, 'q23', FILTER_SANITIZE_SPECIAL_CHARS);
+$q24= filter_input(INPUT_POST, 'q24', FILTER_SANITIZE_SPECIAL_CHARS);
+$q25= filter_input(INPUT_POST, 'q25', FILTER_SANITIZE_SPECIAL_CHARS);
+$q26= filter_input(INPUT_POST, 'q26', FILTER_SANITIZE_SPECIAL_CHARS);
+$q27= filter_input(INPUT_POST, 'q27', FILTER_SANITIZE_SPECIAL_CHARS);
+$q28= filter_input(INPUT_POST, 'q28', FILTER_SANITIZE_SPECIAL_CHARS);
+$q29= filter_input(INPUT_POST, 'q29', FILTER_SANITIZE_SPECIAL_CHARS);
+$q30= filter_input(INPUT_POST, 'q30', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$answer1 = $_POST['q1'];
-$answer2 = $_POST['q2']; 
-$answer3 = $_POST['q3']; 
-$answer4 = $_POST['q4']; 
-$answer5 = $_POST['q5']; 
-$answer6 = $_POST['q6']; 
-$answer7 = $_POST['q7']; 
-$answer8 = $_POST['q8']; 
-$answer9 = $_POST['q9'];
-$answer10 = $_POST['q10'];
-$answer11 = $_POST['q11']; 
-$answer12 = $_POST['q12']; 
-$answer13 = $_POST['q13']; 
-$answer14 = $_POST['q14']; 
-$answer15 = $_POST['q15']; 
-$answer16 = $_POST['q16']; 
-$answer17 = $_POST['q17']; 
-$answer18 = $_POST['q18']; 
-$answer19 = $_POST['q19']; 
-$answer20 = $_POST['q20']; 
-$answer21 = $_POST['q21']; 
-$answer22 = $_POST['q22']; 
-$answer23 = $_POST['q23']; 
-$answer24 = $_POST['q24']; 
-$answer25 = $_POST['q25']; 
-$answer26 = $_POST['q26'];
-$answer27 = $_POST['q27']; 
-$answer28 = $_POST['q28'];
-$answer29 = $_POST['q29']; 
-$answer30 = $_POST['q30']; 
-$answer31 = $_POST['q31']; 
-$answer32 = $_POST['q32']; 
-$answer33 = $_POST['q33']; 
-$answer34 = $_POST['q34'];
-$answer35 = $_POST['q35']; 
-$answer36 = $_POST['q36']; 
-//$answer37 = $_POST['q37'];
-$answer38 = $_POST['q38']; 
-$answer39 = $_POST['q39'];
-$answer40 = $_POST['q40']; 
-$answer41 = $_POST['q41']; 
-$answer42 = $_POST['q42']; 
-$answer43 = $_POST['q43']; 
-$answer44 = $_POST['q44']; 
-$answer45 = $_POST['q45']; 
-$answer46 = $_POST['q46']; 
-$answer47 = $_POST['q47']; 
-$answer48 = $_POST['q48']; 
-$answer49 = $_POST['q49']; 
-$answer50 = $_POST['q50']; 
-$answer51 = $_POST['q51']; 
-$answer52 = $_POST['q52'];
-$answer53 = $_POST['q53']; 
-$answer54 = $_POST['q54']; 
-$answer55 = $_POST['q55']; 
+$q31= filter_input(INPUT_POST, 'q31', FILTER_SANITIZE_SPECIAL_CHARS);
+$q32= filter_input(INPUT_POST, 'q32', FILTER_SANITIZE_SPECIAL_CHARS);
+$q33= filter_input(INPUT_POST, 'q33', FILTER_SANITIZE_SPECIAL_CHARS);
+$q34= filter_input(INPUT_POST, 'q34', FILTER_SANITIZE_SPECIAL_CHARS);
+$q35= filter_input(INPUT_POST, 'q35', FILTER_SANITIZE_SPECIAL_CHARS);
+$q36= filter_input(INPUT_POST, 'q36', FILTER_SANITIZE_SPECIAL_CHARS);
+$q38= filter_input(INPUT_POST, 'q38', FILTER_SANITIZE_SPECIAL_CHARS);
+$q39= filter_input(INPUT_POST, 'q39', FILTER_SANITIZE_SPECIAL_CHARS);
+$q40= filter_input(INPUT_POST, 'q40', FILTER_SANITIZE_SPECIAL_CHARS);
+$q41= filter_input(INPUT_POST, 'q41', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$q42= filter_input(INPUT_POST, 'q42', FILTER_SANITIZE_SPECIAL_CHARS);
+$q43= filter_input(INPUT_POST, 'q43', FILTER_SANITIZE_SPECIAL_CHARS);
+$q44= filter_input(INPUT_POST, 'q44', FILTER_SANITIZE_SPECIAL_CHARS);
+$q45= filter_input(INPUT_POST, 'q45', FILTER_SANITIZE_SPECIAL_CHARS);
+$q46= filter_input(INPUT_POST, 'q46', FILTER_SANITIZE_SPECIAL_CHARS);
+$q47= filter_input(INPUT_POST, 'q47', FILTER_SANITIZE_SPECIAL_CHARS);
+$q48= filter_input(INPUT_POST, 'q48', FILTER_SANITIZE_SPECIAL_CHARS);
+$q49= filter_input(INPUT_POST, 'q49', FILTER_SANITIZE_SPECIAL_CHARS);
+$q50= filter_input(INPUT_POST, 'q50', FILTER_SANITIZE_SPECIAL_CHARS);
+$q51= filter_input(INPUT_POST, 'q51', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$q52= filter_input(INPUT_POST, 'q52', FILTER_SANITIZE_SPECIAL_CHARS);
+$q53= filter_input(INPUT_POST, 'q53', FILTER_SANITIZE_SPECIAL_CHARS);
+$q54= filter_input(INPUT_POST, 'q54', FILTER_SANITIZE_SPECIAL_CHARS);
+$q55= filter_input(INPUT_POST, 'q55', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c1= filter_input(INPUT_POST, 'c1', FILTER_SANITIZE_SPECIAL_CHARS);
+$c2= filter_input(INPUT_POST, 'c2', FILTER_SANITIZE_SPECIAL_CHARS);
+$c3= filter_input(INPUT_POST, 'c3', FILTER_SANITIZE_SPECIAL_CHARS);
+$c4= filter_input(INPUT_POST, 'c4', FILTER_SANITIZE_SPECIAL_CHARS);
+$c5= filter_input(INPUT_POST, 'c5', FILTER_SANITIZE_SPECIAL_CHARS);
+$c6= filter_input(INPUT_POST, 'c6', FILTER_SANITIZE_SPECIAL_CHARS);
+$c7= filter_input(INPUT_POST, 'c7', FILTER_SANITIZE_SPECIAL_CHARS);
+$c8= filter_input(INPUT_POST, 'c8', FILTER_SANITIZE_SPECIAL_CHARS);
+$c9= filter_input(INPUT_POST, 'c9', FILTER_SANITIZE_SPECIAL_CHARS);
+$c10= filter_input(INPUT_POST, 'c10', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c11= filter_input(INPUT_POST, 'c11', FILTER_SANITIZE_SPECIAL_CHARS);
+$c12= filter_input(INPUT_POST, 'c12', FILTER_SANITIZE_SPECIAL_CHARS);
+$c13= filter_input(INPUT_POST, 'c13', FILTER_SANITIZE_SPECIAL_CHARS);
+$c14= filter_input(INPUT_POST, 'c14', FILTER_SANITIZE_SPECIAL_CHARS);
+$c15= filter_input(INPUT_POST, 'c15', FILTER_SANITIZE_SPECIAL_CHARS);
+$c16= filter_input(INPUT_POST, 'c16', FILTER_SANITIZE_SPECIAL_CHARS);
+$c17= filter_input(INPUT_POST, 'c17', FILTER_SANITIZE_SPECIAL_CHARS);
+$c18= filter_input(INPUT_POST, 'c18', FILTER_SANITIZE_SPECIAL_CHARS);
+$c19= filter_input(INPUT_POST, 'c19', FILTER_SANITIZE_SPECIAL_CHARS);
+$c20= filter_input(INPUT_POST, 'c20', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c21= filter_input(INPUT_POST, 'c21', FILTER_SANITIZE_SPECIAL_CHARS);
+$c22= filter_input(INPUT_POST, 'c22', FILTER_SANITIZE_SPECIAL_CHARS);
+$c23= filter_input(INPUT_POST, 'c23', FILTER_SANITIZE_SPECIAL_CHARS);
+$c24= filter_input(INPUT_POST, 'c24', FILTER_SANITIZE_SPECIAL_CHARS);
+$c25= filter_input(INPUT_POST, 'c25', FILTER_SANITIZE_SPECIAL_CHARS);
+$c26= filter_input(INPUT_POST, 'c26', FILTER_SANITIZE_SPECIAL_CHARS);
+$c27= filter_input(INPUT_POST, 'c27', FILTER_SANITIZE_SPECIAL_CHARS);
+$c28= filter_input(INPUT_POST, 'c28', FILTER_SANITIZE_SPECIAL_CHARS);
+$c29= filter_input(INPUT_POST, 'c29', FILTER_SANITIZE_SPECIAL_CHARS);
+$c30= filter_input(INPUT_POST, 'c30', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c31= filter_input(INPUT_POST, 'c31', FILTER_SANITIZE_SPECIAL_CHARS);
+$c32= filter_input(INPUT_POST, 'c32', FILTER_SANITIZE_SPECIAL_CHARS);
+$c33= filter_input(INPUT_POST, 'c33', FILTER_SANITIZE_SPECIAL_CHARS);
+$c34= filter_input(INPUT_POST, 'c34', FILTER_SANITIZE_SPECIAL_CHARS);
+$c35= filter_input(INPUT_POST, 'c35', FILTER_SANITIZE_SPECIAL_CHARS);
+$c36= filter_input(INPUT_POST, 'c36', FILTER_SANITIZE_SPECIAL_CHARS);
+$c38= filter_input(INPUT_POST, 'c38', FILTER_SANITIZE_SPECIAL_CHARS);
+$c39= filter_input(INPUT_POST, 'c39', FILTER_SANITIZE_SPECIAL_CHARS);
+$c40= filter_input(INPUT_POST, 'c40', FILTER_SANITIZE_SPECIAL_CHARS);
+$c41= filter_input(INPUT_POST, 'c41', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c42= filter_input(INPUT_POST, 'c42', FILTER_SANITIZE_SPECIAL_CHARS);
+$c43= filter_input(INPUT_POST, 'c43', FILTER_SANITIZE_SPECIAL_CHARS);
+$c44= filter_input(INPUT_POST, 'c44', FILTER_SANITIZE_SPECIAL_CHARS);
+$c45= filter_input(INPUT_POST, 'c45', FILTER_SANITIZE_SPECIAL_CHARS);
+$c46= filter_input(INPUT_POST, 'c46', FILTER_SANITIZE_SPECIAL_CHARS);
+$c47= filter_input(INPUT_POST, 'c47', FILTER_SANITIZE_SPECIAL_CHARS);
+$c48= filter_input(INPUT_POST, 'c48', FILTER_SANITIZE_SPECIAL_CHARS);
+$c49= filter_input(INPUT_POST, 'c49', FILTER_SANITIZE_SPECIAL_CHARS);
+$c50= filter_input(INPUT_POST, 'c50', FILTER_SANITIZE_SPECIAL_CHARS);
+$c51= filter_input(INPUT_POST, 'c51', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$c52= filter_input(INPUT_POST, 'c52', FILTER_SANITIZE_SPECIAL_CHARS);
+$c53= filter_input(INPUT_POST, 'c53', FILTER_SANITIZE_SPECIAL_CHARS);
+$c54= filter_input(INPUT_POST, 'c54', FILTER_SANITIZE_SPECIAL_CHARS);
+$c55= filter_input(INPUT_POST, 'c55', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$grade = filter_input(INPUT_POST, 'grade', FILTER_SANITIZE_SPECIAL_CHARS);
+$auditid = filter_input(INPUT_POST, 'auditid', FILTER_SANITIZE_SPECIAL_CHARS);
+$closer = filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
+$closer2 = filter_input(INPUT_POST, 'closer2', FILTER_SANITIZE_SPECIAL_CHARS);
+$keyfield = filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
+$policy_number = filter_input(INPUT_POST, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$annumber= filter_input(INPUT_POST, 'annumber', FILTER_SANITIZE_SPECIAL_CHARS);
+$NEW_annumber=preg_replace('/\s+/', '', $annumber);
 
 $totalCorrect = 0;
 
-if ($answer1 =="Yes") { $totalCorrect++; }
-if ($answer2 =="Yes") { $totalCorrect++; }
-if ($answer3 =="Yes") { $totalCorrect++; }
-if ($answer4 =="Yes") { $totalCorrect++; }
-if ($answer5 =="Yes") { $totalCorrect++; }
-if ($answer6 =="Yes") { $totalCorrect++; }
-if ($answer7 =="Yes") { $totalCorrect++; }
-if ($answer8 =="Yes") { $totalCorrect++; }
-if ($answer9 =="Yes") { $totalCorrect++; }
-if ($answer10 =="Yes") { $totalCorrect++; }
-if ($answer11 =="Yes") { $totalCorrect++; }
-if ($answer12 =="Yes") { $totalCorrect++; }
-if ($answer13 =="Yes") { $totalCorrect++; }
-if ($answer14 =="More than sufficient") { $totalCorrect++; }
-if ($answer14 =="Sufficient") { $totalCorrect++; }
-if ($answer14 =="Adaquate") { $totalCorrect++; }
-if ($answer15 =="Yes") { $totalCorrect++; }
-if ($answer16 =="Yes") { $totalCorrect++; }
-if ($answer17 =="Yes") { $totalCorrect++; }
-if ($answer18 =="Yes") { $totalCorrect++; }
-if ($answer19 =="Yes") { $totalCorrect++; }
-if ($answer20 =="Yes") { $totalCorrect++; }
-if ($answer21 =="Yes") { $totalCorrect++; }
-if ($answer22 =="Yes") { $totalCorrect++; }
-if ($answer23 =="Yes") { $totalCorrect++; }
-if ($answer24 =="Yes") { $totalCorrect++; }
-if ($answer25 =="Yes") { $totalCorrect++; }
-if ($answer26 =="Yes") { $totalCorrect++; }
-if ($answer27 =="Yes") { $totalCorrect++; }
-if ($answer28 =="Yes") { $totalCorrect++; }
-if ($answer29 =="Client provided details") { $totalCorrect++; }
-if ($answer29 =="Client failed to provided details") { $totalCorrect++; }
-if ($answer29 =="Not existing L&G customer") { $totalCorrect++; }
-if ($answer29 =="Obtained from Term4Term service") { $totalCorrect++; }
-if ($answer29 =="Client failed to provide details") { $totalCorrect++; }
-if ($answer30 =="Yes") { $totalCorrect++; }
-if ($answer31 =="Yes") { $totalCorrect++; }
-if ($answer32 =="Yes") { $totalCorrect++; }
-if ($answer33 =="Yes") { $totalCorrect++; }
-if ($answer34 =="Yes") { $totalCorrect++; }
-if ($answer35 =="Yes") { $totalCorrect++; }
-if ($answer36 =="Yes") { $totalCorrect++; }
-//if ($answer37 =="Yes") { $totalCorrect++; }
-if ($answer38 =="Yes") { $totalCorrect++; }
-if ($answer39 =="Yes") { $totalCorrect++; }
-if ($answer40 =="Yes") { $totalCorrect++; }
-if ($answer41 =="Yes") { $totalCorrect++; }
-if ($answer42 =="Yes") { $totalCorrect++; }
-if ($answer43 =="Yes") { $totalCorrect++; }
-if ($answer44 =="Yes") { $totalCorrect++; }
-if ($answer45 =="Yes") { $totalCorrect++; }
-if ($answer45 =="N/A") { $totalCorrect++; }
-if ($answer46 =="Yes") { $totalCorrect++; }
-if ($answer46 =="N/A") { $totalCorrect++; }
-if ($answer47 =="Yes") { $totalCorrect++; }
-if ($answer48 =="Yes") { $totalCorrect++; }
-if ($answer49 =="Yes") { $totalCorrect++; }
-if ($answer50 =="Yes") { $totalCorrect++; }
-if ($answer51 =="Yes") { $totalCorrect++; }
-if ($answer52 =="Yes") { $totalCorrect++; }
-if ($answer53 =="Yes") { $totalCorrect++; }
-if ($answer53 =="N/A") { $totalCorrect++; }
-if ($answer54 =="Yes") { $totalCorrect++; }
-if ($answer54 =="N/A") { $totalCorrect++; }
-if ($answer55 =="Yes") { $totalCorrect++; }
+if ($q1 =="Yes") { $totalCorrect++; }
+if ($q2 =="Yes") { $totalCorrect++; }
+if ($q3 =="Yes") { $totalCorrect++; }
+if ($q4 =="Yes") { $totalCorrect++; }
+if ($q5 =="Yes") { $totalCorrect++; }
+if ($q6 =="Yes") { $totalCorrect++; }
+if ($q7 =="Yes") { $totalCorrect++; }
+if ($q8 =="Yes") { $totalCorrect++; }
+if ($q9 =="Yes") { $totalCorrect++; }
+if ($q10 =="Yes") { $totalCorrect++; }
+if ($q11 =="Yes") { $totalCorrect++; }
+if ($q12 =="Yes") { $totalCorrect++; }
+if ($q13 =="Yes") { $totalCorrect++; }
+if ($q14 =="More than sufficient") { $totalCorrect++; }
+if ($q14 =="Sufficient") { $totalCorrect++; }
+if ($q14 =="Adaquate") { $totalCorrect++; }
+if ($q15 =="Yes") { $totalCorrect++; }
+if ($q16 =="Yes") { $totalCorrect++; }
+if ($q17 =="Yes") { $totalCorrect++; }
+if ($q18 =="Yes") { $totalCorrect++; }
+if ($q19 =="Yes") { $totalCorrect++; }
+if ($q20 =="Yes") { $totalCorrect++; }
+if ($q21 =="Yes") { $totalCorrect++; }
+if ($q22 =="Yes") { $totalCorrect++; }
+if ($q23 =="Yes") { $totalCorrect++; }
+if ($q24 =="Yes") { $totalCorrect++; }
+if ($q25 =="Yes") { $totalCorrect++; }
+if ($q26 =="Yes") { $totalCorrect++; }
+if ($q27 =="Yes") { $totalCorrect++; }
+if ($q28 =="Yes") { $totalCorrect++; }
+if ($q29 =="Client provided details") { $totalCorrect++; }
+if ($q29 =="Client failed to provided details") { $totalCorrect++; }
+if ($q29 =="Not existing L&G customer") { $totalCorrect++; }
+if ($q29 =="Obtained from Term4Term service") { $totalCorrect++; }
+if ($q29 =="Client failed to provide details") { $totalCorrect++; }
+if ($q30 =="Yes") { $totalCorrect++; }
+if ($q31 =="Yes") { $totalCorrect++; }
+if ($q32 =="Yes") { $totalCorrect++; }
+if ($q33 =="Yes") { $totalCorrect++; }
+if ($q34 =="Yes") { $totalCorrect++; }
+if ($q35 =="Yes") { $totalCorrect++; }
+if ($q36 =="Yes") { $totalCorrect++; }
+//if ($q37 =="Yes") { $totalCorrect++; }
+if ($q38 =="Yes") { $totalCorrect++; }
+if ($q39 =="Yes") { $totalCorrect++; }
+if ($q40 =="Yes") { $totalCorrect++; }
+if ($q41 =="Yes") { $totalCorrect++; }
+if ($q42 =="Yes") { $totalCorrect++; }
+if ($q43 =="Yes") { $totalCorrect++; }
+if ($q44 =="Yes") { $totalCorrect++; }
+if ($q45 =="Yes") { $totalCorrect++; }
+if ($q45 =="N/A") { $totalCorrect++; }
+if ($q46 =="Yes") { $totalCorrect++; }
+if ($q46 =="N/A") { $totalCorrect++; }
+if ($q47 =="Yes") { $totalCorrect++; }
+if ($q48 =="Yes") { $totalCorrect++; }
+if ($q49 =="Yes") { $totalCorrect++; }
+if ($q50 =="Yes") { $totalCorrect++; }
+if ($q51 =="Yes") { $totalCorrect++; }
+if ($q52 =="Yes") { $totalCorrect++; }
+if ($q53 =="Yes") { $totalCorrect++; }
+if ($q53 =="N/A") { $totalCorrect++; }
+if ($q54 =="Yes") { $totalCorrect++; }
+if ($q54 =="N/A") { $totalCorrect++; }
+if ($q55 =="Yes") { $totalCorrect++; }
 
 $total = 54;
 $percentage = $totalCorrect/$total * 100;
-
 $totalincorrect = 0;
 
-if ($answer1 =="No") { $totalincorrect++; }
-if ($answer2 =="No") { $totalincorrect++; }
-if ($answer3 =="No") { $totalincorrect++; }
-if ($answer4 =="No") { $totalincorrect++; }
-if ($answer5 =="No") { $totalincorrect++; }
-if ($answer6 =="No") { $totalincorrect++; }
-if ($answer7 =="No") { $totalincorrect++; }
-if ($answer8 =="No") { $totalincorrect++; }
-if ($answer9 =="No") { $totalincorrect++; }
-if ($answer10 =="No") { $totalincorrect++; }
-if ($answer11 =="No") { $totalincorrect++; }
-if ($answer12 =="No") { $totalincorrect++; }
-if ($answer13 =="No") { $totalincorrect++; }
-if ($answer15 =="No") { $totalincorrect++; }
-if ($answer16 =="No") { $totalincorrect++; }
-if ($answer17 =="No") { $totalincorrect++; }
-if ($answer18 =="No") { $totalincorrect++; }
-if ($answer19 =="No") { $totalincorrect++; }
-if ($answer20 =="No") { $totalincorrect++; }
-if ($answer21 =="No") { $totalincorrect++; }
-if ($answer22 =="No") { $totalincorrect++; }
-if ($answer23 =="No") { $totalincorrect++; }
-if ($answer24 =="No") { $totalincorrect++; }
-if ($answer25 =="No") { $totalincorrect++; }
-if ($answer26 =="No") { $totalincorrect++; }
-if ($answer27 =="No") { $totalincorrect++; }
-if ($answer28 =="No") { $totalincorrect++; }
-if ($answer29 =="Existing L&G Policy, no attempt to get policy number") { $totalincorrect++; }
-if ($answer34 =="No") { $totalincorrect++; }
+if ($q1 =="No") { $totalincorrect++; }
+if ($q2 =="No") { $totalincorrect++; }
+if ($q3 =="No") { $totalincorrect++; }
+if ($q4 =="No") { $totalincorrect++; }
+if ($q5 =="No") { $totalincorrect++; }
+if ($q6 =="No") { $totalincorrect++; }
+if ($q7 =="No") { $totalincorrect++; }
+if ($q8 =="No") { $totalincorrect++; }
+if ($q9 =="No") { $totalincorrect++; }
+if ($q10 =="No") { $totalincorrect++; }
+if ($q11 =="No") { $totalincorrect++; }
+if ($q12 =="No") { $totalincorrect++; }
+if ($q13 =="No") { $totalincorrect++; }
+if ($q15 =="No") { $totalincorrect++; }
+if ($q16 =="No") { $totalincorrect++; }
+if ($q17 =="No") { $totalincorrect++; }
+if ($q18 =="No") { $totalincorrect++; }
+if ($q19 =="No") { $totalincorrect++; }
+if ($q20 =="No") { $totalincorrect++; }
+if ($q21 =="No") { $totalincorrect++; }
+if ($q22 =="No") { $totalincorrect++; }
+if ($q23 =="No") { $totalincorrect++; }
+if ($q24 =="No") { $totalincorrect++; }
+if ($q25 =="No") { $totalincorrect++; }
+if ($q26 =="No") { $totalincorrect++; }
+if ($q27 =="No") { $totalincorrect++; }
+if ($q28 =="No") { $totalincorrect++; }
+if ($q29 =="Existing L&G Policy, no attempt to get policy number") { $totalincorrect++; }
+if ($q34 =="No") { $totalincorrect++; }
 
 $red = "Status Red";
 $amber = "Status Amber";
 $green = "Status Green";
-$red = "Status Red";
+
 $total2 = 28;
 $percentage2 = $totalincorrect/$total2 * 100;
 $totalincorrect;
-$gradeswitch = "$_POST[grade]";
 
-switch ($gradeswitch) {
+switch ($grade) {
     case "Red":
         echo "<div class=\"warningalert\">
     <div class=\"notice notice-danger fade in\">
@@ -234,200 +280,13 @@ echo "<div class=\"editpolicy\">
         <strong>Audit Score:</strong> $totalCorrect / 54 answered correctly ($percentage%).
     </div>";
 
-$annumber= filter_input(INPUT_POST, 'annumber', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$annumber=preg_replace('/\s+/', '', $annumber);
-
-$_POST['c1'] = mysqli_real_escape_string($conn, $_POST['c1']);
-$_POST['c2'] = mysqli_real_escape_string($conn, $_POST['c2']);
-$_POST['c3'] = mysqli_real_escape_string($conn, $_POST['c3']);
-$_POST['c4'] = mysqli_real_escape_string($conn, $_POST['c4']);
-$_POST['c5'] = mysqli_real_escape_string($conn, $_POST['c5']);
-$_POST['c6'] = mysqli_real_escape_string($conn, $_POST['c6']);
-$_POST['c7'] = mysqli_real_escape_string($conn, $_POST['c7']);
-$_POST['c8'] = mysqli_real_escape_string($conn, $_POST['c8']);
-$_POST['c9'] = mysqli_real_escape_string($conn, $_POST['c9']);
-$_POST['c10'] = mysqli_real_escape_string($conn, $_POST['c10']);
-$_POST['c11'] = mysqli_real_escape_string($conn, $_POST['c11']);
-$_POST['c12'] = mysqli_real_escape_string($conn, $_POST['c12']);
-$_POST['c13'] = mysqli_real_escape_string($conn, $_POST['c13']);
-$_POST['c14'] = mysqli_real_escape_string($conn, $_POST['c14']);
-$_POST['c15'] = mysqli_real_escape_string($conn, $_POST['c15']);
-$_POST['c16'] = mysqli_real_escape_string($conn, $_POST['c16']);
-$_POST['c17'] = mysqli_real_escape_string($conn, $_POST['c17']);
-$_POST['c18'] = mysqli_real_escape_string($conn, $_POST['c18']);
-$_POST['c19'] = mysqli_real_escape_string($conn, $_POST['c19']);
-$_POST['c20'] = mysqli_real_escape_string($conn, $_POST['c20']);
-$_POST['c21'] = mysqli_real_escape_string($conn, $_POST['c21']);
-$_POST['c22'] = mysqli_real_escape_string($conn, $_POST['c22']);
-$_POST['c23'] = mysqli_real_escape_string($conn, $_POST['c23']);
-$_POST['c24'] = mysqli_real_escape_string($conn, $_POST['c24']);
-$_POST['c25'] = mysqli_real_escape_string($conn, $_POST['c25']);
-$_POST['c26'] = mysqli_real_escape_string($conn, $_POST['c26']);
-$_POST['c27'] = mysqli_real_escape_string($conn, $_POST['c27']);
-$_POST['c28'] = mysqli_real_escape_string($conn, $_POST['c28']);
-$_POST['c29'] = mysqli_real_escape_string($conn, $_POST['c29']);
-$_POST['c30'] = mysqli_real_escape_string($conn, $_POST['c30']);
-$_POST['c31'] = mysqli_real_escape_string($conn, $_POST['c31']);
-$_POST['c32'] = mysqli_real_escape_string($conn, $_POST['c32']);
-$_POST['c33'] = mysqli_real_escape_string($conn, $_POST['c33']);
-$_POST['c34'] = mysqli_real_escape_string($conn, $_POST['c34']);
-$_POST['c35'] = mysqli_real_escape_string($conn, $_POST['c35']);
-$_POST['c36'] = mysqli_real_escape_string($conn, $_POST['c36']);
-$_POST['c37'] = mysqli_real_escape_string($conn, $_POST['c37']);
-$_POST['c38'] = mysqli_real_escape_string($conn, $_POST['c38']);
-$_POST['c39'] = mysqli_real_escape_string($conn, $_POST['c39']);
-$_POST['c40'] = mysqli_real_escape_string($conn, $_POST['c40']);
-$_POST['c41'] = mysqli_real_escape_string($conn, $_POST['c41']);
-$_POST['c42'] = mysqli_real_escape_string($conn, $_POST['c42']);
-$_POST['c43'] = mysqli_real_escape_string($conn, $_POST['c43']);
-$_POST['c44'] = mysqli_real_escape_string($conn, $_POST['c44']);
-$_POST['c45'] = mysqli_real_escape_string($conn, $_POST['c45']);
-$_POST['c46'] = mysqli_real_escape_string($conn, $_POST['c46']);
-$_POST['c47'] = mysqli_real_escape_string($conn, $_POST['c47']);
-$_POST['c48'] = mysqli_real_escape_string($conn, $_POST['c48']);
-$_POST['c49'] = mysqli_real_escape_string($conn, $_POST['c49']);
-$_POST['c50'] = mysqli_real_escape_string($conn, $_POST['c50']);
-$_POST['c51'] = mysqli_real_escape_string($conn, $_POST['c51']);
-$_POST['c52'] = mysqli_real_escape_string($conn, $_POST['c52']);
-$_POST['c53'] = mysqli_real_escape_string($conn, $_POST['c53']);
-$_POST['c54'] = mysqli_real_escape_string($conn, $_POST['c54']);
-$_POST['c55'] = mysqli_real_escape_string($conn, $_POST['c55']);
-
-$auditid=$_POST['auditid'];
-$closer=$_POST['closer'];
-$closer2=$_POST['closer2'];
-$keyfield=$_POST['keyfield'];
-$edited_by=$_POST['edited']; 
-$policy_number=$_POST['policy_number']; 
-$grade=$_POST['grade']; 
-$q1=$_POST['q1'];
-$c1=$_POST['c1'];
-$q2=$_POST['q2'];
-$c2=$_POST['c2'];
-$q3=$_POST['q3'];
-$c3=$_POST['c3'];
-$q4=$_POST['q4'];
-$c4=$_POST['c4'];
-$q5=$_POST['q5'];
-$c5=$_POST['c5'];
-$q6=$_POST['q6'];
-$c6=$_POST['c6'];
-$q7=$_POST['q7'];
-$c7=$_POST['c7'];
-$q8=$_POST['q8'];
-$c8=$_POST['c8'];
-$q9=$_POST['q9'];
-$c9=$_POST['c9'];
-$q10=$_POST['q10'];
-$c10=$_POST['c10'];
-$q11=$_POST['q11'];
-$c11=$_POST['c11'];
-$q12=$_POST['q12'];
-$c12=$_POST['c12'];
-$q13=$_POST['q13'];
-$c13=$_POST['c13'];
-$q14=$_POST['q14'];
-$c14=$_POST['c14'];
-$q15=$_POST['q15'];
-$c15=$_POST['c15'];
-$q16=$_POST['q16'];
-$c16=$_POST['c16'];
-$q17=$_POST['q17'];
-$c17=$_POST['c17'];
-$q18=$_POST['q18'];
-$c18=$_POST['c18'];
-$q19=$_POST['q19'];
-$c19=$_POST['c19'];
-$q20=$_POST['q20'];
-$c20=$_POST['c20'];
-$q21=$_POST['q21'];
-$c21=$_POST['c21'];
-$q22=$_POST['q22'];
-$c22=$_POST['c22'];
-$q23=$_POST['q23'];
-$c23=$_POST['c23'];
-$q24=$_POST['q24'];
-$c24=$_POST['c24'];
-$q25=$_POST['q25'];
-$c25=$_POST['c25'];
-$q26=$_POST['q26'];
-$c26=$_POST['c26'];
-$q27=$_POST['q27'];
-$c27=$_POST['c27'];
-$q28=$_POST['q28'];
-$c28=$_POST['c28'];
-$q29=$_POST['q29'];
-$c29=$_POST['c29'];
-$q30=$_POST['q30'];
-$c30=$_POST['c30'];
-$q31=$_POST['q31'];
-$c31=$_POST['c31'];
-$q32=$_POST['q32'];
-$c32=$_POST['c32'];
-$q33=$_POST['q33'];
-$c33=$_POST['c33'];
-$q34=$_POST['q34'];
-$c34=$_POST['c34'];
-$q35=$_POST['q35'];
-$c35=$_POST['c35'];
-$q36=$_POST['q36'];
-$c36=$_POST['c36'];
-//$q37=$_POST['q37'];
-//$c37=$_POST['c37'];
-$q38=$_POST['q38'];
-$c38=$_POST['c38'];
-$q39=$_POST['q39'];
-$c39=$_POST['c39'];
-$q40=$_POST['q40'];
-$c40=$_POST['c40'];
-$q41=$_POST['q41'];
-$c41=$_POST['c41'];
-$q42=$_POST['q42'];
-$c42=$_POST['c42'];
-$q43=$_POST['q43'];
-$c43=$_POST['c43'];
-$q44=$_POST['q44'];
-$c44=$_POST['c44'];
-$q45=$_POST['q45'];
-$c45=$_POST['c45'];
-$q46=$_POST['q46'];
-$c46=$_POST['c46'];
-$q47=$_POST['q47'];
-$c47=$_POST['c47'];
-$q48=$_POST['q48'];
-$c48=$_POST['c48'];
-$q49=$_POST['q49'];
-$c49=$_POST['c49'];
-$q50=$_POST['q50'];
-$c50=$_POST['c50'];
-$q51=$_POST['q51'];
-$c51=$_POST['c51'];
-$q52=$_POST['q52'];
-$c52=$_POST['c52'];
-$q53=$_POST['q53'];
-$c53=$_POST['c53'];
-$q54=$_POST['q54'];
-$c54=$_POST['c54'];
-$q55=$_POST['q55'];
-$c55=$_POST['c55'];
-$lead_id=$_POST['lead_id'];
-$lead_id2=$_POST['lead_id2'];
-$lead_id3=$_POST['lead_id3'];
-
-
-$sql = "UPDATE `closer_audits` 
-SET
-an_number='$annumber',
+$sql = "UPDATE `closer_audits` SET an_number='$NEW_annumber',
 total='$totalCorrect',
 closer='$closer',
 closer2='$closer2',
-lead_id='1', 
-lead_id2='1', 
-lead_id3='1',
 cal_grade='$percentage2',
 score='$percentage', 
-edited='$edited_by', 
+edited='$hello_name', 
 policy_number='$policy_number', 
 grade='$grade', 
 q1='$q1',
@@ -541,32 +400,11 @@ c55='$c55',
 date_edited=CURRENT_TIMESTAMP
 WHERE ID='$keyfield' OR ID= '$auditid' ";
 if (mysqli_query($conn, $sql)) {
-    echo "<div class=\"notice notice-success fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Success!</strong> Closer Audit Successfully Edited.
-    </div>";
+    header('Location: ../auditor_menu.php?RETURN=AuditEditSuccess&grade='.$grade.'&TotalCorrect='.$totalCorrect.'&TotalPercent='.$percentage.'&TotalGrade='.$percentage2); die;
+    
 } else {
-    echo "<div class=\"warningalert\">
-    <div class=\"notice notice-danger fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Error!</strong> Error: " . $sql . "<br>.
-    </div>" . mysqli_error($conn);
+    header('Location: ../auditor_menu.php?RETURN=AuditEditFailed&Error'.$sql.'&MySQLIERR='.$conn); die;   
+    
 }
   $conn->close();
 ?>
-      <br>
-<center>
-    <div class="btn-group">
-<a href="/audits/auditor_menu.php" class="btn btn-success "><span class="glyphicon glyphicon-folder-close"></span> Audit Menu</a>
-<a href="/audits/CloserAudit.php" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> New Audit</a>
-<a href="/audits/audit_search.php" class="btn btn-info "><span class="glyphicon glyphicon-search"></span> Search Audits</a>
-<a href="#" class="btn btn-danger "><span class="glyphicon glyphicon-exclamation-sign"></span> Delete Audit</a>
-    </div>
-</center>
-
-   </div>
-  </div>
-</div>
-
-</body>
-</html>

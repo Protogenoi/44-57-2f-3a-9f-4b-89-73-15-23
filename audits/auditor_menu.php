@@ -290,6 +290,38 @@ food_upload();
 <div id="previous_month_chart"></div>   
 </div>
 
+<?php
+$RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
+if(isset($RETURN)) {
+    if($RETURN=='AuditEditSuccess') {
+$grade= filter_input(INPUT_GET, 'grade', FILTER_SANITIZE_SPECIAL_CHARS);
+$totalCorrect= filter_input(INPUT_GET, 'TotalCorrect', FILTER_SANITIZE_SPECIAL_CHARS);
+$percentage= filter_input(INPUT_GET, 'TotalPercent', FILTER_SANITIZE_SPECIAL_CHARS);
+$percentage2= filter_input(INPUT_GET, 'TotalGrade', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    echo "<div class=\"notice notice-success fade in\">
+        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
+        <strong>Success!</strong> Closer Audit Successfully Edited.
+    </div>";
+    
+        echo "<div class=\"warningalert\">
+    <div class=\"notice notice-danger fade in\">
+        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
+        <strong>Grade</strong> Status $grade ($percentage2%).
+    </div>";
+
+echo "<div class=\"editpolicy\">
+    <div class=\"notice notice-warning\">
+        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
+        <strong>Audit Score:</strong> $totalCorrect / 54 answered correctly ($percentage%).
+    </div>";    
+
+}
+
+    }
+    ?>
+
 <center>
     <div class="btn-group">
 
@@ -303,9 +335,9 @@ food_upload();
 <br>
 
 <?php 
-$query = $pdo->prepare("select count(id) AS id from closer_audits where grade ='SAVED' and auditor = :hellonameplaceholder ");
 
-$query->bindParam(':hellonameplaceholder', $hello_name, PDO::PARAM_STR, 12);
+$query = $pdo->prepare("select count(id) AS id from closer_audits where grade ='SAVED' and auditor = :hello ");
+$query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
 $query->execute();
 if ($query->rowCount()>0) {
 while ($result=$query->fetch(PDO::FETCH_ASSOC)){
@@ -319,9 +351,6 @@ else {
 }
 }
 }
-?>
-
- <?php
  
 $deleteaudit = filter_input(INPUT_GET, 'deletedaudit', FILTER_SANITIZE_NUMBER_INT);
 if(isset($deleteaudit)){
@@ -343,9 +372,9 @@ else {
 ?>
 
 <?php
-$query = $pdo->prepare("SELECT policy_number, id, date_submitted, closer, auditor, grade, edited, date_edited from closer_audits where auditor = :hellonameplaceholder and date_submitted between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) or date_edited between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) AND edited =:hellonameplaceholder ORDER BY date_submitted DESC");
+$query = $pdo->prepare("SELECT policy_number, id, date_submitted, closer, auditor, grade, edited, date_edited from closer_audits where auditor = :hello and date_submitted between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) or date_edited between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) AND edited =:hello ORDER BY date_submitted DESC");
 
-$query->bindParam(':hellonameplaceholder', $hello_name, PDO::PARAM_STR, 12);
+$query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
 
 echo "<table align=\"center\" class=\"table\">";
 
@@ -484,9 +513,9 @@ echo "</table>";
       </div>
       <div class="modal-body">
 <?php
-$query = $pdo->prepare("SELECT policy_number, id, date_submitted, closer, auditor, grade from closer_audits where auditor = :hellonameplaceholder and grade = 'SAVED' ORDER BY date_submitted DESC");
+$query = $pdo->prepare("SELECT policy_number, id, date_submitted, closer, auditor, grade from closer_audits where auditor = :hello and grade = 'SAVED' ORDER BY date_submitted DESC");
 
-$query->bindParam(':hellonameplaceholder', $hello_name, PDO::PARAM_STR, 12);
+$query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
 echo "<table align=\"center\" class=\"table\">";
 
 echo 

@@ -246,40 +246,6 @@ $total2 = 28;
 $percentage2 = $totalincorrect/$total2 * 100;
 $totalincorrect;
 
-switch ($grade) {
-    case "Red":
-        echo "<div class=\"warningalert\">
-    <div class=\"notice notice-danger fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Grade</strong> Status Red ($percentage2%).
-    </div>";
-        break;
-    case "Amber":
-        echo "<div class=\"editpolicy\">
-    <div class=\"notice notice-warning\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Grade:</strong> Status Amber ($percentage2%).
-    </div>";
-        break;
-    case "Green":
-        echo "<div class=\"notice notice-success fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Grade:</strong> Status Green ($percentage2%).
-    </div>";
-        break;
-    default:
-        echo "<div class=\"editpolicy\">
-    <div class=\"notice notice-warning\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Grade:</strong> No Grade - Audit Saved.
-    </div>";
-}
-echo "<div class=\"editpolicy\">
-    <div class=\"notice notice-warning\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Audit Score:</strong> $totalCorrect / 54 answered correctly ($percentage%).
-    </div>";
-
 $sql = "UPDATE `closer_audits` SET an_number='$NEW_annumber',
 total='$totalCorrect',
 closer='$closer',

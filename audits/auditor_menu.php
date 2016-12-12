@@ -299,6 +299,19 @@ $totalCorrect= filter_input(INPUT_GET, 'TotalCorrect', FILTER_SANITIZE_SPECIAL_C
 $percentage= filter_input(INPUT_GET, 'TotalPercent', FILTER_SANITIZE_SPECIAL_CHARS);
 $percentage2= filter_input(INPUT_GET, 'TotalGrade', FILTER_SANITIZE_SPECIAL_CHARS);
 
+switch ($grade) {
+    case "Red";
+        $NOTICE_COLOR="danger";
+        break;
+    case "Green";
+        $NOTICE_COLOR="success";
+        break;
+    case "Amber";
+        $NOTICE_COLOR="warning";
+        break;
+    default:
+        $NOTICE_COLOR="info";
+}
 
     echo "<div class=\"notice notice-success fade in\">
         <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
@@ -306,7 +319,7 @@ $percentage2= filter_input(INPUT_GET, 'TotalGrade', FILTER_SANITIZE_SPECIAL_CHAR
     </div>";
     
         echo "<div class=\"warningalert\">
-    <div class=\"notice notice-danger fade in\">
+    <div class=\"notice notice-$NOTICE_COLOR fade in\">
         <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
         <strong>Grade</strong> Status $grade ($percentage2%).
     </div>";

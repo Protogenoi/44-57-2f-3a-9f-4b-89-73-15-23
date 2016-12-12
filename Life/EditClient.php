@@ -152,6 +152,7 @@ if(isset($life)) {
                     <option value="TRB Vitality">TRB Vitality</option>
                     <option value="TRB Home Insurance">TRB Home Insurance</option>
                     <option value="Assura">Assura Life Insurance</option>
+                    <option value="TRB WOL">TRB WOL</option>
   </select>
 </div>
 </div>

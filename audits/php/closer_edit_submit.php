@@ -1,12 +1,8 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 1);
+$test_access_level->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
-
-if (isset($_GET['action']) && $_GET['action'] == "log_out") {
-	$test_access_level->log_out();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -238,10 +234,6 @@ echo "<div class=\"editpolicy\">
         <strong>Audit Score:</strong> $totalCorrect / 54 answered correctly ($percentage%).
     </div>";
 
-$conn=mysqli_connect($servername, $username, $password, $dbname);
-if (mysqli_connect_errno()) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 $annumber= filter_input(INPUT_POST, 'annumber', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $annumber=preg_replace('/\s+/', '', $annumber);
@@ -567,7 +559,6 @@ if (mysqli_query($conn, $sql)) {
     <div class="btn-group">
 <a href="/audits/auditor_menu.php" class="btn btn-success "><span class="glyphicon glyphicon-folder-close"></span> Audit Menu</a>
 <a href="/audits/CloserAudit.php" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> New Audit</a>
-<a href="<?php echo $hello_name?>/CallNotes.php" class="btn btn-primary "><span class="glyphicon glyphicon-plus"></span> Create Notes</a>
 <a href="/audits/audit_search.php" class="btn btn-info "><span class="glyphicon glyphicon-search"></span> Search Audits</a>
 <a href="#" class="btn btn-danger "><span class="glyphicon glyphicon-exclamation-sign"></span> Delete Audit</a>
     </div>

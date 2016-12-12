@@ -4,6 +4,18 @@ $test_access_level = new Access_user;
 $test_access_level->access_page($_SERVER['PHP_SELF'], "", 1); 
 $hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
 
+include('includes/adl_features.php');
+
+if(isset($fferror)) {
+    if($fferror=='1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+
     $Level_2_Access = array("Jade");
 
 if (in_array($hello_name,$Level_2_Access, true)) {
@@ -44,7 +56,6 @@ include('includes/adlfunctions.php');
 html { height: 100% }
 body { height: 100% }
 #map { height: 300px; width: 100% }
-      
 </style>
 <script type="text/javascript" language="javascript" src="js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
@@ -57,9 +68,8 @@ body { height: 100% }
     include('includes/navbar.php');
      
     if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
+        include('php/analyticstracking.php');
+        
     }
     
 ?> 
@@ -226,12 +236,13 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 </div>
     
     <div class="footer navbar-fixed-bottom"><center><?php adl_version();?> <?php if($hello_name=='Michael') {
-$time = microtime();
-$time = explode(' ', $time);
-$time = $time[1] + $time[0];
-$finish = $time;
-$total_time = round(($finish - $start), 4);
-echo '<i>Page execution '.$total_time.' seconds.</i>';
+
+    $time_start = microtime(true);
+    sleep(1);
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+
+echo "<i>Page execution {$time}.</i>";
     } ?></center></div>
     
     
@@ -474,29 +485,8 @@ while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
     $SANTA_TIME= date("H");
     ?>
  <audio autoplay>
-     <?php if($SANTA_TIME=='09') { ?>
-  <source src="sounds/santascoming.mp3" type="audio/mpeg">
-     <?php }elseif($SANTA_TIME=='10') { ?>
-<source src="/sounds/ninnymuggins.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='11') { ?>
-<source src="/sounds/arnold_reindeer.mp3" type="audio/mpeg">
-</audio> <?php }  elseif($SANTA_TIME=='12') { ?>
-<source src="/sounds/youstink.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='13') { ?>
-<source src="/sounds/sonofanut.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='14') { ?>
-<source src="/sounds/workshop.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='15') { ?>
-<source src="/sounds/ChristmasScat.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='16') { ?>
-<source src="/sounds/Buzz-your-girl-friend-Woof.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='17') { ?>
-<source src="/sounds/snakes_money.mp3" type="audio/mpeg">
-</audio> <?php } elseif($SANTA_TIME=='18') { ?>
-<source src="/sounds/jack_snowballs.mp3" type="audio/mpeg">
-</audio> <?php }
-}
-}
-?>
+<source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
+</audio>  
+<?php } } ?>
 </body>
 </html>

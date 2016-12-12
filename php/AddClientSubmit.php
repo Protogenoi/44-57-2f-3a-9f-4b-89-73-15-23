@@ -569,7 +569,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL">WOL</option>
+  <option value="WOL" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>WOL</option>
   </select>
 </div>
 
@@ -584,7 +584,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="Vitality">Vitality</option>
   <option value="Assura">Assura</option>
   <option value="Bright Grey">Bright Grey</option>
-  <option value="One Family">One Family</option>
+  <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
   </select>
 </div>
 

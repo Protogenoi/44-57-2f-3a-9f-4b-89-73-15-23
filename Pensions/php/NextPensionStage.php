@@ -3,12 +3,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 1);
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 if (isset($_GET['action']) && $_GET['action'] == "log_out") {
-	$test_access_level->log_out();
+	$page_protect->log_out();
 }
 
 include('../../includes/PDOcon.php');

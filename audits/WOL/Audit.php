@@ -1,8 +1,8 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 3); 
-$hello_name = ($test_access_level->user_closer != "") ? $test_access_level->user_closer : $test_access_level->user;
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 3); 
+$hello_name = ($page_protect->user_closer != "") ? $page_protect->user_closer : $page_protect->user;
 
 include('../../includes/adlfunctions.php'); 
 

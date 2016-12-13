@@ -1,16 +1,5 @@
 <?php
 
-#if(isset($fferror)) {
-  #  if($fferror=='1') {
-        
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        
-  #  }
-    
-  #  }
-
 require('../fpdf17/fpdf.php');
 
 $new= filter_input(INPUT_GET, 'new', FILTER_SANITIZE_SPECIAL_CHARS);

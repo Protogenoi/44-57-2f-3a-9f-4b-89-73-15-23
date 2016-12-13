@@ -1,1 +1,3 @@
 includes/config.php
+classes/database_class.php
+classes/db.php

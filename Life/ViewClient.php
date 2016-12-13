@@ -58,6 +58,8 @@ if(isset($fferror)) {
                 $leadid2 = $data2['leadid2'];
                 $leadid3 = $data2['leadid3'];
                 $dealsheet_id = $data2['dealsheet_id'];
+                $WOL_CLOSER_AUDIT=$data2['callauditid2'];
+                $WOL_LEAD_AUDIT=$data2['leadauditid2'];
                 
                 if($WHICH_COMPANY=='TRB Home Insurance') {
                     header('Location: /Home/ViewClient.php?CID='.$search); die; 
@@ -133,6 +135,10 @@ if(isset($fferror)) {
 <?php if(isset($WHICH_COMPANY)) {
     if($WHICH_COMPANY=='The Review Bureau') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
+        
+    }
+        if($WHICH_COMPANY=='TRB WOL') {
+        echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
         
     }
     if($WHICH_COMPANY=='TRB Vitality') {
@@ -552,7 +558,7 @@ if(isset($fferror)) {
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality') {
+                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL') {
                         
                         try {
                         
@@ -1650,12 +1656,6 @@ if(isset($fferror)) {
             </div>
                 
                 <?php
-                
-                if ($_SERVER["REQUEST_METHOD"] == "GET") {
-                    $search = $_GET['search'];
-                    if(isset($_GET["search"])) $rf = $_GET["search"];
-                    
-                }
                 
                 try {
                 

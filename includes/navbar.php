@@ -131,7 +131,6 @@ if($companynamere=='HWIFS') {
                     <ul role='menu' class='dropdown-menu'>
                         <li><a href='/dialer/RealTimeReport.php'>Real Time Report</a></li>
                         <li><a href='/dialer/LifeScore.php'>Life Real Time Report</a></li>
-                        <li><a href='/dialer/Reports/PauseTimes.php'>Pause Codes</a></li>
                         <li><a href="/dialer/Recordings.php">Recordings</a></li>
                     </ul>  
                 </li>

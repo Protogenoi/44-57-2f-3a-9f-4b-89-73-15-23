@@ -74,7 +74,6 @@ body { height: 100% }
 ?> 
     
 <div class="container">
-    
     <?php 
     
     if($ffdialler=='0') { 

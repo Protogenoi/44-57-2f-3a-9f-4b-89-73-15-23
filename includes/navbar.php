@@ -155,7 +155,7 @@ if($companynamere=='HWIFS') {
                     <?php } ?>
             </ul>
                 <ul class="nav navbar-nav navbar-right">
-            <li><a href="?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
+            <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
                    
                 <?php if($hello_name=='Michael' || (!in_array($hello_name,$Level_10_Access, true))) { ?>

@@ -11,6 +11,7 @@ $access_denied = new Access_user;
 <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
 
@@ -20,7 +21,6 @@ $access_denied = new Access_user;
 
 <div class="container">
 
-        <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">403
@@ -61,6 +61,7 @@ $access_denied = new Access_user;
     </div>
 </div>
 
-
+<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

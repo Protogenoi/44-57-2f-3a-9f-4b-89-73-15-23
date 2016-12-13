@@ -622,7 +622,7 @@ if($custype=='TRB Home Insurance') { ?>
         <label for="commission">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" required/>
+        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
     </div> 
 
         <br>
@@ -633,7 +633,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="">Select...</option>
   <option value="Indemnity">Indemnity</option>
   <option value="Non Idenmity">Non-Idemnity</option>
-  <option value="NA">N/A</option>
+  <option value="NA <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>">N/A</option>
   </select>
 </div>
 

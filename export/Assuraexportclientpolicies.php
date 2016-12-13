@@ -4,10 +4,8 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$host = 'localhost';
-$user = 'root';
-$pass = 'Cerberus2^n';
-$db = 'dev_database';
+include('../includes/config.php');
+
 $table = 'clientpolexport_template';
 $file = 'export';
 

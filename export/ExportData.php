@@ -6,13 +6,9 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 $ExportLegacy= filter_input(INPUT_GET, 'ExportLegacy', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ExportLegacy)) { if($ExportLegacy=='1') {
-
+include('../includes/config.php');
 include('includes/adlfunctions.php');
 
-$host = 'localhost';
-$user = 'root';
-$pass = 'Cerberus2^n';
-$db = 'dev_adl_database';
 $file = 'export';
     
     $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);

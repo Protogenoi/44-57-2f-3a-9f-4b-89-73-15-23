@@ -1,5 +1,4 @@
 <?php
-
 include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
 
 

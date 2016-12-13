@@ -495,17 +495,12 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
          header('Location: ../CRMmain.php?Clientadded=failed'); die;
          }
 
-
- 
-
 ?>
-
-
-
-	  <div class="panel-group">
-    <div class="panel panel-primary">
-      <div class="panel-heading">Add <?php echo $custype; ?> Policy <a href='../Life/ViewClient.php?search=<?php echo "$lastid";?>'><button type="button" class="btn btn-default btn-sm pull-right"><i class="fa fa-user"></i> Skip Policy and View Client...</button></a></div>
-      <div class="panel-body">
+        
+        <div class="panel-group">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Add <?php echo $custype; ?> Policy <a href='../Life/ViewClient.php?search=<?php echo "$lastid";?>'><button type="button" class="btn btn-default btn-sm pull-right"><i class="fa fa-user"></i> Skip Policy and View Client...</button></a></div>
+                <div class="panel-body">
 
 <form class="AddClient" action="/php/AddPolicySubmit.php" method="POST">
 
@@ -580,9 +575,9 @@ if($custype=='TRB Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General">Legal & General</option>
-  <option value="Vitality">Vitality</option>
-  <option value="Assura">Assura</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>Vitality</option>
+  <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
   <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
   </select>
@@ -592,10 +587,6 @@ if($custype=='TRB Home Insurance') { ?>
 
 
 <div class="col-md-4">
-
-
-<input type="text" name="submitted_by" value="<?php echo $hello_name ?>" hidden>
-
 
  <div class="form-row">
         <label for="premium">Premium:</label>
@@ -826,14 +817,7 @@ input.currency {
 </head>
 <body>
     
-    <?php
-    
-    include('../includes/navbar.php'); 
-    
-    ?>	
-    <div class="container">
-        
-        <?php
+    <?php include('../includes/navbar.php'); 
         
         $title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         $first= filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -854,7 +838,11 @@ input.currency {
         $post= filter_input(INPUT_POST, 'post_code', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $correct_dob = date("Y-m-d" , strtotime($dob)); 
-        $correct_dob2 = date("Y-m-d" , strtotime($dob2));
+        
+        if(isset($dob2)) {
+            $correct_dob2 = date("Y-m-d" , strtotime($dob2));
+            
+        }
         
         $database = new Database(); 
         $database->beginTransaction();
@@ -913,8 +901,6 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-               
- 
                 $database->endTransaction();
          
      }
@@ -925,10 +911,10 @@ input.currency {
          }
 
 ?>
-        
+           <div class="container">
         <div class="panel-group">
             <div class="panel panel-primary">
-                <div class="panel-heading">Add Policy <a href='../Home/ViewClient.php?search=<?php echo "$lastid";?>'><button type="button" class="btn btn-default btn-sm pull-right"><i class="fa fa-user"></i> Skip Policy and View Client...</button></a></div>
+                <div class="panel-heading">Add Policy <a href='../Home/ViewClient.php?CID=<?php echo "$lastid";?>'><button type="button" class="btn btn-default btn-sm pull-right"><i class="fa fa-user"></i> Skip Policy and View Client...</button></a></div>
                 <div class="panel-body">
                     
                     <form class="AddClient" action="AddPolicySubmit.php?query=HomeInsurance&CID=<?php echo $lastid;?>" method="POST">

@@ -12,13 +12,10 @@ if($fflife=='0') {
 }
 include('../includes/PDOcon.php');
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 7);
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 7);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if (isset($_GET['action']) && $_GET['action'] == "log_out") {
-    $test_access_level->log_out();
-}
 
 if(isset($_GET["datefrom2"])) $datefrom2 = $_GET["datefrom2"];
 if(isset($_GET["dateto2"])) $dateto2 = $_GET["dateto2"];

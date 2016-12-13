@@ -1,4 +1,10 @@
 <?php
+$action= filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if (isset($action) && $action == "log_out") {
+	$page_protect->log_out();
+}
+
 
 $Level_2_Access = array("Jade");
 
@@ -147,7 +153,9 @@ if($companynamere=='HWIFS') {
                 </li>
                     
                     <?php } ?>
-            
+            </ul>
+                <ul class="nav navbar-nav navbar-right">
+            <li><a href="?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
                    
                 <?php if($hello_name=='Michael' || (!in_array($hello_name,$Level_10_Access, true))) { ?>

@@ -1,13 +1,13 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 1); 
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1); 
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -63,7 +63,6 @@ body { height: 100% }
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    
     <?php 
     include('includes/navbar.php');
      

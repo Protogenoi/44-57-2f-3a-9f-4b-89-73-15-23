@@ -27,11 +27,6 @@ include('includes/adlfunctions.php');
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.css">
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
-
-<script type="text/javascript" language="javascript" src="js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
     
@@ -48,24 +43,14 @@ include('includes/adlfunctions.php');
 <div class="container">
     
     <?php 
-    
-    if($ffdialler=='0') { 
-    echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><center><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Problem with Dialler. Call Recording search disabled.</center></strong></div><br> ";   
-    }
-    
-    $clientdeleted= filter_input(INPUT_GET, 'clientdeleted', FILTER_SANITIZE_SPECIAL_CHARS);  
-    
-if(isset($clientdeleted)){
-    if ($clientdeleted =='y') {
-
-print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Client deleted from database</strong></div><br>");
-    }
-    if ($clientdeleted =='failed') {
-
-print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error: Client not deleted</strong></div><br>");
-    }
-}    
-?>
+    if(isset($action)) {
+        if($action=='log_out') { 
+            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><center><i class=\"fa fa-exclamation-triangle fa-lg\"></i> You are now logged out.</center></strong></div><br> ";   
+            
+        }
+        
+        }
+        ?>
     <div class="col-xs-12 .col-md-8">
 
 <div class="row">
@@ -75,7 +60,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                     
                     <li>
 			<a href="index.php">
-			<span class="ca-icon"><i class="fa fa-user-plus"></i></span>
+			<span class="ca-icon"><i class="fa fa-sign-in"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Login<br/> </h2>
 				<h3 class="ca-sub"></h3>
@@ -105,6 +90,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 echo "<i>Page execution {$time}.</i>"; ?>
         </center></div>
     
- 
+<script type="text/javascript" language="javascript" src="js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 </body>
 </html>

@@ -60,7 +60,6 @@ include('../includes/adl_features.php');
 	}
 </style>
 <link  rel="stylesheet" href="../styles/sweet-alert.min.css" />
-<link  rel="stylesheet" href="../styles/alertpop.css" />
 <script src="../js/jquery-2.1.4.min.js"></script>
 <script src="../js/sweet-alert.min.js"></script>
 </head>

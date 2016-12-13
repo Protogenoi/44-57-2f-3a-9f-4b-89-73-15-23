@@ -1,13 +1,11 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 $ExportLegacy= filter_input(INPUT_GET, 'ExportLegacy', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ExportLegacy)) { if($ExportLegacy=='1') {
-
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 7);
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
 
 include('includes/adlfunctions.php');
 
@@ -143,9 +141,9 @@ $financialExport= filter_input(INPUT_GET, 'financialExport', FILTER_SANITIZE_SPE
 
 if(isset($financialExport)) {
 
-    $test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 7);
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
+    $page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 7);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
             ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);

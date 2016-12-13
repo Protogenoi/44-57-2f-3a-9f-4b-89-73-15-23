@@ -541,7 +541,7 @@ if($custype=='TRB Home Insurance') { ?>
 
 
 <label for="application_number">Application Number:</label>
-<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "placeholder='WOL'"; } } ?> required>
+<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } } ?> required>
 <label for="application_number"></label>
 <span class="help-block">For WOL use One Family</span>  
 <br>

@@ -95,7 +95,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <form action="Recordings.php?go" method="post" id="searchform" autocomplete="off"> 
     <div class="form-group">
       <div class="col-xs-2">
-<input type="text" class="form-control" name="location" placeholder="7446301726" value="<?php echo $_POST['location'] ?>">
+<input type="tel" class="form-control" name="location" required pattern=".{11}|.{11,12}" maxlength="12" placeholder="7446301726" value="<?php echo $_POST['location'] ?>">
 </div>
 </div>
     

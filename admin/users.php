@@ -115,7 +115,7 @@ $error = $admin_update->the_msg; // error message
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" language="javascript" src="../datatables/js/bpop.js"></script>
+
 
 
 
@@ -136,32 +136,7 @@ $error = $admin_update->the_msg; // error message
 <script type="text/javascript" language="javascript" src="../datatables/js/jquery.dataTables.js"></script>
 
 
-<script type="text/javascript" language="javascript" src="../datatables/js/bpop.js"></script>
 
-
-<script>    // Semicolon (;) to ensure closing of earlier scripting
-    // Encapsulation
-    // $ is assigned to jQuery
-    ;(function($) {
-
-         // DOM Ready
-        $(function() {
-
-            // Binding a click event
-            // From jQuery v.1.7.0 use .on() instead of .bind()
-            $('#my-button_roles').bind('click', function(e) {
-
-                // Prevents the default action to be triggered. 
-                e.preventDefault();
-
-                // Triggering bPopup when click event is fired
-                $('#element_to_pop_up_roles').bPopup();
-
-            });
-
-        });
-
-    })(jQuery);</script>
 <script type="text/javascript" language="javascript" >
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
@@ -354,73 +329,5 @@ label {
 
 <button type="button" id="my-button_roles" class="btn btn-info "><span class="glyphicon glyphicon-user"></span> Access Levels</button>
 </div>
-</div>
-<!-- BPOP ROLES -->
-
-<div id="element_to_pop_up_roles">
-<a class="b-close">x<a/>
-
-<br>
-<table class="tg">
-  <tr>
-    <th class="tg-e3zv">User Level<br></th>
-    <th class="tg-hgcj">Access</th>
-    <th class="tg-031e">Role</th>
-  </tr>
-  <tr>
-    <td class="tg-0rnh">10<br></td>
-    <td class="tg-vn4c">Complete Access<br></td>
-    <td class="tg-vn4c">Administrator</td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">9<br></td>
-    <td class="tg-031e"></td>
-    <td class="tg-031e"></td>
-  </tr>
-  <tr>
-    <td class="tg-0rnh">8<br></td>
-    <td class="tg-vn4c">Export Data<br></td>
-    <td class="tg-vn4c">Data Uploader<br></td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">7<br></td>
-    <td class="tg-031e">Reports</td>
-    <td class="tg-031e"></td>
-  </tr>
-  <tr>
-    <td class="tg-0rnh">6</td>
-    <td class="tg-vn4c"></td>
-    <td class="tg-vn4c"></td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">5</td>
-    <td class="tg-031e"></td>
-    <td class="tg-031e"></td>
-  </tr>
-  <tr>
-    <td class="tg-0rnh">4</td>
-    <td class="tg-vn4c">Upload Data<br></td>
-    <td class="tg-vn4c">Data Processor<br></td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">3</td>
-    <td class="tg-031e">Edit Data<br></td>
-    <td class="tg-031e">Data Editor<br></td>
-  </tr>
-  <tr>
-    <td class="tg-0rnh">2</td>
-    <td class="tg-vn4c">Create - Emails - Notes- View - Tasks<br></td>
-    <td class="tg-vn4c">Data Entry<br></td>
-  </tr>
-  <tr>
-    <td class="tg-hgcj">1</td>
-    <td class="tg-031e">View - Search<br></td>
-    <td class="tg-031e">Standard User<br></td>
-  </tr>
-</table>
-</div>
-
-<!-- END BPOP ROLES -->
-
 </body>
 </html>

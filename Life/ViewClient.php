@@ -48,23 +48,59 @@ if(isset($fferror)) {
                 $database->execute();
                 $data2=$database->single();
                 
-                $WHICH_COMPANY=$data2['company'];
-                $client_date_added=$data2['date_added'];
-                $clientonemail=$data2['email'];
-                $clienttwomail=$data2['email2'];
-                $clientonefull=$data2['first_name'] ." ". $data2['last_name'];
-                $clienttwofull=$data2['first_name2'] . " " . $data2['last_name2'];
-                $leadid1 = $data2['leadid1'];
-                $leadid2 = $data2['leadid2'];
-                $leadid3 = $data2['leadid3'];
-                $dealsheet_id = $data2['dealsheet_id'];
-                $WOL_CLOSER_AUDIT=$data2['callauditid2'];
-                $WOL_LEAD_AUDIT=$data2['leadauditid2'];
-                
-                if($WHICH_COMPANY=='TRB Home Insurance') {
-                    header('Location: /Home/ViewClient.php?CID='.$search); die; 
+                if(isset($data2['company'])) {
+                    $WHICH_COMPANY=$data2['company']; 
+                    
                 }
-?>
+                if($WHICH_COMPANY=='TRB Home Insurance') {
+                    header('Location: /Home/ViewClient.php?CID='.$search); die;
+                    
+                }
+                if(isset($data2['date_added'])) {
+                    $client_date_added=$data2['date_added']; 
+                    
+                }
+                if(isset($data2['email'])) {
+                    $clientonemail=$data2['email'];
+                    
+                }
+                if(isset($data2['email2'])) {
+                    $clienttwomail=$data2['email2'];
+                    
+                }
+                if(isset($data2['first_name'])) {
+                    $clientonefull=$data2['first_name'] ." ". $data2['last_name'];
+                    
+                }
+                if(isset($data2['first_name2'])) {
+                    $clienttwofull=$data2['first_name2'] . " " . $data2['last_name2'];
+                    
+                }
+                if(isset($data2['leadid1'])) {
+                    $leadid1 = $data2['leadid1'];
+                    
+                }
+                if(isset($data2['leadid2'])) {
+                    $leadid2 = $data2['leadid2'];
+                    
+                }
+                if(isset($data2['leadid3'])) {
+                    $leadid3 = $data2['leadid3'];
+                    
+                }
+                if(isset($data2['dealsheet_id'])) {
+                    $dealsheet_id = $data2['dealsheet_id'];
+                    
+                }
+                if(isset($data2['callauditid2'])) {
+                    $WOL_CLOSER_AUDIT=$data2['callauditid2'];
+                    
+                }
+                if(isset($data2['leadauditid2'])) {
+                    $WOL_LEAD_AUDIT=$data2['leadauditid2'];
+                    
+                }
+                ?>
 <!DOCTYPE html>
 <html lang="en">
     <title>ADL | View Client</title>
@@ -395,7 +431,7 @@ if(isset($fferror)) {
                             
                             $search_file_var = "$search-%";
                             
-                            if(!isset($dealsheet_id)) {
+                            if(empty($dealsheet_id)) {
                             
                             try {
                             
@@ -407,7 +443,7 @@ if(isset($fferror)) {
                                $DSFILE=$result['file'];
                             if(file_exists("../uploads/$DSFILE")){ ?>
                             <a href="../uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
-                            <?php } else {?>
+                            <?php } if(isset($dealsheet_id)) {?>
                             <a href="../uploads/life/<?php echo $search ; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
                                 <?php
                                 }
@@ -419,8 +455,8 @@ if(isset($fferror)) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
-                            } else { ?>
-                            <a href="LifeDealSheet.php?REF=<?php echo $dealsheet_id; ?>&query=CompletedADL" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
+                            }else { ?>
+                            <a href="LifeDealSheet.php?REF=<?php echo $dealsheet_id; ?>&query=CompletedADL" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> ADL Dealsheet</a>
     
                            <?php }          
                             if($WHICH_COMPANY=='Assura') {

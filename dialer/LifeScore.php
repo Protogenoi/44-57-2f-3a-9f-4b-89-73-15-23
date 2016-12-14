@@ -115,10 +115,7 @@ elseif ($campaign_id =='10' && $lead_id>'1') {$status = 'TRANSFER'; $class2 = 's
 } 
 echo "</table>";
 
-$lead_for_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls
-JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id
-JOIN vicidial_users on vicidial_users.user = vicidial_list.user
-where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN'");
+$lead_for_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan')");
 
 echo "<table id='main2' border='1' align=\"center\" cellspacing=\"5\">";
 

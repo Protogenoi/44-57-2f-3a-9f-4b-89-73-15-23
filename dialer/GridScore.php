@@ -258,11 +258,7 @@ $STATS_table .= '</tr></table>';
             }
             echo $STATS_table;
 
-$LEAD_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls
-JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id
-JOIN vicidial_users on vicidial_users.user = vicidial_list.user
-where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN'");
-
+$LEAD_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan')");
 $LEAD_query->execute();
 if ($LEAD_query->rowCount()>0) {
 while ($result=$LEAD_query->fetch(PDO::FETCH_ASSOC)){

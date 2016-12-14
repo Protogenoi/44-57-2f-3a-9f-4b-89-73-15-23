@@ -14,24 +14,25 @@ if(isset($fferror)) {
     }
 
 include('includes/adlfunctions.php');
-$action= filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL CRM | Logout</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/styles/loginpage.css" type="text/css" />
 <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.css">
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-<link href="img/favicon.ico" rel="icon" type="image/x-icon" />
+        <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
     
     <?php 
-    include('includes/navbar.php');
+
      
     if($ffanalytics=='1') {
         include('php/analyticstracking.php');
@@ -43,6 +44,7 @@ $action= filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 <div class="container">
     
     <?php 
+    $action= filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
     if(isset($action)) {
         if($action=='log_out') { 
             echo "<div class=\"notice notice-success\" role=\"alert\"><strong><center><i class=\"fa fa-exclamation-triangle fa-lg\"></i> You are now logged out.</center></strong></div><br> ";   

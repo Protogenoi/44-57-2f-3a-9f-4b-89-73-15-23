@@ -1,4 +1,17 @@
 <?php
+
+include ($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
+if(isset($fferror)) {
+    if($fferror=='1') {
+        
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+    
 $action= filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($action) && $action == "log_out") {
@@ -14,7 +27,7 @@ if (in_array($hello_name,$Level_2_Access, true)) {
     
 }
 
-include ($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
+
 include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
@@ -45,8 +58,7 @@ if($companynamere=='HWIFS') {
     $Level_1_Access = array("Michael");
     
 }
-
-                         
+                       
 ?>
 <div class="bs-example">
     <nav role="navigation" class="navbar navbar-default">

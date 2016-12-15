@@ -40,7 +40,7 @@ if($companynamere=='The Review Bureau') {
     $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Nathan","Mike");
     $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith");
     $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith");
-    
+    $Task_Access = array("Michael", "Jakob", "Nicola");
 }
 
 if($companynamere=='Assura') {
@@ -158,7 +158,7 @@ if($companynamere=='HWIFS') {
                 <li class='dropdown'>
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                     <ul role='menu' class='dropdown-menu'>
-                        <li><a href='/admin/Admindash.php?admindash=y'>Admin Control Panel</a></li>
+                        <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                         
                         <li><a href='/admin/users.php'>User Accounts</a></li>
                     </ul>  
@@ -170,7 +170,7 @@ if($companynamere=='HWIFS') {
             <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
                    
-                <?php if($hello_name=='Michael' || (!in_array($hello_name,$Level_10_Access, true))) { ?>
+                <?php if(in_array($hello_name,$Task_Access, true)) { ?>
             <div class="LIVERESULTS">
 
         </div>
@@ -178,7 +178,7 @@ if($companynamere=='HWIFS') {
         </div>
     </nav>
 </div>
-<?php if($hello_name=='Michael' || (!in_array($hello_name,$Level_10_Access, true))) { ?>
+<?php if(in_array($hello_name,$Task_Access, true)) { ?>
 <script>
     function refresh_div() {
         jQuery.ajax({

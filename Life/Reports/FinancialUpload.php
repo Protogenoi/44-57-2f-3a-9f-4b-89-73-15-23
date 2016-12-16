@@ -1,29 +1,41 @@
-<?php 
-
+<?php
+include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 include('../../includes/adlfunctions.php'); 
 
 if ($fflife=='0') {
         
         header('Location: ../../CRMmain.php'); die;
     }
+include('../../includes/adl_features.php');
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+if(isset($fferror)) {
+    if($fferror=='0') {
+        
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
 
 $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
 
+if(isset($companynamere)) {
 if($companynamere=='The Review Bureau') {
 if (!in_array($hello_name,$Level_2_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;
 }
 }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>Financial Upload</title>
+<title>ADL | Financial Upload</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
@@ -40,11 +52,9 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
     include('../../includes/navbar.php');
     }
     include('../../includes/ADL_PDO_CON.php');
-            include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    if($ffanalytics=='1') {    
+    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php');
     
     } ?>
     
@@ -80,8 +90,6 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
         ?>
         
         <div class="row">
-            
-
             
 <form action="" method="GET">
                 <fieldset>
@@ -130,15 +138,15 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                                <form id="upload" id="upload" class="form-horizontal" method="post" enctype="multipart/form-data" action="../php/FinFileUpload.php?<?php if(isset($query)) { echo "query=$query"; } else { echo "query=Life"; } ?>"> 
                                    <fieldset>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="file">Select file..</label>
-                        <div class="col-md-2">
+                        <label class="col-md-3 control-label" for="file">Select file..</label>
+                        <div class="col-md-3">
                             <input id="file" name="file" class="input-file btn-defalt" type="file">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for=""></label>
-                        <div class="col-md-2">
+                        <label class="col-md-3 control-label" for=""></label>
+                        <div class="col-md-3">
                             <button id="" name="" class="btn btn-primary btn-block"><i class="fa fa-upload"></i> <?php if(isset($query)) { echo "$query"; } else { echo "The Review Bureau"; } ?> Upload</button>
                         </div>
                     </div>

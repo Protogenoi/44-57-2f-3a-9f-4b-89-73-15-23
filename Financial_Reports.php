@@ -10,10 +10,22 @@ if($fflife=='0') {
     
 }
 
+include('../includes/adl_features.php');
+
+if(isset($fferror)) {
+    if($fferror=='0') {
+        
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+
 include('includes/ADL_PDO_CON.php');
 include('includes/adlfunctions.php');
 include('includes/Access_Levels.php');
-include('includes/adl_features.php');
 
       if (!in_array($hello_name,$Level_10_Access, true)) {
     
@@ -30,7 +42,7 @@ if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
 
 <!DOCTYPE html>
 <html>
-    <title>Financial Database</title>
+    <title>ADL | Financial Database</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
@@ -157,6 +169,7 @@ $pdamount = number_format($paidamounts['paidtotal'], 2);
             $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
                     </span></a>
             </li>
+            <li><a data-toggle="pill" href="#TBC">TBC Policies</a>
             <li><a data-toggle="pill" href="#menu2">Early Warning</a>
             </li>
             <li><a data-toggle="pill" href="#menu5">Double Clawbacks</a>
@@ -209,6 +222,16 @@ $pdamount = number_format($paidamounts['paidtotal'], 2);
                 </form>
                 
 <?php
+
+            $TBC_UNPAID = $pdo->prepare("SELECT sum(commission) AS paidtotal FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General'");
+    $TBC_UNPAID->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+    $TBC_UNPAID->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+    $TBC_UNPAID->execute()or die(print_r($query->errorInfo(), true));
+    $TBC_UNPAIDs=$TBC_UNPAID->fetch(PDO::FETCH_ASSOC);
+    
+    #$unpdamount=$TBC_UNPAIDs['paidtotal'];
+$TBC_UNPAID_AMOUNT = number_format($TBC_UNPAIDs['paidtotal'], 2);        
+
 if(isset($datefrom)) { ?>
                 <div class="btn-group">
                     <a href="export/ExportData.php?financialExport=paid&dateto=<?php echo $datetonew;?>&datefrom=<?php echo $datefromnew;?>" class="btn btn-success"><i class="fa fa-download"></i> Export Paid</a>
@@ -308,18 +331,30 @@ if(isset($datefrom)) {
                 <form class="form-vertical">
                                 <div class="form-group"> 
   <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total Paid £$pdamount";?>" disabled>
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount";?>" disabled>
   </div>
 </div>
                
                                 <div class="form-group">
     
   <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total Clawback £$unpdamount";?>" disabled>
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount";?>" disabled>
   </div>
 </div>
+                    
+     
+               
+                                <div class="form-group">
+    
+  <div class="col-xs-2 col-lg-3">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT";?>" disabled>
+  </div>
+</div>
+                   
     </form> 
-                
+                <br>
+                <br>
+                <br>
                 <?php
 
 
@@ -387,7 +422,7 @@ if(isset($datefrom)) {
                 <form class="form-vertical">
                                 <div class="form-group"> 
   <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total Paid £$pdamount";?>" disabled>
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount";?>" disabled>
   </div>
 </div>
     </form> 
@@ -464,7 +499,7 @@ if(isset($datefrom)) {
                                 <div class="form-group">
     
   <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total Clawback £$unpdamount";?>" disabled>
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount";?>" disabled>
   </div>
 </div>
     </form> 
@@ -806,7 +841,60 @@ while ($row=$unpaidhome->fetch(PDO::FETCH_ASSOC)){
                  
                  
              </div>
-         </div>  
+         </div>
+
+        <div id="TBC" class="tab-pane fade">
+            <div class="container">
+                
+                                <form class="form-vertical">
+               
+                                <div class="form-group">
+    
+  <div class="col-xs-2 col-lg-3">
+  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT";?>" disabled>
+  </div>
+</div>
+    </form> 
+ 
+        <?php
+        
+        $TBC_QUERY = $pdo->prepare("SELECT DATE(sale_date) AS sale_date, commission, policystatus, client_name, client_id, id, policy_number FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General' ORDER BY sale_date"); ?>
+                
+                <table class="table table-hover">
+                    <thead>
+                       <tr>
+                       <th colspan="5">TBC (Live Awaiting Policy Number) Policies</th>
+                       </tr>
+                    <th>Sale Date</th>
+                       <th>Client Name</th>
+                       <th>Policy Number</th>
+                       <th>COMM</th>
+                       <th>Policy Status</th>
+                </thead>
+<?php
+$TBC_QUERY->execute()or die(print_r($TBC_QUERY->errorInfo(), true));
+if ($TBC_QUERY->rowCount()>0) {
+while ($row=$TBC_QUERY->fetch(PDO::FETCH_ASSOC)){
+
+
+
+    echo '<tr class='.$class.'>';
+    echo "<td>".$row['sale_date']."</td>";
+   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>".$row['client_name']."</a></td>";
+   echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "&search=". $row['client_id']."' target='_blank'>".$row['policy_number']."</a></td>"; 
+   echo "<td>£".$row['commission']."</td>";
+   echo "<td>".$row['policystatus']."</td>";
+    echo "</tr>";
+    echo "\n";
+    }
+} else {
+    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+}
+
+?>         
+                </table>
+            </div>     
+        </div>        
                     
         <div id="menu6" class="tab-pane fade">
             <div class="container">

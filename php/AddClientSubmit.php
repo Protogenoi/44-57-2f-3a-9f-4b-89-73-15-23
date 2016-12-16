@@ -697,8 +697,9 @@ if($custype=='TRB Home Insurance') { ?>
 <div class="form-row">
   <label for="PolicyStatus">Policy Status:</label>
   <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 140px">
-  <option value="">Select...</option>
+  <option value="">Select...</option>  
   <option value="Live">Live</option>
+  <option value="Awaiting Policy Number">Awaiting Policy Number (TBC Policies)</option>
   <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
   <option value="NTU">NTU</option>
   <option value="Declined">Declined</option>
@@ -988,6 +989,7 @@ input.currency {
   <select class="form-control" name="status" id="status" style="width: 140px">
   <option value="">Select...</option>
   <option value="Live">Live</option>
+  <option value="Awaiting Policy Number">Awaiting Policy Number (TBC Policies)</option>
   <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
   <option value="NTU">NTU</option>
   <option value="Declined">Declined</option>

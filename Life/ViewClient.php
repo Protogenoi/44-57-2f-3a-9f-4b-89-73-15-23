@@ -662,7 +662,7 @@ if(isset($fferror)) {
                                     if ($result['PolicyStatus']=='CLAWBACK'||['PolicyStatus']=='CLAWBACK-LAPSE' || $result['PolicyStatus'] =='Declined') {
                                         echo "<td><span class=\"label label-danger\">".$result['PolicyStatus']."</span></td>"; }
                                         
-                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number') {
+                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number' || $result['PolicyStatus']=='Awaiting Policy Number') {
                                             echo "<td><span class=\"label label-warning\">".$result['PolicyStatus']."</span></td>";}
                                             
                                             elseif ($result['PolicyStatus']=='SUBMITTED-LIVE' || $result['PolicyStatus']=='Live') {

@@ -302,6 +302,7 @@ $NAME2=$data2['NAME2'];
   <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
   <option value="<?php echo $data2['policystatus']?>"><?php echo $data2['policystatus']?></option>
   <option value="Live">Live</option>
+  <option value="Awaiting Policy Number">Awaiting Policy Number (TBC Policies)</option>
   <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
   <option value="NTU">NTU</option>
   <option value="Declined">Declined</option>

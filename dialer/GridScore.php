@@ -125,6 +125,8 @@ table {
     <div class="container">
 <?php
 $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
+$dial_stats= filter_input(INPUT_GET, 'dial_stats', FILTER_SANITIZE_SPECIAL_CHARS);
+
 if(isset($test)){
     include("../includes/DATA_DIALLER_PDO_CON.php"); 
 } else {
@@ -155,6 +157,35 @@ $calls_waiting_query = $TRB_DB_PDO->prepare("select count(auto_call_id) AS calls
 $calls_waiting_query->execute();
 $calls_waiting_result=$calls_waiting_query->fetch(PDO::FETCH_ASSOC);
 $calls_waiting=$calls_waiting_result['calls_waiting'];
+
+$top_hangup_query = $TRB_DB_PDO->prepare("SELECT count(hangup_cause) AS Alert, hangup_cause from vicidial_carrier_log WHERE call_date >= NOW() - INTERVAL 5 MINUTE AND hangup_cause NOT IN ('16','0') GROUP BY hangup_cause ORDER BY ALERT DESC LIMIT 1");
+$top_hangup_query->execute();
+$top_hangup_result=$top_hangup_query->fetch(PDO::FETCH_ASSOC);
+$top_hangup=$top_hangup_result['hangup_cause'];
+$top_hangup_Alert=$top_hangup_result['Alert'];
+
+switch ($top_hangup) {
+    case 21:
+        $top_hangup_sw="TPS Numbers ($top_hangup_Alert)";
+            break;
+        case 19:
+            $top_hangup_sw="Temporarily Unavailable Numbers ($top_hangup_Alert)"; 
+            break;
+        case 1:
+            $top_hangup_sw="Not Found ($top_hangup_Alert)"; 
+            case 17:
+                $top_hangup_sw="Busy ($top_hangup_Alert)"; 
+                break;
+            case 27:
+                $top_hangup_sw="Bad Gateway ($top_hangup_Alert)"; 
+                break;
+            case 38:
+                $top_hangup_sw="Interal Server Error ($top_hangup_Alert)"; 
+                break;
+            default:
+                $top_hangup_sw="$top_hangup ($top_hangup_Alert)";
+}
+
 
 $CLOSER_query = $TRB_DB_PDO->prepare("select 
 vicidial_users.full_name
@@ -232,7 +263,12 @@ echo "</table>"; ?>
             </tr>
             </table>
         
+        <div class='notice notice-warning' role='alert' id='HIDEGCLOSER'><strong><center><i class='fa fa-exclamation-triangle fa-lg'></i> <?php if(isset($top_hangup_sw)) echo "High $top_hangup_sw"; ?><i><?php if(isset($dial_stats)) { if($dial_stats=='1') { echo "<a href='?dial_stats=0'>hide stats</a>" ; }  else { echo "<a href='?dial_stats=1'>show stats</a>"; } } if(!isset($dial_stats)) { echo "<a href='?dial_stats=1'>show stats</a>"; } ?></i></center></strong> </div>
+
         <?php
+        
+        if(isset($dial_stats)) {
+            if($dial_stats=='1') {
 
 $STATS_query = $TRB_DB_PDO->prepare("SELECT hangup_cause, dialstatus, sip_hangup_cause, sip_hangup_reason, count(hangup_cause) AS Alert from vicidial_carrier_log WHERE call_date >= NOW() - INTERVAL 5 MINUTE group by hangup_cause ORDER BY ALERT DESC;");
 $STATS_table = '<table cellspacing="0"  cellpadding="10" id="boo">';
@@ -260,7 +296,9 @@ $STATS_table .= '</tr></table>';
 
             }
             echo $STATS_table;
-
+            }
+        }
+        
 $LEAD_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan')");
 $LEAD_query->execute();
 if ($LEAD_query->rowCount()>0) {

@@ -120,14 +120,17 @@ table {
 </script>
 </head>
 <body class="backcolour">
-<?php
-include("../includes/DIALLER_PDO_CON.php");                        
 
-?>
     
     <div class="container">
-        
 <?php
+$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
+if(isset($test)){
+    include("../includes/DATA_DIALLER_PDO_CON.php"); 
+} else {
+    include("../includes/DIALLER_PDO_CON.php");                        
+}
+
 $LEADS_query = $TRB_DB_PDO->prepare("select dialable_leads from vicidial_campaign_stats where campaign_id='10';");
 $LEADS_query->execute();
 $LEADS_result=$LEADS_query->fetch(PDO::FETCH_ASSOC);

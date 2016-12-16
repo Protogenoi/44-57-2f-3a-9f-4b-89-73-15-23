@@ -223,7 +223,7 @@ $pdamount = number_format($paidamounts['paidtotal'], 2);
                 
 <?php
 
-            $TBC_UNPAID = $pdo->prepare("SELECT sum(commission) AS paidtotal FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General'");
+    $TBC_UNPAID = $pdo->prepare("SELECT sum(commission) AS paidtotal FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General'");
     $TBC_UNPAID->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
     $TBC_UNPAID->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
     $TBC_UNPAID->execute()or die(print_r($query->errorInfo(), true));
@@ -358,7 +358,7 @@ if(isset($datefrom)) {
                 <?php
 
 
-$query = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.id AS POLID FROM financial_statistics_history left join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE insert_date between :datefromholder2 and :datetoholder2 GROUP BY financial_statistics_history.id ORDER by payment_amount DESC");
+$query = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.id AS POLID, client_policy.client_id AS CID FROM financial_statistics_history left join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE insert_date between :datefromholder2 and :datetoholder2 GROUP BY financial_statistics_history.id ORDER by payment_amount DESC");
     $query->bindParam(':datefromholder2', $datefromnew, PDO::PARAM_STR, 100);
     $query->bindParam(':datetoholder2', $datetonew, PDO::PARAM_STR, 100);
 
@@ -385,7 +385,7 @@ $formatteddeduction = number_format($row['deduction'], 2);
 $clientid = $row['policy_number'];
 
     echo '<tr class='.$class.'>';
-    echo "<td><a href='/Life/ViewPolicy.php?&policyID=".$row['POLID']."' target='_blank'>".$row['Policy']."</a></td>";
+    echo "<td><a href='/Life/ViewPolicy.php?policyID=".$row['POLID']."&search=".$row['CID']."' target='_blank'>".$row['Policy']."</a></td>";
     echo "<td>".$row['Policy_Name']."</td>";
       if (intval($row['Payment_Amount'])>0) {
        echo "<td><span class=\"label label-success\">".$row['Payment_Amount']."</span></td>"; }

@@ -262,10 +262,9 @@ echo "</table>"; ?>
             <td><h3 style="color:white;">QUEUE <br> <?php echo $calls_waiting;?></h3></td>
             </tr>
             </table>
-        
+        <?php if(isset($top_hangup)) { ?>
         <div class='notice notice-warning' role='alert' id='HIDEGCLOSER'><strong><center><i class='fa fa-exclamation-triangle fa-lg'></i> <?php if(isset($top_hangup_sw)) echo "High $top_hangup_sw"; ?><i><?php if(isset($dial_stats)) { if($dial_stats=='1') { echo "<a href='?dial_stats=0'>hide stats</a>" ; }  else { echo "<a href='?dial_stats=1'>show stats</a>"; } } if(!isset($dial_stats)) { echo "<a href='?dial_stats=1'>show stats</a>"; } ?></i></center></strong> </div>
-
-        <?php
+        <?php } 
         
         if(isset($dial_stats)) {
             if($dial_stats=='1') {

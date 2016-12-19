@@ -443,7 +443,7 @@ if(isset($fferror)) {
                                $DSFILE=$result['file'];
                             if(file_exists("../uploads/$DSFILE")){ ?>
                             <a href="../uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
-                            <?php } if(isset($dealsheet_id)) {?>
+                            <?php } if(file_exists("../uploads/life/$search/$DSFILE")){ ?>
                             <a href="../uploads/life/<?php echo $search ; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
                                 <?php
                                 }

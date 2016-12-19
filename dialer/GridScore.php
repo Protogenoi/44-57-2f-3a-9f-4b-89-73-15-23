@@ -10,63 +10,7 @@ if(isset($fferror)) {
     }
     
     }
-        
-   
-         if(isset($CHECK_TEL)) {
-           try {
-
-$user11 ="cron";
-$pass11 ="1234";
-
-$CHECK_DIALLER_PDO = new PDO('mysql:host=bureau.bluetelecoms.com;dbname=asterisk', $user11, $pass11
-, array(    PDO::ATTR_PERSISTENT => true,
-PDO::ATTR_TIMEOUT => "5")
-);
-
-$CHECK_DIALLER_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-$DIALLER_WORKING="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:green;'> Connection to database established  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-
-   }
-   
-   catch(PDOException $e) {
-
-        $DIALLER_BROKEN="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:red;'> Connection to database lost<br> Connection failed: . $e->getMessage();  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-       
-   }
-             try {
-
-$user111 ="cron";
-$pass111 ="1234";
-
-$CHECK_TEL_PDO = new PDO('mysql:host=bureau-tel2.bluetelecoms.com;dbname=asterisk', $user111, $pass111);
-$CHECK_TEL_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-$TEL_WORKING="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:green;'> Connection to telephony server established  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-
-   }
-   
-   catch(PDOException $e) {
-   
-        $TEL_BROKEN="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:red;'> Connection to telephony server lost<br> Connection failed: . $e->getMessage();  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-       
-            } }
+$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +21,7 @@ $TEL_WORKING="<div class='row'>
 <meta http-equiv="imagetoolbar" content="no" />
 <link rel="stylesheet" href="../styles/realtimereport.css" type="text/css" />
 <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="icon" type="../image/x-icon" href="/img/favicon.ico"  />
+<link rel="icon" type="../img/x-icon" href="/img/favicon.ico"  />
 <style>
 .status_piltrans {color: white; background: #551A8B; }
 
@@ -124,7 +68,6 @@ table {
     
     <div class="container">
 <?php
-$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 $dial_stats= filter_input(INPUT_GET, 'dial_stats', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($test)){
@@ -164,26 +107,46 @@ $top_hangup_result=$top_hangup_query->fetch(PDO::FETCH_ASSOC);
 $top_hangup=$top_hangup_result['hangup_cause'];
 $top_hangup_Alert=$top_hangup_result['Alert'];
 
+$count_hangup_query = $TRB_DB_PDO->prepare("SELECT count(hangup_cause) AS Alert FROM vicidial_carrier_log WHERE call_date >= NOW() - INTERVAL 5 MINUTE LIMIT 1");
+$count_hangup_query->execute();
+$count_hangup_result=$count_hangup_query->fetch(PDO::FETCH_ASSOC);
+$count_hangup=$count_hangup_result['hangup_cause'];
+$count_hangup_Alert=$count_hangup_result['Alert'];
+
+$hangup_percent_per=$top_hangup_Alert / $count_hangup_Alert * 100;
+$hangup_percent= number_format((float)$hangup_percent_per, 2, '.', ''); 
+
+if(isset($hangup_percent)) {
+    if($hangup_percent >= 49 && $hangup_percent <= 59) {
+        $HANG_UP_MSG="Moderate";
+    } elseif($hangup_percent >= 60) {
+        $HANG_UP_MSG="High";
+    }
+    else {
+        $HANG_UP_MSG="Low";
+    }
+}
+
 switch ($top_hangup) {
     case 21:
-        $top_hangup_sw="TPS Numbers ($top_hangup_Alert)";
+        $top_hangup_sw="TPS Numbers $HANG_UP_MSG ($hangup_percent%)";
             break;
         case 19:
-            $top_hangup_sw="Temporarily Unavailable Numbers ($top_hangup_Alert)"; 
+            $top_hangup_sw="Temporarily Unavailable Numbers $HANG_UP_MSG ($hangup_percent%)"; 
             break;
         case 1:
-            $top_hangup_sw="Not Found ($top_hangup_Alert)"; 
+            $top_hangup_sw="Not Found $HANG_UP_MSG ($hangup_percent%)"; 
             case 17:
-                $top_hangup_sw="Busy ($top_hangup_Alert)"; 
+                $top_hangup_sw="Busy $HANG_UP_MSG ($hangup_percent%)"; 
                 break;
             case 27:
-                $top_hangup_sw="Bad Gateway ($top_hangup_Alert)"; 
+                $top_hangup_sw="Bad Gateway $HANG_UP_MSG ($hangup_percent%)"; 
                 break;
             case 38:
-                $top_hangup_sw="Interal Server Error ($top_hangup_Alert)"; 
+                $top_hangup_sw="Interal Server Error $HANG_UP_MSG ($hangup_percent%)"; 
                 break;
             default:
-                $top_hangup_sw="$top_hangup ($top_hangup_Alert)";
+                $top_hangup_sw="$top_hangup $HANG_UP_MSG ($hangup_percent%)";
 }
 
 
@@ -263,7 +226,7 @@ echo "</table>"; ?>
             </tr>
             </table>
         <?php if(isset($top_hangup)) { ?>
-        <div class='notice notice-warning' role='alert' id='HIDEGCLOSER'><strong><center><i class='fa fa-exclamation-triangle fa-lg'></i> <?php if(isset($top_hangup_sw)) echo "High $top_hangup_sw"; ?><i><?php if(isset($dial_stats)) { if($dial_stats=='1') { echo "<a href='?dial_stats=0'>hide stats</a>" ; }  else { echo "<a href='?dial_stats=1'>show stats</a>"; } } if(!isset($dial_stats)) { echo "<a href='?dial_stats=1'>show stats</a>"; } ?></i></center></strong> </div>
+        <div class='notice notice-warning' role='alert' id='HIDEGCLOSER'><strong><center><i class='fa fa-exclamation-triangle fa-lg'></i> <?php if(isset($top_hangup_sw)) { echo "$top_hangup_sw"; } ?><i><?php if(isset($dial_stats)) { if($dial_stats=='1') { echo " <a href='?dial_stats=0'>hide stats</a>" ; }  else { echo " <a href='?dial_stats=1'>show stats</a>"; } } if(!isset($dial_stats)) { echo " <a href='?dial_stats=1'>show stats</a>"; } ?></i></center></strong> </div>
         <?php } 
         
         if(isset($dial_stats)) {
@@ -298,7 +261,7 @@ $STATS_table .= '</tr></table>';
             }
         }
         
-$LEAD_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan')");
+$LEAD_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan','Mike')");
 $LEAD_query->execute();
 if ($LEAD_query->rowCount()>0) {
 while ($result=$LEAD_query->fetch(PDO::FETCH_ASSOC)){
@@ -316,7 +279,7 @@ while ($result=$LEAD_query->fetch(PDO::FETCH_ASSOC)){
 }
 
 include('../includes/ADL_PDO_CON.php');
-$NEWLEAD = $pdo->prepare("select agent from dealsheet_call ");
+$NEWLEAD = $pdo->prepare("select agent from dealsheet_call");
 $NEWLEAD->execute();
 if ($NEWLEAD->rowCount()>0) {
 while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
@@ -342,107 +305,6 @@ $PAUSECODEresult=$PAUSECODE_query->fetch(PDO::FETCH_ASSOC);
 $PAUSEDCODECOUNT=$PAUSECODEresult['PAUSE_CODE_COUNT'];
 $PAUSECODE_CODE=$PAUSECODEresult['pause_code'];
 
-if($PAUSECODE_CODE=='40min' && $PAUSEDCODECOUNT>='10') {
-    
-$time40=date("H:i:s");
-$date40=date("Y-m-d");
-$file_timeTXT40="Time.txt";
-$file_dateTXT40="Date.txt";
-
-$file_date40 = file_get_contents($file_dateTXT40);
-
-
-if($date40!=$file_date40) { //clear files on next day
-
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Time.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Time.txt");
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Date.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Date.txt");    
-
-file_put_contents($file_dateTXT40, $date40, FILE_APPEND | LOCK_EX); //Put new date and time
-file_put_contents($file_timeTXT40, $time40, FILE_APPEND | LOCK_EX);
-
-$file_time40 = file_get_contents($file_timeTXT40); // Get time
-
-$BREAK_END40 = date("H:i:s", strtotime("+40 minutes", strtotime($file_time40))); //Get break end time
-
-}
-
-else {
-    $file_time40 = file_get_contents($file_timeTXT40); // Get time
-
-$BREAK_END40 = date("H:i:s", strtotime("+40 minutes", strtotime($file_time40))); //Get break end time
-}
-
-}
-
-if($PAUSECODE_CODE=='10min' && $PAUSEDCODECOUNT>='10') {
-    
-$time=date("H:i:s");
-$date=date("Y-m-d");
-$file_timeTXT="Time10.txt";
-$file_dateTXT="Date10.txt";
-
-$file_date = file_get_contents($file_dateTXT);
-
-
-if($date!=$file_date) { //clear files on next day
-
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Time10.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Time10.txt");
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Date10.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Date10.txt");    
-
-file_put_contents($file_dateTXT, $date, FILE_APPEND | LOCK_EX); //Put new date and time
-file_put_contents($file_timeTXT, $time, FILE_APPEND | LOCK_EX);
-
-$file_time = file_get_contents($file_timeTXT); // Get time
-
-$BREAK_END = date("H:i:s", strtotime("+10 minutes", strtotime($file_time))); //Get break end time
-
-}
-
-else {
-    $file_time = file_get_contents($file_timeTXT); // Get time
-
-$BREAK_END10 = date("H:i:s", strtotime("+10 minutes", strtotime($file_time))); //Get break end time
-}
-
-}
-
-if($PAUSECODE_CODE=='15min' && $PAUSEDCODECOUNT>='10') {
-    
-$time=date("H:i:s");
-$date=date("Y-m-d");
-$file_timeTXT="Time15.txt";
-$file_dateTXT="Date15.txt";
-
-$file_date15 = file_get_contents($file_dateTXT);
-
-
-if($date!=$file_date15) { //clear files on next day
-
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Time15.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Time15.txt");
-unlink("/home/var/www/dev.adlcrm.com/public/dialer/Date15.txt");
-touch("/home/var/www/dev.adlcrm.com/public/dialer/Date15.txt");    
-
-file_put_contents($file_dateTXT, $date, FILE_APPEND | LOCK_EX); //Put new date and time
-file_put_contents($file_timeTXT, $time, FILE_APPEND | LOCK_EX);
-
-$file_time15 = file_get_contents($file_timeTXT); // Get time
-
-$BREAK_END15 = date("H:i:s", strtotime("+15 minutes", strtotime($file_time15))); //Get break end time
-
-}
-
-else {
-    $file_time15 = file_get_contents($file_timeTXT); // Get time
-
-$BREAK_END15 = date("H:i:s", strtotime("+15 minutes", strtotime($file_time15))); //Get break end time
-}
-
-}
     if($PAUSECODE_CODE=='40min' && $PAUSEDCODECOUNT>='10') {
 ?>
 

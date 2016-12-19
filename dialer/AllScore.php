@@ -1,3 +1,6 @@
+<?php
+$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Real Time Report</title>
@@ -48,7 +51,11 @@
     <div class="row vertical-center-row">
         <div class="text-center col-md-4 col-md-offset-4">
 <?php 
-include("../includes/DIALLER_PDO_CON.php");
+if(isset($test)){
+    include("../includes/DATA_DIALLER_PDO_CON.php"); 
+} else {
+    include("../includes/DIALLER_PDO_CON.php");                        
+}
 
 $query = $TRB_DB_PDO->prepare("select 
 vicidial_live_agents.uniqueid

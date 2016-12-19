@@ -386,7 +386,7 @@ $usersearchvar = filter_input(INPUT_POST, 'usersearchvar', FILTER_SANITIZE_SPECI
 if(isset($QRY)){
     if($QRY=='AgentDate') {
     
-$query = $TRB_DB_PDO->prepare("SELECT lead_id,call_date,status from vicidial_log where DATE(call_date) = :date and user=:user group by lead_id ORDER BY call_date DESC");
+$query = $TRB_DB_PDO->prepare("SELECT lead_id,call_date,status from vicidial_log where DATE(call_date) =:date and user=:user group by lead_id ORDER BY call_date DESC");
 $query->bindParam(':user', $usersearchvar, PDO::PARAM_INT);
 $query->bindParam(':date', $datefromvar, PDO::PARAM_STR, 12);
 

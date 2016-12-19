@@ -1,10 +1,18 @@
 <?php
 $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
-$timecheck = date("H:i");
-$start = "10:00";
-$end = "21:00";
+
+if(isset($fferror)) {
+    if($fferror=='1') {
         
-if($timecheck >= $start  && $timecheck <= $end ) { ?>
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+        
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +152,7 @@ switch( $result['status'] )
     {
         case("LIVE"):
           $class = 'status_LEAD';
-	if ($result['status']=='LIVE') {$result['status'] == 'LEAD'; $class = 'status_LEAD';}
+	if ($result['status']=='LIVE') {$result['status'] = 'LEAD'; $class = 'status_LEAD';}
            break; 
  }
 	echo '<tr class='.$class.'>';
@@ -155,25 +163,7 @@ switch( $result['status'] )
 }
 }
 
-include('../includes/ADL_PDO_CON.php');
-$NEWLEAD = $pdo->prepare("select agent from dealsheet_call ");
-$NEWLEAD->execute();
-if ($NEWLEAD->rowCount()>0) {
-while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 
-?>
-      
-                      <div class="row blink_me">
-                <div class="col-sm-12">
-                    <strong><center><h1 style="color:red;"><i class="fa fa-exclamation"></i> NEW LEAD <?php echo $result['agent']; ?></h1></center></strong>
-                </div>
-      </div>
-      
-      
-      <?php
-
-}
-}
 
 $calls_query = $TRB_DB_PDO->prepare("select status from vicidial_auto_calls where status = 'live' AND call_type = 'OUT'");
 
@@ -214,7 +204,6 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
         if(isset($result['lead_id'])){
  $lead_id=$result['lead_id'];       
     }
-
 
  switch( $result['status'] )
     {
@@ -269,56 +258,3 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 </div>
 </body>
 </html>
-
-<?php
-            
-        }
-        
-        else {
-        
-        ?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <META HTTP-EQUIV="refresh" CONTENT="5"; >
-        <title>Dialler | Timecheck</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-                    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-            <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-            <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-        <style>
-        .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-
-  display: flex;
-  align-items: center;
-}
-.backcolour {
-    background-color:#05668d !important;
-}
-</style>
-    </head>
-    <body class="backcolour">
-        <div class="jumbotron vertical-center backcolour">
-        <div class="container">
-        
-                       <div class="alert alert-info">
-        <center>
-        <i class="fa  fa-clock-o fa-5x"></i>
-        <br>
-  <strong>Dialler Login at 10:00</strong></center></div>     
-        
-
-  </div>
-  </div>
-</body>
-</html>
-
-<?php
-
-
-        }
-?>
-

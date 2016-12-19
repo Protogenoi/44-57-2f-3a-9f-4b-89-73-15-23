@@ -1,35 +1,5 @@
 <?php
-        
-           try {
-
-$user11 ="cron";
-$pass11 ="1234";
-
-$CHECK_DIALLER_PDO = new PDO('mysql:host=bureau.bluetelecoms.com;dbname=asterisk', $user11, $pass11
-, array(    PDO::ATTR_PERSISTENT => true,
-PDO::ATTR_TIMEOUT => "5")
-);
-
-$CHECK_DIALLER_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-$DIALLER_WORKING="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:green;'> Connection to database established  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-
-   }
-   
-   catch(PDOException $e) {
-
-        $DIALLER_BROKEN="<div class='row'>
-                <div class='col-sm-12'>
-                    <strong><center><h1 style='color:red;'> Connection to database lost<br> Connection failed: . $e->getMessage();  <i class='fa fa-exclamation'></i></h1></center></strong>
-                </div>
-      </div>";
-
-       
-   }
+$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +54,11 @@ table {
 </head>
 <body class="backcolour">
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/includes/DIALLER_PDO_CON.php");
+if(isset($test)){
+    include("../includes/DATA_DIALLER_PDO_CON.php"); 
+} else {
+    include("../includes/DIALLER_PDO_CON.php");                        
+}
 ?>
     
     <div class="container">

@@ -1,4 +1,18 @@
 <?php
+
+
+if(isset($fferror)) {
+    if($fferror=='1') {
+        
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);   
+
 $timecheck = date("H:i");
 $start = "10:00";
 $end = "21:00";
@@ -82,16 +96,16 @@ if($timecheck >= $start  && $timecheck <= $end ) {
 </script>
 </head>
 <body>
-<?php 
 
-include($_SERVER['DOCUMENT_ROOT']."/includes/DIALLER_PDO_CON.php");
-
-?>
 
   <div class="container">
+      <?php
+if(isset($test)){
+    include("../includes/DATA_DIALLER_PDO_CON.php"); 
+} else {
+    include("../includes/DIALLER_PDO_CON.php");                        
+}
 
-
-<?php
 
 $query = $TRB_DB_PDO->prepare("select 
 vicidial_users.full_name

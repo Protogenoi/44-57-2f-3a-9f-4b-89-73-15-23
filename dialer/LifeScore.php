@@ -144,7 +144,7 @@ switch( $result['status'] )
     {
         case("LIVE"):
           $class = 'status_LEAD';
-	if ($result['status']=='LIVE') {$result['status'] == 'LEAD'; $class = 'status_LEAD';}
+	if ($result['status']=='LIVE') {$result['status'] = 'LEAD'; $class = 'status_LEAD';}
            break; 
  }
 	echo '<tr class='.$class.'>';

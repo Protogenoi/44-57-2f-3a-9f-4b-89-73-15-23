@@ -317,7 +317,7 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality') {               
+                if($custype=='Life' || $custype=='The Review Bureau') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun

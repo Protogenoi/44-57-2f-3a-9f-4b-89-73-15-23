@@ -82,7 +82,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                     
                     <div class="form-group">
                         <div class="col-xs-2">
-                            <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM::" class="form-control" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
+                            <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                         </div>
                     </div>
                     
@@ -91,7 +91,6 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                         </div>
                     </div>
-                    
 
                     <div class="form-group">
                         <div class="col-xs-2">
@@ -105,9 +104,9 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                 if(isset($row['insert_date'])) {  ?>
                                 <option value="<?php echo $row['insert_date']; ?>"><?php echo $row['insert_date']; ?></option>
         
-                                <?php  } }
-    
-}                    
+                                <?php  } }  
+                                
+                                }                    
                     ?>   
                             </select>
                         </div>
@@ -135,9 +134,8 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
     FROM financial_statistics_history WHERE DATE(insert_date)=:commdate");
     $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
-    
-    
-        $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
+
+    $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
         $MISSING_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
@@ -195,7 +193,6 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                 }
                 
                 ?>
-
 
 <table  class="table table-hover">
 
@@ -323,9 +320,7 @@ $formattedmissing = number_format($MISSING_SUM, 2);
                 ?>
                 
 </table>    
-
-
-                  
+                 
             </div>
         </div>
         
@@ -383,15 +378,13 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
 
 
 }
-?>                       
-                    
+?>                                       
                 </div>
         </div>
             
         
             <div id="EXPECTED" class="tab-pane fade">
                 <div class="container">
-                <p>EXPECTED</p>
                 <?php
                 if(isset($datefrom)){
 
@@ -408,7 +401,6 @@ if ($query->rowCount()>0) {
 <table  class="table table-hover table-condensed">
 
 <thead>
-
     <tr>
     <th colspan='3'>EXPECTED for <?php echo "$commdate ($count records)"; ?></th>
     </tr>
@@ -417,6 +409,7 @@ if ($query->rowCount()>0) {
     <th>ADL Amount</th>
     </tr>
     </thead>
+    
 <?php
 
 while ($row=$query->fetch(PDO::FETCH_ASSOC)){
@@ -520,7 +513,7 @@ if ($query->rowCount()>0) {
     <tr>
     <th colspan='3'>Missing/Pending for <?php echo "$commdate ($count records)"; ?></th>
     </tr>
-<th>Sale Date</th>
+    <th>Sale Date</th>
     <th>Policy</th>
     <th>Client</th>
     <th>ADL Amount</th>
@@ -562,9 +555,7 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
             </div>
             
             <div id="POLINDATE" class="tab-pane fade">
-               
- <div class="container">
- <p>POLINDATE</p>
+                <div class="container">
                 <?php
                 if(isset($datefrom)){
 
@@ -626,7 +617,6 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
             <div id="POLOUTDATE" class="tab-pane fade">
             
 <div class="container">
- <p>POLOUTDATE</p>
                 <?php
                 if(isset($datefrom)){
 
@@ -689,7 +679,6 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
             <div id="COMMIN" class="tab-pane fade">
                 
 <div class="container">
- <p>COMMIN</p>
                 <?php
                 if(isset($datefrom)){
 
@@ -749,7 +738,6 @@ $PAY_AMOUNT = number_format($row['payment_amount'], 2);
             <div id="COMMOUT" class="tab-pane fade">
   
 <div class="container">
- <p>COMMOUT</p>
                 <?php
                 if(isset($datefrom)){
 

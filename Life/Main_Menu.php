@@ -25,7 +25,7 @@ include('../includes/adlfunctions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>Life Insurance Menu</title>
+<title>ADL | Life Menu</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -77,7 +77,7 @@ include('../includes/adlfunctions.php');
                         if (in_array($hello_name,$Level_8_Access, true)) { ?>
 
 			<li>
-                            <a href="/CRMReports.php">
+                            <a href="Reports_Menu.php">
 			<span class="ca-icon"><i class="fa fa-bar-chart"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Reports<br/></h2>

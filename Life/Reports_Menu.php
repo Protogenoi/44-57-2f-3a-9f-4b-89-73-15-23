@@ -16,7 +16,7 @@ include('../includes/adlfunctions.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>Reports</title>
+    <title>ADL | Life Reports</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -55,7 +55,31 @@ if($ffanalytics=='1') {
 			<?php if($fflife=='1') {
                             if (in_array($hello_name,$Level_10_Access, true)) {
                             
-                            ?>   
+                            ?>
+                        
+                        <li>
+                            <a href="Financials.php">
+                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">New<br/> Financial Report</h2>
+                                <h3 class="ca-sub"></h3>
+                            </div>
+                        </a>
+                    </li>
+                    
+                                        <li>
+                        <a href="/Financial_Reports.php">
+                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Financial<br/>Report</h2>
+                                <h3 class="ca-sub"></h3>
+                            </div>
+                        </a>
+                    </li>
+                    
+                        <?php  }
+                        if (in_array($hello_name,$Level_8_Access, true)) {                            
+                            ?>
                     
                     <li>
                         <a href="Reports/EWSMaster.php">
@@ -67,9 +91,6 @@ if($ffanalytics=='1') {
                         </a>
                     </li>
                     
-                        <?php  }
-                        if (in_array($hello_name,$Level_8_Access, true)) {                            
-                            ?>
                     <li>
                         <a href="Reports/EWS.php">
                             <span class="ca-icon"><i class="fa fa-warning"></i></span>

@@ -53,25 +53,7 @@ if($ffanalytics=='1') {
                         </li>
                     
 			<?php if($fflife=='1') { 
-                            
-                            if (in_array($hello_name,$Level_10_Access, true)) {
-                            
-                            ?>   
-                    
-                    <li>
-                        <a href="/Life/Reports/EWSMaster.php">
-                            <span class="ca-icon"><i class="fa fa-archive"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Archive<br/> EWS</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>
-                    
-                            <?php  }
-                    
-                            
-                            if (in_array($hello_name,$Level_8_Access, true)) {
+                            if(in_array($hello_name,$Level_8_Access, true)) {
                             
                             ?>  
                     
@@ -89,7 +71,7 @@ if($ffanalytics=='1') {
                         <a href="Life/Reports_Menu.php">
                             <span class="ca-icon"><i class="fa fa-warning"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">The Review Bureau<br/>EWS</h2>
+                                <h2 class="ca-main">The Review Bureau<br/>EWS/Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
@@ -143,21 +125,7 @@ if($ffanalytics=='1') {
 <?php } 
 
 if (in_array($hello_name,$Level_10_Access, true)) {
-
-?>
-                    
-                    <li>
-                        <a href="Financial_Reports.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Financial<br/>Report</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>
-                    
-                    
-                    <?php if($companynamere=='The Review Bureau') { ?>
+    if($companynamere=='The Review Bureau') { ?>
                     
                     <li>
                         <a href="/Life/Reports/FinancialUpload.php">

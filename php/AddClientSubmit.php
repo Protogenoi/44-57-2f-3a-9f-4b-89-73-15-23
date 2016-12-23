@@ -317,6 +317,8 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
+                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality') {               
+                
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
                 $date=date("Y-m-d",strtotime($today)); // Convert day to date
@@ -390,12 +392,7 @@ $WeekDay24 = date("Y-m-d", strtotime("+2 day"));
 
 } 
 
-
-
-
 $task5="5 day";
-
-
 $next5 = date("D", strtotime("+5 day")); // Add 2 to Day
 
 if($next5 =="Sat") { //Check if Weekend
@@ -425,8 +422,6 @@ $WeekDay5 = date("Y-m-d", strtotime("+5 day"));
 
 
 $task18="18 day";
-
-
 $next18 = date("D", strtotime("+18 day")); // Add 2 to Day
 
 if($next18 =="Sat") { //Check if Weekend
@@ -485,6 +480,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
         $database->bind(':cid', $lastid); 
         $database->execute();
+        
+ }
  
                 $database->endTransaction();
          

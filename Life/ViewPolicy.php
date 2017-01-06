@@ -32,6 +32,61 @@ include('../includes/adlfunctions.php');
     include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
     
     }
+    
+    if(isset($hello_name)) {
+    
+     switch ($hello_name) {
+         case "Michael":
+             $hello_name_full="Michael Owen";
+             break;
+         case "Jakob":
+             $hello_name_full="Jakob Lloyd";
+             break;
+         case "leighton":
+             $hello_name_full="Leighton Morris";
+             break;
+         case "Roxy":
+             $hello_name_full="Roxanne Studholme";
+             break;
+         case "Nicola":
+             $hello_name_full="Nicola Griffiths";
+             break;
+         case "Rhibayliss":
+             $hello_name_full="Rhiannon Bayliss";
+             break;
+         case "Amelia":
+             $hello_name_full="Amelia Pike";
+             break;
+         case "Abbiek":
+             $hello_name_full="Abbie Kenyon";
+             break;
+         case "carys":
+             $hello_name_full="Carys Riley";
+             break;
+         case "Matt":
+             $hello_name_full="Matthew Jones";
+             break;
+         case "Tina":
+             $hello_name_full="Tina Dennis";
+             break;
+         case "Nick":
+             $hello_name_full="Nick Dennis";
+             break;
+         case "Amy":
+             $hello_name_full="Amy Clayfield";
+             break;
+        case "Georgia":
+             $hello_name_full="Georgia Davies";
+             break;
+         case "Mike":
+             $hello_name_full="Michael Lloyd";
+             break;
+         default:
+             $hello_name_full=$hello_name;
+             
+     }
+     
+     }
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +120,11 @@ $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
 $query->bindParam(':CID', $search, PDO::PARAM_INT);
 $query->execute();
 $data2=$query->fetch(PDO::FETCH_ASSOC);
+
+$Emailquery = $pdo->prepare("SELECT email FROM client_details WHERE client_id=:CID");
+$Emailquery->bindParam(':CID', $search, PDO::PARAM_INT);
+$Emailquery->execute();
+$data3=$Emailquery->fetch(PDO::FETCH_ASSOC);
 
 ?>
     <div class="container">
@@ -214,6 +274,8 @@ switch( $color_status ) {
       <button id="button1id" name="button1id" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Update</button>
     <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
     <a href="EditPolicy.php?id=<?php echo $policyID; ?>&search=<?php echo $search;?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
+    <br><br>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> Send Policy Number</button>
   </div>
 </div>
     
@@ -511,9 +573,40 @@ $ews_status_status=$ewsresult['ews_status_status'];
                         -->
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
 
+    <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
+      </div>
+      <div class="modal-body">
+          <p><?php echo $data3['email']; ?></p>
+          <p>Dear <?php echo $data2['client_name'];?>,</p>
+          <p>           
+Following our recent phone conversation I have resent the 'My Account' email so you can create your personal online account with Legal and General. 
+In order to do this you'll need the policy number which is: <strong><?php echo $data2["policy_number"]?></strong>. </p>
+
+          <p>
+Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
+Please could you complete this section at your earliest convenience.
+          </p>
+          <p>If you require any further information please call our customer care team on 0845 095 0041 Monday - Friday between the hours of 10am- 6:30pm.</p>
+
+          Kind regards,<br>
+<?php echo $hello_name_full; ?>
+          </p>
+      </div>
+      <div class="modal-footer">
+          <a class="btn btn-success confirmation" href="/email/php/SendPolicyNumber.php?search=<?php echo $search;?>&email=<?php echo $data3['email'];?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Policy Number</a>
+      </div>
+    </div>
+
+  </div>
+</div>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script>var maxLength = 800;
 $('textarea').keyup(function() {
@@ -555,5 +648,14 @@ $('textarea').keyup(function() {
 
     </script>
 <script src="/js/sweet-alert.min.js"></script>
+ <script type="text/javascript">
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure you want to send this email? The email will be immediately sent.')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
 </body>
 </html>

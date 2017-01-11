@@ -177,7 +177,8 @@ vicidial_live_agents.uniqueid
 , count(IF(vicidial_agent_log.status='QUN',1,NULL)) AS QUN
 , count(IF(vicidial_agent_log.status='QDE',1,NULL)) AS QDE
 , count(IF(vicidial_agent_log.status='NoCard',1,NULL)) AS  NoCard
-, count(IF(vicidial_agent_log.status NOT IN ('QDE','QUN','NoCard','QNQ','DIDNO','QCBK','QQQ','QML'),1,NULL)) AS  OTHER
+, count(IF(vicidial_agent_log.status='SALE',1,NULL)) AS SalesS
+, count(IF(vicidial_agent_log.status NOT IN ('QDE','QUN','NoCard','QNQ','DIDNO','QCBK','QQQ','QML','SALES'),1,NULL)) AS  OTHER
 , vicidial_live_inbound_agents.calls_today AS Leads 
 , (vicidial_live_inbound_agents.calls_today/count(IF(vicidial_agent_log.status='SALE',1,NULL))) As Total
 from vicidial_agent_log
@@ -193,6 +194,7 @@ GROUP by vicidial_agent_log.user ORDER BY vicidial_live_agents.status ASC, last_
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>
 <th class='status_PAUSED'>Closer</th>
+<th class='status_PAUSED'>Sales</th>
 <th class='status_PAUSED'>Quote Mortgage Lead</th>
 <th class='status_PAUSED'>Quoted</th>
 <th class='status_PAUSED'>Quote Callback</th>
@@ -216,6 +218,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
     $QDE = $result['QDE'];
     $NoCard = $result['NoCard'];
     $OTHER = $result['OTHER'];
+    $SalesS = $result['SalesS'];
 
 $Sales = $result['Sales'];
 $Leads = $result['Leads'];
@@ -290,6 +293,7 @@ elseif ($result['campaign_id'] =='10' && $result['lead_id']>'1') {$result['statu
             break;
  }
 	echo '<tr><td class='.$class2.'><strong style="font-size: 65px;">'.$CLOSER_NAME.' </strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$SalesS.'</strong></td>';
         echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QML.'</strong></td>';
         echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QQQ.'</strong></td>';
         echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QCBK.'</strong></td>';

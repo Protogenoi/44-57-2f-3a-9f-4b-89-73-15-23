@@ -75,7 +75,7 @@ LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
 LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
 WHERE vicidial_agent_log.event_time >= CURDATE()
-AND vicidial_agent_log.campaign_id ='15'
+AND vicidial_agent_log.campaign_id IN ('15','36')
 GROUP by vicidial_agent_log.user ORDER BY vicidial_live_agents.status ASC, last_state_change LIMIT 10");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>";
@@ -156,7 +156,7 @@ elseif ($result['campaign_id'] =='10' && $result['lead_id']>'1') {$result['statu
             $class2 = 'status_READY12';
             break;
  }
-	echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$CLOSER_NAME.' <br>'.$LEADS.'/'.$SALES.'<br>'.$Formattedrate.'</strong></td>';
+	echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$CLOSER_NAME.' <br>'.$LEADS.'/'.$SALES.'<br>'.$Formattedrate.'</strong></td>';
 
 }
 } 
@@ -189,8 +189,8 @@ LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
 LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
 WHERE vicidial_agent_log.event_time >= CURDATE()
-AND vicidial_agent_log.campaign_id ='15'
-GROUP by vicidial_agent_log.user ORDER BY vicidial_live_agents.status ASC, last_state_change LIMIT 10");
+AND vicidial_agent_log.campaign_id IN ('15','36')
+GROUP by vicidial_agent_log.user ORDER BY vicidial_users.full_name ASC LIMIT 10");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>
 <th class='status_PAUSED'>Closer</th>
@@ -292,17 +292,17 @@ elseif ($result['campaign_id'] =='10' && $result['lead_id']>'1') {$result['statu
             $class2 = 'status_READY12';
             break;
  }
-	echo '<tr><td class='.$class2.'><strong style="font-size: 65px;">'.$CLOSER_NAME.' </strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$SalesS.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QML.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QQQ.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QCBK.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$DIDNO.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QNQ.'</strong></td><';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QUN.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$QDE.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$NoCard.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 65px;">'.$OTHER.'</strong></td></tr>';
+	echo '<tr><td class='.$class2.'><strong style="font-size: 50px;">'.$CLOSER_NAME.' </strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$SalesS.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QML.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QQQ.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QCBK.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$DIDNO.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QNQ.'</strong></td><';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QUN.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QDE.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$NoCard.'</strong></td>';
+        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$OTHER.'</strong></td></tr>';
 
 }
 } 

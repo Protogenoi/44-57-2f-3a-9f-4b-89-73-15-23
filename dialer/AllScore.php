@@ -225,7 +225,6 @@ $Leads = $result['Leads'];
 $Total = $result['Total'];
 $CLOSER_NAME=$result['full_name'];
 
-
 $FormattedConversionrate = number_format($Total,1);
 
 if($Sales=='0') {

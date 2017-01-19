@@ -110,10 +110,9 @@ function textAreaAdjust(o) {
 <option value="Richard">Richard</option>
 <option value="Ricky">Ricky</option> 
 <option value="Sarah">Sarah</option>
+<option value="Stavros">Stavros</option>
 <option value="Nicola">Nicola</option>  
-<option value="Jack">Jack</option> 
 <option value="Gavin">Gavin</option>
-<option value="Matthew">Matthew</option> 
 <option value="Rhys">Rhys</option> 
 </select>
 </div>
@@ -133,10 +132,9 @@ function textAreaAdjust(o) {
 <option value="Richard">Richard</option>
 <option value="Ricky">Ricky</option> 
 <option value="Sarah">Sarah</option> 
+<option value="Stavros">Stavros</option>
 <option value="Nicola">Nicola</option> 
-<option value="Jack">Jack</option> 
 <option value="Gavin">Gavin</option> 
-<option value="Matthew">Matthew</option> 
 <option value="Rhys">Rhys</option> 
 </select>
 </div>

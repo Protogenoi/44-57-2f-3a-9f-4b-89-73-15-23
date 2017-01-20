@@ -279,7 +279,6 @@ switch( $color_status ) {
     <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
     <a href="EditPolicy.php?id=<?php echo $policyID; ?>&search=<?php echo $search;?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
     <br><br>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> Send Policy Number</button>
   </div>
 </div>
     
@@ -468,7 +467,12 @@ $ews_status_status=$ewsresult['ews_status_status'];
 <input type="text" value="<?php echo $data2["insurer"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
-
+<div class="col-sm-4">
+<div class="btn-group">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> Send Policy Number</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope"></i> Uncontactable Client Email</button>
+</div>
+</div>
 </div>
                         <div class="column-center">
 <p>
@@ -606,6 +610,34 @@ Please could you complete this section at your earliest convenience.
       </div>
       <div class="modal-footer">
           <a class="btn btn-success confirmation" href="/email/php/SendPolicyNumber.php?search=<?php echo $search;?>&email=<?php echo $data3['email'];?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Policy Number</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+        <div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Email uncontactable client</h4>
+      </div>
+      <div class="modal-body">
+          <p><?php echo $data3['email']; ?></p>
+          <p>Dear <?php echo $data2['client_name'];?>,</p>
+          <p>           
+There is an issue with your Legal and General direct debit <strong><?php echo $data2["policy_number"]?></strong>. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          Many thanks,<br>
+<?php echo $hello_name_full; ?>
+          </p>
+      </div>
+      <div class="modal-footer">
+          <a class="btn btn-success confirmation" href="/email/php/SendUncontactable.php?search=<?php echo $search;?>&email=<?php echo $data3['email'];?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send uncontactable email</a>
       </div>
     </div>
 

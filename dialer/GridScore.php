@@ -396,7 +396,7 @@ $dyn_table .= '</tr></table>';
 echo $dyn_table;
 
 $PAUSEquery = $TRB_DB_PDO->prepare("SELECT count(live_agent_id) AS LIVE_AGENT_ID FROM vicidial_live_agents 
-WHERE campaign_id IN ('10','STAV')
+WHERE campaign_id IN ('10','20')
 AND status ='PAUSED' or status = 'DISPO'");
 $PAUSEquery->execute();
 $PAUSEresult=$PAUSEquery->fetch(PDO::FETCH_ASSOC);
@@ -407,7 +407,7 @@ $PAUSED_AGENTS_query = $TRB_DB_PDO->prepare("SELECT vicidial_live_agents.comment
 FROM vicidial_live_agents 
 JOIN vicidial_users on vicidial_live_agents.user = vicidial_users.user
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-WHERE vicidial_live_agents.campaign_id IN (10','20')
+WHERE vicidial_live_agents.campaign_id IN ('10','20')
 AND vicidial_live_agents.status ='PAUSED' or vicidial_live_agents.status = 'DISPO'
 order by vicidial_live_agents.status, last_state_change");
 

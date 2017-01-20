@@ -149,7 +149,7 @@ if(isset($fferror)) {
                     
                 try {
                 
-                    $auditquery = $pdo->prepare("select closer_audits.id AS CLOSER, closer_audits.grade AS CGRADE, Audit_LeadGen.id AS LEAD, Audit_LeadGen.grade AS LGRADE from closer_audits JOIN Audit_LeadGen on closer_audits.an_number=Audit_LeadGen.an_number where closer_audits.an_number=:annum");
+                    $auditquery = $pdo->prepare("select closer_audits.id AS CLOSER, closer_audits.grade AS CGRADE, Audit_LeadGen.id AS LEAD, Audit_LeadGen.grade AS LGRADE from closer_audits LEFT JOIN Audit_LeadGen on closer_audits.an_number=Audit_LeadGen.an_number where closer_audits.an_number=:annum");
                     $auditquery->bindParam(':annum', $an_number, PDO::PARAM_STR); 
                     $auditquery->execute();
                     $auditre=$auditquery->fetch(PDO::FETCH_ASSOC);

@@ -479,11 +479,14 @@ $ews_status_status=$ewsresult['ews_status_status'];
 <input type="text" value="<?php echo $data2["insurer"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
-<div class="col-sm-4">
-<div class="btn-group">
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> Send Policy Number</button>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope"></i> Uncontactable Client Email</button>
-</div>
+<div class="col-sm-12">
+    
+    <div class="list-group">
+        <span class="label label-primary">Policy Emails</span>
+       <a class="list-group-item" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Send Policy Number</a>
+       <a class="list-group-item" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client</a>
+    </div>
+
 </div>
 </div>
                         <div class="column-center">
@@ -645,7 +648,8 @@ We have tried contacting you on numerous occasions but have been unsuccessful, I
           </p>
           <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
           Many thanks,<br>
-<?php echo $hello_name_full; ?>
+              <?php echo $hello_name_full; ?><br>
+              The Review Bureau
           </p>
       </div>
       <div class="modal-footer">

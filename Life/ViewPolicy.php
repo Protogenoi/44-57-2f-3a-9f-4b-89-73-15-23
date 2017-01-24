@@ -135,6 +135,18 @@ $data3=$Emailquery->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
         
+        <?php if($data2['client_name']=='Joint Policy') {?>
+        
+                <div class="policyview">
+            <div class="notice notice-warning fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Warning!</strong> Before sending any email's to this client, please update the policy holder to the correct client names.
+            </div>
+        </div>
+        
+        <?php } ?>
+        
+        
         <div class="panel-group">
             <div class="panel panel-primary">
                 <div class="panel-heading">View Policy</div>

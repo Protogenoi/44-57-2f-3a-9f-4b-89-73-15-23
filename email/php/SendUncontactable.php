@@ -113,7 +113,7 @@ We have tried contacting you on numerous occasions but have been unsuccessful, I
           </p>
           <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
           Many thanks,<br>
-$hello_name_full
+$hello_name_full<br>The Review Bureau
           </p>";
 $body .= $sig;
 

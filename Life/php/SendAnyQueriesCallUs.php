@@ -274,7 +274,6 @@ p, ul, ol {
 
  
                         <p><em>– $hello_name_full</em></p>
-                            <p><em>The Review Bureau</em></p>
 <img src='cid:logo' >
                         <center><strong>The Review Bureau</strong><center>
                     </td>

@@ -38,8 +38,8 @@ $companynamere=$companydetailsq['company_name'];
 if($companynamere=='The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Nathan","Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith","Renee","Victoria");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith","Renee","Victoria");
     $Task_Access = array("Michael", "Jakob", "Nicola","Nathan");
 }
 

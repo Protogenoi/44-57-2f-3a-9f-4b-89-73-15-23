@@ -2330,7 +2330,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 	echo "<td>".$result['date_sent']."</td>";
 	echo "<td>".$result['sent_by']."</td>";
 	echo "<td>".$result['client_name']."</td>";
-	echo "<td><i class='fa $TMicon'></i>".$result['note_type']."</td>";
+	echo "<td><i class='fa $TMicon'></i> ".$result['note_type']."</td>";
         
         if (in_array($hello_name,$Level_3_Access, true)) {
         

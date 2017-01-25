@@ -2276,12 +2276,61 @@ $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
 $clientnote->execute();
 if ($clientnote->rowCount()>0) {
 while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
+    
+            switch ($result['note_type']) {
+    
+        case "Client Added":
+            $TMicon="fa-user-plus";
+            break;
+        case "Policy Deleted":
+            $TMicon="fa-exclamation";
+            break;
+        case "CRM Alert":
+            case "Policy Added":
+            $TMicon="fa-check";
+            break;
+        case "EWS Status update":  
+            case"EWS Uploaded";
+                $TMicon="fa-exclamation-triangle";
+                break;
+            case "Financial Uploaded":
+                $TMicon="fa-gbp";
+                break;
+            case "Dealsheet":
+                case"LGpolicy";
+                    case"LGkeyfacts";
+                        case"Recording";
+                $TMicon="fa-upload";
+                break;
+            case stristr($TLnotetype,"Tasks"):
+                $TMicon="fa-tasks";
+                break;
+            case "Client Note":
+                $TMicon="fa-pencil";
+                break;
+            case stristr($TLnotetype,"Callback"):
+                $TMicon="fa-calendar-check-o";
+                break;
+            case "Email Sent":
+                $TMicon="fa-envelope-o";
+                break;
+            case "Client Edited":
+                case "Client Details Updated":
+                $TMicon="fa-edit";
+                break;
+            case "Sent SMS":
+                $TMicon="fa-phone";
+                break;
+            default:
+                $TMicon="fa-bomb";
+
+    } 
 
 	echo '<tr>';
 	echo "<td>".$result['date_sent']."</td>";
 	echo "<td>".$result['sent_by']."</td>";
 	echo "<td>".$result['client_name']."</td>";
-	echo "<td>".$result['note_type']."</td>";
+	echo "<td><i class='fa $TMicon'></i>".$result['note_type']."</td>";
         
         if (in_array($hello_name,$Level_3_Access, true)) {
         

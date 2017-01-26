@@ -181,7 +181,7 @@ include('../includes/adlfunctions.php');
                                         <ul class="nav nav-pills nav-justified">
                         <li class="active"><a data-toggle="pill" href="#Menu1">Summary</a></li>
                         <li><a data-toggle="pill" href="#Menu2">Emergency Details</a></li>
-                        <li><a data-toggle="pill" href="#Menu4">Timeline</a></li>
+                        <li><a data-toggle="pill" href="#menu4">Timeline</a></li>
                         <li><a data-toggle="pill" href="#Menu3">Files & Uploads</a></li>
                     </ul>
                 </div>
@@ -377,7 +377,7 @@ include('../includes/adlfunctions.php');
    
                                 </div>
                                 
-                                <div id="Menu4" class="tab-pane fade">
+                                <div id="menu4" class="tab-pane fade">
                                     
                      <div class='container'>
                         <div class="row">
@@ -451,8 +451,8 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             case "Financial Uploaded":
                 $TMicon="fa-gbp";
                 break;
-            case "Dealsheet":
-                case"LGpolicy";
+            case "File Upload":
+                case"Upload";
                     case"LGkeyfacts";
                         case"Recording";
                 $TMicon="fa-upload";

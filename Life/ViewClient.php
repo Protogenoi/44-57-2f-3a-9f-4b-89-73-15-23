@@ -220,12 +220,12 @@ if(isset($fferror)) {
                         
 
                         if (in_array($hello_name,$Level_3_Access, true)) { ?>
-                        <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search?>&life"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>
+                        <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li>
                         <?php } ?>
                         <?php 
                         
                         if (in_array($hello_name,$Level_10_Access, true)) { ?>
-                        <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search?>&life"><i class="fa fa-trash fa-fw"></i>&nbsp; Delete Client</a></li>
+                        <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
                         <?php } ?>
 
                         
@@ -1319,25 +1319,25 @@ if(isset($fferror)) {
                         <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
 
                         <span class="label label-primary"><?php echo $data2['title'];?> <?php echo $data2['last_name'];?> Letters/Emails</span>
-                        <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Trust Letter</a>
-                        <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Reinstate Letter</a>
-                        <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; Any Queries Call Us</a>
-                        <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; My Account Details Email</a>
-                        <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; Closer Keyfacts Email</a>
+                        <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                        <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                        <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
+                        <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                        <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
 
                         <?php if (!empty($data2['first_name2'])) { ?>
                         <span class="label label-primary"><?php echo $data2['title2'];?> <?php echo $data2['last_name2'];?> Letters/Emails</span>   
-                        <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Trust Letter</a>
-                        <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Reinstate Letter</a>
-                        <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; Any Queries Call Us</a>
-                        <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; My Account Details Email</a>
-                        <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; Closer Keyfacts Email</a>
+                        <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                        <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                        <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
+                        <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                        <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
 
                         
                         
                         <span class="label label-primary">Joint Letters/Emails</span>
-                        <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Joint Trust Letter</a>
-                        <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Joint Reinstate Letter</a>
+                        <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
+                        <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
                             <?php } ?>
                         
                         <script type="text/javascript">
@@ -1360,9 +1360,9 @@ if(isset($fferror)) {
                         <span class="label label-primary">Audit Reports</span>                    
 
                         <?php if(!empty($closeraudit)) { ?>
-                    <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; Closer Audit</a>
+                    <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Closer Audit</a>
                         <?php } if(!empty($leadaudit)) { ?>
-                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; Lead Audit</a>
+                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Lead Audit</a>
 
                         <?php                  } } }
                  
@@ -1372,28 +1372,28 @@ if(isset($fferror)) {
 
                   <?php } if (!empty($leadid1)) {
                       if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 1</a>
+                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 1</a>
 
                      <?php }
                       else { ?>
-                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 1</a>
+                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 1</a>
                         <?php }  }
                         if (!empty($leadid2)) {
                             if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 2</a>
+                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 2</a>
                         <?php }
                       else { ?>
-                                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 2</a>
+                                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 2</a>
         
                             <?php }  }
                    
                                                if (!empty($leadid3)) { 
                                                    if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 3</a>
+                                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 3</a>
 
                      <?php }
                       else { ?>
-                                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i>&nbsp; Dialler Call Recording | Lead ID 3</a>
+                                    <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 3</a>
         
                                                <?php } }
                     
@@ -1439,6 +1439,9 @@ if(isset($fferror)) {
                                             case "lifenotes":
                                                 $typeimage="fa-file-text-o";
                                                 break;
+                                            case "TONIC Acount Updates";
+                                                $typeimage="fa-check-square-o";
+                                                break;
                                             case "LifeLeadAudit":
                                             case "LifeCloserAudit":
                                                 $typeimage="fa-folder-open";
@@ -1475,7 +1478,7 @@ if(isset($fferror)) {
                                     $newfileholder= str_replace("$search-","","$file"); //remove quote
                                       ?>
                                 
-                                <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php
                                   }
@@ -1484,115 +1487,115 @@ if(isset($fferror)) {
                                       $newfileholderPDF= str_replace("$search-","","$file"); //remove quote
                                       ?>
                                 
-                                <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php
                                  }
                                  
                                  if($row['uploadtype']=='Other') {
                                      ?>
-                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php
                                 }
                                 
                                 if($row['uploadtype']=='Old Other') {
                                      ?>
-                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php
                                 }
                                   
                                   
                                   if($row['uploadtype']=='RECORDING') {
                                       if(file_exists("../uploads/$file")){ ?>
-                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php } else {?>
-                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php
                                   } }
                                   
                                                                     if($row['uploadtype']=='lifenotes') {
                                       if(file_exists("../uploads/$file")){ ?>
-                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php } else {?>
-                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php
                                   } }
                                   
                                   
                                 if($row['uploadtype']=='Dealsheet') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   }    
                                   
                                 if($row['uploadtype']=='LGkeyfacts') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   } 
                                   if($row['uploadtype']=='LGpolicy') {
                                       if(!file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php  } else {?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } 
                                    }
                                   
                                  if($row['uploadtype']=='L&G APP') {
                                 if(!file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php  } else {?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } 
                                   }    
 
                                  if($row['uploadtype']=='AssuraPol') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   }  
                                   
                                if($row['uploadtype']=='LifeCloserAudit') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   } 
                                   
                                if($row['uploadtype']=='LifeLeadAudit') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   } 
                                   
                                 if($row['uploadtype']=='Recording') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   } 
                                   
                                 if($row['uploadtype']=='Happy Call') {
                             if(file_exists("../uploads/$file")){ ?>
-                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                             <?php } else {?>
-                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                        <a class="list-group-item" href="../uploads/life/<?php echo $search ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                 <?php
                                 }
                                   } 
@@ -2306,15 +2309,23 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 $TMicon="fa-tasks";
                 break;
             case "Client Note":
+        case "Policy Details Updated":
                 $TMicon="fa-pencil";
                 break;
             case stristr($TLnotetype,"Callback"):
                 $TMicon="fa-calendar-check-o";
                 break;
+        case "Task 24 48":
+        case "Task 5 day":
+        case "Task CYD":
+        case "Task 18 day":
+            $TMicon="fa-tasks";
+            break;
             case "Email Sent":
                 $TMicon="fa-envelope-o";
                 break;
             case "Client Edited":
+        case "TONIC Acount Updates ":
                 case "Client Details Updated":
                 $TMicon="fa-edit";
                 break;

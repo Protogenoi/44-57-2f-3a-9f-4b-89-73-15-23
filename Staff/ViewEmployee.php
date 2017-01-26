@@ -30,8 +30,6 @@ include('../includes/adlfunctions.php');
 <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
 <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/styles/Notices.css" />
-<link rel="stylesheet" type="text/css" href="/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
-<link rel="stylesheet" type="text/css" href="/clockpicker-gh-pages/assets/css/github.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <style>
@@ -59,7 +57,29 @@ include('../includes/adlfunctions.php');
 .clickable-row:hover {
 	background:#cff5f1 !important
 }
-</style>
+            .fa-edit {
+                color: #FEAF20;
+            }
+            .fa-exclamation {
+                color: #FEAF20;
+            }
+            .fa-exclamation-triangle {
+                color: red;
+            }
+            .fa-upload {
+                color: #5BC0DE;
+            }
+            .fa-phone {
+                color: #2A6598;
+            }
+            .fa-gbp {
+                color: red;
+            }
+             .fa-check {
+                color: green;
+            }
+        </style>
+
 
 <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
@@ -78,7 +98,7 @@ include('../includes/adlfunctions.php');
     
      $database = new Database(); 
  
-                $database->query("SELECT ni_num, id_provided, id_details, dob, title, firstname, end_date, lastname, CONCAT(title, ' ', firstname, ' ', lastname) AS NAME, position, start_date, added_date, added_by, updated_date, updated_by FROM employee_details WHERE employee_id=:REF");
+                $database->query("SELECT employed, ni_num, id_provided, id_details, dob, title, firstname, end_date, lastname, CONCAT(title, ' ', firstname, ' ', lastname) AS NAME, position, start_date, added_date, added_by, updated_date, updated_by FROM employee_details WHERE employee_id=:REF");
                 $database->bind(':REF', $REF);
                 $database->execute();
                 $data2=$database->single();
@@ -110,6 +130,7 @@ include('../includes/adlfunctions.php');
                 $TOWN=$data3['town'];
                 $POSTAL=$data3['postal'];
                 
+                $EMPLOYED=$data2['employed'];
                 $POSITION=$data2['position'];
                 $START_DATE=$data2['start_date'];
                 $END_DATE=$data2['end_date'];
@@ -142,10 +163,10 @@ include('../includes/adlfunctions.php');
                         <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check-o"></i> Add Holidays</a>                        
                                            
                        
-                        <a class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i> Edit</a>                        
-                     
-                      
-                        <a class="btn btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>
+                        <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i> Edit</a>                        
+                    <?php if(isset($EMPLOYED)) { if($EMPLOYED=='1') { ?> <a class="btn btn-danger" data-toggle="modal" data-target="#FireModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-eraser"></i> FIRE!</a>  <?php } } ?>
+                    <?php if(isset($EMPLOYED)) { if($EMPLOYED=='0') { ?> <a class="btn btn-default" data-toggle="modal" data-target="#HireModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-handshake-o"></i> RE-HIRE!</a>  <?php } } ?>  
+                        <a class="btn btn-warning" href="#"><i class="fa fa-trash"></i> Delete</a>
                       
                     </div>
                 </div>
@@ -156,10 +177,11 @@ include('../includes/adlfunctions.php');
                 <?php include('php/Notifications.php'); ?>
                 </div>
                 <div class="row">
-                    <h1><?php echo $NAME;?><?php if(isset($POSITION)) { echo " - $POSITION"; } ?></h1>
+                    <h1><?php echo $NAME;?><?php if(isset($POSITION)) { echo " - $POSITION </h1>"; } if(isset($EMPLOYED)) { if($EMPLOYED=='0') { echo "<h3><strong> No longer an employee</strong></h3>"; } } ?>
                                         <ul class="nav nav-pills nav-justified">
                         <li class="active"><a data-toggle="pill" href="#Menu1">Summary</a></li>
                         <li><a data-toggle="pill" href="#Menu2">Emergency Details</a></li>
+                        <li><a data-toggle="pill" href="#Menu4">Timeline</a></li>
                         <li><a data-toggle="pill" href="#Menu3">Files & Uploads</a></li>
                     </ul>
                 </div>
@@ -168,6 +190,7 @@ include('../includes/adlfunctions.php');
                     <div class="panel">
                         <div class="panel-body">
                             <div class="tab-content">
+                                
                                 <div id="Menu1" class="tab-pane fade in active"> 
                                     <div class='row'>
                                         
@@ -185,8 +208,8 @@ include('../includes/adlfunctions.php');
                                             <div class='panel panel-default m-b-10 b-regular sm-m-'>
                                                 <div class='panel-body p-b-10 p-t-10 appbox'>
                                                     <div class='text-center'>
-                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT_RESULT)) { echo $APP_COUNT_RESULT; } ?></h3>
-                                                        <div class='m-t-10 text-white sm-m-b-5'>Appointments</div>
+                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT_RESULT)) { echo $APP_COUNT_RESULT; } else { echo "£0.00"; }?></h3>
+                                                        <div class='m-t-10 text-white sm-m-b-5'>Holidays</div>
                                                             
                                                     </div>
                                                         
@@ -210,8 +233,8 @@ include('../includes/adlfunctions.php');
                                             <div class='panel panel-default m-b-10 b-regular'>
                                                 <div class='panel-body p-b-10 p-t-10 noshows'>
                                                     <div class='text-center'>
-                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT__STATUS_RESULT)) { echo $APP_COUNT__STATUS_RESULT; } ?></h3>
-                                                        <div class='m-t-10 text-white sm-m-b-5'>No-shows</div></div>
+                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT__STATUS_RESULT)) { echo $APP_COUNT__STATUS_RESULT; } else { echo "£0.00"; }?></h3>
+                                                        <div class='m-t-10 text-white sm-m-b-5'>Days off</div></div>
                                                             
                                                 </div>
                                                     
@@ -236,7 +259,7 @@ include('../includes/adlfunctions.php');
                                                 <div class='panel-body p-b-10 p-t-10 totalbox'>
                                                     <div class='text-center'>
                                                         <h3 class='bold text-white no-margin'><?php if(!empty($APP_COUNT_PRICE_RESULT)) { echo "£$APP_FORMATTED_PRICE";  } else { echo "£0.00"; }?></h3>
-                                                        <div class='m-t-10 text-white'>Total Sales</div>                                                            
+                                                        <div class='m-t-10 text-white'>Conversion Rate</div>                                                            
                                                     </div>                                                        
                                                 </div>                                                    
                                             </div>
@@ -324,7 +347,7 @@ include('../includes/adlfunctions.php');
                                                 </tr>
                                                 <tr>
                                                     <td class='hint-text col-xs-5 col-sm-4'><i class="fa fa-calendar-check-o"></i> Employment Dates</td>
-                                                    <td class='font-bold'><?php if(isset($START_DATE)) { echo $START_DATE; }?></td>
+                                                    <td class='font-bold'><?php if(isset($START_DATE)) { echo "<strong>$START_DATE</strong>"; } if(isset($END_DATE)) { echo "<strong> - $END_DATE</strong>"; } ?></td>
                                                 </tr>
                                                 
                                                     <tr>
@@ -350,39 +373,56 @@ include('../includes/adlfunctions.php');
                                             </table>
                                         </div>
                                     </div>
-  <style>
-            .fa-edit {
-                color: #FEAF20;
-            }
-            .fa-exclamation {
-                color: #FEAF20;
-            }
-            .fa-exclamation-triangle {
-                color: red;
-            }
-            .fa-upload {
-                color: #5BC0DE;
-            }
-            .fa-phone {
-                color: #2A6598;
-            }
-            .fa-gbp {
-                color: red;
-            }
-             .fa-check {
-                color: green;
-            }
-        </style>
-        <br><br>
-<?php
-       
-try {
 
-$clientnote = $pdo->prepare("select note_type, message, added_by, added_date from employee_timeline where employee_id =:REF ORDER BY added_date DESC");
-$clientnote->bindParam(':REF', $REF, PDO::PARAM_STR, 12);
+   
+                                </div>
+                                
+                                <div id="Menu4" class="tab-pane fade">
+                                    
+                     <div class='container'>
+                        <div class="row">
+                            <form method="post" id="clientnotessubtab" action="php/Employee.php?EXECUTE=5&REF=<?php echo $REF; ?>" class="form-horizontal">
+                            
+                            
+                            <div class="form-group">
+  <label class="col-md-4 control-label" for="textarea"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="notes" name="notes" maxlength="2000" placeholder="Add a note" required></textarea>
+    <center><font color="red"><i><span id="chars">2000</span> characters remaining</i></font></center>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+      <button class="btn btn-primary btn-block"><i class="fa fa-pencil-square-o"></i> Submit </button>
+  </div>
+</div>
+                        </form>
+       </div>                 
+</div>
+                    
+       <h3><span class="label label-info">Timeline</span></h3>                                        
+                                    
+<?php
+
+$clientnote = $pdo->prepare("select note_type, message, added_by, added_date from employee_timeline where employee_id =:REF ORDER BY added_date");
+$clientnote->bindParam(':REF', $REF, PDO::PARAM_INT);
 
 $clientnote->execute();
-if ($clientnote->rowCount()>0) {
+if ($clientnote->rowCount()>0) { ?>
+        
+        <table class="table table-hover">
+	<thead>
+	<tr>
+	<th>Date</th>
+	<th>User</th>
+	<th>Note Type</th>
+	<th>Message</th>
+	</tr>
+	</thead>
+        
+        <?php
 while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
     
     $TLdate=$result['added_date'];
@@ -392,7 +432,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
     
     $TLdate= date("d M y - G:i:s");
     
-    switch ($TLnotetype) {
+        switch ($TLnotetype) {
     
         case "Employee Added":
             $TMicon="fa-user-plus";
@@ -420,7 +460,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             case stristr($TLnotetype,"Tasks"):
                 $TMicon="fa-tasks";
                 break;
-            case "Client Note":
+            case "Note Added":
                 $TMicon="fa-pencil";
                 break;
             case stristr($TLnotetype,"Callback"):
@@ -429,9 +469,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             case "Email Sent":
                 $TMicon="fa-envelope-o";
                 break;
-            case "Client Details Updated":
-                case "Policy Details Updated":
-                    case"Policy Number Updated":
+            case "Employee Edited":
                 $TMicon="fa-edit";
                 break;
             case "Sent SMS":
@@ -442,52 +480,20 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 
     } 
     
-    ?>        
-            <div class="qa-message-list" id="wallmessages">
-    				<div class="message-item" id="m16">
-						<div class="message-inner">
-							<div class="message-head clearfix">
-                                                            <div class="avatar pull-left"><i id="iconid" class="fa <?php echo "$TMicon";?> fa-3x"></i></div>
-								<div class="user-detail">
-									<h5 class="handle"><?php echo "Note Type: <strong>$TLnotetype</strong>"; ?></h5>
-									<div class="post-meta">
-										<div class="asker-meta">
-											<span class="qa-message-what"></span>
-											<span class="qa-message-when">
-												<span class="qa-message-when-data"><?php echo "Date: $TLdate"; ?></span>
-											</span>
-											<span class="qa-message-who">
-												<span class="qa-message-who-pad"><?php echo " Added by: $TLwho"; ?> </span>
-												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"></a></span>
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="qa-message-content">
-								<?php
-                                                                if (in_array($hello_name,$Level_3_Access, true)) {
-                                                                
-                                                                echo "<strong>$TLmessage</strong>"; }
-                                                                
-                                                                else { echo "$TLmessage"; }
-                                                                
-                                                                ?>
-							</div>
-					</div></div>
-        
-        
-        <?php
-}
+    	echo '<tr>';
+	echo "<td>$TLdate</td>";
+	echo "<td>$TLwho</td>";
+	echo "<td><i class='fa $TMicon'></i> $TLnotetype</td>";        
+	echo "<td><strong>$TLmessage</b></td>"; 
+        echo "</tr>";
+    
 } 
-  }
-                 catch (PDOException $e) {
-                    echo 'Connection failed: ' . $e->getMessage();
-                    
-                } ?>
-                                
-                                </div>
-                                        
+
+echo "</table>";
+  } 
+    ?>                                  
+                                    
+                                    
                                 </div>
                                 
                                 <div id="Menu2" class="tab-pane fade">
@@ -533,8 +539,86 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                                 
                                 <div id="Menu3" class="tab-pane fade"> 
                                     
-                                          
+                   <form action="../../uploadsubmit.php?EXECUTE=10&REF=<?php echo $REF; ?>" method="post" enctype="multipart/form-data">
+                          <label for="file">Select file to upload<input type="file" name="file" /></label> 
+                        
+                        <label for="uploadtype">
+                            <div class="form-group">
+                                <select style="width: 170px" class="form-control" name="uploadtype" required>
+                                    <option value="">Select...</option>
+                                    <option value="Contract">Employee Contract</option>
+                                    <option value="New Starter Form">New Starter Form</option>
+                                    <option value="Copy of ID">Copy of ID</option>
+                                    <option value="CV">CV</option>
+                                    <option value="Correspondence">Correspondence</option>
+                                    <option value="Payslip">Payslip</option> 
+                                    <option value="Holiday Form">Holiday Form</option>
+                                    <option value="Sub Request">Sub Request</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </label>
+                        
+                        <button type="submit" class="btn btn-success" name="btn-upload"><span class="glyphicon glyphicon-arrow-up"> </span></button>
+                    </form>
+                    <br /><br />                                    
                                     
+                                    
+                                    <div class="list-group">
+                  <span class="label label-primary">Employee Files</span>                  
+ <?php try {
+                                
+                                $queryup = $pdo->prepare("SELECT file, uploadtype FROM employee_upload WHERE employee_id=:REF");
+                                $queryup->bindParam(':REF', $REF, PDO::PARAM_INT);
+                                $queryup->execute(); 
+         
+                                if ($queryup->rowCount()>0) {                                                  
+                                    while ($row=$queryup->fetch(PDO::FETCH_ASSOC)){
+                                        
+                                        $file=$row['file'];
+                                        $uploadtype=$row['uploadtype'];
+                                        
+                                        switch ($uploadtype) {
+                                            case "AssuraPol":
+                                                $typeimage="fa-file-pdf-o";
+                                                break;
+                                            case "Happy Call":                                                
+                                                $typeimage="fa-headphones";
+                                                break;
+                                            case "Other":                                                
+                                                $typeimage="fa-file-text-o";
+                                                break;
+                                            case "lifenotes":
+                                                $typeimage="fa-file-text-o";
+                                                break;
+                                            case "TONIC Acount Updates";
+                                                $typeimage="fa-check-square-o";
+                                                break;
+                                            case "LifeLeadAudit":
+                                                $typeimage="fa-folder-open";
+                                                break;
+                                            default:
+                                                $typeimage=$uploadtype;  
+                                                
+                                        }                                     
+
+                                  if($row['uploadtype']=='Other') {
+                                      if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }
+                                  
+                                    }
+                                } else { ?>
+                                                                 <a class="list-group-item" ><i class="fa fa-exclamation fa-fw" aria-hidden="true"></i> &nbsp; No files have been uploaded to this employee</a>
+   
+                               <?php }
+                                }
+                                
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                } ?>                                         
+                                </div>      
                                 </div>
                                     
                             </div>
@@ -544,213 +628,8 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             </div>
         </div>
     </div>
-        <?php if (in_array($hello_name,$Level_2_Access, true)) { ?>
-<div class="modal fade" id="BookModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Book an appointment for <?php echo $NAME;?></h4>
-        </div>
-        <div class="modal-body">
 
-                <div class="row">
-                    <ul class="nav nav-pills nav-justified">
-                        <li class="active"><a data-toggle="pill" href="#Book1">Appointment</a></li>
-                        <li><a data-toggle="pill" href="#Book2">Book Time</a></li>
-                    </ul>
-                </div>
-            
-            <div class="panel">
-                        <div class="panel-body">
-                            <form class="form" action="php/Appointment.php?TYPE=1&REF=<?php echo $REF; ?>" method="POST" id="bookform">
-                              
-	
-                            <div class="tab-content">
-                                <div id="Book1" class="tab-pane fade in active"> 
-            
-            <div class="col-lg-12 col-md-12">
-                
-                <div class="row">                    
-                  <div class="col-md-6">
-                  
-                        <div class="form-group">
-                            <label class="control-label">Client</label>
-                            <input type="text" name="name" class="form-control" value="<?php if(isset($NAME)) { echo $NAME; } ?>">              
-                    </div>
-                      
-                                        
-                            <div class="form-group">
-                                <label class="control-label">Client Note</label>
-                                <textarea name="notes" class="form-control" rows="5"></textarea>
-                            </div> 
-                      
-                    <div class="form-group">
-                            <label class="control-label">Service</label>
-                            <input type="text" name="service" class="form-control">              
-                    </div>
-                      
-                                               <div class="form-group">
-                            <label class="control-label">Service (For Invoice)</label>
-                            <select multiple="multiple" name="services[]" class="form-control" required>
-                                <option value="Hair Cut">Hair Cut</option>
-                                <option value="Blow Dry">Blow Dry</option>
-                                <option value="Straight Cut">Straight Cut</option>
-                                <option value="Re-style">Re-style</option>
-                                <option value="Highlights">Highlights</option>
-                            
-                            </select>
-                        </div>
-
-                      
-                      <div class="col-xs-6">
-                      
-                        <div class="form-group">
-                            <label class="control-label">Price</label>
-                            <select name="price" class="form-control" required>
-                                <option value=""></option>
-                                <option value="Override">Override</option>
-                                <option value="2.00">£2</option>
-                                <option value="2.50">£2.50</option>
-                                <option value="5.00">£5</option>
-                                <option value="10.00">£10</option>                          
-                            </select>
-                        </div>
-                      </div> 
-                      
-                     <div class="col-xs-6">                   
-                      
-                        <div class="form-group">
-                            <label class="control-label">Override Price</label>
-                            <input type="text" name="override" class="form-control">              
-                    </div>
-                          
-                     </div>
-                                                    
-                  </div>
-                    
-                    <div class="col-md-6">
-                        
-                        
-                        <div class="form-group">
-                            <label class="control-label">Staff</label>
-                            <select name="staff" class="form-control" required>
-                                <option value=""></option>
-                                <option value="Michael">Michael</option>
-                                <option value="Joe">Joe</option>
-                                <option value="Betty">Betty</option>                            
-                            </select>
-                        </div>
-                        
-                                          
-                        <div class="form-group">
-                            <label class="control-label">Date</label>
-                            <input type="text" name="date" id="datepickerBookModal<?php echo $i; ?>" class="form-control" required>                                                                       
-                    </div>
-                        
-                                                <script>
-        $( function() {
-    $( "#datepickerBookModal<?php echo $i; ?>" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true
-        });
-  } );
-  </script>                                 
-                        
-                        <div class="form-group">
-                                        <label class="control-label">Time</label>
-                                        <div class='input-group date clockpicker'>
-                                            <input type='text' class="form-control" id="clockpicker" name="time" required  />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                        
-                        <div class="form-group">
-                          <label class="control-label">Duration</label>
-                          <select name="duration" class="form-control" required>
-                              <option value=""></option>
-                              <option value="5mins">5mins</option>
-                              <option value="10mins">10mins</option>
-                              <option value="15mins">15mins</option>
-                              <option value="20mins">20mins</option>
-                              <option value="25mins">25mins</option>
-                              <option value="30mins">30mins</option>
-                              <option value="35mins">35mins</option>
-                              <option value="45min">45mins</option>
-                              <option value="50mins">50mins</option>
-                              <option value="55mins">55mins</option>
-                              <option value="1hr">1hr</option>
-                              <option value="1hr 5mins">1hr 5mins</option>
-                              <option value="1hr 10min">1hr 10min</option>
-                              <option value="1hr 15mins">1hr 15mins</option>
-                              <option value="1hr 20mins">1hr 20mins</option>
-                              <option value="1hr 25mins">1hr 25mins</option>
-                              <option value="1hr 30min">1hr 30min</option>
-                              <option value="1hr 35mins">1hr 35mins</option>
-                              <option value="1hr 40min">1hr 40min</option>
-                          </select>
-                      </div>
-
-
-                    </div>
-                </div>
-
-            
-            </div>
-                                </div>
-                                
-                                <div id="Book2" class="tab-pane fade">
-                                
-                                </div>
-                            
-                            </div>
-
-                        </div>
-            </div>
-        </div>
-          
-          <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
-<script>
-        document.querySelector('#bookform').addEventListener('submit', function(e) {
-            var form = this;
-            e.preventDefault();
-            swal({
-                title: "Add appointment?",
-                text: "Confirm new appointment!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    swal({
-                        title: 'Booked!',
-                        text: 'Appointment added!',
-                        type: 'success'
-                    }, function() {
-                        form.submit();
-                    });
-                    
-                } else {
-                    swal("Cancelled", "No changes were made", "error");
-                }
-            });
-        });
-
-</script>
-          </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
-          </div>
-      </div>
-    </div>
-</div>
-    <?php }
+        <?php 
     if (in_array($hello_name,$Level_3_Access, true)) { ?>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -762,18 +641,37 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 
                 <div class="row">
                     <ul class="nav nav-pills nav-justified">
-                        <li class="active"><a data-toggle="pill" href="#Modal1">Client</a></li>
-                        <li><a data-toggle="pill" href="#Modal2">Address</a></li>
+                        <li class="active"><a data-toggle="pill" href="#Modal1">Employee</a></li>
+                        <li><a data-toggle="pill" href="#Modal2">Contact Details</a></li>
+                        <li><a data-toggle="pill" href="#Modal3">Emergency Details</a></li>
                     </ul>
                 </div>
             
             <div class="panel">
                         <div class="panel-body">
-                            <form class="form" action="php/Edit.php?EDIT=1&REF=<?php echo $REF; ?>" method="POST" id="editform">
+                            <form class="form" action="php/Employee.php?EXECUTE=1&REF=<?php echo $REF; ?>" method="POST" id="editform">
                             <div class="tab-content">
                                 <div id="Modal1" class="tab-pane fade in active"> 
             
             <div class="col-lg-12 col-md-12">
+                
+                                                    <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Start Date</label>
+                                                <input type="text" name="start_date" class="form-control" value="<?php if(isset($START_DATE)) { echo $START_DATE; } ?>">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Position</label>
+                                                <input type="text" name="position" class="form-control" value="<?php if(isset($POSITION)) { echo $POSITION; } ?>">
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
                 
                 <div class="row">
                     
@@ -783,7 +681,6 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                             <select name="title" class="form-control">
                                 <option value="<?php if(isset($TITLE)) { echo $TITLE; } ?>"><?php if(isset($TITLE)) { echo $TITLE; } ?></option>
                                 <option value="Mr">Mr</option>
-                                <option value="Master">Master</option>
                                 <option value="Mrs">Mrs</option>
                                 <option value="Ms">Ms</option>
                                 <option value="Miss">Miss</option>
@@ -819,82 +716,79 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                     </div>                       
                     </div>
                 
-                                                <script>
-        $( function() {
-    $( "#datepickerEdit" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true
-        });
-  } );
-  </script>                  
-                    
-                    <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">Mobile</label>
-                            <input type="text" name="mob" class="form-control" value="<?php if(isset($MOB)) { echo $MOB; } ?>">
-                        </div> 
-                    </div> 
-                    
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">Tel</label>
-                            <input type="text" name="tel" class="form-control" value="<?php if(isset($TEL)) { echo $TEL; } ?>">
-                        </div> 
-                    </div>
-                </div>
-                
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input type="text" name="email" class="form-control" value="<?php if(isset($EMAIL)) { echo $EMAIL; } ?>">
-                        </div> 
-                    </div>
-                   
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">Gender</label>
-                            <select name="gender" class="form-control">
-                                <?php if(isset($GENDER)) { ?>
-                                <option value="<?php echo $GENDER; ?>"><?php echo $GENDER;?></option>
-                                <?php } ?>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="control-label">Notifications</label>
-                            <select name="notifications" class="form-control">
-                                <?php if(isset($NOTIF)) { ?>
-                                <option value="<?php echo $NOTIF; ?>"><?php echo $NOTIF;?></option>
-                                <?php } ?>
-                                <option value="Email">Email</option>
-                                <option value="SMS">SMS</option>
-                                <option value="Email and SMS">Email and SMS</option>
-                                <option value="None">Don't send notifications</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">Client Note</label>
-                                <textarea name="notes" class="form-control" rows="5"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
-                            </div> 
-                        </div>
-                    </div>
-            
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">NI</label>
+                                                <input value="<?php if(isset($NI_NUM)) { echo $NI_NUM; } ?> "type="text" name="ni_num" id="ni_num" class="form-control" pattern="[A-Za-z0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[a-zA-Z]{1}" title="Correct format JH-55-55-55-X" placeholder="JH-55-55-55-X">
+                                            </div>
+                                        </div> 
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">ID Provided</label>
+                                                <select name="id_provided" class="form-control" required>
+                                                    <option <?php if(isset($ID_PROVIDED)) { if($ID_PROVIDED=='1') echo "selected"; } ?> value="1">Passport Number</option>
+                                                    <option <?php if(isset($ID_PROVIDED)) { if($ID_PROVIDED=='2') echo "selected"; } ?> value="2">Driving License Number</option>
+                                                    <option <?php if(isset($ID_PROVIDED)) { if($ID_PROVIDED=='3') echo "selected"; } ?> value="3">Bank Card Check</option>
+                                                    <option <?php if(isset($ID_PROVIDED)) { if($ID_PROVIDED=='4') echo "selected"; } ?> value="None">None</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">ID Details</label>
+                                                <input value="<?php if(isset($ID_DETAILS)) { echo $ID_DETAILS; } ?>" type="text" name="id_details" id="ni_num" class="form-control">
+                                            </div> 
+                                        </div>  
+                                    
+                                    </div>
+  
+  <div class="row">
+                                              <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Change Reason</label>
+                                                <select name="change" class="form-control" required>
+                                                    <option value="Updated employee details">Updated employee details</option>
+                                                    <option value="Updated contact details">Updated contact details</option>
+                                                    <option value="Updated emergency details">Updated emergency details</option>
+                                                    <option value="Admin Change">Admin Change</option>
+                                                </select>
+                                            </div>
+                                        </div>
+  </div>
+  
             </div>
                                 </div>
                                 
                                 <div id="Modal2" class="tab-pane fade">
+                                    
+                                                                    <div class="row">
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Mobile</label>
+                                            <input type="text" name="mob" class="form-control" value="<?php if(isset($MOB)) { echo $MOB; } ?>">
+                                        </div> 
+                                    </div> 
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Tel</label>
+                                            <input type="text" name="tel" class="form-control" value="<?php if(isset($TEL)) { echo $TEL; } ?>">
+                                        </div> 
+                                    </div>
+                                    
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">Email</label>
+                                            <input type="text" name="email" class="form-control" value="<?php if(isset($EMAIL)) { echo $EMAIL; } ?>">
+                                        </div> 
+                                    </div>       
+                                
+                                </div>
                                     
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -942,6 +836,55 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                                     </div>
                                 
                                 </div>
+                                
+                                <div id="Modal3" class="tab-pane fade">
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Contact Name</label>
+                                                <input type="text" name="contact_name" class="form-control" value="<?php if(isset($CON_NAME)) { echo $CON_NAME; } ?>">
+                                            </div> 
+                                        </div> 
+                                    
+                                    
+                                    
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Contact Number</label>
+                                                <input type="text" name="contact_num" class="form-control" value="<?php if(isset($CON_NUM)) { echo $CON_NUM; } ?>">
+                                            </div> 
+                                        </div> 
+                                  
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Relationship</label>
+                                                <input type="text" name="contact_relationship" class="form-control" value="<?php if(isset($CON_REL)) { echo $CON_REL; } ?>">
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                    
+                                                <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Address</label>
+                                <textarea name="contact address" class="form-control" rows="5"><?php if(isset($CON_ADD)) { echo $CON_ADD; } ?></textarea>
+                            </div> 
+                        </div>
+                    </div>
+                                    
+                                         <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Medical Conditions</label>
+                                <textarea name="medical" class="form-control" rows="5" placeholder="Any conditions if so, what? And any treatment/medication required? Including any allergies"><?php if(isset($MEDICAL)) { echo $MEDICAL; } ?></textarea>
+                            </div> 
+                        </div>
+                    </div>               
+                                    
+
+                                
+                                </div>                                 
                             
                             </div>
 
@@ -990,136 +933,124 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
     </div>
 </div>
     
-    <?php } ?>
-    
-    <?php
-    
-    $CHECKOUT= filter_input(INPUT_GET, 'CHECKOUT', FILTER_SANITIZE_NUMBER_INT);
-    
-    if(isset($CHECKOUT)) {
-        $APP_CHECK_APPID= filter_input(INPUT_GET, 'CHECKOUTAPPID', FILTER_SANITIZE_NUMBER_INT);
-        if($CHECKOUT=='1') { ?>
-    <script>
-    $(document).ready(function () {
-
-    $('#CHECKOUTModal').modal('show');
-
-});
-</script>
-    <div class="modal fade" id="CHECKOUTModal" role="dialog">
+    <div class="modal fade" id="HireModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-            <h4 class="modal-title">Invoice for <?php echo $NAME;?></h4>
+            <h4 class="modal-title">You are now going to employ <?php echo $NAME;?></h4>
         </div>
         <div class="modal-body">
+
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#Modal1">Employee</a></li>
+                    </ul>
+                </div>
+            
             <div class="panel">
-                <div class="panel-body">
-                    <div class="col-lg-12 col-md-12">
-                        <div class="row"> 
-                            <div class="col-md-6">
-                                
- <?php
-                                        $APP_COUNT = $pdo->prepare("SELECT assigned, duration, client, status, service, price, override, id, note FROM appointments where id=:APPID");
-                                        $APP_COUNT->bindParam(':APPID', $APP_CHECK_APPID, PDO::PARAM_INT);
-                                        $APP_COUNT->execute()or die(print_r($APP_COUNT->errorInfo(), true));
-                                        $result_CHECK=$APP_COUNT->fetch(PDO::FETCH_ASSOC);
+                        <div class="panel-body">
+                            <form class="hireform" action="php/Employee.php?EXECUTE=5&REF=<?php echo $REF; ?>" method="POST" id="hireform">
+                            <div class="tab-content">
+                                <div id="Modal1" class="tab-pane fade in active"> 
+            
+            <div class="col-lg-12 col-md-12">
+                
+                                                    <div class="row">
                                         
-                                        $APP_CHECK_SERVICE=$result_CHECK['service'];
-                                        $APP_CHECK_ASSIGNED=$result_CHECK['assigned'];
-                                        $APP_CHECK_DURATION=$result_CHECK['duration'];
-                                        $APP_CHECK_STATUS=$result_CHECK['status'];
-                                        $APP_CHECK_NOTE=$result_CHECK['note'];
-                                        $APP_CHECK_PRICE=$result_CHECK['price'];
-                                        $APP_CHECK_OVERRIDE=$result_CHECK['override'];
-                                        
-                                        $INVOICE_DATE_TODAY=date("l jS M Y");
-                                        
-                                          if($APP_CHECK_PRICE=='Override') {
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Start Date</label>
+                                                <input type="text" readonly name="start_date" class="form-control" value="<?php if(isset($START_DATE)) { echo $START_DATE; } ?>">
+                                            </div>
+                                        </div>
                                                         
-                                                        $APP_CHECK_AMOUNT=$APP_CHECK_OVERRIDE;
-                                                    }
-                                                    
-                                                    else {
-                                                        
-                                                        $APP_CHECK_AMOUNT=$APP_CHECK_PRICE;
-                                                    }
-                                                    
-
-                                
-                                ?>  
-                                
-                      <p><strong>SERVICE</strong> - <?php if(isset($APP_CHECK_SERVICE)) { echo $APP_CHECK_SERVICE; } ?></p>
-                      <p><strong>PRICE</strong>  - <?php if(isset($APP_CHECK_AMOUNT)) { echo $APP_CHECK_AMOUNT; } ?></p>
-                      <p><strong>STAFF</strong>  - <?php if(isset($APP_CHECK_ASSIGNED)) { echo $APP_CHECK_ASSIGNED; } ?></p>
-                      <p><strong>NOTES</strong>  - <?php if(isset($APP_CHECK_NOTE)) { echo $APP_CHECK_NOTE; } ?></p>
-                      
+                                                                                 <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Finish Date</label>
+                                                <input type="text" name="finish_date" class="form-control" readonly value="<?php echo $date = date('Y-m-d');?>">
+                                            </div>
+                                        </div>               
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Position</label>
+                                                <input type="text" readonly name="position" class="form-control" value="<?php if(isset($POSITION)) { echo $POSITION; } ?>">
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                
+                <div class="row">
                     
-                      
-                  </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <select readonly name="title" class="form-control">
+                                <option value="<?php if(isset($TITLE)) { echo $TITLE; } ?>"><?php if(isset($TITLE)) { echo $TITLE; } ?></option>
                             
-                            <div class="col-md-6">
-                                <?php if (in_array($hello_name,$Level_10_Access, true)) { ?>
-                    <form class="form-inline" action="php/Checkout.php?TYPE=1&REF=<?php echo $REF; ?>&CHECKOUTAPPID=<?php echo $APP_CHECK_APPID; ?>" method="POST" id="checkoutform">  
-                                <?php } ?>
-
-<fieldset>
-    
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="control-label">Invoice Date</label>
-                <input type="text" name="invoicedate" class="form-control" value="<?php echo $INVOICE_DATE_TODAY; ?>" readonly>
-            </div> 
-        </div> 
-    </div>
-    
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="control-label">Invoice Due</label>
-                <input type="text" name="invoicedue" id="datepickerinvoice" class="form-control">
-            </div> 
-        </div> 
-    </div>
-    
-                                                <script>
-        $( function() {
-    $( "#datepickerinvoice" ).datepicker({
-        dateFormat: 'D dd M yy',
-            changeMonth: true
-        });
-  } );
-  </script>       
-    
-    
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label class="control-label">Price</label>
-                <input type="number" name="invoiceprice" class="form-control" step="0.01" value="<?php echo $APP_CHECK_AMOUNT; ?>">
-            </div> 
-        </div> 
-    </div>
-
-</fieldset>
-                        
-                        <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-check-circle-o"></i> Create Invoice</button>
-                    </form>
-                            </div>
+                            </select>
                         </div>
                     </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">First Name</label>
+                            <input readonly type="text" name="firstname" class="form-control" value="<?php if(isset($FIRSTNAME)) { echo $FIRSTNAME; } ?>">
+                        </div>
+                    </div>
+                    
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Last Name</label>
+                            <input readonly type="text" name="lastname" class="form-control" value="<?php if(isset($LASTNAME)) { echo $LASTNAME; } ?>">
+                        </div>
+                    </div>                    
+                 
+                    
                 </div>
+                
+                <div class="row">
+                    
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">DOB</label>
+                            <input readonly type="text" name="dob" class="form-control" id="datepickerEdit" value="<?php if(isset($ORIGDOB)) { echo $ORIGDOB; } ?>">
+                        </div>
+                    </div>                       
+                    </div>
+       
+  
+  <div class="row">
+                          <div class="col-sm-12">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Hire Reason</label>
+                                <textarea name="notes" class="form-control" rows="5" ></textarea>
+                            </div> 
+                        </div>
+                    </div>  
+  </div>
+  
+            </div>
+                                </div>
+                                
+                                     
+                            
+                            </div>
+
+                        </div>
             </div>
         </div>
+          
           <div class="modal-footer">
- <script>
-        document.querySelector('#checkoutform').addEventListener('submit', function(e) {
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> HIRE!</button>
+<script>
+        document.querySelector('#hireform').addEventListener('submit', function(e) {
             var form = this;
             e.preventDefault();
             swal({
-                title: "Update appointment status?",
-                text: "Confirm to update!",
+                title: "Hire Employee?",
+                text: "Confirm to hire employee!",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
@@ -1131,8 +1062,8 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             function(isConfirm) {
                 if (isConfirm) {
                     swal({
-                        title: 'Updated!',
-                        text: 'Appointment status updated!',
+                        title: 'Hired!',
+                        text: 'Employee updated!',
                         type: 'success'
                     }, function() {
                         form.submit();
@@ -1145,16 +1076,165 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
         });
 
 </script>
-
-<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          </form>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
           </div>
       </div>
     </div>
 </div>  
-    
-    <?php } } ?>
+ 
+<div class="modal fade" id="FireModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">You are now going to fire <?php echo $NAME;?></h4>
+        </div>
+        <div class="modal-body">
 
-<script type="text/javascript" src="clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>  
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#Modal1">Employee</a></li>
+                    </ul>
+                </div>
+            
+            <div class="panel">
+                        <div class="panel-body">
+                            <form class="fireform" action="php/Employee.php?EXECUTE=3&REF=<?php echo $REF; ?>" method="POST" id="fireform">
+                            <div class="tab-content">
+                                <div id="Modal1" class="tab-pane fade in active"> 
+            
+            <div class="col-lg-12 col-md-12">
+                
+                                                    <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Start Date</label>
+                                                <input type="text" readonly name="start_date" class="form-control" value="<?php if(isset($START_DATE)) { echo $START_DATE; } ?>">
+                                            </div>
+                                        </div>
+                                                        
+                                                                                 <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Finish Date</label>
+                                                <input type="text" name="finish_date" class="form-control" value="<?php echo $date = date('Y-m-d');?>">
+                                            </div>
+                                        </div>               
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Position</label>
+                                                <input type="text" readonly name="position" class="form-control" value="<?php if(isset($POSITION)) { echo $POSITION; } ?>">
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+                
+                <div class="row">
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <select readonly name="title" class="form-control">
+                                <option value="<?php if(isset($TITLE)) { echo $TITLE; } ?>"><?php if(isset($TITLE)) { echo $TITLE; } ?></option>
+                            
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">First Name</label>
+                            <input readonly type="text" name="firstname" class="form-control" value="<?php if(isset($FIRSTNAME)) { echo $FIRSTNAME; } ?>">
+                        </div>
+                    </div>
+                    
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Last Name</label>
+                            <input readonly type="text" name="lastname" class="form-control" value="<?php if(isset($LASTNAME)) { echo $LASTNAME; } ?>">
+                        </div>
+                    </div>                    
+                 
+                    
+                </div>
+                
+                <div class="row">
+                    
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">DOB</label>
+                            <input readonly type="text" name="dob" class="form-control" id="datepickerEdit" value="<?php if(isset($ORIGDOB)) { echo $ORIGDOB; } ?>">
+                        </div>
+                    </div>                       
+                    </div>
+       
+  
+  <div class="row">
+                          <div class="col-sm-12">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Fire Reason</label>
+                                <textarea name="change" class="form-control" rows="5" ></textarea>
+                            </div> 
+                        </div>
+                    </div>  
+  </div>
+  
+            </div>
+                                </div>
+                                
+                                     
+                            
+                            </div>
+
+                        </div>
+            </div>
+        </div>
+          
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> FIRE!</button>
+<script>
+        document.querySelector('#fireform').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Fire Employee?",
+                text: "Confirm to fire employee!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Fire!',
+                        text: 'Employee updated!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+          </form>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          </div>
+      </div>
+    </div>
+</div>    
+    <?php } ?>
+    
+<script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>  
 <script type="text/javascript">
 $('.clockpicker').clockpicker({
 	placement: 'top',
@@ -1165,9 +1245,9 @@ $('.clockpicker').clockpicker({
 		console.log(this.value);
 	});
 </script>
-<script type="text/javascript" src="clockpicker-gh-pages/assets/js/highlight.min.js"></script>
-<script src="js/sweet-alert.min.js"></script> 
-<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
+<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
+<script src="/js/sweet-alert.min.js"></script> 
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
     
 <script>
 $(document).ready(function() {
@@ -1182,9 +1262,6 @@ $(document).ready(function() {
 });
 
 </script>
-<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>

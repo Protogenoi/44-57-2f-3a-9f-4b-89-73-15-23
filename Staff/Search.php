@@ -156,10 +156,20 @@ include('../includes/adlfunctions.php');
                                             </div>
                                         </div>
                                         
-                                        <div class="col-sm-4">
+                                       <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Position</label>
-                                                <input type="text" name="position" class="form-control">
+                                                <select name="position" class="form-control" required>
+                                                    <option value=""></option>
+                                                    <option value="Life Lead Gen">Life Lead Gen</option>
+                                                    <option value="Manager">Manager</option>
+                                                    <option value="Closer">Closer</option>
+                                                    <option value="Auditor">Auditor</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="HR">HR</option>
+                                                    <option value="IT">IT</option>
+                                                    <option value="Director">Director</option>
+                                                </select>
                                             </div>
                                         </div>
                                     

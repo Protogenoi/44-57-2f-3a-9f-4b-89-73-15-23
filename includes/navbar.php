@@ -116,7 +116,9 @@ if($companynamere=='HWIFS') {
                         <li><a href="/email/emailinbox.php">Email Inbox</a></li>
                             
                             <?php } ?>
-
+<?php if (in_array($hello_name,$Level_10_Access, true)) { ?>
+            <li><a href="/Staff/Main_Menu.php">Staff Database</a></li>            
+<?php } ?>
                     </ul>
                 </li>
                     
@@ -147,7 +149,6 @@ if($companynamere=='HWIFS') {
                 <li class='dropdown'>
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Dialler <b class='caret'></b></a>
                     <ul role='menu' class='dropdown-menu'>
-                        <li><a href='/dialer/RealTimeReport.php'>Real Time Report</a></li>
                         <li><a href='/dialer/LifeScore.php'>Life Real Time Report</a></li>
                         <li><a href="/dialer/Recordings.php">Recordings</a></li>
                     </ul>  
@@ -159,7 +160,6 @@ if($companynamere=='HWIFS') {
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                     <ul role='menu' class='dropdown-menu'>
                         <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
-                        
                         <li><a href='/admin/users.php'>User Accounts</a></li>
                     </ul>  
                 </li>

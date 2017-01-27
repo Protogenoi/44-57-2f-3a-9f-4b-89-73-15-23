@@ -27,6 +27,7 @@ include('../includes/adlfunctions.php');
     <link rel="stylesheet" href="/styles/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" href="/styles/datatables/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
     
@@ -131,11 +132,21 @@ include('../includes/adlfunctions.php');
                                                 <input type="text" name="start_date" class="form-control" value="<?php echo $date = date('Y-m-d');?>">
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-sm-4">
+                                          
+                                                                                <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Position</label>
-                                                <input type="text" name="position" class="form-control">
+                                                <select name="position" class="form-control" required>
+                                                    <option value=""></option>
+                                                    <option value="Life Lead Gen">Life Lead Gen</option>
+                                                    <option value="Manager">Manager</option>
+                                                    <option value="Closer">Closer</option>
+                                                    <option value="Auditor">Auditor</option>
+                                                    <option value="Admin">Admin</option>
+                                                    <option value="HR">HR</option>
+                                                    <option value="IT">IT</option>
+                                                    <option value="Director">Director</option>
+                                                </select>
                                             </div>
                                         </div>
                                     

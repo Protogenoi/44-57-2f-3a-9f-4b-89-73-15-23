@@ -663,13 +663,23 @@ echo "</table>";
                                                 <input type="text" name="start_date" class="form-control" value="<?php if(isset($START_DATE)) { echo $START_DATE; } ?>">
                                             </div>
                                         </div>
-                                        
+    
+                                                        
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Position</label>
-                                                <input type="text" name="position" class="form-control" value="<?php if(isset($POSITION)) { echo $POSITION; } ?>">
+                                                <select name="position" class="form-control" required>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Life Lead Gen') { echo "selected"; } } ?> value="Life Lead Gen">Life Lead Gen</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Manager') { echo "selected"; } } ?> value="Manager">Manager</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Closer') { echo "selected"; } } ?> value="Closer">Closer</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Auditor') { echo "selected"; } } ?> value="Auditor">Auditor</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Admin') { echo "selected"; } } ?> value="Admin">Admin</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='HR') { echo "selected"; } } ?> value="HR">HR</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='IT') { echo "selected"; } } ?> value="IT">IT</option>
+                                                    <option <?php if(isset($POSITION)) { if($POSITION=='Director') { echo "selected"; } } ?> value="Director">Director</option>
+                                                </select>
                                             </div>
-                                        </div>
+                                        </div>                                                
                                     
                                     </div>
                 
@@ -754,6 +764,7 @@ echo "</table>";
                                                     <option value="Updated employee details">Updated employee details</option>
                                                     <option value="Updated contact details">Updated contact details</option>
                                                     <option value="Updated emergency details">Updated emergency details</option>
+                                                    <option value="New Position">New Position</option>
                                                     <option value="Admin Change">Admin Change</option>
                                                 </select>
                                             </div>

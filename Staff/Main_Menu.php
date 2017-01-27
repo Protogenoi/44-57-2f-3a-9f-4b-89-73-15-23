@@ -81,7 +81,7 @@ include('../includes/adlfunctions.php');
 			</li>
                         
                         <li>
-                            <a href="Reports/Main_Menu.php">
+                            <a href="Reports/RAG.php">
 			<span class="ca-icon"><i class="fa fa-area-chart"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Manager Reports<br/></h2>

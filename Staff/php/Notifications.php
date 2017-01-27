@@ -14,6 +14,19 @@ if(isset($RETURN)) {
         
     }
     
+        if($RETURN=='AgentAdded') {
+        
+        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-user-plus fa-lg\"></i> Success:</strong> Agent added to RAG!</div>";
+        
+    }
+    
+            if($RETURN=='RAGUPDATED') {
+        
+        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> RAG updated!</div>";
+        
+    }
+    
+    
         if($RETURN=='ClientHired') {
         
         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-user-plus fa-lg\"></i> Success:</strong> Employee rehired!</div>";

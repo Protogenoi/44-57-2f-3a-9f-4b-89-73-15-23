@@ -18,6 +18,7 @@ $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS);
 $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
 $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);
 $DEVICE= filter_input(INPUT_GET, 'DEVICE', FILTER_SANITIZE_SPECIAL_CHARS);
+$SEARCH= filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
 
 include('../../classes/database_class.php');
         $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -75,7 +76,7 @@ include('../../classes/database_class.php');
                         <?php } else { ?>
                         <a class="btn btn-warning" data-toggle="modal" data-target="#AddModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-plus-square"></i> Add Item</a>
                         <?php } ?>
-                        <a class="btn btn-info" href='?RETURN=Search'><i class="fa fa-search"></i> Search Inventory</a>
+                        <a class="btn btn-info" href='?SEARCH=1'><i class="fa fa-search"></i> Search Inventory</a>
                     </div>
                 </div>
             </div>
@@ -339,7 +340,42 @@ include('../../classes/database_class.php');
         }
     }
     
+if(isset($SEARCH)) {
+    if($SEARCH=='1') { ?>
+
+     <table id="assets" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Updated</th>
+                <th>Asset</th>
+                <th>Manufacturer</th>
+                <th>Device</th>
+                <th>Fault</th>
+                <th>Fault Reason</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Updated</th>
+                <th>Asset</th>
+                <th>Manufacturer</th>
+                <th>Device</th>
+                <th>Fault</th>
+                <th>Fault Reason</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>
+
+<?php    }
+}
     ?>
+
+
+
     
 </div>
   
@@ -451,9 +487,48 @@ include('../../classes/database_class.php');
     </div>
 </div>
      
-<script type="text/javascript" language="javascript" src="../../js/sweet-alert.min.js"></script>
+
 <script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../js/datatables/jquery.DATATABLES.min.js"></script>
 <script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../js/sweet-alert.min.js"></script>
+<?php if(isset($SEARCH)) {
+    if($SEARCH=='1') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#assets').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=1",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "manufactorer" },
+            { "data": "device" },
+            { "data": "fault" },
+            { "data": "fault_reason" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php } } ?>
 </body>
 </html>

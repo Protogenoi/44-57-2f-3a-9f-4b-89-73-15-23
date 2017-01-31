@@ -20,6 +20,18 @@ if(isset($RETURN)) {
         
     }
     
+            if($RETURN=='ASSETADDED') {
+        
+        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Asset added to inventory!</div>";
+        
+    }
+    
+                if($RETURN=='ASSETDETAILSADDED') {
+        
+        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Asset details added!</div>";
+        
+    }
+    
             if($RETURN=='RAGUPDATED') {
         
         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> RAG updated!</div>";

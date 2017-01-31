@@ -94,6 +94,255 @@ if(isset($EXECUTE)) {
             header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
 
     }
+        if($EXECUTE=='3') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $CONNECTION= filter_input(INPUT_POST, 'CONNECTION', FILTER_SANITIZE_SPECIAL_CHARS);   
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_keyboards set connection_type=:conn, notes=:notes, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':conn',$CONNECTION);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }
+
+        if($EXECUTE=='4') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $CONNECTION= filter_input(INPUT_POST, 'CONNECTION', FILTER_SANITIZE_SPECIAL_CHARS);   
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_mice set connection_type=:conn, notes=:notes, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':conn',$CONNECTION);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }
+
+        if($EXECUTE=='5') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_headsets set notes=:notes, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }   
+    
+        if($EXECUTE=='6') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $MAC= filter_input(INPUT_POST, 'MAC', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_phones set notes=:notes, mac=:mac, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    } 
+    
+        if($EXECUTE=='7') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $MAC= filter_input(INPUT_POST, 'MAC', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $IP= filter_input(INPUT_POST, 'IP', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $HOSTNAME= filter_input(INPUT_POST, 'HOSTNAME', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_network set ip=:ip, hostname=:host, notes=:notes, mac=:mac, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->bind(':host',$HOSTNAME);
+            $database->bind(':ip',$IP);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }   
+    
+        if($EXECUTE=='8') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $MAC= filter_input(INPUT_POST, 'MAC', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $IP= filter_input(INPUT_POST, 'IP', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $HOSTNAME= filter_input(INPUT_POST, 'HOSTNAME', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_printers set ip=:ip, hostname=:host, notes=:notes, mac=:mac, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->bind(':host',$HOSTNAME);
+            $database->bind(':ip',$IP);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }  
+    
+        if($EXECUTE=='9') {
+        
+    $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+            $database = new Database();
+            $database->beginTransaction();
+            
+            $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':hello',$hello_name);
+            $database->execute();
+            
+            $database->query("INSERT INTO int_monitors set notes=:notes, inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->execute(); 
+    
+            $changereason="Asset details added ($ASSETID)";
+            $REF='1';
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+
+    }     
+    
 }
             
 ?>

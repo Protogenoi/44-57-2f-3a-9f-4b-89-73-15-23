@@ -84,7 +84,6 @@ include('../../classes/database_class.php');
     <?php if(isset($ASSETID)) {
         if($ASSETID>'0') {
             if(isset($DEVICE)) {
-                if($DEVICE=='Computer') {
                     ?> 
 
 <div class="modal fade" id="comp_modal" role="dialog">
@@ -103,14 +102,50 @@ include('../../classes/database_class.php');
             
             <div class="panel">
                         <div class="panel-body">
-                            <form class="form" action="../php/Assets.php?EXECUTE=2&ASSETID=<?php echo $ASSETID; ?>" method="POST" id="ASSETform">
-                            <div class="tab-content">
+                            
+                            <?php
+                            
+                            switch ($DEVICE) {
+                            case "Computer";
+                                $EXECUTE_ID=2;
+                                break;
+                            case "Keyboard";
+                                $EXECUTE_ID=3;
+                                break;
+                            case "Mouse";
+                                $EXECUTE_ID=4;
+                                break;
+                            case "Headset";
+                                $EXECUTE_ID=5;
+                                break;
+                            case "Hardphone";
+                                $EXECUTE_ID=6;
+                                break;
+                            case "Network Device";
+                                $EXECUTE_ID=7;
+                                break;
+                            case "Printer";
+                                $EXECUTE_ID=8 ;
+                                break;
+                            case "Monitor";
+                                $EXECUTE_ID=9 ;
+                                break;
+                            default:
+                                $EXECUTE_ID=0;
+                                
+                            }
+                            
+                            ?>
+                            
+                            <form class="form" action="../php/Assets.php?EXECUTE=<?php echo $EXECUTE_ID; ?>&ASSETID=<?php echo $ASSETID; ?>" method="POST" id="ASSETform">
+                            
+                                <div class="tab-content">
                                 <div id="Modal1" class="tab-pane fade in active"> 
             
             <div class="col-lg-12 col-md-12">
                 
                                                     <div class="row">
-                                        
+                 <?php if($DEVICE=='Computer') { ?>                       
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">OS</label>
@@ -148,7 +183,97 @@ include('../../classes/database_class.php');
                             </div> 
                         </div>
                     </div>      
-                                    
+                                 <?php }
+                                 
+                                 if($DEVICE=='Keyboard' || $DEVICE=='Mouse') { ?>   
+                                                    <div class="row">    
+                                                    <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Connection Type</label>
+                                                <select name="CONNECTION" class="form-control" required>
+                                                    <option value=""></option>
+                                                    <option value="USB">USB</option>
+                                                    <option value="Serial">Serial</option>
+                                                </select>
+                                            </div>
+                                        </div>       
+                                                    </div>             
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php }   if($DEVICE=='Headset' || $DEVICE=='Monitor') { ?>   
+                                      
+            
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php } if($DEVICE=='Hardphone')  { ?>   
+                              
+                                                        <div class="row">
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">MAC</label>
+                                                <input type="text" name="MAC" class="form-control" value="" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>
+                                                        </div>
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details (condition/fault reason)"></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php } if($DEVICE=='Network Device' || $DEVICE=='Printer') { ?>                       
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">IP</label>
+                                                <input type="text" name="IP" class="form-control" value="" placeholder="192.168.1.1">
+                                            </div>
+                                        </div>
+    
+                                                        
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">MAC</label>
+                                                <input type="text" name="MAC" class="form-control" value="" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>  
+                                                                                                                
+                                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Hostname</label>
+                                                <input type="text" name="HOSTNAME" class="form-control" value="" placeholder="Hostname">
+                                            </div>
+                                        </div>
+                                                        
+                                                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"></textarea>
+                            </div> 
+                        </div>
+                    </div>      
+                                 <?php } ?>                                                             
+                                                        
                                     </div>
                </div>
                                 </div>
@@ -159,6 +284,7 @@ include('../../classes/database_class.php');
           
           <div class="modal-footer">
               <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+                  
 <script>
         document.querySelector('#ASSETform').addEventListener('submit', function(e) {
             var form = this;
@@ -192,6 +318,7 @@ include('../../classes/database_class.php');
 
 </script>
           </form>
+                            
               <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
           </div>
       </div>
@@ -203,25 +330,8 @@ include('../../classes/database_class.php');
     });
 </script> 
 <?php
-                }
-                if($DEVICE=='Keyboard') {
-                    
-                }
-                if($DEVICE=='Mouse') {
-                    
-                }
-                if($DEVICE=='Headset') {
-                    
-                }
-                if($DEVICE=='Hardphone') {
-                    
-                }
-                if($DEVICE=='Network Device') {
-                    
-                }
-                if($DEVICE=='Printer') {
-                    
-                }
+               
+
             }
             
       
@@ -288,6 +398,7 @@ include('../../classes/database_class.php');
                                 <option value="Hardphone">Hardphone</option>
                                 <option value="Network Device">Network Device</option>
                                 <option value="Printer">Printer</option>
+                                <option value="Monitor">Monitor</option>
                             </select>
                         </div>
                     </div>

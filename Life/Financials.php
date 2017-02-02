@@ -489,16 +489,21 @@ if ($query->rowCount()>0) {
 <?php
 
 while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+    
+    $ORIG_EXP_COMMISSION=$row['commission'];
+    
+        $simply_EXP_COMMISSION = ($simply_biz/100) * $ORIG_EXP_COMMISSION;
+        $EXP_COMMISSION=$ORIG_EXP_COMMISSION-$simply_EXP_COMMISSION;      
 
     echo '<tr>';
     echo "<td><a href='/Life/ViewPolicy.php?policyID=".$row['PID']."&search=".$row['CID']."' target='_blank'>".$row['policy_number']."</a></td>";
     echo "<td>".$row['client_name']."</td>";
-      if (intval($row['commission'])>0) {
-       echo "<td><span class=\"label label-success\">".$row['commission']."</span></td>"; }
-       else if (intval($row["payment_amount"])<0) {
-           echo "<td><span class=\"label label-danger\">".$row['commission']."</span></td>"; }
+      if (intval($EXP_COMMISSION)>0) {
+       echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>"; }
+       else if (intval($EXP_COMMISSION)<0) {
+           echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>"; }
            else {
-               echo "<td><span class=\"label label-success\">".$row['commission']."</span></td>"; }
+               echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>"; }
 
 
     echo "</tr>";

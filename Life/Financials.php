@@ -122,13 +122,18 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                 </form>                    
                 
                 <?php
+                $simply_biz = "2.5";
                 
                 $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.policy WHERE financial_statistics_history.policy IS NULL AND client_policy.insurer ='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
                 $PIPE_query->execute()or die(print_r($PIPE_query->errorInfo(), true));
                 $row_rsmyQuery=$PIPE_query->fetch(PDO::FETCH_ASSOC);
-                $pipe = $row_rsmyQuery['pipe'];  
+                $ORIG_pipe = $row_rsmyQuery['pipe']; 
+                
+                $simply_ORIG_pipe = ($simply_biz/100) * $ORIG_pipe;
+                $pipe=$ORIG_pipe-$simply_ORIG_pipe;    
                 
                 if(isset($datefrom)) {
+                    
                     $query = $pdo->prepare("SELECT 
     SUM(CASE WHEN financial_statistics_history.payment_amount < 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
@@ -140,15 +145,20 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
         $MISSING_SUM_QRY_RS=$MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-        $MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
+        $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
+        
+        $simply_MISSING_SUM = ($simply_biz/100) * $ORIG_MISSING_SUM;
+        $MISSING_SUM=$ORIG_MISSING_SUM-$simply_MISSING_SUM;        
         
         $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
         $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
         $EXPECTED_SUM_QRY_RS=$EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-        $EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission']; 
+        $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission']; 
         
+        $simply_EXPECTED_SUM = ($simply_biz/100) * $ORIG_EXPECTED_SUM;
+        $EXPECTED_SUM=$ORIG_EXPECTED_SUM-$simply_EXPECTED_SUM;
         
 $POL_ON_TM_QRY = $pdo->prepare("select 
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as PAID_TOTAL_PLUS,
@@ -188,8 +198,10 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
         $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
         $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
         $MISSING_SUM_QRY_RS=$MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-        $MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
-                    
+        $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
+        
+        $simply_MISSING_SUM = ($simply_biz/100) * $ORIG_MISSING_SUM;
+        $MISSING_SUM=$ORIG_MISSING_SUM-$simply_MISSING_SUM;    
                 }
                 
                 ?>
@@ -419,7 +431,7 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
     echo "<td>".$row['client_name']."</td>";
       if (intval($row['commission'])>0) {
        echo "<td><span class=\"label label-success\">".$row['commission']."</span></td>"; }
-       else if (intval($row["payment_amount"])<0) {
+       else if (intval($row["commission"])<0) {
            echo "<td><span class=\"label label-danger\">".$row['commission']."</span></td>"; }
            else {
                echo "<td><span class=\"label label-success\">".$row['commission']."</span></td>"; }

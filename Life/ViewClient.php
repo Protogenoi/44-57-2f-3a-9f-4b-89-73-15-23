@@ -2290,7 +2290,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             break;
         case "CRM Alert":
             case "Policy Added":
-            $TMicon="fa-check";
+                $TMicon="fa-check";
             break;
         case "EWS Status update":  
             case"EWS Uploaded";
@@ -2310,6 +2310,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 break;
             case "Client Note":
         case "Policy Details Updated":
+            case "Policy Update":
                 $TMicon="fa-pencil";
                 break;
             case stristr($TLnotetype,"Callback"):

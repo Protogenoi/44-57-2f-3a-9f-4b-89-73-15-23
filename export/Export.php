@@ -24,6 +24,8 @@ if(isset($fferror)) {
     }
 
 $query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+
 
 if(isset($query)) {
     include('../includes/ADL_PDO_CON.php');
@@ -110,4 +112,79 @@ if(isset($query)) {
                     } 
                     
                     }
+                    
+if(isset($EXECUTE)) {
+        $file="export";
+    $filename = $file."_".date("Y-m-d_H-i",time());
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename='.$filename.'.csv');    
+    include('../includes/ADL_PDO_CON.php');
+if($EXECUTE=='1') {
+    $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+    $datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+    $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $output = "Application Number, Policy Number, Sale Date, Title, Forename, Surname, Tel, Alt Tel, DOB, Email, Address Line 1, Address Line 2, Town, Postcode, Premium, Type, Commission, Paid to HWIFS, Net Paid, Closer, Status, Insurer, Owner, Company, Date Added\n";
+                    $query = $pdo->prepare("SELECT client_policy.application_number ,client_policy.policy_number ,client_policy.sale_date ,'' AS title, client_policy.client_name, '' AS forename, client_details.phone_number ,client_details.alt_number ,CONCAT(client_details.dob, '-',client_details.dob2) AS DOB ,client_details.email ,client_details.address1 ,client_details.address2 ,client_details.town ,client_details.post_code ,client_policy.premium ,client_policy.type ,client_policy.commission ,'' AS HWIFS ,'' AS net , CONCAT(client_policy.closer, '-',client_policy.lead) AS CLOSER ,client_policy.policystatus ,client_policy.insurer ,client_policy.submitted_by ,client_details.company ,client_policy.submitted_date
+FROM financial_statistics_history 
+JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
+JOIN client_details on client_policy.client_id = client_details.client_id
+WHERE DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
+                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR);
+                    $query->execute();
+                    
+                    $list = $query->fetchAll();
+                    foreach ($list as $rs) {
+                        $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['title'].",".$rs['client_name'].",".$rs['forename'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['DOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['town'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['HWIFS'].",".$rs['net'].",".$rs['CLOSER'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                        
+                    }
+                    echo $output;
+                    exit;
+}
+
+
+if($EXECUTE=='2') {
+    $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $output = "Application Number, Policy Number, Sale Date, Title, Forename, Surname, Tel, Alt Tel, DOB, Email, Address Line 1, Address Line 2, Town, Postcode, Premium, Type, Commission, Paid to HWIFS, Net Paid, Closer, Status, Insurer, Owner, Company, Date Added\n";
+                    $query = $pdo->prepare("SELECT client_policy.application_number ,client_policy.policy_number ,client_policy.sale_date ,'' AS title, client_policy.client_name, '' AS forename, client_details.phone_number ,client_details.alt_number ,CONCAT(client_details.dob, '-',client_details.dob2) AS DOB ,client_details.email ,client_details.address1 ,client_details.address2 ,client_details.town ,client_details.post_code ,client_policy.premium ,client_policy.type ,client_policy.commission ,'' AS HWIFS ,'' AS net , CONCAT(client_policy.closer, '-',client_policy.lead) AS CLOSER ,client_policy.policystatus ,client_policy.insurer ,client_policy.submitted_by ,client_details.company ,client_policy.submitted_date
+FROM financial_statistics_history 
+JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
+JOIN client_details on client_policy.client_id = client_details.client_id
+WHERE DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy)");
+                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR);
+                    $query->execute();
+                    
+                    $list = $query->fetchAll();
+                    foreach ($list as $rs) {
+                        $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['title'].",".$rs['client_name'].",".$rs['forename'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['DOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['town'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['HWIFS'].",".$rs['net'].",".$rs['CLOSER'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                        
+                    }
+                    echo $output;
+                    exit;
+}
+
+if($EXECUTE=='3') {
+    $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+    $datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $output = "Application Number, Policy Number, Sale Date, Title, Forename, Surname, Tel, Alt Tel, DOB, Email, Address Line 1, Address Line 2, Town, Postcode, Premium, Type, Commission, Paid to HWIFS, Net Paid, Closer, Status, Insurer, Owner, Company, Date Added\n";
+                    $query = $pdo->prepare("SELECT client_policy.application_number ,client_policy.policy_number ,client_policy.sale_date ,'' AS title, client_policy.client_name, '' AS forename, client_details.phone_number ,client_details.alt_number ,CONCAT(client_details.dob, '-',client_details.dob2) AS DOB ,client_details.email ,client_details.address1 ,client_details.address2 ,client_details.town ,client_details.post_code ,client_policy.premium ,client_policy.type ,client_policy.commission ,'' AS HWIFS ,'' AS net , CONCAT(client_policy.closer, '-',client_policy.lead) AS CLOSER ,client_policy.policystatus ,client_policy.insurer ,client_policy.submitted_by ,client_details.company ,client_policy.submitted_date
+FROM financial_statistics_history 
+JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
+JOIN client_details on client_policy.client_id = client_details.client_id
+WHERE client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
+                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                    $query->execute();
+                    
+                    $list = $query->fetchAll();
+                    foreach ($list as $rs) {
+                        $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['title'].",".$rs['client_name'].",".$rs['forename'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['DOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['town'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['HWIFS'].",".$rs['net'].",".$rs['CLOSER'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                        
+                    }
+                    echo $output;
+                    exit;
+} 
+
+}
 ?>

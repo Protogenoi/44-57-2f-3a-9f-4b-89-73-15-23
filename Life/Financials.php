@@ -86,12 +86,12 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
             
             <?php if(isset($datefrom)) { ?>
             <li><a data-toggle="pill" href="#EXPECTED">Expected</a></li>
-            <li><a data-toggle="pill" href="#POLINDATE">Policies Paid on Time</a></li>
+            <li><a data-toggle="pill" href="#POLINDATE">Policies on Time</a></li>
             <li><a data-toggle="pill" href="#POLOUTDATE">Late Policies</a></li>
             <li><a data-toggle="pill" href="#COMMIN">Total Gross</a></li>
             <li><a data-toggle="pill" href="#COMMOUT">Total Loss</a></li>
-            <li><a data-toggle="pill" href="#RAW">RAW COMMS</a></li>
-            
+            <li><a data-toggle="pill" href="#RAW">RAW</a></li>
+            <li><a data-toggle="pill" href="#EXPORT">Export</a></li>
             <?php } ?>
             
             <li><a data-toggle="pill" href="#NOMATCH">Unmatched Policies <span class="badge alert-warning">
@@ -106,6 +106,12 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         
             <div id="home" class="tab-pane fade in active">
                 <div class="container"> 
+                <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Financial Statistics</h3>
+        </div>
+        <div class="panel-body">
+                
                     
                 
                 <form action=" " method="get">
@@ -149,9 +155,8 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                     </div>
                     
                     </fieldset>
-                </form>                    
-                
-                <?php
+                </form>        
+                <?php 
                 $simply_biz = "2.5";
                 
                 $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.policy WHERE financial_statistics_history.policy IS NULL AND client_policy.insurer ='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
@@ -259,8 +264,8 @@ WHERE client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal 
         $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);
                 }
                 
-                ?>
-
+                ?>       
+                    
 <table  class="table table-hover">
 
 <thead>
@@ -392,7 +397,8 @@ $formattedmissing = number_format($MISSING_SUM, 2);
                  
             </div>
         </div>
-        
+                </div>
+                </div>
         <div id="RAW" class="tab-pane fade">
                 <div class="container">
                     
@@ -1079,9 +1085,49 @@ $iddd = $row['id'];
 ?>   
                 </table>
             </div>
-        </div>       
-            
-            
+        </div>  
+        
+                <div id="EXPORT" class="tab-pane fade">
+                <div class="container">
+                    
+                    
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">Export Data</div>
+
+        <div class="panel-body">
+
+
+                    
+                    
+             <?php if(isset($datefrom)) { ?>  
+                    <center>
+                    <div class="col-md-12">
+                        <br>
+                                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <a href='../export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$commdate";?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE</a>
+                        </div>
+                  
+                                   
+                        <div class="col-xs-4">
+                            <a href='../export/Export.php?EXECUTE=2<?php echo "&commdate=$commdate";?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> SALE Date</a>
+                        </div>
+                  
+                      
+                        <div class="col-xs-4">
+                            <a href='../export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto";?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date</a>
+                        </div>
+                    </div>
+                        <br>
+                    </div>
+                    </center>
+                <?php } ?>  
+            </div>
+
+    </div>
+                </div>
         </div>
         
         

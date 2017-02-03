@@ -111,19 +111,27 @@ switch ($CLOSER_NAME) {
         break;
     case("Sarah"):
         $LEADS = $Leads - 0;
-        $SALES = $Sales + 0;
+        $SALES = $Sales - 0;
         break; 
     case("Gavin"):
         $LEADS = $Leads - 0;
         $SALES = $Sales + 0;    
         break; 
     case("James"):
-        $LEADS = $Leads - 0;
-        $SALES = $Sales + 0;    
+        $LEADS = $Leads + 0;
+        $SALES = $Sales - 0;    
         break; 
     case("Ricky"):
         $LEADS = $Leads - 0;
         $SALES = $Sales + 0;       
+        break; 
+        case("Stavros"):
+        $LEADS = $Leads - 0;
+        $SALES = $Sales - 0;       
+        break; 
+    case("Hayley"):
+        $LEADS = $Leads - 0;
+        $SALES = $Sales - 0;       
         break; 
     default:
         $LEADS = $Leads;

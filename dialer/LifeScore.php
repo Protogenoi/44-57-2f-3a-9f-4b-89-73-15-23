@@ -74,7 +74,7 @@ LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
 WHERE vicidial_agent_log.event_time >= CURRENT_DATE()
 AND vicidial_agent_log.campaign_id IN ('15','36')
 GROUP by vicidial_agent_log.user
-order by vicidial_live_agents.campaign_id ASC, vicidial_live_agents.status ASC,
+order by vicidial_live_agents.status ASC,
 last_state_change
  limit 10
 ;");

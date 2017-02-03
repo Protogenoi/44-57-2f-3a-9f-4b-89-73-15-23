@@ -210,7 +210,7 @@ echo"</p>";
 
 <p>
  <div class="form-row">
-     <div class="notice notice-info" role="alert"><strong><i class="fa fa-exclamation-triangle"></i> Commission is calculated at 24%. Check OLP for correct amount, as it will differ by .0% </strong></div>
+     <div class="notice notice-info" role="alert"><strong><i class="fa fa-exclamation-triangle"></i> Commission calculates at 24%. Check OLP for correct amount, as it will differ by .0% </strong></div>
      
      
         <label for="commission">Commission</label>

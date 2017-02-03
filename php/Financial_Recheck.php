@@ -16,12 +16,17 @@ if(isset($fferror)) {
     }
     
     }
-    
+
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);    
 $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
-    
+
     if(isset($RECHECK)) {
         
-        include('../includes/PDOcon.php');
+$datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);  
+$dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);   
+
+        include('../includes/ADL_PDO_CON.php');
             
         if($RECHECK=='y') {
             
@@ -64,6 +69,15 @@ $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
                        $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
                        $delete->bindParam(':id', $iddd, PDO::PARAM_STR, 250);
                        $delete->execute();
+                       
+                                              if(isset($EXECUTE)) {
+                           if($EXECUTE='1') {
+                               if(isset($datefrom)) {
+                               header('Location: ../Life/Financials.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;    
+                               }
+                            header('Location: ../Life/Financials.php?RECHECK=y'); die;    
+                           }
+                       }
                            
                     header('Location: ../Financial_Reports.php?RECHECK=y'); die; 
                         
@@ -106,6 +120,15 @@ $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
                        $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
                        $delete->bindParam(':id', $iddd, PDO::PARAM_STR, 250);
                        $delete->execute();
+                       
+                                              if(isset($EXECUTE)) {
+                           if($EXECUTE='1') {
+                                                              if(isset($datefrom)) {
+                               header('Location: ../Life/Financials.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;    
+                               }
+                            header('Location: ../Life/Financials.php?RECHECK=y'); die;    
+                           }
+                       }
                            
                         header('Location: ../Financial_Reports.php?RECHECK=y'); die; 
                             
@@ -149,11 +172,30 @@ $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
                        $delete->bindParam(':id', $iddd, PDO::PARAM_STR, 250);
                        $delete->execute();
                            
+                       if(isset($EXECUTE)) {
+                           if($EXECUTE='1') {
+                                                              if(isset($datefrom)) {
+                               header('Location: ../Life/Financials.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;    
+                               }
+                            header('Location: ../Life/Financials.php?RECHECK=y'); die;    
+                           }
+                       }
+                       
                             header('Location: ../Financial_Reports.php?RECHECK=y'); die; 
                                 
                         }
                             
                         }
+                        
+                                               if(isset($EXECUTE)) {
+                           if($EXECUTE='1') {
+                                                              if(isset($datefrom)) {
+                               header('Location: ../Life/Financials.php?RECHECK=n&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;    
+                               }
+                            header('Location: ../Life/Financials.php?RECHECK=n'); die;    
+                           }
+                       }
+                        
                           header('Location: ../Financial_Reports.php?RECHECK=n'); die;  
                         }
                             

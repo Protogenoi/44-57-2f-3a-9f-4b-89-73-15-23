@@ -1013,7 +1013,8 @@ $query = $pdo->prepare("select entry_date, id, policy_number, payment_type, paym
                     <th>Entry Date</th>
                     <th>Policy</th>
                     <th>Premium</th>
-                    <th>Re-check</th>
+                    <th>Re-check ADL</th>
+                    <th>Check on L&G</th>
                 </thead>
 <?php 
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -1043,7 +1044,9 @@ $iddd = $row['id'];
                                   echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
 
                }
-               
+               ?> <td><form target="_blank" action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'><input type='hidden' name='policyNumber' value='<?php echo substr_replace($policy ,"",-1);?>'><input type='hidden' name='routeSelected' value='convLifeSummary'><button type='submit' class='btn btn-warning btn-sm'><i class='fa fa-check-circle-o'></i></button></form></td>
+                   
+                   <?php
     echo "</tr>";
     echo "\n";
     }

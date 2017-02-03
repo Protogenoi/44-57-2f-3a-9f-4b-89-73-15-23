@@ -203,20 +203,29 @@ echo"</p>";
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" required/>
+        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
     </div> 
 </p>
-
+<?php $cal=2400.00/100 ?>
 
 <p>
  <div class="form-row">
+     <div class="notice notice-info" role="alert"><strong><i class="fa fa-exclamation-triangle"></i> Commission is calculated at 24%. Check OLP for correct amount, as it will differ by .0% </strong></div>
+     
+     
         <label for="commission">Commission</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
         <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
     </div> 
 </p>
-
+<script>$(document).ready(function(){
+    $(".premium").keyup(function(){
+          var val1 = +$(".value1").val();
+          var val2 = +$(".value2").val();
+          $("#commission").val(<?php echo $cal;?>*val1);
+   });
+});</script>
 <p>
  <div class="form-row">
         <label for="commission">Cover Amount</label>

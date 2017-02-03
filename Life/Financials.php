@@ -81,14 +81,19 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#home">Financials</a></li>
-            <li><a data-toggle="pill" href="#RAW">RAW COMMS</a></li>
-            <li><a data-toggle="pill" href="#EXPECTED">Expected</a></li>
-            <li><a data-toggle="pill" href="#MISSING">Missing</a></li>
+              <li><a data-toggle="pill" href="#MISSING">Missing</a></li>
             <li><a data-toggle="pill" href="#TBC">TBC</a></li>
+            
+            <?php if(isset($datefrom)) { ?>
+            <li><a data-toggle="pill" href="#EXPECTED">Expected</a></li>
             <li><a data-toggle="pill" href="#POLINDATE">Policies Paid on Time</a></li>
             <li><a data-toggle="pill" href="#POLOUTDATE">Late Policies</a></li>
-            <li><a data-toggle="pill" href="#COMMIN">COMMS IN</a></li>
-            <li><a data-toggle="pill" href="#COMMOUT">COMMS OUT</a></li>
+            <li><a data-toggle="pill" href="#COMMIN">Total Gross</a></li>
+            <li><a data-toggle="pill" href="#COMMOUT">Total Loss</a></li>
+            <li><a data-toggle="pill" href="#RAW">RAW COMMS</a></li>
+            
+            <?php } ?>
+            
             <li><a data-toggle="pill" href="#NOMATCH">Unmatched Policies <span class="badge alert-warning">
                 <?php $nomatchbadge = $pdo->query("select count(id) AS badge from financial_statistics_nomatch");
             $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
@@ -212,6 +217,19 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
     $POL_NOT_TM_SUM_QRY_RS=$POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
     $POL_NOT_TM_SUM = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_PLUS']; 
     $POL_NOT_TM_SUM_LS = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_LOSS']; 
+    
+        $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
+LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
+        $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+        $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
+        $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
+        $TBC_SUM_QRY_RS=$TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+        $ORIG_TBC_SUM = $TBC_SUM_QRY_RS['commission'];                    
+
+        $simply_EXP_TBC = ($simply_biz/100) * $ORIG_TBC_SUM;
+        $TBC_SUM_UNFORMATTED=$ORIG_TBC_SUM-$simply_EXP_TBC;    
+        $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);  
 
     
                 } else {
@@ -227,6 +245,18 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
         
         $simply_MISSING_SUM = ($simply_biz/100) * $ORIG_MISSING_SUM;
         $MISSING_SUM=$ORIG_MISSING_SUM-$simply_MISSING_SUM;     
+        
+            $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
+LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
+WHERE client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
+ 
+        $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
+        $TBC_SUM_QRY_RS=$TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+        $ORIG_TBC_SUM = $TBC_SUM_QRY_RS['commission'];                    
+
+        $simply_EXP_TBC = ($simply_biz/100) * $ORIG_TBC_SUM;
+        $TBC_SUM_UNFORMATTED=$ORIG_TBC_SUM-$simply_EXP_TBC;    
+        $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);
                 }
                 
                 ?>
@@ -242,6 +272,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
     <th>EST Expected Gross</th>
     <?php } ?>
     <th>EST Missing</th>
+    <th>TBC</th>
     <?php if(isset($datefrom)) { ?>
     <th>ADL vs RAW GROSS DIFF</th>
     <?php } ?>
@@ -292,6 +323,7 @@ $formattedmissing = number_format($MISSING_SUM, 2);
     echo "<td>£$formattedexpected</td>";
     }
     echo "<td>£$formattedmissing</td>";
+    echo "<td>£$TBC_SUM</td>";
     if(isset($datefrom)) {
     echo "<td>£$formattedtotmis</td>";
     }    
@@ -560,7 +592,7 @@ if ($query->rowCount()>0) {
 <thead>
 
     <tr>
-    <th colspan='3'>Missing/Pending for <?php echo "$commdate ($count records)"; ?></th>
+    <th colspan='3'>Missing for <?php echo "$commdate ($count records) | Total £$formattedmissing"; ?></th>
     </tr>
     <th>Sale Date</th>
     <th>Policy</th>
@@ -608,18 +640,7 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
                 <div class="container">
 
                 <?php
-                if(isset($datefrom)){
-    $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
-LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
-        $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-        $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
-        $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
-        $TBC_SUM_QRY_RS=$TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-        $ORIG_TBC_SUM = $TBC_SUM_QRY_RS['commission'];                    
-
-        $simply_EXP_TBC = ($simply_biz/100) * $ORIG_TBC_SUM;
-        $TBC_SUM =$ORIG_TBC_SUM-$simply_EXP_TBC;        
+                if(isset($datefrom)){  
                     
 $query = $pdo->prepare("select client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
@@ -691,7 +712,7 @@ if ($query->rowCount()>0) {
 <thead>
 
     <tr>
-    <th colspan='3'>TBC <?php echo "($count records)"; ?></th>
+    <th colspan='3'>TBC <?php echo "($count records) | Total £$TBC_SUM"; ?></th>
     </tr>
     <th>Sale Date</th>
     <th>Policy</th>

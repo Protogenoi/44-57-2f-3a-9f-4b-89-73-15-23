@@ -144,17 +144,7 @@ if($companynamere=='HWIFS') {
                     
                     <?php } 
                     
-                    if($ffdialler=='1' && (in_array($hello_name,$Level_10_Access, true))) { ?>
-                
-                <li class='dropdown'>
-                    <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Dialler <b class='caret'></b></a>
-                    <ul role='menu' class='dropdown-menu'>
-                        <li><a href='/dialer/LifeScore.php'>Life Real Time Report</a></li>
-                        <li><a href="/dialer/Recordings.php">Recordings</a></li>
-                    </ul>  
-                </li>
-                    
-                    <?php } if($hello_name == 'Michael') { ?>
+                    if($hello_name == 'Michael') { ?>
                 
                 <li class='dropdown'>
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>

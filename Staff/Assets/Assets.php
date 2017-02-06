@@ -208,9 +208,39 @@ include('../../classes/database_class.php');
                         </div>
                     </div>                                                           
                     
-                                 <?php }   if($DEVICE=='Headset' || $DEVICE=='Monitor') { ?>   
+                                 <?php }   if($DEVICE=='Headset' || $DEVICE=='Monitor') {   
                                       
-            
+            if($DEVICE=='Headset') { 
+                                   
+
+$head_QRY = $pdo->prepare("select CONCAT(firstname, ' ', lastname) AS HEADSETNAME FROM employee_details");
+$head_QRY->execute();
+if ($head_QRY->rowCount()>0) { ?>
+        
+                                                    <div class="row">    
+                                                    <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Assign to</label>
+                                                <select name="HEADSETNAME" class="form-control" required>       
+                                                    <option value="Unassigned">Unassigned</option>
+        <?php
+while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){ 
+    $HEADSETNAME=$result['HEADSETNAME'];
+    ?>
+ <option value="<?php if(isset($HEADSETNAME)) { echo $HEADSETNAME; }?>"><?php if(isset($HEADSETNAME)) { echo $HEADSETNAME; }?></option>
+
+ <?php
+    
+
+
+ 
+    
+            }?>
+ </select>
+                                            </div>
+                                        </div>       
+                                                    </div> 
+ <?php } }?>
                                                         
                     <div class="row">
                         <div class="col-sm-12">
@@ -334,28 +364,29 @@ include('../../classes/database_class.php');
         }
     }
     
-if(isset($SEARCH)) {
-    if($SEARCH=='1') { ?>
-<form>
+if(isset($SEARCH)) { ?>
+    <form>
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">Category</label>
                             <select name="SEARCH" class="form-control" onchange="this.form.submit()" required>
                                 <option value="">Search by category</option>
-                                <option value="2">Computer</option>
-                                <option value="3">Keyboard</option>
-                                <option value="4">Mouse</option>
-                                <option value="5">Headset</option>
-                                <option value="6">Hardphone</option>
-                                <option value="7">Network Device</option>
-                                <option value="8">Printer</option>
-                                <option value="9">Monitor</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='2') { echo "selected"; } }?> value="2">Computer</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='3') { echo "selected"; } }?> value="3">Keyboard</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='4') { echo "selected"; } }?> value="4">Mouse</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='5') { echo "selected"; } }?> value="5">Headset</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='6') { echo "selected"; } }?> value="6">Hardphone</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='7') { echo "selected"; } }?> value="7">Network Device</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='8') { echo "selected"; } }?> value="8">Printer</option>
+                                <option <?php if(isset($SEARCH)) { if($SEARCH=='9') { echo "selected"; } }?> value="9">Monitor</option>
                             </select>
                         </div>
                     </div>
                 </div>
 </form>
+  <?php  if($SEARCH=='1') { ?>
+
      <table id="assets" class="display" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -385,9 +416,186 @@ if(isset($SEARCH)) {
 
 <?php    }
 
-if($SEARCH=='7') { ?>
-     <h3><span class="label label-info">Network Devices</span></h3>       
+if($SEARCH=='2') { ?>
+     <h3><span class="label label-info">Computers</span></h3>       
+     <br>
+     <table id="int_computers" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>OS</th>
+                <th>MAC</th>
+                <th>RAM</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>OS</th>
+                <th>MAC</th>
+                <th>RAM</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
 
+if($SEARCH=='3') { ?>
+     <h3><span class="label label-info">Keyboards</span></h3>       
+     <br>
+     <table id="int_keyboards" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+
+if($SEARCH=='3') { ?>
+     <h3><span class="label label-info">Keyboards</span></h3>       
+     <br>
+     <table id="int_keyboards" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+
+if($SEARCH=='4') { ?>
+     <h3><span class="label label-info">Mice</span></h3>       
+     <br>
+     <table id="int_mice" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Connection</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+if($SEARCH=='5') { ?>
+     <h3><span class="label label-info">Headsets</span></h3>       
+     <br>
+     <table id="int_headsets" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Employee</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Employee</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+if($SEARCH=='6') { ?>
+     <h3><span class="label label-info">IP Phones</span></h3>       
+     <br>
+     <table id="int_phones" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>MAC</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>MAC</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+if($SEARCH=='7') { ?>
+     <h3><span class="label label-info">Network</span></h3>       
+     <br>
      <table id="int_network" class="display" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -406,7 +614,7 @@ if($SEARCH=='7') { ?>
                 <th></th>
                 <th>Date</th>
                 <th>Asset</th>
-                <th>IP</th>
+                <th>OS</th>
                 <th>MAC</th>
                 <th>Hostname</th>
                 <th>Manufacturer</th>
@@ -417,7 +625,64 @@ if($SEARCH=='7') { ?>
    
     <?php  
 }
-
+if($SEARCH=='8') { ?>
+     <h3><span class="label label-info">Printer</span></h3>       
+     <br>
+     <table id="int_printers" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>IP</th>
+                <th>MAC</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>OS</th>
+                <th>MAC</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+if($SEARCH=='9') { ?>
+     <h3><span class="label label-info">Monitor</span></h3>       
+     <br>
+     <table id="int_monitors" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
 }
     ?>
     
@@ -535,7 +800,8 @@ if($SEARCH=='7') { ?>
 <script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="../../js/sweet-alert.min.js"></script>
 <?php if(isset($SEARCH)) {
-    if($SEARCH=='1') { ?>
+    if($SEARCH=='1') { 
+        ?>
     <script type="text/javascript" language="javascript" >
  
 $(document).ready(function() {
@@ -570,8 +836,181 @@ $(document).ready(function() {
 
 } );
 </script> 
-<?php } 
- if($SEARCH=='7') { ?>
+<?php }
+ if($SEARCH=='2') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_computers').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=2",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "os" },
+            { "data": "mac" },
+            { "data": "ram" },
+            { "data": "hostname" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=2&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+ if($SEARCH=='3') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_keyboards').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=3",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "connection_type" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=3&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+ if($SEARCH=='4') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_mice').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=4",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "connection_type" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=4&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+if($SEARCH=='5') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_headsets').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=5",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "assigned" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=5&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+ if($SEARCH=='6') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_phones').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=6",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "mac" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=6&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+if($SEARCH=='7') { ?>
     <script type="text/javascript" language="javascript" >
  
 $(document).ready(function() {
@@ -599,7 +1038,7 @@ $(document).ready(function() {
             { "data": "manufactorer" },
  { "data": "inv_id",
             "render": function(data, type, full, meta) {
-                return '<a href="?RETURN=SELECTINT_NETWORK&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+                return '<a href="?RETURN=SELECTASSET&SEARCH=7&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
             } }
         ]
     } );
@@ -607,7 +1046,75 @@ $(document).ready(function() {
 } );
 </script> 
 <?php }
+if($SEARCH=='8') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_printers').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=8",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "ip" },
+            { "data": "mac" },
+            { "data": "hostname" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=8&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
 
+} );
+</script> 
+<?php }
+if($SEARCH=='9') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_monitors').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=9",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTASSET&SEARCH=9&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
     } ?>
   <?php if(isset($RETURN)) {
       if($RETURN=='SELECTASSET') { ?>
@@ -685,7 +1192,7 @@ $(document).ready(function() {
                             
                             if(isset($EXECUTE_ID)) {
                                 if($EXECUTE_ID=='2') {
-                $database->query("SELECT os, mac, hostname, ram, notes FROM inventory WHERE inv_id=:REF");
+                $database->query("SELECT os, mac, hostname, ram, notes FROM int_computers WHERE inv_id=:REF");
                 $database->bind(':REF', $ASSETID);
                 $database->execute();
                 $data3=$database->single();  
@@ -876,9 +1383,39 @@ $(document).ready(function() {
                         </div>
                     </div>                                                           
                     
-                                 <?php }   if($EDIT_ASSET_DEVICE=='Headset' || $EDIT_ASSET_DEVICE=='Monitor') { ?>   
+                                 <?php }   if($EDIT_ASSET_DEVICE=='Headset' || $EDIT_ASSET_DEVICE=='Monitor') {   
                                       
-            
+                                             if($EDIT_ASSET_DEVICE=='Headset') { 
+                                   
+
+$head_QRY = $pdo->prepare("select CONCAT(firstname, ' ', lastname) AS HEADSETNAME FROM employee_details");
+$head_QRY->execute();
+if ($head_QRY->rowCount()>0) { ?>
+        
+                                                    <div class="row">    
+                                                    <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Assign to</label>
+                                                <select name="HEADSETNAME" class="form-control" required>       
+                                                    <option value="Unassigned">Unassigned</option>
+        <?php
+while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){ 
+    $HEADSETNAME=$result['HEADSETNAME'];
+    ?>
+ <option value="<?php if(isset($HEADSETNAME)) { echo $HEADSETNAME; }?>"><?php if(isset($HEADSETNAME)) { echo $HEADSETNAME; }?></option>
+
+ <?php
+    
+
+
+ 
+    
+} ?>
+ </select>
+                                            </div>
+                                        </div>       
+                                                    </div> 
+ <?php }       } ?>
                                                         
                     <div class="row">
                         <div class="col-sm-12">
@@ -889,7 +1426,9 @@ $(document).ready(function() {
                         </div>
                     </div>                                                           
                     
-                                 <?php } if($EDIT_ASSET_DEVICE=='Hardphone')  { ?>   
+                                 <?php }
+                                 
+                                 if($EDIT_ASSET_DEVICE=='Hardphone')  { ?>   
                               
                                                         <div class="row">
                              <div class="col-sm-4">

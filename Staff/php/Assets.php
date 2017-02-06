@@ -129,7 +129,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=2&ASSETID='.$ASSETID); die;
 
     }
         if($EXECUTE=='3') {
@@ -197,7 +197,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=3&ASSETID='.$ASSETID); die;
 
     }
 
@@ -266,7 +266,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=4&ASSETID='.$ASSETID); die;
 
     }
 
@@ -274,6 +274,7 @@ if(isset($EXECUTE)) {
         
     $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);  
     $NOTES= filter_input(INPUT_POST, 'NOTES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $HEADSETNAME= filter_input(INPUT_POST, 'HEADSETNAME', FILTER_SANITIZE_SPECIAL_CHARS); 
 
             $database = new Database();
             $database->beginTransaction();
@@ -303,9 +304,10 @@ if(isset($EXECUTE)) {
             $database->execute(); 
             if ($database->rowCount()>=1) {
             
-            $database->query("UPDATE int_headsets set notes=:notes WHERE inv_id=:id ");
+            $database->query("UPDATE int_headsets set assigned=:assign, notes=:notes WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':notes',$NOTES);
+            $database->bind(':assign',$HEADSETNAME);
             $database->execute();                
             $changereason="Asset details updated ($ASSETID)";  
             
@@ -313,9 +315,10 @@ if(isset($EXECUTE)) {
             
             else {
                 
-            $database->query("INSERT INTO int_headsets set notes=:notes, inv_id=:id ");
+            $database->query("INSERT INTO int_headsets set assigned=:assign, notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':notes',$NOTES);
+            $database->bind(':assign',$HEADSETNAME);
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
@@ -332,7 +335,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=5&ASSETID='.$ASSETID); die;
 
     }   
     
@@ -401,7 +404,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=6&ASSETID='.$ASSETID); die;
 
     } 
     
@@ -476,7 +479,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=7&ASSETID='.$ASSETID); die;
 
     }   
     
@@ -551,7 +554,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=8&ASSETID='.$ASSETID); die;
 
     }  
     
@@ -617,7 +620,7 @@ if(isset($EXECUTE)) {
             
             $database->endTransaction();
             
-            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&ASSETID='.$ASSETID); die;
+            header('Location: ../Assets/Assets.php?RETURN=ASSETDETAILSADDED&SEARCH=9&ASSETID='.$ASSETID); die;
 
     }     
     

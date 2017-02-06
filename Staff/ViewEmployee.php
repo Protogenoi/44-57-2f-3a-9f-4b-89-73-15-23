@@ -18,6 +18,7 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
 
 include('../includes/adlfunctions.php');
 
+$RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,6 +150,10 @@ include('../includes/adlfunctions.php');
 
                 
                 $DOB=date("l jS \of F Y",strtotime($ORIGDOB));
+                
+    $HOL_START= filter_input(INPUT_GET, 'HOL_START', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $HOL_END= filter_input(INPUT_GET, 'HOL_END', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $HOL_REASON= filter_input(INPUT_GET, 'HOL_REASON', FILTER_SANITIZE_SPECIAL_CHARS); 
     ?>
 
     <div class="content full-height">
@@ -159,7 +164,10 @@ include('../includes/adlfunctions.php');
                 </div>
                 <div class="col-xs-7">
                     <div class="text-right">
-            
+            <?php if(isset($RETURN)) {
+                if($RETURN=='ALREADYBOOKED') { ?>
+                        <a class="btn btn-success" href="php/Employee.php?EXECUTE=7&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-check-o"></i> Authorise Holiday</a> 
+            <?php } } ?>
                         <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check-o"></i> Add Holidays</a>                        
                                            
                        
@@ -183,6 +191,7 @@ include('../includes/adlfunctions.php');
                         <li><a data-toggle="pill" href="#Menu2">Emergency Details</a></li>
                         <li><a data-toggle="pill" href="#menu4">Timeline</a></li>
                         <li><a data-toggle="pill" href="#Menu3">Files & Uploads</a></li>
+                        <li><a data-toggle="pill" href="#Menu5">Holidays</a></li>
                     </ul>
                 </div>
                 
@@ -406,7 +415,7 @@ include('../includes/adlfunctions.php');
                                     
 <?php
 
-$clientnote = $pdo->prepare("select note_type, message, added_by, added_date from employee_timeline where employee_id =:REF ORDER BY added_date");
+$clientnote = $pdo->prepare("select note_type, message, added_by, added_date from employee_timeline where employee_id =:REF ORDER BY added_date DESC");
 $clientnote->bindParam(':REF', $REF, PDO::PARAM_INT);
 
 $clientnote->execute();
@@ -430,27 +439,21 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
     $TLmessage=$result['message'];
     $TLnotetype=$result['note_type'];
     
-    $TLdate= date("d M y - G:i:s");
-    
         switch ($TLnotetype) {
     
         case "Employee Added":
             $TMicon="fa-user-plus";
             break;
-        case "Policy Deleted":
-            $TMicon="fa-exclamation";
+                case "Holiday Booked":
+            $TMicon="fa-plane";
+            break;
+                        case "Inventory Updated":
+            $TMicon="fa-list-ul";
             break;
         case "CRM Alert":
             case "Policy Added":
             $TMicon="fa-check";
             break;
-        case "EWS Status update":  
-            case"EWS Uploaded";
-                $TMicon="fa-exclamation-triangle";
-                break;
-            case "Financial Uploaded":
-                $TMicon="fa-gbp";
-                break;
             case "File Upload":
                 case"Upload";
                     case"LGkeyfacts";
@@ -487,14 +490,103 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 	echo "<td><strong>$TLmessage</b></td>"; 
         echo "</tr>";
     
-} 
+}  ?>
 
-echo "</table>";
-  } 
-    ?>                                  
+</table> 
+    
+    <?php  }  ?>                                  
                                     
                                     
                                 </div>
+                                
+                                
+                                <div id="Menu5" class="tab-pane fade">
+                                    <?php if(isset($RETURN)) {
+                                        if($RETURN=='ALREADYBOOKED') { ?>
+                                    
+       <span class="label label-default">Booked Holidays</span>                                     
+                                    
+<?php
+
+$BOOKED_QRY = $pdo->prepare("select CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, employee_holidays.start, employee_holidays.end, employee_holidays.title, employee_holidays.added_by, employee_holidays.updated_date FROM employee_holidays JOIN employee_details on employee_holidays.employee_id = employee_details.employee_id WHERE employee_holidays.start between :start AND :end ORDER BY DATE(employee_holidays.start) ASC");
+$BOOKED_QRY->bindParam(':start', $HOL_START, PDO::PARAM_STR);
+$BOOKED_QRY->bindParam(':end', $HOL_END, PDO::PARAM_STR);
+$BOOKED_QRY->execute();
+if ($BOOKED_QRY->rowCount()>0) { ?>
+        
+        <table class="table table-hover">
+	<thead>
+	<tr>
+	<th>Authorised</th>
+        <th>Employee</th>
+	<th>Dates</th>
+	<th>Reason</th>
+	</tr>
+	</thead>
+        
+        <?php
+while ($result=$BOOKED_QRY->fetch(PDO::FETCH_ASSOC)){
+    
+    $BOOKED_QR_START=$result['start'];
+    $BOOKED_QR_EMPLOYEE=$result['NAME'];
+    $BOOKED_QR_END=$result['end'];
+    $BOOKED_QR_TITLE=$result['title'];
+    $BOOKED_QR_BY=$result['added_by'];
+    $BOOKED_QR_DATE=$result['updated_date'];
+    
+    	echo '<tr>';
+	echo "<td>$BOOKED_QR_DATE | $BOOKED_QR_BY</td>";
+        echo "<td>$BOOKED_QR_EMPLOYEE</td>";
+	echo "<td><i class='fa fa-calendar-o'></i> $BOOKED_QR_START - $BOOKED_QR_END</td>";        
+	echo "<td><strong>$BOOKED_QR_TITLE</b></td>"; 
+        echo "</tr>";
+    
+} ?>
+
+</table> 
+    
+                                    <?php  } } } ?>                                     
+                     
+       <span class="label label-info">Holidays</span>                                     
+                                    
+<?php
+
+$HOL_QRY = $pdo->prepare("select hol_id, start, end, title, added_by, updated_date from employee_holidays where employee_id =:REF ORDER BY DATE(start) ASC");
+$HOL_QRY->bindParam(':REF', $REF, PDO::PARAM_INT);
+
+$HOL_QRY->execute();
+if ($HOL_QRY->rowCount()>0) { ?>
+        
+        <table class="table table-hover">
+	<thead>
+	<tr>
+	<th>Authorised</th>
+	<th>Dates</th>
+	<th>Reason</th>
+	</tr>
+	</thead>
+        
+        <?php
+while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
+    
+    $HOL_QR_START=$result['start'];
+    $HOL_QR_END=$result['end'];
+    $HOL_QR_TITLE=$result['title'];
+    $HOL_QR_BY=$result['added_by'];
+    $HOL_QR_DATE=$result['updated_date'];
+    
+    	echo '<tr>';
+	echo "<td>$HOL_QR_DATE | $HOL_QR_BY</td>";
+	echo "<td><i class='fa fa-calendar-o'></i> $HOL_QR_START - $HOL_QR_END</td>";        
+	echo "<td><strong>$HOL_QR_TITLE</b></td>"; 
+        echo "</tr>";
+    
+} ?>
+
+</table> 
+    
+    <?php  } ?>             
+                                </div>                                
                                 
                                 <div id="Menu2" class="tab-pane fade">
                                     
@@ -630,7 +722,8 @@ echo "</table>";
     </div>
 
         <?php 
-    if (in_array($hello_name,$Level_3_Access, true)) { ?>
+    if (in_array($hello_name,$Level_10_Access, true)) { ?>
+ 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -1242,7 +1335,112 @@ echo "</table>";
           </div>
       </div>
     </div>
-</div>    
+</div> 
+    
+ <div class="modal fade" id="BookModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Holiday Request for <?php echo $NAME;?></h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#Modal6">Holiday Request Form</a></li>
+                        <li><a data-toggle="pill" href="#Modal5">Booked Holidays</a></li>
+                    </ul>
+                </div>
+            
+            <div class="panel">
+                        <div class="panel-body">
+                            <form class="form" action="php/Employee.php?EXECUTE=6&REF=<?php echo $REF; ?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>" method="POST" id="HOLform">
+                            <div class="tab-content">
+                                <div id="Modal6" class="tab-pane fade in active"> 
+            
+            <div class="col-lg-12 col-md-12">
+                
+                                                    <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Start Date</label>
+                                                <input type="text" name="HOL_START" id="HOL_START" class="form-control" value="<?php if(isset($HOL_START)) { echo $HOL_START; } ?>" required="">
+                                            </div>
+                                        </div>
+                                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">End Date</label>
+                                                <input type="text" name="HOL_END" id="HOL_END" class="form-control" value="<?php if(isset($HOL_END)) { echo $HOL_END; } ?>" required="">
+                                            </div>
+                                        </div>  
+                                                        
+                                               
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Reason for Holiday</label>
+                                <textarea name="HOL_REASON" class="form-control" rows="5"><?php if(isset($HOL_REASON)) { echo $HOL_REASON; } ?></textarea>
+                            </div> 
+                        </div>
+                                                    
+                                                    </div>
+            </div>
+                                </div>
+                            
+                                
+                                <div id="Modal5" class="tab-pane fade">
+                                    <div class="row">
+
+                                
+                                </div>                                 
+                            
+                            </div>
+
+                        </div>
+            </div>
+        </div>
+          
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Authorise</button>
+<script>
+        document.querySelector('#HOLform').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Authorise?",
+                text: "Confirm to authorise holiday request!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Holiday booked!',
+                        text: 'Calendar updated!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+          </form>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          </div>
+      </div>
+    </div>
+</div>      
     <?php } ?>
     
 <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>  
@@ -1273,6 +1471,25 @@ $(document).ready(function() {
 });
 
 </script>
-
+ <script>
+  $(function() {
+    $( "#HOL_START" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+    yearRange: "-100:-0"
+        });
+  });
+  </script>
+   <script>
+  $(function() {
+    $( "#HOL_END" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+    yearRange: "-100:-0"
+        });
+  });
+  </script>
 </body>
 </html>

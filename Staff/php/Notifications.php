@@ -13,7 +13,17 @@ if(isset($RETURN)) {
         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-user-plus fa-lg\"></i> Success:</strong> Client added!</div>";
         
     }
-    
+
+        if($RETURN=='HOLBOOKED') {
+        
+        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-calendar-check-o fa-lg\"></i> Success:</strong> Holiday Booked!</div>";
+        
+    }
+            if($RETURN=='ALREADYBOOKED') {
+        
+        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-calendar-times-o fa-lg\"></i> Warning:</strong> Days already allocated!</div>";
+        
+    }
         if($RETURN=='AgentAdded') {
         
         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-user-plus fa-lg\"></i> Success:</strong> Agent added to RAG!</div>";

@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
- include('../../includes/Access_Levels.php');
+include('../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_10_Access, true)) {
     
@@ -43,8 +43,7 @@ include('../../classes/database_class.php');
     <link rel="stylesheet" href="../../styles/datatables/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
     
@@ -342,7 +341,26 @@ include('../../classes/database_class.php');
     
 if(isset($SEARCH)) {
     if($SEARCH=='1') { ?>
-
+<form>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Category</label>
+                            <select name="SEARCH" class="form-control" onchange="this.form.submit()" required>
+                                <option value="">Search by category</option>
+                                <option value="2">Computer</option>
+                                <option value="3">Keyboard</option>
+                                <option value="4">Mouse</option>
+                                <option value="5">Headset</option>
+                                <option value="6">Hardphone</option>
+                                <option value="7">Network Device</option>
+                                <option value="8">Printer</option>
+                                <option value="9">Monitor</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+</form>
      <table id="assets" class="display" width="100%" cellspacing="0">
         <thead>
             <tr>
@@ -373,9 +391,6 @@ if(isset($SEARCH)) {
 <?php    }
 }
     ?>
-
-
-
     
 </div>
   
@@ -400,8 +415,7 @@ if(isset($SEARCH)) {
                                 <div id="Modal1" class="tab-pane fade in active"> 
             
             <div class="col-lg-12 col-md-12">
-                
-                                                    <div class="row">
+                <div class="row">
                                         
                                         <div class="col-sm-4">
                                             <div class="form-group">
@@ -409,8 +423,7 @@ if(isset($SEARCH)) {
                                                 <input type="text" name="ASSET_NAME" class="form-control" value="" placeholder="Computer DELL XPS">
                                             </div>
                                         </div>
-    
-                                                        
+               
                              <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Manufacturer</label>
@@ -421,7 +434,6 @@ if(isset($SEARCH)) {
                                     </div>
                 
                 <div class="row">
-                    
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="control-label">Device</label>
@@ -439,6 +451,7 @@ if(isset($SEARCH)) {
                         </div>
                     </div>
                 </div>
+                
             </div>
                                 </div>
                             </div>
@@ -485,8 +498,7 @@ if(isset($SEARCH)) {
           </div>
       </div>
     </div>
-</div>
-     
+</div>  
 
 <script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>

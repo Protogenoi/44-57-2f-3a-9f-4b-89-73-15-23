@@ -72,7 +72,7 @@ include('../includes/adlfunctions.php');
                         if (in_array($hello_name,$Level_8_Access, true)) { ?>
 
 			<li>
-                            <a href="Holidays/Main_Menu.php">
+                            <a href="Holidays/Calendar.php">
 			<span class="ca-icon"><i class="fa fa-plane"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Holidays<br/></h2>

@@ -324,11 +324,6 @@ include('../../classes/database_class.php');
       </div>
     </div>
 </div>  
-    <script type="text/javascript">
-    $(window).load(function(){
-        $('#comp_modal').modal('show');
-    });
-</script> 
 <?php
                
 
@@ -389,6 +384,40 @@ if(isset($SEARCH)) {
     </table>
 
 <?php    }
+
+if($SEARCH=='7') { ?>
+     <h3><span class="label label-info">Network Devices</span></h3>       
+
+     <table id="int_network" class="display" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>IP</th>
+                <th>MAC</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>IP</th>
+                <th>MAC</th>
+                <th>Hostname</th>
+                <th>Manufacturer</th>
+                <th>View</th>
+            </tr>
+        </tfoot>
+    </table>     
+   
+    <?php  
+}
+
 }
     ?>
     
@@ -541,7 +570,45 @@ $(document).ready(function() {
 
 } );
 </script> 
-<?php } } ?>
+<?php } 
+ if($SEARCH=='7') { ?>
+    <script type="text/javascript" language="javascript" >
+ 
+$(document).ready(function() {
+    var table = $('#int_network').DataTable( {
+        "response":true,
+        "processing": true,
+        "iDisplayLength": 25,
+        "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+        "language": {
+            "processing": "<div></div><div></div><div></div><div></div><div></div>"
+        },
+        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=7",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "updated_date" },
+            { "data": "asset_name" },
+            { "data": "ip" },
+            { "data": "mac" },
+            { "data": "hostname" },
+            { "data": "manufactorer" },
+ { "data": "inv_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="?RETURN=SELECTINT_NETWORK&ASSETID=' + data + '"><i class="fa fa-search"></i></a>';
+            } }
+        ]
+    } );
+
+} );
+</script> 
+<?php }
+
+    } ?>
   <?php if(isset($RETURN)) {
       if($RETURN=='SELECTASSET') { ?>
 <div class="modal fade" id="update_modal" role="dialog">
@@ -955,6 +1022,15 @@ $(document).ready(function () {
 <?php           
       }
   }
+if(isset($DEVICE)) { ?>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+    $('#comp_modal').modal('show');
+
+});
+</script> 
+<?php } 
   ?>
 </body>
 </html>

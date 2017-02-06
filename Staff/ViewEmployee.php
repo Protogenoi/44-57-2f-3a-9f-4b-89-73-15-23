@@ -19,6 +19,7 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
 include('../includes/adlfunctions.php');
 
 $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
+$HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,7 +167,7 @@ $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
                     <div class="text-right">
             <?php if(isset($RETURN)) {
                 if($RETURN=='ALREADYBOOKED') { ?>
-                        <a class="btn btn-success" href="php/Employee.php?EXECUTE=7&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-check-o"></i> Authorise Holiday</a> 
+                        <a class="btn btn-success" href="php/Employee.php?EXECUTE=<?php if(isset($HOL_REF)) { echo 7; } else { echo 7; }?>&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-check-o"></i> Authorise Holiday</a> 
             <?php } } ?>
                         <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check-o"></i> Add Holidays</a>                        
                                            
@@ -563,12 +564,14 @@ if ($HOL_QRY->rowCount()>0) { ?>
 	<th>Authorised</th>
 	<th>Dates</th>
 	<th>Reason</th>
+        <th>Options</th>
 	</tr>
 	</thead>
         
         <?php
 while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
     
+    $HOL_QR_ID=$result['hol_id'];
     $HOL_QR_START=$result['start'];
     $HOL_QR_END=$result['end'];
     $HOL_QR_TITLE=$result['title'];
@@ -579,6 +582,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 	echo "<td>$HOL_QR_DATE | $HOL_QR_BY</td>";
 	echo "<td><i class='fa fa-calendar-o'></i> $HOL_QR_START - $HOL_QR_END</td>";        
 	echo "<td><strong>$HOL_QR_TITLE</b></td>"; 
+        echo "<td><a href='?RETURN=EDITMODAL&&REF=$REF&HOL_START=$HOL_QR_START&HOL_END=$HOL_QR_END&HOL_REASON=$HOL_QR_TITLE&HOL_REF=$HOL_QR_ID' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>"; 
         echo "</tr>";
     
 } ?>
@@ -1336,7 +1340,104 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
       </div>
     </div>
 </div> 
-    
+  <?php if(isset($RETURN)) {
+      if($RETURN=='EDITMODAL') { ?>
+ <div class="modal fade" id="EditBook" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Change a Holiday for <?php echo $NAME;?></h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#Modal6">Change a Holiday</a></li>
+                    </ul>
+                </div>
+            
+            <div class="panel">
+                        <div class="panel-body">
+                            <form class="form" action="php/Employee.php?EXECUTE=8&HOLREF=<?php echo $HOL_REF;?>&REF=<?php echo $REF; ?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>" method="POST" id="EditHOL">
+                            <div class="tab-content">
+                                <div id="Modal6" class="tab-pane fade in active"> 
+            
+            <div class="col-lg-12 col-md-12">
+                
+                                                    <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Start Date</label>
+                                                <input type="text" name="HOL_START" id="HOL_START" class="form-control" value="<?php if(isset($HOL_START)) { echo $HOL_START; } ?>" required="">
+                                            </div>
+                                        </div>
+                                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">End Date</label>
+                                                <input type="text" name="HOL_END" id="HOL_END" class="form-control" value="<?php if(isset($HOL_END)) { echo $HOL_END; } ?>" required="">
+                                            </div>
+                                        </div>  
+                                                        
+                                               
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Reason for Holiday</label>
+                                <textarea name="HOL_REASON" class="form-control" rows="5"><?php if(isset($HOL_REASON)) { echo $HOL_REASON; } ?></textarea>
+                            </div> 
+                        </div>
+                                                    
+                                                    </div>
+            </div>
+                                </div>
+
+
+                        </div>
+            </div>
+        </div>
+          
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Edit Booked Holiday</button>
+<script>
+        document.querySelector('#EditHOL').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Edit booked holiday?",
+                text: "Confirm to edit holiday request!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Holiday booked!',
+                        text: 'Calendar updated!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+          </form>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          </div>
+      </div>
+    </div>
+</div>    
+    <?php } } ?> 
  <div class="modal fade" id="BookModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -1351,7 +1452,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                         <li><a data-toggle="pill" href="#Modal5">Booked Holidays</a></li>
                     </ul>
                 </div>
-            
+                       
             <div class="panel">
                         <div class="panel-body">
                             <form class="form" action="php/Employee.php?EXECUTE=6&REF=<?php echo $REF; ?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>" method="POST" id="HOLform">
@@ -1440,7 +1541,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
           </div>
       </div>
     </div>
-</div>      
+</div>        
     <?php } ?>
     
 <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>  
@@ -1491,5 +1592,19 @@ $(document).ready(function() {
         });
   });
   </script>
+  <?php if(isset($RETURN)) {
+      if($RETURN=='EDITMODAL') { ?>
+
+        <script type="text/javascript">
+$(document).ready(function () {
+
+    $('#EditBook').modal('show');
+
+});
+</script> 
+<?php           
+      }
+  }
+  ?>
 </body>
 </html>

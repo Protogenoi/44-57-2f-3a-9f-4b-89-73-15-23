@@ -17,7 +17,7 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($EXECUTE)) {
-    
+    $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
     $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
     include('../../classes/database_class.php');
     
@@ -297,7 +297,7 @@ if(isset($EXECUTE)) {
     $database = new Database();
     $database->beginTransaction();
         
-    $change="Days booked $HOL_START - $HOL_END ($HOL_REASON)";
+    $change="Days re-booked $HOL_START - $HOL_END ($HOL_REASON)";
             
             $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
@@ -307,8 +307,71 @@ if(isset($EXECUTE)) {
 
     $HOL_REASON_NAME="$NAME ($HOL_REASON)";        
             
+    if(isset($HOL_REF)) {
+
+            $database->query("UPDATE employee_holidays set updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':HOL',$HOL_REF);
+            $database->bind(':title',$HOL_REASON_NAME);
+            $database->bind(':start',$HOL_START);    
+            $database->bind(':end',$HOL_END); 
+            $database->bind(':who',$hello_name);
+            $database->execute();          
+        
+    }
+    
+    else {
+    
             $database->query("INSERT INTO employee_holidays set added_by=:who, start=:start, end=:end, title=:title, employee_id=:REF");
             $database->bind(':REF',$REF);
+            $database->bind(':title',$HOL_REASON_NAME);
+            $database->bind(':start',$HOL_START);    
+            $database->bind(':end',$HOL_END); 
+            $database->bind(':who',$hello_name);
+            $database->execute();             
+    }
+            $database->endTransaction();
+            
+           header('Location: ../ViewEmployee.php?RETURN=HOLBOOKED&REF='.$REF); die;
+    
+    }      
+
+         if($EXECUTE=='8') {
+
+    $HOL_START= filter_input(INPUT_POST, 'HOL_START', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $HOL_END= filter_input(INPUT_POST, 'HOL_END', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $HOL_REASON= filter_input(INPUT_POST, 'HOL_REASON', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $NAME= filter_input(INPUT_GET, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $database = new Database();
+    $database->beginTransaction();
+    
+            $database->query("SELECT hol_id from employee_holidays WHERE start between :start AND :end");
+            $database->bind(':start',$HOL_START);    
+            $database->bind(':end',$HOL_END); 
+            $database->execute(); 
+            
+             if ($database->rowCount()>=1) {
+                
+            $database->endTransaction();
+            
+            header('Location: ../ViewEmployee.php?RETURN=ALREADYBOOKED&REF='.$REF.'&HOL_REF='.$HOL_REF.'&HOL_START='.$HOL_START.'&HOL_END='.$HOL_END.'&HOL_REASON='.$HOL_REASON.'#Menu5'); die;   
+                
+            }
+    
+    $change="Days booked $HOL_START - $HOL_END ($HOL_REASON)";
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$change);              
+            $database->execute();
+
+    $HOL_REASON_NAME="$NAME ($HOL_REASON)";        
+            
+            $database->query("UPDATE employee_holidays set updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':HOL',$HOL_REF);
             $database->bind(':title',$HOL_REASON_NAME);
             $database->bind(':start',$HOL_START);    
             $database->bind(':end',$HOL_END); 
@@ -319,7 +382,7 @@ if(isset($EXECUTE)) {
             
            header('Location: ../ViewEmployee.php?RETURN=HOLBOOKED&REF='.$REF); die;
     
-    }      
+    }  
     
     
 }

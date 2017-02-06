@@ -480,34 +480,6 @@ if($SEARCH=='3') { ?>
     <?php  
 }
 
-if($SEARCH=='3') { ?>
-     <h3><span class="label label-info">Keyboards</span></h3>       
-     <br>
-     <table id="int_keyboards" class="display" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Date</th>
-                <th>Asset</th>
-                <th>Connection</th>
-                <th>Manufacturer</th>
-                <th>View</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Date</th>
-                <th>Asset</th>
-                <th>Connection</th>
-                <th>Manufacturer</th>
-                <th>View</th>
-            </tr>
-        </tfoot>
-    </table>     
-   
-    <?php  
-}
 
 if($SEARCH=='4') { ?>
      <h3><span class="label label-info">Mice</span></h3>       

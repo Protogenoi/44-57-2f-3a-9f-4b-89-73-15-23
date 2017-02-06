@@ -64,19 +64,15 @@
                    
                } 
                
-              
-               
                ?>
 
             <ul class="nav navbar-nav navbar-right">
-
-
                 
                 <li><a href="/calendar/calendar.php"> <i class="fa fa-phone"></i> Callbacks <span class="badge alert-success"><?php echo "Total $Callbkresult[badge]"?></span> <span class="badge <?php if($queryresult['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php echo "Active $queryresult[badge]";?></span></a></li>
                     
                     <?php if($fflife=='1') { ?>
                 
-                <li><a href="/Life/Reports/Tasks.php"><i class="fa fa-user"></i>  <?php echo $hello_name?> Tasks <span class="badge alert-success"><?php echo "Today $navbarresult[badge]";?> </span> <span class="badge <?php if($navbarresult2['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php echo "Expired $navbarresult2[badge]";?> </span> </a></li>
+                <li><a href="/Life/Reports/Tasks.php"><i class="fa fa-list-ul"></i> Tasks <span class="badge alert-success"><?php echo "Today $navbarresult[badge]";?> </span> <span class="badge <?php if($navbarresult2['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php echo "Expired $navbarresult2[badge]";?> </span> </a></li>
                     
                     <?php } if($ffpensions=='1') { ?>
                 

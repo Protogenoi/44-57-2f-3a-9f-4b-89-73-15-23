@@ -542,5 +542,419 @@ $(document).ready(function() {
 } );
 </script> 
 <?php } } ?>
+  <?php if(isset($RETURN)) {
+      if($RETURN=='SELECTASSET') { ?>
+<div class="modal fade" id="update_modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Update asset details</h4>
+        </div>
+        <div class="modal-body">
+
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#Modal1">Update Item</a></li>
+                    </ul>
+                </div>
+            
+            <?php
+
+     $database = new Database(); 
+ 
+                $database->query("SELECT asset_name, manufactorer, added_by, updated_by, updated_date, added_date, device, fault, fault_reason FROM inventory WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data2=$database->single();            
+            
+                $EDIT_ASSET_NAME=$data2['asset_name'];
+                $EDIT_ASSET_MAN=$data2['manufactorer'];
+                $EDIT_ASSET_WHO=$data2['added_by'];
+                $EDIT_ASSET_UPWHO=$data2['updated_by'];
+                $EDIT_ASSET_DATE=$data2['added_date'];
+                $EDIT_ASSET_UPDATE=$data2['updated_date'];
+                $EDIT_ASSET_DEVICE=$data2['device'];
+                $EDIT_ASSET_FAULT=$data2['fault'];
+                $EDIT_ASSET_REASON=$data2['reason'];
+                $EDIT_ASSET_FAULT_NOTES=$data2['fault_reason'];
+  
+                
+            ?>
+            
+            <div class="panel">
+                <div class="panel-body">
+                            
+                            <?php
+                            
+                            switch ($EDIT_ASSET_DEVICE) {
+                            case "Computer";
+                                $EXECUTE_ID=2;
+                                break;
+                            case "Keyboard";
+                                $EXECUTE_ID=3;
+                                break;
+                            case "Mouse";
+                                $EXECUTE_ID=4;
+                                break;
+                            case "Headset";
+                                $EXECUTE_ID=5;
+                                break;
+                            case "Hardphone";
+                                $EXECUTE_ID=6;
+                                break;
+                            case "Network Device";
+                                $EXECUTE_ID=7;
+                                break;
+                            case "Printer";
+                                $EXECUTE_ID=8 ;
+                                break;
+                            case "Monitor";
+                                $EXECUTE_ID=9 ;
+                                break;
+                            default:
+                                $EXECUTE_ID=0;
+                                
+                            }
+                            
+                            if(isset($EXECUTE_ID)) {
+                                if($EXECUTE_ID=='2') {
+                $database->query("SELECT os, mac, hostname, ram, notes FROM inventory WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single();  
+                
+                $EDIT_ASSET_OS=$data3['os'];
+                $EDIT_ASSET_MAC=$data3['mac'];
+                $EDIT_ASSET_HOST=$data3['hostname'];
+                $EDIT_ASSET_RAM=$data3['ram'];
+                $EDIT_ASSET_NOTES=$data3['notes'];
+                                }
+                                if($EXECUTE_ID=='3') {
+                $database->query("SELECT connection_type, notes FROM int_keyboards WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_CON=$data3['connection_type'];
+                $EDIT_ASSET_NOTES=$data3['notes'];
+                                }
+                                if($EXECUTE_ID=='4') {
+                $database->query("SELECT connection_type, notes FROM int_mice WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_CON=$data3['connection_type'];
+                $EDIT_ASSET_NOTES=$data3['notes'];                                    
+                                }
+                                if($EXECUTE_ID=='5') {
+                $database->query("SELECT notes FROM int_headsets WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_NOTES=$data3['notes'];                                     
+                                }
+                                if($EXECUTE_ID=='6') {
+        $database->query("SELECT mac, notes FROM int_phones WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_NOTES=$data3['notes'];  
+                $EDIT_ASSET_MAC=$data3['mac'];
+                                }
+                                if($EXECUTE_ID=='7') {
+        $database->query("SELECT mac, notes, ip, hostname FROM int_network WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_IP=$data3['ip'];
+                $EDIT_ASSET_HOST=$data3['hostname'];
+                $EDIT_ASSET_NOTES=$data3['notes'];  
+                $EDIT_ASSET_MAC=$data3['mac'];                                  
+                                }
+                                if($EXECUTE_ID=='8') {
+        $database->query("SELECT mac, notes, ip, hostname FROM int_printers WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_IP=$data3['ip'];
+                $EDIT_ASSET_HOST=$data3['hostname'];
+                $EDIT_ASSET_NOTES=$data3['notes'];  
+                $EDIT_ASSET_MAC=$data3['mac'];                                      
+                                }
+                                if($EXECUTE_ID=='9') {
+                $database->query("SELECT notes FROM int_monitors WHERE inv_id=:REF");
+                $database->bind(':REF', $ASSETID);
+                $database->execute();
+                $data3=$database->single(); 
+                
+                $EDIT_ASSET_NOTES=$data3['notes'];                                     
+                                }
+
+                            }
+                            
+                            
+                            ?>
+                            
+                            <form class="form" action="../php/Assets.php?EXECUTE=<?php echo $EXECUTE_ID; ?>&ASSETID=<?php echo $ASSETID; ?>" method="POST" id="UPDATEASSETform">
+                            
+                                <div class="tab-content">
+                                <div id="Modal1" class="tab-pane fade in active"> 
+            
+            <div class="col-lg-12 col-md-12">
+                
+                       
+                <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Asset Name</label>
+                                                <input type="text" name="ASSET_NAME" class="form-control" value="<?php if(isset($EDIT_ASSET_NAME)) { echo $EDIT_ASSET_NAME; }?>" placeholder="Computer DELL XPS">
+                                            </div>
+                                        </div>
+               
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Manufacturer</label>
+                                                <input type="text" name="MANUFACTURER" class="form-control" value="<?php if(isset($EDIT_ASSET_MAN)) { echo $EDIT_ASSET_MAN; }?>" placeholder="Dell/Intel">
+                                            </div>
+                                        </div>                                              
+                                    
+                                    </div>
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Device</label>
+                            <select name="DEVICE" class="form-control">
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Computer') { echo "selected"; } }?> value="Computer">Computer</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Keyboard') { echo "selected"; } }?>value="Keyboard">Keyboard</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Mouse') { echo "selected"; } }?> value="Mouse">Mouse</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Headset') { echo "selected"; } }?> value="Headset">Headset</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Hardphone') { echo "selected"; } }?> value="Hardphone">Hardphone</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Network Device') { echo "selected"; } }?> value="Network Device">Network Device</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Printer') { echo "selected"; } }?> value="Printer">Printer</option>
+                                <option <?php if(isset($EDIT_ASSET_DEVICE)) { if($EDIT_ASSET_DEVICE=='Monitor') { echo "selected"; } }?> value="Monitor">Monitor</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+         
+                
+                                                    <div class="row">
+                 <?php if($EDIT_ASSET_DEVICE=='Computer') { ?>                       
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">OS</label>
+                                                <input type="text" name="OS" class="form-control" value="<?php if(isset($EDIT_ASSET_OS)) { echo $EDIT_ASSET_OS; }?>" placeholder="Windows/Linux/MAC">
+                                            </div>
+                                        </div>
+    
+                                                        
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">MAC</label>
+                                                <input type="text" name="MAC" class="form-control" value="<?php if(isset($EDIT_ASSET_MAC)) { echo $EDIT_ASSET_MAC; }?>" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>  
+                                                        
+                                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">RAM</label>
+                                                <input type="text" name="RAM" class="form-control" value="<?php if(isset($EDIT_ASSET_RAM)) { echo $EDIT_ASSET_RAM; }?>" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>
+                                                        
+                                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Hostname</label>
+                                                <input type="text" name="HOSTNAME" class="form-control" value="<?php if(isset($EDIT_ASSET_HOST)) { echo $EDIT_ASSET_HOST; }?>" placeholder="BIOS Name">
+                                            </div>
+                                        </div>
+                                                        
+                                                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"><?php if(isset($EDIT_ASSET_NOTES)) { echo $EDIT_ASSET_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div>      
+                                 <?php }
+                                 
+                                 if($EDIT_ASSET_DEVICE=='Keyboard' || $EDIT_ASSET_DEVICE=='Mouse') { ?>   
+                                                    <div class="row">    
+                                                    <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Connection Type</label>
+                                                <select name="CONNECTION" class="form-control" required>       
+                                                    <option <?php if(isset($EDIT_ASSET_CON)) { if($EDIT_ASSET_CON=='USB') { echo "selected"; } }?> value="USB">USB</option>
+                                                    <option <?php if(isset($EDIT_ASSET_CON)) { if($EDIT_ASSET_CON=='Serial') { echo "selected"; } }?> value="Serial">Serial</option>
+                                                </select>
+                                            </div>
+                                        </div>       
+                                                    </div>             
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"><?php if(isset($EDIT_ASSET_NOTES)) { echo $EDIT_ASSET_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php }   if($EDIT_ASSET_DEVICE=='Headset' || $EDIT_ASSET_DEVICE=='Monitor') { ?>   
+                                      
+            
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"><?php if(isset($EDIT_ASSET_NOTES)) { echo $EDIT_ASSET_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php } if($EDIT_ASSET_DEVICE=='Hardphone')  { ?>   
+                              
+                                                        <div class="row">
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">MAC</label>
+                                                <input type="text" name="MAC" class="form-control" value="<?php if(isset($EDIT_ASSET_MAC)) { echo $EDIT_ASSET_MAC; }?>" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>
+                                                        </div>
+                                                        
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details (condition/fault reason)"><?php if(isset($EDIT_ASSET_NOTES)) { echo $EDIT_ASSET_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div>                                                           
+                    
+                                 <?php } if($EDIT_ASSET_DEVICE=='Network Device' || $EDIT_ASSET_DEVICE=='Printer') { ?>                       
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">IP</label>
+                                                <input type="text" name="IP" class="form-control" value="<?php if(isset($EDIT_ASSET_IP)) { echo $EDIT_ASSET_IP; }?>" placeholder="192.168.1.1">
+                                            </div>
+                                        </div>
+    
+                                                        
+                             <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">MAC</label>
+                                                <input type="text" name="MAC" class="form-control" value="<?php if(isset($EDIT_ASSET_MAC)) { echo $EDIT_ASSET_MAC; }?>" placeholder="Ethernet Address">
+                                            </div>
+                                        </div>  
+                                                                                                                
+                                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Hostname</label>
+                                                <input type="text" name="HOSTNAME" class="form-control" value="<?php if(isset($EDIT_ASSET_HOST)) { echo $EDIT_ASSET_HOST; }?>" placeholder="Hostname">
+                                            </div>
+                                        </div>
+                                                        
+                                                        <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="NOTES" class="form-control" rows="5" placeholder="Any other details"><?php if(isset($EDIT_ASSET_NOTES)) { echo $EDIT_ASSET_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div>      
+                                 <?php } ?> 
+
+                                                    <div class="row">    
+                                                    <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Device Faulty?</label>
+                                                <select name="FAULT" class="form-control" required>       
+                                                    <option <?php if(isset($EDIT_ASSET_FAULT)) { if($EDIT_ASSET_FAULT=='0') { echo "selected"; } }?> value="0">No</option>
+                                                    <option <?php if(isset($EDIT_ASSET_FAULT)) { if($EDIT_ASSET_FAULT=='1') { echo "selected"; } }?> value="1">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>       
+                                                    </div>   
+                                                                                                                <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">Notes</label>
+                                <textarea name="FAULT_REASON" class="form-control" rows="5" placeholder="Description of fault"><?php if(isset($EDIT_ASSET_FAULT_NOTES)) { echo $EDIT_ASSET_FAULT_NOTES; }?></textarea>
+                            </div> 
+                        </div>
+                    </div> 
+                                                        
+                                    </div>
+               </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+        </div>
+          
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+                  
+<script>
+        document.querySelector('#UPDATEASSETform').addEventListener('submit', function(e) {
+            var form = this;
+            e.preventDefault();
+            swal({
+                title: "Update Asset details?",
+                text: "Confirm to update asset details!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yes, I am sure!',
+                cancelButtonText: "No, cancel it!",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    swal({
+                        title: 'Asset updated!',
+                        text: 'Asset details Updated!',
+                        type: 'success'
+                    }, function() {
+                        form.submit();
+                    });
+                    
+                } else {
+                    swal("Cancelled", "No changes were made", "error");
+                }
+            });
+        });
+
+</script>
+          </form>
+                            
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+          </div>
+      </div>
+    </div>
+</div> 
+        <script type="text/javascript">
+$(document).ready(function () {
+
+    $('#update_modal').modal('show');
+
+});
+</script> 
+<?php           
+      }
+  }
+  ?>
 </body>
 </html>

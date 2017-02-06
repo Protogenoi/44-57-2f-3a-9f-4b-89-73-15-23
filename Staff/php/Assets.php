@@ -20,6 +20,8 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 if(isset($EXECUTE)) {
     
     $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
+        $FAULT= filter_input(INPUT_POST, 'FAULT', FILTER_SANITIZE_SPECIAL_CHARS);  
+    $FAULT_REASON= filter_input(INPUT_POST, 'FAULT_REASON', FILTER_SANITIZE_SPECIAL_CHARS);  
     include('../../classes/database_class.php');
     
     if($EXECUTE=='1') {
@@ -42,7 +44,7 @@ if(isset($EXECUTE)) {
             $changereason="Added asset ($ASSET_NAME) to inventory";
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -66,10 +68,44 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+            if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
+            
+            }
+            
+            $database->query("Select inv_id FROM inventory WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_computers set mac=:mac, os=:os, ram=:ram, hostname=:hostname, notes=:notes WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->bind(':os',$OS);
+            $database->bind(':ram',$RAM);
+            $database->bind(':hostname',$HOSTNAME);
+            $database->execute();                 
+            $changereason="Asset details updated ($ASSETID)";  
+            }
+            
+            else {
+
             
             $database->query("INSERT INTO int_computers set mac=:mac, os=:os, ram=:ram, hostname=:hostname, notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
@@ -81,9 +117,11 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -103,11 +141,42 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+             if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }           
+            
+            else { 
+                
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
             
+            }
+            
+            $database->query("Select inv_id FROM int_keyboards WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_keyboards set connection_type=:conn, notes=:notes WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':conn',$CONNECTION);
+            $database->execute();                 
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }            
+            
+            else {
+                
             $database->query("INSERT INTO int_keyboards set connection_type=:conn, notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':notes',$NOTES);
@@ -115,9 +184,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -137,11 +209,42 @@ if(isset($EXECUTE)) {
 
             $database = new Database();
             $database->beginTransaction();
+           
+             if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }           
+            
+            else {
             
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
+
+            }
+            
+            $database->query("Select inv_id FROM int_mice WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_mice set connection_type=:conn, notes=:notes WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':conn',$CONNECTION);
+            $database->execute();                
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }   
+            
+            else {
             
             $database->query("INSERT INTO int_mice set connection_type=:conn, notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
@@ -150,9 +253,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -172,20 +278,53 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+             if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }           
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
             
+            }
+            
+            $database->query("Select inv_id FROM int_headsets WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_headsets set notes=:notes WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->execute();                
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }              
+            
+            else {
+                
             $database->query("INSERT INTO int_headsets set notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':notes',$NOTES);
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -206,11 +345,42 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+            if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
             
+            }
+            
+            $database->query("Select inv_id FROM int_phones WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_phones set notes=:notes, mac=:mac WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->execute();               
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }              
+            
+            else {
+                
             $database->query("INSERT INTO int_phones set notes=:notes, mac=:mac, inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':notes',$NOTES);
@@ -218,9 +388,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -243,10 +416,43 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+             if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }           
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
+            
+            }
+            
+            $database->query("Select inv_id FROM int_network WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_network set ip=:ip, hostname=:host, notes=:notes, mac=:mac WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->bind(':host',$HOSTNAME);
+            $database->bind(':ip',$IP);
+            $database->execute();            
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }             
+            
+            else {
             
             $database->query("INSERT INTO int_network set ip=:ip, hostname=:host, notes=:notes, mac=:mac, inv_id=:id ");
             $database->bind(':id',$ASSETID);
@@ -257,9 +463,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -282,10 +491,43 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+            if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }            
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
+            
+            }
+            
+            $database->query("Select inv_id FROM int_printers WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_printers set ip=:ip, hostname=:host, notes=:notes, mac=:mac WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->bind(':mac',$MAC);
+            $database->bind(':host',$HOSTNAME);
+            $database->bind(':ip',$IP);
+            $database->execute();            
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }  
+            
+            else {
             
             $database->query("INSERT INTO int_printers set ip=:ip, hostname=:host, notes=:notes, mac=:mac, inv_id=:id ");
             $database->bind(':id',$ASSETID);
@@ -296,9 +538,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -318,10 +563,40 @@ if(isset($EXECUTE)) {
             $database = new Database();
             $database->beginTransaction();
             
+            if(isset($FAULT)) {
+                if($FAULT=='1') {
+            $database->query("UPDATE inventory set updated_by=:hello, fault=:fault, fault_reason=:reason WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':fault',$FAULT);
+            $database->bind(':reason',$FAULT_REASON);
+            $database->bind(':hello',$hello_name);
+            $database->execute();        
+                }
+            }            
+            
+            else {
+            
             $database->query("UPDATE inventory set updated_by=:hello WHERE inv_id=:id ");
             $database->bind(':id',$ASSETID);
             $database->bind(':hello',$hello_name);
             $database->execute();
+            
+            }
+            
+            $database->query("Select inv_id FROM int_monitors WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->execute(); 
+            if ($database->rowCount()>=1) {
+            
+            $database->query("UPDATE int_monitors set notes=:notes WHERE inv_id=:id ");
+            $database->bind(':id',$ASSETID);
+            $database->bind(':notes',$NOTES);
+            $database->execute();            
+            $changereason="Asset details updated ($ASSETID)";  
+            
+            }             
+            
+            else {
             
             $database->query("INSERT INTO int_monitors set notes=:notes, inv_id=:id ");
             $database->bind(':id',$ASSETID);
@@ -329,9 +604,12 @@ if(isset($EXECUTE)) {
             $database->execute(); 
     
             $changereason="Asset details added ($ASSETID)";
+            
+            }
+            
             $REF='1';
             
-            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Inventory Updated', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 

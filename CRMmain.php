@@ -73,7 +73,19 @@ body { height: 100% }
     
 ?> 
     
+    <div class="col-md-4">
+               <div class="notice notice-info" role="alert"><strong> You are logged in as <?php if(isset($hello_name)) { echo $hello_name; }?>.</strong></div><br>   
+
+    </div>
+       <div class="col-md-4">
+    </div>
+           <div class="col-md-4">
+    </div>
+    
 <div class="container">
+    
+
+    
     <?php 
     
     if($ffdialler=='0') { 
@@ -184,6 +196,18 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</a>
 			</li>
                         <?php } ?>
+                        
+                                            <?php  if (in_array($hello_name,$Level_10_Access, true)) { ?>
+                    <li>
+                        <a href="Staff/Main_Menu.php">
+			<span class="ca-icon"><i class="fa fa-database"></i></span>
+			<div class="ca-content">
+				<h2 class="ca-main">Employee<br/> Database</h2>
+				<h3 class="ca-sub"></h3>
+			</div>
+			</a>
+			</li>
+                    <?php } ?>
 
                         
 		</ul>

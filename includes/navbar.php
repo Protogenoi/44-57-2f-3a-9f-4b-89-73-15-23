@@ -37,17 +37,17 @@ $companynamere=$companydetailsq['company_name'];
 
 if($companynamere=='The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton");
-    $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Nathan","Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith","Renee","Victoria");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Roxy","Jakob","Nicola","Tina",'Heidy','Georgia','Amy',"Nathan","Mike","Matthew","Keith","Renee","Victoria");
-    $Task_Access = array("Michael", "Jakob", "Nicola","Nathan");
+    $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
+    $Task_Access = array("Michael", "Jakob", "Nicola");
 }
 
 if($companynamere=='Assura') {
     $Level_10_Access = array("Michael");
-    $Level_8_Access = array("Michael", "Tina","Nathan","Charles");
-    $Level_3_Access = array("Michael", "Tina","Nathan","Charles");
-    $Level_1_Access = array("Michael", "Tina","Nathan","Charles");
+    $Level_8_Access = array("Michael", "Tina","Charles");
+    $Level_3_Access = array("Michael", "Tina","Charles");
+    $Level_1_Access = array("Michael", "Tina","Charles");
     
 }
 

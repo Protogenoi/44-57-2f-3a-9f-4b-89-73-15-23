@@ -116,9 +116,6 @@ if($companynamere=='HWIFS') {
                         <li><a href="/email/emailinbox.php">Email Inbox</a></li>
                             
                             <?php } ?>
-<?php if (in_array($hello_name,$Level_10_Access, true)) { ?>
-            <li><a href="/Staff/Main_Menu.php">Staff Database</a></li>            
-<?php } ?>
                     </ul>
                 </li>
                     
@@ -144,11 +141,15 @@ if($companynamere=='HWIFS') {
                     
                     <?php } 
                     
-                    if($hello_name == 'Michael') { ?>
+                    if (in_array($hello_name,$Level_10_Access, true)) { ?>
                 
                 <li class='dropdown'>
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                     <ul role='menu' class='dropdown-menu'>
+                        <li><a href="/Staff/Main_Menu.php">Staff Database</a></li> 
+                        <li><a href="/Staff/Search.php">Search Database</a></li> 
+                        <li><a href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
+                        <li><a href="/Staff/Reports/RAG.php">RAG</a></li> 
                         <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                         <li><a href='/admin/users.php'>User Accounts</a></li>
                     </ul>  

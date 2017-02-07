@@ -206,11 +206,11 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                         
                                         <?php
                                         
-                                       # $APP_COUNT = $pdo->prepare("select count(id) AS count from appointments WHERE client_id=:REF AND status NOT IN ('Complete','No Show')");
-                                        #$APP_COUNT->bindParam(':REF', $REF, PDO::PARAM_INT);
-                                        #$APP_COUNT->execute()or die(print_r($APP_COUNT->errorInfo(), true));
-                                        #$result=$APP_COUNT->fetch(PDO::FETCH_ASSOC);
-                                        #$APP_COUNT_RESULT=$result['count'];
+                                        $HOLS_COUNT_QRY = $pdo->prepare("select SUM(days) AS count from employee_holidays WHERE employee_id=:REF");
+                                        $HOLS_COUNT_QRY->bindParam(':REF', $REF, PDO::PARAM_INT);
+                                        $HOLS_COUNT_QRY->execute()or die(print_r($APP_COUNT->errorInfo(), true));
+                                        $result=$HOLS_COUNT_QRY->fetch(PDO::FETCH_ASSOC);
+                                        $HOL_COUNT=$result['count'];
                                         
                                         ?>
                                         
@@ -218,7 +218,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <div class='panel panel-default m-b-10 b-regular sm-m-'>
                                                 <div class='panel-body p-b-10 p-t-10 appbox'>
                                                     <div class='text-center'>
-                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT_RESULT)) { echo $APP_COUNT_RESULT; } else { echo "£0.00"; }?></h3>
+                                                        <h3 class='bold text-white no-margin'><?php if(isset($HOL_COUNT)) { echo $HOL_COUNT; } else { echo "0"; }?></h3>
                                                         <div class='m-t-10 text-white sm-m-b-5'>Holidays</div>
                                                             
                                                     </div>
@@ -1417,8 +1417,8 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
             function(isConfirm) {
                 if (isConfirm) {
                     swal({
-                        title: 'Holiday booked!',
-                        text: 'Calendar updated!',
+                        title: 'Checking availability!',
+                        text: 'Checking Calendar!',
                         type: 'success'
                     }, function() {
                         form.submit();
@@ -1522,8 +1522,8 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
             function(isConfirm) {
                 if (isConfirm) {
                     swal({
-                        title: 'Holiday booked!',
-                        text: 'Calendar updated!',
+                        title: 'Checking availability!',
+                        text: 'Checking Calendar!',
                         type: 'success'
                     }, function() {
                         form.submit();

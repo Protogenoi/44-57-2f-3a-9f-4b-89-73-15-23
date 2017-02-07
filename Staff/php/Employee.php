@@ -93,7 +93,7 @@ if(isset($EXECUTE)) {
             
             $changereason="Employee details updated ($change)";
             
-            $database->query("INSERT INTO employee_timeline set note_type='Employee Edited', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Employee Edited', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -175,7 +175,7 @@ if(isset($EXECUTE)) {
             $database->bind(':medical',$medical);         
             $database->execute(); 
             
-            $database->query("INSERT INTO employee_timeline set note_type='Employee Added', message='Employee details added', added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Employee Added', message='Employee details added', added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$lastid);
             $database->bind(':hello',$hello_name);         
             $database->execute(); 
@@ -202,7 +202,7 @@ if(isset($EXECUTE)) {
     
     $changereason="$finish_date - Employee no longer working at the company ($change)";
             
-            $database->query("INSERT INTO employee_timeline set note_type='Employee Left', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Employee Left', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$changereason); 
@@ -228,7 +228,7 @@ if(isset($EXECUTE)) {
     $database->bind(':hello',$hello_name);
     $database->execute();
             
-            $database->query("INSERT INTO employee_timeline set note_type='Note Added', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+            $database->query("INSERT INTO employee_timeline set note_type='Note Added', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$change); 
@@ -262,22 +262,37 @@ if(isset($EXECUTE)) {
             header('Location: ../ViewEmployee.php?RETURN=ALREADYBOOKED&REF='.$REF.'&HOL_START='.$HOL_START.'&HOL_END='.$HOL_END.'&HOL_REASON='.$HOL_REASON.'#Menu5'); die;   
                 
             }
-    
-    $change="Days booked $HOL_START - $HOL_END ($HOL_REASON)";
             
-            $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+$date1 = new DateTime($HOL_START);
+$date2 = new DateTime($HOL_END);
+
+$HOL_DAYS = $date2->diff($date1)->format("%a")+1; 
+
+if($HOL_DAYS>1) {
+    $DAYS="days";
+}
+else {
+    $DAYS="day";
+}
+
+    $change="Days booked $HOL_START - $HOL_END ($HOL_DAYS $DAYS | $HOL_REASON)";
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$change);              
             $database->execute();
 
+
+
     $HOL_REASON_NAME="$NAME ($HOL_REASON)";        
             
-            $database->query("INSERT INTO employee_holidays set added_by=:who, start=:start, end=:end, title=:title, employee_id=:REF");
+            $database->query("INSERT INTO employee_holidays set days=:days, added_by=:who, start=:start, end=:end, title=:title, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':title',$HOL_REASON_NAME);
             $database->bind(':start',$HOL_START);    
             $database->bind(':end',$HOL_END); 
+            $database->bind(':days',$HOL_DAYS);
             $database->bind(':who',$hello_name);
             $database->execute();             
             
@@ -296,8 +311,20 @@ if(isset($EXECUTE)) {
 
     $database = new Database();
     $database->beginTransaction();
+    
+$date1 = new DateTime($HOL_START);
+$date2 = new DateTime($HOL_END);
+
+$HOL_DAYS = $date2->diff($date1)->format("%a")+1; 
+
+if($HOL_DAYS>1) {
+    $DAYS="days";
+}
+else {
+    $DAYS="day";
+}
         
-    $change="Days re-booked $HOL_START - $HOL_END ($HOL_REASON)";
+    $change="Days re-booked $HOL_START - $HOL_END ($HOL_DAYS $DAYS | $HOL_REASON)";
             
             $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
@@ -305,12 +332,13 @@ if(isset($EXECUTE)) {
             $database->bind(':change',$change);              
             $database->execute();
 
-    $HOL_REASON_NAME="$NAME ($HOL_REASON)";        
+    $HOL_REASON_NAME="$NAME ($HOL_DAYS day(s) | $HOL_REASON)";        
             
     if(isset($HOL_REF)) {
 
-            $database->query("UPDATE employee_holidays set updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
+            $database->query("UPDATE employee_holidays set days=:days, updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
             $database->bind(':REF',$REF);
+            $database->bind(':days',$HOL_DAYS);
             $database->bind(':HOL',$HOL_REF);
             $database->bind(':title',$HOL_REASON_NAME);
             $database->bind(':start',$HOL_START);    
@@ -322,8 +350,9 @@ if(isset($EXECUTE)) {
     
     else {
     
-            $database->query("INSERT INTO employee_holidays set added_by=:who, start=:start, end=:end, title=:title, employee_id=:REF");
+            $database->query("INSERT INTO employee_holidays set days=:days, added_by=:who, start=:start, end=:end, title=:title, employee_id=:REF");
             $database->bind(':REF',$REF);
+            $database->bind(':days',$HOL_DAYS);
             $database->bind(':title',$HOL_REASON_NAME);
             $database->bind(':start',$HOL_START);    
             $database->bind(':end',$HOL_END); 
@@ -358,10 +387,22 @@ if(isset($EXECUTE)) {
             header('Location: ../ViewEmployee.php?RETURN=ALREADYBOOKED&REF='.$REF.'&HOL_REF='.$HOL_REF.'&HOL_START='.$HOL_START.'&HOL_END='.$HOL_END.'&HOL_REASON='.$HOL_REASON.'#Menu5'); die;   
                 
             }
-    
-    $change="Days booked $HOL_START - $HOL_END ($HOL_REASON)";
             
-            $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, added_date=CURDATE() , employee_id=:REF");
+$date1 = new DateTime($HOL_START);
+$date2 = new DateTime($HOL_END);
+
+$HOL_DAYS = $date2->diff($date1)->format("%a")+1;  
+
+if($HOL_DAYS>1) {
+    $DAYS="days";
+}
+else {
+    $DAYS="day";
+}
+    
+    $change="Days booked $HOL_START - $HOL_END ($HOL_DAYS $DAYS | $HOL_REASON)";
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Holiday Booked', message=:change, added_by=:hello, employee_id=:REF");
             $database->bind(':REF',$REF);
             $database->bind(':hello',$hello_name);    
             $database->bind(':change',$change);              
@@ -369,8 +410,9 @@ if(isset($EXECUTE)) {
 
     $HOL_REASON_NAME="$NAME ($HOL_REASON)";        
             
-            $database->query("UPDATE employee_holidays set updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
+            $database->query("UPDATE employee_holidays set days=:days, updated_by=:who, start=:start, end=:end, title=:title WHERE hol_id=:HOL AND employee_id=:REF");
             $database->bind(':REF',$REF);
+            $database->bind(':days',$HOL_DAYS);
             $database->bind(':HOL',$HOL_REF);
             $database->bind(':title',$HOL_REASON_NAME);
             $database->bind(':start',$HOL_START);    

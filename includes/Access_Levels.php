@@ -13,7 +13,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                                 $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
                                 $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
                                 $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
-                                $Task_Access = array("Michael", "Jakob", "Nicola");
+                                $Task_Access = array("Michael", "Abbiek", "Victoria");
                                 
                                 $Agent_Access = array ("724","1034","511","1185","1009","555","118","212","104","103","519");
                                 $Closer_Access = array ("511","1185","1009","555","118","212","104","103","519","carys","Abbiek","Nicola","Michael");

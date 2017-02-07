@@ -1548,6 +1548,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         <option value="Jakob">Jakob</option>
         <option value="carys">Carys</option>
         <option value="Nicola">Nicola</option>
+        <option value="Victoria">Victoria</option>
         
         <?php } if($companynamere=='Assura') {  ?>
         

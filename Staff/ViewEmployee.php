@@ -219,7 +219,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 <div class='panel-body p-b-10 p-t-10 appbox'>
                                                     <div class='text-center'>
                                                         <h3 class='bold text-white no-margin'><?php if(isset($HOL_COUNT)) { echo $HOL_COUNT; } else { echo "0"; }?></h3>
-                                                        <div class='m-t-10 text-white sm-m-b-5'>Holidays</div>
+                                                        <div class='m-t-10 text-white sm-m-b-5'>Holidays Booked</div>
                                                             
                                                     </div>
                                                         

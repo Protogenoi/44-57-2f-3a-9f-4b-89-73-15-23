@@ -231,11 +231,11 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                         
                                         <?php
                                         
-                                        #$APP_COUNT_STATUS = $pdo->prepare("select count(id) AS count from appointments WHERE client_id=:REF AND status='No Show'");
-                                        #$APP_COUNT_STATUS->bindParam(':REF', $REF, PDO::PARAM_INT);
-                                        #$APP_COUNT_STATUS->execute()or die(print_r($APP_COUNT_STATUS->errorInfo(), true));
-                                        #$result_APP_COUNT_STATUS=$APP_COUNT_STATUS->fetch(PDO::FETCH_ASSOC);
-                                        #$APP_COUNT__STATUS_RESULT=$result_APP_COUNT_STATUS['count'];
+                                        $AWOL_QRY = $pdo->prepare("select (SUM(sick)+SUM(awol)) AS count from employee_register where employee_id=:REF");
+                                        $AWOL_QRY->bindParam(':REF', $REF, PDO::PARAM_INT);
+                                        $AWOL_QRY->execute()or die(print_r($AWOL_QRY->errorInfo(), true));
+                                        $result_APP_COUNT_STATUS=$AWOL_QRY->fetch(PDO::FETCH_ASSOC);
+                                        $AWOL_QRY_RESULT=$result_APP_COUNT_STATUS['count'];
                                         
                                         ?>
                                         
@@ -243,8 +243,8 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <div class='panel panel-default m-b-10 b-regular'>
                                                 <div class='panel-body p-b-10 p-t-10 noshows'>
                                                     <div class='text-center'>
-                                                        <h3 class='bold text-white no-margin'><?php if(isset($APP_COUNT__STATUS_RESULT)) { echo $APP_COUNT__STATUS_RESULT; } else { echo "£0.00"; }?></h3>
-                                                        <div class='m-t-10 text-white sm-m-b-5'>Days off</div></div>
+                                                        <h3 class='bold text-white no-margin'><?php if(isset($AWOL_QRY_RESULT)) { echo $AWOL_QRY_RESULT; } else { echo "0"; }?></h3>
+                                                        <div class='m-t-10 text-white sm-m-b-5'>Days off (Sick/AWOL)</div></div>
                                                             
                                                 </div>
                                                     
@@ -254,13 +254,16 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                         
                                         <?php
                                         
-                                        #$APP_COUNT_PRICE = $pdo->prepare("select SUM(price) AS price from appointments WHERE client_id=:REF AND status='Complete'");
-                                        #$APP_COUNT_PRICE->bindParam(':REF', $REF, PDO::PARAM_INT);
-                                       # $APP_COUNT_PRICE->execute()or die(print_r($APP_COUNT_PRICE->errorInfo(), true));
-                                        #$result_APP_COUNT_PRICE=$APP_COUNT_PRICE->fetch(PDO::FETCH_ASSOC);
-                                        #$APP_COUNT_PRICE_RESULT=$result_APP_COUNT_PRICE['price'];
+                                        $CON_QRY_COUNT = $pdo->prepare("select sum(sales) AS sales, SUM(leads) AS leads from lead_rag where year='2017' AND employee_id=:REF");
+                                        $CON_QRY_COUNT->bindParam(':REF', $REF, PDO::PARAM_INT);
+                                        $CON_QRY_COUNT->execute()or die(print_r($CON_QRY_COUNT->errorInfo(), true));
+                                        $CON_QRY_result=$CON_QRY_COUNT->fetch(PDO::FETCH_ASSOC);
+                                        $CON_QRY_COUNT_SALES=$CON_QRY_result['sales'];
+                                        $CON_QRY_COUNT_LEADS=$CON_QRY_result['leads'];
                                         
-                                       # $APP_FORMATTED_PRICE = number_format($APP_COUNT_PRICE_RESULT, 2);
+                                        $Conversionrate = $CON_QRY_COUNT_LEADS /$CON_QRY_COUNT_SALES;
+                                        $Formattedrate = number_format($Conversionrate,1);
+                     
                                         
                                         ?>                                        
                                         
@@ -268,7 +271,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <div class='panel panel-default m-b-10 b-regular'>
                                                 <div class='panel-body p-b-10 p-t-10 totalbox'>
                                                     <div class='text-center'>
-                                                        <h3 class='bold text-white no-margin'><?php if(!empty($APP_COUNT_PRICE_RESULT)) { echo "£$APP_FORMATTED_PRICE";  } else { echo "£0.00"; }?></h3>
+                                                        <h3 class='bold text-white no-margin'><?php if(isset($Formattedrate)) { echo "$CON_QRY_COUNT_LEADS/$CON_QRY_COUNT_SALES ($Formattedrate)";  } else { echo "No Data"; }?></h3>
                                                         <div class='m-t-10 text-white'>Conversion Rate</div>                                                            
                                                     </div>                                                        
                                                 </div>                                                    

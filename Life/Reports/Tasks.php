@@ -49,8 +49,15 @@ if ($fflife=='0') {
       <div class="container">
           
           <?php
-          
+          $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
            $taskassigned= filter_input(INPUT_GET, 'taskassigned', FILTER_SANITIZE_SPECIAL_CHARS);
+           
+           if(isset($RETURN)) {
+               if($RETURN=='TASKUPDATED') {
+ echo "<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> Task Updated!</div><br>";
+                  
+               }
+           }
 
 if(isset($taskassigned)){
     
@@ -74,7 +81,8 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
        <label class="label label-success">Incomplete Tasks</label>
       <div id="bar-chart" ></div>
     </div>
-  
+   <br><div class="notice notice-info" role="alert"><strong><i class="fa fa-exclamation-triangle fa-lg"></i> Info:</strong> Clicking complete will NOT fill in the task information from the client Timeline! Either leave a message on the clients timeline or complete via the client page!</div><br>
+
           <br>
           
     <table id="task" class="display" cellspacing="0">
@@ -87,6 +95,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                 <th>Assigned</th>
                 <th>Task</th>
                 <th>Deadline</th>
+                <th>Complete</th>
             </tr>
         </thead>
         <tfoot>
@@ -98,6 +107,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                 <th>Assigned</th>
                 <th>Task</th>
                 <th>Deadline</th>
+                <th>Complete</th>
             </tr>
         </tfoot>
     </table>
@@ -200,7 +210,11 @@ $(document).ready(function() {
             { "data": "name" },
             { "data": "assigned" },
             { "data": "Task" },
-            { "data": "deadline" }
+            { "data": "deadline" },
+                        { "data": "id",
+            "render": function(data, type, full, meta) {
+                return '<a class="btn btn-sm btn-default confirmation" href="/Life/php/Tasks.php?EXECUTE=1&REF=' + data + '"><i class="fa fa-check-circle-o "> Yes</a>';
+            } }
 
          ],
         "order": [[6, 'asc']]
@@ -223,5 +237,14 @@ $(document).ready(function() {
     } ); 
 } );
 		</script>
+                                        <script type="text/javascript">
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure you want to mark this task as complete?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
 </body>
 </html>

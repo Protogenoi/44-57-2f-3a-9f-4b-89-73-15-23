@@ -80,6 +80,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <div id='calendar'></div>
 </div>
 
-    
+  <script src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>  
 </body>
 </html>

@@ -57,26 +57,40 @@ if(isset($test)){
     include("../includes/DIALLER_PDO_CON.php");                        
 }
 
-$query = $TRB_DB_PDO->prepare("select 
-vicidial_live_agents.uniqueid
-, vicidial_live_agents.status
-, vicidial_live_agents.pause_code
-, vicidial_auto_calls.phone_number
-, vicidial_users.full_name
-, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time
-, count(IF(vicidial_agent_log.status='SALE',1,NULL)) AS Sales
-, vicidial_live_inbound_agents.calls_today AS Leads 
-, (vicidial_live_inbound_agents.calls_today/count(IF(vicidial_agent_log.status='SALE',1,NULL))) As Total
-from vicidial_agent_log
-JOIN vicidial_users ON vicidial_users.user = vicidial_agent_log.user
-JOIN vicidial_live_inbound_agents on vicidial_users.full_name = vicidial_live_inbound_agents.group_id
-LEFT JOIN vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
-LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
-LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
-WHERE vicidial_agent_log.event_time >= CURDATE()
-AND vicidial_agent_log.campaign_id IN ('15','36')
-GROUP by vicidial_agent_log.user ORDER BY vicidial_live_agents.status ASC, last_state_change LIMIT 10");
+$query = $TRB_DB_PDO->prepare("SELECT 
+    vicidial_live_agents.uniqueid,
+    vicidial_live_agents.status,
+    vicidial_live_agents.pause_code,
+    vicidial_auto_calls.phone_number,
+    vicidial_users.full_name,
+    TIMEDIFF(CURRENT_TIMESTAMP,
+            vicidial_live_agents.last_state_change) AS Time,
+    COUNT(IF(vicidial_agent_log.status = 'SALE',
+        1,
+        NULL)) AS Sales,
+    vicidial_live_inbound_agents.calls_today AS Leads,
+    (vicidial_live_inbound_agents.calls_today / COUNT(IF(vicidial_agent_log.status = 'SALE',
+        1,
+        NULL))) AS Total
+FROM
+    vicidial_agent_log
+        JOIN
+    vicidial_users ON vicidial_users.user = vicidial_agent_log.user
+        JOIN
+    vicidial_live_inbound_agents ON vicidial_users.full_name = vicidial_live_inbound_agents.group_id
+        LEFT JOIN
+    vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
+        LEFT JOIN
+    vicidial_list ON vicidial_live_agents.lead_id = vicidial_list.lead_id
+        LEFT JOIN
+    vicidial_auto_calls ON vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
+        LEFT JOIN
+    vicidial_lists ON vicidial_list.list_id = vicidial_lists.list_id
+WHERE
+    vicidial_agent_log.event_time >= CURDATE()
+        AND vicidial_agent_log.campaign_id IN ('15' , '36')
+GROUP BY vicidial_agent_log.user
+ORDER BY vicidial_live_agents.status ASC , last_state_change LIMIT 10");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>";
 
@@ -118,7 +132,7 @@ switch ($CLOSER_NAME) {
         $SALES = $Sales + 0;    
         break; 
     case("James"):
-        $LEADS = $Leads + 0;
+        $LEADS = $Leads + 3;
         $SALES = $Sales - 0;    
         break; 
     case("Ricky"):
@@ -170,35 +184,74 @@ elseif ($result['campaign_id'] =='10' && $result['lead_id']>'1') {$result['statu
 } 
 echo "</table>";
 
-$query = $TRB_DB_PDO->prepare("select 
-vicidial_live_agents.uniqueid
-, vicidial_live_agents.status
-, vicidial_live_agents.pause_code
-, vicidial_auto_calls.phone_number
-, vicidial_users.full_name
-, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time
-, count(IF(vicidial_agent_log.status='QML',1,NULL)) AS QML
-, count(IF(vicidial_agent_log.status='QQQ',1,NULL)) AS QQQ
-, count(IF(vicidial_agent_log.status='QCBK',1,NULL)) AS QCBK
-, count(IF(vicidial_agent_log.status='DIDNO',1,NULL)) AS DIDNO
-, count(IF(vicidial_agent_log.status='QNQ',1,NULL)) AS QNQ
-, count(IF(vicidial_agent_log.status='QUN',1,NULL)) AS QUN
-, count(IF(vicidial_agent_log.status='QDE',1,NULL)) AS QDE
-, count(IF(vicidial_agent_log.status='NoCard',1,NULL)) AS  NoCard
-, count(IF(vicidial_agent_log.status='SALE',1,NULL)) AS SalesS
-, count(IF(vicidial_agent_log.status NOT IN ('QDE','QUN','NoCard','QNQ','DIDNO','QCBK','QQQ','QML','SALES'),1,NULL)) AS  OTHER
-, vicidial_live_inbound_agents.calls_today AS Leads 
-, (vicidial_live_inbound_agents.calls_today/count(IF(vicidial_agent_log.status='SALE',1,NULL))) As Total
-from vicidial_agent_log
-JOIN vicidial_users ON vicidial_users.user = vicidial_agent_log.user
-JOIN vicidial_live_inbound_agents on vicidial_users.full_name = vicidial_live_inbound_agents.group_id
-LEFT JOIN vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
-LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
-LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
-WHERE vicidial_agent_log.event_time >= CURDATE()
-AND vicidial_agent_log.campaign_id IN ('15','36')
-GROUP by vicidial_agent_log.user ORDER BY vicidial_users.full_name ASC LIMIT 10");
+$query = $TRB_DB_PDO->prepare("SELECT 
+    vicidial_live_agents.uniqueid,
+    vicidial_live_agents.status,
+    vicidial_live_agents.pause_code,
+    vicidial_auto_calls.phone_number,
+    vicidial_users.full_name,
+    TIMEDIFF(CURRENT_TIMESTAMP,
+            vicidial_live_agents.last_state_change) AS Time,
+    COUNT(IF(vicidial_agent_log.status = 'QML',
+        1,
+        NULL)) AS QML,
+    COUNT(IF(vicidial_agent_log.status = 'QQQ',
+        1,
+        NULL)) AS QQQ,
+    COUNT(IF(vicidial_agent_log.status = 'QCBK',
+        1,
+        NULL)) AS QCBK,
+    COUNT(IF(vicidial_agent_log.status = 'DIDNO',
+        1,
+        NULL)) AS DIDNO,
+    COUNT(IF(vicidial_agent_log.status = 'QNQ',
+        1,
+        NULL)) AS QNQ,
+    COUNT(IF(vicidial_agent_log.status = 'QUN',
+        1,
+        NULL)) AS QUN,
+    COUNT(IF(vicidial_agent_log.status = 'QDE',
+        1,
+        NULL)) AS QDE,
+    COUNT(IF(vicidial_agent_log.status = 'NoCard',
+        1,
+        NULL)) AS NoCard,
+    COUNT(IF(vicidial_agent_log.status = 'SALE',
+        1,
+        NULL)) AS SalesS,
+    COUNT(IF(vicidial_agent_log.status NOT IN ('QDE' , 'QUN',
+            'NoCard',
+            'QNQ',
+            'DIDNO',
+            'QCBK',
+            'QQQ',
+            'QML',
+            'SALES'),
+        1,
+        NULL)) AS OTHER,
+    vicidial_live_inbound_agents.calls_today AS Leads,
+    (vicidial_live_inbound_agents.calls_today / COUNT(IF(vicidial_agent_log.status = 'SALE',
+        1,
+        NULL))) AS Total
+FROM
+    vicidial_agent_log
+        JOIN
+    vicidial_users ON vicidial_users.user = vicidial_agent_log.user
+        JOIN
+    vicidial_live_inbound_agents ON vicidial_users.full_name = vicidial_live_inbound_agents.group_id
+        LEFT JOIN
+    vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
+        LEFT JOIN
+    vicidial_list ON vicidial_live_agents.lead_id = vicidial_list.lead_id
+        LEFT JOIN
+    vicidial_auto_calls ON vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
+        LEFT JOIN
+    vicidial_lists ON vicidial_list.list_id = vicidial_lists.list_id
+WHERE
+    vicidial_agent_log.event_time >= CURDATE()
+        AND vicidial_agent_log.campaign_id IN ('15' , '36')
+GROUP BY vicidial_agent_log.user
+ORDER BY vicidial_users.full_name ASC LIMIT 10");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>
 <th class='status_PAUSED'>Closer</th>

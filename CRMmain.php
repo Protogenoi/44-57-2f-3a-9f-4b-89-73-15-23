@@ -74,16 +74,16 @@ body { height: 100% }
 ?> 
     
     <div class="col-md-4">
-               <div class="notice notice-info" role="alert"><strong> You are logged in as <?php if(isset($hello_name)) { echo $hello_name; }?>.</strong></div><br>   
+               <div class="notice notice-info" role="alert"><strong> You are logged in as <?php if(isset($hello_name)) { echo $hello_name; }   ?>.</strong></div><br>   
 
     </div>
        <div class="col-md-4">
+
     </div>
            <div class="col-md-4">
     </div>
     
 <div class="container">
-    
 
     
     <?php 

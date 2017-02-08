@@ -4974,7 +4974,7 @@ for ($i = 0; $i <= 100; ++$i)
                         
                         if(isset($TrackerEdit)) {
 
-                $TRACKER_EDIT = $pdo->prepare("SELECT closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, pension FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+                $TRACKER_EDIT = $pdo->prepare("SELECT lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
                 $TRACKER_EDIT->bindParam(':closer', $EditCloser, PDO::PARAM_STR);      
                 $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT); 
                 $TRACKER_EDIT->execute();
@@ -4987,11 +4987,11 @@ for ($i = 0; $i <= 100; ++$i)
                                 <th>Client</th>
                                 <th>Phone</th>
                                 <th>Current Premium</th>
-                                <th>Current Cover Amount</th>
                                 <th>Our Premium</th>
                                 <th>Comments</th>
-                                <th>Sale (Y/N)</th>
-                                <th>Pension</th>
+                                <th>DISPO</th>
+                                <th>Lead UP?</th>
+                                <th>MTG</th>
                             </tr>
                         </thead>
                         
@@ -5006,11 +5006,13 @@ for ($i = 0; $i <= 100; ++$i)
                                     $TRK_EDIT_client=$TRACKER_EDIT_result['client'];
                                     $TRK_EDIT_phone=$TRACKER_EDIT_result['phone'];
                                     $TRK_EDIT_current_premium=$TRACKER_EDIT_result['current_premium'];
-                                    $TRK_EDIT_current_cover=$TRACKER_EDIT_result['current_cover'];
+          
                                     $TRK_EDIT_our_premium=$TRACKER_EDIT_result['our_premium'];
                                     $TRK_EDIT_comments=$TRACKER_EDIT_result['comments'];
                                     $TRK_EDIT_sale=$TRACKER_EDIT_result['sale'];
-                                    $TRK_EDIT_pension=$TRACKER_EDIT_result['pension'];                                 
+                                  
+                                    $TRK_EDIT_MTG=$TRACKER_EDIT_result['mtg'];
+                                    $TRK_EDIT_LEAD_UP=$TRACKER_EDIT_result['lead_up'];
                                 
                                 ?>
 
@@ -5020,11 +5022,29 @@ for ($i = 0; $i <= 100; ++$i)
                         <td><input size="12" class="form-control" type="text" name="client" value="<?php if(isset($TRK_EDIT_client)) { echo $TRK_EDIT_client; } ?>"></td>
                         <td><input size="12" class="form-control" type="text" name="phone" value="<?php if(isset($TRK_EDIT_phone)) { echo $TRK_EDIT_phone; } ?>"></td>
                         <td><input size="8" class="form-control" type="text" name="current_premium" value="<?php if(isset($TRK_EDIT_current_premium)) { echo $TRK_EDIT_current_premium; } ?>"></td>
-                        <td><input size="8" class="form-control" type="text" name="current_cover" value="<?php if(isset($TRK_EDIT_current_cover)) { echo $TRK_EDIT_current_cover; } ?>"></td>                        
                         <td><input size="8" class="form-control" type="text" name="our_premium" value="<?php if(isset($TRK_EDIT_our_premium)) { echo $TRK_EDIT_our_premium; } ?>"></td>
                         <td><input type="text" class="form-control" name="comments" value="<?php if(isset($TRK_EDIT_comments)) { echo $TRK_EDIT_comments; } ?>"></td>
-                        <td><input size="3" class="form-control" type="text" name="sale" value="<?php if(isset($TRK_EDIT_sale)) { echo $TRK_EDIT_sale; } ?>"></td>
-                        <td><input size="4" class="form-control" type="text" name="pension" value="<?php if(isset($TRK_EDIT_pension)) { echo $TRK_EDIT_pension; } ?>"></td>
+                        <td>
+                            <select name="sale" class="form-control" required>
+                                <option>DISPO</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='SALE') { echo "selected"; } } ?> value="SALE">Sale</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QUN') { echo "selected"; } }?> value="QUN">Underwritten</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QQQ') { echo "selected"; } }?> value="QQQ">Quoted</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QNQ') { echo "selected"; } }?> value="QNQ">No Quote</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QML') { echo "selected"; } }?> value="QML">Quote Mortgage Lead</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QDE') { echo "selected"; } }?> value="QDE">Decline</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QCBK') { echo "selected"; } }?> value="QCBK">Quoted Callback</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='NoCard') { echo "selected"; } }?> value="NoCard">No Card</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='DIDNO') { echo "selected"; } }?> value="DIDNO">Quote Not Beaten</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='DETRA') { echo "selected"; } }?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='Other') { echo "selected"; } }?> value="Other">Other</option>
+                        </select>
+                        </td>
+                        
+
+                        
+                        <td><input size="4" class="form-control" type="text" name="LEAD_UP" value="<?php if(isset($TRK_EDIT_LEAD_UP)) { echo $TRK_EDIT_LEAD_UP; } ?>"></td>
+                        <td><input size="4" class="form-control" type="text" name="MTG" value="<?php if(isset($TRK_EDIT_MTG)) { echo $TRK_EDIT_MTG; } ?>"></td>
                         <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
                         <td><a href="?query=AllCloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
                                 
@@ -5040,7 +5060,7 @@ for ($i = 0; $i <= 100; ++$i)
                         
                         if(isset($SETDATES)) { if($CloserSelect !='All') {
               
-                $TRACKER = $pdo->prepare("SELECT current_cover, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, pension, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");          
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");          
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);                   
                 
@@ -5050,7 +5070,7 @@ for ($i = 0; $i <= 100; ++$i)
                         elseif(isset($CloserSelect)) { if($CloserSelect !='All') {
                             
            
-                $TRACKER = $pdo->prepare("SELECT current_cover, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, pension, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");          
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");          
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);             
                         }                     
                             
@@ -5058,7 +5078,7 @@ for ($i = 0; $i <= 100; ++$i)
                         
                 if(isset($SETDATES)) { if($CloserSelect =='All') {
               
-                $TRACKER = $pdo->prepare("SELECT current_cover, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, pension, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");          
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");          
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);                 
                 
                         }
@@ -5066,7 +5086,7 @@ for ($i = 0; $i <= 100; ++$i)
                         
                         else {
                         
-                $TRACKER = $pdo->prepare("SELECT current_cover, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, pension, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");          
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");          
                 
                         }
                 
@@ -5081,11 +5101,11 @@ for ($i = 0; $i <= 100; ++$i)
                                 <th>Client</th>
                                 <th>Phone</th>
                                 <th>Current Premium</th>
-                                <th>Current Cover</th>
                                 <th>Our Premium</th>
                                 <th>Comments</th>
-                                <th>Sale (Y/N)</th>
-                                <th>Pension</th>
+                                <th>DISPO</th>
+                                <th>Lead UP?</th>
+                                <th>MTG</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -5104,24 +5124,40 @@ for ($i = 0; $i <= 100; ++$i)
                                     $TRK_client=$TRACKERresult['client'];
                                     $TRK_phone=$TRACKERresult['phone'];
                                     $TRK_current_premium=$TRACKERresult['current_premium'];
-                                    $TRK_current_cover=$TRACKERresult['current_cover'];
                                     $TRK_our_premium=$TRACKERresult['our_premium'];
                                     $TRK_comments=$TRACKERresult['comments'];
                                     $TRK_sale=$TRACKERresult['sale'];
-                                    $TRK_pension=$TRACKERresult['pension'];
                                     
-                                    echo "<tr><td>$i</td>
-                                    <td>$TRK_agent</td>
-                                    <td>$TRK_client</td>
-                                    <td>$TRK_phone</td>
-                                    <td>$TRK_current_premium</td>
-                                    <td>$TRK_current_cover</td>
-                                    <td>$TRK_our_premium</td>
-                                    <td>$TRK_comments</td>
-                                    <td>$TRK_sale</td>
-                                    <td>$TRK_pension</td>
-                                    <td><a href='LifeDealSheet.php?query=AllCloserTrackers&TrackerEdit=$TRK_tracker_id&EditCloser=$TRK_closer' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>";
-
+                                    $TRK_mtg=$TRACKERresult['mtg'];
+                                    $TRK_lead_up=$TRACKERresult['lead_up']; ?>
+                                    
+                                    <tr>
+                                        <td><?php echo $i; ?></td>
+                                    <td><?php echo $TRK_agent; ?></td>
+                                    <td><?php echo $TRK_client; ?></td>
+                                    <td><?php echo $TRK_phone; ?></td>
+                                    <td><?php echo $TRK_current_premium; ?></td>
+                                    <td><?php echo $TRK_our_premium; ?></td>
+                                    <td><?php echo $TRK_comments; ?></td>
+                                    <td>
+                                <select name="sale" class="form-control" required>
+                                <option>DISPO</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='SALE') { echo "selected"; } } ?> value="SALE">Sale</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QUN') { echo "selected"; } }?> value="QUN">Underwritten</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QQQ') { echo "selected"; } }?> value="QQQ">Quoted</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QNQ') { echo "selected"; } }?> value="QNQ">No Quote</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QML') { echo "selected"; } }?> value="QML">Quote Mortgage Lead</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QDE') { echo "selected"; } }?> value="QDE">Decline</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QCBK') { echo "selected"; } }?> value="QCBK">Quoted Callback</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='NoCard') { echo "selected"; } }?> value="NoCard">No Card</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='DIDNO') { echo "selected"; } }?> value="DIDNO">Quote Not Beaten</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='DETRA') { echo "selected"; } }?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='Other') { echo "selected"; } }?> value="Other">Other</option>
+                                                    </select></td>
+                                    <td><?php echo $TRK_lead_up; ?></td>
+                                    <td><?php echo $TRK_mtg; ?></td>
+                                    <td><a href='LifeDealSheet.php?query=AllCloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>&EditCloser=<?php echo $TRK_closer; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
+<?php
                                     
                                 }     ?>          
                      </table>
@@ -5167,11 +5203,11 @@ for ($i = 0; $i <= 100; ++$i)
                                 <th>Client</th>
                                 <th>Phone</th>
                                 <th>Current Premium</th>
-                                <th>Current Cover</th>
                                 <th>Our Premium</th>
                                 <th>Comments</th>
-                                <th>Sale (Y/N)</th>
-                                <th>Pension</th>
+                                <th>DISPO</th>
+                                <th>Lead UP?</th>
+                                <th>MTG</th>
                             </tr>
                         </thead>
                         
@@ -5179,7 +5215,7 @@ for ($i = 0; $i <= 100; ++$i)
                         
                         if(isset($TrackerEdit)) {
 
-                $TRACKER_EDIT = $pdo->prepare("SELECT current_cover, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, pension FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+                $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
                 $TRACKER_EDIT->bindParam(':closer', $real_name, PDO::PARAM_STR);      
                 $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT); 
                 $TRACKER_EDIT->execute();
@@ -5191,11 +5227,14 @@ for ($i = 0; $i <= 100; ++$i)
                                     $TRK_EDIT_client=$TRACKER_EDIT_result['client'];
                                     $TRK_EDIT_phone=$TRACKER_EDIT_result['phone'];
                                     $TRK_EDIT_current_premium=$TRACKER_EDIT_result['current_premium'];
-                                    $TRK_EDIT_current_cover=$TRACKER_EDIT_result['current_cover'];
+                                    
                                     $TRK_EDIT_our_premium=$TRACKER_EDIT_result['our_premium'];
                                     $TRK_EDIT_comments=$TRACKER_EDIT_result['comments'];
                                     $TRK_EDIT_sale=$TRACKER_EDIT_result['sale'];
-                                    $TRK_EDIT_pension=$TRACKER_EDIT_result['pension'];                                 
+                                       
+                                    
+                                    $TRK_EDIT_LEAD_UP=$TRACKER_EDIT_result['lead_up'];
+                                    $TRK_EDIT_MTG=$TRACKER_EDIT_result['mtg'];
                                 
                                 ?>
 
@@ -5205,11 +5244,11 @@ for ($i = 0; $i <= 100; ++$i)
                         <td><input size="12" class="form-control" type="text" name="client" value="<?php if(isset($TRK_EDIT_client)) { echo $TRK_EDIT_client; } ?>"></td>
                         <td><input size="12" class="form-control" type="text" name="phone" value="<?php if(isset($TRK_EDIT_phone)) { echo $TRK_EDIT_phone; } ?>"></td>
                         <td><input size="8" class="form-control" type="text" name="current_premium" value="<?php if(isset($TRK_EDIT_current_premium)) { echo $TRK_EDIT_current_premium; } ?>"></td>
-                        <td><input size="8" class="form-control" type="text" name="current_cover" value="<?php if(isset($TRK_EDIT_current_cover)) { echo $TRK_EDIT_current_cover; } ?>"></td>
                         <td><input size="8" class="form-control" type="text" name="our_premium" value="<?php if(isset($TRK_EDIT_our_premium)) { echo $TRK_EDIT_our_premium; } ?>"></td>
                         <td><input type="text" class="form-control" name="comments" value="<?php if(isset($TRK_EDIT_comments)) { echo $TRK_EDIT_comments; } ?>"></td>
                         <td><input size="3" class="form-control" type="text" name="sale" value="<?php if(isset($TRK_EDIT_sale)) { echo $TRK_EDIT_sale; } ?>"></td>
-                        <td><input size="4" class="form-control" type="text" name="pension" value="<?php if(isset($TRK_EDIT_pension)) { echo $TRK_EDIT_pension; } ?>"></td>
+                        <td><input size="3" class="form-control" type="text" name="LEAD_UP" value="<?php if(isset($TRK_EDIT_LEAD_UP)) { echo $TRK_EDIT_LEAD_UP; } ?>"></td>
+                        <td><input size="3" class="form-control" type="text" name="MTG" value="<?php if(isset($TRK_EDIT_MTG)) { echo $TRK_EDIT_MTG; } ?>"></td>
                         <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
                         <td><a href="?query=CloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
                                 
@@ -5225,11 +5264,24 @@ for ($i = 0; $i <= 100; ++$i)
                         <td><input size="12" class="form-control" type="text" name="client"></td>
                         <td><input size="12" class="form-control" type="text" name="phone"></td>
                         <td><input size="8" class="form-control" type="text" name="current_premium"></td>
-                        <td><input size="8" class="form-control" type="text" name="current_cover"></td>
                         <td><input size="8" class="form-control" type="text" name="our_premium"></td>
                         <td><input type="text" class="form-control" name="comments"></td>
-                        <td><input size="3" class="form-control" type="text" name="sale"></td>
-                        <td><input size="4" class="form-control" type="text" name="pension"></td>
+                        <td> <select name="sale" class="form-control" required>
+                                <option>DISPO</option>
+                                <option value="SALE">Sale</option>
+                                <option value="QUN">Underwritten</option>
+                                <option value="QQQ">Quoted</option>
+                                <option value="QNQ">No Quote</option>
+                                <option value="QML">Quote Mortgage Lead</option>
+                                <option value="QDE">Decline</option>
+                                <option value="QCBK">Quoted Callback</option>
+                                <option value="NoCard">No Card</option>
+                                <option value="DIDNO">Quote Not Beaten</option>
+                                <option value="DETRA">Declined but passed to upsale</option>
+                                <option value="Other">Other</option>
+                                                    </select></td>
+                        <td><input size="3" class="form-control" type="text" name="LEAD_UP"></td>
+                        <td><input size="3" class="form-control" type="text" name="MTG"></td>
                         <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
                         <?php } ?>
 
@@ -5237,7 +5289,7 @@ for ($i = 0; $i <= 100; ++$i)
                             </form>
                         <?php
                         
-                $TRACKER = $pdo->prepare("SELECT current_cover, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, pension, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
                 $TRACKER->bindParam(':closer', $real_name, PDO::PARAM_STR);             
                 $TRACKER->execute();
                             if ($TRACKER->rowCount()>0) { ?>
@@ -5250,11 +5302,11 @@ for ($i = 0; $i <= 100; ++$i)
                                 <th>Client</th>
                                 <th>Phone</th>
                                 <th>Current Premium</th>
-                                <th>Current Cover</th>
                                 <th>Our Premium</th>
                                 <th>Comments</th>
-                                <th>Sale (Y/N)</th>
-                                <th>Pension</th>
+                                <th>DISPO</th>
+                                <th>Lead UP?</th>
+                                <th>MTG</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -5273,22 +5325,25 @@ for ($i = 0; $i <= 100; ++$i)
                                     $TRK_client=$TRACKERresult['client'];
                                     $TRK_phone=$TRACKERresult['phone'];
                                     $TRK_current_premium=$TRACKERresult['current_premium'];
-                                    $TRK_current_cover=$TRACKERresult['current_cover'];
+
                                     $TRK_our_premium=$TRACKERresult['our_premium'];
                                     $TRK_comments=$TRACKERresult['comments'];
                                     $TRK_sale=$TRACKERresult['sale'];
-                                    $TRK_pension=$TRACKERresult['pension'];
+
+                                    
+                                    $TRK_LEAD_UP=$TRACKERresult['lead_up'];
+                                    $TRK_MTG=$TRACKERresult['mtg'];
                                     
                                     echo "<tr><td>$i</td>
                                     <td>$TRK_agent</td>
                                     <td>$TRK_client</td>
                                     <td>$TRK_phone</td>
-                                    <td>$TRK_current_premium</td>
-                                    <td>$TRK_current_cover</td>
+                                    <td>$TRK_current_premium</td>                                    
                                     <td>$TRK_our_premium</td>
                                     <td>$TRK_comments</td>
                                     <td>$TRK_sale</td>
-                                    <td>$TRK_pension</td>
+                                    <td>$TRK_LEAD_UP</td>    
+                                    <td>$TRK_MTG</td>
                                     <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=$TRK_tracker_id' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>";
 
                                     

@@ -5246,7 +5246,20 @@ for ($i = 0; $i <= 100; ++$i)
                         <td><input size="8" class="form-control" type="text" name="current_premium" value="<?php if(isset($TRK_EDIT_current_premium)) { echo $TRK_EDIT_current_premium; } ?>"></td>
                         <td><input size="8" class="form-control" type="text" name="our_premium" value="<?php if(isset($TRK_EDIT_our_premium)) { echo $TRK_EDIT_our_premium; } ?>"></td>
                         <td><input type="text" class="form-control" name="comments" value="<?php if(isset($TRK_EDIT_comments)) { echo $TRK_EDIT_comments; } ?>"></td>
-                        <td><input size="3" class="form-control" type="text" name="sale" value="<?php if(isset($TRK_EDIT_sale)) { echo $TRK_EDIT_sale; } ?>"></td>
+                        <td>                            <select name="sale" class="form-control" required>
+                                <option>DISPO</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='SALE') { echo "selected"; } } ?> value="SALE">Sale</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QUN') { echo "selected"; } }?> value="QUN">Underwritten</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QQQ') { echo "selected"; } }?> value="QQQ">Quoted</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QNQ') { echo "selected"; } }?> value="QNQ">No Quote</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QML') { echo "selected"; } }?> value="QML">Quote Mortgage Lead</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QDE') { echo "selected"; } }?> value="QDE">Decline</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='QCBK') { echo "selected"; } }?> value="QCBK">Quoted Callback</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='NoCard') { echo "selected"; } }?> value="NoCard">No Card</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='DIDNO') { echo "selected"; } }?> value="DIDNO">Quote Not Beaten</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='DETRA') { echo "selected"; } }?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if(isset($TRK_EDIT_sale)) { if($TRK_EDIT_sale=='Other') { echo "selected"; } }?> value="Other">Other</option>
+                        </select></td>
                         <td><input size="3" class="form-control" type="text" name="LEAD_UP" value="<?php if(isset($TRK_EDIT_LEAD_UP)) { echo $TRK_EDIT_LEAD_UP; } ?>"></td>
                         <td><input size="3" class="form-control" type="text" name="MTG" value="<?php if(isset($TRK_EDIT_MTG)) { echo $TRK_EDIT_MTG; } ?>"></td>
                         <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
@@ -5332,20 +5345,33 @@ for ($i = 0; $i <= 100; ++$i)
 
                                     
                                     $TRK_LEAD_UP=$TRACKERresult['lead_up'];
-                                    $TRK_MTG=$TRACKERresult['mtg'];
+                                    $TRK_MTG=$TRACKERresult['mtg']; ?>
                                     
-                                    echo "<tr><td>$i</td>
-                                    <td>$TRK_agent</td>
-                                    <td>$TRK_client</td>
-                                    <td>$TRK_phone</td>
-                                    <td>$TRK_current_premium</td>                                    
-                                    <td>$TRK_our_premium</td>
-                                    <td>$TRK_comments</td>
-                                    <td>$TRK_sale</td>
-                                    <td>$TRK_LEAD_UP</td>    
-                                    <td>$TRK_MTG</td>
-                                    <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=$TRK_tracker_id' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>";
-
+                                    <tr><td><?php echo $i; ?></td>
+                                    <td><?php echo $TRK_agent; ?></td>
+                                    <td><?php echo $TRK_client; ?></td>
+                                    <td><?php echo $TRK_phone; ?></td>
+                                    <td><?php echo $TRK_current_premium; ?></td>                                    
+                                    <td><?php echo $TRK_our_premium; ?></td>
+                                    <td><?php echo $TRK_comments; ?></td>
+                                    <td><select name="sale" class="form-control" required>
+                                <option>DISPO</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='SALE') { echo "selected"; } } ?> value="SALE">Sale</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QUN') { echo "selected"; } }?> value="QUN">Underwritten</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QQQ') { echo "selected"; } }?> value="QQQ">Quoted</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QNQ') { echo "selected"; } }?> value="QNQ">No Quote</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QML') { echo "selected"; } }?> value="QML">Quote Mortgage Lead</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QDE') { echo "selected"; } }?> value="QDE">Decline</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='QCBK') { echo "selected"; } }?> value="QCBK">Quoted Callback</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='NoCard') { echo "selected"; } }?> value="NoCard">No Card</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='DIDNO') { echo "selected"; } }?> value="DIDNO">Quote Not Beaten</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='DETRA') { echo "selected"; } }?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if(isset($TRK_sale)) { if($TRK_sale=='Other') { echo "selected"; } }?> value="Other">Other</option>
+                                        </select></td>
+                                    <td><?php echo $TRK_LEAD_UP; ?></td>    
+                                    <td><?php echo $TRK_MTG; ?></td>
+                                    <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=$TRK_tracker_id' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
+<?php
                                     
                                 }     ?>          
                      </table>

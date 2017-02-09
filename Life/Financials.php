@@ -409,7 +409,8 @@ $formattedmissing = number_format($MISSING_SUM, 2);
 if(isset($datefrom)){
 
 $query = $pdo->prepare("select client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.Policy_Name, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
-FROM financial_statistics_history LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
+FROM financial_statistics_history 
+LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financial_statistics_history.payment_amount DESC");
     $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));

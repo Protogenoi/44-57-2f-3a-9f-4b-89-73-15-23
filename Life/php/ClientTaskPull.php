@@ -1,7 +1,5 @@
 <?php 
-
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
@@ -33,6 +31,7 @@ if(isset($option)) {
     $PitchTrust= filter_input(INPUT_POST, 'PitchTrust', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $Upsells= filter_input(INPUT_POST, 'Upsells', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     $SELECTquery = $pdo->prepare("SELECT Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks WHERE client_id=:cid");
     $SELECTquery->bindParam(':cid', $search, PDO::PARAM_INT); 
@@ -141,7 +140,6 @@ if(isset($option)) {
     }
 
         $query = $pdo->prepare("UPDATE Client_Tasks set Upsells=:Upsells, PitchTrust=:PitchTrust, PitchTPS=:PitchTPS, RemindDD=:RemindDD, CYDReturned=:CYDReturned, DocsArrived=:DocsArrived, HappyPol=:HappyPol WHERE client_id=:cid");
-        
         $query->bindParam(':HappyPol', $HappyPol, PDO::PARAM_STR);
         $query->bindParam(':DocsArrived', $DocsArrived, PDO::PARAM_STR);
         $query->bindParam(':CYDReturned', $CYDReturned, PDO::PARAM_STR);
@@ -221,7 +219,14 @@ $noteinsert->bindParam(':noteholder',$notetypedata, PDO::PARAM_STR, 255);
 $noteinsert->bindParam(':messageholder',$notes, PDO::PARAM_STR, 2500);
 $noteinsert->execute();
 
-        header('Location: ../ViewClient.php?search='.$search.'&TaskSelect='.$option.'#menu4'); die;
+if(isset($EXECUTE)) {
+    if($EXECUTE=='1') {
+      header('Location: ../Reports/Tasks.php?REF='.$search.'&TaskSelect='.$option); die;  
+    }
+} else {
+ header('Location: ../ViewClient.php?search='.$search.'&TaskSelect='.$option.'#menu4'); die;   
+}
+ 
         
     
     }

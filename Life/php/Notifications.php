@@ -1,8 +1,5 @@
 <?php
 
-if(isset($WHICH_COMPANY)){
-    
-}
 if($companynamere=='Assura') {
     
  if(!empty($closeraudit)) {
@@ -61,11 +58,23 @@ if($WHICH_COMPANY=='TRB WOL') {
  }        
         
     }
-    
-
  
 if($WHICH_COMPANY=='The Review Bureau') {
 
+                            $TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
+                            $TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $TSK_QRY->execute();
+                            if ($TSK_QRY->rowCount()>0) { 
+                            while ($result=$TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>
+
+         
+    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Tasks To Do:</strong> <?php 
+foreach ($result as $value) {
+    echo "$value ";
+}
+?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
+         
+                          <?php  }   } 
 
  if(empty($closeraudit)) {
      echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }

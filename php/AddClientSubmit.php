@@ -576,6 +576,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
+  <option value="Royal London">Royal London</option>
   <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
   </select>
 </div>

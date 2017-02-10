@@ -184,6 +184,7 @@ $NAME2=$data2['NAME2'];
   <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
   <option value="<?php echo $data2["insurer"];?>"><?php echo $data2["insurer"];?></option>
     <option value="One Family">One Family</option>
+    <option value="Royal London">Royal London</option>
     <option value="Assura">Assura</option>
   <option value="Legal and General">Legal & General</option>
   <option value="Vitality">Vitality</option>

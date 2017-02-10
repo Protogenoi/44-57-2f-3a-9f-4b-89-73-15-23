@@ -173,7 +173,7 @@ $(document).ready(function() {
             { "data": "company" },
  { "data": "client_id",
             "render": function(data, type, full, meta) {
-                return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                return '<a href="ViewClient.php?CID=' + data + '">View</a>';
             } },
          { "data": "client_id",
             "render": function(data, type, full, meta) {

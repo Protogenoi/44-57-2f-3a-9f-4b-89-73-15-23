@@ -95,8 +95,7 @@ if(isset($fflife)) {
                }
                
            } 
-                                                
-                                                }
+           }
         
     }
     }

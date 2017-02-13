@@ -1,15 +1,10 @@
 <?php 
-
-include('../includes/adlfunctions.php'); 
-
-
-
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
+include('../includes/adlfunctions.php'); 
 include('../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
@@ -20,7 +15,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>Calendar</title>
+<title>ADL | Calendar</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
@@ -35,7 +30,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
 <style>
      .clockpicker-popover {
     z-index: 999999;
@@ -65,18 +59,14 @@ if ($ffcalendar=='0') {
          $callback= filter_input(INPUT_GET, 'callback', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 
         
-        if(isset($callback)) {
-            
-            $callbackid= filter_input(INPUT_GET, 'callbackid', FILTER_SANITIZE_NUMBER_INT);
-            
-            if($callback=='complete') {
-                
+        if(isset($callback)) {            
+            $callbackid= filter_input(INPUT_GET, 'callbackid', FILTER_SANITIZE_NUMBER_INT);            
+            if($callback=='complete') {                
                 echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> Callback $callbackcompletedid completed!</div>";
                 
             }
             
-            if($callback=='incomplete') {
-                
+            if($callback=='incomplete') {                
                 echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check fa-lg\"></i> Success:</strong> Callback set to incomplete!</div>";
                 
             }
@@ -126,7 +116,7 @@ if ($ffcalendar=='0') {
                     <th>Client</th>
                     <th>Callback</th>
                     <th></th>
-                               </thead>
+                    </thead>
                 
                 <?php
                         while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
@@ -171,15 +161,13 @@ if ($ffcalendar=='0') {
                             echo "</tr>"; ?>
                 
                 <div id='myModal<?php echo $i;?>' class='modal fade' role='dialog'>
-  <div class='modal-dialog'>
-
-    <!-- Modal content-->
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        <h4 class='modal-title'><?php echo "$NAME ($TIME | Reminder at $REMINDER)"; ?></h4>
-      </div>
-      <div class='modal-body'>
+                    <div class='modal-dialog'>
+                        <div class='modal-content'>
+                            <div class='modal-header'>
+                                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                                <h4 class='modal-title'><?php echo "$NAME ($TIME | Reminder at $REMINDER)"; ?></h4>
+                            </div>
+                            <div class='modal-body'>
         
                         <form class="form-horizontal" action='php/Callbacks.php?search=<?php echo "$search&callbackid=$callbackid&cb=c"; ?>' method='POST'>                
                     <fieldset>
@@ -261,19 +249,17 @@ if ($ffcalendar=='0') {
                             
                             <div class="row">
                                 <div class='col-md-4'>
-                            <div class="form-group">
-
-    <select id="callreminder" name="callreminder" class="form-control" required>
-        <option value="">Reminder</option>
-      <option value="-5 minutes">5mins</option>
-      <option value="-10 minutes">10mins</option>
-      <option value="-15 minutes">15mins</option>
-      <option value="-20 minutes">20mins</option>
-    </select>
-</div>
+                                    <div class="form-group">
+                                        <select id="callreminder" name="callreminder" class="form-control" required>
+                                            <option value="">Reminder</option>
+                                            <option value="-5 minutes">5mins</option>
+                                            <option value="-10 minutes">10mins</option>
+                                            <option value="-15 minutes">15mins</option>
+                                            <option value="-20 minutes">20mins</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            
+                            </div>   
                             
                             <div class="row">
                                 <div class='col-md-4'>
@@ -300,16 +286,13 @@ if ($ffcalendar=='0') {
 
   </div>
 </div>
-                <?php
-                            
-                        }?>
-                  </table>   <?php   
-                        } 
-                
-        
-                        
-                        else {
-                            echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
+                <?php } ?>
+                  </table>   
+                      
+                      <?php } 
+                      
+                      else {
+                          echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
                             
                         }
                         
@@ -404,7 +387,7 @@ if ($ffcalendar=='0') {
 
 },
 eventClick: function(event) {
-var decision = confirm("Call back complete?"); 
+var decision = confirm("Delete callback?"); 
 if (decision) {
 $.ajax({
 type: "POST",
@@ -423,8 +406,8 @@ $('#calendar2').fullCalendar('removeEvents', event.id);
  });
 
 </script>    
-    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
 <script type="text/javascript">
     $('.clockpicker').clockpicker();
 $('.clockpicker').clockpicker()
@@ -433,13 +416,13 @@ $('.clockpicker').clockpicker()
 
 </script>
 <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
- <script>
+<script>
   $(function() {
     $( "#callback_date" ).datepicker({
         dateFormat: 'yy-mm-dd',
             changeMonth: true
         });
   });
-  </script>    
+</script>    
 </body>
 </html>

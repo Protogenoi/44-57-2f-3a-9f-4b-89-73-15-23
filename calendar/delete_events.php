@@ -11,7 +11,7 @@ if(isset($id)) {
 
 include('../includes/ADL_PDO_CON.php');
 
-$sql = "DELETE FROM evenement WHERE id =?";
+$sql = "DELETE FROM evenement WHERE id=?";
 $q = $pdo->prepare($sql);
 $q->execute(array($id));
 

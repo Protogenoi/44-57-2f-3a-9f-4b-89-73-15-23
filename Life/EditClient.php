@@ -150,6 +150,7 @@ if(isset($life)) {
                     <option value="<?php echo $data2['company']?>"><?php echo $data2['company']?></option>
                     <option value="The Review Bureau">TRB Life Insurance</option>
                     <option value="TRB Vitality">TRB Vitality</option>
+                    <option value="TRB Royal London">TRB Royal London</option>
                     <option value="TRB Home Insurance">TRB Home Insurance</option>
                     <option value="Assura">Assura Life Insurance</option>
                     <option value="TRB WOL">TRB WOL</option>

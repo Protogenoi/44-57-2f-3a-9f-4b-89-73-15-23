@@ -168,7 +168,7 @@ LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
 LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
 WHERE vicidial_agent_log.event_time >= CURRENT_DATE()
-AND vicidial_agent_log.campaign_id IN ('15','36')
+AND vicidial_agent_log.campaign_id IN ('15','13')
 GROUP by vicidial_agent_log.user
 order by vicidial_live_agents.status ASC,
 last_state_change
@@ -344,7 +344,7 @@ if($PAUSECODE_CODE=='10min' && $PAUSEDCODECOUNT>='10') {
       <?php
 } 
 
-$query = $TRB_DB_PDO->prepare("SELECT vicidial_live_agents.lead_id,vicidial_live_agents.comments, vicidial_auto_calls.phone_number, vicidial_live_agents.status, vicidial_users.full_name, vicidial_live_agents.pause_code, vicidial_live_agents.uniqueid, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time FROM vicidial_live_agents JOIN vicidial_users on vicidial_live_agents.user = vicidial_users.user LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id WHERE vicidial_live_agents.campaign_id IN ('10','20') AND vicidial_live_agents.status NOT IN('PAUSED','DISPO') GROUP BY vicidial_users.full_name ORDER BY vicidial_live_agents.status ASC, last_state_change LIMIT 40");
+$query = $TRB_DB_PDO->prepare("SELECT vicidial_live_agents.lead_id,vicidial_live_agents.comments, vicidial_auto_calls.phone_number, vicidial_live_agents.status, vicidial_users.full_name, vicidial_live_agents.pause_code, vicidial_live_agents.uniqueid, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time FROM vicidial_live_agents JOIN vicidial_users on vicidial_live_agents.user = vicidial_users.user LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id WHERE vicidial_live_agents.campaign_id IN ('10','13') AND vicidial_live_agents.status NOT IN('PAUSED','DISPO') GROUP BY vicidial_users.full_name ORDER BY vicidial_live_agents.status ASC, last_state_change LIMIT 40");
 
 $dyn_table = '<table cellspacing="0"  cellpadding="10" id="boo">';
 
@@ -396,7 +396,7 @@ $dyn_table .= '</tr></table>';
 echo $dyn_table;
 
 $PAUSEquery = $TRB_DB_PDO->prepare("SELECT count(live_agent_id) AS LIVE_AGENT_ID FROM vicidial_live_agents 
-WHERE campaign_id IN ('10','20')
+WHERE campaign_id IN ('10','13')
 AND status ='PAUSED' or status = 'DISPO'");
 $PAUSEquery->execute();
 $PAUSEresult=$PAUSEquery->fetch(PDO::FETCH_ASSOC);
@@ -407,7 +407,7 @@ $PAUSED_AGENTS_query = $TRB_DB_PDO->prepare("SELECT vicidial_live_agents.comment
 FROM vicidial_live_agents 
 JOIN vicidial_users on vicidial_live_agents.user = vicidial_users.user
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-WHERE vicidial_live_agents.campaign_id IN ('10','20')
+WHERE vicidial_live_agents.campaign_id IN ('10','13')
 AND vicidial_live_agents.status ='PAUSED' or vicidial_live_agents.status = 'DISPO'
 order by vicidial_live_agents.status, last_state_change");
 
@@ -511,7 +511,7 @@ vicidial_users.full_name,
 sum(vicidial_agent_log.pause_sec)+SUM(vicidial_agent_log.dispo_sec)+SUM(vicidial_agent_log.dead_sec) AS Pause_Sec_TIME
 from vicidial_agent_log
 JOIN vicidial_users on vicidial_agent_log.user = vicidial_users.user
-where campaign_id IN ('10','20')
+where campaign_id IN ('10','13')
 and vicidial_agent_log.event_time >= :DATE_SUB_1  
 and vicidial_agent_log.event_time <= :DATE_SUB_2
 GROUP BY vicidial_agent_log.user

@@ -68,8 +68,8 @@ if(isset($fflife)) {
            
            }
            
-           $notetypedata= "Callback $CBK_DATE $CBK_TIME"; 
-           $messagetime= "Assigned to $CBK_ASSIGN | Notes: $CBK_NOTES";
+           $notetypedata= "Callback"; 
+           $messagetime= "Time $CBK_DATE $CBK_TIME | Notes: $CBK_NOTES (Assigned to $CBK_ASSIGN)";
            
            $database->query("INSERT INTO client_note set client_id=:id, client_name=:recipient, sent_by=:sent, note_type=:note, message=:message");
            $database->bind(':id',$search);

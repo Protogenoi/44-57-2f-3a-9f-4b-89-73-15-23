@@ -14,7 +14,7 @@ if(isset($search)) {
 
 if(empty($search)) {
     
-    header('Location: ../CRMmain.php'); die;
+    header('Location: ../CRMmain.php?AccessDenied'); die;
     
 }
 
@@ -180,7 +180,12 @@ if(isset($fferror)) {
     if($WHICH_COMPANY=='TRB Vitality') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Vitality Client</center></strong> </div>";
         
-    }    
+    } 
+    
+    if($WHICH_COMPANY=='TRB Royal London') {
+        echo "<div class='notice notice-default' role='alert'><strong> <center>Royal London Client</center></strong> </div>";
+        
+    }  
 }     ?>  
         
         <ul class="nav nav-pills">
@@ -594,7 +599,7 @@ if(isset($fferror)) {
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL') {
+                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London') {
                         
                         try {
                         
@@ -1298,7 +1303,11 @@ if(isset($fferror)) {
                                     <?php if($WHICH_COMPANY=='TRB Vitality') { ?>
                                     <option value="Vitalitypolicy">Vitality App</option>
                                     <option value="Vitalitykeyfacts">Vitality Keyfacts</option>
-                                    <?php } else { ?>
+                                    <?php } elseif($WHICH_COMPANY=='TRB Royal London') { ?>
+                                    <option value="RLpolicy">Royal London App</option>
+                                    <option value="RLkeyfacts">Royal London Keyfacts</option>
+                                    <?php }
+                                    else { ?>
                                     <option value="LGpolicy">L&G App</option>
                                     <option value="LGkeyfacts">L&G Keyfacts</option>
                                     <?php } ?>

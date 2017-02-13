@@ -1,6 +1,4 @@
 <?php
-include('../../includes/ADL_PDO_CON.php');
-include('../../includes/ADL_MYSQLI_CON.php');
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 8);
@@ -27,6 +25,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css"> 
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
@@ -45,7 +44,8 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
 <body>
     
 <?php include('../../includes/navbar.php');
-
+include('../../includes/ADL_PDO_CON.php');
+include('../../includes/ADL_MYSQLI_CON.php');
  include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
     if($ffanalytics=='1') {

@@ -5,17 +5,15 @@ $page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $id= filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
-$title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
-$start= filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
-$end= filter_input(INPUT_POST, 'end', FILTER_SANITIZE_SPECIAL_CHARS);
+
 
 if(isset($id)) {
 
 include('../includes/ADL_PDO_CON.php');
 
-$sql = "UPDATE scheduled_callbacks SET complete='y' WHERE id =?";
+$sql = "DELETE FROM evenement WHERE id =?";
 $q = $pdo->prepare($sql);
-$q->execute($id);
+$q->execute(array($id));
 
 }
 

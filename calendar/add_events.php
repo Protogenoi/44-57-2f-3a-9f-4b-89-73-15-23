@@ -5,10 +5,10 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$title = $_POST['title'];
-$start = $_POST['start'];
-$end = $_POST['end'];
-$url = $_POST['url'];
+$url= filter_input(INPUT_POST, 'url', FILTER_SANITIZE_SPECIAL_CHARS);
+$title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+$start= filter_input(INPUT_POST, 'start', FILTER_SANITIZE_SPECIAL_CHARS);
+$end= filter_input(INPUT_POST, 'end', FILTER_SANITIZE_SPECIAL_CHARS);
 
 include('../includes/ADL_PDO_CON.php');
 

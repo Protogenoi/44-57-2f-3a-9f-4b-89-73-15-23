@@ -61,6 +61,32 @@ if($WHICH_COMPANY=='TRB WOL') {
  
 if($WHICH_COMPANY=='The Review Bureau') {
 
+                            $GET_POL_QRY = $pdo->prepare("SELECT policy_number FROM client_policy WHERE client_id=:CID ");
+                            $GET_POL_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_POL_QRY->execute();
+                            if ($GET_POL_QRY->rowCount()>0) { 
+                                $count = $GET_POL_QRY->rowCount();
+                            while ($result=$GET_POL_QRY->fetch(PDO::FETCH_ASSOC)){   
+         
+foreach ($result as $value) {
+            
+    $database->query("select count(id) from ews_data where policy_number =:policy AND color_status='Black'");
+            $database->bind(':policy', $value);
+            $database->execute();
+            $database->single(); 
+            
+}
+         
+                        }             ?> 
+
+<div class="notice notice-warning" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> This client has <?php if(isset($count)) { if($count>=2) { echo "$count policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?></strong>  </div>              
+                
+                <?php   } 
+    
+   
+    
+    
+
                             $TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
                             $TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
                             $TSK_QRY->execute();

@@ -2008,7 +2008,7 @@ if(isset($fferror)) {
                  
                 }
                 
-        if($client_date_added >= "2016-06-19") {
+        if($client_date_added >= "2016-06-19" && $WHICH_COMPANY=='The Review Bureau') {
 
         $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
         $database->bind(':cid', $search); 

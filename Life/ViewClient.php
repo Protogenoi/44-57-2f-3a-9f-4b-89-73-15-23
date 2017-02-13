@@ -2320,6 +2320,11 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
         case "Task 5 day":
         case "Task CYD":
         case "Task 18 day":
+        case "Tasks 24 48":
+        case "Tasks 5 day":
+        case "Tasks CYD":
+        case "Tasks 18 day":
+        case "Tasks Trust":
             $TMicon="fa-tasks";
             break;
             case "Email Sent":
@@ -2331,6 +2336,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 $TMicon="fa-edit";
                 break;
             case "Sent SMS":
+        case "Callback":
                 $TMicon="fa-phone";
                 break;
             default:

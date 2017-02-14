@@ -58,37 +58,30 @@ if($WHICH_COMPANY=='TRB WOL') {
  }        
         
     }
- 
-if($WHICH_COMPANY=='The Review Bureau') {
-
-                            $GET_POL_QRY = $pdo->prepare("SELECT policy_number FROM client_policy WHERE client_id=:CID ");
-                            $GET_POL_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
-                            $GET_POL_QRY->execute();
-                            if ($GET_POL_QRY->rowCount()>0) { 
-                                $count = $GET_POL_QRY->rowCount();
-                            while ($result=$GET_POL_QRY->fetch(PDO::FETCH_ASSOC)){   
-         
-foreach ($result as $value) {
-            
-    $database->query("select count(id) from ews_data where policy_number =:policy AND color_status='Black'");
-            $database->bind(':policy', $value);
-            $database->execute();
-            $database->single(); 
-            
+    
+    if($WHICH_COMPANY=='The Review Bureau') {
+        if (in_array($hello_name,$Level_8_Access, true)) {
+        $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");
+        $database->bind(':CID', $search);
+        $database->execute(); 
+        $EWS_COUNT_RESULT=$database->single(); 
+        if ($database->rowCount()>=1) {
+            $EWS_COUNT=$EWS_COUNT_RESULT['id'];
+            if(isset($EWS_COUNT)) { if($EWS_COUNT>=1) {
+                ?>
+<div class="notice notice-warning" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?> <i>(action required).</i></strong>  </div>              
+    <?php
+    
 }
-         
-                        }             ?> 
 
-<div class="notice notice-warning" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> This client has <?php if(isset($count)) { if($count>=2) { echo "$count policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?></strong>  </div>              
-                
-                <?php   } 
-    
-   
-    
-    
+            }
 
-                            $TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
-                            $TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+}
+
+}
+
+$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
+$TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
                             $TSK_QRY->execute();
                             if ($TSK_QRY->rowCount()>0) { 
                             while ($result=$TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>

@@ -38,7 +38,9 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
   width: 700px;
   margin: 0 auto;
   }
-
+.ui-datepicker { 
+    z-index:1151 !important; 
+}
 </style>
 </head>
 <body>

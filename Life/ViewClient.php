@@ -120,12 +120,15 @@ if(isset($fferror)) {
         .label-purple {
   background-color: #8e44ad;
 }
+     .clockpicker-popover {
+    z-index: 999999;
+}
+.ui-datepicker{ z-index:1151 !important; }
     </style>
 </head>
 <body>
     <?php
     include('../includes/navbar.php');
-    
     
         if($ffanalytics=='1') {
     
@@ -201,7 +204,7 @@ if(isset($fferror)) {
                 ?>
                     
                     </span></a></li>
-            <li><a data-toggle="pill" href="#menu8">Callbacks</a></li>
+            <li><a data-toggle='modal' data-target='#CK_MODAL'>Callbacks</a></li>
             <li><a data-toggle="pill" href="#menu2">Files & Uploads <span class="badge alert-warning">
                 
                 <?php 
@@ -222,7 +225,6 @@ if(isset($fferror)) {
                 <ul class="dropdown-menu">
                     <div class="list-group">
                         <?php 
-                        
 
                         if (in_array($hello_name,$Level_3_Access, true)) { ?>
                         <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li>
@@ -619,7 +621,7 @@ if(isset($fferror)) {
                                 <th>Term</th>
                                 <th>Premium</th>
                                 <th>Cover</th>
-                                <th>Policy Status</th>
+                                <th>Status</th>
                                 <th>EWS</th>
                                 <th>Financial</th>
                                 <th colspan="4">Options</th>
@@ -1020,8 +1022,7 @@ if(isset($fferror)) {
                     
                     ?>
             </div>
-            
-            <!-- SMS Modal -->
+
             <div id="smsModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1043,14 +1044,15 @@ if(isset($fferror)) {
                                 $smspass=$smsaccount['smspassword'];
                                 $smspro=$smsaccount['smsprovider'];
                                 
-                                                                                            }
+                                
+                                }
+                                
                  catch (PDOException $e) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
                                 
                                 ?>
-                            
                             <br> 
                                 
                                 <?php $getsmsbal = file_get_contents("https://www.bulksms.co.uk/eapi/user/get_credits/1/1.1?username=$smsuser&password=$smspass");
@@ -1152,7 +1154,6 @@ if(isset($fferror)) {
                 </div>
             </div>
             
-            <!-- SMS ALT Modal -->
             <div id="smsModalalt" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1794,179 +1795,10 @@ if(isset($fferror)) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
-                                    ?>
+                                  ?>
                     
                     </table>
                 </div>
-            </div>
-            
-            <div id="menu8" class="tab-pane fade">
-                
-                  <?php if($ffcallbacks=='1') { ?>
-                
-                <form class="form-horizontal" action='../php/AddCallback.php?setcall=y&search=<?php echo $search;?>' method='POST'>                
-                    <fieldset>
-                        
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-md-4'>
-                                    <div class='form-group'>
-                                        <select id='getcallback_client' name='callbackclient' class='form-control'>
-                                            <option value='<?php echo $clientonefull;?>'><?php echo $clientonefull;?></option>
-                                            <option value='<?php echo $clienttwofull;?>'><?php echo $clienttwofull;?></option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class='row'>
-                                <div class='col-md-4'>
-                                    <div class='form-group'>
-                                        <select id='assign' name='assign' class='form-control'>
-                                            <option value='<?php echo $hello_name;?>'><?php echo $hello_name;?></option>
-                                            
-                                            <?php
-                                            
-                                            try {
-                                            
-                                            $calluser = $pdo->prepare("SELECT login, real_name from users where extra_info ='User'");
-                                            
-                                            $calluser->execute()or die(print_r($calluser->errorInfo(), true));
-                                            if ($calluser->rowCount()>0) {
-                                                while ($row=$calluser->fetch(PDO::FETCH_ASSOC)){
-                                           
-                                            
-                                            ?>
-                                            
-                                            <option value='<?php echo $row['login'];?>'><?php echo $row['real_name'];?></option>
-                                            
-                                            <?php
-                                            
-                                                }
-                                                
-                                                }
-                                                  }
-                 catch (PDOException $e) {
-                    echo 'Connection failed: ' . $e->getMessage();
-                    
-                }
-                                                ?>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class='col-md-4'>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" id="callback_date" name="callbackdate" placeholder="YYYY-MM-DD" required />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class='col-md-4'>
-                                    <div class="form-group">
-                                        <div class='input-group date clockpicker'>
-                                            <input type='text' class="form-control" id="clockpicker" name="callbacktime" placeholder="24 Hour Format" required  />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class='col-md-4'>
-                            <div class="form-group">
-
-    <select id="callreminder" name="callreminder" class="form-control" required>
-        <option value="">Reminder</option>
-      <option value="-5 minutes">5mins</option>
-      <option value="-10 minutes">10mins</option>
-      <option value="-15 minutes">15mins</option>
-      <option value="-20 minutes">20mins</option>
-    </select>
-</div>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="row">
-                                <div class='col-md-4'>
-                                    <div class="form-group"> 
-                                        <textarea class="form-control" id="textarea" name="callbacknotes" placeholder="Call back notes"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                        
-                        
-                        <button id="callsub" name="callsub" class="btn btn-primary"><i class='fa  fa-check-circle-o'></i> New callback</button>
-                    
-                    </fieldset>
-                </form> 
-                    
-                    <?php
-                    
-                    try {
-                    
-                    $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, CONCAT(callback_date, ' - ',callback_time) AS ordersort, id, client_name, notes, complete from scheduled_callbacks WHERE client_id = :search ORDER BY ordersort DESC");
-                    $query->bindParam(':search', $search, PDO::PARAM_STR, 12);
-                    
-                    ?>
-                
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th colspan='2'><h3><span class="label label-info">Call backs</span></h3></th>
-                        </tr>
-                    <th>Client</th>
-                    <th>Call back</th>
-                    <th>Notes</th>
-                    <th colspan="2">Callback status</th>
-                    </thead>
-                    
-                    <?php
-                    
-                    $query->execute();
-                    if ($query->rowCount()>0) {
-                        while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
-                            
-                            $callbackid = $calllist['id'];
-                            
-                            echo '<tr>';
-                            echo "<td>".$calllist['client_name']."</td>";
-                            echo "<td>".$calllist['calltimeid']."</td>"; 
-                            echo "<td>".$calllist['notes']."</td>"; 
-                            echo "<td><a href='../php/AddCallback.php?search=$search&callbackid=$callbackid&cb=yV' class=\"btn btn-success btn-xs\"><i class='fa fa-check'></i> Complete</a></td>";
-                            echo "<td><a href='../php/AddCallback.php?search=$search&callbackid=$callbackid&cb=nV' class=\"btn btn-warning btn-xs\"><i class='fa fa-times'></i> Incomplete</a></td>";
-                            echo "</tr>";
-                            
-                        }
-                        
-                        }
-                        
-                        else {
-                            echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
-                            
-                        }
-                        
-                        echo "</table>";
-                          }
-                 catch (PDOException $e) {
-                    echo 'Connection failed: ' . $e->getMessage();
-                    
-                }
-                        }
-                        
-                        ?>
             </div>
             
             <div id="menu4" class="tab-pane fade">
@@ -2637,21 +2469,206 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
     </div>
 </div>
 
-
+<div id='CK_MODAL' class='modal fade' role='dialog'>
+    <div class='modal-dialog modal-lg'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                <h4 class='modal-title'><i class="fa fa-clock-o"></i> Set a Callback</h4>
+            </div>
+            <div class='modal-body'>
+        
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="active"><a data-toggle="pill" href="#CB_ONE">New Callback</a></li>
+                        <li><a data-toggle="pill" href="#CB_TWO">Active Callbacks</a></li>
+                    </ul>
+           
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div id="CB_ONE" class="tab-pane fade in active">
+                                                <div class="col-lg-12 col-md-12">
+                             
+                        <form class="form-horizontal" action='../php/AddCallback.php?setcall=y&search=<?php echo $search;?>' method='POST'>                
+                    <fieldset>
+                        
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col-md-4'>
+                                    <div class='form-group'>
+                                        <select id='getcallback_client' name='callbackclient' class='form-control'>
+                                            <option value='<?php echo $clientonefull;?>'><?php echo $clientonefull;?></option>
+                                            <option value='<?php echo $clienttwofull;?>'><?php echo $clienttwofull;?></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class='row'>
+                                <div class='col-md-4'>
+                                    <div class='form-group'>
+                                        <select id='assign' name='assign' class='form-control'>
+                                            <option value='<?php echo $hello_name;?>'><?php echo $hello_name;?></option>
+                                            
+                                            <?php
+                                            
+                                            try {
+                                            
+                                            $calluser = $pdo->prepare("SELECT login, real_name from users where extra_info ='User'");
+                                            
+                                            $calluser->execute()or die(print_r($calluser->errorInfo(), true));
+                                            if ($calluser->rowCount()>0) {
+                                                while ($row=$calluser->fetch(PDO::FETCH_ASSOC)){
+                                           
+                                            
+                                            ?>
+                                            
+                                            <option value='<?php echo $row['login'];?>'><?php echo $row['real_name'];?></option>
+                                            
+                                            <?php
+                                            
+                                                }
+                                                
+                                                }
+                                                  }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }
+                                                ?>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class='col-md-4'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='text' class="form-control" id="callback_date" name="callbackdate" placeholder="YYYY-MM-DD" value="<?php if(isset($CB_DATE)) { echo $CB_DATE; } ?>" required />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                       
+                            
+                            <div class="row">
+                                <div class='col-md-4'>
+                                    <div class="form-group">
+                                        <div class='input-group date clockpicker'>
+                                            <input type='text' class="form-control" id="clockpicker" name="callbacktime" placeholder="24 Hour Format" value="<?php if(isset($CB_TIME)) { echo $CB_TIME; } ?>" required  />
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class='col-md-4'>
+                                    <div class="form-group">
+                                        <select id="callreminder" name="callreminder" class="form-control" required>
+                                            <option value="">Reminder</option>
+                                            <option value="-5 minutes">5mins</option>
+                                            <option value="-10 minutes">10mins</option>
+                                            <option value="-15 minutes">15mins</option>
+                                            <option value="-20 minutes">20mins</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>   
+                            
+                            <div class="row">
+                                <div class='col-md-4'>
+                                    <div class="form-group"> 
+                                        <textarea class="form-control" id="textarea" name="callbacknotes" placeholder="Call back notes"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                        
+                        <div class="btn-group">
+                        <button id="callsub" name="callsub" class="btn btn-primary"><i class='fa  fa-check-circle-o'></i> New callback</button>
+                       </div>
+                    </fieldset>
+                </form> 
+          
+                                                   </div>     </div>
+                                      <div id="CB_TWO" class="tab-pane fade">
+                                          <div class="row">
+                                              
+ <?php
+ 
+    $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, callback_date, callback_time, reminder, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_callbacks WHERE client_id=:CID AND complete='n' ORDER BY ordersort ASC");
+                    $query->bindParam(':CID', $search, PDO::PARAM_INT);
+                    $query->execute();
+                    if ($query->rowCount()>0) { 
+                 
+                        ?>
+        
+                    <table class="table table-hover">
+                    <thead>                    
+                    <th>Client</th>
+                    <th>Callback</th>
+                    <th></th>
+                    </thead>
+                
+                <?php
+                        while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
+                         
+                            $callbackid = $calllist['id'];
+                            $search = $calllist['client_id'];
+                            $NAME=$calllist['client_name'];
+                            $TIME=$calllist['calltimeid'];
+                            $NOTES=$calllist['notes'];
+                            $REMINDER=$calllist['reminder'];
+                            $CB_DATE=$calllist['callback_date'];
+                            $CB_TIME=$calllist['callback_time'];
+                            
+                            echo "<tr>";
+                            echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$search'>".$calllist['client_name']."</a></td>";
+                            echo "<td class='text-left'>".$calllist['calltimeid']."</td>";
+                            echo "<td><a href='/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class='btn btn-success btn-sm'><i class='fa fa-check'></i> Complete</a></td>";
+                            echo "</tr>"; ?>    
+                    
+                <?php } ?>
+                  </table>   
+                      
+                      <?php } 
+                      
+                      else {
+                          echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
+                            
+                        }
+                 
+                        ?>                                                             
+                                              
+                                          </div>
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+                            
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+      </div>
+    </div>
+  </div>
+                    </div></div>
     
-        <script type="text/javascript">
+<script type="text/javascript">
 $('.clockpicker').clockpicker();
 </script>
-
-
 <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
 <script type="text/javascript">
 $('.clockpicker').clockpicker()
 	.find('input').change(function(){
-		console.log(this.value);
 	});
-
 </script>
 <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
 <script>
@@ -2684,7 +2701,6 @@ $('.clockpicker').clockpicker()
                 }
             });
         });
-
 </script>
 <script>
         document.querySelector('#ClientTaskForm').addEventListener('submit', function(e) {

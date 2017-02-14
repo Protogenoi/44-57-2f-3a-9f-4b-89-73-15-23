@@ -243,8 +243,8 @@ if(isset($callbacktype)) {
            
            }
            
-           $notetypedata= "Callback $getcallback_date $getcallback_time"; 
-           $messagetime= "Assigned to $assign | Notes: $getcallback_notes";
+           $notetypedata= "Callback"; 
+           $messagetime= "Time $getcallback_date $getcallback_time | Notes: $getcallback_notes (Assigned to $assign)";
            
            $database->query("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
            $database->bind(':clientidholder',$search);

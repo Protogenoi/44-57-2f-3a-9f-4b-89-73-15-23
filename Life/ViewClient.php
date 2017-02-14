@@ -1329,6 +1329,7 @@ if(isset($fferror)) {
                         <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
 
                         <span class="label label-primary"><?php echo $data2['title'];?> <?php echo $data2['last_name'];?> Letters/Emails</span>
+                        <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                         <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
@@ -1336,7 +1337,8 @@ if(isset($fferror)) {
                         <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
 
                         <?php if (!empty($data2['first_name2'])) { ?>
-                        <span class="label label-primary"><?php echo $data2['title2'];?> <?php echo $data2['last_name2'];?> Letters/Emails</span>   
+                        <span class="label label-primary"><?php echo $data2['title2'];?> <?php echo $data2['last_name2'];?> Letters/Emails</span> 
+                        <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                         <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
@@ -1346,6 +1348,7 @@ if(isset($fferror)) {
                         
                         
                         <span class="label label-primary">Joint Letters/Emails</span>
+                        <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
                         <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
                             <?php } ?>

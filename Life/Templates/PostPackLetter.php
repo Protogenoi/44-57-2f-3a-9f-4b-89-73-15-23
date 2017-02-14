@@ -164,10 +164,10 @@ function WriteHTML($html)
 
 
 $html = '
-<br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
-<br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
-<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the return address is freepost so you do not have to use a stamp.</p>
-<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 01792 735002.</p>
+<br /><br><p>As per our conversation please find encloded the documents relating to your Legal & General life insurance, for your records I have enclosed the Person Quotation, Policy Terms and Conditions and Policy Summary.</p>
+<br /><br><p>As discussed, you will now be able to create an online account with Legal & General so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online Legal & General will send you a "Checking Your Details" form by post.</p>
+<br /><br><p>Please ensure that you do complete your "Check your details" form as quickly as possible either online or by post as this will help to avoid any delays in the future if you should need to claim on the policy.</p>
+<br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Friday 10:00 - 18:30 on 0845 095 0041.</p>
 
 <br /><br>
 <br /><br>';

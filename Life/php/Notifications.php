@@ -69,7 +69,7 @@ if($WHICH_COMPANY=='TRB WOL') {
             $EWS_COUNT=$EWS_COUNT_RESULT['id'];
             if(isset($EWS_COUNT)) { if($EWS_COUNT>=1) {
                 ?>
-<div class="notice notice-warning" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?> <i>(action required).</i></strong>  </div>              
+<div class="notice notice-danger" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> EWS:</strong> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?> <i>(action required).</i>  </div>              
     <?php
     
 }

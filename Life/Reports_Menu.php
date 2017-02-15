@@ -66,7 +66,7 @@ if($ffanalytics=='1') {
                             </div>
                         </a>
                     </li>
-                    
+                    <?php if(isset($hello_name)) { if($hello_name=='Michael') { ?>
                                         <li>
                         <a href="/Financial_Reports.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
@@ -77,7 +77,7 @@ if($ffanalytics=='1') {
                         </a>
                     </li>
                     
-                        <?php  }
+                    <?php } } }
                         if (in_array($hello_name,$Level_8_Access, true)) {                            
                             ?>
                     

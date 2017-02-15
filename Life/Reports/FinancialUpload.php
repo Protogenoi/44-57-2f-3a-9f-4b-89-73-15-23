@@ -93,8 +93,7 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
             
 <form action="" method="GET">
                 <fieldset>
-                    <legend>File upload</legend>
-                    
+                    <legend>File upload</legend>                    
                                     
     <div class="form-group col-xs-2">
   <label class="col-xs-2 control-label" for="query"></label>

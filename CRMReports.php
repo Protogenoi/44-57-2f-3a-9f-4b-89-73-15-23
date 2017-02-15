@@ -51,22 +51,9 @@ if($ffanalytics=='1') {
 			</div>
 			</a>
                         </li>
-                    
-			<?php if($fflife=='1') { 
-                            if(in_array($hello_name,$Level_8_Access, true)) {
-                            
-                            ?>  
-                    
-                    <li>
-                        <a href="Life/Assura/Reports.php">
-                            <span class="ca-icon"><i class="fa fa-umbrella"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Assura<br/> EWS/Financials</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li> 
-                    
+ 
+                            <?php  if($fflife=='1') { 
+                                if(in_array($hello_name,$Level_8_Access, true)) { ?>
                     <li>
                         <a href="Life/Reports_Menu.php">
                             <span class="ca-icon"><i class="fa fa-warning"></i></span>
@@ -100,6 +87,15 @@ if($ffanalytics=='1') {
                             <?php }                             
                             
                             if($companynamere=='Assura') { ?>
+                    <li>
+                        <a href="Life/Assura/Reports.php">
+                            <span class="ca-icon"><i class="fa fa-umbrella"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Assura<br/> EWS/Financials</h2>
+                                <h3 class="ca-sub"></h3>
+                            </div>
+                        </a>
+                    </li> 
                     
                     <li>
                         <a href="/Legacy/EWSLegfiles.php">

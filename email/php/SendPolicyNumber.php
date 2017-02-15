@@ -73,7 +73,7 @@ include('../../includes/config.php');
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
-$email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $subject = "The Review Bureau - Policy Number" ;

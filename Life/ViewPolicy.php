@@ -121,10 +121,11 @@ $query->bindParam(':CID', $search, PDO::PARAM_INT);
 $query->execute();
 $data2=$query->fetch(PDO::FETCH_ASSOC);
 
-$Emailquery = $pdo->prepare("SELECT email FROM client_details WHERE client_id=:CID");
-$Emailquery->bindParam(':CID', $search, PDO::PARAM_INT);
-$Emailquery->execute();
-$data3=$Emailquery->fetch(PDO::FETCH_ASSOC);
+$query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
+$query2->bindParam(':CID', $search, PDO::PARAM_INT);
+$query2->execute();
+$data3=$query2->fetch(PDO::FETCH_ASSOC);
+
 
 ?>
     <div class="container">
@@ -607,7 +608,16 @@ $ews_status_status=$ewsresult['ews_status_status'];
         <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
       </div>
       <div class="modal-body">
-          <p><?php echo $data3['email']; ?></p>
+          <form method="POST" action="/email/php/SendPolicyNumber.php?search=<?php echo $search;?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>">
+
+                                
+                                <select class="form-control" name="email">  
+                                    <option value="<?php echo $data3['email'];?>"><?php echo $data3['email'];?></option>
+                                    <?php if(!empty($data3['email2'])) { ?>
+                                    <option value="<?php echo $data3['email2'];?>"><?php echo $data3['email2'];?></option>
+                                    <?php } ?>
+                             </select>  
+     
           <p>Dear <?php echo $data2['client_name'];?>,</p>
           <p>           
 Following our recent phone conversation I have resent the 'My Account' email so you can create your personal online account with Legal and General. 
@@ -624,7 +634,7 @@ Please could you complete this section at your earliest convenience.
           </p>
       </div>
       <div class="modal-footer">
-          <a class="btn btn-success confirmation" href="/email/php/SendPolicyNumber.php?search=<?php echo $search;?>&email=<?php echo $data3['email'];?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Policy Number</a>
+          <button class="btn btn-success confirmation"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Policy Number</button></form>
       </div>
     </div>
 
@@ -638,7 +648,13 @@ Please could you complete this section at your earliest convenience.
         <h4 class="modal-title">Email uncontactable client</h4>
       </div>
       <div class="modal-body">
-          <p><?php echo $data3['email']; ?></p>
+          <form action="/email/php/SendUncontactable.php?search=<?php echo $search;?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>" method="POST">                         
+                                <select class="form-control" name="email">  
+                                    <option value="<?php echo $data3['email'];?>"><?php echo $data3['email'];?></option>
+                                    <?php if(!empty($data3['email2'])) { ?>
+                                    <option value="<?php echo $data3['email2'];?>"><?php echo $data3['email2'];?></option>
+                                    <?php } ?>
+                             </select>  
           <p>Dear <?php echo $data2['client_name'];?>,</p>
           <p>           
 There is an issue with your Legal and General direct debit <strong><?php echo $data2["policy_number"]?></strong>. </p>
@@ -653,7 +669,8 @@ We have tried contacting you on numerous occasions but have been unsuccessful, I
           </p>
       </div>
       <div class="modal-footer">
-          <a class="btn btn-success confirmation" href="/email/php/SendUncontactable.php?search=<?php echo $search;?>&email=<?php echo $data3['email'];?>&recipient=<?php echo $data2['client_name'];?>&policy=<?php echo $data2['policy_number'];?>"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send uncontactable email</a>
+          <button class="btn btn-success confirmation"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send uncontactable email</button>
+      </form>
       </div>
     </div>
 

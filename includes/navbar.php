@@ -112,8 +112,6 @@ if($companynamere=='HWIFS') {
                             <?php } 
                             
                             if($hello_name=='Michael') { ?>
-                        
-                        <li><a href="/calendar/GoogleCalendar.php">Google Calendar</a></li>
                         <li><a href="/email/emailinbox.php">Email Inbox</a></li>
                             
                             <?php } ?>

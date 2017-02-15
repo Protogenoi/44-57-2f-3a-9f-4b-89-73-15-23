@@ -226,7 +226,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
     
         $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General'");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
         $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
@@ -255,8 +255,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
             $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General'                
-");
+WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
  
         $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
         $TBC_SUM_QRY_RS=$TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -659,7 +658,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 $query = $pdo->prepare("select DATE(client_policy.sale_date) AS sale_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' ORDER BY DATE(client_policy.sale_date)");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') ORDER BY DATE(client_policy.sale_date)");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -709,7 +708,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
                 
                 <?php
 } else {
-    echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+    echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No TBC Policies found</div>";
 }
 
 
@@ -761,7 +760,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
                 
                 <?php
 } else {
-    echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+    echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No TBC policies found!</div>";
 }
 
 

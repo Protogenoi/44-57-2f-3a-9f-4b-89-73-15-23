@@ -147,9 +147,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                     </li>
                         
                         <?php } } ?>
-                        
-                        
-                        
+  
                         <li>
                         <a href="<?php if(in_array($hello_name,$Level_3_Access, true)) { echo "/Home/Main_Menu.php"; } else { echo "#"; }?>">
 			<span class="ca-icon"><i class="fa fa-home"></i></span>
@@ -160,9 +158,6 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</a>
 			</li>
 
-                        
-                       
-                        
                         <li>
                         <a href="<?php if($ffpba=='1' && in_array($hello_name,$Level_10_Access, true) || $hello_name=='Jakob') { echo "/PBA/Main_Menu.php"; } else { echo "#"; }?>">
 			<span class="ca-icon"><i class="fa fa-credit-card"></i></span>
@@ -172,8 +167,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</div>
 			</a>
 			</li>
-                                                                      
-                         
+                
                         <?php if($ffdialler=='1'){?>
 			<li>
 			<a href="/dialer/Recordings.php">
@@ -338,14 +332,14 @@ if ($query->rowCount()>=1) {
 <?php
     
 while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
-         
+         $NOTES_MESSAGE=  html_entity_decode($calllist['notes']);
     $client_id =$calllist['client_id'];
     
 	echo '<tr>';
 	echo "<td>".$calllist['client_name']."</td>";
 	echo "<td>".$calllist['calltimeid']."</td>"; 
         echo "<td>".$calllist['reminder']."</td>"; 
-        echo "<td>".$calllist['notes']."</td>"; 
+        echo "<td>$NOTES_MESSAGE</td>"; 
         echo "<form method='GET' action='Life/ViewClient.php'> <input type='hidden' value='$client_id' name='search'>";
         echo "<td><button type=\"submit\" class=\"btn btn-default btn-xs\"><i class='fa fa-folder-open'></i> </button></td></form>";
 	echo "</tr>";
@@ -378,14 +372,14 @@ $query->execute();
 if ($query->rowCount()>=1) {
    
 while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
-         
+         $NOTES_MESSAGE=  html_entity_decode($calllist['notes']);
     $client_id =$calllist['client_id'];
     
 	echo '<tr>';
 	echo "<td>".$calllist['client_name']."</td>";
 	echo "<td>".$calllist['calltimeid']."</td>"; 
         echo "<td>".$calllist['reminder']."</td>"; 
-        echo "<td>".$calllist['notes']."</td>"; 
+        echo "<td>$NOTES_MESSAGE</td>"; 
         echo "<form method='GET' action='Life/ViewClient.php'> <input type='hidden' value='$client_id' name='search'>";
         echo "<td><button type=\"submit\" class=\"btn btn-default btn-xs\"><i class='fa fa-folder-open'></i> </button></td></form>";
 	echo "</tr>";
@@ -433,14 +427,14 @@ if ($query->rowCount()>=1) {
 <?php
     
 while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
-         
+         $NOTES_MESSAGE=  html_entity_decode($calllist['notes']);
     $client_id =$calllist['client_id'];
     
 	echo '<tr>';
 	echo "<td>".$calllist['client_name']."</td>";
 	echo "<td>".$calllist['calltimeid']."</td>"; 
         echo "<td>".$calllist['reminder']."</td>"; 
-        echo "<td>".$calllist['notes']."</td>"; 
+        echo "<td>$NOTES_MESSAGE</td>"; 
         echo "<form method='GET' action='Pensions/ViewClient.php'> <input type='hidden' value='$client_id' name='search'>";
         echo "<td><button type=\"submit\" class=\"btn btn-default btn-xs\"><i class='fa fa-folder-open'></i> </button></td></form>";
 	echo "</tr>";
@@ -477,13 +471,13 @@ if ($query->rowCount()>=0) {
     });
 </script> <?php
 while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
-         
+         $NOTES_MESSAGE=  html_entity_decode($calllist['notes']);
     $client_id =$calllist['client_id'];
     
 	echo '<tr>';
 	echo "<td>".$calllist['client_name']."</td>";
 	echo "<td>".$calllist['calltimeid']."</td>"; 
-        echo "<td>".$calllist['notes']."</td>"; 
+        echo "<td>$NOTES_MESSAGE</td>"; 
         echo "<form method='GET' action='Life/ViewClient.php?search=$client_id'>";
         echo "<td><button type=\"submit\" class=\"btn btn-default btn-xs\"><i class='fa fa-folder-open'></i> </button></td></form>";
 	echo "</tr>";

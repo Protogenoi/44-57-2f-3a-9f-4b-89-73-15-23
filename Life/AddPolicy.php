@@ -333,7 +333,7 @@ $query->execute();
 <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
 </p>
     <script>var options = {
-	url: "/JSON/CloserNames.json",
+	url: "../JSON/CloserNames.json",
                 getValue: "full_name",
 
 	list: {
@@ -351,7 +351,7 @@ $("#closer").easyAutocomplete(options);</script>
 <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
 </p>
 <script>var options = {
-	url: "/JSON/LeadGenNames.json",
+	url: "../JSON/LeadGenNames.json",
                 getValue: "full_name",
 
 	list: {

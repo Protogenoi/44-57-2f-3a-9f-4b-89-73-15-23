@@ -90,7 +90,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
           <?php if($companynamere !='HWIFS') { ?>
           
-          <form class="AddClient" id="AddProduct" action="php/AddClientSubmit.php?add=1" method="POST" autocomplete="off">
+          <form class="AddClient" id="AddProduct" action="Life/php/AddClient.php" method="POST" autocomplete="off">
  
         <div class="col-md-4">
             

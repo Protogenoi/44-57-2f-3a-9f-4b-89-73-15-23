@@ -120,7 +120,7 @@ if(isset($query)) {
                 
                 if(isset($fferror)) {
                     if($fferror=='0') {
-                        header('Location: ../Home/ViewClient.php?policyadded=y&search='.$CID.'&policy_number='.$policy_number); die;
+                        header('Location: ../Home/ViewClient.php?policyadded=y&CID='.$CID.'&policy_number='.$policy_number); die;
                         }
                         
                     }

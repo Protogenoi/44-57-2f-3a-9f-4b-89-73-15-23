@@ -250,8 +250,12 @@ $NAME2=$data2['NAME2'];
   <label for="comm_term">Clawback Term:</label>
   <select class="form-control" name="comm_term" id="comm_term" style="width: 170px" required>
 <option value="<?php echo $data2["comm_term"];?>"><?php echo $data2["comm_term"];?></option>
-<option value="0">0</option>
 <option value="1 year">1 year</option>
+<option value="2 year">2 year</option>
+<option value="3 year">3 year</option>
+<option value="4 year">4 year</option>
+<option value="5 year">5 year</option>
+<option value="0">0</option>
 <option value="12">12</option>
 <option value="22">22</option>
 <option value="23">23</option>
@@ -311,7 +315,6 @@ $NAME2=$data2['NAME2'];
     <option value="Cancelled">Cancelled</option>
     <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Underwritten'>Underwritten</option>";} } ?>
         <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";} } ?>
-
   </select>
 </div>
 </p>

@@ -532,18 +532,17 @@ if($custype=='TRB Home Insurance') { ?>
 <option value="Joint">Joint</option>
 </select>
 
-
 <br>
 <label for="sale_date">Sale Date:</label>
 <input class="form-control" type="text" id="sale_date" value="<?php echo $date = date('Y-m-d H:i:s');?>" placeholder="<?php echo $date = date('Y-m-d H:i:s');?>" name="sale_date"  style="width: 140px" required>
 
 <br>
 
-
 <label for="application_number">Application Number:</label>
-<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } } ?> required>
+<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } if($custype=='TRB Royal London') { echo "Value='Royal London'"; }  } ?> required>
 <label for="application_number"></label>
-<span class="help-block">For WOL use One Family</span>  
+<?php if(isset($custype)) { if($custype=='TRB WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
+<?php if(isset($custype)) { if($custype=='TRB WOL') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 <br>
 
 
@@ -586,16 +585,13 @@ if($custype=='TRB Home Insurance') { ?>
 
 </div>
 
-
 <div class="col-md-4">
-
  <div class="form-row">
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
         <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" required/>
     </div> 
-
 <br>
 
 
@@ -605,7 +601,6 @@ if($custype=='TRB Home Insurance') { ?>
         <span class="input-group-addon">£</span>
         <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
     </div> 
-
 <br>
 
 
@@ -615,7 +610,6 @@ if($custype=='TRB Home Insurance') { ?>
         <span class="input-group-addon">£</span>
         <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
     </div> 
-
 <br>
 
 
@@ -625,7 +619,6 @@ if($custype=='TRB Home Insurance') { ?>
         <span class="input-group-addon">yrs</span>
         <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
     </div> 
-
         <br>
 
 <div class="form-row">
@@ -645,7 +638,6 @@ if($custype=='TRB Home Insurance') { ?>
   <label for="comm_term">Clawback Term:</label>
   <select class="form-control" name="comm_term" id="comm_term" style="width: 140px" required>
 <option value="">Select...</option>
-<option value="1 year">1 year</option>
 <option value="52">52</option>
 <option value="51">51</option>
 <option value="50">50</option>
@@ -678,6 +670,11 @@ if($custype=='TRB Home Insurance') { ?>
 <option value="23">23</option>
 <option value="22">22</option>
 <option value="12">12</option>
+<option value="1 year">1 year</option>
+<option value="2 year">2 year</option>
+<option value="3 year">3 year</option>
+<option value="4 year">4 year</option>
+<option value="5 year">5 year</option>
 <option value="0">0</option>
   </select>
 </div>

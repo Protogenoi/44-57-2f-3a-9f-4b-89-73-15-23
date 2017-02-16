@@ -104,6 +104,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
   <select class="form-control" name="custype" id="custype" style="width: 170px" required>
       <option value="">Select...</option>
                     <option value="The Review Bureau">TRB Life Insurance</option>
+                    <option value="TRB Royal London">TRB Royal London</option>
                     <option value="TRB WOL">TRB WOL</option>
                     <option value="TRB Vitality">TRB Vitality</option>
                     <option value="TRB Home Insurance">TRB Home Insurance</option>

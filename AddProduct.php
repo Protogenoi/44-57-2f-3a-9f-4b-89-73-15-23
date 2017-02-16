@@ -12,8 +12,19 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 }
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-
-?>
+if(isset($fferror)) {
+    if($fferror=='1') {
+        
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+    }
+    
+    }
+ ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);?>
 <!DOCTYPE html>
 <html lang="en">
 <title>Add Product</title>
@@ -101,7 +112,11 @@ $AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
       $LifePOST= filter_input(INPUT_GET, 'Life', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if ($LifePOST =='y') {
-          
+
+$query = $pdo->prepare("SELECT company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
+$query->bindParam(':CID',$search, PDO::PARAM_STR);
+$query->execute(); 
+  $data2=$query->fetch(PDO::FETCH_ASSOC);       
           ?>
       
 <form class="AddClient" action="/php/AddPolicySubmit.php" method="POST">
@@ -110,25 +125,18 @@ $AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
 
 
     <input type="hidden" name="addmorepolicy" value="y">
-    <input type="hidden" name="client_id" value="<?php echo $search?>">
+    <input type="hidden" name="client_id" value="<?php echo $search;?>">
 
-<?php
 
-$query = $pdo->prepare("SELECT client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :search");
-$query->bindParam(':search', $search, PDO::PARAM_INT);
-$query->execute();
+ <p>
+ <label for='client_name'>Client Name</label>
+ <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
+ <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
+ <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
+ <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
+ </select>
+</p>
 
-echo "<p>";
-echo "<label for='client_name'>Client Name</label>";
-echo "<select class='form-control' name='client_name' id='client_name' style='width: 170px' required>";
-while ($result=$query->fetch(PDO::FETCH_ASSOC)){
-echo "<option value='" . $result['Name'] . "'>" . $result['Name'] . "</option>";
-echo "<option value='" . $result['Name2'] . "'>" . $result['Name2'] . "</option>";
-echo "<option value='" . $result['Name'] . " and " . $result['Name2'] . "'>" . $result['Name'] . " and " . $result['Name2'] . "</option>";
-}
-echo "</select>";
-echo"</p>";
-?>
 
 <p>
 <div class="form-group">
@@ -148,16 +156,17 @@ echo"</p>";
 
 <p>
 <label for="application_number">Application Number:</label>
-<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" required>
+<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; } if($data2['company']=='TRB Royal London') { echo "Royal London"; }  } ?>" required>
 <label for="application_number"></label>
-<span class="help-block">For WOL use One Family</span>  
+<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
+<?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 </p>
 <br>
 
 <p>
 <label for="policy_number">Policy Number:</label>
 <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" placeholder="TBC">
-<span class="help-block">For WOL use One Family</span>  
+<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') {  ?> <span class="help-block">For WOL use One Family</span>  <?php } } ?>
 </p>
 <br>
 
@@ -173,7 +182,7 @@ echo"</p>";
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL">WOL</option>
+  <option value="WOL" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>WOL</option>
   </select>
 </div>
 </p>
@@ -184,11 +193,12 @@ echo"</p>";
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
   <option value="">Select...</option>
-  <option value="Legal and General">Legal & General</option>
-  <option value="Vitality">Vitality</option>
-  <option value="Assura">Assura</option>
+  <option value="Legal and General" <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Vitality" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>Vitality</option>
+  <option value="Assura" <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
-  <option value="One Family">One Family</option>
+  <option value="Royal London" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
+  <option value="One Family" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
   </select>
 </div>
 </p>
@@ -243,7 +253,7 @@ echo"</p>";
         <label for="commission">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" required/>
+        <input style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
     </div> 
 </p>
 
@@ -255,7 +265,7 @@ echo"</p>";
   <option value="">Select...</option>
   <option value="Indemnity">Indemnity</option>
   <option value="Non Idenmity">Non-Idemnity</option>
-  <option value="NA">N/A</option>
+  <option value="NA" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>N/A</option>
   </select>
 </div>
 </p>
@@ -299,6 +309,10 @@ echo"</p>";
 <option value="22">22</option>
 <option value="12">12</option>
 <option value="1 year">1 year</option>
+<option value="2 year">2 year</option>
+<option value="3 year">3 year</option>
+<option value="4 year">4 year</option>
+<option value="5 year">5 year</option>
 <option value="0">0</option>
 
   </select>

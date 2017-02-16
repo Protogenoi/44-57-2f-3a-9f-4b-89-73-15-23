@@ -237,7 +237,7 @@ if(isset($fferror)) {
                         <?php } ?>
 
                         
-                        <li><a class="list-group-item" href="../AddProduct.php?Life=y&search=<?php echo $search?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
+                        <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                     </div>
                 </ul>
             </li>

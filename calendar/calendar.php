@@ -29,6 +29,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+    <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
      .clockpicker-popover {
@@ -127,11 +128,11 @@ if ($ffcalendar=='0') {
                             $search = $calllist['client_id'];
                             $NAME=$calllist['client_name'];
                             $TIME=$calllist['calltimeid'];
-                            $NOTES=$calllist['notes'];
+                            $NOTES=html_entity_decode($calllist['notes']);
                             $REMINDER=$calllist['reminder'];
                             $CB_DATE=$calllist['callback_date'];
                             $CB_TIME=$calllist['callback_time'];
-                            
+
                             echo '<tr>';
                             
                             if($fflife=='1') {
@@ -163,7 +164,7 @@ if ($ffcalendar=='0') {
                             echo "</tr>"; ?>
                 
                 <div id='myModal<?php echo $i;?>' class='modal fade' role='dialog'>
-                    <div class='modal-dialog'>
+                    <div class='modal-dialog modal-lg'>
                         <div class='modal-content'>
                             <div class='modal-header'>
                                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
@@ -264,9 +265,9 @@ if ($ffcalendar=='0') {
                             </div>   
                             
                             <div class="row">
-                                <div class='col-md-4'>
+                                <div class='col-md-8'>
                                     <div class="form-group"> 
-                                        <textarea class="form-control" id="textarea" name="callbacknotes" placeholder="Call back notes"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
+                                        <textarea class="form-control summernote" id="textarea" name="callbacknotes" placeholder="Call back notes"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -425,6 +426,17 @@ $('.clockpicker').clockpicker()
             changeMonth: true
         });
   });
-</script>    
+</script>   
+<script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200
+      });
+
+
+    });
+  </script>
 </body>
 </html>

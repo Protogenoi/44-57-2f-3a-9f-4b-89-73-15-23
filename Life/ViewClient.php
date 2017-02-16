@@ -2588,9 +2588,9 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                             </div>   
                             
                             <div class="row">
-                                <div class='col-md-4'>
+                                <div class='col-md-8'>
                                     <div class="form-group"> 
-                                        <textarea class="form-control" id="textarea" name="callbacknotes" placeholder="Call back notes"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
+                                        <textarea class="form-control summernote" id="textarea" name="callbacknotes" placeholder="Call back notes"><?php if(isset($NOTES)) { echo $NOTES; } ?></textarea>
                                     </div>
                                 </div>
                             </div>

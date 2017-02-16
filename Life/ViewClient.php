@@ -115,6 +115,7 @@ if(isset($fferror)) {
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
+    <link rel="stylesheet" href="../summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
@@ -2431,7 +2432,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             <div class="modal-body">
                 <?php if($ffclientemails=='1') { ?>
                 
-                <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
+                <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
                     
                     <input type="hidden" name="keyfield" value="<?php echo $search;?>">
                     <input type="hidden" name="recipient" value="<?php echo $data2['title'];?> <?php echo $data2['last_name'];?>" readonly>
@@ -2444,8 +2445,8 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                     </p>
                     
                     <p>
-                        <label for="Message">Message:</label> <br />
-                        <textarea name="message" id="message" rows="15" cols="85"></textarea><br />
+                        
+                        <textarea name="message" id="message" class="summernote" id="contents" title="Contents" placeholder="Message"></textarea><br />
                         <label for="attachment1">Add attachment:</label>
                         <input type="file" name="fileToUpload" id="fileToUpload"><br>
                         <label for="attachment2">Add attachment 2:</label>
@@ -2838,6 +2839,17 @@ $( "#HIDE_ALERTS" ).click(function() {
   </script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <script src="/js/sweet-alert.min.js"></script>
+<script type="text/javascript" src="../summernote-master/dist/summernote.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200
+      });
+
+
+    });
+  </script>
 <script>
 
 $(document).ready(function() {

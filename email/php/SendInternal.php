@@ -53,7 +53,7 @@ $sig = "<br>-- \n
 This e-mail is intended only for the person to whom it is addressed. If an addressing or transmission error has misdirected this e-mail, please notify the sender by replying to this e-mail. If you are not the intended recipient, please delete this e-mail and do not use, disclose, copy, print or rely on the e-mail in any manner. To the extent permitted by law, The Review Bureau Ltd does not accept or assume any liability, responsibility or duty of care for any use of or reliance on this e-mail by anyone, other than the intended recipient to the extent agreed in the relevant contract for the matter to which this e-mail relates (if any).
 </p>
 <p>
-The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: Metropole Chambers, Salubrious Passage, Swansea . SA1 3RT.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
 </p>
 ----------------------------------------------------------------
 <br>Visit our website <a href='http://www.TheReviewBureau.com'>www.TheReviewBureau.com</a>";
@@ -131,13 +131,9 @@ $mail->IsHTML(true);
 
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
 
-
 $address = $email;
 $mail->AddAddress($address, $recipient);
-
 $mail->Body    = $body;
-
-//$mail->Body    = $sig;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
@@ -149,5 +145,5 @@ if(!$mail->Send()) {
 echo "<br><br><a href='../../InternalEmail.php'>Send Another Email</h1></a>";
 }
 
-header('Location: ../InternalEmail.php?emailsent'); die;
+header('Location: ../InternalEmail.php?emailsent&emailto='.$email); die;
     ?>

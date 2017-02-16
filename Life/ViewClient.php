@@ -2371,7 +2371,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 </div>
 
 </div>
-<!-- START EMAIL BPOP -->
+<!-- START EMAIL BPOP2 -->
 
 <div id="email2pop" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -2392,11 +2392,10 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                     
                     <p>
                         <label for="subject">Subject</label>
-                        <input name="subject" id="subject"  class="summernote" placeholder="Subject/Title" type="text" required/>
+                        <input name="subject" id="subject" placeholder="Subject/Title" type="text" required/>
                     </p>
                     <p>
-                        <label for="Message">Message:</label> <br />
-                        <textarea name="message" id="message" rows="15" cols="85"></textarea><br />
+                        <textarea name="message" id="message" class="summernote" id="contents" title="Contents" placeholder="Message"></textarea><br />
                         <label for="attachment1">Add attachment:</label>
                         <input type="file" name="fileToUpload" id="fileToUpload"><br>
                         <label for="attachment2">Add attachment 2:</label>

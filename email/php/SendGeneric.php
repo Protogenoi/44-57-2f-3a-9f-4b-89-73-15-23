@@ -7,7 +7,6 @@ $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-
 if ($_FILES["fileToUpload"]["size"] > 700000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
@@ -18,7 +17,6 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     echo "Sorry, only JPG, JPEG, PNG, PDF & GIF files are allowed.";
     $uploadOk = 0;
 }
-
 
 $email = $_POST['email'] ;
 $recipient = $_POST['recipient'] ;
@@ -53,22 +51,21 @@ The Review Bureau Ltd. Registered in England and Wales with registered number 08
 
 $body = $message;
 $body .= $sig;
-
 $mail             = new PHPMailer();
 
 $mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-    $mail->ConfirmReadingTo = 'info@thereviewbureau.com';
+$mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
+$mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
+$mail->ConfirmReadingTo = 'info@thereviewbureau.com';
 
-$mail->IsSMTP(); // telling the class to use SMTP
+$mail->IsSMTP();
 $mail->CharSet = 'UTF-8';
-$mail->Host       = "smtp.123-reg.co.uk"; // SMTP server
-$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->Host       = "smtp.123-reg.co.uk"; 
+$mail->SMTPAuth   = true;                 
 $mail->SMTPSecure = "ssl"; 
-$mail->Port       = 465;                    // set the SMTP port for the GMAIL server
-$mail->Username   = "$IDD_123_EMAIL"; // SMTP account username
-$mail->Password   = "$IDD_123_PASS";        // SMTP account password
+$mail->Port       = 465;                
+$mail->Username   = "$IDD_123_EMAIL"; 
+$mail->Password   = "$IDD_123_PASS";
 $mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
 
 if (isset($_FILES["fileToUpload"]) &&
@@ -120,9 +117,7 @@ $mail->Body    = $body;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
-} else {
-  echo "SENT";
-}
+} 
 
 header('Location: ../GenericEmail.php?emailsent&emailto='.$email); die;
-    ?>
+?>

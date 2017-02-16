@@ -2081,9 +2081,10 @@ if(isset($fferror)) {
                             </div>
                             
                             <div class="form-group">
-  <label class="col-md-4 control-label" for="textarea"></label>
-  <div class="col-md-4">                     
-    <textarea class="form-control" id="notes" name="notes" placeholder="" maxlength="2000" required></textarea>
+  <label class="col-md-12 control-label" for="textarea"></label>
+  <div class="col-md-12"> 
+      <textarea id="notes" name="notes" id="message" class="summernote" id="contents" title="Contents" maxlength="2000" required></textarea>
+    
     <center><font color="red"><i><span id="chars">2000</span> characters remaining</i></font></center>
   </div>
 </div>
@@ -2189,6 +2190,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
 
     } 
 
+    $TIMELINE_MESSAGE=  html_entity_decode($result['message']);
 	echo '<tr>';
 	echo "<td>".$result['date_sent']."</td>";
 	echo "<td>".$result['sent_by']."</td>";
@@ -2197,13 +2199,13 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
         
         if (in_array($hello_name,$Level_3_Access, true)) {
         
-	echo "<td><b>".$result['message']."</b></td>"; 
+	echo "<td><b>$TIMELINE_MESSAGE</b></td>"; 
         
         }
         
                 else {
         
-	echo "<td><b>".$result['message']."</b></td>"; 
+	echo "<td><b>$TIMELINE_MESSAGE</b></td>"; 
         
         }
 	echo "</tr>";

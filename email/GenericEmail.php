@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../datatables/css/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/summernote-master/dist/summernote.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -69,9 +70,8 @@ include('../includes/adlfunctions.php');
 
 <!-- Textarea -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="message">Message</label>
-  <div class="col-md-4">                     
-    <textarea class="form-control" id="message" name="message"></textarea>
+  <div class="col-md-12">                     
+    <textarea class="form-control summernote" id="message" name="message"></textarea>
   </div>
 </div>
 
@@ -134,6 +134,16 @@ include('../includes/adlfunctions.php');
 </div>
 </div>
 
+<script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
 
+  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200
+      });
+
+
+    });
+  </script>
 </body>
 </html>

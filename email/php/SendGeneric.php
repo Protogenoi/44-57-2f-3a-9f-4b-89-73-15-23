@@ -1,23 +1,18 @@
 <?php
 require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/config.php');
-//error_reporting(E_ALL);
-//ini_set('display_errors',1);
-//echo '<pre>';
-//print_r($_FILES);
-//echo '</pre>';  
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
-// Check file size
+
 if ($_FILES["fileToUpload"]["size"] > 700000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-// Allow certain file formats
+
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" && $imageFileType != "pdf" ) {
     echo "Sorry, only JPG, JPEG, PNG, PDF & GIF files are allowed.";
@@ -25,8 +20,6 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 }
 
 
-//include("class.smtp.php"); // optional, gets called from within class.phpmailer.php if not already loaded
-//$message = $_POST['message'] ;
 $email = $_POST['email'] ;
 $recipient = $_POST['recipient'] ;
 $message = $_POST['message'] ;
@@ -71,20 +64,12 @@ $mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
 $mail->IsSMTP(); // telling the class to use SMTP
 $mail->CharSet = 'UTF-8';
 $mail->Host       = "smtp.123-reg.co.uk"; // SMTP server
-//$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-                                           // 1 = errors and messages
-                                           // 2 = messages only
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->SMTPSecure = "ssl"; 
 $mail->Port       = 465;                    // set the SMTP port for the GMAIL server
 $mail->Username   = "$IDD_123_EMAIL"; // SMTP account username
 $mail->Password   = "$IDD_123_PASS";        // SMTP account password
-
-//$mail->AddEmbeddedImage('img/tick.png', 'tick');
-//$mail->AddEmbeddedImage('img/cross.png', 'cross');
-//$mail->AddEmbeddedImage('img/Keyfacts.jpg', 'keyfacts');
 $mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
-//$mail->AddEmbeddedImage('img/KeyFacts.png', 'KeyFacts');
 
 if (isset($_FILES["fileToUpload"]) &&
     $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
@@ -123,31 +108,21 @@ if (isset($_FILES["fileToUpload6"]) &&
 }
 
 $mail->SetFrom('idd@thereviewbureau.com', 'The Review Bureau');
-
 $mail->AddReplyTo("info@thereviewbureau.com","The Review Bureau Info");
 $mail->AddBCC('info@thereviewbureau.com', 'The Review Bureau');
 $mail->Subject    = $subject;
 $mail->IsHTML(true); 
 
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-
-
 $address = $email;
 $mail->AddAddress($address, $recipient);
-
 $mail->Body    = $body;
-
-//$mail->Body    = $sig;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
-  echo "<br><br><div class=\"alert alert-success fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Success!</strong> Message sent!
-    </div>";
-echo "<br><br><a href='../../InternalEmail.php'>Send Another Email</h1></a>";
+  echo "SENT";
 }
 
-header('Location: ../GenericEmail.php?emailsent'); die;
+header('Location: ../GenericEmail.php?emailsent&emailto='.$email); die;
     ?>

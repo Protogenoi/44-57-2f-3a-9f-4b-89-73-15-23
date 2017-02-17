@@ -79,7 +79,7 @@ function textAreaAdjust(o) {
     $database = new Database();  
     $database->beginTransaction();
     
-    $database->query("SELECT grade, closer, closer2, policy_number FROM audit_wol WHERE wol_id =:WOLID");
+    $database->query("SELECT added_by, grade, closer, closer2, policy_number FROM audit_wol WHERE wol_id =:WOLID");
     $database->bind(':WOLID', $WOLID);
     $database->execute();
     $WOL_AUDIT=$database->single();
@@ -317,6 +317,9 @@ function textAreaAdjust(o) {
        if(isset($WOL_AUDIT['grade'])) {
            $grade=$WOL_AUDIT['grade'];
        }
+       if(isset($WOL_AUDIT['added_by'])) {
+           $added_by=$WOL_AUDIT['added_by'];
+       }
        if(isset($WOL_AUDIT['closer'])) {
            $closer=$WOL_AUDIT['closer'];
        }
@@ -332,7 +335,7 @@ function textAreaAdjust(o) {
             <fieldset>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-headphones"></i> WOL Call Audit</h3>
+                        <h3 class="panel-title"><i class="fa fa-headphones"></i> WOL Call Audit <?php if(isset($added_by)) { echo " | Audited by: $added_by"; } ?></h3>
                     </div>
                     
                     <div class="panel-body">

@@ -66,6 +66,7 @@ function textAreaAdjust(o) {
                             <label for='closer'>Closer:</label>
                             <select class='form-control' name='closer' id='closer' required> 
                                 <option value="">Select...</option>
+                                <option value="Stavros">Stavros</option>
                                 <option value="Carys">Carys</option>
                                 <option value="Hayley">Hayley</option>
                                 <option value="James">James</option>
@@ -87,6 +88,7 @@ function textAreaAdjust(o) {
                             <label for='closer2'>Closer (optional):</label>
                             <select class='form-control' name='closer2' id='closer2' > 
                                 <option value="None">None</option> 
+                                <option value="Stavros">Stavros</option>
                                 <option value="Carys">Carys</option>
                                 <option value="Hayley">Hayley</option>
                                 <option value="James">James</option>

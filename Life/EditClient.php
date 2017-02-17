@@ -389,6 +389,7 @@ $('#lookup_field').setupPostcodeLookup({
     <option value="">Select update reason...</option>
     <option value="Incorrect Client Name">Incorrect client name (1)</option>
     <option value="Incorrect DOB">Incorrect DOB (1)</option>
+    <option value="Added Email Address">Added Email Address</option>
     <option value="Incorrect email">Incorrect email address (1)</option>
     <option value="Incorrect Client Name 2">Incorrect client name (2)</option>
     <option value="Incorrect DOB 2">Incorrect DOB (2)</option>

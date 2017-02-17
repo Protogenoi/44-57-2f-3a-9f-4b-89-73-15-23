@@ -313,6 +313,7 @@ $NAME2=$data2['NAME2'];
   <option value="Declined">Declined</option>
     <option value="Redrawn">Redrawn</option>
     <option value="Cancelled">Cancelled</option>
+    <option value="On Hold">On Hold</option>
     <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Underwritten'>Underwritten</option>";} } ?>
         <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";} } ?>
   </select>

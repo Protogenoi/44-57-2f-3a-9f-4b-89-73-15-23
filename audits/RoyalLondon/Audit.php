@@ -19,6 +19,296 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 }
 
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);  
+
+if(isset($EXECUTE)) {
+    if($EXECUTE=='View' || $EXECUTE=='Edit') {
+        $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
+        include('../../classes/database_class.php'); 
+        
+    $database = new Database();  
+    $database->beginTransaction();
+    
+    $database->query("SELECT DATE(added_date) AS added_date, added_by, grade, closer, closer2, plan_number FROM RoyalLondon_Audit WHERE audit_id=:AUDITID");
+    $database->bind(':AUDITID', $AUDITID);
+    $database->execute();
+    $RL_AUDIT=$database->single(); 
+    
+    if(isset($RL_AUDIT['added_by'])) {
+        $RL_ADDED_BY=$RL_AUDIT['added_by'];
+    }
+     if(isset($RL_AUDIT['added_date'])) {
+        $RL_ADDED_DATE=$RL_AUDIT['added_date'];
+    }   
+    if(isset($RL_AUDIT['grade'])) {
+        $RL_GRADE=$RL_AUDIT['grade'];
+    }
+    if(isset($RL_AUDIT['closer'])) {
+       $RL_CLOSER=$RL_AUDIT['closer'];
+    }
+    if(isset($RL_AUDIT['closer2'])) {
+       $RL_CLOSER2=$RL_AUDIT['closer2']; 
+    }    
+    if(isset($RL_AUDIT['plan_number'])) {
+       $RL_PLAN_NUMBER=$RL_AUDIT['plan_number']; 
+    }     
+    
+    $database->query("SELECT OD1, OD2, OD3, OD4, OD5, CI1, CI2, CI3, CI4, CI5, CI6, CI7, CI8, IC1, IC2, IC3, IC4, IC5, CD1, CD2, CD3, CD4, CD5, DO1, DO2, DO3, DO4, DO5, DO6, DO7, DO8, LS1, LS2, LS3, LS4, LS5, LS6, LS7, OT1, OT2, OT3 FROM RoyalLondon_Questions WHERE fk_audit_id=:AUDITID");
+    $database->bind(':AUDITID', $AUDITID);
+    $database->execute();
+    $RL_QS_AUDIT=$database->single(); 
+    
+    if(isset($RL_QS_AUDIT['OD1'])) {
+        $RL_OD1=$RL_QS_AUDIT['OD1'];
+    }
+     if(isset($RL_QS_AUDIT['OD2'])) {
+        $RL_OD2=$RL_QS_AUDIT['OD2'];
+    }   
+    if(isset($RL_QS_AUDIT['OD3'])) {
+        $RL_OD3=$RL_QS_AUDIT['OD3'];
+    }
+    if(isset($RL_QS_AUDIT['OD4'])) {
+       $RL_OD4=$RL_QS_AUDIT['OD4'];
+    }
+    if(isset($RL_QS_AUDIT['OD5'])) {
+       $RL_OD5=$RL_QS_AUDIT['OD5']; 
+    }    
+    if(isset($RL_QS_AUDIT['CI1'])) {
+       $RL_CI1=$RL_QS_AUDIT['CI1']; 
+    } 
+    if(isset($RL_QS_AUDIT['CI2'])) {
+       $RL_CI2=$RL_QS_AUDIT['CI2']; 
+    }  
+    if(isset($RL_QS_AUDIT['CI3'])) {
+       $RL_CI3=$RL_QS_AUDIT['CI3']; 
+    }  
+    if(isset($RL_QS_AUDIT['CI4'])) {
+       $RL_CI4=$RL_QS_AUDIT['CI4']; 
+    }  
+    if(isset($RL_QS_AUDIT['CI5'])) {
+       $RL_CI5=$RL_QS_AUDIT['CI5']; 
+    }
+    if(isset($RL_QS_AUDIT['CI6'])) {
+       $RL_CI6=$RL_QS_AUDIT['CI6']; 
+    }
+    if(isset($RL_QS_AUDIT['CI7'])) {
+       $RL_CI7=$RL_QS_AUDIT['CI7']; 
+    } 
+    if(isset($RL_QS_AUDIT['CI8'])) {
+       $RL_CI8=$RL_QS_AUDIT['CI8']; 
+    } 
+    if(isset($RL_QS_AUDIT['IC1'])) {
+       $RL_IC1=$RL_QS_AUDIT['IC1']; 
+    } 
+    if(isset($RL_QS_AUDIT['IC2'])) {
+       $RL_IC2=$RL_QS_AUDIT['IC2']; 
+    }  
+    if(isset($RL_QS_AUDIT['IC3'])) {
+       $RL_IC3=$RL_QS_AUDIT['IC3']; 
+    }  
+    if(isset($RL_QS_AUDIT['IC4'])) {
+       $RL_IC4=$RL_QS_AUDIT['IC4']; 
+    }  
+    if(isset($RL_QS_AUDIT['IC5'])) {
+       $RL_IC5=$RL_QS_AUDIT['IC5']; 
+    }  
+    if(isset($RL_QS_AUDIT['CD1'])) {
+       $RL_CD1=$RL_QS_AUDIT['CD1']; 
+    } 
+    if(isset($RL_QS_AUDIT['CD2'])) {
+       $RL_CD2=$RL_QS_AUDIT['CD2']; 
+    }  
+    if(isset($RL_QS_AUDIT['CD3'])) {
+       $RL_CD3=$RL_QS_AUDIT['CD3']; 
+    }  
+    if(isset($RL_QS_AUDIT['CD4'])) {
+       $RL_CD4=$RL_QS_AUDIT['CD4']; 
+    }  
+    if(isset($RL_QS_AUDIT['CD5'])) {
+       $RL_CD5=$RL_QS_AUDIT['CD5']; 
+    }
+    if(isset($RL_QS_AUDIT['DO1'])) {
+       $RL_DO1=$RL_QS_AUDIT['DO1']; 
+    } 
+    if(isset($RL_QS_AUDIT['DO2'])) {
+       $RL_DO2=$RL_QS_AUDIT['DO2']; 
+    }  
+    if(isset($RL_QS_AUDIT['DO3'])) {
+       $RL_DO3=$RL_QS_AUDIT['DO3']; 
+    }  
+    if(isset($RL_QS_AUDIT['DO4'])) {
+       $RL_DO4=$RL_QS_AUDIT['DO4']; 
+    }  
+    if(isset($RL_QS_AUDIT['DO5'])) {
+       $RL_DO5=$RL_QS_AUDIT['DO5']; 
+    }
+    if(isset($RL_QS_AUDIT['DO6'])) {
+       $RL_DO6=$RL_QS_AUDIT['DO6']; 
+    }  
+    if(isset($RL_QS_AUDIT['DO7'])) {
+       $RL_DO7=$RL_QS_AUDIT['DO7']; 
+    }  
+    if(isset($RL_QS_AUDIT['DO8'])) {
+       $RL_DO8=$RL_QS_AUDIT['DO8']; 
+    }      
+    if(isset($RL_QS_AUDIT['LS1'])) {
+       $RL_LS1=$RL_QS_AUDIT['LS1']; 
+    } 
+    if(isset($RL_QS_AUDIT['LS2'])) {
+       $RL_LS2=$RL_QS_AUDIT['LS2']; 
+    }  
+    if(isset($RL_QS_AUDIT['LS3'])) {
+       $RL_LS3=$RL_QS_AUDIT['LS3']; 
+    }  
+    if(isset($RL_QS_AUDIT['LS4'])) {
+       $RL_LS4=$RL_QS_AUDIT['LS4']; 
+    }  
+    if(isset($RL_QS_AUDIT['LS5'])) {
+       $RL_LS5=$RL_QS_AUDIT['LS5']; 
+    } 
+    if(isset($RL_QS_AUDIT['LS6'])) {
+       $RL_LS6=$RL_QS_AUDIT['LS6']; 
+    }  
+    if(isset($RL_QS_AUDIT['LS7'])) {
+       $RL_LS7=$RL_QS_AUDIT['LS7']; 
+    }  
+    if(isset($RL_QS_AUDIT['OT1'])) {
+       $RL_OT1=$RL_QS_AUDIT['OT1']; 
+    } 
+    if(isset($RL_QS_AUDIT['OT2'])) {
+       $RL_OT2=$RL_QS_AUDIT['OT2']; 
+    }  
+    if(isset($RL_QS_AUDIT['OT3'])) {
+       $RL_OT3=$RL_QS_AUDIT['OT3']; 
+    }  
+    
+$database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, CIT5, CIT6, CIT7, CIT8, ICT1, ICT2, ICT3, ICT4, ICT5, CDT1, CDT2, CDT3, CDT4, CDT5, DOT1, DOT2, DOT3, DOT4, DOT5, DOT6, DOT7, DOT8, LST1, LST2, LST3, LST4, LST5, LST6, LST7 FROM RoyalLondon_Comments WHERE fk_audit_id=:AUDITID");
+    $database->bind(':AUDITID', $AUDITID);
+    $database->execute();
+    $RL_CM_AUDIT=$database->single(); 
+    
+    if(isset($RL_CM_AUDIT['ODT1'])) {
+        $RL_CM_ODT1=$RL_CM_AUDIT['ODT1'];
+    }
+     if(isset($RL_CM_AUDIT['ODT2'])) {
+        $RL_CM_ODT2=$RL_CM_AUDIT['ODT2'];
+    }   
+    if(isset($RL_CM_AUDIT['ODT3'])) {
+        $RL_CM_ODT3=$RL_CM_AUDIT['ODT3'];
+    }
+    if(isset($RL_CM_AUDIT['ODT4'])) {
+       $RL_CM_ODT4=$RL_CM_AUDIT['ODT4'];
+    }
+    if(isset($RL_CM_AUDIT['ODT5'])) {
+       $RL_CM_ODT5=$RL_CM_AUDIT['ODT5']; 
+    }    
+    if(isset($RL_CM_AUDIT['CIT1'])) {
+       $RL_CM_CIT1=$RL_CM_AUDIT['CIT1']; 
+    } 
+    if(isset($RL_CM_AUDIT['CIT2'])) {
+       $RL_CM_CIT2=$RL_CM_AUDIT['CIT2']; 
+    }  
+    if(isset($RL_CM_AUDIT['CIT3'])) {
+       $RL_CM_CIT3=$RL_CM_AUDIT['CIT3']; 
+    }  
+    if(isset($RL_CM_AUDIT['CIT4'])) {
+       $RL_CM_CIT4=$RL_CM_AUDIT['CIT4']; 
+    }  
+    if(isset($RL_CM_AUDIT['CIT5'])) {
+       $RL_CM_CIT5=$RL_CM_AUDIT['CIT5']; 
+    }
+    if(isset($RL_CM_AUDIT['CIT6'])) {
+       $RL_CM_CIT6=$RL_CM_AUDIT['CIT6']; 
+    }
+    if(isset($RL_CM_AUDIT['CIT7'])) {
+       $RL_CM_CIT7=$RL_CM_AUDIT['CIT7']; 
+    } 
+    if(isset($RL_CM_AUDIT['CIT8'])) {
+       $RL_CM_CIT8=$RL_CM_AUDIT['CIT8']; 
+    } 
+    if(isset($RL_CM_AUDIT['ICT1'])) {
+       $RL_CM_ICT1=$RL_CM_AUDIT['ICT1']; 
+    } 
+    if(isset($RL_CM_AUDIT['ICT2'])) {
+       $RL_CM_ICT2=$RL_CM_AUDIT['ICT2']; 
+    }  
+    if(isset($RL_CM_AUDIT['ICT3'])) {
+       $RL_CM_ICT3=$RL_CM_AUDIT['ICT3']; 
+    }  
+    if(isset($RL_CM_AUDIT['ICT4'])) {
+       $RL_CM_ICT4=$RL_CM_AUDIT['ICT4']; 
+    }  
+    if(isset($RL_CM_AUDIT['ICT5'])) {
+       $RL_CM_ICT5=$RL_CM_AUDIT['ICT5']; 
+    }  
+    if(isset($RL_CM_AUDIT['CDT1'])) {
+       $RL_CM_CDT1=$RL_CM_AUDIT['CDT1']; 
+    } 
+    if(isset($RL_CM_AUDIT['CDT2'])) {
+       $RL_CM_CDT2=$RL_CM_AUDIT['CDT2']; 
+    }  
+    if(isset($RL_CM_AUDIT['CDT3'])) {
+       $RL_CM_CDT3=$RL_CM_AUDIT['CDT3']; 
+    }  
+    if(isset($RL_CM_AUDIT['CDT4'])) {
+       $RL_CM_CDT4=$RL_CM_AUDIT['CDT4']; 
+    }  
+    if(isset($RL_CM_AUDIT['CDT5'])) {
+       $RL_CM_CDT5=$RL_CM_AUDIT['CDT5']; 
+    }
+    if(isset($RL_CM_AUDIT['DOT1'])) {
+       $RL_CM_DOT1=$RL_CM_AUDIT['DOT1']; 
+    } 
+    if(isset($RL_CM_AUDIT['DOT2'])) {
+       $RL_CM_DOT2=$RL_CM_AUDIT['DOT2']; 
+    }  
+    if(isset($RL_CM_AUDIT['DOT3'])) {
+       $RL_CM_DOT3=$RL_CM_AUDIT['DOT3']; 
+    }  
+    if(isset($RL_CM_AUDIT['DOT4'])) {
+       $RL_CM_DOT4=$RL_CM_AUDIT['DOT4']; 
+    }  
+    if(isset($RL_CM_AUDIT['DOT5'])) {
+       $RL_CM_DOT5=$RL_CM_AUDIT['DOT5']; 
+    }
+    if(isset($RL_CM_AUDIT['DOT6'])) {
+       $RL_CM_DOT6=$RL_CM_AUDIT['DOT6']; 
+    }  
+    if(isset($RL_CM_AUDIT['DOT7'])) {
+       $RL_CM_DOT7=$RL_CM_AUDIT['DOT7']; 
+    }  
+    if(isset($RL_CM_AUDIT['DOT8'])) {
+       $RL_CM_DOT8=$RL_CM_AUDIT['DOT8']; 
+    }      
+    if(isset($RL_CM_AUDIT['LST1'])) {
+       $RL_CM_LST1=$RL_CM_AUDIT['LST1']; 
+    } 
+    if(isset($RL_CM_AUDIT['LST2'])) {
+       $RL_CM_LST2=$RL_CM_AUDIT['LST2']; 
+    }  
+    if(isset($RL_CM_AUDIT['LST3'])) {
+       $RL_CM_LST3=$RL_CM_AUDIT['LST3']; 
+    }  
+    if(isset($RL_CM_AUDIT['LST4'])) {
+       $RL_CM_LST4=$RL_CM_AUDIT['LST4']; 
+    }  
+    if(isset($RL_CM_AUDIT['LST5'])) {
+       $RL_CM_LST5=$RL_CM_AUDIT['LST5']; 
+    } 
+    if(isset($RL_CM_AUDIT['LST6'])) {
+       $RL_CM_LST6=$RL_CM_AUDIT['LST6']; 
+    }  
+    if(isset($RL_CM_AUDIT['LST7'])) {
+       $RL_CM_LST7=$RL_CM_AUDIT['LST7']; 
+    }    
+    
+    $database->endTransaction();
+    
+
+    
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,14 +320,12 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
 <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
-
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
     o.style.height = (25+o.scrollHeight)+"px";
 }
 </script>
-
 <?php include('../../php/Holidays.php'); ?>
 </head>
 <body>
@@ -45,18 +333,18 @@ function textAreaAdjust(o) {
 <?php include('../../includes/navbar.php'); 
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include('../../php/analyticstracking.php'); 
     
     }
 ?>
 
 
 <div class="container">
- <form action="#" method="POST" autocomplete="off">
+    <form action="php/Audit.php" method="POST" autocomplete="off">
 <fieldset>   
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Royal London Audit</h3>
+            <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Royal London Audit <?php if(isset($RL_ADDED_BY)) { echo " | Audited by $RL_ADDED_BY on $RL_ADDED_DATE"; } ?></h3>
         </div>
         <div class="panel-body">
 <p>
@@ -64,52 +352,50 @@ function textAreaAdjust(o) {
 
     
 <div class='form-group'>
-<label for='closer'>Closer:</label>
-<select class='form-control' name='full_name' id='full_name' required> 
+<label for='CLOSER'>Closer:</label>
+<select class='form-control' name='CLOSER' id='CLOSER' required> 
     <option value="">Select...</option>
-<option value="Carys">Carys</option>
-<option value="Hayley">Hayley</option>
-<option value="James">James</option>
-<option value="Kyle">Kyle</option>  
-<option value="Mike">Mike</option> 
-<option value="Richard">Richard</option> 
-<option value="Sarah">Sarah</option>
-<option value="Stavros">Stavros</option>
-<option value="Nicola">Nicola</option>  
-<option value="Gavin">Gavin</option>
+    <option value="Carys" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Carys') { echo "selected"; } } ?> >Carys</option>
+    <option value="Hayley" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Hayley') { echo "selected"; } } ?> >Hayley</option>
+    <option value="James" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='James') { echo "selected"; } } ?> >James</option>
+    <option value="Kyle" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Kyle') { echo "selected"; } } ?> >Kyle</option>  
+    <option value="Mike" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Mike') { echo "selected"; } } ?> >Mike</option> 
+    <option value="Richard" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Richard') { echo "selected"; } } ?>>Richard</option>
+    <option value="Sarah" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Sarah') { echo "selected"; } } ?> >Sarah</option>
+    <option value="Nicola" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Nicola') { echo "selected"; } } ?> >Nicola</option>  
+    <option value="Gavin" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Gavin') { echo "selected"; } } ?> >Gavin</option>
 </select>
 </div>
 
 <div class='form-group'>
-<label for='closer2'>Closer (optional):</label>
-<select class='form-control' name='full_name2' id='full_name2' >    
+<label for='CLOSER2'>Closer (optional):</label>
+<select class='form-control' name='CLOSER2' id='CLOSER2' >    
 <option value="None">None</option>    
-<option value="Carys">Carys</option>
-<option value="Hayley">Hayley</option>
-<option value="James">James</option>
-<option value="Kyle">Kyle</option>  
-<option value="Mike">Mike</option> 
-<option value="Richard">Richard</option>
-<option value="Sarah">Sarah</option> 
-<option value="Stavros">Stavros</option>
-<option value="Nicola">Nicola</option> 
-<option value="Gavin">Gavin</option> 
+    <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Carys') { echo "selected"; } } ?>>Carys</option>
+    <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Hayley') { echo "selected"; } } ?>>Hayley</option>
+    <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='James') { echo "selected"; } } ?>>James</option>
+    <option value="Kyle" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Kyle') { echo "selected"; } } ?>>Kyle</option>  
+    <option value="Mike" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Mike') { echo "selected"; } } ?>>Mike</option> 
+    <option value="Richard" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Richard') { echo "selected"; } } ?>>Richard</option>
+    <option value="Sarah" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Sarah') { echo "selected"; } } ?>>Sarah</option>
+    <option value="Nicola" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Nicola') { echo "selected"; } } ?>>Nicola</option>  
+    <option value="Gavin" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Gavin') { echo "selected"; } } ?>>Gavin</option>
 </select>
 </div>
 
-<label for="plan_number">Plan Number</label>
-<input type="text" class="form-control" name="plan_number" style="width: 520px">
+<label for="PLAN_NUMBER">Plan Number</label>
+<input type="text" class="form-control" name="PLAN_NUMBER" style="width: 520px" VALUE="<?php if(isset($RL_PLAN_NUMBER)) { echo $RL_PLAN_NUMBER; } ?>" >
 </p>
 
 <p>
 <div class="form-group">
-<label for='grade'>Grade:</label>
-<select class="form-control" name="formgrade" required>
+<label for='GRADE'>Grade:</label>
+<select class="form-control" name="GRADE" required>
   <option value="">Select...</option>
-  <option value="SAVED">Incomplete Audit (SAVE)</option>
-  <option value="Green">Green</option>
-  <option value="Amber">Amber</option>
-  <option value="Red">Red</option>
+  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='SAVED') { echo "selected"; } } ?> value="SAVED">Incomplete Audit (SAVE)</option>
+  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Green') { echo "selected"; } } ?> value="Green">Green</option>
+  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Amber') { echo "selected"; } } ?> value="Amber">Amber</option>
+  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Red') { echo "selected"; } } ?> value="Red">Red</option>
 </select>
 </div>
 </p>
@@ -124,15 +410,13 @@ function textAreaAdjust(o) {
 <p>
 <label for="OD1">Q<?php $i=0; $i++; echo $i; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label>
 <input type="radio" name="OD1" 
-<?php if (isset($OD1) && $OD1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckODT1();"
-value="Yes" id="yesCheckODT1">Yes
+<?php if (isset($RL_OD1) && $RL_OD1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT1();" value="1" id="yesCheckODT1">Yes
 <input type="radio" name="OD1"
-<?php if (isset($OD1) && $OD1=="No") echo "checked";?> onclick="javascript:yesnoCheckODT1();"
-value="No" id="noCheckODT1">No
+<?php if (isset($RL_OD1) && $RL_OD1=="0") { echo "checked"; }?> onclick="javascript:yesnoCheckODT1();" value="0" id="noCheckODT1">No
 </p>
 
 <div id="ifYesODT1" style="display:none">
-<textarea class="form-control"id="ODT1" name="ODT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ODT1" name="ODT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT1)) { echo $RL_CM_ODT1; } ?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -167,16 +451,12 @@ function yesnoCheckODT1() {
 
 <p>
 <label for="OD2">Q<?php $i++; echo $i; ?>. Was the customer informed that general insurance is regulated by the FCA?</label>
-<input type="radio" name="OD2" 
-<?php if (isset($OD2) && $OD2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckODT2();"
-value="Yes" id="yesCheckODT2">Yes
-<input type="radio" name="OD2"
-<?php if (isset($OD2) && $OD2=="No") echo "checked";?> onclick="javascript:yesnoCheckODT2();"
-value="No" id="noCheckODT2">No
+<input type="radio" name="OD2" <?php if (isset($RL_OD2) && $RL_OD2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT2();" value="1" id="yesCheckODT2">Yes
+<input type="radio" name="OD2" <?php if (isset($RL_OD2) && $RL_OD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT2();" value="0" id="noCheckODT2">No
 </p>
 
 <div id="ifYesODT2" style="display:none">
-<textarea class="form-control"id="ODT2" name="ODT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ODT2" name="ODT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT2)) { echo $RL_CM_ODT2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -212,16 +492,12 @@ function yesnoCheckODT2() {
 
 <p>
 <label for="OD3">Q<?php $i++; echo $i; ?>. Did the customer consent to the abbreviated script being read? If no, was the full disclosure read?</label>
-<input type="radio" name="OD3" 
-<?php if (isset($OD3) && $OD3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckODT3();"
-value="Yes" id="yesCheckODT3">Yes
-<input type="radio" name="OD3"
-<?php if (isset($OD3) && $OD3=="No") echo "checked";?> onclick="javascript:yesnoCheckODT3();"
-value="No" id="noCheckODT3">No
+<input type="radio" name="OD3" <?php if (isset($RL_OD3) && $RL_OD3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT3();" value="1" id="yesCheckODT3">Yes
+<input type="radio" name="OD3" <?php if (isset($RL_OD3) && $RL_OD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT3();" value="0" id="noCheckODT3">No
 </p>
 
 <div id="ifYesODT3" style="display:none">
-<textarea class="form-control"id="ODT3" name="ODT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ODT3" name="ODT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT3)) { echo $RL_CM_ODT3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -258,15 +534,15 @@ function yesnoCheckODT3() {
 <p>
 <label for="OD4">Q<?php $i++; echo $i; ?>. Did the closer provide the name and details of the firm who is regulated by the FCA?</label>
 <input type="radio" name="OD4" 
-<?php if (isset($OD4) && $OD4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckODT4();"
-value="Yes" id="yesCheckODT4">Yes
+<?php if (isset($RL_OD4) && $RL_OD4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT4();"
+value="1" id="yesCheckODT4">Yes
 <input type="radio" name="OD4"
-<?php if (isset($OD4) && $OD4=="No") echo "checked";?> onclick="javascript:yesnoCheckODT4();"
-value="No" id="noCheckODT4">No
+<?php if (isset($RL_OD4) && $RL_OD4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT4();"
+value="0" id="noCheckODT4">No
 </p>
 
 <div id="ifYesODT4" style="display:none">
-<textarea class="form-control"id="ODT4" name="ODT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ODT4" name="ODT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT4)) { echo $RL_CM_ODT4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -303,15 +579,15 @@ function yesnoCheckODT4() {
 <p>
 <label for="OD5">Q<?php $i++; echo $i; ?>. Did the closer make the customer aware that they are unable to offer advice or personal opinion and that they will only be providing them with an information based service to make their own informed decision?</label>
 <input type="radio" name="OD5" 
-<?php if (isset($OD5) && $OD5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckODT5();"
-value="Yes" id="yesCheckODT5">Yes
+<?php if (isset($RL_OD5) && $RL_OD5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT5();"
+value="1" id="yesCheckODT5">Yes
 <input type="radio" name="OD5"
-<?php if (isset($OD5) && $OD5=="No") echo "checked";?> onclick="javascript:yesnoCheckODT5();"
-value="No" id="noCheckODT5">No
+<?php if (isset($RL_OD5) && $RL_OD5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT5();"
+value="0" id="noCheckODT5">No
 </p>
 
 <div id="ifYesODT5" style="display:none">
-<textarea class="form-control"id="ODT5" name="ODT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ODT5" name="ODT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT5)) { echo $RL_CM_ODT5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -355,16 +631,12 @@ function yesnoCheckODT5() {
 
 <p>
 <label for="CI1">Q<?php $i++; echo $i; ?>. Was the clients gender accurately recorded?</label>
-<input type="radio" name="CI1" 
-<?php if (isset($CI1) && $CI1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT1();"
-value="Yes" id="yesCheckCIT1">Yes
-<input type="radio" name="CI1"
-<?php if (isset($CI1) && $CI1=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT1();"
-value="No" id="noCheckCIT1">No
+<input type="radio" name="CI1" <?php if (isset($RL_CI1) && $RL_CI1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT1();" value="1" id="yesCheckCIT1">Yes
+<input type="radio" name="CI1" <?php if (isset($RL_CI1) && $RL_CI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT1();" value="0" id="noCheckCIT1">No
 </p>
 
 <div id="ifYesCIT1" style="display:none">
-<textarea class="form-control"id="CIT1" name="CIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT1" name="CIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT1)) { echo $RL_CM_CIT1; } ?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -400,15 +672,11 @@ function yesnoCheckCIT1() {
 
 <p>
 <label for="CI2">Q<?php $i++; echo $i; ?>. Was the clients date of birth accurately recorded?</label>
-<input type="radio" name="CI2" onclick="javascript:yesnoCheck();"
-<?php if (isset($CI2) && $CI2=="Yes") echo "checked";?>
-value="Yes" id="yesCheck">Yes
-<input type="radio" name="CI2" onclick="javascript:yesnoCheck();"
-<?php if (isset($CI2) && $CI2=="No") echo "checked";?>
-value="No" id="noCheck">No
+<input type="radio" name="CI2" onclick="javascript:yesnoCheck();" <?php if (isset($RL_CI2) && $RL_CI2=="1") { echo "checked"; } ?> value="1" id="yesCheck">Yes 
+<input type="radio" name="CI2" onclick="javascript:yesnoCheck();" <?php if (isset($RL_CI2) && $RL_CI2=="0") { echo "checked"; } ?> value="0" id="noCheck">No
 </p>
 <div id="ifYes" style="display:none">
-<textarea class="form-control"id="CIT2" name="CIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT2" name="CIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT2)) { echo $RL_CM_CIT2; } ?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -445,15 +713,12 @@ function yesnoCheck() {
 <p>
 <label for="CI3">Q<?php $i++; echo $i; ?>. Was the clients smoking status recorded correctly?</label>
 <input type="radio" name="CI3" 
-<?php if (isset($CI3) && $CI3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT3();"
-value="Yes" id="yesCheckCIT3">Yes
-<input type="radio" name="CI3"
-<?php if (isset($CI3) && $CI3=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT3();"
-value="No" id="noCheckCIT3">No
+<?php if (isset($RL_CI3) && $RL_CI3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT3();" value="1" id="yesCheckCIT3">Yes <input type="radio" name="CI3"
+<?php if (isset($RL_CI3) && $RL_CI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT3();" value="0" id="noCheckCIT3">No
 </p>
 
 <div id="ifYesCIT3" style="display:none">
-<textarea class="form-control"id="CIT3" name="CIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT3" name="CIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT3)) { echo $RL_CM_CIT3; } ?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -489,16 +754,12 @@ function yesnoCheckCIT3() {
 
 <p>
 <label for="CI4">Q<?php $i++; echo $i; ?>. Was the clients employment status recorded correctly?</label>
-<input type="radio" name="CI4" 
-<?php if (isset($CI4) && $CI4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT4();"
-value="Yes" id="yesCheckCIT4">Yes
-<input type="radio" name="CI4"
-<?php if (isset($CI4) && $CI4=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT4();"
-value="No" id="noCheckCIT4">No
+<input type="radio" name="CI4" <?php if (isset($RL_CI4) && $RL_CI4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT4();" value="1" id="yesCheckCIT4">Yes
+<input type="radio" name="CI4" <?php if (isset($RL_CI4) && $RL_CI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT4();" value="0" id="noCheckCIT4">No
 </p>
 
 <div id="ifYesCIT4" style="display:none">
-<textarea class="form-control"id="CIT4" name="CIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT4" name="CIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT4)) { echo $RL_CM_CIT4; } ?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -534,16 +795,12 @@ function yesnoCheckCIT4() {
 
 <p>
 <label for="CI5">Q<?php $i++; echo $i; ?>. Did the closer confirm the policy was a single or a joint application?</label>
-<input type="radio" name="CI5" 
-<?php if (isset($CI5) && $CI5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT5();"
-value="Yes" id="yesCheckCIT5">Yes
-<input type="radio" name="CI5"
-<?php if (isset($CI5) && $CI5=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT5();"
-value="No" id="noCheckCIT5">No
+<input type="radio" name="CI5" <?php if (isset($RL_CI5) && $RL_CI5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT5();" value="1" id="yesCheckCIT5">Yes
+<input type="radio" name="CI5" <?php if (isset($RL_CI5) && $RL_CI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT5();" value="0" id="noCheckCIT5">No
 </p>
 
 <div id="ifYesCIT5" style="display:none">
-<textarea class="form-control"id="CIT5" name="CIT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT5" name="CIT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT5)) { echo $RL_CM_CIT5; } ?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -579,16 +836,12 @@ function yesnoCheckCIT5() {
 
 <p>
 <label for="CI6">Q<?php $i++; echo $i; ?>. Was the clients country of residence recorded correctly?</label>
-<input type="radio" name="CI6" 
-<?php if (isset($CI6) && $CI6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT6();"
-value="Yes" id="yesCheckCIT6">Yes
-<input type="radio" name="CI6"
-<?php if (isset($CI6) && $CI6=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT6();"
-value="No" id="noCheckCIT6">No
+<input type="radio" name="CI6" <?php if (isset($RL_CI6) && $RL_CI6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT6();" value="1" id="yesCheckCIT6">Yes
+<input type="radio" name="CI6" <?php if (isset($RL_CI6) && $RL_CI6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT6();" value="0" id="noCheckCIT6">No
 </p>
 
 <div id="ifYesCIT6" style="display:none">
-<textarea class="form-control"id="CIT6" name="CIT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft112" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT6" name="CIT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT6)) { echo $RL_CM_CIT6; } ?></textarea><span class="help-block"><p id="characterLeft112" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -624,16 +877,12 @@ function yesnoCheckCIT6() {
 
 <p>
 <label for="CI7">Q<?php $i++; echo $i; ?>. Was the clients occupation recorded correctly?</label>
-<input type="radio" name="CI7" 
-<?php if (isset($CI7) && $CI7=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT7();"
-value="Yes" id="yesCheckCIT7">Yes
-<input type="radio" name="CI7"
-<?php if (isset($CI7) && $CI7=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT7();"
-value="No" id="noCheckCIT7">No
+<input type="radio" name="CI7" <?php if (isset($RL_CI7) && $RL_CI7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT7();" value="1" id="yesCheckCIT7">Yes
+<input type="radio" name="CI7" <?php if (isset($RL_CI7) && $RL_CI7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT7();" value="0" id="noCheckCIT7">No
 </p>
 
 <div id="ifYesCIT7" style="display:none">
-<textarea class="form-control"id="CIT7" name="CIT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft113" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT7" name="CIT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT7)) { echo $RL_CM_CIT7; } ?></textarea><span class="help-block"><p id="characterLeft113" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -669,16 +918,12 @@ function yesnoCheckCIT7() {
 
 <p>
 <label for="CI8">Q<?php $i++; echo $i; ?>. Was the clients salary recorded correctly?</label>
-<input type="radio" name="CI8" 
-<?php if (isset($CI8) && $CI8=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCIT8();"
-value="Yes" id="yesCheckCIT8">Yes
-<input type="radio" name="CI8"
-<?php if (isset($CI8) && $CI8=="No") echo "checked";?> onclick="javascript:yesnoCheckCIT8();"
-value="No" id="noCheckCIT8">No
+<input type="radio" name="CI8" <?php if (isset($RL_CI8) && $RL_CI8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT8();" value="1" id="yesCheckCIT8">Yes
+<input type="radio" name="CI8" <?php if (isset($RL_CI8) && $RL_CI8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT8();" value="0" id="noCheckCIT8">No
 </p>
 
 <div id="ifYesCIT8" style="display:none">
-<textarea class="form-control"id="CIT8" name="CIT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft114" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CIT8" name="CIT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT8)) { echo $RL_CM_CIT8; } ?></textarea><span class="help-block"><p id="characterLeft114" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -722,16 +967,12 @@ function yesnoCheckCIT8() {
     <div class="panel-body">
 <p>
 <label for="IC1">Q<?php $i++; echo $i; ?>. Did the closer check all details of what the client has with their existing life insurance policy?</label>
-<input type="radio" name="IC1" 
-<?php if (isset($IC1) && $IC1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckICT1();"
-value="Yes" id="yesCheckICT1">Yes
-<input type="radio" name="IC1"
-<?php if (isset($IC1vvv) && $IC1=="No") echo "checked";?> onclick="javascript:yesnoCheckICT1();"
-value="No" id="noCheckICT1">No
+<input type="radio" name="IC1" <?php if (isset($RL_IC1) && $RL_IC1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT1();" value="1" id="yesCheckICT1">Yes
+<input type="radio" name="IC1" <?php if (isset($RL_IC1) && $RL_IC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT1();" value="0" id="noCheckICT1">No
 </p>
 
 <div id="ifYesICT1" style="display:none">
-<textarea class="form-control"id="ICT1" name="ICT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ICT1" name="ICT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT1)) { echo $RL_CM_ICT1; } ?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -767,19 +1008,13 @@ function yesnoCheckICT1() {
 
 <p>
 <label for="IC2">Q<?php $i++; echo $i; ?>. Did the closer mention waiver, indexation, or TPD?</label>
-<input type="radio" name="IC2" 
-<?php if (isset($IC2) && $IC2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckICT2();"
-value="Yes" id="yesCheckICT2">Yes
-<input type="radio" name="IC2"
-<?php if (isset($IC2) && $IC2=="No") echo "checked";?> onclick="javascript:yesnoCheckICT2();"
-value="No" id="noCheckICT2">No
-<input type="radio" name="IC2" 
-<?php if (isset($IC2) && $IC2=="N/A") echo "checked";?>
-value="N/A" >N/A
+<input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT2();" value="1" id="yesCheckICT2">Yes
+<input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT2();" value="0" id="noCheckICT2">No
+<input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="3") { echo "checked"; } ?> value="3" >N/A
 </p>
 
 <div id="ifYesICT2" style="display:none">
-<textarea class="form-control"id="ICT2" name="ICT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ICT2" name="ICT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT2)) { echo $RL_CM_ICT2; } ?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -815,16 +1050,12 @@ function yesnoCheckICT2() {
 
 <p>
 <label for="IC3">Q<?php $i++; echo $i; ?>. Did the closer ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label>
-<input type="radio" name="IC3" 
-<?php if (isset($IC3) && $IC3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckICT3();"
-value="Yes" id="yesCheckICT3">Yes
-<input type="radio" name="IC3"
-<?php if (isset($IC3) && $IC3=="No") echo "checked";?> onclick="javascript:yesnoCheckICT3();"
-value="No" id="noCheckICT3">No
+<input type="radio" name="IC3" <?php if (isset($RL_IC3) && $RL_IC3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT3();" value="1" id="yesCheckICT3">Yes
+<input type="radio" name="IC3" <?php if (isset($RL_IC3) && $RL_IC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT3();" value="0" id="noCheckICT3">No
 </p>
 
 <div id="ifYesICT3" style="display:none">
-<textarea class="form-control"id="ICT3" name="ICT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ICT3" name="ICT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT3)) { echo $RL_CM_ICT3; } ?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -861,15 +1092,15 @@ function yesnoCheckICT3() {
 <p>
 <label for="IC4">Q<?php $i++; echo $i; ?>. Did The closer provide the customer with a sufficient amount of features and benefits for the policy?</label>
 <select class="form-control" name="IC4" onclick="javascript:yesnoCheckICT4();">
-  <option value="NA">Select...</option>
-  <option value="More than sufficient">More than sufficient</option>
-  <option value="Sufficient">Sufficient</option>
-  <option value="Adaquate">Adequate</option>
-  <option value="Poor" onclick="javascript:yesnoCheckICT4a();" id="yesCheckICT4">Poor</option>
+  <option value="0" <?php if(isset($RL_IC4)) { if($RL_IC4=='0') { echo "selected"; } } ?>>Select...</option>
+  <option value="1" <?php if(isset($RL_IC4)) { if($RL_IC4=='1') { echo "selected"; } } ?>>More than sufficient</option>
+  <option value="2" <?php if(isset($RL_IC4)) { if($RL_IC4=='2') { echo "selected"; } } ?>>Sufficient</option>
+  <option value="3" <?php if(isset($RL_IC4)) { if($RL_IC4=='3') { echo "selected"; } } ?>>Adequate</option>
+  <option value="4" <?php if(isset($RL_IC4)) { if($RL_IC4=='4') { echo "selected"; } } ?> onclick="javascript:yesnoCheckICT4a();" id="yesCheckICT4">Poor</option>
 </select>
 </p>
 <div id="ifYesICT4" style="display:none">
-<textarea class="form-control"id="ICT4" name="ICT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ICT4" name="ICT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT4)) { echo $RL_CM_ICT4; } ?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -916,16 +1147,12 @@ function yesnoCheckICT4a() {
 
 <p>
 <label for="IC5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with Royal London?</label>
-<input type="radio" name="IC5" 
-<?php if (isset($IC5) && $IC5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckICT5();"
-value="Yes" id="yesCheckICT5">Yes
-<input type="radio" name="IC5"
-<?php if (isset($IC5) && $IC5=="No") echo "checked";?> onclick="javascript:yesnoCheckICT5();"
-value="No" id="noCheckICT5">No
+<input type="radio" name="IC5" <?php if (isset($RL_IC5) && $RL_IC5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT5();" value="1" id="yesCheckICT5">Yes
+<input type="radio" name="IC5" <?php if (isset($RL_IC5) && $RL_IC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT5();" value="0" id="noCheckICT5">No
 </p>
 
 <div id="ifYesICT5" style="display:none">
-<textarea class="form-control"id="ICT5" name="ICT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ICT5" name="ICT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT5)) { echo $RL_CM_ICT5; } ?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -967,16 +1194,12 @@ function yesnoCheckICT5() {
 
 <p>
 <label for="CD1">Q<?php $i++; echo $i; ?>. Were all clients titles and names recorded correctly?</label>
-<input type="radio" name="CD1" 
-<?php if (isset($CD1) && $CD1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDT1();"
-value="Yes" id="yesCheckCDT1">Yes
-<input type="radio" name="CD1"
-<?php if (isset($CD1) && $CD1=="No") echo "checked";?> onclick="javascript:yesnoCheckCDT1();"
-value="No" id="noCheckCDT1">No
+<input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="1" id="yesCheckCDT1">Yes
+<input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="0" id="noCheckCDT1">No
 </p>
 
 <div id="ifYesCDT1" style="display:none">
-<textarea class="form-control"id="CDT1" name="CDT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDT1" name="CDT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT1)) { echo $RL_CM_CDT1; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1012,16 +1235,12 @@ function yesnoCheckCDT1() {
 
 <p>
 <label for="CD2">Q<?php $i++; echo $i; ?>. Was the clients marital status recorded correctly?</label>
-<input type="radio" name="CD2" 
-<?php if (isset($CD2) && $CD2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDT2();"
-value="Yes" id="yesCheckCDT2">Yes
-<input type="radio" name="CD2"
-<?php if (isset($CD2) && $CD2=="No") echo "checked";?> onclick="javascript:yesnoCheckCDT2();"
-value="No" id="noCheckCDT2">No
+<input type="radio" name="CD2" <?php if (isset($RL_CD2) && $RL_CD2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT2();" value="1" id="yesCheckCDT2">Yes
+<input type="radio" name="CD2" <?php if (isset($RL_CD2) && $RL_CD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT2();" value="0" id="noCheckCDT2">No
 </p>
 
 <div id="ifYesCDT2" style="display:none">
-<textarea class="form-control"id="CDT2" name="CDT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDT2" name="CDT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT2)) { echo $RL_CM_CDT2; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1056,16 +1275,12 @@ function yesnoCheckCDT2() {
 
 <p>
 <label for="CD3">Q<?php $i++; echo $i; ?>. Was the clients address recored correctly?</label>
-<input type="radio" name="CD3" 
-<?php if (isset($CD3) && $CD3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDT3();"
-value="Yes" id="yesCheckCDT3">Yes
-<input type="radio" name="CD3"
-<?php if (isset($CD3) && $CD3=="No") echo "checked";?> onclick="javascript:yesnoCheckCDT3();"
-value="No" id="noCheckCDT3">No
+<input type="radio" name="CD3" <?php if (isset($RL_CD3) && $RL_CD3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT3();" value="1" id="yesCheckCDT3">Yes
+<input type="radio" name="CD3" <?php if (isset($RL_CD3) && $RL_CD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT3();" value="0" id="noCheckCDT3">No
 </p>
 
 <div id="ifYesCDT3" style="display:none">
-<textarea class="form-control"id="CDT3" name="CDT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDT3" name="CDT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT3)) { echo $RL_CM_CDT3; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1100,16 +1315,12 @@ function yesnoCheckCDT3() {
 
 <p>
 <label for="CD4">Q<?php $i++; echo $i; ?>. Was clients phone number(s) recorded correctly?</label>
-<input type="radio" name="CD4" 
-<?php if (isset($CD4) && $CD4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDT4();"
-value="Yes" id="yesCheckCDT4">Yes
-<input type="radio" name="CD4"
-<?php if (isset($CD4) && $CD4=="No") echo "checked";?> onclick="javascript:yesnoCheckCDT4();"
-value="No" id="noCheckCDT4">No
+<input type="radio" name="CD4" <?php if(isset($RL_CD4) && $RL_CD4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT4();" value="1" id="yesCheckCDT4">Yes
+<input type="radio" name="CD4" <?php if(isset($RL_CD4) && $RL_CD4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT4();" value="0" id="noCheckCDT4">No
 </p>
 
 <div id="ifYesCDT4" style="display:none">
-<textarea class="form-control"id="CDT4" name="CDT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDT4" name="CDT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT4)) { echo $RL_CM_CDT4; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1144,16 +1355,12 @@ function yesnoCheckCDT4() {
 
 <p>
 <label for="CD5">Q<?php $i++; echo $i; ?>. Was the clients email address recorded correctly?</label>
-<input type="radio" name="CD5" 
-<?php if (isset($CD5) && $CD5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDT5();"
-value="Yes" id="yesCheckCDT5">Yes
-<input type="radio" name="CD5"
-<?php if (isset($CD5) && $CD5=="No") echo "checked";?> onclick="javascript:yesnoCheckCDT5();"
-value="No" id="noCheckCDT5">No
+<input type="radio" name="CD5" <?php if(isset($RL_CD5) && $RL_CD5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT5();" value="1" id="yesCheckCDT5">Yes
+<input type="radio" name="CD5" <?php if(isset($RL_CD5) && $RL_CD5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT5();" value="0" id="noCheckCDT5">No
 </p>
 
 <div id="ifYesCDT5" style="display:none">
-<textarea class="form-control"id="CDT5" name="CDT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDT5" name="CDT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT5)) { echo $RL_CM_CDT5; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1197,15 +1404,11 @@ function yesnoCheckCDT5() {
 
 <p>
 <label for="DO1">Q<?php $i++; echo $i; ?>. Confirmed that we comply with the Data Protection Act, and are happy for their personal to be passed over the phone?</label>
-<input type="radio" name="DO1" 
-<?php if (isset($DO1) && $DO1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT1();"
-value="Yes" id="yesCheckDOT1">Yes
-<input type="radio" name="DO1"
-<?php if (isset($DO1) && $DO1=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT1();"
-value="No" id="noCheckDOT1">No
+<input type="radio" name="DO1" <?php if (isset($RL_DO1) && $RL_DO1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT1();" value="1" id="yesCheckDOT1">Yes
+<input type="radio" name="DO1" <?php if (isset($RL_DO1) && $RL_DO1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT1();" value="0" id="noCheckDOT1">No
 </p>
 <div id="ifYesDOT1" style="display:none">
-<textarea class="form-control"id="DOT1" name="DOT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT1" name="DOT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT1)) { echo $RL_CM_DOT1; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1241,16 +1444,12 @@ function yesnoCheckDOT1() {
            
 <p>
 <label for="DO2">Q<?php $i++; echo $i; ?>. The impact of misrepresentation declaration read out?</label>
-<input type="radio" name="DO2" 
-<?php if (isset($DO2) && $DO2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT2();"
-value="Yes" id="yesCheckDOT2">Yes
-<input type="radio" name="DO2"
-<?php if (isset($DO2) && $DO2=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT2();"
-value="No" id="noCheckDOT2">No
+<input type="radio" name="DO2" <?php if (isset($RL_DO2) && $RL_DO2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT2();" value="1" id="yesCheckDOT2">Yes
+<input type="radio" name="DO2" <?php if (isset($RL_DO2) && $RL_DO2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT2();" value="0" id="noCheckDOT2">No
 </p>
 
 <div id="ifYesDOT2" style="display:none">
-<textarea class="form-control"id="DOT2" name="DOT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT2" name="DOT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT2)) { echo $RL_CM_DOT2; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1286,19 +1485,13 @@ function yesnoCheckDOT2() {
 
 <p>
 <label for="DO3">Q<?php $i++; echo $i; ?>. If appropriate did the closer confirm the exclusions on the policy?</label>
-<input type="radio" name="DO3" 
-<?php if (isset($DO3) && $DO3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT3();"
-value="Yes" id="yesCheckDOT3">Yes
-<input type="radio" name="DO3"
-<?php if (isset($DO3) && $DO3=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT3();"
-value="No" id="noCheckDOT3">No
-<input type="radio" name="DO3" 
-<?php if (isset($DO3) && $DO3=="N/A") echo "checked";?>
-value="N/A" >N/A
+<input type="radio" name="DO3" <?php if (isset($RL_DO3) && $RL_DO3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT3();" value="1" id="yesCheckDOT3">Yes
+<input type="radio" name="DO3" <?php if (isset($RL_DO3) && $RL_DO3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT3();" value="0" id="noCheckDOT3">No
+<input type="radio" name="DO3" <?php if (isset($RL_DO3) && $RL_DO3=="3") { echo "checked"; } ?> value="3" >N/A
 </p>
 
 <div id="ifYesDOT3" style="display:none">
-<textarea class="form-control"id="DOT3" name="DOT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT3" name="DOT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT3)) { echo $RL_CM_DOT3; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1334,19 +1527,13 @@ function yesnoCheckDOT3() {
 
 <p>
 <label for="DO4">Q<?php $i++; echo $i; ?>. Client informed that Royal London may request a copy of their medical reports up to six months after the cover has started?</label>
-<input type="radio" name="DO4" 
-<?php if (isset($DO4) && $DO4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT4();"
-value="Yes" id="yesCheckDOT4">Yes
-<input type="radio" name="DO4"
-<?php if (isset($DO4) && $DO4=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT4();"
-value="No" id="noCheckDOT4">No
-<input type="radio" name="DO4" 
-<?php if (isset($DO4) && $DO4=="N/A") echo "checked";?>
-value="N/A" >N/A
+<input type="radio" name="DO4" <?php if (isset($RL_DO4) && $RL_DO4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT4();" value="1" id="yesCheckDOT4">Yes
+<input type="radio" name="DO4" <?php if (isset($RL_DO4) && $RL_DO4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT4();" value="0" id="noCheckDOT4">No
+<input type="radio" name="DO4" <?php if (isset($RL_DO4) && $RL_DO4=="2") { echo "checked"; } ?> value="2" >N/A
 </p>
 
 <div id="ifYesDOT4" style="display:none">
-<textarea class="form-control"id="DOT4" name="DOT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT4" name="DOT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT4)) { echo $RL_CM_DOT4; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1381,12 +1568,12 @@ function yesnoCheckDOT4() {
 
 <p>
 <label for="DO5">Q<?php $i++; echo $i; ?>. Did the closer ask the client to read out the Access to Medical Reports Act 1988 (or to send a copy)?</label>
-<input type="radio" name="DO5" <?php if (isset($DO5) && $DO5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT5();" value="Yes" id="yesCheckDOT5">Yes
-<input type="radio" name="DO5" <?php if (isset($DO5) && $DO5=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT5();" value="No" id="noCheckDOT5">No
+<input type="radio" name="DO5" <?php if (isset($RL_DO5) && $RL_DO5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT5();" value="1" id="yesCheckDOT5">Yes
+<input type="radio" name="DO5" <?php if (isset($RL_DO5) && $RL_DO5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT5();" value="0" id="noCheckDOT5">No
 </p>
 
 <div id="ifYesDOT5" style="display:none">
-<textarea class="form-control"id="DOT5" name="DOT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT5" name="DOT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT5)) { echo $RL_CM_DOT5; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1421,12 +1608,12 @@ function yesnoCheckDOT5() {
 
 <p>
 <label for="DO6">Q<?php $i++; echo $i; ?>. Did the closer ask the client if they had any existing plans or an application with Royal London?</label>
-<input type="radio" name="DO6" <?php if (isset($DO6) && $DO6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT6();" value="Yes" id="yesCheckDOT6">Yes
-<input type="radio" name="DO6" <?php if (isset($DO6) && $DO6=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT6();" value="No" id="noCheckDOT6">No
+<input type="radio" name="DO6" <?php if (isset($RL_DO6) && $RL_DO6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT6();" value="1" id="yesCheckDOT6">Yes
+<input type="radio" name="DO6" <?php if (isset($RL_DO6) && $RL_DO6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT6();" value="0" id="noCheckDOT6">No
 </p>
 
 <div id="ifYesDOT6" style="display:none">
-<textarea class="form-control"id="DOT6" name="DOT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT6" name="DOT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT6)) { echo $RL_CM_DOT6; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1461,12 +1648,12 @@ function yesnoCheckDOT6() {
 
 <p>
 <label for="DO7">Q<?php $i++; echo $i; ?>. Did the closer ask the client if they had an application on your life deferred or declined?</label>
-<input type="radio" name="DO7" <?php if (isset($DO7) && $DO7=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT7();" value="Yes" id="yesCheckDOT7">Yes
-<input type="radio" name="DO7" <?php if (isset($DO7) && $DO7=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT7();" value="No" id="noCheckDOT7">No
+<input type="radio" name="DO7" <?php if (isset($RL_DO7) && $RL_DO7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT7();" value="1" id="yesCheckDOT7">Yes
+<input type="radio" name="DO7" <?php if (isset($RL_DO7) && $RL_DO7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT7();" value="0" id="noCheckDOT7">No
 </p>
 
 <div id="ifYesDOT7" style="display:none">
-<textarea class="form-control"id="DOT7" name="DOT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT7" name="DOT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT7)) { echo $RL_CM_DOT7; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1501,12 +1688,12 @@ function yesnoCheckDOT7() {
 
 <p>
 <label for="DO8">Q<?php $i++; echo $i; ?>. Did the closer ask the client if the total amount of cover that they have applied for, added to the amount that they already have, across all insurance companies exceed £1,000,000 life cover or £500,000 CIC?</label>
-<input type="radio" name="DO8" <?php if (isset($DO8) && $DO8=="Yes") echo "checked";?> onclick="javascript:yesnoCheckDOT8();" value="Yes" id="yesCheckDOT8">Yes
-<input type="radio" name="DO8" <?php if (isset($DO8) && $DO8=="No") echo "checked";?> onclick="javascript:yesnoCheckDOT8();" value="No" id="noCheckDOT8">No
+<input type="radio" name="DO8" <?php if (isset($RL_DO8) && $RL_DO8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT8();" value="1" id="yesCheckDOT8">Yes
+<input type="radio" name="DO8" <?php if (isset($RL_DO8) && $RL_DO8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT8();" value="0" id="noCheckDOT8">No
 </p>
 
 <div id="ifYesDOT8" style="display:none">
-<textarea class="form-control"id="DOT8" name="DOT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="DOT8" name="DOT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT8)) { echo $RL_CM_DOT8; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1550,16 +1737,12 @@ function yesnoCheckDOT8() {
         
 <p>
 <label for="LS1">Q<?php $i++; echo $i; ?>. Did the closer ask and accurately record the height and weight details correctly?</label>
-<input type="radio" name="LS1" 
-<?php if (isset($LS1) && $LS1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST1();"
-value="Yes" id="yesCheckLST1">Yes
-<input type="radio" name="LS1"
-<?php if (isset($LS1) && $LS1=="No") echo "checked";?> onclick="javascript:yesnoCheckLST1();"
-value="No" id="noCheckLST1">No
+<input type="radio" name="LS1" <?php if (isset($RL_LS1) && $RL_LS1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST1();" value="1" id="yesCheckLST1">Yes
+<input type="radio" name="LS1" <?php if (isset($RL_LS1) && $RL_LS1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST1();" value="0" id="noCheckLST1">No
 </p>
 
 <div id="ifYesLST1" style="display:none">
-<textarea class="form-control"id="LST1" name="LST1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST1" name="LST1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST1)) { echo $RL_CM_LST1; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1595,16 +1778,12 @@ function yesnoCheckLST1() {
 
 <p>
 <label for="LS2">Q<?php $i++; echo $i; ?>. Did the closer ask and accurately record the clients clothe measurements?</label>
-<input type="radio" name="LS2" 
-<?php if (isset($LS2) && $LS2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST2();"
-value="Yes" id="yesCheckLST2">Yes
-<input type="radio" name="LS2"
-<?php if (isset($LS2) && $LS2=="No") echo "checked";?> onclick="javascript:yesnoCheckLST2();"
-value="No" id="noCheckLST2">No
+<input type="radio" name="LS2" <?php if (isset($RL_LS2) && $RL_LS2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST2();" value="1" id="yesCheckLST2">Yes
+<input type="radio" name="LS2" <?php if (isset($RL_LS2) && $RL_LS2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST2();" value="0" id="noCheckLST2">No
 </p>
 
 <div id="ifYesLST2" style="display:none">
-<textarea class="form-control"id="LST2" name="LST2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST2" name="LST2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST2)) { echo $RL_CM_LST2; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1640,16 +1819,12 @@ function yesnoCheckLST2() {
 
 <p>
 <label for="LS3">Q<?php $i++; echo $i; ?>. Did the closer ask and accurately record the smoking details correctly?</label>
-<input type="radio" name="LS3" 
-<?php if (isset($LS3) && $LS3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST3();"
-value="Yes" id="yesCheckLST3">Yes
-<input type="radio" name="LS3"
-<?php if (isset($LS3) && $LS3=="No") echo "checked";?> onclick="javascript:yesnoCheckLST3();"
-value="No" id="noCheckLST3">No
+<input type="radio" name="LS3" <?php if (isset($RL_LS3) && $RL_LS3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST3();" value="1" id="yesCheckLST3">Yes
+<input type="radio" name="LS3" <?php if (isset($RL_LS3) && $RL_LS3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST3();" value="0" id="noCheckLST3">No
 </p>
 
 <div id="ifYesLST3" style="display:none">
-<textarea class="form-control"id="LST3" name="LST3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST3" name="LST3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST3)) { echo $RL_CM_LST3; } ?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1685,16 +1860,12 @@ function yesnoCheckLST3() {
 
 <p>
 <label for="LS4">Q<?php $i++; echo $i; ?>. Was the client asked how many units of alcohol they drink in a week?</label>
-<input type="radio" name="LS4" 
-<?php if (isset($LS4) && $LS4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST4();"
-value="Yes" id="yesCheckLST4">Yes
-<input type="radio" name="LS4"
-<?php if (isset($LS4) && $LS4=="No") echo "checked";?> onclick="javascript:yesnoCheckLST4();"
-value="No" id="noCheckLST4">No
+<input type="radio" name="LS4" <?php if (isset($RL_LS4) && $RL_LS4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST4();" value="1" id="yesCheckLST4">Yes
+<input type="radio" name="LS4" <?php if (isset($RL_LS4) && $RL_LS4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST4();" value="0" id="noCheckLST4">No
 </p>
 
 <div id="ifYesLST4" style="display:none">
-<textarea class="form-control"id="LST4" name="LST4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST4" name="LST4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST4)) { echo $RL_CM_LST4; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1730,16 +1901,12 @@ function yesnoCheckLST4() {
 
 <p>
 <label for="LS5">Q<?php $i++; echo $i; ?>. Did the closer ask if they have been disqualified from driving in the last 5 years?</label>
-<input type="radio" name="LS5" 
-<?php if (isset($LS5) && $LS5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST5();"
-value="Yes" id="yesCheckLST5">Yes
-<input type="radio" name="LS5"
-<?php if (isset($LS5) && $LS5=="No") echo "checked";?> onclick="javascript:yesnoCheckLST5();"
-value="No" id="noCheckLST5">No
+<input type="radio" name="LS5" <?php if (isset($RL_LS5) && $RL_LS5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST5();" value="1" id="yesCheckLST5">Yes
+<input type="radio" name="LS5" <?php if (isset($RL_LS5) && $RL_LS5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST5();" value="0" id="noCheckLST5">No
 </p>
 
 <div id="ifYesLST5" style="display:none">
-<textarea class="form-control"id="LST5" name="LST5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST5" name="LST5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST5)) { echo $RL_CM_LST5; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1775,16 +1942,12 @@ function yesnoCheckLST5() {
 
 <p>
 <label for="LS6">Q<?php $i++; echo $i; ?>. Did the closer ask if the client has used recreational drugs in the last 10 years?</label>
-<input type="radio" name="LS6" 
-<?php if (isset($LS6) && $LS6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST6();"
-value="Yes" id="yesCheckLST6">Yes
-<input type="radio" name="LS6"
-<?php if (isset($LS6) && $LS6=="No") echo "checked";?> onclick="javascript:yesnoCheckLST6();"
-value="No" id="noCheckLST6">No
+<input type="radio" name="LS6" <?php if (isset($RL_LS6) && $RL_LS6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST6();" value="1" id="yesCheckLST6">Yes
+<input type="radio" name="LS6" <?php if (isset($RL_LS6) && $RL_LS6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST6();" value="0" id="noCheckLST6">No
 </p>
 
 <div id="ifYesLST6" style="display:none">
-<textarea class="form-control"id="LST6" name="LST6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST6" name="LST6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST6)) { echo $RL_CM_LST6; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1820,16 +1983,12 @@ function yesnoCheckLST6() {
 
 <p>
 <label for="LS7">Q<?php $i++; echo $i; ?>. Did the closer check if the client had undertaken any of the listed activities?</label>
-<input type="radio" name="LS7" 
-<?php if (isset($LS7) && $LS7=="Yes") echo "checked";?> onclick="javascript:yesnoCheckLST7();"
-value="Yes" id="yesCheckLST7">Yes
-<input type="radio" name="LS7"
-<?php if (isset($LS7) && $LS7=="No") echo "checked";?> onclick="javascript:yesnoCheckLST7();"
-value="No" id="noCheckLST7">No
+<input type="radio" name="LS7" <?php if (isset($RL_LS7) && $RL_LS7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST7();" value="1" id="yesCheckLST7">Yes
+<input type="radio" name="LS7" <?php if (isset($RL_LS7) && $RL_LS7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST7();" value="0" id="noCheckLST7">No
 </p>
 
 <div id="ifYesLST7" style="display:none">
-<textarea class="form-control"id="LST7" name="LST7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="LST7" name="LST7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST7)) { echo $RL_CM_LST7; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1874,16 +2033,12 @@ function yesnoCheckLST7() {
 
 <p>
 <label for="OT1">Q<?php $i++; echo $i; ?>. Was the client asked if their job involves manual work or driving?</label>
-<input type="radio" name="OT1" 
-<?php if (isset($OT1) && $OT1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckOTT1();"
-value="Yes" id="yesCheckOTT1">Yes
-<input type="radio" name="OT1"
-<?php if (isset($OT1) && $OT1=="No") echo "checked";?> onclick="javascript:yesnoCheckOTT1();"
-value="No" id="noCheckOTT1">No
+<input type="radio" name="OT1" <?php if (isset($RL_OT1) && $RL_OT1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT1();" value="1" id="yesCheckOTT1">Yes
+<input type="radio" name="OT1" <?php if (isset($RL_OT1) && $RL_OT1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT1();" value="0" id="noCheckOTT1">No
 </p>
 
 <div id="ifYesOTT1" style="display:none">
-<textarea class="form-control"id="OTT1" name="OTT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="OTT1" name="OTT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT1)) { echo $RL_CM_OTT1; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1919,16 +2074,12 @@ function yesnoCheckOTT1() {
 
 <p>
 <label for="OT2">Q<?php $i++; echo $i; ?>. Was the client asked if they undertake in any of the listed hazardous activities?</label>
-<input type="radio" name="OT2" 
-<?php if (isset($OT2) && $OT2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckOTT2();"
-value="Yes" id="yesCheckOTT2">Yes
-<input type="radio" name="OT2"
-<?php if (isset($OT2) && $OT2=="No") echo "checked";?> onclick="javascript:yesnoCheckOTT2();"
-value="No" id="noCheckOTT2">No
+<input type="radio" name="OT2" <?php if (isset($RL_OT2) && $RL_OT2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT2();" value="1" id="yesCheckOTT2">Yes
+<input type="radio" name="OT2" <?php if (isset($RL_OT2) && $RL_OT2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT2();" value="0" id="noCheckOTT2">No
 </p>
 
 <div id="ifYesOTT2" style="display:none">
-<textarea class="form-control"id="OTT2" name="OTT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="OTT2" name="OTT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT2)) { echo $RL_CM_OTT2; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -1964,16 +2115,12 @@ function yesnoCheckOTT2() {
 
 <p>
 <label for="OT3">Q<?php $i++; echo $i; ?>. Was the client asked if they have worked/travelled out the listed countries (in the last 2 years, or do they intend to)?</label>
-<input type="radio" name="OT3" 
-<?php if (isset($OT3) && $OT3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckOTT3();"
-value="Yes" id="yesCheckOTT3">Yes
-<input type="radio" name="OT3"
-<?php if (isset($OT3) && $OT3=="No") echo "checked";?> onclick="javascript:yesnoCheckOTT3();"
-value="No" id="noCheckOTT3">No
+<input type="radio" name="OT3" <?php if (isset($RL_OT3) && $RL_OT3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT3();" value="1" id="yesCheckOTT3">Yes
+<input type="radio" name="OT3" <?php if (isset($RL_OT3) && $RL_OT3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT3();" value="0" id="noCheckOTT3">No
 </p>
 
 <div id="ifYesOTT3" style="display:none">
-<textarea class="form-control"id="OTT3" name="OTT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="OTT3" name="OTT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT3)) { echo $RL_CM_OTT3; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2017,16 +2164,12 @@ function yesnoCheckOTT3() {
            
 <p>
 <label for="HQ1">Q<?php $i++; echo $i; ?>. Was the client asked if they have ever had any health problems?</label>
-<input type="radio" name="HQ1" 
-<?php if (isset($HQ1) && $HQ1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT1();"
-value="Yes" id="yesCheckHQT1">Yes
-<input type="radio" name="HQ1"
-<?php if (isset($HQ1) && $HQ1=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT1();"
-value="No" id="noCheckHQT1">No
+<input type="radio" name="HQ1" <?php if (isset($RL_HQ1) && $RL_HQ1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT1();" value="1" id="yesCheckHQT1">Yes
+<input type="radio" name="HQ1" <?php if (isset($RL_HQ1) && $RL_HQ1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT1();" value="0" id="noCheckHQT1">No
 </p>
 
 <div id="ifYesHQT1" style="display:none">
-<textarea class="form-control"id="HQT1" name="HQT1" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT1" name="HQT1" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT1)) { echo $RL_CM_HQT1; } ?></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2062,16 +2205,12 @@ function yesnoCheckHQT1() {
 
 <p>
 <label for="HQ2">Q<?php $i++; echo $i; ?>. Were all health in the last 5 years questions asked and recorded correctly?</label>
-<input type="radio" name="HQ2" 
-<?php if (isset($HQ2) && $HQ2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT2();"
-value="Yes" id="yesCheckHQT2">Yes
-<input type="radio" name="HQ2"
-<?php if (isset($HQ2) && $HQ2=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT2();"
-value="No" id="noCheckHQT2">No
+<input type="radio" name="HQ2" <?php if (isset($RL_HQ2) && $RL_HQ2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT2();" value="1" id="yesCheckHQT2">Yes
+<input type="radio" name="HQ2" <?php if (isset($RL_HQ2) && $RL_HQ2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT2();" value="0" id="noCheckHQT2">No
 </p>
 
 <div id="ifYesHQT2" style="display:none">
-<textarea class="form-control"id="HQT2" name="HQT2" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT2" name="HQT2" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT2)) { echo $RL_CM_HQT2; } ?></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2107,16 +2246,12 @@ function yesnoCheckHQT2() {
 
 <p>
 <label for="HQ3">Q<?php $i++; echo $i; ?>. Were all health in the last 3 years questions asked and recorded correctly?</label>
-<input type="radio" name="HQ3" 
-<?php if (isset($HQ3) && $HQ3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT3();"
-value="Yes" id="yesCheckHQT3">Yes
-<input type="radio" name="HQ3"
-<?php if (isset($HQ3) && $HQ3=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT3();"
-value="No" id="noCheckHQT3">No
+<input type="radio" name="HQ3" <?php if (isset($RL_HQ3) && $RL_HQ3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT3();" value="1" id="yesCheckHQT3">Yes
+<input type="radio" name="HQ3" <?php if (isset($RL_HQ3) && $RL_HQ3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT3();" value="0" id="noCheckHQT3">No
 </p>
 
 <div id="ifYesHQT3" style="display:none">
-<textarea class="form-control"id="HQT3" name="HQT3" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT3" name="HQT3" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT3)) { echo $RL_CM_HQT3; } ?></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2152,16 +2287,12 @@ function yesnoCheckHQT3() {
 
 <p>
 <label for="HQ4">Q<?php $i++; echo $i; ?>. Was the client asked if their family have any medical history?</label>
-<input type="radio" name="HQ4" 
-<?php if (isset($HQ4) && $HQ4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT4();"
-value="Yes" id="yesCheckHQT4">Yes
-<input type="radio" name="HQ4"
-<?php if (isset($HQ4) && $HQ4=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT4();"
-value="No" id="noCheckHQT4">No
+<input type="radio" name="HQ4" <?php if (isset($RL_HQ4) && $RL_HQ4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT4();" value="1" id="yesCheckHQT4">Yes
+<input type="radio" name="HQ4" <?php if (isset($RL_HQ4) && $RL_HQ4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT4();" value="0" id="noCheckHQT4">No
 </p>
 
 <div id="ifYesHQT4" style="display:none">
-<textarea class="form-control"id="HQT4" name="HQT4" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT4" name="HQT4" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT4)) { echo $RL_CM_HQT4; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2197,16 +2328,12 @@ function yesnoCheckHQT4() {
 
 <p>
 <label for="HQ5">Q<?php $i++; echo $i; ?>. If appropriate, did the closer confirm any exclusions on the policy?</label>
-<input type="radio" name="HQ5" 
-<?php if (isset($HQ5) && $HQ5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT5();"
-value="Yes" id="yesCheckHQT5">Yes
-<input type="radio" name="HQ5"
-<?php if (isset($HQ5) && $HQ5=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT5();"
-value="No" id="noCheckHQT5">No
+<input type="radio" name="HQ5" <?php if (isset($RL_HQ5) && $RL_HQ5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT5();" value="1" id="yesCheckHQT5">Yes
+<input type="radio" name="HQ5" <?php if (isset($RL_HQ5) && $RL_HQ5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT5();" value="0" id="noCheckHQT5">No
 </p>
 
 <div id="ifYesHQT5" style="display:none">
-<textarea class="form-control"id="HQT5" name="HQT5" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT5" name="HQT5" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT5)) { echo $RL_CM_HQT5; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2242,16 +2369,12 @@ function yesnoCheckHQT5() {
 
 <p>
 <label for="HQ6">Q<?php $i++; echo $i; ?>. Were all of the health questions recorded correctly?</label>
-<input type="radio" name="HQ6" 
-<?php if (isset($HQ6) && $HQ6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckHQT6();"
-value="Yes" id="yesCheckHQT6">Yes
-<input type="radio" name="HQ6"
-<?php if (isset($HQ6) && $HQ6=="No") echo "checked";?> onclick="javascript:yesnoCheckHQT6();"
-value="No" id="noCheckHQT6">No
+<input type="radio" name="HQ6" <?php if (isset($RL_HQ6) && $RL_HQ6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT6();" value="1" id="yesCheckHQT6">Yes
+<input type="radio" name="HQ6" <?php if (isset($RL_HQ6) && $RL_HQ6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT6();" value="0" id="noCheckHQT6">No
 </p>
 
 <div id="ifYesHQT6" style="display:none">
-<textarea class="form-control"id="HQT6" name="HQT6" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="HQT6" name="HQT6" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_HQT6)) { echo $RL_CM_HQT6; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2295,16 +2418,12 @@ function yesnoCheckHQT6() {
     <div class="panel-body">
 <p>
 <label for="E1">Q<?php $i++; echo $i; ?>. Important customer information declaration?</label>
-<input type="radio" name="E1" 
-<?php if (isset($E1) && $E1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckET1();"
-value="Yes" id="yesCheckET1">Yes
-<input type="radio" name="E1"
-<?php if (isset($E1) && $E1=="No") echo "checked";?> onclick="javascript:yesnoCheckET1();"
-value="No" id="noCheckET1">No
+<input type="radio" name="E1" <?php if (isset($RL_E1) && $RL_E1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="1" id="yesCheckET1">Yes
+<input type="radio" name="E1" <?php if (isset($RL_E1) && $RL_E1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="0" id="noCheckET1">No
 </p>
 
 <div id="ifYesET1" style="display:none">
-<textarea class="form-control"id="ET1" name="ET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET1" name="ET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET1)) { echo $RL_CM_ET1; } ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2340,16 +2459,12 @@ function yesnoCheckET1() {
 
 <p>
 <label for="E2">Q<?php $i++; echo $i; ?>. Were all clients contact details recorded correctly?</label>
-<input type="radio" name="E2" 
-<?php if (isset($E2) && $E2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckET2();"
-value="Yes" id="yesCheckET2">Yes
-<input type="radio" name="E2"
-<?php if (isset($E2) && $E2=="No") echo "checked";?> onclick="javascript:yesnoCheckET2();"
-value="No" id="noCheckET2">No
+<input type="radio" name="E2" <?php if (isset($RL_E2) && $RL_E2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="1" id="yesCheckET2">Yes
+<input type="radio" name="E2" <?php if (isset($RL_E2) && $RL_E2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="0" id="noCheckET2">No
 </p>
 
 <div id="ifYesET2" style="display:none">
-<textarea class="form-control"id="ET2" name="ET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET2" name="ET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET2)) { echo $RL_CM_ET2; } ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2385,16 +2500,12 @@ function yesnoCheckET2() {
 
 <p>
 <label for="E3">Q<?php $i++; echo $i; ?>. Were all clients address details recorded correctly?</label>
-<input type="radio" name="E3" 
-<?php if (isset($E3) && $q15=="Yes") echo "checked";?> onclick="javascript:yesnoCheckET3();"
-value="Yes" id="yesCheckET3">Yes
-<input type="radio" name="E3"
-<?php if (isset($E3) && $E3=="No") echo "checked";?> onclick="javascript:yesnoCheckET3();"
-value="No" id="noCheckET3">No
+<input type="radio" name="E3" <?php if (isset($RL_E3) && $RL_E3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="1" id="yesCheckET3">Yes
+<input type="radio" name="E3" <?php if (isset($RL_E3) && $RL_E3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="0" id="noCheckET3">No
 </p>
 
 <div id="ifYesET3" style="display:none">
-<textarea class="form-control"id="ET3" name="ET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET3" name="ET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET3)) { echo $RL_CM_ET3; } ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2430,16 +2541,12 @@ function yesnoCheckET3() {
 
 <p>
 <label for="E4">Q<?php $i++; echo $i; ?>. Did the closer ask and accurately record the work and travel questions correctly?</label>
-<input type="radio" name="E4" 
-<?php if (isset($E4) && $E4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckET4();"
-value="Yes" id="yesCheckET4">Yes
-<input type="radio" name="E4"
-<?php if (isset($E4) && $E4=="No") echo "checked";?> onclick="javascript:yesnoCheckET4();"
-value="No" id="noCheckET4">No
+<input type="radio" name="E4" <?php if (isset($RL_E4) && $RL_E4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="1" id="yesCheckET4">Yes
+<input type="radio" name="E4" <?php if (isset($RL_E4) && $RL_E4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="0" id="noCheckET4">No
 </p>
 
 <div id="ifYesET4" style="display:none">
-<textarea class="form-control"id="ET4" name="ET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft21" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET4" name="ET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET4)) { echo $RL_CM_ET4; } ?></textarea><span class="help-block"><p id="characterLeft21" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2475,16 +2582,12 @@ function yesnoCheckET4() {
 
 <p>
 <label for="E5">Q<?php $i++; echo $i; ?>. Were all family history questions asked and recorded correctly?</label>
-<input type="radio" name="E5" 
-<?php if (isset($E5) && $E5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckET5();"
-value="Yes" id="yesCheckET5">Yes
-<input type="radio" name="E5"
-<?php if (isset($E5) && $E5=="No") echo "checked";?> onclick="javascript:yesnoCheckET5();"
-value="No" id="noCheckET5">No
+<input type="radio" name="E5" <?php if (isset($RL_E5) && $RL_E5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="1" id="yesCheckET5">Yes
+<input type="radio" name="E5" <?php if (isset($RL_E5) && $RL_E5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5">No
 </p>
 
 <div id="ifYesET5" style="display:none">
-<textarea class="form-control"id="ET5" name="ET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET5" name="ET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET5)) { echo $RL_CM_ET5; } ?></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2521,16 +2624,16 @@ function yesnoCheckET5() {
 <p>
 <label for="E6">Q<?php $i++; echo $i; ?>. Were term for term details recorded correctly?</label>
 <select class="form-control" name="E6" >
-  <option value="0">Select...</option>
-  <option value="1">Client Provided Details</option>
-  <option value="2">Client failed to provide details</option>
-  <option value="3">Not existing Royal London customer</option>
-  <option value="4">Obtained from Term4Term service</option>
-  <option value="5">Existing Royal London Policy, no attempt to get policy number</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='0') { echo "selected"; } ?> value="0">Select...</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='1') { echo "selected"; } ?> value="1">Client Provided Details</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='2') { echo "selected"; } ?> value="2">Client failed to provide details</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='3') { echo "selected"; } ?> value="3">Not existing Royal London customer</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='4') { echo "selected"; } ?> value="4">Obtained from Term4Term service</option>
+  <option <?php if(isset($RL_E6) && $RL_E6=='5') { echo "selected"; } ?> value="5">Existing Royal London Policy, no attempt to get policy number</option>
 </select>
 </p>
 
-<textarea class="form-control"id="ET6" name="ET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET6" name="ET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ET6)) { echo $RL_CM_ET6; } ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
 <script>
 $(document).ready(function(){ 
     $('#characterLeft32').text('500 characters left');
@@ -2562,16 +2665,12 @@ $(document).ready(function(){
     <div class="panel-body">
 <p>
 <label for="PI1">Q<?php $i++; echo $i; ?>. Was the clients policy start date accurately recorded?</label>
-<input type="radio" name="PI1" 
-<?php if (isset($PI1) && $PI1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckPIT1();"
-value="Yes" id="yesCheckPIT1">Yes
-<input type="radio" name="PI1"
-<?php if (isset($PI1) && $PI1=="No") echo "checked";?> onclick="javascript:yesnoCheckPIT1();"
-value="No" id="noCheckPIT1">No
+<input type="radio" name="PI1" <?php if (isset($RL_PI1) && $PRL_I1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="1" id="yesCheckPIT1">Yes
+<input type="radio" name="PI1" <?php if (isset($PRL_I1) && $RL_PI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="0" id="noCheckPIT1">No
 </p>
 
 <div id="ifYesPIT1" style="display:none">
-<textarea class="form-control"id="PIT1" name="PIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="PIT1" name="PIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_PIT1)) { echo $RL_CM_PIT1; } ?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2607,16 +2706,12 @@ function yesnoCheckPIT1() {
 
 <p>
 <label for="PI2">Q<?php $i++; echo $i; ?>. Did the closer offer to read the direct debit guarantee?</label>
-<input type="radio" name="PI2" 
-<?php if (isset($PI2) && $PI2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckPIT2();"
-value="Yes" id="yesCheckPIT2">Yes
-<input type="radio" name="PI2"
-<?php if (isset($PI2) && $PI2=="No") echo "checked";?> onclick="javascript:yesnoCheckPIT2();"
-value="No" id="noCheckPIT2">No
+<input type="radio" name="PI2" <?php if (isset($RL_PI2) && $PRL_I2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="1" id="yesCheckPIT2">Yes
+<input type="radio" name="PI2" <?php if (isset($RL_PI2) && $RL_PI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="0" id="noCheckPIT2">No
 </p>
 
 <div id="ifYesPIT2" style="display:none">
-<textarea class="form-control"id="PIT2" name="PIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="PIT2" name="PIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_PIT2)) { echo $RL_CM_PIT2; } ?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2652,16 +2747,12 @@ function yesnoCheckPIT2() {
 
 <p>
 <label for="PI3">Q<?php $i++; echo $i; ?>. Did the closer offer a preferred premium collection date?</label>
-<input type="radio" name="PI3" 
-<?php if (isset($PI3) && $PI3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckPIT3();"
-value="Yes" id="yesCheckPIT3">Yes
-<input type="radio" name="PI3"
-<?php if (isset($PI3) && $PI3=="No") echo "checked";?> onclick="javascript:yesnoCheckPIT3();"
-value="No" id="noCheckPIT3">No
+<input type="radio" name="PI3" <?php if (isset($RL_PI3) && $RL_PI3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="1" id="yesCheckPIT3">Yes
+<input type="radio" name="PI3" <?php if (isset($RL_PI3) && $RL_PI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="0" id="noCheckPIT3">No
 </p>
 
 <div id="ifYesPIT3" style="display:none">
-<textarea class="form-control"id="PIT3" name="PIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="PIT3" name="PIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_PIT3)) { echo $RL_CM_PIT3; } ?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2697,16 +2788,12 @@ function yesnoCheckPIT3() {
 
 <p>
 <label for="PI4">Q<?php $i++; echo $i; ?>. Did the closer record the bank details correctly?</label>
-<input type="radio" name="PI4" 
-<?php if (isset($PI4) && $PI4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckPIT4();"
-value="Yes" id="yesCheckPIT4">Yes
-<input type="radio" name="PI4"
-<?php if (isset($PI4) && $PI4=="No") echo "checked";?> onclick="javascript:yesnoCheckPIT4();"
-value="No" id="noCheckPIT4">No
+<input type="radio" name="PI4" <?php if (isset($RL_PI4) && $RL_PI4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="1" id="yesCheckPIT4">Yes
+<input type="radio" name="PI4" <?php if (isset($RL_PI4) && $RL_PI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="0" id="noCheckPIT4">No
 </p>
 
 <div id="ifYesPIT4" style="display:none">
-<textarea class="form-control"id="PIT4" name="PIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="PIT4" name="PIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_PIT4)) { echo $RL_CM_PIT4; } ?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2742,16 +2829,12 @@ function yesnoCheckPIT4() {
 
 <p>
 <label for="PI5">Q<?php $i++; echo $i; ?>. Did they have consent off the premium payer?</label>
-<input type="radio" name="PI5" 
-<?php if (isset($PI5) && $PI5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckPIT5();"
-value="Yes" id="yesCheckPIT5">Yes
-<input type="radio" name="PI5"
-<?php if (isset($PI5) && $PI5=="No") echo "checked";?> onclick="javascript:yesnoCheckPIT5();"
-value="No" id="noCheckPIT5">No
+<input type="radio" name="PI5" <?php if (isset($RL_PI5) && $RL_PI5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="1" id="yesCheckPIT5">Yes
+<input type="radio" name="PI5" <?php if (isset($RL_PI5) && $RL_PI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="0" id="noCheckPIT5">No
 </p>
 
 <div id="ifYesPIT5" style="display:none">
-<textarea class="form-control"id="PIT5" name="PIT5" rows="1" cols="75" maxlength="1500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="PIT5" name="PIT5" rows="1" cols="75" maxlength="1500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_PIT5)) { echo $RL_CM_PIT5; } ?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2796,16 +2879,12 @@ function yesnoCheckPIT5() {
             
 <p>
 <label for="CDE1">Q<?php $i++; echo $i; ?>. Closer confirmed the customers right to cancel the policy at any time and if the customer changes their mind within the first 30 days of starting there will be a refund of premiums?</label>
-<input type="radio" name="CDE1" 
-<?php if (isset($CDE1) && $CDE1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET1();"
-value="Yes" id="yesCheckCDET1">Yes
-<input type="radio" name="CDE1"
-<?php if (isset($CDE1) && $CDE1=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET1();"
-value="No" id="noCheckCDET1">No
+<input type="radio" name="CDE1" <?php if (isset($RL_CDE1) && $RL_CDE1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="1" id="yesCheckCDET1">Yes
+<input type="radio" name="CDE1" <?php if (isset($RL_CDE1) && $RL_CDE1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="0" id="noCheckCDET1">No
 </p>
 
 <div id="ifYesCDET1" style="display:none">
-<textarea class="form-control"id="CDET1" name="CDET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET1" name="CDET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET1)) { echo $RL_CM_CDET1; } ?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2842,16 +2921,12 @@ function yesnoCheckCDET1() {
 
 <p>
 <label for="CDE2">Q<?php $i++; echo $i; ?>. Closer confirmed if the policy is cancelled at any other time the cover will end and no refund will be made and that the policy has no cash in value?</label>
-<input type="radio" name="CDE2" 
-<?php if (isset($CDE2) && $CDE2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET2();"
-value="Yes" id="yesCheckCDET2">Yes
-<input type="radio" name="CDE2"
-<?php if (isset($CDE2) && $CDE2=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET2();"
-value="No" id="noCheckCDET2">No
+<input type="radio" name="CDE2" <?php if (isset($RL_CDE2) && $RL_CDE2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="1" id="yesCheckCDET2">Yes
+<input type="radio" name="CDE2" <?php if (isset($RL_CDE2) && $RL_CDE2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="0" id="noCheckCDET2">No
 </p>
 
 <div id="ifYesCDET2" style="display:none">
-<textarea class="form-control"id="CDET2" name="CDET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET2" name="CDET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET2)) { echo $RL_CM_CDET2; } ?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2887,16 +2962,12 @@ function yesnoCheckCDET2() {
 
 <p>
 <label for="CDE3">Q<?php $i++; echo $i; ?>. Like mentioned earlier did the closer make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label>
-<input type="radio" name="CDE3" 
-<?php if (isset($CDE3) && $CDE3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET3();"
-value="Yes" id="yesCheckCDET3">Yes
-<input type="radio" name="CDE3"
-<?php if (isset($CDE3) && $CDE3=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET3();"
-value="No" id="noCheckCDET3">No
+<input type="radio" name="CDE3" <?php if (isset($RL_CDE3) && $RL_CDE3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="1" id="yesCheckCDET3">Yes
+<input type="radio" name="CDE3" <?php if (isset($RL_CDE3) && $RL_CDE3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="0" id="noCheckCDET3">No
 </p>
 
 <div id="ifYesCDET3" style="display:none">
-<textarea class="form-control"id="CDET3" name="CDET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET3" name="CDET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET3)) { echo $RL_CM_CDET3; } ?></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2932,16 +3003,12 @@ function yesnoCheckCDET3() {
 
 <p>
 <label for="CDE4">Q<?php $i++; echo $i; ?>. Closer confirmed that the client will be emailed the following: A policy booklet, quote, policy summary, and a keyfact document.</label>
-<input type="radio" name="CDE4" 
-<?php if (isset($CDE4) && $CDE4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET4();"
-value="Yes" id="yesCheckCDET4">Yes
-<input type="radio" name="CDE4"
-<?php if (isset($CDE4) && $CDE4=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET4();"
-value="No" id="noCheckCDET4">No
+<input type="radio" name="CDE4" <?php if (isset($RL_CDE4) && $RL_CDE4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="1" id="yesCheckCDET4">Yes
+<input type="radio" name="CDE4" <?php if (isset($RL_CDE4) && $RL_CDE4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="0" id="noCheckCDET4">No
 </p>
 
 <div id="ifYesCDET4" style="display:none">
-<textarea class="form-control"id="CDET4" name="CDET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET4" name="CDET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET4)) { echo $RL_CM_CDET4; } ?></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -2977,16 +3044,12 @@ function yesnoCheckCDET4() {
 
 <p>
 <label for="CDE5">Q<?php $i++; echo $i; ?>. Did the closer confirm that the customer will be getting a 'my account' email from Royal London?</label>
-<input type="radio" name="CDE5" 
-<?php if (isset($CDE5) && $CDE5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET5();"
-value="Yes" id="yesCheckCDET5">Yes
-<input type="radio" name="CDE5"
-<?php if (isset($CDE5) && $CDE5=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET5();"
-value="No" id="noCheckCDET5">No
+<input type="radio" name="CDE5"  <?php if (isset($RL_CDE5) && $RL_CDE5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="1" id="yesCheckCDET5">Yes
+<input type="radio" name="CDE5" <?php if (isset($RL_CDE5) && $RL_CDE5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="0" id="noCheckCDET5">No
 </p>
 
 <div id="ifYesCDET5" style="display:none">
-<textarea class="form-control"id="CDET5" name="CDET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET5" name="CDET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET5)) { echo $RL_CM_CDET5; } ?></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3022,16 +3085,12 @@ function yesnoCheckCDET5() {
 
 <p>
 <label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label>
-<input type="radio" name="CDE6" 
-<?php if (isset($CDE6) && $CDE6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET6();"
-value="Yes" id="yesCheckCDET6">Yes
-<input type="radio" name="CDE6"
-<?php if (isset($CDE6) && $CDE6=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET6();"
-value="No" id="noCheckCDET6">No
+<input type="radio" name="CDE6" <?php if (isset($RL_CDE6) && $RL_CDE6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
+<input type="radio" name="CDE6" <?php if (isset($RL_CDE6) && $RL_CDE6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6">No
 </p>
 
 <div id="ifYesCDET6" style="display:none">
-<textarea class="form-control"id="CDET6" name="CDET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET6" name="CDET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET6)) { echo $RL_CM_CDET6; } ?></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3067,17 +3126,13 @@ function yesnoCheckCDET6() {
 
 <p>
 <label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Royal London will write to them with a more specific date?</label>
-<input type="radio" name="CDE7" 
-<?php if (isset($CDE7) && $CDE7=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET7();"
-value="Yes" id="yesCheckCDET7">Yes
-<input type="radio" name="CDE7"
-<?php if (isset($CDE7) && $CDE7=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET7();"
-value="No" id="noCheckCDET7">No
+<input type="radio" name="CDE7" <?php if (isset($RL_CDE7) && $RL_CDE7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
+<input type="radio" name="CDE7" <?php if (isset($RL_CDE7) && $RL_CDE7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7">No
 
 </p>
 
 <div id="ifYesCDET7" style="display:none">
-<textarea class="form-control"id="CDET7" name="CDET7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET7" name="CDET7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET7)) { echo $RL_CM_CDET7; } ?></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3113,19 +3168,13 @@ function yesnoCheckCDET7() {
 
 <p>
 <label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label>
-<input type="radio" name="CDE8" 
-<?php if (isset($CDE8) && $CDE8=="Yes") echo "checked";?> onclick="javascript:yesnoCheckCDET8();"
-value="Yes" id="yesCheckCDET8">Yes
-<input type="radio" name="CDE8"
-<?php if (isset($CDE8) && $CDE8=="No") echo "checked";?> onclick="javascript:yesnoCheckCDET8();"
-value="No" id="noCheckCDET8">No
-<input type="radio" name="CDE8" 
-<?php if (isset($CDE8) && $CDE8=="N/A") echo "checked";?> onclick="javascript:yesnoCheckCDET8();"
-value="N/A" id="yesCheckCDET8">N/A
+<input type="radio" name="CDE8" <?php if (isset($RL_CDE8) && $RL_CDE8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
+<input type="radio" name="CDE8" <?php if (isset($RL_CDE8) && $RL_CDE8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8">No
+<input type="radio" name="CDE8" <?php if (isset($RL_CDE8) && $RL_CDE8=="3") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="3" id="yesCheckCDET8">N/A
 </p>
 
 <div id="ifYesCDET8" style="display:none">
-<textarea class="form-control"id="CDET8" name="CDET8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="CDET8" name="CDET8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDET8)) { echo $RL_CM_CDET8; } ?></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3170,16 +3219,12 @@ function yesnoCheckCDET8() {
             
 <p>
 <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Royal London with client information?</label>
-<input type="radio" name="QC1" 
-<?php if (isset($QC1) && $QC1=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT1();"
-value="Yes" id="yesCheckQCT1">Yes
-<input type="radio" name="QC1"
-<?php if (isset($QC1) && $QC1=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT1();"
-value="No" id="noCheckQCT1">No
+<input type="radio" name="QC1" <?php if (isset($RL_QC1) && $RL_QC1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="1" id="yesCheckQCT1">Yes
+<input type="radio" name="QC1" <?php if (isset($RL_QC1) && $RL_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1">No
 </p>
 
 <div id="ifYesQCT1" style="display:none">
-<textarea class="form-control"id="QCT1" name="QCT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT1" name="QCT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT1)) { echo $RL_CM_QCT1; } ?></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3215,16 +3260,12 @@ function yesnoCheckQCT1() {
 
 <p>
 <label for="QC2">Q<?php $i++; echo $i; ?>. Closer confirmed length of policy in years with client confirmation?</label>
-<input type="radio" name="QC2" 
-<?php if (isset($QC2) && $QC2=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT2();"
-value="Yes" id="yesCheckQCT2">Yes
-<input type="radio" name="QC2"
-<?php if (isset($QC2) && $QC2=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT2();"
-value="No" id="noCheckQCT2">No
+<input type="radio" name="QC2" <?php if (isset($RL_QC2) && $RL_QC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="1" id="yesCheckQCT2">Yes
+<input type="radio" name="QC2" <?php if (isset($RL_QC2) && $RL_QC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="0" id="noCheckQCT2">No
 </p>
 
 <div id="ifYesQCT2" style="display:none">
-<textarea class="form-control"id="QCT2" name="QCT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT2" name="QCT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT2)) { echo $RL_CM_QCT2; } ?></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3260,16 +3301,12 @@ function yesnoCheckQCT2() {
 
 <p>
 <label for="QC3">Q<?php $i++; echo $i; ?>. Closer confirmed the amount of cover on the policy with client confirmation?</label>
-<input type="radio" name="QC3" 
-<?php if (isset($QC3) && $QC3=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT3();"
-value="Yes" id="yesCheckQCT3">Yes
-<input type="radio" name="QC3"
-<?php if (isset($QC3) && $QC3=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT3();"
-value="No" id="noCheckQCT3">No
+<input type="radio" name="QC3" <?php if (isset($RL_QC3) && $RL_QC3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="1" id="yesCheckQCT3">Yes
+<input type="radio" name="QC3" <?php if (isset($RL_QC3) && $RL_QC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="0" id="noCheckQCT3">No
 </p>
 
 <div id="ifYesQCT3" style="display:none">
-<textarea class="form-control"id="QCT3" name="QCT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT3" name="QCT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT3)) { echo $RL_CM_QCT3; } ?></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3305,16 +3342,12 @@ function yesnoCheckQCT3() {
 
 <p>
 <label for="QC4">Q<?php $i++; echo $i; ?>. Closer confirmed with the client that they have understood everything today with client confirmation?</label>
-<input type="radio" name="QC4" 
-<?php if (isset($QC4) && $QC4=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT4();"
-value="Yes" id="yesCheckQCT4">Yes
-<input type="radio" name="QC4"
-<?php if (isset($QC4) && $QC4=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT4();"
-value="No" id="noCheckQCT4">No
+<input type="radio" name="QC4" <?php if (isset($RL_QC4) && $RL_QC4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="1" id="yesCheckQCT4">Yes
+<input type="radio" name="QC4" <?php if (isset($RL_QC4) && $RL_QC4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="0" id="noCheckQCT4">No
 </p>
 
 <div id="ifYesQCT4" style="display:none">
-<textarea class="form-control"id="QCT4" name="QCT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT4" name="QCT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT4)) { echo $RL_CM_QCT4; } ?></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3350,16 +3383,12 @@ function yesnoCheckQCT4() {
 
 <p>
 <label for="QC5">Q<?php $i++; echo $i; ?>. Did the customer give their explicit consent for the policy to be set up?</label>
-<input type="radio" name="QC5" 
-<?php if (isset($QC5) && $QC5=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT5();"
-value="Yes" id="yesCheckQCT5">Yes
-<input type="radio" name="QC5"
-<?php if (isset($QC5) && $QC5=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT5();"
-value="No" id="noCheckQCT5">No
+<input type="radio" name="QC5" <?php if (isset($RL_QC5) && $RL_QC5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="1" id="yesCheckQCT5">Yes
+<input type="radio" name="QC5" <?php if (isset($RL_QC5) && $RL_QC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="0" id="noCheckQCT5">No
 </p>
 
 <div id="ifYesQCT5" style="display:none">
-<textarea class="form-control"id="QCT5" name="QCT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT5" name="QCT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT5)) { echo $RL_CM_QCT5; } ?></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3395,16 +3424,12 @@ function yesnoCheckQCT5() {
 
 <p>
 <label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for The Review Bureau?</label>
-<input type="radio" name="QC6" 
-<?php if (isset($QC6) && $QC6=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT6();"
-value="Yes" id="yesCheckQCT6">Yes
-<input type="radio" name="QC6"
-<?php if (isset($QC6) && $QC6=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT6();"
-value="No" id="noCheckQCT6">No
+<input type="radio" name="QC6" <?php if (isset($RL_QC6) && $RL_QC6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="1" id="yesCheckQCT6">Yes
+<input type="radio" name="QC6" <?php if (isset($RL_QC6) && $RL_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6">No
 </p>
 
 <div id="ifYesQCT6" style="display:none">
-<textarea class="form-control"id="QCT6" name="QCT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT6" name="QCT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT6)) { echo $RL_CM_QCT6; } ?></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
@@ -3440,16 +3465,12 @@ function yesnoCheckQCT6() {
 
 <p>
 <label for="QC7">Q<?php $i++; echo $i; ?>. Did the closer keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label>
-<input type="radio" name="QC7" 
-<?php if (isset($QC7) && $QC7=="Yes") echo "checked";?> onclick="javascript:yesnoCheckQCT7();"
-value="Yes" id="yesCheckQCT7">Yes
-<input type="radio" name="QC7"
-<?php if (isset($QC7) && $QC7=="No") echo "checked";?> onclick="javascript:yesnoCheckQCT7();"
-value="No" id="noCheckQCT7">No
+<input type="radio" name="QC7" <?php if (isset($RL_QC7) && $RL_QC7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="1" id="yesCheckQCT7">Yes
+<input type="radio" name="QC7" <?php if (isset($RL_QC7) && $RL_QC7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="0" id="noCheckQCT7">No
 </p>
 
 <div id="ifYesQCT7" style="display:none">
-<textarea class="form-control"id="QCT7" name="QCT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment;?></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="QCT7" name="QCT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_QCT7)) { echo $RL_CM_QCT7; } ?></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 

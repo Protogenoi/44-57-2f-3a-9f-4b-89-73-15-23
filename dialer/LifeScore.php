@@ -1,11 +1,6 @@
 <?php
 $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
-$timecheck = date("H:i");
-$start = "10:00";
-$end = "21:00";
-        
-if($timecheck >= $start  && $timecheck <= $end ) { ?>
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Real Time Report</title>
@@ -13,8 +8,7 @@ if($timecheck >= $start  && $timecheck <= $end ) { ?>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="imagetoolbar" content="no" />
-<link rel="stylesheet" href="../styles/realtimereport.css" type="text/css" />
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/styles/realtimereport.css" type="text/css" />
 <style>
 .status_piltrans {color: white; background: #551A8B; }
 .blink_me {
@@ -72,7 +66,7 @@ LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
 LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
 LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
 WHERE vicidial_agent_log.event_time >= CURRENT_DATE()
-AND vicidial_agent_log.campaign_id IN ('15','13')
+AND vicidial_agent_log.campaign_id IN ('15','36')
 GROUP by vicidial_agent_log.user
 order by vicidial_live_agents.status ASC,
 last_state_change
@@ -265,60 +259,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 }
 }
 ?>
-
 </div>
 </body>
 </html>
-
-<?php
-            
-        }
-        
-        else {
-        
-        ?>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <META HTTP-EQUIV="refresh" CONTENT="5"; >
-        <title>Dialler | Timecheck</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-                    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-            <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-            <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-        <style>
-        .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
-
-  display: flex;
-  align-items: center;
-}
-.backcolour {
-    background-color:#05668d !important;
-}
-</style>
-    </head>
-    <body class="backcolour">
-        <div class="jumbotron vertical-center backcolour">
-        <div class="container">
-        
-                       <div class="alert alert-info">
-        <center>
-        <i class="fa  fa-clock-o fa-5x"></i>
-        <br>
-  <strong>Dialler Login at 10:00</strong></center></div>     
-        
-
-  </div>
-  </div>
-</body>
-</html>
-
-<?php
-
-
-        }
-?>
 

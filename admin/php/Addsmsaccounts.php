@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
     if($fferror=='1') {
@@ -17,7 +17,7 @@ if(isset($fferror)) {
     
     }
     
-include('../includes/ADL_PDO_CON.php');
+include('../../includes/ADL_PDO_CON.php');
 $addsms= filter_input(INPUT_GET, 'addsms', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($addsms)) {
@@ -36,7 +36,7 @@ $smspassword= filter_input(INPUT_POST, 'smspassword', FILTER_SANITIZE_SPECIAL_CH
         $query->execute()or die(print_r($query->errorInfo(), true));
                             if(isset($fferror)) {
     if($fferror=='0') {
-    header('Location: ../admin/Admindash.php?smsaccount=y&SMS=y'); die;
+    header('Location: ../Admindash.php?smsaccount=y&SMS=y'); die;
     }
                             }
 }
@@ -57,7 +57,7 @@ $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
         $query->execute()or die(print_r($query->errorInfo(), true));
                             if(isset($fferror)) {
     if($fferror=='0') {
-    header('Location: ../admin/Admindash.php?smsaccount=messadded&SMS=y'); die;
+    header('Location: ../Admindash.php?smsaccount=messadded&SMS=y'); die;
     }
                             }
 }
@@ -65,7 +65,7 @@ $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 else {
                             if(isset($fferror)) {
     if($fferror=='0') {
-    header('Location: ../admin/Admindash.php?smsaccount=failed&SMS=y'); die;
+    header('Location: ../Admindash.php?smsaccount=failed&SMS=y'); die;
     }
                             }
 }

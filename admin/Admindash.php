@@ -525,7 +525,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                 
                                                             <?php
 
-$query = $pdo->prepare("SELECT id, title, message from sms_templates");
+$query = $pdo->prepare("SELECT id, title, message, insurer from sms_templates");
 
 echo "<table class=\"table table-hover\">";
 
@@ -537,6 +537,7 @@ echo "  <thead>
 	<th>ID</th>
 	<th>Title</th>
 	<th>Message</th>
+        <th>Insurer</th>
 	<th></th>
 	</tr>
 	</thead>";
@@ -550,6 +551,7 @@ $i++;
 	echo "<td>".$result['id']."</td>";
 	echo "<td>".$result['title']."</td>";
  	echo "<td>".$result['message']."</td>";
+        echo "<td>".$result['insurer']."</td>";
    echo "<td>
 <button data-toggle='modal' data-target='#editsms$i' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </button>
 
@@ -563,7 +565,7 @@ $i++;
         <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
       </div>
       <div class=\"modal-body\">
-        <form action=\"../php/SMSupdate.php?updatesms=y\" name=\"updatesms\" class=\"form-horizontal\" method=\"POST\">
+        <form action=\"php/SMSupdate.php?updatesms=y\" name=\"updatesms\" class=\"form-horizontal\" method=\"POST\">
                 
 <fieldset>
 
@@ -580,11 +582,22 @@ $i++;
 </div>
 
 <div class='form-group'>
+  <label class='col-sm-2 control-label' for='insurer'></label>  
+  <div class='col-sm-10'>
+  <input id='insurer' name='insurer' placeholder='' value='".$result['insurer']."' class='form-control input-md' required='' type='text'>
+    
+  </div>
+</div>
+
+
+<div class='form-group'>
   <label class='col-sm-2 control-label' for='message'></label>
   <div class='col-sm-10'>                     
     <textarea class='form-control' style='min-width: 100%' id='message' name='message'>".$result['message']."</textarea>
   </div>
 </div>
+
+
 
 <div class='form-group'>
   <label class='col-sm-2 control-label' for='singlebutton'></label>
@@ -625,7 +638,7 @@ echo "</table>";
                                 
                                 <p>Add new SMS message(s).</p>
                                 
-                                <form class="form-horizontal" method="POST" action="../php/Addsmsaccounts.php?newsmsmessage=y">
+                                <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?newsmsmessage=y">
 <fieldset>
 
 <legend>New SMS</legend>
@@ -635,6 +648,14 @@ echo "</table>";
   <label class="col-md-4 control-label" for="title">Title</label>  
   <div class="col-md-4">
   <input id="title" name="smstitle" placeholder="" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="insurer">Insurer</label>  
+  <div class="col-md-4">
+  <input id="insurer" name="insurer" placeholder="" class="form-control input-md" type="text">
     
   </div>
 </div>

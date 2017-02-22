@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
     if($fferror=='1') {
@@ -17,7 +17,7 @@ if(isset($fferror)) {
     
     }
 
-include('../includes/ADL_PDO_CON.php');
+include('../../includes/ADL_PDO_CON.php');
 
 
       $updatesms= filter_input(INPUT_GET, 'updatesms', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -40,7 +40,7 @@ $query->execute()or die(print_r($query->errorInfo(), true));
                         if(isset($fferror)) {
     if($fferror=='0') {
     
-    header('Location: ../admin/Admindash.php?SMS=y&SMSupdated=y'); die;
+    header('Location: ../Admindash.php?SMS=y&SMSupdated=y'); die;
     }
                         }
     }  
@@ -49,7 +49,7 @@ $query->execute()or die(print_r($query->errorInfo(), true));
 else {
     if(isset($fferror)) {
     if($fferror=='0') {
-    header('Location: ../admin/Admindash.php?SMS=y&SMSupdated=fail'); die;
+    header('Location: ../Admindash.php?SMS=y&SMSupdated=fail'); die;
     }
                         }
 }

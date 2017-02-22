@@ -326,8 +326,6 @@ label {
     </table>
 </div>
 </div>
-
-<button type="button" id="my-button_roles" class="btn btn-info "><span class="glyphicon glyphicon-user"></span> Access Levels</button>
 </div>
 </body>
 </html>

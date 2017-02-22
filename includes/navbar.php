@@ -126,6 +126,7 @@ if($companynamere=='HWIFS') {
                         <li><a href="/audits/main_menu.php">Main Menu</a></li>
                         <li><a href="/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
                         <li><a href="/audits/auditor_menu.php">Closer Audits</a></li>
+                        <li><a href="/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
                         <li><a href="/audits/WOL/Menu.php">WOL Audits</a></li>
                         <li><a href="/audits/reports_main.php">Reports</a></li>
                             <?php if($ffdialler=='1') { ?>

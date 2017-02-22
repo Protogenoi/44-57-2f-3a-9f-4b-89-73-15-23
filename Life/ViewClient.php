@@ -1098,10 +1098,30 @@ if(isset($fferror)) {
                                         <option value=" ">Select message...</option>
                                             
                                             <?php
+                                            if(isset($WHICH_COMPANY)) {
+                                                if($WHICH_COMPANY=='The Review Bureau') {
+                                                    $SMS_INSURER='Legal and General';
+                                                    
+                                                }
+                                                if($WHICH_COMPANY=='TRB WOL') {
+                                                    $SMS_INSURER='One Family';
+                                                    
+                                                }
+                                                if($WHICH_COMPANY=='TRB Vitality') {
+                                                    $SMS_INSURER='Vitality';       
+                                                    
+                                                } 
+                                                if($WHICH_COMPANY=='TRB Royal London') {
+                                                    $SMS_INSURER='Royal London';
+                                                    
+                                                }  
+                                                
+                                                }   
                                             
                                             try {
                                             
-                                            $SMSquery = $pdo->prepare("SELECT title from sms_templates");
+                                            $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer OR insurer='NA'");
+                                            $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_INT);
                                             $SMSquery->execute();
                                             if ($SMSquery->rowCount()>0) {
                                                 while ($smstitles=$SMSquery->fetch(PDO::FETCH_ASSOC)){

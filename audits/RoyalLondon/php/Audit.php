@@ -16,10 +16,10 @@ if(isset($fferror)) {
     }
     
     }
-    
-    include('../../../includes/ADL_PDO_CON.php');
-    
-    if(isset($EXECUTE)) {
+    $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);   
+     
+    if(isset($EXECUTE)) { 
+        include('../../../includes/ADL_PDO_CON.php');
         if($EXECUTE=='EDIT') {
             
 $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
@@ -372,7 +372,7 @@ $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
     $RL_COM_ETX->bindParam(':QCT7',$QCT7,PDO::PARAM_STR,100);
     $RL_COM_ETX->execute()or die(print_r($RL_COM_ETX->errorInfo(), true)); 
     
-    header('Location: ../Audit.php?RETURN=UPDATED'); die;
+    header('Location: ../Menu.php?RETURN=UPDATED'); die;
     
     }
             
@@ -728,7 +728,7 @@ $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
     $RL_COM_ETX->bindParam(':QCT7',$QCT7,PDO::PARAM_STR,100);
     $RL_COM_ETX->execute()or die(print_r($RL_COM_ETX->errorInfo(), true)); 
     
-    header('Location: ../Audit.php?RETURN=ADDED'); die;
+    header('Location: ../Menu.php?RETURN=ADDED'); die;
     
     }
     
@@ -736,4 +736,4 @@ $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
         
     }
         
-        header('Location: ../Audit.php?RETURN=ERROR'); die;
+        header('Location: ../Menu.php?RETURN=ERROR'); die;

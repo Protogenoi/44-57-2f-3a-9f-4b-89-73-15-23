@@ -144,7 +144,7 @@ include('../../includes/ADL_PDO_CON.php');
                             case("Amber"):
                                 $class = 'Amber';
                                 break;
-                            case("SAVED"):
+                            case("Save"):
                                 $class = 'Purple';
                                 break;
                             default:
@@ -159,8 +159,8 @@ include('../../includes/ADL_PDO_CON.php');
                                 echo "<td>".$result['grade']."</td>";
                                 echo "<td>".$result['updated_by']."</td>";
                                 echo "<td>".$result['updated_date']."</td>";
-   echo "<td><a href='View.php?query=Edit&AUDITID=$AUDIT_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
-   echo "<td><a href='View.php?query=View&AUDITID=$AUDIT_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
+   echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=$AUDIT_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+   echo "<td><a href='Audit.php?EXECUTE=VIEW&AUDITID=$AUDIT_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
     echo "</tr>";
         ?>
 <script>
@@ -214,7 +214,7 @@ include('../../includes/ADL_PDO_CON.php');
       </div>
       <div class="modal-body">
 <?php
-$query = $pdo->prepare("SELECT plan_number, audit_id, added_date, closer, added_by, grade from RoyalLondon_Audit where added_by = :hello and grade = 'SAVED' ORDER BY added_date DESC");
+$query = $pdo->prepare("SELECT plan_number, audit_id, added_date, closer, added_by, grade from RoyalLondon_Audit where added_by = :hello and grade = 'Save' ORDER BY added_date DESC");
 $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
 echo "<table align=\"center\" class=\"table\">";
 
@@ -245,7 +245,7 @@ switch( $result['grade'] )
         case("Amber"):
           $class = 'Amber';
            break;
-       case("SAVED"):
+       case("Save"):
             $class = 'Purple';
           break;
         default:
@@ -256,19 +256,9 @@ switch( $result['grade'] )
 	echo "<td>".$result['closer']."</td>";
 	echo "<td>".$result['added_by']."</td>";
 	echo "<td>".$result['grade']."</td>";
-	   echo "<td>
-      <form action='closer_form_edit.php' method='POST' name='form'>
-	<input type='hidden' name='search' value='".$result['audit_id'] ."' >
-<button type='submit' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span> </button>
-      </form>
-   </td>";
-   echo "<td>
-      <form action='closer_form_view.php' method='POST' name='formview'>
-	<input type='hidden' name='search' value='".$result['audit_id'] ."' >
-<button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
-      </form>
-   </td>";
-   if($hello_name == 'Michael'){
+	   echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=".$result['audit_id'] ."' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+   echo "<td><a href='Audit.php?EXECUTE=VIEW&AUDITID=".$result['audit_id']."' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
+   if($hello_name=='Michael'){
 echo "<td>
       <form id='deleteauditconfirm' action='added_by_menu.php?deleteaudit' method='GET' name='deleteaudit'>
 	<input type='hidden' name='id' value='".$result['audit_id'] ."' >

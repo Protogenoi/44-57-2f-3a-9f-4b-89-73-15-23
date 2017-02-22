@@ -403,16 +403,21 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
     if(isset($RL_QS_EX_AUDIT['QC7'])) {
        $RL_QE_QC7=$RL_QS_EX_AUDIT['QC7']; 
     }  
-
     
-    
-    $database->endTransaction();
-    
-    $database->query("SELECT HQT1, HQT2, HQT3, HQT4, HQT5, HQT6, ET1, ET2, ET3, ET4, ET5, ET6, PIT1, PIT2, PIT3, PIT4, PIT5, CDET1, CDET2, CDET3, CDET4, CDET5, CDET6, CDET7, CDET8, QCT1, QCT2, QCT3, QCT4, QCT5, QCT6, QCT7 FROM RoyalLondon_Comments_Extra WHERE fk_audit_id=:AUDITID");
+    $database->query("SELECT OTT1, OTT2, OTT3, HQT1, HQT2, HQT3, HQT4, HQT5, HQT6, ET1, ET2, ET3, ET4, ET5, ET6, PIT1, PIT2, PIT3, PIT4, PIT5, CDET1, CDET2, CDET3, CDET4, CDET5, CDET6, CDET7, CDET8, QCT1, QCT2, QCT3, QCT4, QCT5, QCT6, QCT7 FROM RoyalLondon_Comments_Extra WHERE fk_audit_id=:AUDITID");
     $database->bind(':AUDITID', $AUDITID);
     $database->execute();
     $RL_CM_EX_AUDIT=$database->single(); 
     
+    if(isset($RL_CM_EX_AUDIT['OTT1'])) {
+        $RL_CEM_OTT1=$RL_CM_EX_AUDIT['OTT1'];
+    }
+     if(isset($RL_CM_EX_AUDIT['OTT2'])) {
+        $RL_CEM_OTT2=$RL_CM_EX_AUDIT['OTT2'];
+    }   
+    if(isset($RL_CM_EX_AUDIT['OTT3'])) {
+        $RL_CEM_OTT3=$RL_CM_EX_AUDIT['OTT3'];
+    }    
     if(isset($RL_CM_EX_AUDIT['HQT1'])) {
         $RL_CEM_HQT1=$RL_CM_EX_AUDIT['HQT1'];
     }
@@ -509,7 +514,7 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
     if(isset($RL_CM_EX_AUDIT['QCT7'])) {
        $RL_CEM_QCT7=$RL_CM_EX_AUDIT['QCT7']; 
     }  
-    
+      $database->endTransaction();  
     }
 }
 
@@ -524,6 +529,10 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
 <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
+<script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
@@ -542,7 +551,6 @@ function textAreaAdjust(o) {
     }
 ?>
 
-
 <div class="container">
     
     <?php if(isset($EXECUTE)) {
@@ -550,7 +558,7 @@ function textAreaAdjust(o) {
          <form action="#" method="POST" autocomplete="off">   
       <?php  }
         elseif($EXECUTE=='EDIT') { ?>
-        <form action="php/Audit.php?EXECUTE=EDIT" method="POST" autocomplete="off">     
+        <form action="php/Audit.php?EXECUTE=EDIT&AUDITID=<?php if(isset($AUDITID)) { echo $AUDITID; } ?>" method="POST" autocomplete="off">     
      <?php   }
     } else { ?>
     
@@ -608,7 +616,7 @@ function textAreaAdjust(o) {
 <label for='GRADE'>Grade:</label>
 <select class="form-control" name="GRADE" required>
   <option value="">Select...</option>
-  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='SAVED') { echo "selected"; } } ?> value="SAVED">Incomplete Audit (SAVE)</option>
+  <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Save') { echo "selected"; } } ?> value="Save">Incomplete Audit (SAVE)</option>
   <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Green') { echo "selected"; } } ?> value="Green">Green</option>
   <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Amber') { echo "selected"; } } ?> value="Amber">Amber</option>
   <option <?php if(isset($RL_GRADE)) { if($RL_GRADE=='Red') { echo "selected"; } } ?> value="Red">Red</option>
@@ -631,25 +639,25 @@ function textAreaAdjust(o) {
 <?php if (isset($RL_OD1) && $RL_OD1=="0") { echo "checked"; }?> onclick="javascript:yesnoCheckODT1();" value="0" id="noCheckODT1">No
 </p>
 
-<div id="ifYesODT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ODT1" name="ODT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT1)) { echo $RL_CM_ODT1; } ?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesODT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ODT1" name="ODT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT1)) { echo $RL_CM_ODT1; } ?></textarea><span class="help-block"><p id="ODTchars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft1').text('500 characters left');
+    $('#ODTchars').text('400 characters left');
     $('#ODT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft1').text('You have reached the limit');
-            $('#characterLeft1').addClass('red');
+            $('#ODTchars').text('You have reached the limit');
+            $('#ODTchars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft1').text(ch + ' characters left');
+            $('#ODTchars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft1').removeClass('red');            
+            $('#ODTchars').removeClass('red');            
         }
     });    
 });
@@ -671,14 +679,14 @@ function yesnoCheckODT1() {
 <input type="radio" name="OD2" <?php if (isset($RL_OD2) && $RL_OD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT2();" value="0" id="noCheckODT2">No
 </p>
 
-<div id="ifYesODT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ODT2" name="ODT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT2)) { echo $RL_CM_ODT2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesODT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ODT2" name="ODT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT2)) { echo $RL_CM_ODT2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft2').text('500 characters left');
+    $('#characterLeft2').text('400 characters left');
     $('#ODT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft2').text('You have reached the limit');
@@ -712,14 +720,14 @@ function yesnoCheckODT2() {
 <input type="radio" name="OD3" <?php if (isset($RL_OD3) && $RL_OD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckODT3();" value="0" id="noCheckODT3">No
 </p>
 
-<div id="ifYesODT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ODT3" name="ODT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT3)) { echo $RL_CM_ODT3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesODT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ODT3" name="ODT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT3)) { echo $RL_CM_ODT3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft3').text('500 characters left');
+    $('#characterLeft3').text('400 characters left');
     $('#ODT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft3').text('You have reached the limit');
@@ -757,14 +765,14 @@ value="1" id="yesCheckODT4">Yes
 value="0" id="noCheckODT4">No
 </p>
 
-<div id="ifYesODT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ODT4" name="ODT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT4)) { echo $RL_CM_ODT4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesODT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ODT4" name="ODT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT4)) { echo $RL_CM_ODT4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft4').text('500 characters left');
+    $('#characterLeft4').text('400 characters left');
     $('#ODT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft4').text('You have reached the limit');
@@ -802,14 +810,14 @@ value="1" id="yesCheckODT5">Yes
 value="0" id="noCheckODT5">No
 </p>
 
-<div id="ifYesODT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ODT5" name="ODT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT5)) { echo $RL_CM_ODT5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesODT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ODT5" name="ODT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ODT5)) { echo $RL_CM_ODT5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft5').text('500 characters left');
+    $('#characterLeft5').text('400 characters left');
     $('#ODT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft5').text('You have reached the limit');
@@ -851,14 +859,14 @@ function yesnoCheckODT5() {
 <input type="radio" name="CI1" <?php if (isset($RL_CI1) && $RL_CI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT1();" value="0" id="noCheckCIT1">No
 </p>
 
-<div id="ifYesCIT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT1" name="CIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT1)) { echo $RL_CM_CIT1; } ?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT1" name="CIT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT1)) { echo $RL_CM_CIT1; } ?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft7').text('500 characters left');
+    $('#characterLeft7').text('400 characters left');
     $('#CIT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft7').text('You have reached the limit');
@@ -891,14 +899,14 @@ function yesnoCheckCIT1() {
 <input type="radio" name="CI2" onclick="javascript:yesnoCheck();" <?php if (isset($RL_CI2) && $RL_CI2=="1") { echo "checked"; } ?> value="1" id="yesCheck">Yes 
 <input type="radio" name="CI2" onclick="javascript:yesnoCheck();" <?php if (isset($RL_CI2) && $RL_CI2=="0") { echo "checked"; } ?> value="0" id="noCheck">No
 </p>
-<div id="ifYes" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT2" name="CIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT2)) { echo $RL_CM_CIT2; } ?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
+<div id="ifYes" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT2" name="CIT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT2)) { echo $RL_CM_CIT2; } ?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft8').text('500 characters left');
+    $('#characterLeft8').text('400 characters left');
     $('#CIT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft8').text('You have reached the limit');
@@ -933,14 +941,14 @@ function yesnoCheck() {
 <?php if (isset($RL_CI3) && $RL_CI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT3();" value="0" id="noCheckCIT3">No
 </p>
 
-<div id="ifYesCIT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT3" name="CIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT3)) { echo $RL_CM_CIT3; } ?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT3" name="CIT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT3)) { echo $RL_CM_CIT3; } ?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft9').text('500 characters left');
+    $('#characterLeft9').text('400 characters left');
     $('#CIT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft9').text('You have reached the limit');
@@ -974,14 +982,14 @@ function yesnoCheckCIT3() {
 <input type="radio" name="CI4" <?php if (isset($RL_CI4) && $RL_CI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT4();" value="0" id="noCheckCIT4">No
 </p>
 
-<div id="ifYesCIT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT4" name="CIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT4)) { echo $RL_CM_CIT4; } ?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT4" name="CIT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT4)) { echo $RL_CM_CIT4; } ?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft10').text('500 characters left');
+    $('#characterLeft10').text('400 characters left');
     $('#CIT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft10').text('You have reached the limit');
@@ -1015,14 +1023,14 @@ function yesnoCheckCIT4() {
 <input type="radio" name="CI5" <?php if (isset($RL_CI5) && $RL_CI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT5();" value="0" id="noCheckCIT5">No
 </p>
 
-<div id="ifYesCIT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT5" name="CIT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT5)) { echo $RL_CM_CIT5; } ?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT5" name="CIT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT5)) { echo $RL_CM_CIT5; } ?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft11').text('500 characters left');
+    $('#characterLeft11').text('400 characters left');
     $('#CIT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft11').text('You have reached the limit');
@@ -1056,14 +1064,14 @@ function yesnoCheckCIT5() {
 <input type="radio" name="CI6" <?php if (isset($RL_CI6) && $RL_CI6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT6();" value="0" id="noCheckCIT6">No
 </p>
 
-<div id="ifYesCIT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT6" name="CIT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT6)) { echo $RL_CM_CIT6; } ?></textarea><span class="help-block"><p id="characterLeft112" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT6" name="CIT6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT6)) { echo $RL_CM_CIT6; } ?></textarea><span class="help-block"><p id="characterLeft112" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft112').text('500 characters left');
+    $('#characterLeft112').text('400 characters left');
     $('#CIT6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft112').text('You have reached the limit');
@@ -1097,14 +1105,14 @@ function yesnoCheckCIT6() {
 <input type="radio" name="CI7" <?php if (isset($RL_CI7) && $RL_CI7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT7();" value="0" id="noCheckCIT7">No
 </p>
 
-<div id="ifYesCIT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT7" name="CIT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT7)) { echo $RL_CM_CIT7; } ?></textarea><span class="help-block"><p id="characterLeft113" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT7" name="CIT7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT7)) { echo $RL_CM_CIT7; } ?></textarea><span class="help-block"><p id="characterLeft113" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft113').text('500 characters left');
+    $('#characterLeft113').text('400 characters left');
     $('#CIT7').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft113').text('You have reached the limit');
@@ -1138,14 +1146,14 @@ function yesnoCheckCIT7() {
 <input type="radio" name="CI8" <?php if (isset($RL_CI8) && $RL_CI8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCIT8();" value="0" id="noCheckCIT8">No
 </p>
 
-<div id="ifYesCIT8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CIT8" name="CIT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT8)) { echo $RL_CM_CIT8; } ?></textarea><span class="help-block"><p id="characterLeft114" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCIT8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CIT8" name="CIT8" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CIT8)) { echo $RL_CM_CIT8; } ?></textarea><span class="help-block"><p id="characterLeft114" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft114').text('500 characters left');
+    $('#characterLeft114').text('400 characters left');
     $('#CIT8').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft114').text('You have reached the limit');
@@ -1187,14 +1195,14 @@ function yesnoCheckCIT8() {
 <input type="radio" name="IC1" <?php if (isset($RL_IC1) && $RL_IC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT1();" value="0" id="noCheckICT1">No
 </p>
 
-<div id="ifYesICT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ICT1" name="ICT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT1)) { echo $RL_CM_ICT1; } ?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesICT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ICT1" name="ICT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT1)) { echo $RL_CM_ICT1; } ?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft12').text('500 characters left');
+    $('#characterLeft12').text('400 characters left');
     $('#ICT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft12').text('You have reached the limit');
@@ -1229,14 +1237,14 @@ function yesnoCheckICT1() {
 <input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="3") { echo "checked"; } ?> value="3" >N/A
 </p>
 
-<div id="ifYesICT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ICT2" name="ICT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT2)) { echo $RL_CM_ICT2; } ?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesICT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ICT2" name="ICT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT2)) { echo $RL_CM_ICT2; } ?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft13').text('500 characters left');
+    $('#characterLeft13').text('400 characters left');
     $('#ICT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft13').text('You have reached the limit');
@@ -1270,14 +1278,14 @@ function yesnoCheckICT2() {
 <input type="radio" name="IC3" <?php if (isset($RL_IC3) && $RL_IC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT3();" value="0" id="noCheckICT3">No
 </p>
 
-<div id="ifYesICT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ICT3" name="ICT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT3)) { echo $RL_CM_ICT3; } ?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesICT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ICT3" name="ICT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT3)) { echo $RL_CM_ICT3; } ?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft14').text('500 characters left');
+    $('#characterLeft14').text('400 characters left');
     $('#ICT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft14').text('You have reached the limit');
@@ -1315,14 +1323,14 @@ function yesnoCheckICT3() {
   <option value="4" <?php if(isset($RL_IC4)) { if($RL_IC4=='4') { echo "selected"; } } ?> onclick="javascript:yesnoCheckICT4a();" id="yesCheckICT4">Poor</option>
 </select>
 </p>
-<div id="ifYesICT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ICT4" name="ICT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT4)) { echo $RL_CM_ICT4; } ?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesICT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ICT4" name="ICT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT4)) { echo $RL_CM_ICT4; } ?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft15').text('500 characters left');
+    $('#characterLeft15').text('400 characters left');
     $('#ICT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft15').text('You have reached the limit');
@@ -1367,14 +1375,14 @@ function yesnoCheckICT4a() {
 <input type="radio" name="IC5" <?php if (isset($RL_IC5) && $RL_IC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT5();" value="0" id="noCheckICT5">No
 </p>
 
-<div id="ifYesICT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ICT5" name="ICT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT5)) { echo $RL_CM_ICT5; } ?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesICT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ICT5" name="ICT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_ICT5)) { echo $RL_CM_ICT5; } ?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft16').text('500 characters left');
+    $('#characterLeft16').text('400 characters left');
     $('#ICT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft16').text('You have reached the limit');
@@ -1414,14 +1422,14 @@ function yesnoCheckICT5() {
 <input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="0" id="noCheckCDT1">No
 </p>
 
-<div id="ifYesCDT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDT1" name="CDT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT1)) { echo $RL_CM_CDT1; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDT1" name="CDT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT1)) { echo $RL_CM_CDT1; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft6').text('500 characters left');
+    $('#characterLeft6').text('400 characters left');
     $('#CDT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft6').text('You have reached the limit');
@@ -1455,25 +1463,25 @@ function yesnoCheckCDT1() {
 <input type="radio" name="CD2" <?php if (isset($RL_CD2) && $RL_CD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT2();" value="0" id="noCheckCDT2">No
 </p>
 
-<div id="ifYesCDT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDT2" name="CDT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT2)) { echo $RL_CM_CDT2; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDT2" name="CDT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT2)) { echo $RL_CM_CDT2; } ?></textarea><span class="help-block"><p id="CDT2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft6').text('500 characters left');
+    $('#CDT2chars').text('400 characters left');
     $('#CDT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft6').text('You have reached the limit');
-            $('#characterLeft6').addClass('red');
+            $('#CDT2chars').text('You have reached the limit');
+            $('#CDT2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft6').text(ch + ' characters left');
+            $('#CDT2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft6').removeClass('red');            
+            $('#CDT2chars').removeClass('red');            
         }
     });    
 });
@@ -1495,25 +1503,25 @@ function yesnoCheckCDT2() {
 <input type="radio" name="CD3" <?php if (isset($RL_CD3) && $RL_CD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT3();" value="0" id="noCheckCDT3">No
 </p>
 
-<div id="ifYesCDT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDT3" name="CDT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT3)) { echo $RL_CM_CDT3; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDT3" name="CDT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT3)) { echo $RL_CM_CDT3; } ?></textarea><span class="help-block"><p id="CDT3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft6').text('500 characters left');
+    $('#CDT3chars').text('400 characters left');
     $('#CDT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft6').text('You have reached the limit');
-            $('#characterLeft6').addClass('red');
+            $('#CDT3chars').text('You have reached the limit');
+            $('#CDT3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft6').text(ch + ' characters left');
+            $('#CDT3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft6').removeClass('red');            
+            $('#CDT3chars').removeClass('red');            
         }
     });    
 });
@@ -1535,25 +1543,25 @@ function yesnoCheckCDT3() {
 <input type="radio" name="CD4" <?php if(isset($RL_CD4) && $RL_CD4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT4();" value="0" id="noCheckCDT4">No
 </p>
 
-<div id="ifYesCDT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDT4" name="CDT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT4)) { echo $RL_CM_CDT4; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDT4" name="CDT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT4)) { echo $RL_CM_CDT4; } ?></textarea><span class="help-block"><p id="CDT4chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft6').text('500 characters left');
+    $('#CDT4chars').text('400 characters left');
     $('#CDT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft6').text('You have reached the limit');
-            $('#characterLeft6').addClass('red');
+            $('#CDT4chars').text('You have reached the limit');
+            $('#CDT4chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft6').text(ch + ' characters left');
+            $('#CDT4chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft6').removeClass('red');            
+            $('#CDT4chars').removeClass('red');            
         }
     });    
 });
@@ -1575,25 +1583,25 @@ function yesnoCheckCDT4() {
 <input type="radio" name="CD5" <?php if(isset($RL_CD5) && $RL_CD5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT5();" value="0" id="noCheckCDT5">No
 </p>
 
-<div id="ifYesCDT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDT5" name="CDT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT5)) { echo $RL_CM_CDT5; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDT5" name="CDT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_CDT5)) { echo $RL_CM_CDT5; } ?></textarea><span class="help-block"><p id="CDT5chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft6').text('500 characters left');
+    $('#CDT5chars').text('400 characters left');
     $('#CDT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft6').text('You have reached the limit');
-            $('#characterLeft6').addClass('red');
+            $('#CDT5chars').text('You have reached the limit');
+            $('#CDT5chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft6').text(ch + ' characters left');
+            $('#CDT5chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft6').removeClass('red');            
+            $('#CDT5chars').removeClass('red');            
         }
     });    
 });
@@ -1623,25 +1631,25 @@ function yesnoCheckCDT5() {
 <input type="radio" name="DO1" <?php if (isset($RL_DO1) && $RL_DO1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT1();" value="1" id="yesCheckDOT1">Yes
 <input type="radio" name="DO1" <?php if (isset($RL_DO1) && $RL_DO1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT1();" value="0" id="noCheckDOT1">No
 </p>
-<div id="ifYesDOT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT1" name="DOT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT1)) { echo $RL_CM_DOT1; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT1" name="DOT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT1)) { echo $RL_CM_DOT1; } ?></textarea><span class="help-block"><p id="DOT1chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft34').text('500 characters left');
+    $('#DOT1chars').text('400 characters left');
     $('#DOT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft34').text('You have reached the limit');
-            $('#characterLeft34').addClass('red');
+            $('#DOT1chars').text('You have reached the limit');
+            $('#DOT1chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft34').text(ch + ' characters left');
+            $('#DOT1chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft34').removeClass('red');            
+            $('#DOT1chars').removeClass('red');            
         }
     });    
 });
@@ -1664,25 +1672,25 @@ function yesnoCheckDOT1() {
 <input type="radio" name="DO2" <?php if (isset($RL_DO2) && $RL_DO2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT2();" value="0" id="noCheckDOT2">No
 </p>
 
-<div id="ifYesDOT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT2" name="DOT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT2)) { echo $RL_CM_DOT2; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT2" name="DOT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT2)) { echo $RL_CM_DOT2; } ?></textarea><span class="help-block"><p id="DOT2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft34').text('500 characters left');
+    $('#DOT2chars').text('400 characters left');
     $('#DOT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft34').text('You have reached the limit');
-            $('#characterLeft34').addClass('red');
+            $('#DOT2chars').text('You have reached the limit');
+            $('#DOT2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft34').text(ch + ' characters left');
+            $('#DOT2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft34').removeClass('red');            
+            $('#DOT2chars').removeClass('red');            
         }
     });    
 });
@@ -1706,25 +1714,25 @@ function yesnoCheckDOT2() {
 <input type="radio" name="DO3" <?php if (isset($RL_DO3) && $RL_DO3=="3") { echo "checked"; } ?> value="3" >N/A
 </p>
 
-<div id="ifYesDOT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT3" name="DOT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT3)) { echo $RL_CM_DOT3; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT3" name="DOT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT3)) { echo $RL_CM_DOT3; } ?></textarea><span class="help-block"><p id="DOT3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT3chars').text('400 characters left');
     $('#DOT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT3chars').text('You have reached the limit');
+            $('#DOT3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT3chars').removeClass('red');            
         }
     });    
 });
@@ -1748,25 +1756,25 @@ function yesnoCheckDOT3() {
 <input type="radio" name="DO4" <?php if (isset($RL_DO4) && $RL_DO4=="2") { echo "checked"; } ?> value="2" >N/A
 </p>
 
-<div id="ifYesDOT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT4" name="DOT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT4)) { echo $RL_CM_DOT4; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT4" name="DOT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT4)) { echo $RL_CM_DOT4; } ?></textarea><span class="help-block"><p id="DOT4chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT4chars').text('400 characters left');
     $('#DOT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT4chars').text('You have reached the limit');
+            $('#DOT4chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT4chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT4chars').removeClass('red');            
         }
     });    
 });
@@ -1788,25 +1796,25 @@ function yesnoCheckDOT4() {
 <input type="radio" name="DO5" <?php if (isset($RL_DO5) && $RL_DO5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT5();" value="0" id="noCheckDOT5">No
 </p>
 
-<div id="ifYesDOT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT5" name="DOT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT5)) { echo $RL_CM_DOT5; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT5" name="DOT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT5)) { echo $RL_CM_DOT5; } ?></textarea><span class="help-block"><p id="DOT5chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT5chars').text('400 characters left');
     $('#DOT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT5chars').text('You have reached the limit');
+            $('#DOT5chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT5chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT5chars').removeClass('red');            
         }
     });    
 });
@@ -1828,25 +1836,25 @@ function yesnoCheckDOT5() {
 <input type="radio" name="DO6" <?php if (isset($RL_DO6) && $RL_DO6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT6();" value="0" id="noCheckDOT6">No
 </p>
 
-<div id="ifYesDOT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT6" name="DOT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT6)) { echo $RL_CM_DOT6; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT6" name="DOT6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT6)) { echo $RL_CM_DOT6; } ?></textarea><span class="help-block"><p id="DOT6chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT6chars').text('400 characters left');
     $('#DOT6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT6chars').text('You have reached the limit');
+            $('#DOT6chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT6chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT6chars').removeClass('red');            
         }
     });    
 });
@@ -1868,25 +1876,25 @@ function yesnoCheckDOT6() {
 <input type="radio" name="DO7" <?php if (isset($RL_DO7) && $RL_DO7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT7();" value="0" id="noCheckDOT7">No
 </p>
 
-<div id="ifYesDOT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT7" name="DOT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT7)) { echo $RL_CM_DOT7; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT7" name="DOT7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT7)) { echo $RL_CM_DOT7; } ?></textarea><span class="help-block"><p id="DOT7chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT7chars').text('400 characters left');
     $('#DOT7').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT7chars').text('You have reached the limit');
+            $('#DOT7chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT7chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT7chars').removeClass('red');            
         }
     });    
 });
@@ -1903,30 +1911,30 @@ function yesnoCheckDOT7() {
 </script>
 
 <p>
-<label for="DO8">Q<?php $i++; echo $i; ?>. Did the closer ask the client if the total amount of cover that they have applied for, added to the amount that they already have, across all insurance companies exceed £1,000,000 life cover or £500,000 CIC?</label>
+<label for="DO8">Q<?php $i++; echo $i; ?>. Did the closer ask the client if the total amount of cover that they have applied for, added to the amount that they already have, across all insurance companies exceed £1,000,000 life cover or £400,000 CIC?</label>
 <input type="radio" name="DO8" <?php if (isset($RL_DO8) && $RL_DO8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT8();" value="1" id="yesCheckDOT8">Yes
 <input type="radio" name="DO8" <?php if (isset($RL_DO8) && $RL_DO8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDOT8();" value="0" id="noCheckDOT8">No
 </p>
 
-<div id="ifYesDOT8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="DOT8" name="DOT8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT8)) { echo $RL_CM_DOT8; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesDOT8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="DOT8" name="DOT8" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_DOT8)) { echo $RL_CM_DOT8; } ?></textarea><span class="help-block"><p id="DOT8chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft35').text('500 characters left');
+    $('#DOT8chars').text('400 characters left');
     $('#DOT8').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft35').text('You have reached the limit');
-            $('#characterLeft35').addClass('red');
+            $('#DOT8chars').text('You have reached the limit');
+            $('#DOT8chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft35').text(ch + ' characters left');
+            $('#DOT8chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft35').removeClass('red');            
+            $('#DOT8chars').removeClass('red');            
         }
     });    
 });
@@ -1957,25 +1965,25 @@ function yesnoCheckDOT8() {
 <input type="radio" name="LS1" <?php if (isset($RL_LS1) && $RL_LS1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST1();" value="0" id="noCheckLST1">No
 </p>
 
-<div id="ifYesLST1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST1" name="LST1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST1)) { echo $RL_CM_LST1; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST1" name="LST1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST1)) { echo $RL_CM_LST1; } ?></textarea><span class="help-block"><p id="LST1chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft23').text('500 characters left');
+    $('#LST1chars').text('400 characters left');
     $('#LST1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft23').text('You have reached the limit');
-            $('#characterLeft23').addClass('red');
+            $('#LST1chars').text('You have reached the limit');
+            $('#LST1chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft23').text(ch + ' characters left');
+            $('#LST1chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft23').removeClass('red');            
+            $('#LST1chars').removeClass('red');            
         }
     });    
 });
@@ -1998,25 +2006,25 @@ function yesnoCheckLST1() {
 <input type="radio" name="LS2" <?php if (isset($RL_LS2) && $RL_LS2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST2();" value="0" id="noCheckLST2">No
 </p>
 
-<div id="ifYesLST2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST2" name="LST2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST2)) { echo $RL_CM_LST2; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST2" name="LST2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST2)) { echo $RL_CM_LST2; } ?></textarea><span class="help-block"><p id="LST2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft23').text('500 characters left');
+    $('#LST2chars').text('400 characters left');
     $('#LST2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft23').text('You have reached the limit');
-            $('#characterLeft23').addClass('red');
+            $('#LST2chars').text('You have reached the limit');
+            $('#LST2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft23').text(ch + ' characters left');
+            $('#LST2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft23').removeClass('red');            
+            $('#LST2chars').removeClass('red');            
         }
     });    
 });
@@ -2039,25 +2047,25 @@ function yesnoCheckLST2() {
 <input type="radio" name="LS3" <?php if (isset($RL_LS3) && $RL_LS3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST3();" value="0" id="noCheckLST3">No
 </p>
 
-<div id="ifYesLST3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST3" name="LST3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST3)) { echo $RL_CM_LST3; } ?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST3" name="LST3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST3)) { echo $RL_CM_LST3; } ?></textarea><span class="help-block"><p id="LST3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft24').text('500 characters left');
+    $('#LST3chars').text('400 characters left');
     $('#LST3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft24').text('You have reached the limit');
-            $('#characterLeft24').addClass('red');
+            $('#LST3chars').text('You have reached the limit');
+            $('#LST3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft24').text(ch + ' characters left');
+            $('#LST3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft24').removeClass('red');            
+            $('#LST3chars').removeClass('red');            
         }
     });    
 });
@@ -2080,25 +2088,25 @@ function yesnoCheckLST3() {
 <input type="radio" name="LS4" <?php if (isset($RL_LS4) && $RL_LS4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST4();" value="0" id="noCheckLST4">No
 </p>
 
-<div id="ifYesLST4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST4" name="LST4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST4)) { echo $RL_CM_LST4; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST4" name="LST4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST4)) { echo $RL_CM_LST4; } ?></textarea><span class="help-block"><p id="LST4chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#LST4chars').text('400 characters left');
     $('#LST4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#LST4chars').text('You have reached the limit');
+            $('#LST4chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#LST4chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#LST4chars').removeClass('red');            
         }
     });    
 });
@@ -2121,25 +2129,25 @@ function yesnoCheckLST4() {
 <input type="radio" name="LS5" <?php if (isset($RL_LS5) && $RL_LS5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST5();" value="0" id="noCheckLST5">No
 </p>
 
-<div id="ifYesLST5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST5" name="LST5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST5)) { echo $RL_CM_LST5; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST5" name="LST5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST5)) { echo $RL_CM_LST5; } ?></textarea><span class="help-block"><p id="LST5chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#LST5chars').text('400 characters left');
     $('#LST5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#LST5chars').text('You have reached the limit');
+            $('#LST5chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#LST5chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#LST5chars').removeClass('red');            
         }
     });    
 });
@@ -2162,25 +2170,25 @@ function yesnoCheckLST5() {
 <input type="radio" name="LS6" <?php if (isset($RL_LS6) && $RL_LS6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST6();" value="0" id="noCheckLST6">No
 </p>
 
-<div id="ifYesLST6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST6" name="LST6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST6)) { echo $RL_CM_LST6; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST6" name="LST6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST6)) { echo $RL_CM_LST6; } ?></textarea><span class="help-block"><p id="LST6chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#LST6chars').text('400 characters left');
     $('#LST6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#LST6chars').text('You have reached the limit');
+            $('#LST6chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#LST6chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#LST6chars').removeClass('red');            
         }
     });    
 });
@@ -2203,25 +2211,25 @@ function yesnoCheckLST6() {
 <input type="radio" name="LS7" <?php if (isset($RL_LS7) && $RL_LS7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckLST7();" value="0" id="noCheckLST7">No
 </p>
 
-<div id="ifYesLST7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="LST7" name="LST7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST7)) { echo $RL_CM_LST7; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesLST7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="LST7" name="LST7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_LST7)) { echo $RL_CM_LST7; } ?></textarea><span class="help-block"><p id="LST7chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#LST7chars').text('400 characters left');
     $('#LST7').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#LST7chars').text('You have reached the limit');
+            $('#LST7chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#LST7chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#LST7chars').removeClass('red');            
         }
     });    
 });
@@ -2253,25 +2261,25 @@ function yesnoCheckLST7() {
 <input type="radio" name="OT1" <?php if (isset($RL_OT1) && $RL_OT1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT1();" value="0" id="noCheckOTT1">No
 </p>
 
-<div id="ifYesOTT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="OTT1" name="OTT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT1)) { echo $RL_CM_OTT1; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesOTT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="OTT1" name="OTT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_OTT1)) { echo $RL_CEM_OTT1; } ?></textarea><span class="help-block"><p id="OTT1chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft34').text('500 characters left');
+    $('#OTT1chars').text('400 characters left');
     $('#OTT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft34').text('You have reached the limit');
-            $('#characterLeft34').addClass('red');
+            $('#OTT1chars').text('You have reached the limit');
+            $('#OTT1chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft34').text(ch + ' characters left');
+            $('#OTT1chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft34').removeClass('red');            
+            $('#OTT1chars').removeClass('red');            
         }
     });    
 });
@@ -2294,25 +2302,25 @@ function yesnoCheckOTT1() {
 <input type="radio" name="OT2" <?php if (isset($RL_OT2) && $RL_OT2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT2();" value="0" id="noCheckOTT2">No
 </p>
 
-<div id="ifYesOTT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="OTT2" name="OTT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT2)) { echo $RL_CM_OTT2; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesOTT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="OTT2" name="OTT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_OTT2)) { echo $RL_CEM_OTT2; } ?></textarea><span class="help-block"><p id="OTT2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#OTT2chars').text('400 characters left');
     $('#OTT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#OTT2chars').text('You have reached the limit');
+            $('#OTT2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#OTT2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#OTT2chars').removeClass('red');            
         }
     });    
 });
@@ -2335,25 +2343,25 @@ function yesnoCheckOTT2() {
 <input type="radio" name="OT3" <?php if (isset($RL_OT3) && $RL_OT3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOTT3();" value="0" id="noCheckOTT3">No
 </p>
 
-<div id="ifYesOTT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="OTT3" name="OTT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CM_OTT3)) { echo $RL_CM_OTT3; } ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesOTT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="OTT3" name="OTT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_OTT3)) { echo $RL_CEM_OTT3; } ?></textarea><span class="help-block"><p id="OTT3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft26').text('500 characters left');
+    $('#OTT3chars').text('400 characters left');
     $('#OTT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft26').text('You have reached the limit');
-            $('#characterLeft26').addClass('red');
+            $('#OTT3chars').text('You have reached the limit');
+            $('#OTT3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft26').text(ch + ' characters left');
+            $('#OTT3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft26').removeClass('red');            
+            $('#OTT3chars').removeClass('red');            
         }
     });    
 });
@@ -2384,25 +2392,25 @@ function yesnoCheckOTT3() {
 <input type="radio" name="HQ1" <?php if (isset($RL_QE_HQ1) && $RL_QE_HQ1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT1();" value="0" id="noCheckHQT1">No
 </p>
 
-<div id="ifYesHQT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT1" name="HQT1" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT1)) { echo $RL_CEM_HQT1; } ?></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT1" name="HQT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT1)) { echo $RL_CEM_HQT1; } ?></textarea><span class="help-block"><p id="HQT1chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft27').text('2500 characters left');
+    $('#HQT1chars').text('400 characters left');
     $('#HQT1').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft27').text('You have reached the limit');
-            $('#characterLeft27').addClass('red');
+            $('#HQT1chars').text('You have reached the limit');
+            $('#HQT1chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft27').text(ch + ' characters left');
+            $('#HQT1chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft27').removeClass('red');            
+            $('#HQT1chars').removeClass('red');            
         }
     });    
 });
@@ -2425,25 +2433,25 @@ function yesnoCheckHQT1() {
 <input type="radio" name="HQ2" <?php if (isset($RL_QE_HQ2) && $RL_QE_HQ2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT2();" value="0" id="noCheckHQT2">No
 </p>
 
-<div id="ifYesHQT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT2" name="HQT2" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT2)) { echo $RL_CEM_HQT2; } ?></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT2" name="HQT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT2)) { echo $RL_CEM_HQT2; } ?></textarea><span class="help-block"><p id="HQT2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft28').text('2500 characters left');
+    $('#HQT2chars').text('400 characters left');
     $('#HQT2').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft28').text('You have reached the limit');
-            $('#characterLeft28').addClass('red');
+            $('#HQT2chars').text('You have reached the limit');
+            $('#HQT2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft28').text(ch + ' characters left');
+            $('#HQT2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft28').removeClass('red');            
+            $('#HQT2chars').removeClass('red');            
         }
     });    
 });
@@ -2466,25 +2474,25 @@ function yesnoCheckHQT2() {
 <input type="radio" name="HQ3" <?php if (isset($RL_QE_HQ3) && $RL_QE_HQ3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT3();" value="0" id="noCheckHQT3">No
 </p>
 
-<div id="ifYesHQT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT3" name="HQT3" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT3)) { echo $RL_CEM_HQT3; } ?></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT3" name="HQT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT3)) { echo $RL_CEM_HQT3; } ?></textarea><span class="help-block"><p id="HQT3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft29').text('2500 characters left');
+    $('#HQT3chars').text('400 characters left');
     $('#HQT3').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft29').text('You have reached the limit');
-            $('#characterLeft29').addClass('red');
+            $('#HQT3chars').text('You have reached the limit');
+            $('#HQT3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft29').text(ch + ' characters left');
+            $('#HQT3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft29').removeClass('red');            
+            $('#HQT3chars').removeClass('red');            
         }
     });    
 });
@@ -2507,25 +2515,25 @@ function yesnoCheckHQT3() {
 <input type="radio" name="HQ4" <?php if (isset($RL_QE_HQ4) && $RL_QE_HQ4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT4();" value="0" id="noCheckHQT4">No
 </p>
 
-<div id="ifYesHQT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT4" name="HQT4" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT4)) { echo $RL_CEM_HQT4; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT4" name="HQT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT4)) { echo $RL_CEM_HQT4; } ?></textarea><span class="help-block"><p id="HQT4chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft30').text('2500 characters left');
+    $('#HQT4chars').text('400 characters left');
     $('#HQT4').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft30').text('You have reached the limit');
-            $('#characterLeft30').addClass('red');
+            $('#HQT4chars').text('You have reached the limit');
+            $('#HQT4chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft30').text(ch + ' characters left');
+            $('#HQT4chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft30').removeClass('red');            
+            $('#HQT4chars').removeClass('red');            
         }
     });    
 });
@@ -2548,25 +2556,25 @@ function yesnoCheckHQT4() {
 <input type="radio" name="HQ5" <?php if (isset($RL_QE_HQ5) && $RL_QE_HQ5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT5();" value="0" id="noCheckHQT5">No
 </p>
 
-<div id="ifYesHQT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT5" name="HQT5" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT5)) { echo $RL_CEM_HQT5; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT5" name="HQT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT5)) { echo $RL_CEM_HQT5; } ?></textarea><span class="help-block"><p id="HQT5chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft30').text('2500 characters left');
+    $('#HQT5chars').text('400 characters left');
     $('#HQT5').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft30').text('You have reached the limit');
-            $('#characterLeft30').addClass('red');
+            $('#HQT5chars').text('You have reached the limit');
+            $('#HQT5chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft30').text(ch + ' characters left');
+            $('#HQT5chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft30').removeClass('red');            
+            $('#HQT5chars').removeClass('red');            
         }
     });    
 });
@@ -2589,25 +2597,25 @@ function yesnoCheckHQT5() {
 <input type="radio" name="HQ6" <?php if (isset($RL_QE_HQ6) && $RL_QE_HQ6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckHQT6();" value="0" id="noCheckHQT6">No
 </p>
 
-<div id="ifYesHQT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="HQT6" name="HQT6" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT6)) { echo $RL_CEM_HQT6; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesHQT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="HQT6" name="HQT6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_HQT6)) { echo $RL_CEM_HQT6; } ?></textarea><span class="help-block"><p id="HQT6chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft30').text('2500 characters left');
+    $('#HQT6chars').text('400 characters left');
     $('#HQT6').keydown(function () {
-        var max = 2500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft30').text('You have reached the limit');
-            $('#characterLeft30').addClass('red');
+            $('#HQT6chars').text('You have reached the limit');
+            $('#HQT6chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft30').text(ch + ' characters left');
+            $('#HQT6chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft30').removeClass('red');            
+            $('#HQT6chars').removeClass('red');            
         }
     });    
 });
@@ -2638,25 +2646,25 @@ function yesnoCheckHQT6() {
 <input type="radio" name="E1" <?php if (isset($RL_QE_E1) && $RL_QE_E1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="0" id="noCheckET1">No
 </p>
 
-<div id="ifYesET1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ET1" name="ET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET1)) { echo $RL_CEM_ET1; } ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesET1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ET1" name="ET1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET1)) { echo $RL_CEM_ET1; } ?></textarea><span class="help-block"><p id="ET1chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft19').text('500 characters left');
+    $('#ET1chars').text('400 characters left');
     $('#ET1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft19').text('You have reached the limit');
-            $('#characterLeft19').addClass('red');
+            $('#ET1chars').text('You have reached the limit');
+            $('#ET1chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft19').text(ch + ' characters left');
+            $('#ET1chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft19').removeClass('red');            
+            $('#ET1chars').removeClass('red');            
         }
     });    
 });
@@ -2679,25 +2687,25 @@ function yesnoCheckET1() {
 <input type="radio" name="E2" <?php if (isset($RL_QE_E2) && $RL_QE_E2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="0" id="noCheckET2">No
 </p>
 
-<div id="ifYesET2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ET2" name="ET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET2)) { echo $RL_CEM_ET2; } ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesET2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ET2" name="ET2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET2)) { echo $RL_CEM_ET2; } ?></textarea><span class="help-block"><p id="ET2chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft18').text('500 characters left');
+    $('#ET2chars').text('400 characters left');
     $('#ET2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft18').text('You have reached the limit');
-            $('#characterLeft18').addClass('red');
+            $('#ET2chars').text('You have reached the limit');
+            $('#ET2chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft18').text(ch + ' characters left');
+            $('#ET2chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft18').removeClass('red');            
+            $('#ET2chars').removeClass('red');            
         }
     });    
 });
@@ -2720,25 +2728,25 @@ function yesnoCheckET2() {
 <input type="radio" name="E3" <?php if (isset($RL_QE_E3) && $RL_QE_E3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="0" id="noCheckET3">No
 </p>
 
-<div id="ifYesET3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ET3" name="ET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET3)) { echo $RL_CEM_ET3; } ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesET3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ET3" name="ET3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET3)) { echo $RL_CEM_ET3; } ?></textarea><span class="help-block"><p id="ET3chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft17').text('500 characters left');
+    $('#ET3chars').text('400 characters left');
     $('#ET3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft17').text('You have reached the limit');
-            $('#characterLeft17').addClass('red');
+            $('#ET3chars').text('You have reached the limit');
+            $('#ET3chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft17').text(ch + ' characters left');
+            $('#ET3chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft17').removeClass('red');            
+            $('#ET3chars').removeClass('red');            
         }
     });    
 });
@@ -2761,25 +2769,25 @@ function yesnoCheckET3() {
 <input type="radio" name="E4" <?php if (isset($RL_QE_E4) && $RL_QE_E4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="0" id="noCheckET4">No
 </p>
 
-<div id="ifYesET4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ET4" name="ET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET4)) { echo $RL_CEM_ET4; } ?></textarea><span class="help-block"><p id="characterLeft21" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesET4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ET4" name="ET4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET4)) { echo $RL_CEM_ET4; } ?></textarea><span class="help-block"><p id="ET4chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft21').text('500 characters left');
+    $('#ET4chars').text('400 characters left');
     $('#ET4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft21').text('You have reached the limit');
-            $('#characterLeft21').addClass('red');
+            $('#ET4chars').text('You have reached the limit');
+            $('#ET4chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft21').text(ch + ' characters left');
+            $('#ET4chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft21').removeClass('red');            
+            $('#ET4chars').removeClass('red');            
         }
     });    
 });
@@ -2802,25 +2810,25 @@ function yesnoCheckET4() {
 <input type="radio" name="E5" <?php if (isset($RL_QE_E5) && $RL_QE_E5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5">No
 </p>
 
-<div id="ifYesET5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="ET5" name="ET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET5)) { echo $RL_CEM_ET5; } ?></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesET5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="ET5" name="ET5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET5)) { echo $RL_CEM_ET5; } ?></textarea><span class="help-block"><p id="ET5chars" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft31').text('500 characters left');
+    $('#ET5chars').text('400 characters left');
     $('#ET5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft31').text('You have reached the limit');
-            $('#characterLeft31').addClass('red');
+            $('#ET5chars').text('You have reached the limit');
+            $('#ET5chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft31').text(ch + ' characters left');
+            $('#ET5chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft31').removeClass('red');            
+            $('#ET5chars').removeClass('red');            
         }
     });    
 });
@@ -2849,23 +2857,23 @@ function yesnoCheckET5() {
 </select>
 </p>
 
-<textarea class="form-control"id="ET6" name="ET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET6)) { echo $RL_CEM_ET6; } ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
+<textarea class="form-control"id="ET6" name="ET6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_ET6)) { echo $RL_CEM_ET6; } ?></textarea><span class="help-block"><p id="ET6chars" class="help-block ">You have reached the limit</p></span>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft32').text('500 characters left');
+    $('#ET6chars').text('400 characters left');
     $('#ET6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
-            $('#characterLeft32').text('You have reached the limit');
-            $('#characterLeft32').addClass('red');
+            $('#ET6chars').text('You have reached the limit');
+            $('#ET6chars').addClass('red');
             $('#btnSubmit').addClass('disabled');            
         } 
         else {
             var ch = max - len;
-            $('#characterLeft32').text(ch + ' characters left');
+            $('#ET6chars').text(ch + ' characters left');
             $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft32').removeClass('red');            
+            $('#ET6chars').removeClass('red');            
         }
     });    
 });
@@ -2885,14 +2893,14 @@ $(document).ready(function(){
 <input type="radio" name="PI1" <?php if (isset($RL_QE_PI1) && $RL_QE_PI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="0" id="noCheckPIT1">No
 </p>
 
-<div id="ifYesPIT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="PIT1" name="PIT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT1)) { echo $RL_CEM_PIT1; } ?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesPIT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="PIT1" name="PIT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT1)) { echo $RL_CEM_PIT1; } ?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft36').text('500 characters left');
+    $('#characterLeft36').text('400 characters left');
     $('#PIT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft36').text('You have reached the limit');
@@ -2926,14 +2934,14 @@ function yesnoCheckPIT1() {
 <input type="radio" name="PI2" <?php if (isset($RL_QE_PI2) && $RL_QE_PI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="0" id="noCheckPIT2">No
 </p>
 
-<div id="ifYesPIT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="PIT2" name="PIT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT2)) { echo $RL_CEM_PIT2; } ?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesPIT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="PIT2" name="PIT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT2)) { echo $RL_CEM_PIT2; } ?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft37').text('500 characters left');
+    $('#characterLeft37').text('400 characters left');
     $('#PIT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft37').text('You have reached the limit');
@@ -2967,14 +2975,14 @@ function yesnoCheckPIT2() {
 <input type="radio" name="PI3" <?php if (isset($RL_QE_PI3) && $RL_QE_PI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="0" id="noCheckPIT3">No
 </p>
 
-<div id="ifYesPIT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="PIT3" name="PIT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT3)) { echo $RL_CEM_PIT3; } ?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesPIT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="PIT3" name="PIT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT3)) { echo $RL_CEM_PIT3; } ?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft38').text('500 characters left');
+    $('#characterLeft38').text('400 characters left');
     $('#PIT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft38').text('You have reached the limit');
@@ -3008,14 +3016,14 @@ function yesnoCheckPIT3() {
 <input type="radio" name="PI4" <?php if (isset($RL_QE_PI4) && $RL_QE_PI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="0" id="noCheckPIT4">No
 </p>
 
-<div id="ifYesPIT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="PIT4" name="PIT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT4)) { echo $RL_CEM_PIT4; } ?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesPIT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="PIT4" name="PIT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT4)) { echo $RL_CEM_PIT4; } ?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft39').text('500 characters left');
+    $('#characterLeft39').text('400 characters left');
     $('#PIT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft39').text('You have reached the limit');
@@ -3046,17 +3054,17 @@ function yesnoCheckPIT4() {
 <p>
 <label for="PI5">Q<?php $i++; echo $i; ?>. Did they have consent off the premium payer?</label>
 <input type="radio" name="PI5" <?php if (isset($RL_QE_PI5) && $RL_QE_PI5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="1" id="yesCheckPIT5">Yes
-<input type="radio" name="PI5" <?php if (isset($RL_QE_PI5) && $RL_VPI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="0" id="noCheckPIT5">No
+<input type="radio" name="PI5" <?php if (isset($RL_QE_PI5) && $RL_QE_PI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="0" id="noCheckPIT5">No
 </p>
 
-<div id="ifYesPIT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="PIT5" name="PIT5" rows="1" cols="75" maxlength="1500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT5)) { echo $RL_CEM_PIT5; } ?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesPIT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="PIT5" name="PIT5" rows="1" cols="75" maxlength="1400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_PIT5)) { echo $RL_CEM_PIT5; } ?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft40').text('500 characters left');
+    $('#characterLeft40').text('400 characters left');
     $('#PIT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft40').text('You have reached the limit');
@@ -3099,14 +3107,14 @@ function yesnoCheckPIT5() {
 <input type="radio" name="CDE1" <?php if (isset($RL_QE_CDE1) && $RL_QE_CDE1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="0" id="noCheckCDET1">No
 </p>
 
-<div id="ifYesCDET1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET1" name="CDET1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET1)) { echo $RL_CEM_CDET1; } ?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET1" name="CDET1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET1)) { echo $RL_CEM_CDET1; } ?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft41').text('500 characters left');
+    $('#characterLeft41').text('400 characters left');
     $('#CDET1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft41').text('You have reached the limit');
@@ -3141,14 +3149,14 @@ function yesnoCheckCDET1() {
 <input type="radio" name="CDE2" <?php if (isset($RL_QE_CDE2) && $RL_QE_CDE2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="0" id="noCheckCDET2">No
 </p>
 
-<div id="ifYesCDET2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET2" name="CDET2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET2)) { echo $RL_CEM_CDET2; } ?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET2" name="CDET2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET2)) { echo $RL_CEM_CDET2; } ?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft42').text('500 characters left');
+    $('#characterLeft42').text('400 characters left');
     $('#CDET2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft42').text('You have reached the limit');
@@ -3182,14 +3190,14 @@ function yesnoCheckCDET2() {
 <input type="radio" name="CDE3" <?php if (isset($RL_QE_CDE3) && $RL_QE_CDE3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="0" id="noCheckCDET3">No
 </p>
 
-<div id="ifYesCDET3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET3" name="CDET3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET3)) { echo $RL_CEM_CDET3; } ?></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET3" name="CDET3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET3)) { echo $RL_CEM_CDET3; } ?></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft43').text('500 characters left');
+    $('#characterLeft43').text('400 characters left');
     $('#CDET3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft43').text('You have reached the limit');
@@ -3223,14 +3231,14 @@ function yesnoCheckCDET3() {
 <input type="radio" name="CDE4" <?php if (isset($RL_QE_CDE4) && $RL_QE_CDE4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="0" id="noCheckCDET4">No
 </p>
 
-<div id="ifYesCDET4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET4" name="CDET4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET4)) { echo $RL_CEM_CDET4; } ?></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET4" name="CDET4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET4)) { echo $RL_CEM_CDET4; } ?></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft44').text('500 characters left');
+    $('#characterLeft44').text('400 characters left');
     $('#CDET4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft44').text('You have reached the limit');
@@ -3264,14 +3272,14 @@ function yesnoCheckCDET4() {
 <input type="radio" name="CDE5" <?php if (isset($RL_QE_CDE5) && $RL_QE_CDE5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="0" id="noCheckCDET5">No
 </p>
 
-<div id="ifYesCDET5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET5" name="CDET5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET5)) { echo $RL_CEM_CDET5; } ?></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET5" name="CDET5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET5)) { echo $RL_CEM_CDET5; } ?></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft45').text('500 characters left');
+    $('#characterLeft45').text('400 characters left');
     $('#CDET5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft45').text('You have reached the limit');
@@ -3305,14 +3313,14 @@ function yesnoCheckCDET5() {
 <input type="radio" name="CDE6" <?php if (isset($RL_QE_CDE6) && $RL_QE_CDE6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6">No
 </p>
 
-<div id="ifYesCDET6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET6" name="CDET6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET6)) { echo $RL_CEM_CDET6; } ?></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET6" name="CDET6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET6)) { echo $RL_CEM_CDET6; } ?></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft46').text('500 characters left');
+    $('#characterLeft46').text('400 characters left');
     $('#CDET6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft46').text('You have reached the limit');
@@ -3347,14 +3355,14 @@ function yesnoCheckCDET6() {
 
 </p>
 
-<div id="ifYesCDET7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET7" name="CDET7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET7)) { echo $RL_CEM_CDET7; } ?></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET7" name="CDET7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET7)) { echo $RL_CEM_CDET7; } ?></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft47').text('500 characters left');
+    $('#characterLeft47').text('400 characters left');
     $('#CDET7').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft47').text('You have reached the limit');
@@ -3389,14 +3397,14 @@ function yesnoCheckCDET7() {
 <input type="radio" name="CDE8" <?php if (isset($RL_QE_CDE8) && $RL_QE_CDE8=="3") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="3" id="yesCheckCDET8">N/A
 </p>
 
-<div id="ifYesCDET8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="CDET8" name="CDET8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET8)) { echo $RL_CEM_CDET8; } ?></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesCDET8" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="CDET8" name="CDET8" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_CDET8)) { echo $RL_CEM_CDET8; } ?></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft48').text('500 characters left');
+    $('#characterLeft48').text('400 characters left');
     $('#CDET8').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft48').text('You have reached the limit');
@@ -3439,14 +3447,14 @@ function yesnoCheckCDET8() {
 <input type="radio" name="QC1" <?php if (isset($RL_QE_QC1) && $RL_QE_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1">No
 </p>
 
-<div id="ifYesQCT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT1" name="QCT1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT1)) { echo $RL_CEM_QCT1; } ?></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT1" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT1" name="QCT1" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT1)) { echo $RL_CEM_QCT1; } ?></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft49').text('500 characters left');
+    $('#characterLeft49').text('400 characters left');
     $('#QCT1').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft49').text('You have reached the limit');
@@ -3480,14 +3488,14 @@ function yesnoCheckQCT1() {
 <input type="radio" name="QC2" <?php if (isset($RL_QE_QC2) && $RL_QE_QC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="0" id="noCheckQCT2">No
 </p>
 
-<div id="ifYesQCT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT2" name="QCT2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT2)) { echo $RL_CEM_QCT2; } ?></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT2" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT2" name="QCT2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT2)) { echo $RL_CEM_QCT2; } ?></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft50').text('500 characters left');
+    $('#characterLeft50').text('400 characters left');
     $('#QCT2').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft50').text('You have reached the limit');
@@ -3521,14 +3529,14 @@ function yesnoCheckQCT2() {
 <input type="radio" name="QC3" <?php if (isset($RL_QE_QC3) && $RL_QE_QC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="0" id="noCheckQCT3">No
 </p>
 
-<div id="ifYesQCT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT3" name="QCT3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT3)) { echo $RL_CEM_QCT3; } ?></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT3" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT3" name="QCT3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT3)) { echo $RL_CEM_QCT3; } ?></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft51').text('500 characters left');
+    $('#characterLeft51').text('400 characters left');
     $('#QCT3').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft51').text('You have reached the limit');
@@ -3562,14 +3570,14 @@ function yesnoCheckQCT3() {
 <input type="radio" name="QC4" <?php if (isset($RL_QE_QC4) && $RL_QE_QC4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="0" id="noCheckQCT4">No
 </p>
 
-<div id="ifYesQCT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT4" name="QCT4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT4)) { echo $RL_CEM_QCT4; } ?></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT4" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT4" name="QCT4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT4)) { echo $RL_CEM_QCT4; } ?></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft52').text('500 characters left');
+    $('#characterLeft52').text('400 characters left');
     $('#QCT4').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft52').text('You have reached the limit');
@@ -3603,14 +3611,14 @@ function yesnoCheckQCT4() {
 <input type="radio" name="QC5" <?php if (isset($RL_QE_QC5) && $RL_QE_QC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="0" id="noCheckQCT5">No
 </p>
 
-<div id="ifYesQCT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT5" name="QCT5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT5)) { echo $RL_CEM_QCT5; } ?></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT5" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT5" name="QCT5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT5)) { echo $RL_CEM_QCT5; } ?></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft53').text('500 characters left');
+    $('#characterLeft53').text('400 characters left');
     $('#QCT5').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft53').text('You have reached the limit');
@@ -3644,14 +3652,14 @@ function yesnoCheckQCT5() {
 <input type="radio" name="QC6" <?php if (isset($RL_QE_QC6) && $RL_QE_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6">No
 </p>
 
-<div id="ifYesQCT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT6" name="QCT6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT6)) { echo $RL_CEM_QCT6; } ?></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT6" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT6" name="QCT6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT6)) { echo $RL_CEM_QCT6; } ?></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft54').text('500 characters left');
+    $('#characterLeft54').text('400 characters left');
     $('#QCT6').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft54').text('You have reached the limit');
@@ -3685,14 +3693,14 @@ function yesnoCheckQCT6() {
 <input type="radio" name="QC7" <?php if (isset($RL_QE_QC7) && $RL_QE_QC7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="0" id="noCheckQCT7">No
 </p>
 
-<div id="ifYesQCT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; } ?> '>
-<textarea class="form-control"id="QCT7" name="QCT7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT7)) { echo $RL_CEM_QCT7; } ?></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
+<div id="ifYesQCT7" style='display: <?php if(isset($EXECUTE) && $EXECUTE=='VIEW' || $EXECUTE=='EDIT') { echo "block"; }  else  {  echo "none" ;  } ?> '>
+<textarea class="form-control"id="QCT7" name="QCT7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($RL_CEM_QCT7)) { echo $RL_CEM_QCT7; } ?></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
 </div>
 <script>
 $(document).ready(function(){ 
-    $('#characterLeft55').text('500 characters left');
+    $('#characterLeft55').text('400 characters left');
     $('#QCT7').keydown(function () {
-        var max = 500;
+        var max = 400;
         var len = $(this).val().length;
         if (len >= max) {
             $('#characterLeft55').text('You have reached the limit');
@@ -3725,20 +3733,21 @@ function yesnoCheckQCT7() {
 
 <br>
 
+<?php if(isset($EXECUTE)) {
+    if($EXECUTE=='EDIT') { ?>
+<center>
+     <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Update Audit</button>
+     </center>
+<?php    }
+if($EXECUTE=='EDIT') {
+} } else {?>
+
 <center>
     <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Submit Audit</button>
 </center>
+     
+<?php } ?>
 </form>
-
-
     </div>
-  </div>
-
-</div>
-
-<script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

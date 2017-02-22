@@ -339,7 +339,7 @@ echo "<div class=\"editpolicy\">
     <div class="btn-group">
 
 <a href="CloserAudit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Life Audit</a>
-<a href="RoyalLondon/Audit.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Royal London</a>
+<a href="RoyalLondon/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Royal London</a>
 <a href="WOL/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> WOL Audit</a>
 <a href="lead_gen_reports.php?step=New" class="btn btn-info"><i class="fa fa-folder-open"></i> Lead Gen Audits</a>
 <a href="audit_search.php" class="btn btn-default "><span class="glyphicon glyphicon-search"></span> Search Audits</a>

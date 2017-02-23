@@ -1,5 +1,4 @@
 <?php
-
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
@@ -28,7 +27,7 @@ $queryr=$query->fetch(PDO::FETCH_ASSOC);
         $emaildisplaynamedb=$queryr['displayname'];
         $passworddb=$queryr['password'];
         $emaildb=$queryr['email'];
-        $signat=$queryr['sig'];
+        $signat=  html_entity_decode($queryr['sig']);
         
         
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
@@ -75,38 +74,12 @@ $sig = "<br>-- \n
 <br>
 <br>
 
-<p>
-<font color='blue'><b>Customer Service</font></b><br>
-<font color='blue'><b>E:</font></b> info@thereviewbureau.com <br>
-
-<font color='blue'></b>T:</font></b> 0845 095 0041 <br>
-
-<font color='blue'></b>F:</font></b> 0845 095 0042 <br>
-</p>
-<br>
-<img src='cid:logo' style='width:200px;height:100px'>
-</br>
-<br>
-----------------------------------------------------------------<br>
-<p>
-This e-mail is intended only for the person to whom it is addressed. If an addressing or transmission error has misdirected this e-mail, please notify the sender by replying to this e-mail. If you are not the intended recipient, please delete this e-mail and do not use, disclose, copy, print or rely on the e-mail in any manner. To the extent permitted by law, The Review Bureau Ltd does not accept or assume any liability, responsibility or duty of care for any use of or reliance on this e-mail by anyone, other than the intended recipient to the extent agreed in the relevant contract for the matter to which this e-mail relates (if any).
-</p>
-<p>
-The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
-</p>
-----------------------------------------------------------------
-<br>Visit our website <a href='http://www.TheReviewBureau.com'>www.TheReviewBureau.com</a>";
+$signat";
 
 $body = $message;
 $body .= $sig;
 
 $mail             = new PHPMailer();
-
-	//$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-	//$mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-	//$mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-	//$mail->ConfirmReadingTo = 'info@thereviewbureau.com';
-
 $mail->IsSMTP(); // telling the class to use SMTP
 $mail->CharSet = 'UTF-8';
 $mail->Host       = "$emailsmtpdb"; // SMTP server

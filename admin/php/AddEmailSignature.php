@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);

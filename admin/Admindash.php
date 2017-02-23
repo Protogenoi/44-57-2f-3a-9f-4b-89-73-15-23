@@ -1455,7 +1455,7 @@ $emailacc4=$query->fetch(PDO::FETCH_ASSOC);
 <div class="form-group">
   <label class="col-md-12 control-label" for="emailid"></label>
   <div class="col-md-4">
-    <select id="emailid" name="emailid" class="form-control">
+    <select id="emailid" name="emailid" class="form-control" required>
         <option value="">Link Signature To An Email Account</option>
             <?php 
 

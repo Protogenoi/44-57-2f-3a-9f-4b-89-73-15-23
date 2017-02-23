@@ -17,13 +17,14 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 <title>Admin Dashboard</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../style/admindash.css">
-<link  rel="stylesheet" href="../styles/sweet-alert.min.css" />
-<link rel="stylesheet" href="../styles/layoutcrm.css" type="text/css" />
-<link  rel="stylesheet" href="../styles/sweet-alert.min.css" />
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/style/admindash.css">
+<link  rel="stylesheet" href="/styles/sweet-alert.min.css" />
+<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+<link  rel="stylesheet" href="/styles/sweet-alert.min.css" />
+<link rel="stylesheet" href="/summernote-master/dist/summernote.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
@@ -1449,17 +1450,63 @@ $emailacc4=$query->fetch(PDO::FETCH_ASSOC);
                             
                             <div id="emailsig" class="tab-pane fade">
                                 
-                                <iframe src="../bootstrap-wysiwyg-master/Notestest.php"  width="100%" height="500px" frameBorder="0"></iframe> 
-                                
-                                <?php
+          <form method="post" action="php/AddEmailSignature.php?emailsignature=y" class="form-horizontal"> 
+
+<div class="form-group">
+  <label class="col-md-12 control-label" for="emailid"></label>
+  <div class="col-md-4">
+    <select id="emailid" name="emailid" class="form-control">
+        <option value="">Link Signature To An Email Account</option>
+            <?php 
+
+    
+    $linkacc = $pdo->prepare("SELECT emailtype, id from email_accounts");
+    $linkacc->execute();
+
+    if ($linkacc->rowCount()>0) {
+        while ($linkacvar=$linkacc->fetch(PDO::FETCH_ASSOC)){
+  
+            $lkid=$linkacvar['id'];
+            $lkve=$linkacvar['emailtype'];
+
+ echo "<option value='$lkid'>$lkve</option>";
+      
+    }
+    }
+      ?>
+    </select>
+  </div>
+</div>
+                            
+                         <div class="form-group">
+  <div class="col-md-12">                     
+    <textarea class="form-control summernote" id="message" name="message"></textarea>
+  </div>
+</div>  
+    <div class="form-group">
+  <label class="col-md-12 control-label" for="save"></label>
+  <div class="col-md-4">
+<button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-envelope"></span> Save</button>
+  </div>
+</div>
+            
+              
+          </form>
+                      <?php
                                 
                         $query = $pdo->prepare("select sig from email_signatures");
                         $query->execute();                                
                         if ($query->rowCount()>0) {
                             while ($pullsigs=$query->fetch(PDO::FETCH_ASSOC)){
+                             $pullsigs_SIG=  html_entity_decode($pullsigs['sig']);   ?>
+                               
                                 
-                                echo"<p>".$pullsigs['sig']."</p>";
-                                
+                                                         <div class="form-group">
+  <div class="col-md-12">                     
+    <textarea class="form-control summernote" id="message" name="message"><?php echo $pullsigs_SIG; ?></textarea>
+  </div>
+</div>  
+                            <?php    
                             }
                             }
                                 ?>
@@ -2340,17 +2387,28 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         </div>
 
     </div>
-<script src="..js/sweet-alert.min.js"></script>
-<script src="../js/jquery-2.1.4.min.js"></script>
-<script src="../js/sweet-alert.min.js"></script>
-<script src="../js/jquery.min.js"></script>
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/js/sweet-alert.min.js"></script>
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/sweet-alert.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
     </script>
+    <script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      $('.summernote').summernote({
+        height: 200
+      });
+
+
+    });
+  </script>
 </body>
 
 </html>

@@ -1,6 +1,3 @@
-<?php
-$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Real Time Report</title>
@@ -31,7 +28,7 @@ $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
     background-color:#05668d !important;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" language="javascript" src="../js/jquery/jquery-3.0.0.min.js"></script>
 <script>
     function refresh_div() {
         jQuery.ajax({
@@ -51,43 +48,33 @@ $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
     <div class="row vertical-center-row">
         <div class="text-center col-md-4 col-md-offset-4">
 <?php 
-if(isset($test)){
-    include("../includes/DATA_DIALLER_PDO_CON.php"); 
-} else {
-    include("../includes/DIALLER_PDO_CON.php");                        
-}
+    include("../includes/ADL_PDO_CON.php"); 
 
-$query = $TRB_DB_PDO->prepare("SELECT 
-    vicidial_live_agents.uniqueid,
-    vicidial_live_agents.status,
-    vicidial_live_agents.pause_code,
-    vicidial_auto_calls.phone_number,
-    vicidial_users.full_name,
-    TIMEDIFF(CURRENT_TIMESTAMP,
-            vicidial_live_agents.last_state_change) AS Time,
-    COUNT(IF(vicidial_agent_log.status = 'SALE',
+
+$query = $pdo->prepare("SELECT 
+closer,
+    COUNT(IF(sale = 'SALE',
         1,
         NULL)) AS Sales,
-    vicidial_live_inbound_agents.calls_today AS Leads
+ COUNT(IF(sale IN ('SALE' , 'NoCard',
+            'QDE',
+            'DEC',
+            'QUN',
+            'QNQ',
+            'DIDNO',
+            'QCBK',
+            'QQQ',
+            'Other',
+            'QML'),
+        1,
+        NULL)) AS Leads
 FROM
-    vicidial_agent_log
-        JOIN
-    vicidial_users ON vicidial_users.user = vicidial_agent_log.user
-        JOIN
-    vicidial_live_inbound_agents ON vicidial_users.full_name = vicidial_live_inbound_agents.group_id
-        LEFT JOIN
-    vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
-        LEFT JOIN
-    vicidial_list ON vicidial_live_agents.lead_id = vicidial_list.lead_id
-        LEFT JOIN
-    vicidial_auto_calls ON vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-        LEFT JOIN
-    vicidial_lists ON vicidial_list.list_id = vicidial_lists.list_id
+    closer_trackers
+
 WHERE
-    DATE(vicidial_agent_log.event_time) = CURDATE()
-        AND vicidial_agent_log.campaign_id IN ('15' , '36') AND vicidial_users.full_name !='Michael'
-GROUP BY vicidial_agent_log.user
-ORDER BY vicidial_live_agents.status ASC , last_state_change LIMIT 10");
+date_added > DATE(NOW())
+GROUP BY closer
+ORDER BY Sales, Leads");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>";
 
@@ -97,7 +84,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 
 $Sales = $result['Sales'];
 $Leads = $result['Leads'];
-$CLOSER_NAME=$result['full_name'];
+$CLOSER_NAME=$result['closer'];
 
 switch ($CLOSER_NAME) {
     case("Matt"):
@@ -150,65 +137,43 @@ if($SALES=='0') {
     $Formattedrate = number_format($Conversionrate,1);
 }
 
-
- switch( $result['status'] )
-    {
-      case("READY"):
-         $class2 = 'status_READY12';
-          break;
-        case("INCALL"):
-          $class2 = 'status_INCALL12';
-	if ($result['uniqueid']=='0') {$result['status'] = 'MANUAL'; $class2 = 'status_MANUAL2';}
-	if ($result['phone_number']<='0') {$result['status'] = 'DEAD'; $class2 = 'status_DEAD2';}
-elseif ($result['campaign_id'] =='10' && $result['lead_id']>'1') {$result['status'] = 'TRANSFER'; $class2 = 'status_piltrans';}
-           break;
-       case("PAUSED"):
-            $class2 = 'status_PAUSED12';
-          break;
-       case("QUEUE"):
-            $class2 = 'status_QUEUE2';
-          break;
-        default:
-            $class2 = 'status_READY12';
-            break;
- }
-	echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$CLOSER_NAME.' <br>'.$LEADS.'/'.$SALES.'<br>'.$Formattedrate.'</strong></td>';
+	echo '<td class="status_READY10"><strong style="font-size: 50px;">'.$CLOSER_NAME.' <br>'.$LEADS.'/'.$SALES.'<br>'.$Formattedrate.'</strong></td>';
 
 }
 } 
 echo "</table>";
 
-$STAT_QRY = $TRB_DB_PDO->prepare("SELECT 
-    vicidial_users.full_name,
-    COUNT(IF(vicidial_agent_log.status = 'QML',
+$STAT_QRY = $pdo->prepare("SELECT 
+    closer,
+    COUNT(IF(sale = 'QML',
         1,
         NULL)) AS QML,
-    COUNT(IF(vicidial_agent_log.status = 'QQQ',
+    COUNT(IF(sale = 'QQQ',
         1,
         NULL)) AS QQQ,
-    COUNT(IF(vicidial_agent_log.status = 'QCBK',
+    COUNT(IF(sale = 'QCBK',
         1,
         NULL)) AS QCBK,
-    COUNT(IF(vicidial_agent_log.status = 'DIDNO',
+    COUNT(IF(sale = 'DIDNO',
         1,
         NULL)) AS DIDNO,
-    COUNT(IF(vicidial_agent_log.status = 'QNQ',
+    COUNT(IF(sale = 'QNQ',
         1,
         NULL)) AS QNQ,
-    COUNT(IF(vicidial_agent_log.status = 'QUN',
+    COUNT(IF(sale = 'QUN',
         1,
         NULL)) AS QUN,
-    COUNT(IF(vicidial_agent_log.status = 'QDE'
-            OR vicidial_agent_log.status = 'DEC',
+    COUNT(IF(sale = 'QDE'
+            OR sale = 'DEC',
         1,
         NULL)) AS QDE,
-    COUNT(IF(vicidial_agent_log.status = 'NoCard',
+    COUNT(IF(sale = 'NoCard',
         1,
         NULL)) AS NoCard,
-    COUNT(IF(vicidial_agent_log.status = 'SALE',
+    COUNT(IF(sale = 'SALE',
         1,
         NULL)) AS Sales,
-    COUNT(IF(vicidial_agent_log.status NOT IN ('SALE' , 'NoCard',
+    COUNT(IF(sale NOT IN ('SALE' , 'NoCard',
             'QDE',
             'DEC',
             'QUN',
@@ -220,14 +185,11 @@ $STAT_QRY = $TRB_DB_PDO->prepare("SELECT
         1,
         NULL)) AS Other
 FROM
-    vicidial_agent_log
-        JOIN
-    vicidial_users ON vicidial_agent_log.user = vicidial_users.user
+    closer_trackers
 WHERE
-    vicidial_agent_log.user_group IN ('LifeCloser' , 'TRBUpSells')
-        AND vicidial_agent_log.event_time > DATE(NOW())
-GROUP BY vicidial_agent_log.user
-ORDER BY vicidial_users.full_name;");
+date_added > DATE(NOW())
+GROUP BY closer
+ORDER BY closer");
 
 echo "<table id='main2' cellspacing='0' cellpadding='10'>
 <th class='status_PAUSED'>Closer</th>
@@ -258,7 +220,7 @@ while ($STAT_result=$STAT_QRY->fetch(PDO::FETCH_ASSOC)){
 
 $Sales = $STAT_result['Sales'];
 $Leads = $STAT_result['Leads'];
-$CLOSER_NAME=$STAT_result['full_name'];
+$CLOSER_NAME=$STAT_result['closer'];
 
 switch ($CLOSER_NAME) {
     case("Matt"):
@@ -296,17 +258,17 @@ switch ($CLOSER_NAME) {
     
 }
 
-	echo '<tr><td class="status_PAUSED12"><strong style="font-size: 50px;">'.$CLOSER_NAME.' </strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$SALES.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QML.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QQQ.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QCBK.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$DIDNO.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QNQ.'</strong></td><';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QUN.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$QDE.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$NoCard.'</strong></td>';
-        echo '<td class='.$class2.'><strong style="font-size: 50px;">'.$OTHER.'</strong></td>';
+	echo '<tr><td class="status_READY10"><strong style="font-size: 50px;">'.$CLOSER_NAME.' </strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$SALES.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QML.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QQQ.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QCBK.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$DIDNO.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QNQ.'</strong></td><';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QUN.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$QDE.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$NoCard.'</strong></td>';
+        echo '<td class="status_PAUSED12"><strong style="font-size: 50px;">'.$OTHER.'</strong></td>';
 
 }
 } 

@@ -32,6 +32,12 @@ if (in_array($hello_name,$Agent_Access, true)) {
 
 }
 
+if (in_array($hello_name,$Closer_Access, true)) {
+    
+    header('Location: /Life/LifeDealSheet.php'); die;
+
+}
+
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
     header('Location: index.php?AccessDenied'); die;

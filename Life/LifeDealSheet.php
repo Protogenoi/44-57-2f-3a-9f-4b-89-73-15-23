@@ -20,52 +20,41 @@ $Today_TIME =date("h:i:s");
 
 
 switch($hello_name) {
-    
-    case "724";
-        $real_name='Chloe John';
-        break;
-    case "1034";
-        $real_name='Adam Arrigan';
-        break;
+
     case "Michael";
         $real_name='Michael';
         break;
-        case "Roxy";
-        $real_name='Roxy';
-        break;
             case "carys";
-        $real_name='Carys Riley';
+        $real_name='Carys';
         break;
                 case "Abbiek";
-        $real_name='Abbie Kenyon';
+        $real_name='Abbie';
         break;
             case "511";
-        $real_name='Kyle Barnett';
-        break;
-                case "519";
-        $real_name='Ricky Derrick';
+        $real_name='Kyle';
         break;
      case "103";
-        $real_name='Sarah Wallace';
+        $real_name='Sarah';
         break;
-         case "212";
-        $real_name='Natham James';
+         case "5000";
+        $real_name='Mike';
+        break;
+         case "1312";
+        $real_name='Hayley';
+        break;
+             case "118";
+        $real_name='Gavin';
         break;
          case "104";
-        $real_name='Richard Michaels';
+        $real_name='Richard';
         break;
-    case "188";
-        $real_name='Gavin Fulford';
+             case "201";
+        $real_name='Stavros';
         break;
     case "555";
-        $real_name='James Adams';
+        $real_name='James';
         break;
-        case "1009";
-        $real_name='Matthew Jasper';
-        break;
-            case "1185";
-        $real_name='Rhys Morris';
-        break;
+
     default;
         $real_name=$hello_name;
         
@@ -5370,7 +5359,7 @@ for ($i = 0; $i <= 100; ++$i)
                                         </select></td>
                                     <td><?php echo $TRK_LEAD_UP; ?></td>    
                                     <td><?php echo $TRK_MTG; ?></td>
-                                    <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=$TRK_tracker_id' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
+                                    <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id;?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
 <?php
                                     
                                 }     ?>          

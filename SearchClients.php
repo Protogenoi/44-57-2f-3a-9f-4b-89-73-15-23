@@ -91,7 +91,7 @@ include('includes/adl_features.php');
 			</a>
 			</li>
                         
-<?php }if($ffPBA=='1') {?>
+<?php }if($ffpba=='1') {?>
      			<li>
 			<a href="SearchClients.php?client=PBA">
                             <span class="ca-icon"><i class="fa fa-search"></i></span>

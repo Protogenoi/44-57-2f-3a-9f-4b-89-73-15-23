@@ -78,20 +78,9 @@ body { height: 100% }
     }
     
 ?> 
-    
-    <div class="col-md-4">
-               <div class="notice notice-info" role="alert"><strong> You are logged in as <?php if(isset($hello_name)) { echo $hello_name; }   ?>.</strong></div><br>   
 
-    </div>
-       <div class="col-md-4">
-
-    </div>
-           <div class="col-md-4">
-    </div>
-    
 <div class="container">
-
-    
+ 
     <?php 
     
     if($ffdialler=='0') { 
@@ -248,7 +237,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                 <div class="text-center">
                     <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
                     <br>
-                    <h3>Loading <?php echo "$hello_name's"; ?> user settings... </h3>
+                    <h3>Loading <?php if(isset($hello_name)) { echo "$hello_name's"; } ?> user settings... </h3>
                 </div>
             </div>
         </div>

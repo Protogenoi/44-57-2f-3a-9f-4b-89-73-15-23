@@ -97,7 +97,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <h3><span class="label label-info">Client Details (1)</span></h3>
 <br>
   
-                <input type="hidden" name="client_id" value="<?php echo $search?>">
+                <input type="hidden" name="client_id" value="<?php if(isset($search)) { echo $search; } ?>">
            <p>
  <div class="form-group">
   <label for="custtype">Product:</label>

@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='0') {
+    if($fferror=='1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -80,7 +80,7 @@ body { height: 100% }
 ?> 
 
 <div class="container">
- 
+
     <?php 
     
     if($ffdialler=='0') { 

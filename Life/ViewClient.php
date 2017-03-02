@@ -18,7 +18,6 @@ if(empty($search)) {
     
 }
 
-include('../includes/adlfunctions.php');
 include('../classes/database_class.php');
 include('../includes/adl_features.php');
 

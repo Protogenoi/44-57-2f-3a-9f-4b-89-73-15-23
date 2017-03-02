@@ -1,5 +1,8 @@
 <?php
-
+include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 
 require('../../fpdf17/fpdf.php');
@@ -308,7 +311,7 @@ if(isset($hello_name)) {
 
 $pdf->Cell(0,12,"Many thanks", 0, 0,'L');
 $pdf->Ln( 10 );
-$pdf->Cell(0,12,"Victoria Hubbert", 0, 0,'L');
+$pdf->Cell(0,12,"$hello_name_full", 0, 0,'L');
 
 $pdf->Output();
 
@@ -320,7 +323,7 @@ $pdf->Output();
 
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
-
+$search='1306';
     $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
     $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
     $main->execute();

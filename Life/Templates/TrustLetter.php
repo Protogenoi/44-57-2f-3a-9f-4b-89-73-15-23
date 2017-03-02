@@ -1,5 +1,8 @@
 <?php
-
+include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1); 
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require('../../fpdf17/fpdf.php');
 include('../../includes/ADL_PDO_CON.php');
@@ -306,7 +309,7 @@ if(isset($hello_name)) {
 
 $pdf->Cell(0,12,"Many thanks", 0, 0,'L');
 $pdf->Ln( 10 );
-$pdf->Cell(0,12,"Victoria Hubbert", 0, 0,'L');
+$pdf->Cell(0,12,"$hello_name_full", 0, 0,'L');
 
 $pdf->Output();
 

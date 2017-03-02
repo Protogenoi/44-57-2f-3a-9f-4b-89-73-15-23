@@ -1,5 +1,4 @@
 <?php
-
 include ($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
 if(isset($fferror)) {
     if($fferror=='1') {
@@ -18,7 +17,6 @@ if (isset($action) && $action == "log_out") {
 	$page_protect->log_out();
 }
 
-
 $Level_2_Access = array("Jade");
 
 if (in_array($hello_name,$Level_2_Access, true)) {
@@ -26,7 +24,6 @@ if (in_array($hello_name,$Level_2_Access, true)) {
     header('Location: /Life/Financial_Menu.php'); die;
     
 }
-
 
 include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
 
@@ -58,8 +55,7 @@ if($companynamere=='HWIFS') {
     $Level_3_Access = array("Michael"); 
     $Level_1_Access = array("Michael");
     
-}
-                       
+}                    
 ?>
 <div class="bs-example">
     <nav role="navigation" class="navbar navbar-default">

@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="datatables/css/layoutcrm.css" type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
 <script src="/js/sweet-alert.min.js"></script>
 </head>
@@ -27,7 +27,7 @@
 
   <div class="container">
 
-      <?php email_sent_catch(); ?>
+     
 
     <form class="form-horizontal" id="emailform" method="post" action="email/php/SendKeyFacts.php" enctype="multipart/form-data">
 

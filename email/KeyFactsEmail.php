@@ -15,7 +15,7 @@
 <script src="../js/sweet-alert.min.js"></script>
 </head>
 <body>
-<?php include('../includes/navbar.php'); ?>
+<?php include('../includes/navbar.php');      ?>
     <?php include('../includes/adlfunctions.php'); ?><?php
     
     if ($ffkeyfactsemail=='0') {
@@ -30,7 +30,7 @@
     ?>
   <div class="container">
 
-      <?php email_sent_catch(); ?>
+     
 
 <form class="form-horizontal" id="emailform" method="post" enctype="multipart/form-data" action="php/SendKeyFacts.php">
 

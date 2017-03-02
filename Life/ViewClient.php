@@ -31,15 +31,13 @@ if(isset($fferror)) {
     }
     
     }
-    
+   
     include('../includes/Access_Levels.php');
 
         if (!in_array($hello_name,$Level_3_Access, true)) {
     
     header('Location: /CRMmain.php?AccessDenied'); die;
-
 }
-
  $database = new Database(); 
  
                 $database->query("SELECT dealsheet_id, company, leadauditid, leadauditid2, client_id, title, first_name, last_name, dob, email, phone_number, alt_number, title2, first_name2, last_name2, dob2, email2, address1, address2, address3, town, post_code, date_added, submitted_by, leadid1, leadid2, leadid3,  leadid12, leadid22, leadid32, callauditid, callauditid2 FROM client_details WHERE client_id =:CID");
@@ -178,6 +176,10 @@ if(isset($fferror)) {
     }
         if($WHICH_COMPANY=='TRB WOL') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
+        
+    }
+            if($WHICH_COMPANY=='TRB Aviva') {
+        echo "<div class='notice notice-default' role='alert'><strong> <center>Aviva Client</center></strong> </div>";
         
     }
     if($WHICH_COMPANY=='TRB Vitality') {
@@ -601,7 +603,7 @@ if(isset($fferror)) {
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London') {
+                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB Aviva') {
                         
                         try {
                         

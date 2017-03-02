@@ -189,6 +189,7 @@ $NAME2=$data2['NAME2'];
   <option value="Legal and General">Legal & General</option>
   <option value="Vitality">Vitality</option>
   <option value="Bright Grey">Bright Grey</option>
+  <option value="Aviva">Aviva</option>
   </select>
 </div>
 </p>

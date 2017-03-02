@@ -185,6 +185,7 @@ $query->execute();
   <option value="Bright Grey">Bright Grey</option>
   <option value="Royal London" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
   <option value="One Family" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
+  <option value="Aviva" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva') { echo "selected"; } } ?>>Aviva</option>
   </select>
 </div>
 </p>

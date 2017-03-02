@@ -30,7 +30,7 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London') {
+    if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='Aviva') {
             
     ?>
 
@@ -369,8 +369,9 @@ if($custype=='TRB Home Insurance') { ?>
 <input type="hidden" id="custtype" name="custtype" value="TRB Home Insurance">
 <?php } if($custype=='TRB Royal London') { ?>
 <input type="hidden" id="custtype" name="custtype" value="TRB Royal London">
+<?php } if($custype=='TRB Aviva') { ?>
+<input type="hidden" id="custtype" name="custtype" value="TRB Aviva">
 <?php } ?>
-
 
 <label for="client_name">Client Name</label>
 <select class="form-control"  style="width: 140px"  name="client_name" required>
@@ -430,6 +431,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="Bright Grey">Bright Grey</option>
   <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
   <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
+  <option value="Aviva" <?php if(isset($custype)) { if($custype=='TRB Aviva') { echo "selected"; } } ?>>Aviva</option>
   </select>
 </div>
 

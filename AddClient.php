@@ -109,6 +109,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                     <option value="TRB Vitality">TRB Vitality</option>
                     <option value="TRB Home Insurance">TRB Home Insurance</option>
                     <option value="Assura">Assura Life Insurance</option>
+                    <option value="TRB Aviva">Aviva</option>
 
   </select>
 </div>

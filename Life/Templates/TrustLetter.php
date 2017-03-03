@@ -177,7 +177,12 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
+if(file_exists("../../img/rblogonew.png")){ 
 $pdf->Image('../../img/rblogonew.png',140,6,40);
+}
+else{
+ $pdf->Cell("COMPANY LOGO",140,6,40);   
+}
 $pdf->Ln( 5 );
 
 $pdf->Cell(0,12,"The Review Bureau", 0, 0,'R');

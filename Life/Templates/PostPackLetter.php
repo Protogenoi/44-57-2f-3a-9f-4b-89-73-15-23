@@ -179,7 +179,12 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
+if(file_exists("../../img/rblogonew.png")){ 
 $pdf->Image('../../img/rblogonew.png',140,6,40);
+}
+else{
+ $pdf->Cell("COMPANY LOGO",140,6,40);   
+}
 $pdf->Ln( 5 );
 
 $pdf->Cell(0,12,"The Review Bureau", 0, 0,'R');
@@ -320,10 +325,8 @@ $pdf->Output();
     
     if(isset($companynamere)) {
         if($companynamere=='Assura') {
+            $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-$search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
-$search='1306';
     $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
     $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
     $main->execute();

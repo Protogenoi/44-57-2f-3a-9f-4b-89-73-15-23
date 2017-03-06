@@ -11,15 +11,25 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             if($companynamere=='The Review Bureau') {
                                 $Level_10_Access = array("Michael", "Matt", "leighton");
                                 $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
-                                $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
-                                $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
+                                $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
+                                $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
                                 $Task_Access = array("Michael", "Abbiek", "Victoria","Keith");
                                 $SECRET = array("Michael","Abbiek", "carys","Jakob","Nicola","Tina",'Amy',"Victoria","Christian");
                                 $Agent_Access = array ("111111111");
-                                $Closer_Access = array ("5000","1312","201","511","555","118","104","103","carys","Abbiek","Nicola","Michael");
+                                $Closer_Access = array ("5000","1312","201","511","555","118","104","103");
 
                                 
                             }
+                            
+if($companynamere=='ADL_CUS') {
+    $Level_10_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_8_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_3_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_1_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $SECRET = array("Michael");
+    $Task_Access = array("Michael", "Dean", "Helen","Andrew","David");
+
+}                            
                             
                             if($companynamere=='Assura') {
                                 $Level_10_Access = array("Michael");

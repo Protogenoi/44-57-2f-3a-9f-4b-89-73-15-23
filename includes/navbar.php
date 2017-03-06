@@ -35,10 +35,20 @@ $companynamere=$companydetailsq['company_name'];
 if($companynamere=='The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
     $SECRET = array("Michael","Abbiek", "carys","Jakob","Nicola","Tina",'Amy',"Victoria","Christian");
     $Task_Access = array("Michael", "Abbiek", "Victoria","Keith");
+}
+
+if($companynamere=='ADL_CUS') {
+    $Level_10_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_8_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_3_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $Level_1_Access = array("Michael", "Dean", "Helen","Andrew","David");
+    $SECRET = array("Michael");
+    $Task_Access = array("Michael", "Dean", "Helen","Andrew","David");
+
 }
 
 if($companynamere=='Assura') {

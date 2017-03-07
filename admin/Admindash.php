@@ -1622,6 +1622,15 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         
         <option value="Tina">Tina</option>
         <option value="Nathan">Nathan</option>
+        <?php }  
+        
+        if($companynamere=='ADL_CUS') { ?>
+        
+        <option value="Helen">Helen</option>
+        <option value="Dean">Dean</option>
+        <option value="Andrew">Andrew</option>
+        <option value="David">David</option>
+        
         <?php } ?>
 
     </select>
@@ -2066,7 +2075,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                         <p>Enable or disable CRM features</p>
                         <br> 
                         <?php
-                            $query = $pdo->prepare("SELECT post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
+                            $query = $pdo->prepare("SELECT employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
                             $query->execute()or die(print_r($query->errorInfo(), true));
                             $queryfeatures=$query->fetch(PDO::FETCH_ASSOC);
                             
@@ -2089,11 +2098,12 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                             $ferror=$queryfeatures['error'];
                             $fpba=$queryfeatures['pba'];
                             $fpost_code=$queryfeatures['post_code'];
+                            $fdealsheets=$queryfeatures['dealsheets'];
+                            $femployee=$queryfeatures['employee'];
                             ?>
-        
-        
+
                         
-                        <form class="form-horizontal" method="POST" action="../php/AddFeatures.php?add=y">
+                        <form class="form-horizontal" method="POST" action="php/AddFeatures.php?add=y">
 <fieldset>
 
 <legend>Features</legend>
@@ -2359,6 +2369,34 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
     </label> 
     <label class="radio-inline" for="featureerror-1">
       <input name="featureerror" id="featureerror-1" value="1" <?php if ($ferror=='1'){ echo 'checked="checked"';}?> type="radio">
+      1
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="featuredealsheets">Enable Dealsheets</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="featuredealsheets-0">
+      <input name="featuredealsheets" id="featuredealsheets-0" value="0" <?php if(!isset($fdealsheets)) { echo 'checked="checked"'; } elseif ($fdealsheets=='0'){ echo 'checked="checked"';}?> type="radio">
+      0
+    </label> 
+    <label class="radio-inline" for="featuredealsheets-1">
+      <input name="featuredealsheets" id="featuredealsheets-1" value="1" <?php if ($fdealsheets=='1'){ echo 'checked="checked"';}?> type="radio">
+      1
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="featureemployee">Enable Employee Database</label>
+  <div class="col-md-4"> 
+    <label class="radio-inline" for="featureemployee-0">
+      <input name="featureemployee" id="featureemployee-0" value="0" <?php if(!isset($femployee)) { echo 'checked="checked"'; } elseif ($femployee=='0'){ echo 'checked="checked"';}?> type="radio">
+      0
+    </label> 
+    <label class="radio-inline" for="featureemployee-1">
+      <input name="featureemployee" id="featureemployee-1" value="1" <?php if ($femployee=='1'){ echo 'checked="checked"';}?> type="radio">
       1
     </label>
   </div>

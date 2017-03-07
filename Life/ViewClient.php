@@ -1166,6 +1166,9 @@ if(isset($fferror)) {
                             
                             </form>
                                 
+                                <?php } else { ?>
+                            
+                            <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
                                 <?php } ?>
                         
                         </div>
@@ -1278,8 +1281,10 @@ if(isset($fferror)) {
                             
                             </form>
                                 
+                                <?php } else { ?>
+                            
+                            <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
                                 <?php } ?>
-                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -1356,8 +1361,9 @@ if(isset($fferror)) {
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                         <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                        <?php if($ffkeyfactsemail=='1'){ ?>
                         <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
-
+                        <?php } ?>
                         <?php if (!empty($data2['first_name2'])) { ?>
                         <span class="label label-primary"><?php echo $data2['title2'];?> <?php echo $data2['last_name2'];?> Letters/Emails</span> 
                         <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
@@ -1365,8 +1371,9 @@ if(isset($fferror)) {
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                         <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                        <?php if($ffkeyfactsemail=='1'){ ?>
                         <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
-
+                        <?php } ?>
                         
                         
                         <span class="label label-primary">Joint Letters/Emails</span>

@@ -21,7 +21,7 @@
 
 }
 
-$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
+$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' AND task !='24 48' and deadline <= CURDATE()");
 $TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
                             $TSK_QRY->execute();
                             if ($TSK_QRY->rowCount()>0) { 
@@ -240,11 +240,39 @@ if($WHICH_COMPANY=='Assura') {
 }
 if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Assura' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
 
+    
+     if($client_date_added <= "2017-03-07 16:25:00") {
         if(empty($leadid1)) {
         echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
         
+     } } else {
+
+    if(!isset($leadid1)) {
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Closer Call Recording' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> No closer call recording not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
+         
+     }
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Agent Call Recording' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> No agent call recording not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
+         
+     }
 }
-    
+     
+     }
+     
+     
     if(!isset($dealsheet_id)) {
     $database->query("select uploadtype from tbl_uploads where uploadtype='Dealsheet' and file like :searchplaceholder");
     $database->bind(':searchplaceholder', $likesearch);

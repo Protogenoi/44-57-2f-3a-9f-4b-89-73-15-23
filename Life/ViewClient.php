@@ -170,24 +170,24 @@ if(isset($fferror)) {
     <div class="container">
         
 <?php if(isset($WHICH_COMPANY)) {
-    if($WHICH_COMPANY=='The Review Bureau') {
+    if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL_CUS') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
         
     }
-        if($WHICH_COMPANY=='TRB WOL') {
+        if($WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='CUS WOL') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
         
     }
-            if($WHICH_COMPANY=='TRB Aviva') {
+            if($WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='CUS Aviva') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Aviva Client</center></strong> </div>";
         
     }
-    if($WHICH_COMPANY=='TRB Vitality') {
+    if($WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='CUS Vitality') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Vitality Client</center></strong> </div>";
         
     } 
     
-    if($WHICH_COMPANY=='TRB Royal London') {
+    if($WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='CUS Royal London') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Royal London Client</center></strong> </div>";
         
     }  
@@ -494,7 +494,7 @@ if(isset($fferror)) {
                                 
                             }
                             
-                            if($WHICH_COMPANY=='The Review Bureau') {
+                            if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL_CUS') {
                             
                             try {
                             
@@ -603,7 +603,7 @@ if(isset($fferror)) {
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB Aviva') {
+                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='ADL_CUS' || $WHICH_COMPANY=='CUS Vitality' || $WHICH_COMPANY=='CUS WOL' || $WHICH_COMPANY=='CUS Royal London' || $WHICH_COMPANY=='CUS Aviva') {
                         
                         try {
                         
@@ -747,7 +747,7 @@ if(isset($fferror)) {
                                             echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
                                             echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
                                                                                     
-                                                                                    if($companynamere=='The Review Bureau') {
+                                                                                    if($companynamere=='The Review Bureau' || $companyname=='ADL_CUS') {
                                                                                         if (in_array($hello_name,$Level_10_Access, true)) {
                                                                                     
                                                                                     
@@ -945,7 +945,7 @@ if(isset($fferror)) {
                                                                                             </form>
                                                                                             </td>";
                                                                                     
-                                                                                    if($companynamere=='The Review Bureau') {
+                                                                                    if($companynamere=='The Review Bureau' || $companyname=='ADL_CUS') {
                                                                                         if (in_array($hello_name,$Level_10_Access, true)) {
                                                                                     
                                                                                     
@@ -958,7 +958,7 @@ if(isset($fferror)) {
                                                                                     }
                                                                                     }
                                                                                     
-                                                                                    if($companynamere!='The Review Bureau') {
+                                                                                    if($companynamere!='The Review Bureau' || $companyname!='ADL_CUS') {
                                                                                         
                                                                                      echo "<td>
                                                                                         <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
@@ -1100,19 +1100,19 @@ if(isset($fferror)) {
                                             
                                             <?php
                                             if(isset($WHICH_COMPANY)) {
-                                                if($WHICH_COMPANY=='The Review Bureau') {
+                                                if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL_CUS') {
                                                     $SMS_INSURER='Legal and General';
                                                     
                                                 }
-                                                if($WHICH_COMPANY=='TRB WOL') {
+                                                if($WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='CUS WOL') {
                                                     $SMS_INSURER='One Family';
                                                     
                                                 }
-                                                if($WHICH_COMPANY=='TRB Vitality') {
+                                                if($WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='CUS Vitality') {
                                                     $SMS_INSURER='Vitality';       
                                                     
                                                 } 
-                                                if($WHICH_COMPANY=='TRB Royal London') {
+                                                if($WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='CUS Royal London') {
                                                     $SMS_INSURER='Royal London';
                                                     
                                                 }  
@@ -1323,23 +1323,27 @@ if(isset($fferror)) {
                             <div class="form-group">
                                 <select style="width: 170px" class="form-control" name="uploadtype" required>
                                     <option value="">Select...</option>
+                                    <option value="Closer Call Recording">Closer Call Recording</option>
+                                    <option value="Agent Call Recording">Agent Call Recording</option>
+                                    <option value="Admin Call Recording">Admin Call Recording</option>
                                     <option value="Recording">Call Recording</option>
                                     <option value="Happy Call">Happy Call Recording</option>
                                     <option value="LifeCloserAudit">Closer Audit</option>
                                     <option value="LifeLeadAudit">Lead Audit</option>
                                     <option value="Dealsheet">Life Dealsheet</option>
-                                    <?php if($WHICH_COMPANY=='TRB Vitality') { ?>
+                                    <?php if($WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='CUS Vitality') { ?>
                                     <option value="Vitalitypolicy">Vitality App</option>
                                     <option value="Vitalitykeyfacts">Vitality Keyfacts</option>
-                                    <?php } elseif($WHICH_COMPANY=='TRB Royal London') { ?>
+                                    <?php } elseif($WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='CUS Royal London') { ?>
                                     <option value="RLpolicy">Royal London App</option>
                                     <option value="RLkeyfacts">Royal London Keyfacts</option>
                                     <?php }
                                     else { ?>
                                     <option value="LGpolicy">L&G App</option>
                                     <option value="LGkeyfacts">L&G Keyfacts</option>
-                                    <?php } ?>
+                                    <?php } if($WHICH_COMPANY=='Assura') { ?>
                                     <option value="AssuraPol">Assura Policy</option>
+                                    <?php } ?>
                                     <option value="lifenotes">Notes</option>
                                     <option value="Other">Other</option>
                                 </select>
@@ -1353,7 +1357,7 @@ if(isset($fferror)) {
                     
                     <div class="list-group">
                         
-                        <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
+                        <?php if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL_CUS') { ?>
 
                         <span class="label label-primary"><?php echo $data2['title'];?> <?php echo $data2['last_name'];?> Letters/Emails</span>
                         <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
@@ -1414,8 +1418,9 @@ if(isset($fferror)) {
 
                   <?php } if (!empty($leadid1)) {
                       if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 1</a>
-
+                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Bluetelecoms Call Recording | Lead ID 1</a>
+                    <a class="list-group-item" href="http://10.26.114.7/Admin/data/search/edit/?id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Connex Call Recording | Lead ID 1</a>
+   
                      <?php }
                       else { ?>
                     <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 1</a>
@@ -1472,7 +1477,10 @@ if(isset($fferror)) {
                                                 case "Recording":
                                                     case "LGkeyfacts":
                                                         case "TONIC RECORDING":
-                                                $typeimage="fa-headphones";
+                                                            case "Closer Call Recording":
+                                                                case "Agent Call Recording":
+                                                                    case "Admin Call Recording":
+                                                                        $typeimage="fa-headphones";
                                                 break;
                                             case "Other":
                                                 case "Old Other":
@@ -1544,10 +1552,9 @@ if(isset($fferror)) {
                                      ?>
                                 <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php
-                                }
+                                }                               
                                   
-                                  
-                                  if($row['uploadtype']=='RECORDING') {
+                                  if($row['uploadtype']=='RECORDING' || $row['uploadtype']=='Closer Call Recording' || $row['uploadtype']=='Agent Call Recording' || $row['uploadtype']=='Admin Call Recording') {
                                       if(file_exists("../uploads/$file")){ ?>
                                 <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php } else {?>
@@ -1872,7 +1879,7 @@ if(isset($fferror)) {
                  
                 }
                 
-        if($client_date_added >= "2016-06-19" && $WHICH_COMPANY=='The Review Bureau') {
+        if($client_date_added >= "2016-06-19" && $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL_CUS') {
 
         $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
         $database->bind(':cid', $search); 
@@ -2131,7 +2138,7 @@ if(isset($fferror)) {
   <?php 
   
   
-  if($companynamere=='The Review Bureau')  { 
+  if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS')  { 
                     try {
 
 $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
@@ -2177,6 +2184,9 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 case"LGpolicy";
                     case"LGkeyfacts";
                         case"Recording";
+                        case"Closer Call Recording";    
+                        case"Agent Call Recording";     
+                        case"Admin Call Recording";    
                 $TMicon="fa-upload";
                 break;
             case stristr($TLnotetype,"Tasks"):
@@ -2253,154 +2263,12 @@ echo "</table>";
                     
                 }
                  }
-                 
-                 
-   if ($companynamere!='The Review Bureau') {               ?>
-        
-        <style>
-            .fa-edit {
-                color: #FEAF20;
-            }
-            .fa-exclamation {
-                color: #FEAF20;
-            }
-            .fa-exclamation-triangle {
-                color: red;
-            }
-            .fa-upload {
-                color: #5BC0DE;
-            }
-            .fa-phone {
-                color: #2A6598;
-            }
-            .fa-gbp {
-                color: red;
-            }
-             .fa-check {
-                color: green;
-            }
-        </style>
-        <br><br>
-<?php
-       
-try {
-
-$clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
-$clientnote->bindParam(':search', $search, PDO::PARAM_STR, 12);
-
-$clientnote->execute();
-if ($clientnote->rowCount()>0) {
-while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
-    
-    $TLdate=$result['date_sent'];
-    $TLwho=$result['sent_by'];
-    $TLname=$result['client_name'];
-    $TLmessage=$result['message'];
-    $TLnotetype=$result['note_type'];
-    
-    $TLdate= date("d M y - G:i:s");
-    
-    switch ($TLnotetype) {
-    
-        case "Client Added":
-            $TMicon="fa-user-plus";
-            break;
-        case "Policy Deleted":
-            $TMicon="fa-exclamation";
-            break;
-        case "CRM Alert":
-            case "Policy Added":
-            $TMicon="fa-check";
-            break;
-        case "EWS Status update":  
-            case"EWS Uploaded";
-                $TMicon="fa-exclamation-triangle";
-                break;
-            case "Financial Uploaded":
-                $TMicon="fa-gbp";
-                break;
-            case "Dealsheet":
-                case"LGpolicy";
-                    case"LGkeyfacts";
-                        case"Recording";
-                $TMicon="fa-upload";
-                break;
-            case stristr($TLnotetype,"Tasks"):
-                $TMicon="fa-tasks";
-                break;
-            case "Client Note":
-                $TMicon="fa-pencil";
-                break;
-            case stristr($TLnotetype,"Callback"):
-                $TMicon="fa-calendar-check-o";
-                break;
-            case "Email Sent":
-                $TMicon="fa-envelope-o";
-                break;
-            case "Client Details Updated":
-                case "Policy Details Updated":
-                    case"Policy Number Updated":
-                $TMicon="fa-edit";
-                break;
-            case "Sent SMS":
-                $TMicon="fa-phone";
-                break;
-            default:
-                $TMicon="fa-bomb";
-
-    } 
-    
-    ?>        
-            <div class="qa-message-list" id="wallmessages">
-    				<div class="message-item" id="m16">
-						<div class="message-inner">
-							<div class="message-head clearfix">
-                                                            <div class="avatar pull-left"><i id="iconid" class="fa <?php echo "$TMicon";?> fa-3x"></i></div>
-								<div class="user-detail">
-									<h5 class="handle"><?php echo "Note Type: <strong>$TLname | $TLnotetype</strong>"; ?></h5>
-									<div class="post-meta">
-										<div class="asker-meta">
-											<span class="qa-message-what"></span>
-											<span class="qa-message-when">
-												<span class="qa-message-when-data"><?php echo "Date: $TLdate"; ?></span>
-											</span>
-											<span class="qa-message-who">
-												<span class="qa-message-who-pad"><?php echo " Added by: $TLwho"; ?> </span>
-												<span class="qa-message-who-data"><a href="./index.php?qa=user&qa_1=Oleg+Kolesnichenko"></a></span>
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="qa-message-content">
-								<?php
-                                                                if (in_array($hello_name,$Level_3_Access, true)) {
-                                                                
-                                                                echo "<strong>$TLmessage</strong>"; }
-                                                                
-                                                                else { echo "$TLmessage"; }
-                                                                
-                                                                ?>
-							</div>
-					</div></div>
-        
-        
-        <?php
-}
-} 
-  }
-                 catch (PDOException $e) {
-                    echo 'Connection failed: ' . $e->getMessage();
-                    
-                }
-   }
    
 ?>
 </div>
 
 </div>
 <!-- START EMAIL BPOP2 -->
-
 <div id="email2pop" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -2449,7 +2317,6 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
         </div>
     </div>
 </div>
-
 <!-- START EMAIL BPOP -->
 <div id="email1pop" class="modal fade" role="dialog">
     <div class="modal-dialog">

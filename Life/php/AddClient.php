@@ -316,6 +316,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':cid', $lastid); 
         $database->execute();
         
+        if($custype!='ADL_CUS') {
+        
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign24, PDO::PARAM_STR);
         $database->bind(':task', $task24, PDO::PARAM_STR);
@@ -323,6 +325,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':deadline', $deadline24, PDO::PARAM_STR); 
         $database->bind(':cid', $lastid); 
         $database->execute();
+        
+        }
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);

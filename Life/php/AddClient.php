@@ -30,7 +30,7 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='Aviva') {
+    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London') {
             
     ?>
 
@@ -115,6 +115,9 @@ input.currency {
         if(!empty($dob2)) {
         $correct_dob2 = date("Y-m-d" , strtotime($dob2));
         }
+        else {
+          $correct_dob2="NA";  
+        }
         $database = new Database(); 
         $database->beginTransaction();
         
@@ -173,7 +176,7 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau') {               
+                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
@@ -372,6 +375,17 @@ if($custype=='TRB Home Insurance') { ?>
 <?php } if($custype=='TRB Aviva') { ?>
 <input type="hidden" id="custtype" name="custtype" value="TRB Aviva">
 <?php } ?>
+<?php if($custype=='ADL_CUS' || 'CUS WOL') { ?>
+<input type="hidden" id="custtype" name="custtype" value="Life">
+<?php }
+if($custype=='CUS Vitality') { ?>
+<input type="hidden" id="custtype" name="custtype" value="CUS Vitality">
+<?php }
+if($custype=='CUS Home Insurance') { ?>
+<input type="hidden" id="custtype" name="custtype" value="CUS Home Insurance">
+<?php } if($custype=='CUS Royal London') { ?>
+<input type="hidden" id="custtype" name="custtype" value="CUS Royal London">
+<?php } ?>
 
 <label for="client_name">Client Name</label>
 <select class="form-control"  style="width: 140px"  name="client_name" required>
@@ -396,8 +410,8 @@ if($custype=='TRB Home Insurance') { ?>
 <label for="application_number">Application Number:</label>
 <input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } if($custype=='TRB Royal London') { echo "Value='Royal London'"; }  } ?> required>
 <label for="application_number"></label>
-<?php if(isset($custype)) { if($custype=='TRB WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
-<?php if(isset($custype)) { if($custype=='TRB Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
+<?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
+<?php if(isset($custype)) { if($custype=='TRB Royal London' || $custype=='CUS Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 <br>
 
 <label for="policy_number">Policy Number:</label>
@@ -415,7 +429,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>WOL</option>
+  <option value="WOL" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>WOL</option>
   </select>
 </div>
 
@@ -425,13 +439,13 @@ if($custype=='TRB Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau') { echo "selected"; } } ?>>Legal & General</option>
-  <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality') { echo "selected"; } } ?>>Vitality</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL_CUS') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
-  <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
-  <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
-  <option value="Aviva" <?php if(isset($custype)) { if($custype=='TRB Aviva') { echo "selected"; } } ?>>Aviva</option>
+  <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London' || $custype=='CUS Royal London') { echo "selected"; } } ?>>Royal London</option>
+  <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>One Family</option>
+  <option value="Aviva" <?php if(isset($custype)) { if($custype=='TRB Aviva' || $custype=='CUS Aviva') { echo "selected"; } } ?>>Aviva</option>
   </select>
 </div>
 
@@ -479,7 +493,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="">Select...</option>
   <option value="Indemnity">Indemnity</option>
   <option value="Non Idenmity">Non-Idemnity</option>
-  <option value="NA <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>">N/A</option>
+  <option value="NA <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>">N/A</option>
   </select>
 </div>
 
@@ -608,7 +622,7 @@ $("#lead").easyAutocomplete(options);</script>
 </html>
 <?php } 
 
-if($custype=='TRB Home Insurance') {
+if($custype=='TRB Home Insurance' || $custype=='CUS Home Insurance') {
  
     ?>
 

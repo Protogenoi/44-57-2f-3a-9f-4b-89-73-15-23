@@ -492,12 +492,14 @@ while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
   </div>
 </div>
 <?php include('php/Holidays.php'); ?>
-<?php if(isset($hello_name)) { if(in_array($hello_name,array("Michael","Jakob","Nicola","carys","Abbiek","Georgia","Amy","Nathan","Mike"))){  
+<?php if(isset($hello_name)) { 
+    if($XMAS=='December') {
+    if(in_array($hello_name,array("Michael","Jakob","Nicola","carys","Abbiek","Georgia","Amy","Nathan","Mike"))){  
     $SANTA_TIME= date("H");
     ?>
  <audio autoplay>
 <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
 </audio>  
-<?php } } ?>
+<?php } } }?>
 </body>
 </html>

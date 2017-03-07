@@ -112,7 +112,10 @@ include('../includes/adlfunctions.php');
 			</a>
 			</li>
                         
-                            <?php } ?>
+                            <?php } 
+                            
+                            if($ffdealsheets=='1') {
+                            ?>
                     <li>
 			<a href="LifeDealSheet.php">
 			<span class="ca-icon"><i class="fa fa-file-text-o"></i></span>
@@ -122,7 +125,7 @@ include('../includes/adlfunctions.php');
 			</div>
 			</a>
 			</li>
-                        
+                            <?php } ?>
                         <li>
 			<a href="/Emails.php">
 			<span class="ca-icon"><i class="fa fa-envelope"></i></span>

@@ -188,7 +188,9 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</li>
                         <?php } ?>
                         
-                                            <?php  if (in_array($hello_name,$Level_10_Access, true)) { ?>
+                                            <?php  if (in_array($hello_name,$Level_10_Access, true)) {
+                                                if($ffemployee=='1') {
+                                                ?>
                     <li>
                         <a href="Staff/Main_Menu.php">
 			<span class="ca-icon"><i class="fa fa-database"></i></span>
@@ -198,7 +200,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</div>
 			</a>
 			</li>
-                    <?php } ?>
+                                            <?php } } ?>
 
                         
 		</ul>

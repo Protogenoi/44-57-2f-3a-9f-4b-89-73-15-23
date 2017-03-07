@@ -78,15 +78,17 @@ body { height: 100% }
     }
     
 ?> 
+       <div class="col-md-4">
 
+    </div>
+           <div class="col-md-4">
+    </div>
+    
 <div class="container">
 
+    
     <?php 
-    
-    if($ffdialler=='0') { 
-    echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><center><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Problem with Dialler. Call Recording search disabled.</center></strong></div><br> ";   
-    }
-    
+        
     $clientdeleted= filter_input(INPUT_GET, 'clientdeleted', FILTER_SANITIZE_SPECIAL_CHARS);  
     
 if(isset($clientdeleted)){
@@ -141,7 +143,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                         </a>
                     </li>
                         
-                        <?php } } ?>
+                        <?php } } if($ffhome=='1') { ?>
   
                         <li>
                         <a href="<?php if(in_array($hello_name,$Level_3_Access, true)) { echo "/Home/Main_Menu.php"; } else { echo "#"; }?>">
@@ -152,7 +154,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</div>
 			</a>
 			</li>
-
+                        <?php } if($ffpba=='1') { ?>
                         <li>
                         <a href="<?php if($ffpba=='1' && in_array($hello_name,$Level_10_Access, true) || $hello_name=='Jakob') { echo "/PBA/Main_Menu.php"; } else { echo "#"; }?>">
 			<span class="ca-icon"><i class="fa fa-credit-card"></i></span>
@@ -163,7 +165,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 			</a>
 			</li>
                 
-                        <?php if($ffdialler=='1'){?>
+                        <?php } if($ffdialler=='1'){?>
 			<li>
 			<a href="/dialer/Recordings.php">
 			<span class="ca-icon"><i class="fa fa-headphones"></i></span>
@@ -237,7 +239,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                 <div class="text-center">
                     <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
                     <br>
-                    <h3>Loading <?php if(isset($hello_name)) { echo "$hello_name's"; } ?> user settings... </h3>
+                    <h3>Loading <?php echo "$hello_name's"; ?> user settings... </h3>
                 </div>
             </div>
         </div>
@@ -492,14 +494,12 @@ while ($calllist=$query->fetch(PDO::FETCH_ASSOC)){
   </div>
 </div>
 <?php include('php/Holidays.php'); ?>
-<?php if(isset($hello_name)) { 
-    if($XMAS=='December') {
-    if(in_array($hello_name,array("Michael","Jakob","Nicola","carys","Abbiek","Georgia","Amy","Nathan","Mike"))){  
+<?php if(isset($hello_name)) { if(in_array($hello_name,array("Michael","Jakob","Nicola","carys","Abbiek","Georgia","Amy","Nathan","Mike"))){  
     $SANTA_TIME= date("H");
     ?>
  <audio autoplay>
 <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
 </audio>  
-<?php } } }?>
+<?php } } ?>
 </body>
 </html>

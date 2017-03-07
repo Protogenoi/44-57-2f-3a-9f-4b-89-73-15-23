@@ -76,7 +76,7 @@ if($companynamere=='HWIFS') {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/index.php" class="navbar-brand"> <?php if(isset($companynamere)) { echo "$companynamere";}?></a>
+            <a href="/index.php" class="navbar-brand"> <?php if(isset($companynamere)) { if($companynamere=='ADL_CUS') { echo "ADL"; } else { echo "$companynamere";} }?></a>
         </div>
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -152,10 +152,12 @@ if($companynamere=='HWIFS') {
                 <li class='dropdown'>
                     <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                     <ul role='menu' class='dropdown-menu'>
+                        <?php if($ffemployee=='1') { ?>
                         <li><a href="/Staff/Main_Menu.php">Staff Database</a></li> 
                         <li><a href="/Staff/Search.php">Search Database</a></li> 
                         <li><a href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
                         <li><a href="/Staff/Reports/RAG.php">RAG</a></li> 
+                        <?php } ?>
                         <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                         <li><a href='/admin/users.php'>User Accounts</a></li>
                     </ul>  

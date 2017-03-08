@@ -306,7 +306,7 @@ $NAME2=$data2['NAME2'];
 <div class="form-group">
   <label for="PolicyStatus">Policy Status:</label>
   <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
-  <option value="<?php echo $data2['policystatus']?>"><?php echo $data2['policystatus']?></option>
+  <option value="<?php echo $data2['policystatus']?>"><?php echo $data2['policystatus'];?></option>
   <option value="Live">Live</option>
   <option value="Awaiting Policy Number">Awaiting Policy Number (TBC Policies)</option>
   <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
@@ -325,9 +325,9 @@ $NAME2=$data2['NAME2'];
 
 
 <label for="closer">Closer:</label>
-<input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]?>" required>
+<input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"];?>" required>
     <script>var options = {
-	url: "/JSON/CloserNames.json",
+	url: "/JSON/<?php if($companynamere=='The Review Bureau') { echo "CloserNames" ; } else { echo "CUS_CLOSERS"; } ?>.json",
                 getValue: "full_name",
 
 	list: {
@@ -340,9 +340,9 @@ $NAME2=$data2['NAME2'];
 $("#closer").easyAutocomplete(options);</script>
 
 <label for="lead">Lead Gen:</label>
-<input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]?>" required>
+<input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"];?>" required>
     <script>var options = {
-	url: "/JSON/LeadGenNames.json",
+        url: "/JSON/<?php if($companynamere=='The Review Bureau') { echo "LeadGenNames" ; } else { echo "CUS_LEAD"; } ?>.json",
                 getValue: "full_name",
 
 	list: {

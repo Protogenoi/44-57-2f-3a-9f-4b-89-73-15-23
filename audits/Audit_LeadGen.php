@@ -80,7 +80,7 @@ function textAreaAdjust(o) {
 </div>
 
     <script>var options = {
-	url: "../JSON/LeadGenNames.json",
+	url: "../JSON/<?php if($companynamere=='The Review Bureau') { echo "LeadGenNames" ; } else { echo "CUS_LEAD"; } ?>.json",
                 getValue: "full_name",
 
 	list: {

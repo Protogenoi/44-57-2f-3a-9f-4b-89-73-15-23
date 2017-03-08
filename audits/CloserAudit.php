@@ -101,6 +101,8 @@ function textAreaAdjust(o) {
 <label for='full_name'>Closer:</label>
 <select class='form-control' name='full_name' id='full_name' required> 
     <option value="">Select...</option>
+    <?php if($companynamere=='The Review Bureau') { ?>
+    
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -114,6 +116,12 @@ function textAreaAdjust(o) {
 <option value="Nicola">Nicola</option>  
 <option value="Gavin">Gavin</option>
 <option value="Rhys">Rhys</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+    <?php } ?>
 </select>
 </div>
 
@@ -123,6 +131,7 @@ function textAreaAdjust(o) {
 <label for='full_name2'>Closer (optional):</label>
 <select class='form-control' name='full_name2' id='full_name2' >    
 <option value="None">None</option>    
+<?php if($companynamere=='The Review Bureau') { ?>
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -136,10 +145,16 @@ function textAreaAdjust(o) {
 <option value="Nicola">Nicola</option> 
 <option value="Gavin">Gavin</option> 
 <option value="Rhys">Rhys</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+    <?php } ?>
 </select>
 </div>
 
-<input type="hidden" name="auditor" value="<?php echo $hello_name ?>" readonly>
+<input type="hidden" name="auditor" value="<?php echo $hello_name; ?>" readonly>
 
 
 <label for="policy_id">Policy Number</label>

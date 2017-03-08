@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adlfunctions.php');
+include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 include('includes/ADL_PDO_CON.php');
 include('includes/ADL_MYSQLI_CON.php');
@@ -30,6 +30,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css"> 
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
@@ -46,9 +47,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     </style>
 </head>
 <body>
-    
 <?php include('../../includes/navbar.php'); 
-        include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
     if($ffanalytics=='1') {
     
@@ -617,7 +616,7 @@ ews_data.policy_number
             
             <div class="smallcontainer">
                 <?php 
-                if($companynamere=='The Review Bureau') {
+                if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
                 if (in_array($hello_name,$Level_8_Access, true)) { ?>
                   <div class="row">
   <form class="form-vertical">

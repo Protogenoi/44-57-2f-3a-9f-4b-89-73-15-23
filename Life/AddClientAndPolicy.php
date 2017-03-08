@@ -10,6 +10,11 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
     
     header('Location: /CRMmain.php'); die;
 }
+include('../includes/adl_features.php');
+
+if($ffdealsheets=='0') {
+    header('Location: ../CRMmain.php?Feature=NotEnabled'); die;
+}
 
 $QUERY= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -49,7 +54,7 @@ input.currency {
 <body>
     
     <?php include('../includes/navbar.php'); 
-    include('../includes/adl_features.php');
+    
     
     if(isset($QUERY)) {
         if($QUERY=='SendToADL') {   

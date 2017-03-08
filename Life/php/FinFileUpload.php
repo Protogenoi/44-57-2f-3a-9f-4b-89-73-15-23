@@ -5,6 +5,12 @@ $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
+include('../../includes/ADL_PDO_CON.php');
+$cnquery = $pdo->prepare("select company_name from company_details limit 1");
+                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
+                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+                            
+                            $companynamere=$companydetailsq['company_name'];  
 
 if(isset($fferror)) {
     if($fferror=='0') {
@@ -17,6 +23,7 @@ if(isset($fferror)) {
     
     }
 
+    if($companynamere=='The Review Bureau') {
 $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
 
 if (!in_array($hello_name,$Level_2_Access, true)) {
@@ -24,6 +31,17 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
     header('Location: ../../CRMmain.php?AccessDenied'); die;
 
 }
+    }
+    
+if($companynamere=='ADL_CUS') {
+ $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
+
+if (!in_array($hello_name,$Level_2_Access, true)) {
+    
+    header('Location: ../../CRMmain.php?AccessDenied'); die;
+
+}   
+}   
 
 $query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -47,7 +65,6 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
     header('Location: ../Reports/FinancialUpload.php?uploaded=0&Reason=FileType'); die;
   
 }              
-        include('../../includes/ADL_PDO_CON.php');
         
         if($query=='Home') {            
             $uploadtype="Home Financials";

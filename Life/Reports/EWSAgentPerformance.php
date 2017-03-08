@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 7);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adlfunctions.php'); 
+include('../../includes/adl_features.php'); 
 
 if ($fflife=='0') {
         
@@ -57,8 +57,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     <?php
     include('../../includes/navbar.php');
     include('../../includes/ADL_PDO_CON.php');
-            include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
-    
+   
     if($ffanalytics=='1') {
     
     include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
@@ -98,7 +97,7 @@ $newdateto="$dateto 23:00:00";
 <input type='text' id='agent' name='agent' style="width: 140px" value="<?php if(isset($agent)) { echo "$agent";}?>">      
 </div>
 <script>var options = {
-	url: "../../JSON/AllNames.json",
+	url: "../../JSON/<?php if($companynamere=='The Review Bureau') { echo "AllNames" ; } else { echo "CUS_AllNames"; } ?>.json",
                 getValue: "full_name",
 
 	list: {

@@ -43,10 +43,12 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
 </head>
 <body>
     
-<?php include('../../includes/navbar.php');
+<?php 
+
+include('../../includes/navbar.php');
 include('../../includes/ADL_PDO_CON.php');
 include('../../includes/ADL_MYSQLI_CON.php');
- include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
+include("../../includes/adl_features.php");
     
     if($ffanalytics=='1') {
     

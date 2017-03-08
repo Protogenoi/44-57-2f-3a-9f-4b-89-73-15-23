@@ -3,13 +3,20 @@ include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php");
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-include('../../includes/adlfunctions.php'); 
+
+include('../../includes/adl_features.php');
+include ("../includes/ADL_PDO_CON.php");
+
+$cnquery = $pdo->prepare("select company_name from company_details limit 1");
+$cnquery->execute()or die(print_r($query->errorInfo(), true));
+$companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+$companynamere=$companydetailsq['company_name'];
 
 if ($fflife=='0') {
         
         header('Location: ../../CRMmain.php'); die;
     }
-include('../../includes/adl_features.php');
+
 
 if(isset($fferror)) {
     if($fferror=='0') {
@@ -22,14 +29,19 @@ if(isset($fferror)) {
     
     }
 
-$Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
-
-if(isset($companynamere)) {
 if($companynamere=='The Review Bureau') {
+    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
 if (!in_array($hello_name,$Level_2_Access, true)) {
     
-    header('Location: ../../CRMmain.php'); die;
+    header('Location: ../CRMmain.php?AccessDenied'); die;
 }
+}
+
+if($companynamere=='ADL_CUS') {
+    $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
+if (!in_array($hello_name,$Level_2_Access, true)) {
+    
+    header('Location: ../CRMmain.php?AccessDenied'); die;
 }
 }
 ?>

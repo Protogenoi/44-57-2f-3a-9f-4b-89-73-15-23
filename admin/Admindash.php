@@ -51,7 +51,9 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                
                     <a class="list-group-item" href="?Firewall=y"><i class="fa fa-fire fa-fw"></i>&nbsp; Firewall</a>
                 
-                    <a class="list-group-item" href="?Vicidial=y"><i class="fa fa-headphones fa-fw"></i>&nbsp; Vicidial Integration</a>
+                    <a class="list-group-item" href="?Vicidial=y"><i class="fa fa-headphones fa-fw"></i>&nbsp; Bluetelecoms Integration</a>
+                    
+                    <a class="list-group-item" href="?Connex=y"><i class="fa fa-headphones fa-fw"></i>&nbsp; Connex Integration</a>
                
                     <a class="list-group-item" href="?Settings=y"><i class="fa fa-desktop fa-fw"></i>&nbsp; Enable features</a>
                     
@@ -79,6 +81,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                         $adminselect= filter_input(INPUT_GET, 'admindash', FILTER_SANITIZE_SPECIAL_CHARS);
                         $fireselect= filter_input(INPUT_GET, 'Firewall', FILTER_SANITIZE_SPECIAL_CHARS);
                         $vicidialselect= filter_input(INPUT_GET, 'Vicidial', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $connexselect= filter_input(INPUT_GET, 'Connex', FILTER_SANITIZE_SPECIAL_CHARS);
                         $settingsselect= filter_input(INPUT_GET, 'Settings', FILTER_SANITIZE_SPECIAL_CHARS);
                         $companyselect= filter_input(INPUT_GET, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
                         $Googleselect= filter_input(INPUT_GET, 'Google', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -2045,11 +2048,108 @@ $telacc=$query->fetch(PDO::FETCH_ASSOC);
                             </div>
                             
                         </div>
-                        
-                        
-                        
+
                         <?php } 
                         
+                        
+                         if($connexselect=='y') { ?>
+                            
+                        <h1><i class="fa fa-headphones"></i> Connex Integration</h1>
+                        
+                        <?php
+                        
+                        $connexaccount= filter_input(INPUT_GET, 'connexaccount', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if(isset($connexaccount)){
+    
+      $connexaccount= filter_input(INPUT_GET, 'connexaccount', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    if ($connexaccount =='database') {
+
+print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Dialler settings for the database server have been updated!</div><br>");
+    }
+    
+        if ($connexaccount =='telephony') {
+
+print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Dialler settings for the telephony server have been updated!</div><br>");
+    }
+            if ($connexaccount =='failed') {
+
+print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes have been made!</div><br>");
+    }
+}                
+                        ?>
+                                               
+                        <p>To pull information from your Connex system you will need to enter some settings.</p>
+                        
+                        <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="connexsettings"><i class="fa fa-database"></i> Settings</a></li>
+
+                            </ul>
+                        <br>
+                        
+                        <div class="tab-content">
+                            
+                            <div id="connexsettings" class="tab-pane fade in active">
+                                
+                                                                <?php
+$servertype="Web";
+    
+    $query = $pdo->prepare("SELECT url, username, password FROM connex_accounts where servertype=:typeholder");
+
+        $query->bindParam(':typeholder', $servertype, PDO::PARAM_STR, 500);
+        $query->execute()or die(print_r($query->errorInfo(), true));
+$dataacc=$query->fetch(PDO::FETCH_ASSOC);
+
+        $dataacurl=$dataacc['url'];
+        $dataacusername=$dataacc['username'];
+        $dataacpassword=$dataacc['password'];
+
+                                
+                                ?>
+                                
+                                <form class="form-horizontal" method="POST" action="php/AddDiallerSettings.php?data=y">
+<fieldset>
+
+<legend>Connex Server</legend>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dbserverurl">URL/FQDN</label>  
+  <div class="col-md-4">
+  <input id="dbserverurl" name="dbserverurl" placeholder="dial132.bluetelecoms.com" value="<?php echo $dataacurl;?>" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dbserveruser">Dialer username</label>  
+  <div class="col-md-4">
+  <input id="dbserveruser" name="dbserveruser" placeholder="9999" class="form-control input-md" value="<?php echo $dataacusername;?>" required="" type="text">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dbserverpass">Dialer password</label>
+  <div class="col-md-4">
+    <input id="dbserverpass" name="dbserverpass" placeholder="***********" class="form-control input-md" value="<?php echo $dataacpassword;?>" required="" type="password">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dbserversubmit"></label>
+  <div class="col-md-4">
+    <button id="dbserversubmit" name="dbserversubmit" class="btn btn-success">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+                            </div>
+                        </div>
+
+                        <?php }                        
                         if($settingsselect=='y') { ?>
                             
                         <h1><i class="fa fa-desktop"></i> CRM Features</h1>

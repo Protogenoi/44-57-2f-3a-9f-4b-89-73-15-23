@@ -1413,13 +1413,34 @@ if(isset($fferror)) {
                         <?php                  } } }
                  
                 if($ffdialler=='1') {
+                    
+                $database->query("SELECT url from connex_accounts");
+                $database->execute();
+                $CONNEX_URL_QRY=$database->single();
+                
+                if(isset($CONNEX_URL_QRY['url'])) {
+                    $CONNEX_URL=$CONNEX_URL_QRY['url']; 
+                    
+                } 
+                
+                $database->query("SELECT url from vicidial_accounts WHERE servertype='Database'");
+                $database->execute();
+                $VICIDIAL_URL_QRY=$database->single();
+                
+                if(isset($VICIDIAL_URL_QRY['url'])) {
+                    $VICIDIAL_URL=$VICIDIAL_URL_QRY['url']; 
+                    
+                }       
+                    
+                    
+                    
                   if(!empty($leadid1) || ($leadid2) || $leadid3){        ?>
                     <span class="label label-primary">Call Recordings</span>
 
                   <?php } if (!empty($leadid1)) {
                       if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Bluetelecoms Call Recording | Lead ID 1</a>
-                    <a class="list-group-item" href="http://10.26.114.7/Admin/data/search/edit/?id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Connex Call Recording | Lead ID 1</a>
+                    <a class="list-group-item" href="http://<?php if(isset($VICIDIAL_URL)) { echo $VICIDIAL_URL; } ?>/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Bluetelecoms Call Recording | Lead ID 1</a>
+                    <a class="list-group-item" href="http://<?php if(isset($CONNEX_URL)) { echo $CONNEX_URL; } ?>/Admin/data/search/edit/?id=<?php echo $leadid1;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Connex Call Recording | Lead ID 1</a>
    
                      <?php }
                       else { ?>
@@ -1427,7 +1448,7 @@ if(isset($fferror)) {
                         <?php }  }
                         if (!empty($leadid2)) {
                             if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 2</a>
+                    <a class="list-group-item" href="http://<?php if(isset($VICIDIAL_URL)) { echo $VICIDIAL_URL; } ?>/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 2</a>
                         <?php }
                       else { ?>
                                     <a class="list-group-item" href="http://94.23.208.13/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid2;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 2</a>
@@ -1436,7 +1457,7 @@ if(isset($fferror)) {
                    
                                                if (!empty($leadid3)) { 
                                                    if($client_date_added >= "2016-11-09 10:00:00") { ?>
-                                    <a class="list-group-item" href="http://trb.bluetelecoms.com/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 3</a>
+                                    <a class="list-group-item" href="http://<?php if(isset($VICIDIAL_URL)) { echo $VICIDIAL_URL; } ?>/vicidial/admin_modify_lead.php?lead_id=<?php echo $leadid3;?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Dialler Call Recording | Lead ID 3</a>
 
                      <?php }
                       else { ?>

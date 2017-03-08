@@ -1927,7 +1927,7 @@ $dataacc=$query->fetch(PDO::FETCH_ASSOC);
                                 
                                 ?>
                                 
-                                <form class="form-horizontal" method="POST" action="../php/AddDiallerSettings.php?data=y">
+                                <form class="form-horizontal" method="POST" action="php/AddDiallerSettings.php?db=y">
 <fieldset>
 
 <legend>Database server</legend>
@@ -2005,7 +2005,7 @@ $telacc=$query->fetch(PDO::FETCH_ASSOC);
                                 ?>
                                 
                                 
-                                <form class="form-horizontal" method="POST" action="../php/AddDiallerSettings.php?tel=y">
+                                <form class="form-horizontal" method="POST" action="php/AddDiallerSettings.php?tel=y">
 <fieldset>
 
 <legend>Telephony server</legend>

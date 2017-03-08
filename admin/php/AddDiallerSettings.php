@@ -18,6 +18,107 @@ if(isset($fferror)) {
 include('../../includes/ADL_PDO_CON.php');
 include('../../includes/ADL_MYSQLI_CON.php');
 
+$db= filter_input(INPUT_GET, 'db', FILTER_SANITIZE_SPECIAL_CHARS);
+$telvar= filter_input(INPUT_GET, 'tel', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if (isset($db)) {
+    
+$dbsqlpass= filter_input(INPUT_POST, 'dbsqlpass', FILTER_SANITIZE_SPECIAL_CHARS);
+$dbsqluser= filter_input(INPUT_POST, 'dbsqluser', FILTER_SANITIZE_SPECIAL_CHARS);
+$dbserverpass= filter_input(INPUT_POST, 'dbserverpass', FILTER_SANITIZE_SPECIAL_CHARS);
+$dbserveruser= filter_input(INPUT_POST, 'dbserveruser', FILTER_SANITIZE_SPECIAL_CHARS);
+$dbserverurl= filter_input(INPUT_POST, 'dbserverurl', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$servertype="Database";
+
+$dupcheck = "Select id from vicidial_accounts WHERE servertype='Database'";
+$duperaw = $conn->query($dupcheck);
+
+if ($duperaw->num_rows >= 1) {
+
+    $UPDATE = $pdo->prepare("UPDATE vicidial_accounts set url=:urlholder, added_by=:helloholder, username=:userholder, password=:passholder, sqlpass=:sqlpassholder, sqluser=:sqluserholder WHERE servertype='Database'");
+        $UPDATE->bindParam(':sqlpassholder', $dbsqlpass, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':sqluserholder', $dbsqluser, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':passholder', $dbserverpass, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':userholder', $dbserveruser, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':urlholder', $dbserverurl, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':helloholder', $hello_name, PDO::PARAM_STR, 500);
+        $UPDATE->execute()or die(print_r($UPDATE->errorInfo(), true));
+}
+
+if ($duperaw->num_rows <= 0) {
+    
+    $INSERT = $pdo->prepare("INSERT INTO vicidial_accounts set url=:urlholder, added_by=:helloholder, servertype=:typeholder, username=:userholder, password=:passholder, sqlpass=:sqlpassholder, sqluser=:sqluserholder");
+        $INSERT->bindParam(':sqlpassholder', $dbsqlpass, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':sqluserholder', $dbsqluser, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':passholder', $dbserverpass, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':userholder', $dbserveruser, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':urlholder', $dbserverurl, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':helloholder', $hello_name, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':typeholder', $servertype, PDO::PARAM_STR, 500);
+        $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
+        
+}
+    
+                    if(isset($fferror)) {
+    if($fferror=='0') {
+        
+    header('Location: ../../admin/Admindash.php?vicidialaccount=database&Vicidial=y'); die;
+    }
+                    }
+}
+
+if (isset($telvar)) {
+    
+    
+$telserverpass= filter_input(INPUT_POST, 'telserverpass', FILTER_SANITIZE_SPECIAL_CHARS);
+$telserveruser= filter_input(INPUT_POST, 'telserveruser', FILTER_SANITIZE_SPECIAL_CHARS);
+$telserverurl= filter_input(INPUT_POST, 'telserverurl', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$servertype2="Telephony";
+
+$dupcheck = "Select id from vicidial_accounts WHERE servertype='Telephony'";
+$duperaw = $conn->query($dupcheck);
+
+if ($duperaw->num_rows >= 1) {
+   
+    $UPDATE = $pdo->prepare("UPDATE vicidial_accounts set url=:urlholder2, added_by=:helloholder2, username=:userholder2, password=:passholder2 WHERE servertype='Telephony'");
+    $UPDATE->bindParam(':passholder2', $telserverpass, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':userholder2', $telserveruser, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':urlholder2', $telserverurl, PDO::PARAM_STR, 500);
+        $UPDATE->bindParam(':helloholder2', $hello_name, PDO::PARAM_STR, 500);
+        $UPDATE->execute()or die(print_r($UPDATE->errorInfo(), true));
+        
+}
+
+if ($duperaw->num_rows <= 0) {
+ 
+        $INSERT = $pdo->prepare("INSERT INTO vicidial_accounts set url=:urlholder2, added_by=:helloholder2, servertype=:typeholder2, username=:userholder2, password=:passholder2");
+        $INSERT->bindParam(':passholder2', $telserverpass, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':userholder2', $telserveruser, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':urlholder2', $telserverurl, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':helloholder2', $hello_name, PDO::PARAM_STR, 500);
+        $INSERT->bindParam(':typeholder2', $servertype2, PDO::PARAM_STR, 500);
+        $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
+    
+}
+        
+                if(isset($fferror)) {
+    if($fferror=='0') {
+    header('Location: ../../admin/Admindash.php?vicidialaccount=telephony&Vicidial=y'); die;
+    }
+                }
+}
+
+else {
+                if(isset($fferror)) {
+    if($fferror=='0') {
+    header('Location: ../../admin/Admindash.php?vicidialaccount=failed&Vicidial=y'); die;
+    }
+                }
+}
+
+
 $datavar= filter_input(INPUT_GET, 'data', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($datavar)) {
@@ -28,7 +129,6 @@ if (isset($datavar)) {
 $servertype="Web";
 
 $dupcheck = "Select id from connex_accounts";
-
 $duperaw = $conn->query($dupcheck);
 
 if ($duperaw->num_rows >= 1) {

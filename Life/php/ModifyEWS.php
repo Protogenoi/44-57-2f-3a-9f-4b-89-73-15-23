@@ -4,17 +4,16 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adlfunctions.php');
+include('../../includes/adl_features.php');
+include('../../includes/Access_Levels.php');
 
-if($companynamere=='The Review Bureau') {
+if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
 
 if (!in_array($hello_name,$Level_10_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;
 }
 }
-
-include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
     if($fferror=='0') {
@@ -26,7 +25,6 @@ if(isset($fferror)) {
     }
     
     }
-    
 
     $Modify= filter_input(INPUT_GET, 'Modify', FILTER_SANITIZE_NUMBER_INT);
     

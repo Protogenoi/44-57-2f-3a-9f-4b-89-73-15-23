@@ -1,6 +1,9 @@
 <?php 
-
-include('../../includes/adlfunctions.php');
+include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+include('../../includes/adl_features.php');
 
 if($fflife=='0') {
     
@@ -8,11 +11,13 @@ if($fflife=='0') {
     
 }
 
-include('../../includes/ADL_PDO_CON.php');
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+include ("../../includes/ADL_PDO_CON.php");
+
+$cnquery = $pdo->prepare("select company_name from company_details limit 1");
+$cnquery->execute()or die(print_r($query->errorInfo(), true));
+$companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+$companynamere=$companydetailsq['company_name'];
+
 
 if($companynamere=='The Review Bureau') {
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
@@ -22,7 +27,13 @@ if($companynamere=='The Review Bureau') {
     }
     
     }
-
+if($companynamere=='ADL_CUS') {
+    $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
+if (!in_array($hello_name,$Level_2_Access, true)) {
+    
+    header('Location: ../CRMmain.php?AccessDenied'); die;
+}
+}
 
 if(isset($_GET["datefrom"])) $datefrom = $_GET["datefrom"];
 if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
@@ -42,6 +53,7 @@ if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
     <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
     <!-- new smoothness 
     
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
@@ -58,7 +70,6 @@ if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
         <?php     if ($hello_name!='Jade') {
     include('../../includes/navbar.php');
     }
-                include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
     if($ffanalytics=='1') {
     

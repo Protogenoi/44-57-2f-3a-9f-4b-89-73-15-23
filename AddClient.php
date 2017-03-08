@@ -37,12 +37,8 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
             $PostcodeQuery->execute()or die(print_r($query->errorInfo(), true));
             $PDre=$PostcodeQuery->fetch(PDO::FETCH_ASSOC);
             $PostCodeKey=$PDre['api_key'];       
-    
-    
     ?>
-
 <script src="js/jquery.postcodes.min.js"></script>
-
 <?php } ?>
 
 <script>
@@ -96,20 +92,27 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
             
 <h3><span class="label label-info">Client Details (1)</span></h3>
 <br>
-  
-                <input type="hidden" name="client_id" value="<?php if(isset($search)) { echo $search; } ?>">
-           <p>
+
+<p>
  <div class="form-group">
   <label for="custtype">Product:</label>
   <select class="form-control" name="custype" id="custype" style="width: 170px" required>
       <option value="">Select...</option>
+      <?php if($companynamere=='The Review Bureau') { ?>
                     <option value="The Review Bureau">TRB Life Insurance</option>
-                    <option value="TRB Royal London">TRB Royal London</option>
-                    <option value="TRB WOL">TRB WOL</option>
-                    <option value="TRB Vitality">TRB Vitality</option>
-                    <option value="TRB Home Insurance">TRB Home Insurance</option>
+                    <option value="TRB Royal London">Royal London</option>
+                    <option value="TRB WOL">WOL</option>
+                    <option value="TRB Vitality">Vitality</option>
+                    <option value="TRB Home Insurance">Home Insurance</option>
                     <option value="Assura">Assura Life Insurance</option>
                     <option value="TRB Aviva">Aviva</option>
+      <?php } else {?>
+                    <option value="ADL_CUS">Legal and General</option>
+                    <option value="CUS Royal London">Royal London</option>
+                    <option value="CUS WOL">WOL</option>
+                    <option value="CUS Vitality">Vitality</option>
+                    <option value="CUS Home Insurance">Home Insurance</option>
+      <?php } ?>
 
   </select>
 </div>
@@ -147,7 +150,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                 <input type="email" id="email" class="form-control" style="width: 170px" name="email">
             </p>
 
-                <input type="hidden" name="submitted_by" value="<?php echo $hello_name?>" readonly>
+                <input type="hidden" name="submitted_by" value="<?php echo $hello_name;?>" readonly>
 
             <br>
 

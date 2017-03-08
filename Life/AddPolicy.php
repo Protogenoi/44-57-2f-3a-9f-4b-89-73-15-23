@@ -145,15 +145,21 @@ $query->execute();
 <label for="application_number">Application Number:</label>
 <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; } if($data2['company']=='TRB Royal London') { echo "Royal London"; }  } ?>" required>
 <label for="application_number"></label>
-<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
-<?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
+<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
+<?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 </p>
 <br>
 
 <p>
 <label for="policy_number">Policy Number:</label>
 <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" placeholder="TBC">
-<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') {  ?> <span class="help-block">For WOL use One Family</span>  <?php } } ?>
+<?php if(isset($data2['company'])) { 
+    if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') {  ?> 
+<span class="help-block">For WOL use One Family</span>
+    <?php }
+    
+    }
+    ?>
 </p>
 <br>
 
@@ -169,7 +175,7 @@ $query->execute();
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>WOL</option>
+  <option value="WOL" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?>>WOL</option>
   </select>
 </div>
 </p>
@@ -179,13 +185,13 @@ $query->execute();
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau') { echo "selected"; } } ?>>Legal & General</option>
-  <option value="Vitality" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>Vitality</option>
+  <option value="Legal and General" <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau' || $data2['company']=='ADL_CUS') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Vitality" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
-  <option value="Royal London" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
-  <option value="One Family" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
-  <option value="Aviva" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva') { echo "selected"; } } ?>>Aviva</option>
+  <option value="Royal London" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { echo "selected"; } } ?>>Royal London</option>
+  <option value="One Family" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
+  <option value="Aviva" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva' || $data2['company']=='CUS Aviva') { echo "selected"; } } ?>>Aviva</option>
   </select>
 </div>
 </p>
@@ -250,7 +256,7 @@ $query->execute();
   <option value="">Select...</option>
   <option value="Indemnity">Indemnity</option>
   <option value="Non Idenmity">Non-Idemnity</option>
-  <option value="NA" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?>>N/A</option>
+  <option value="NA" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?>>N/A</option>
   </select>
 </div>
 </p>
@@ -334,7 +340,7 @@ $query->execute();
 <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
 </p>
     <script>var options = {
-	url: "../JSON/CloserNames.json",
+	url: "../JSON/<?php if($companynamere=='The Review Bureau') { echo "CloserNames" ; } else { echo "CUS_CLOSERS"; } ?>.json",
                 getValue: "full_name",
 
 	list: {
@@ -352,7 +358,7 @@ $("#closer").easyAutocomplete(options);</script>
 <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
 </p>
 <script>var options = {
-	url: "../JSON/LeadGenNames.json",
+	url: "../JSON/<?php if($companynamere=='The Review Bureau') { echo "LeadGenNames" ; } else { echo "CUS_LEAD"; } ?>.json",
                 getValue: "full_name",
 
 	list: {
@@ -383,10 +389,10 @@ $("#lead").easyAutocomplete(options);</script>
 
 ?>
 
-    <div class="col-md-4">
+<div class="col-md-4">
 
-    </div>
-    
+</div>
+
 </div>
 
  </div>
@@ -396,7 +402,5 @@ $("#lead").easyAutocomplete(options);</script>
       </div>
     </div>
  </div>
-
-
 </body>
 </html>

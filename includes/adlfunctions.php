@@ -1,9 +1,5 @@
- <?php
- include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
- 
-              
- 
- 
+<?php
+include($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
 include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
  
     function email_sent_catch() {
@@ -17,12 +13,6 @@ print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa
 
 }
     } //End of function definition
-    
-?>
-
-
-
-<?php
 
 function food_upload() {
 

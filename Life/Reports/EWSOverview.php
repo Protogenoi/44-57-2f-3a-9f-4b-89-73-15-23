@@ -128,7 +128,6 @@ $table['rows'] = $results;
 $jsonTable3 = json_encode($table); 
 
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -140,7 +139,7 @@ $jsonTable3 = json_encode($table);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
 <body>
     

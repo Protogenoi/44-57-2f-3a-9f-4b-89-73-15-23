@@ -5,6 +5,11 @@ $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
     include('../includes/Access_Levels.php');
+    include('../includes/adl_features.php');
+    
+    if($ffdealsheets=='0') {
+        header('Location: ../CRMmain.php?Feature=NotEnabled'); die;
+    }
 /*
         if (!in_array($hello_name,$Agent_Access, true)) {
     

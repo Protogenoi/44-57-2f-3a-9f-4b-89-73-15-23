@@ -48,7 +48,7 @@ include('../includes/adl_features.php');
     
     <div class="container">
 
-                    <?php if($companynamere ='The Review Bureau') {
+                    <?php if($companynamere ='The Review Bureau' || $companynamere ='ADL_CUS') {
                         if($fflife=='1') { 
 ?>
         

@@ -35,6 +35,8 @@ include('../includes/adlfunctions.php');
     
     if(isset($hello_name)) {
     
+        if($companynamere=='The Review Bureau') {
+        
      switch ($hello_name) {
          case "Michael":
              $hello_name_full="Michael Owen";
@@ -87,6 +89,30 @@ include('../includes/adlfunctions.php');
      }
      
      }
+     
+     if($companynamere=='ADL_CUS') {
+      switch ($hello_name) {
+         case "Michael":
+             $hello_name_full="Michael Owen";
+             break;
+         case "Dean":
+             $hello_name_full="Dean Howell";
+             break;
+         case "Helen":
+             $hello_name_full="Helen Hinder";
+             break;
+         case "Andrew":
+             $hello_name_full="Andrew Collier";
+             break;
+         case "David":
+             $hello_name_full="David Govier";
+             break;
+         default:
+             $hello_name_full=$hello_name;
+             
+     }    
+     }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -157,7 +183,7 @@ $data3=$query2->fetch(PDO::FETCH_ASSOC);
                 
     
     <?php 
-    if($companynamere=='The Review Bureau') {
+    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
     if (in_array($hello_name,$Level_8_Access, true)) { 
         
 
@@ -294,17 +320,15 @@ switch( $color_status ) {
     <br><br>
   </div>
 </div>
-    
-    
-</center>
+
+    </center>
 </fieldset>
 
 </form>
     <?php } }
 
     if($companynamere!='The Review Bureau') {
-
-        
+      if($companynamere!='ADL_CUS') {  
 
 $polid=$data2['id'];
 $policy_number= $data2["policy_number"];
@@ -408,7 +432,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
 </fieldset>
 
 </form>
-    <?php } ?>
+    <?php } } ?>
 <form class="AddClient">
              <p>
 <label for="created">Added By</label>
@@ -433,7 +457,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
                         <div class="column-left">
 
 <p>
-<input type="hidden" id="submitted_by" name="submitted_by" value="<?php echo $data2["submitted_by"]?>" class="form-control" readonly style="width: 200px">
+<input type="hidden" id="submitted_by" name="submitted_by" value="<?php echo $data2["submitted_by"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 <p>
@@ -442,30 +466,30 @@ $ews_status_status=$ewsresult['ews_status_status'];
 
 <p>
 <label for="client_name">Policy Holder</label>
-<input type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name'];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
 <p>
 <label for="soj">Single or Joint:</label>
-<input type="text" value="<?php echo $data2[soj]?>" class="form-control" readonly style="width: 200px">
+<input type="text" value="<?php echo $data2['soj'];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 <p>
 <label for="sale_date">Sale Date:</label>
-<input type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
 <p>
 <label for="policy_number">Policy Number</label>
-<input type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
 <p>
 <label for="application_number">Application Number:</label>
-<input type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
@@ -496,7 +520,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 170px" type="number" value="<?php echo $data2[premium]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" class="form-control" readonly style="width: 200px"/>
+        <input style="width: 170px" type="number" value="<?php echo $data2['premium'];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" class="form-control" readonly style="width: 200px"/>
     </div> 
 </p>
 
@@ -505,7 +529,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
         <label for="commission">Commission</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 170px" type="number" value="<?php echo $data2[commission]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" class="form-control" readonly style="width: 200px"/>
+        <input style="width: 170px" type="number" value="<?php echo $data2['commission'];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" class="form-control" readonly style="width: 200px"/>
     </div> 
 </p>
 
@@ -514,7 +538,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
         <label for="covera">Cover Amount</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 170px" type="number" value="<?php echo $data2[covera]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" class="form-control" readonly style="width: 200px"/>
+        <input style="width: 170px" type="number" value="<?php echo $data2['covera'];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" class="form-control" readonly style="width: 200px"/>
     </div> 
 </p>
 
@@ -529,7 +553,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
 
 <p>
 <label for="CommissionType">Commission Type</label>
-<input type="text" value="<?php echo $data2["CommissionType"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" value="<?php echo $data2["CommissionType"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 <p>
@@ -544,7 +568,7 @@ $ews_status_status=$ewsresult['ews_status_status'];
         <label for="commission">Drip</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 170px" type="number" value="<?php echo $data2["drip"]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" class="form-control" readonly style="width: 200px"/>
+        <input style="width: 170px" type="number" value="<?php echo $data2["drip"];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" class="form-control" readonly style="width: 200px"/>
     </div> 
 </p>
 
@@ -556,12 +580,12 @@ $ews_status_status=$ewsresult['ews_status_status'];
 
 <p>
 <label for="closer">Closer:</label>
-<input type='text' id='closer' name='closer' value="<?php echo $data2["closer"]?>" class="form-control" readonly style="width: 200px">
+<input type='text' id='closer' name='closer' value="<?php echo $data2["closer"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 <p>
 <label for="lead">Lead Gen:</label>
-<input type='text' id='lead' name='lead' value="<?php echo $data2["lead"]?>" class="form-control" readonly style="width: 200px">
+<input type='text' id='lead' name='lead' value="<?php echo $data2["lead"];?>" class="form-control" readonly style="width: 200px">
 </p>
 
 </form>

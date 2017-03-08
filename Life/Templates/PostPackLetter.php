@@ -679,7 +679,7 @@ function WriteHTML($html)
 {
     $this->SetY(-15);
     $this->SetFont('Arial','I',8);
-    $this->Cell(0,10,'The Financial Assessment Center LTD. Registered in England and Wales with registered number 10591406..',0,0,'C');
+    $this->Cell(0,10,'The Financial Assessment Centre LTD. Registered in England and Wales with registered number 10591406..',0,0,'C');
     $this->Ln( 5 );
     $this->Cell(0,10,'Registered office: Suite 1E, The Post House, Adelaide Street, SA1 1SB.',0,0,'C');
     
@@ -708,7 +708,7 @@ $pdf->SetFont('Times','',12);
 $pdf->Image('../../uploads/LoginLogo.jpg',140,6,40);
 $pdf->Ln( 5 );
 
-$pdf->Cell(0,12,"The Financial Assessment Center", 0, 0,'R');
+$pdf->Cell(0,12,"The Financial Assessment Centre", 0, 0,'R');
 $pdf->Ln( 5 );
 $pdf->Cell(0,12,"Suite 1E, The Post House", 0, 0,'R');
 $pdf->Ln( 5 );

@@ -1,5 +1,4 @@
 <?php
-
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 8);
@@ -34,6 +33,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
         <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
             <style>
         div.smallcontainer {
             margin: 0 auto;
@@ -64,7 +64,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
         
         if($EWSView=='1') {
             
-            if($companynamere=='The Review Bureau') {
+            if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
                          if (in_array($hello_name,$Level_8_Access, true)) {
                              
                         $query = $pdo->prepare("SELECT policy_number, policy_type, warning AS EWSSTATUS, last_full_premium_paid, net_premium, premium_os, clawback_due, clawback_date, policy_start_date, off_risk_date, reqs, ournotes, date_added, ews_status_status AS ADLSTATUS, client_name FROM ews_data WHERE policy_number=:policy");

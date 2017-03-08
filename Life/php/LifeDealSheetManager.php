@@ -3,7 +3,13 @@ include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php");
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-        
+
+include('../../includes/adl_features.php');
+
+if(isset($ffdealsheets) && $ffdealsheets=='0') {
+    header('Location: ../../CRMmain.php?Feature=NotEnabled'); die;
+}
+
         $QUERY= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_NUMBER_INT);
         
         if(isset($QUERY)) {

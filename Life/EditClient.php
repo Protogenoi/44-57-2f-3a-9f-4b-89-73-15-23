@@ -147,14 +147,29 @@ if(isset($life)) {
     </div>
 <div class="col-md-2">
 <select class="form-control" name="company" id="company" style="width: 170px" required="yes">
-                    <option value="<?php echo $data2['company']?>"><?php echo $data2['company']?></option>
-                    <option value="The Review Bureau">TRB Life Insurance</option>
-                    <option value="TRB Vitality">TRB Vitality</option>
-                    <option value="TRB Royal London">TRB Royal London</option>
-                    <option value="TRB Home Insurance">TRB Home Insurance</option>
-                    <option value="Assura">Assura Life Insurance</option>
-                    <option value="TRB WOL">TRB WOL</option>
-                    <option value="TRB Aviva">TRB Aviva</option>
+                     
+                    <?php if(isset($data2['company'])) { 
+                        if($data2['company']=='The Review Bureau' || $data2['company']=='TRB Vitality' || $data2['company']=='TRB Royal London' || $data2['company']=='TRB Home Insurance' || $data2['company']=='Assura' || $data2['company']=='TRB WOL' || $data2['company']=='TRB Aviva') {
+                        ?>
+                    
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">TRB Life Insurance</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Vitality') { echo "selected"; } } ?> value="TRB Vitality">Vitality</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { echo "selected"; } } ?> value="TRB Royal London">Royal London</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Home Insurance') { echo "selected"; } } ?> value="TRB Home Insurance">Home Insurance</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?> value="Assura">Assura Life Insurance</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?> value="TRB WOL">WOL</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva') { echo "selected"; } } ?> value="TRB Aviva">Aviva</option>
+                        <?php } 
+                    if($data2['company']=='ADL_CUS' || $data2['company']=='CUS Vitality' || $data2['company']=='CUS Royal London' || $data2['company']=='CUS Home Insurance' || $data2['company']=='Assura' || $data2['company']=='CUS WOL' || $data2['company']=='CUS Aviva') {
+                        ?>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='ADL_CUS') { echo "selected"; } } ?> value="ADL_CUS">Legal and General</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Vitality') { echo "selected"; } } ?> value="CUS Vitality">Vitality</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Royal London') { echo "selected"; } } ?> value="CUS Royal London">Royal London</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Home Insurance') { echo "selected"; } } ?> value="CUS Home Insurance">Home Insurance</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?> value="Assura">Assura Life Insurance</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS WOL') { echo "selected"; } } ?> value="CUS WOL">WOL</option>
+                    
+                    <?php } }?>
   </select>
 </div>
 </div>
@@ -171,13 +186,22 @@ if(isset($life)) {
 <div class="form-group">
   <label for="title">Title:</label>
   <select class="form-control" name="title" id="title" style="width: 170px" required>
-                    <option value="<?php echo $data2['title']?>"><?php echo $data2['title']?></option>
+      <?php if(empty($data2['title'])) { ?>
+      <option value="">Select...</option>
                     <option value="Mr">Mr</option>
                     <option value="Dr">Dr</option>
                     <option value="Miss">Miss</option>
                     <option value="Mrs">Mrs</option>
                     <option value="Ms">Ms</option>
                     <option value="Other">Other</option>
+      <?php } else { ?>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Mr') { echo "selected"; } } ?> value="Mr">Mr</option>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Dr') { echo "selected"; } } ?> value="Dr">Dr</option>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Miss') { echo "selected"; } } ?> value="Miss">Miss</option>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Mrs') { echo "selected"; } } ?> value="Mrs">Mrs</option>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Ms') { echo "selected"; } } ?> value="Ms">Ms</option>
+                    <option <?php if(isset($data2['title'])) { if($data2['title']=='Other') { echo "selected"; } } ?> value="Other">Other</option>
+      <?php } ?>
   </select>
 </div>
 </p>
@@ -185,25 +209,25 @@ if(isset($life)) {
 
 <p>
 <label for="first_name">First Name:</label>
-<input  class="form-control" type="text" id="first_name" name="first_name" value="<?php echo $data2['first_name']?>" class="form-control" style="width: 170px" required>
+<input  class="form-control" type="text" id="first_name" name="first_name" value="<?php echo $data2['first_name'];?>" class="form-control" style="width: 170px" required>
 </p>
 
 
 <p>
 <label for="last_name">Last Name:</label>
-<input  class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $data2['last_name']?>" class="form-control" style="width: 170px" required>
+<input  class="form-control" type="text" id="last_name" name="last_name" value="<?php echo $data2['last_name'];?>" class="form-control" style="width: 170px" required>
 </p>
 
 
 <p>
 <label for="dob">Date of Birth:</label>
-<input  class="form-control" type="text" id="dob" name="dob" value="<?php echo $data2['dob']?>" class="form-control" style="width: 170px" required>
+<input  class="form-control" type="text" id="dob" name="dob" value="<?php echo $data2['dob'];?>" class="form-control" style="width: 170px" required>
 </p>
 
 
 <p>
 <label for="email">Email:</label>
-<input  class="form-control" type="email" id="email" name="email" value="<?php echo $data2['email']?>" class="form-control" style="width: 170px">
+<input  class="form-control" type="email" id="email" name="email" value="<?php echo $data2['email'];?>" class="form-control" style="width: 170px">
 </p>
 
 </p>
@@ -213,27 +237,27 @@ if(isset($life)) {
 
 <p>
 <label for="callauditid">Closer Call Audit ID</label>
-<input  class="form-control" type="text" id="callauditid" name="callauditid" value="<?php echo $data2['callauditid']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="callauditid" name="callauditid" value="<?php echo $data2['callauditid'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadauditid">Lead Call Audit ID</label>
-<input  class="form-control" type="text" id="leadauditid" name="leadauditid" value="<?php echo $data2['leadauditid']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="leadauditid" name="leadauditid" value="<?php echo $data2['leadauditid'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadid1">Lead ID 1</label>
-<input  class="form-control" type="text" id="leadid1" name="leadid1" value="<?php echo $data2['leadid1']?>"class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="leadid1" name="leadid1" value="<?php echo $data2['leadid1'];?>"class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadid2">Lead ID 2</label>
-<input  class="form-control" type="text" id="leadid2" name="leadid2" value="<?php echo $data2['leadid2']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="leadid2" name="leadid2" value="<?php echo $data2['leadid2'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadid3">Lead ID 3</label>
-<input  class="form-control" type="text" id="leadid3" name="leadid3" value="<?php echo $data2['leadid3']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="leadid3" name="leadid3" value="<?php echo $data2['leadid3'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 </div>
@@ -250,13 +274,22 @@ if(isset($life)) {
 <div class="form-group">
   <label for="title2">Title:</label>
   <select class="form-control" name="title2" id="title2" style="width: 170px">
-                    <option value="<?php echo $data2['title2']?>"><?php echo $data2['title2']?></option>
+      <?php if(empty($data2['title2'])) { ?>
+      <option value=""></option>
                     <option value="Mr">Mr</option>
                     <option value="Dr">Dr</option>
                     <option value="Miss">Miss</option>
                     <option value="Mrs">Mrs</option>
                     <option value="Ms">Ms</option>
                     <option value="Other">Other</option>
+      <?php } else { ?>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Mr') { echo "selected"; } } ?> value="Mr">Mr</option>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Dr') { echo "selected"; } } ?> value="Dr">Dr</option>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Miss') { echo "selected"; } } ?> value="Miss">Miss</option>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Mrs') { echo "selected"; } } ?> value="Mrs">Mrs</option>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Ms') { echo "selected"; } } ?> value="Ms">Ms</option>
+                    <option <?php if(isset($data2['title2'])) { if($data2['title2']=='Other') { echo "selected"; } } ?> value="Other">Other</option>
+      <?php } ?>
   </select>
 </div>
 
@@ -264,21 +297,21 @@ if(isset($life)) {
 
 <p>
 <label for="first_name2">First Name:</label>
-<input  class="form-control" type="text" id="first_name2" name="first_name2" value="<?php echo $data2['first_name2']?>" class="form-control" style="width: 170px">
+<input  class="form-control" type="text" id="first_name2" name="first_name2" value="<?php echo $data2['first_name2'];?>" class="form-control" style="width: 170px">
 </p>
 <p>
 <label for="last_name2">Last Name:</label>
-<input  class="form-control" type="text" id="last_name2" name="last_name2" value="<?php echo $data2['last_name2']?>" class="form-control" style="width: 170px">
+<input  class="form-control" type="text" id="last_name2" name="last_name2" value="<?php echo $data2['last_name2'];?>" class="form-control" style="width: 170px">
 </p>
 
 <p>
 <label for="dob2">Date of Birth:</label>
-<input  class="form-control" type="text" id="dob2" name="dob2" value="<?php echo $data2['dob2']?>" class="form-control" style="width: 170px">
+<input  class="form-control" type="text" id="dob2" name="dob2" value="<?php echo $data2['dob2'];?>" class="form-control" style="width: 170px">
 </p>
 
 <p>
 <label for="email2">Email:</label>
-<input  class="form-control" type="email2" id="email2" name="email2" value="<?php echo $data2['email2']?>" class="form-control" style="width: 170px">
+<input  class="form-control" type="email2" id="email2" name="email2" value="<?php echo $data2['email2'];?>" class="form-control" style="width: 170px">
 
 <p>
 <h3><span class="label label-primary">System Info (2)</span></h3>
@@ -288,32 +321,32 @@ if(isset($life)) {
 
 <p>
 <label for="callauditid2">WOL Closer Audit ID</label>
-<input  class="form-control" type="text" id="callauditid2" name="callauditid2" value="<?php echo $data2['callauditid2']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="callauditid2" name="callauditid2" value="<?php echo $data2['callauditid2'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadauditid2">WOL Lead Audit ID</label>
-<input  class="form-control" type="text" id="leadauditid2" name="leadauditid2" value="<?php echo $data2['leadauditid2']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="leadauditid2" name="leadauditid2" value="<?php echo $data2['leadauditid2'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 
 <p>
 <label for="dealsheet_id">DealSheet ID</label>
-<input  class="form-control" type="text" id="dealsheet_id" name="dealsheet_id" value="<?php echo $data2['dealsheet_id']?>" class="form-control" style="width: 170px" maxlength="12">
+<input  class="form-control" type="text" id="dealsheet_id" name="dealsheet_id" value="<?php echo $data2['dealsheet_id'];?>" class="form-control" style="width: 170px" maxlength="12">
 </p>
 
 <p>
 <label for="leadid12">Lead ID 1</label>
-<input  class="form-control" type="text" id="leadid12" name="leadid12" value="<?php echo $data2['leadid12']?>" class="form-control" style="width: 170px" disabled maxlength="12">
+<input  class="form-control" type="text" id="leadid12" name="leadid12" value="<?php echo $data2['leadid12'];?>" class="form-control" style="width: 170px" disabled maxlength="12">
 </p>
 
 <label for="leadid22">Lead ID 2</label>
-<input  class="form-control" type="text" id="leadid22" name="leadid22" value="<?php echo $data2['leadid22']?>" class="form-control" style="width: 170px" disabled maxlength="12">
+<input  class="form-control" type="text" id="leadid22" name="leadid22" value="<?php echo $data2['leadid22'];?>" class="form-control" style="width: 170px" disabled maxlength="12">
 </p>
 
 <p>
 <label for="leadid32">Lead ID 3</label>
-<input  class="form-control" type="hidden" id="leadid32" name="leadid32" value="<?php echo $data2['leadid32']?>" class="form-control" style="width: 170px" disabled maxlength="12">
+<input  class="form-control" type="hidden" id="leadid32" name="leadid32" value="<?php echo $data2['leadid32'];?>" class="form-control" style="width: 170px" disabled maxlength="12">
 </p>
 
 </div>
@@ -326,13 +359,13 @@ if(isset($life)) {
 
 <p>
 <label for="phone_number">Contact Number:</label>
-<input  class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $data2['phone_number']?>" class="form-control" style="width: 170px" required pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
+<input  class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $data2['phone_number'];?>" class="form-control" style="width: 170px" required pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
 </p>
 
 
 <p>
 <label for="alt_number">Alt Number:</label>
-<input  class="form-control" type="tel" id="alt_number" name="alt_number" value="<?php echo $data2['alt_number']?>" class="form-control" style="width: 170px" pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
+<input  class="form-control" type="tel" id="alt_number" name="alt_number" value="<?php echo $data2['alt_number'];?>" class="form-control" style="width: 170px" pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
 </p>
 
 <br>
@@ -349,27 +382,27 @@ if(isset($life)) {
 
 <p>
 <label for="address1">Address Line 1:</label>
-<input  class="form-control" type="text" id="address1" name="address1" value="<?php echo $data2['address1']?>" class="form-control" style="width: 170px" required>
+<input  class="form-control" type="text" id="address1" name="address1" value="<?php echo $data2['address1'];?>" class="form-control" style="width: 170px" required>
 </p>
 
 <p>
 <label for="address2">Address Line 2:</label>
-<input  class="form-control" type="text" id="address2" name="address2" value="<?php echo $data2['address2']?>" class="form-control" style="width: 170px" >
+<input  class="form-control" type="text" id="address2" name="address2" value="<?php echo $data2['address2'];?>" class="form-control" style="width: 170px" >
 </p>
 
 <p>
 <label for="address3">Address Line 3:</label>
-<input  class="form-control" type="text" id="address3" name="address3" value="<?php echo $data2['address3']?>"class="form-control" style="width: 170px">
+<input  class="form-control" type="text" id="address3" name="address3" value="<?php echo $data2['address3'];?>"class="form-control" style="width: 170px">
 </p>
 
 <p>
 <label for="town">Post Town:</label>
-<input  class="form-control" type="text" id="town" name="town" value="<?php echo $data2['town']?>" class="form-control" style="width: 170px" required >
+<input  class="form-control" type="text" id="town" name="town" value="<?php echo $data2['town'];?>" class="form-control" style="width: 170px" required >
 </p>
 
 <p>
 <label for="post_code">Post Code:</label>
-<input  class="form-control" type="text" id="post_code" name="post_code" value="<?php echo $data2['post_code']?>" class="form-control" style="width: 170px" required>
+<input  class="form-control" type="text" id="post_code" name="post_code" value="<?php echo $data2['post_code'];?>" class="form-control" style="width: 170px" required>
 </p>
  <?php if($ffpost_code=='1') { ?>
 <script>
@@ -399,13 +432,17 @@ $('#lookup_field').setupPostcodeLookup({
     <option value="Incorrect Contact address">Incorrect address</option>
     <option value="Moved address">Moved address</option>
     <option value="New contact number">New contact number</option>
+    <?php if($ffdialler=='1') { ?>
     <option value="Added Call Recording Lead ID">Added Call Recording Lead ID</option>
+    <?php } if($ffaudits=='1') { ?>
     <option value="Added Closer Audit ID">Added Closer Audit ID</option>
     <option value="Added Lead Audit ID">Added Lead Audit ID</option>
+    <?php } ?>
     <option value="Added Client Two">Added Client Two</option>
     <option value="Updated Company Name">Updated Company Name</option>
+    <?php if($ffdealsheets=='1') { ?>
     <option value="Updated Dealsheet ID">Updated Dealsheet ID</option>
-    <?php if($hello_name=='Michael') { ?>
+    <?php } if($hello_name=='Michael') { ?>
     <option value="Admin Change">Admin Change</option>
     <?php } ?>
 </select>

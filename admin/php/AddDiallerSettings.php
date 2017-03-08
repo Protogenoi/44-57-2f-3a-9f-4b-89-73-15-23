@@ -110,13 +110,6 @@ if ($duperaw->num_rows <= 0) {
                 }
 }
 
-else {
-                if(isset($fferror)) {
-    if($fferror=='0') {
-    header('Location: ../../admin/Admindash.php?vicidialaccount=failed&Vicidial=y'); die;
-    }
-                }
-}
 
 
 $datavar= filter_input(INPUT_GET, 'data', FILTER_SANITIZE_SPECIAL_CHARS);

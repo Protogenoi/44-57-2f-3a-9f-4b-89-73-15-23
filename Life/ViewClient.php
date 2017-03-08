@@ -747,7 +747,7 @@ if(isset($fferror)) {
                                             echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
                                             echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
                                                                                     
-                                                                                    if($companynamere=='The Review Bureau' || $companyname=='ADL_CUS') {
+                                                                                    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
                                                                                         if (in_array($hello_name,$Level_10_Access, true)) {
                                                                                     
                                                                                     

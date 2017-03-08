@@ -342,7 +342,8 @@ function textAreaAdjust(o) {
                         
                         <div class='form-group'>
                             <label for='closer'>Closer:</label>
-                            <select class='form-control' name='closer' id='closer' required <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>                                
+                            <select class='form-control' name='closer' id='closer' required <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>  
+                                <?php if($companynamere=='The Review Bureau') { ?>
                                 <option value="Carys" <?php if(isset($closer)) { if($closer=='Carys') { echo "selected"; } } ?>>Carys</option>
                                 <option value="Hayley" <?php if(isset($closer)) { if($closer=='Hayley') { echo "selected"; } } ?>>Hayley</option>
                                 <option value="James" <?php if(isset($closer)) { if($closer=='James') { echo "selected"; } } ?>>James</option>
@@ -357,6 +358,12 @@ function textAreaAdjust(o) {
                                 <option value="Gavin" <?php if(isset($closer)) { if($closer=='Gavin') { echo "selected"; } } ?>>Gavin</option>
                                 <option value="Matthew" <?php if(isset($closer)) { if($closer=='Matthew') { echo "selected"; } } ?>>Matthew</option> 
                                 <option value="Rhys" <?php if(isset($closer)) { if($closer=='Rhys') { echo "selected"; } } ?>>Rhys</option> 
+                                <?php } if($companynamere=='The Review Bureau') { ?>
+                                <option value="Dan Matthews" <?php if(isset($closer)) { if($closer=='Dan Matthews') { echo "selected"; } } ?>>Dan Matthews</option>
+                                <option value="Joe Rimmell" <?php if(isset($closer)) { if($closer=='Joe Rimmell') { echo "selected"; } } ?>>Joe Rimmell</option>
+                                <option value="Jordan Davies" <?php if(isset($closer)) { if($closer=='Jordan Davies') { echo "selected"; } } ?>>Jordan Davies</option>
+                                <option value="Matthew Brace" <?php if(isset($closer)) { if($closer=='Kyle') { echo "selected"; } } ?>>Matthew Brace</option>                                 
+                                <?php } ?>
                             </select>
                         </div>
                         
@@ -364,6 +371,7 @@ function textAreaAdjust(o) {
                             <label for='closer2'>Closer (optional):</label>
                             <select class='form-control' name='closer2' id='closer2' <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>> 
                                 <option value="None">None</option> 
+                                <?php if($companynamere=='The Review Bureau') { ?>
                                 <option value="Carys" <?php if(isset($closer2)) { if($closer2=='Carys') { echo "selected"; } } ?>>Carys</option>
                                 <option value="Hayley" <?php if(isset($closer2)) { if($closer2=='Hayley') { echo "selected"; } } ?>>Hayley</option>
                                 <option value="James" <?php if(isset($closer2)) { if($closer2=='James') { echo "selected"; } } ?>>James</option>
@@ -378,6 +386,12 @@ function textAreaAdjust(o) {
                                 <option value="Gavin" <?php if(isset($closer2)) { if($closer2=='Gavin') { echo "selected"; } } ?>>Gavin</option>
                                 <option value="Matthew" <?php if(isset($closer2)) { if($closer2=='Matthew') { echo "selected"; } } ?>>Matthew</option> 
                                 <option value="Rhys" <?php if(isset($closer2)) { if($closer2=='Rhys') { echo "selected"; } } ?>>Rhys</option> 
+                                <?php } if($companynamere=='The Review Bureau') { ?>
+                                <option value="Dan Matthews" <?php if(isset($closer2)) { if($closer2=='Dan Matthews') { echo "selected"; } } ?>>Dan Matthews</option>
+                                <option value="Joe Rimmell" <?php if(isset($closer2)) { if($closer2=='Joe Rimmell') { echo "selected"; } } ?>>Joe Rimmell</option>
+                                <option value="Jordan Davies" <?php if(isset($closer2)) { if($closer2=='Jordan Davies') { echo "selected"; } } ?>>Jordan Davies</option>
+                                <option value="Matthew Brace" <?php if(isset($closer2)) { if($closer2=='Kyle') { echo "selected"; } } ?>>Matthew Brace</option>                                 
+                                <?php } ?>
                             </select>
                         </div>
                         

@@ -66,21 +66,26 @@ function textAreaAdjust(o) {
                             <label for='closer'>Closer:</label>
                             <select class='form-control' name='closer' id='closer' required> 
                                 <option value="">Select...</option>
-                                <option value="Stavros">Stavros</option>
-                                <option value="Carys">Carys</option>
-                                <option value="Hayley">Hayley</option>
-                                <option value="James">James</option>
-                                <option value="Kyle">Kyle</option>  
-                                <option value="Mike">Mike</option> 
-                                <option value="Nathan">Nathan</option> 
-                                <option value="Richard">Richard</option>
-                                <option value="Ricky">Ricky</option> 
-                                <option value="Sarah">Sarah</option>
-                                <option value="Nicola">Nicola</option>  
-                                <option value="Jack">Jack</option> 
-                                <option value="Gavin">Gavin</option>
-                                <option value="Matthew">Matthew</option> 
-                                <option value="Rhys">Rhys</option> 
+<?php if($companynamere=='The Review Bureau') { ?>
+<option value="Carys">Carys</option>
+<option value="Hayley">Hayley</option>
+<option value="James">James</option>
+<option value="Kyle">Kyle</option>  
+<option value="Mike">Mike</option> 
+<option value="Nathan">Nathan</option> 
+<option value="Richard">Richard</option>
+<option value="Ricky">Ricky</option> 
+<option value="Sarah">Sarah</option> 
+<option value="Stavros">Stavros</option>
+<option value="Nicola">Nicola</option> 
+<option value="Gavin">Gavin</option> 
+<option value="Rhys">Rhys</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+    <?php } ?>
                             </select>
                         </div>
                         
@@ -88,21 +93,26 @@ function textAreaAdjust(o) {
                             <label for='closer2'>Closer (optional):</label>
                             <select class='form-control' name='closer2' id='closer2' > 
                                 <option value="None">None</option> 
-                                <option value="Stavros">Stavros</option>
-                                <option value="Carys">Carys</option>
-                                <option value="Hayley">Hayley</option>
-                                <option value="James">James</option>
-                                <option value="Kyle">Kyle</option>  
-                                <option value="Mike">Mike</option> 
-                                <option value="Nathan">Nathan</option> 
-                                <option value="Richard">Richard</option>
-                                <option value="Ricky">Ricky</option> 
-                                <option value="Sarah">Sarah</option> 
-                                <option value="Nicola">Nicola</option> 
-                                <option value="Jack">Jack</option> 
-                                <option value="Gavin">Gavin</option> 
-                                <option value="Matthew">Matthew</option> 
-                                <option value="Rhys">Rhys</option> 
+<?php if($companynamere=='The Review Bureau') { ?>
+<option value="Carys">Carys</option>
+<option value="Hayley">Hayley</option>
+<option value="James">James</option>
+<option value="Kyle">Kyle</option>  
+<option value="Mike">Mike</option> 
+<option value="Nathan">Nathan</option> 
+<option value="Richard">Richard</option>
+<option value="Ricky">Ricky</option> 
+<option value="Sarah">Sarah</option> 
+<option value="Stavros">Stavros</option>
+<option value="Nicola">Nicola</option> 
+<option value="Gavin">Gavin</option> 
+<option value="Rhys">Rhys</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+    <?php } ?>
                             </select>
                         </div>
                         

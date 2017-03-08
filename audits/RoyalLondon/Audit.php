@@ -579,6 +579,7 @@ function textAreaAdjust(o) {
 <label for='CLOSER'>Closer:</label>
 <select class='form-control' name='CLOSER' id='CLOSER' required> 
     <option value="">Select...</option>
+    <?php if($companynamere=='The Review Bureau') { ?>
     <option value="Carys" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Carys') { echo "selected"; } } ?> >Carys</option>
     <option value="Hayley" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Hayley') { echo "selected"; } } ?> >Hayley</option>
     <option value="James" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='James') { echo "selected"; } } ?> >James</option>
@@ -588,6 +589,13 @@ function textAreaAdjust(o) {
     <option value="Sarah" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Sarah') { echo "selected"; } } ?> >Sarah</option>
     <option value="Nicola" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Nicola') { echo "selected"; } } ?> >Nicola</option>  
     <option value="Gavin" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Gavin') { echo "selected"; } } ?> >Gavin</option>
+    <?php } ?>
+    <?php if($companynamere=='ADL_CUS') { ?>
+    <option value="Dan Matthews" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Dan Matthews') { echo "selected"; } } ?> >Dan Matthews</option>
+    <option value="Joe Rimmell" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Joe Rimmell') { echo "selected"; } } ?> >Joe Rimmell</option>
+    <option value="Jordan Davies" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Jordan Davies') { echo "selected"; } } ?> >Jordan Davies</option>
+    <option value="Matthew Brace" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Matthew Brace') { echo "selected"; } } ?> >Matthew Brace</option>  
+    <?php } ?>    
 </select>
 </div>
 
@@ -595,15 +603,23 @@ function textAreaAdjust(o) {
 <label for='CLOSER2'>Closer (optional):</label>
 <select class='form-control' name='CLOSER2' id='CLOSER2' >    
 <option value="None">None</option>    
-    <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Carys') { echo "selected"; } } ?>>Carys</option>
-    <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Hayley') { echo "selected"; } } ?>>Hayley</option>
-    <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='James') { echo "selected"; } } ?>>James</option>
-    <option value="Kyle" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Kyle') { echo "selected"; } } ?>>Kyle</option>  
-    <option value="Mike" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Mike') { echo "selected"; } } ?>>Mike</option> 
+    <?php if($companynamere=='The Review Bureau') { ?>
+    <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Carys') { echo "selected"; } } ?> >Carys</option>
+    <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Hayley') { echo "selected"; } } ?> >Hayley</option>
+    <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='James') { echo "selected"; } } ?> >James</option>
+    <option value="Kyle" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Kyle') { echo "selected"; } } ?> >Kyle</option>  
+    <option value="Mike" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Mike') { echo "selected"; } } ?> >Mike</option> 
     <option value="Richard" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Richard') { echo "selected"; } } ?>>Richard</option>
-    <option value="Sarah" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Sarah') { echo "selected"; } } ?>>Sarah</option>
-    <option value="Nicola" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Nicola') { echo "selected"; } } ?>>Nicola</option>  
-    <option value="Gavin" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Gavin') { echo "selected"; } } ?>>Gavin</option>
+    <option value="Sarah" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Sarah') { echo "selected"; } } ?> >Sarah</option>
+    <option value="Nicola" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Nicola') { echo "selected"; } } ?> >Nicola</option>  
+    <option value="Gavin" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Gavin') { echo "selected"; } } ?> >Gavin</option>
+    <?php } ?>
+    <?php if($companynamere=='ADL_CUS') { ?>
+    <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Dan Matthews') { echo "selected"; } } ?> >Dan Matthews</option>
+    <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Joe Rimmell') { echo "selected"; } } ?> >Joe Rimmell</option>
+    <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Jordan Davies') { echo "selected"; } } ?> >Jordan Davies</option>
+    <option value="Kyle" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Matthew Brace') { echo "selected"; } } ?> >Matthew Brace</option>  
+    <?php } ?>  
 </select>
 </div>
 

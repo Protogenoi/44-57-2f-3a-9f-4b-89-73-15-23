@@ -6,9 +6,6 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 include('../../includes/adlfunctions.php');
 include('../../includes/Access_Levels.php');
-
-
-
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {

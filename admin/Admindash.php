@@ -2066,13 +2066,9 @@ if(isset($connexaccount)){
 
     if ($connexaccount =='database') {
 
-print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Dialler settings for the database server have been updated!</div><br>");
+print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Dialler settings have been updated!</div><br>");
     }
-    
-        if ($connexaccount =='telephony') {
 
-print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Dialler settings for the telephony server have been updated!</div><br>");
-    }
             if ($connexaccount =='failed') {
 
 print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes have been made!</div><br>");

@@ -125,7 +125,7 @@ function adl_version() {
 echo  '<div class="row">
         <div class="col-sm-12">
             <footer>
-            	<p><i><b>ADL</b> (v)2016.12.05(<b>B</b>)Candy Cane<b> (R)</b>0.0.1</i></p>
+            	<p><i><b>ADL</b> (v)2017.03.09(<b>B</b>)Hungry Hippo<b> (R)</b>0.0.2</i></p>
             </footer>
         </div>
     </div>';

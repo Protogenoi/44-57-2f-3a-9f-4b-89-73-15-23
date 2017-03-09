@@ -426,7 +426,7 @@ if($custype=='CUS Home Insurance') { ?>
 <br>
 
 <label for="policy_number">Policy Number:</label>
-<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' style="width: 140px" placeholder="TBC">
+<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' <?php if($custype=='The Review Bureau' || $custype=='ADL_CUS') { echo "maxlength='10'"; } ?> style="width: 140px" placeholder="TBC">
 <br>
 
 <div class="form-row">

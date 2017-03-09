@@ -216,6 +216,33 @@ include('includes/adl_features.php');
 </p>
 </form>
     
+<form class="AddClient" action="/export/Export.php?query=LIFECOMM" method="post">
+<h3>Export Business Register (TEST)</h3>
+
+<p>
+<label for="Select" required>Select Policies that</label>
+<select name="Select">
+<option value="submitted_date">Were Added</option>
+<option value="sale_date">Were Sold</option>
+</select>
+</p>
+<br>
+
+<p>
+<label for="datefrom">From:</label>
+<input type="text" id="datefrom2" name="datefrom" value="<?php echo $datefrom ?>" required>
+</p>
+
+<p>
+<label for="dateto">To:</label>
+<input type="text" id="dateto2" name="dateto" value="<?php echo $dateto ?>" required>
+</p>
+
+<p>
+<button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
+</p>
+</form>    
+    
 <form class="AddClient" action="/export/Export.php?query=HOME" method="post">
 <h3>Export Home Business Register</h3>
 

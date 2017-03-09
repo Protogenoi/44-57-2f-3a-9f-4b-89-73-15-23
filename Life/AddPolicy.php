@@ -159,7 +159,7 @@ $query->execute();
 
 <p>
 <label for="policy_number">Policy Number:</label>
-<input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" placeholder="TBC">
+<input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php if($data2['company']=='The Review Bureau' || $data2['company']=='ADL_CUS') { echo "maxlength='10'"; } ?> placeholder="TBC">
 </p>
 <br>
 
@@ -380,7 +380,7 @@ $("#lead").easyAutocomplete(options);</script>
 </form>
 <br>
 <br>
-<form class="AddClient" method="GET" action="ViewClient.php?search=<?php echo $search;?>">
+<form class="AddClient" method="POST" action="ViewClient.php?search=<?php echo $search;?>">
 <button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
 </form>
 

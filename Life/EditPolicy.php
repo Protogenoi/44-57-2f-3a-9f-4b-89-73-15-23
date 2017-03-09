@@ -151,7 +151,7 @@ $NAME2=$data2['NAME2'];
 
 <p>
 <label for="policy_number">Policy Number</label>
-<input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>" class="form-control" style="width: 170px" required>
+<input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>" <?php if($data2['insurer']=='Legal and General') { echo "maxlength='10'"; } ?> class="form-control" style="width: 170px" required>
 </p>
 
 <?php if(isset($data2["insurer"])) { if($data2['insurer']!='Legal and General') { ?>

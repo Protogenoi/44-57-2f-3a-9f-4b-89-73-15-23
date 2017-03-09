@@ -149,7 +149,7 @@ $query->execute();
     <?php } 
     if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { ?>
 <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="Royal London" placeholder="Royal London" required>
-<?php } } else { ?>
+<?php } } if($data2['company']!='TRB WOL' || $data2['company']!='CUS WOL' || $data2['company']!='TRB Royal London' || $data2['company']!='CUS Royal London' || $data2['company']!='TRB WOL' || $data2['company']!='CUS WOL') { ?>
 <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; } if($data2['company']=='TRB Royal London') { echo "Royal London"; }  } ?>" required>
 <?php } ?>
 <label for="application_number"></label>

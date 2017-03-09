@@ -143,23 +143,23 @@ $query->execute();
 
 <p>
 <label for="application_number">Application Number:</label>
+<?php if(isset($data2['company'])) { 
+    if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { ?>
+<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="WOL" placeholder="WOL" required>
+    <?php } 
+    if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { ?>
+<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="Royal London" placeholder="Royal London" required>
+<?php } } else { ?>
 <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; } if($data2['company']=='TRB Royal London') { echo "Royal London"; }  } ?>" required>
+<?php } ?>
 <label for="application_number"></label>
-<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
-<?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 </p>
 <br>
+
 
 <p>
 <label for="policy_number">Policy Number:</label>
 <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" placeholder="TBC">
-<?php if(isset($data2['company'])) { 
-    if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') {  ?> 
-<span class="help-block">For WOL use One Family</span>
-    <?php }
-    
-    }
-    ?>
 </p>
 <br>
 
@@ -169,7 +169,9 @@ $query->execute();
   <select class="form-control" name="type" id="type" style="width: 170px" required>
   <option value="">Select...</option>
   <option value="LTA">LTA</option>
+  <?php if(isset($data2['company'])) { if($data2['company']=='TRB Vitality' || $data2['company']=='CUS Vitality') { ?>
   <option value="LTA SIC">LTA SIC (Vitality)</option>
+  <?php } } ?>
   <option value="LTA CIC">LTA + CIC</option>
   <option value="DTA">DTA</option>
   <option value="DTA CIC">DTA + CIC</option>
@@ -303,7 +305,7 @@ $query->execute();
 <option value="3 year">3 year</option>
 <option value="4 year">4 year</option>
 <option value="5 year">5 year</option>
-<option value="0">0</option>
+<option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?> value="0">0</option>
   </select>
 </div>
 </p>
@@ -378,7 +380,7 @@ $("#lead").easyAutocomplete(options);</script>
 </form>
 <br>
 <br>
-<form class="AddClient" method="GET" action="Life/ViewClient.php?search=<?php echo $search?>">
+<form class="AddClient" method="GET" action="ViewClient.php?search=<?php echo $search;?>">
 <button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
 </form>
 

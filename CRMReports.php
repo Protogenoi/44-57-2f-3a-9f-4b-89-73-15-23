@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 6);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('includes/Access_Levels.php');
@@ -121,7 +121,7 @@ if($ffanalytics=='1') {
 <?php } 
 
 if (in_array($hello_name,$Level_10_Access, true)) {
-    if($companynamere=='The Review Bureau') { ?>
+    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') { ?>
                     
                     <li>
                         <a href="/Life/Reports/FinancialUpload.php">
@@ -143,7 +143,7 @@ if (in_array($hello_name,$Level_10_Access, true)) {
                         </a>
                     </li>
                     
-                    <?php } ?>
+                    <?php } if($companynamere=='The Review Bureau'){ ?>
                     
                     <li>
                         <a href="Export.php">
@@ -164,7 +164,7 @@ if (in_array($hello_name,$Level_10_Access, true)) {
                             </div>
                         </a>
                     </li>
-                        <?php }  } 
+                            <?php }  } }
                         
                         if($ffpensions=='1') {
                             if($companynamere=='HWIFS') { ?>

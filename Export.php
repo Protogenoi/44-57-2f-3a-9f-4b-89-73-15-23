@@ -26,12 +26,10 @@ include('includes/adl_features.php');
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
 <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
 <script>
   $(function() {
     $( "#VITfrom" ).datepicker({
@@ -41,8 +39,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#VITto" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -51,8 +48,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
-<script>
+
   $(function() {
     $( "#datefrom2" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -61,8 +57,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto2" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -71,8 +66,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#datefrom3" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -81,8 +75,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto3" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -91,8 +84,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
-  <script>
+
   $(function() {
     $( "#datefrom4" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -101,8 +93,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto4" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -111,8 +102,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#datefrom5" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -121,8 +111,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto5" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -131,8 +120,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#datefrom6" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -141,8 +129,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto6" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -151,8 +138,7 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
-   <script>
+
   $(function() {
     $( "#datefrom7" ).datepicker({
         dateFormat: 'yy-mm-dd',
@@ -161,10 +147,27 @@ include('includes/adl_features.php');
     yearRange: "-100:+1"
         });
   });
-  </script>
- <script>
+
   $(function() {
     $( "#dateto7" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+    yearRange: "-100:+1"
+        });
+  });
+
+  $(function() {
+    $( "#datefrom8" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+    yearRange: "-100:+1"
+        });
+  });
+  
+  $(function() {
+    $( "#dateto8" ).datepicker({
         dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
@@ -230,22 +233,23 @@ include('includes/adl_features.php');
 
 <p>
 <label for="datefrom">From:</label>
-<input type="text" id="datefrom2" name="datefrom" value="<?php echo $datefrom ?>" required>
+<input type="text" id="datefrom2" name="datefrom8" value="<?php echo $datefrom ?>" required>
 </p>
 
 <p>
 <label for="dateto">To:</label>
-<input type="text" id="dateto2" name="dateto" value="<?php echo $dateto ?>" required>
+<input type="text" id="dateto2" name="dateto8" value="<?php echo $dateto ?>" required>
 </p>
 
 <p>
 <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
 </p>
 </form>    
+
+<?php if(isset($ffhome)) { if($ffhome=='1') { ?>
     
 <form class="AddClient" action="/export/Export.php?query=HOME" method="post">
 <h3>Export Home Business Register</h3>
-
 
 <p>
 <label for="datefrom">From:</label>
@@ -261,6 +265,8 @@ include('includes/adl_features.php');
 <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
 </p>
 </form> 
+
+<?php } } ?>
     
 <form class="AddClient" action="/export/Export.php?query=VITALITYLIFE" method="post">
 <h3>Export Vitality Business Register</h3>
@@ -345,10 +351,7 @@ include('includes/adl_features.php');
 
 </form>
 
-
-
 </div>
 </div>
 </body>
-
 </html>

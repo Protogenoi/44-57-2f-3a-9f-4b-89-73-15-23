@@ -112,6 +112,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                     <option value="CUS WOL">WOL</option>
                     <option value="CUS Vitality">Vitality</option>
                     <option value="CUS Home Insurance">Home Insurance</option>
+                    <option value="CUS Aviva">Aviva</option>
       <?php } ?>
 
   </select>

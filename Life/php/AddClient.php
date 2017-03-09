@@ -30,7 +30,7 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London') {
+    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
             
     ?>
 
@@ -176,7 +176,7 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {               
+                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
@@ -308,6 +308,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
 
 } 
 
+if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {
+
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assignCYD, PDO::PARAM_STR);
         $database->bind(':task', $taskCYD, PDO::PARAM_STR);
@@ -316,7 +318,9 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':cid', $lastid); 
         $database->execute();
         
-        if($custype!='ADL_CUS') {
+        }
+        
+        if($custype=='The Review Bureau') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign24, PDO::PARAM_STR);
@@ -327,6 +331,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->execute();
         
         }
+
+if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);
@@ -344,8 +350,11 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':cid', $lastid); 
         $database->execute();
         
- }
+}
+        
  
+        } 
+                
                 $database->endTransaction();
          
      }
@@ -414,8 +423,6 @@ if($custype=='CUS Home Insurance') { ?>
 <label for="application_number">Application Number:</label>
 <input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } if($custype=='TRB Royal London') { echo "Value='Royal London'"; }  } ?> required>
 <label for="application_number"></label>
-<?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { ?> <span class="help-block">For WOL use One Family</span>  <?php } }?>
-<?php if(isset($custype)) { if($custype=='TRB Royal London' || $custype=='CUS Royal London') { ?> <span class="help-block">For Royal London use Royal London</span>  <?php } }?>
 <br>
 
 <label for="policy_number">Policy Number:</label>
@@ -427,13 +434,17 @@ if($custype=='CUS Home Insurance') { ?>
   <select class="form-control" name="type" id="type" style="width: 140px" required>
   <option value="">Select...</option>
   <option value="LTA">LTA</option>
+  <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { ?>
   <option value="LTA SIC">LTA SIC (Vitality)</option>
+  <?php } } ?>
   <option value="LTA CIC">LTA + CIC</option>
   <option value="DTA">DTA</option>
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>WOL</option>
+  <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { ?>
+  <option value="WOL" <?php if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } ?> >WOL</option>
+  <?php } } ?>
   </select>
 </div>
 
@@ -544,7 +555,7 @@ if($custype=='CUS Home Insurance') { ?>
 <option value="3 year">3 year</option>
 <option value="4 year">4 year</option>
 <option value="5 year">5 year</option>
-<option value="0">0</option>
+<option value="0" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>0</option>
   </select>
 </div>
 

@@ -75,7 +75,7 @@ function textAreaAdjust(o) {
     <div class="form-group">
   <label class="col-md-4 control-label" for="agent">Lead Gen</label>  
   <div class="col-md-4">
-  <input id="provider-json" name='agent' class='form-control' required placeholder="Lead Gen" class="form-control input-md" type="text">
+      <input id="provider-json" name='agent' class='form-control' required placeholder="Lead Gen" class="form-control input-md" type="text" required="">
   </div>
 </div>
 

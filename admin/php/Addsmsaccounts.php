@@ -25,13 +25,12 @@ if(isset($addsms)) {
 $smsprovider= filter_input(INPUT_POST, 'smsprovider', FILTER_SANITIZE_SPECIAL_CHARS);
 $smsusername= filter_input(INPUT_POST, 'smsusername', FILTER_SANITIZE_SPECIAL_CHARS);
 $smspassword= filter_input(INPUT_POST, 'smspassword', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $query = $pdo->prepare("INSERT INTO sms_accounts set submitter=:helloholder, smsprovider=:providerholder, smsusername=:userholder, smspassword=:passholder");
-    
-        $query->bindParam(':providerholder', $smsprovider, PDO::PARAM_STR, 500);
-        $query->bindParam(':userholder', $smsusername, PDO::PARAM_STR, 500);
-        $query->bindParam(':passholder', $smspassword, PDO::PARAM_STR, 500);
-        $query->bindParam(':helloholder', $hello_name, PDO::PARAM_STR, 500);
+    $query = $pdo->prepare("INSERT INTO sms_accounts set submitter=:hello, smsprovider=:provider, smsusername=:user, smspassword=AES_ENCRYPT(:pass, UNHEX(:key))");
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);    
+    $query->bindParam(':provider', $smsprovider, PDO::PARAM_STR, 50);
+        $query->bindParam(':user', $smsusername, PDO::PARAM_STR, 100);
+        $query->bindParam(':pass', $smspassword, PDO::PARAM_STR, 500);
+        $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 100);
         
         $query->execute()or die(print_r($query->errorInfo(), true));
                             if(isset($fferror)) {

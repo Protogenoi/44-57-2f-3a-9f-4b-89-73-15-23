@@ -8,8 +8,9 @@ include('../includes/ADL_PDO_CON.php');
        
 $provdiersmsdb="Bulk SMS";
 
-    $querysms = $pdo->prepare("SELECT smsusername, smspassword, smsprovider FROM sms_accounts where smsprovider=:providerholder");
+    $querysms = $pdo->prepare("SELECT smsusername, smsprovider, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword FROM sms_accounts where smsprovider=:providerholder");
     $querysms->bindParam(':providerholder', $provdiersmsdb, PDO::PARAM_STR, 100);
+    $querysms->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
     $querysms->execute()or die(print_r($query->errorInfo(), true));
     $smsaccount=$querysms->fetch(PDO::FETCH_ASSOC);
     
@@ -38,13 +39,10 @@ $newNumber = preg_replace('/^0?/', '4'.$countryCode, $num);
 * Simply substitute your own username, password and phone number
 * below, and run the test code:
 */
-$username = $smsuser;
-$password = $smspass;
+
 /*
 * Your phone number, including country code, i.e. +44123123123 in this case:
 */
-$msisdn = "$newNumber";
-
 /*
 * Please see the FAQ regarding HTTPS (port 443) and HTTP (port 80/5567)
 */
@@ -130,7 +128,7 @@ $transient_errors = array(
 /*
 * Sending 7-bit message
 */
-$post_body = seven_bit_sms( $username, $password, $seven_bit_msg, $msisdn );
+$post_body = seven_bit_sms( $smsuser, $smspass, $seven_bit_msg, $newNumber );
 $result = send_message( $post_body, $url, $port );
 if( $result['success'] ) {
   print_ln( formatted_server_response( $result ) );
@@ -142,7 +140,7 @@ else {
 /*
 * Sending unicode message
 */
-$post_body = unicode_sms( $username, $password, $unicode_msg, $msisdn );
+$post_body = unicode_sms( $smsuser, $smspass, $unicode_msg, $newNumber );
 $result = send_message( $post_body, $url, $port );
 if( $result['success'] ) {
   print_ln( formatted_server_response( $result ) );
@@ -154,7 +152,7 @@ else {
 /*
 * Sending 8-bit message
 */
-$post_body = eight_bit_sms( $username, $password, $eight_bit_msg, $msisdn );
+$post_body = eight_bit_sms( $smsuser, $smspass, $eight_bit_msg, $newNumber );
 $result = send_message( $post_body, $url, $port );
 if( $result['success'] ) {
   print_ln( formatted_server_response( $result ) );
@@ -265,12 +263,12 @@ function send_message ( $post_body, $url, $port ) {
   return $sms_result;
 }
 
-function seven_bit_sms ( $username, $password, $message, $msisdn ) {
+function seven_bit_sms ( $smsuser, $smspass, $message, $newNumber ) {
   $post_fields = array (
-  'username' => $username,
-  'password' => $password,
+  'username' => $smsuser,
+  'password' => $smspass,
   'message'  => character_resolve( $message ),
-  'msisdn'   => $msisdn,
+  'msisdn'   => $newNumber,
   'allow_concat_text_sms' => 1, # Change to 1 to enable long messages
   'concat_text_sms_max_parts' => 2
   );
@@ -278,12 +276,12 @@ function seven_bit_sms ( $username, $password, $message, $msisdn ) {
   return make_post_body($post_fields);
 }
 
-function unicode_sms ( $username, $password, $message, $msisdn ) {
+function unicode_sms ( $smsuser, $smspass, $message, $newNumber ) {
   $post_fields = array (
-  'username' => $username,
-  'password' => $password,
+  'username' => $smsuser,
+  'password' => $smspass,
   'message'  => string_to_utf16_hex( $message ),
-  'msisdn'   => $msisdn,
+  'msisdn'   => $newNumber,
   'dca'      => '16bit'
   );
 
@@ -302,12 +300,12 @@ return '06050423F40000';
 }
 }
 */
-function eight_bit_sms( $username, $password, $message, $msisdn ) {
+function eight_bit_sms( $smsuser, $smspass, $message, $newNumber ) {
   $post_fields = array (
-  'username' => $username,
-  'password' => $password,
+  'username' => $smsuser,
+  'password' => $smspass,
   'message'  => $message,
-  'msisdn'   => $msisdn,
+  'msisdn'   => $newNumber,
   'dca'      => '8bit'
   );
 

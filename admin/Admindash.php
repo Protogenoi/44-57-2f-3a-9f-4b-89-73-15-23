@@ -431,7 +431,8 @@ echo "<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"
                         
                         if($SMSselect=='y') {
                             
-                            $smsquery = $pdo->prepare("select smsprovider, smsusername, smspassword from sms_accounts limit 1");
+                            $smsquery = $pdo->prepare("select smsprovider, smsusername, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword from sms_accounts limit 1");
+                            $smsquery->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
                             $smsquery->execute()or die(print_r($query->errorInfo(), true));
                             $smsaccount=$smsquery->fetch(PDO::FETCH_ASSOC);
                             
@@ -439,8 +440,6 @@ echo "<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"
                             $smspass=$smsaccount['smspassword'];
                             $smspro=$smsaccount['smsprovider'];
                             ?>
-                        
-                        
                             
                         <h1><i class="fa fa-commenting-o"></i> SMS Configuration</h1>
                         <br>                            
@@ -689,7 +688,7 @@ echo "</table>";
      
      <p>Enter you SMS provider/gateway settings here.</p>
                         
-                        <form class="form-horizontal" method="POST" action="../php/Addsmsaccounts.php?addsms">
+                        <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?addsms">
                             <fieldset>
                                 <legend>SMS Settings</legend>
 

@@ -1038,7 +1038,8 @@ if(isset($fferror)) {
                                 
                                 try {
                                 
-                                $smsquery = $pdo->prepare("select smsprovider, smsusername, smspassword from sms_accounts limit 1");
+                                $smsquery = $pdo->prepare("select smsprovider, smsusername, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword from sms_accounts limit 1");
+                                $smsquery->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);  
                                 $smsquery->execute()or die(print_r($query->errorInfo(), true));
                                 $smsaccount=$smsquery->fetch(PDO::FETCH_ASSOC);
                                 

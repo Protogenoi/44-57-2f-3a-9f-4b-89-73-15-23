@@ -149,14 +149,10 @@ $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->Subject    = $subject;
 $mail->IsHTML(true); 
-
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-
 $mail->AddAddress($email, $recipient);
-
 $mail->Body    = $body;
 
-//$mail->Body    = $sig;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
@@ -208,7 +204,7 @@ $sig = "<br>-- \n
 <br>
 
 $signat";
-$body = $message;
+$body = html_entity_decode($message);
 $body .= $sig;
 
 $mail             = new PHPMailer();

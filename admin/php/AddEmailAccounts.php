@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -50,7 +50,7 @@ if ($duperaw->num_rows >= 1) {
     }
     
         $query = $pdo->prepare("UPDATE email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello where emailaccount='account1'");
-        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
         $query->bindParam(':pop', $pop, PDO::PARAM_STR, 500);
@@ -79,7 +79,7 @@ if ($duperaw->num_rows >= 1) {
 else {
     
     $query = $pdo->prepare("INSERT INTO email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, emailaccount=:emailaccount, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello");
-    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);  
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);  
         $query->bindParam(':emailaccount', $emailaccount, PDO::PARAM_STR, 500);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
@@ -123,7 +123,7 @@ if ($duperaw->num_rows >= 1) {
     }
     
         $query = $pdo->prepare("UPDATE email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello where emailaccount='account2'");
-        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
         $query->bindParam(':pop', $pop, PDO::PARAM_STR, 500);
@@ -150,7 +150,7 @@ if ($duperaw->num_rows >= 1) {
 }
     else {
     $query = $pdo->prepare("INSERT INTO email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, emailaccount=:emailaccount, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello");
-    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':emailaccount', $emailaccount, PDO::PARAM_STR, 500);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
@@ -191,7 +191,7 @@ if ($duperaw->num_rows >= 1) {
     }
     
         $query = $pdo->prepare("UPDATE email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello where emailaccount='account3'");
-        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
         $query->bindParam(':pop', $pop, PDO::PARAM_STR, 500);
@@ -219,7 +219,7 @@ if ($duperaw->num_rows >= 1) {
 else {
     
     $query = $pdo->prepare("INSERT INTO email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, emailaccount=:emailaccount, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello");
-    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':emailaccount', $emailaccount, PDO::PARAM_STR, 500);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
@@ -261,7 +261,7 @@ if ($duperaw->num_rows >= 1) {
     }
     
         $query = $pdo->prepare("UPDATE email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello where emailaccount='account4'");
-        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);
         $query->bindParam(':pop', $pop, PDO::PARAM_STR, 500);
@@ -289,7 +289,7 @@ if ($duperaw->num_rows >= 1) {
 else {
     
     $query = $pdo->prepare("INSERT INTO email_accounts set emailfrom=:emailfrom, emailreply=:emailreply, emailsubject=:emailsubject, emailbcc=:emailbcc, emailaccount=:emailaccount, displayname=:displayname, emailtype=:emailtype, pop=:pop, popport=:popport, imap=:imap, imapport=:imapport, smtp=:smtp, smtpport=:smtpport, email=:email, password=AES_ENCRYPT(:password, UNHEX(:key)), added_by=:hello");
-    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
     $query->bindParam(':emailaccount', $emailaccount, PDO::PARAM_STR, 500);
         $query->bindParam(':displayname', $displayname, PDO::PARAM_STR, 500);
         $query->bindParam(':emailtype', $emailtype, PDO::PARAM_STR, 500);

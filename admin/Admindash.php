@@ -978,7 +978,7 @@ $emailacc2=$query->fetch(PDO::FETCH_ASSOC);
         
         ?>
                                 
-                                 <form class="form-horizontal" method="POST" action="../php/AddEmailAccounts.php?add=y">
+                                 <form class="form-horizontal" method="POST" action="php/AddEmailAccounts.php?add=y">
                             <fieldset>
 
 <legend>Email Settings (Account 2)</legend>
@@ -1143,7 +1143,7 @@ $emailacc3=$query->fetch(PDO::FETCH_ASSOC);
         $imapport3=$emailacc3['imapport'];
                                 
                                 ?>
-                                 <form class="form-horizontal" method="POST" action="../php/AddEmailAccounts.php?add=y">
+                                 <form class="form-horizontal" method="POST" action="php/AddEmailAccounts.php?add=y">
                             <fieldset>
 
 <legend>Email Settings (Account 3)</legend>
@@ -1310,7 +1310,7 @@ $emailacc4=$query->fetch(PDO::FETCH_ASSOC);
                                 
                                 ?>
                                 
-                                 <form class="form-horizontal" method="POST" action="../php/AddEmailAccounts.php?add=y">
+                                 <form class="form-horizontal" method="POST" action="php/AddEmailAccounts.php?add=y">
                             <fieldset>
 
 <legend>Email Settings (Account 4)</legend>

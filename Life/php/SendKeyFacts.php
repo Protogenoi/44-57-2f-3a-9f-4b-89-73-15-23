@@ -10,17 +10,15 @@ if(isset($ffkeyfactsemail) && $ffkeyfactsemail=='0') {
     header('Location: ../../CRMmain.php?Feature=NotEnabled'); die;
 }
 
-
 require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
+
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
-$keyfactsr="Key Facts";
-
         
-        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, email_accounts.password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailtype=:emailtypeholder");
-        $query->bindParam(':emailtypeholder', $keyfactsr, PDO::PARAM_STR);
+        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
+  $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
 $query->execute()or die(print_r($query->errorInfo(), true));
 $queryr=$query->fetch(PDO::FETCH_ASSOC);
 
@@ -44,13 +42,6 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
         
 if($companynamere=='The Review Bureau') {
 
-        
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-//echo '<pre>';
-//print_r($_FILES);
-//echo '</pre>';  
-
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -71,9 +62,6 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     $uploadOk = 0;
 }
 
-
-
-
 $message ="<img src='cid:KeyFacts'>";
 $sig = "<br>-- \n
 <br>
@@ -81,27 +69,18 @@ $sig = "<br>-- \n
 <br>
 
 $signat";
-
 $body = $message;
 $body .= $sig;
-
 $mail             = new PHPMailer();
 $mail->IsSMTP(); // telling the class to use SMTP
 $mail->CharSet = 'UTF-8';
 $mail->Host       = "$emailsmtpdb"; // SMTP server
-//$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-                                           // 1 = errors and messages
-                                           // 2 = messages only
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->SMTPSecure = "ssl"; 
 $mail->Port       = $emailsmtpportdb;                    // set the SMTP port for the GMAIL server
 $mail->Username   = "$emaildb"; // SMTP account username
 $mail->Password   = "$passworddb";        // SMTP account password
 
-//$mail->AddEmbeddedImage('img/tick.png', 'tick');
-//$mail->AddEmbeddedImage('img/cross.png', 'cross');
-//$mail->AddEmbeddedImage('img/Keyfacts.jpg', 'keyfacts');
-//$mail->AddEmbeddedImage('img/RBlogo.png', 'logo');
 $mail->AddEmbeddedImage('../../img/Key Facts - The Review Bureau.png', 'KeyFacts');
 $mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
 

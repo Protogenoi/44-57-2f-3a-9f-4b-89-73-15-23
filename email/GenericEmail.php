@@ -96,27 +96,6 @@ include('../includes/adlfunctions.php');
   </div>
 </div>
 
-<div class="form-group">
-  <label class="col-md-4 control-label" for="fileToUpload4">Add attachment (4)</label>
-  <div class="col-md-4">
-    <input id="fileToUpload4" name="fileToUpload4" class="input-file" type="file">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="fileToUpload5">Add attachment (5)</label>
-  <div class="col-md-4">
-    <input id="fileToUpload5" name="fileToUpload5" class="input-file" type="file">
-  </div>
-</div>
-
-<div class="form-group">
-  <label class="col-md-4 control-label" for="fileToUpload6">Add attachment (6)</label>
-  <div class="col-md-4">
-    <input id="fileToUpload6" name="fileToUpload6" class="input-file" type="file">
-  </div>
-</div>
-
 <br>
 <br>
  

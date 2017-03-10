@@ -69,7 +69,24 @@ if(isset($hello_name)) {
      }
 
 require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
-include('../../includes/config.php');
+include('../../includes/ADL_PDO_CON.php');
+
+
+        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        $queryr=$query->fetch(PDO::FETCH_ASSOC);
+        $emailfromdb=$queryr['emailfrom'];
+        $emailbccdb=$queryr['emailbcc'];
+        $emailreplydb=$queryr['emailreply'];
+        $emailsubjectdb=$queryr['emailsubject'];
+        $SMTP_HOST=$queryr['smtp'];
+        $SMTP_PORT=$queryr['smtpport'];
+        $emaildisplaynamedb=$queryr['displayname'];
+        $SMTP_PASS=$queryr['password'];
+        $SMTP_USER=$queryr['email'];
+        $signat=  html_entity_decode($queryr['sig']);
+
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -81,28 +98,7 @@ $sig = "<br>-- \n
 <br>
 <br>
 <br>
-
-<p>
-<font color='blue'><b>Customer Service</font></b><br>
-<font color='blue'><b>E:</font></b> info@thereviewbureau.com <br>
-
-<font color='blue'></b>T:</font></b> 0845 095 0041 <br>
-
-<font color='blue'></b>F:</font></b> 0845 095 0042 <br>
-</p>
-<br>
-<img src='cid:logo' style='width:200px;height:100px'>
-</br>
-<br>
-----------------------------------------------------------------<br>
-<p>
-This e-mail is intended only for the person to whom it is addressed. If an addressing or transmission error has misdirected this e-mail, please notify the sender by replying to this e-mail. If you are not the intended recipient, please delete this e-mail and do not use, disclose, copy, print or rely on the e-mail in any manner. To the extent permitted by law, The Review Bureau Ltd does not accept or assume any liability, responsibility or duty of care for any use of or reliance on this e-mail by anyone, other than the intended recipient to the extent agreed in the relevant contract for the matter to which this e-mail relates (if any).
-</p>
-<p>
-The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
-</p>
-----------------------------------------------------------------
-<br>Visit our website <a href='http://www.TheReviewBureau.com'>www.TheReviewBureau.com</a>";
+$signat";
 
 $body = "<p>Dear $recipient,</p>
           <p>           
@@ -125,25 +121,21 @@ $mail             = new PHPMailer();
 $mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
     $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
     $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-    $mail->ConfirmReadingTo = 'info@thereviewbureau.com';
+    $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); // telling the class to use SMTP
 $mail->CharSet = 'UTF-8';
-$mail->Host       = "smtp.123-reg.co.uk"; // SMTP server
+$mail->Host       = "$SMTP_HOST"; // SMTP server
 //$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
                                            // 1 = errors and messages
                                            // 2 = messages only
 $mail->SMTPAuth   = true;                  // enable SMTP authentication
 $mail->SMTPSecure = "ssl"; 
-$mail->Port       = 465;                    // set the SMTP port for the GMAIL server
-$mail->Username   = "$IDD_123_EMAIL"; // SMTP account username
-$mail->Password   = "$IDD_123_PASS";        // SMTP account password
-
-
-$mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
-
-$mail->SetFrom('idd@thereviewbureau.com', 'The Review Bureau');
-$mail->AddReplyTo("info@thereviewbureau.com","The Review Bureau Info");
+$mail->Port       = $SMTP_PORT;                    // set the SMTP port for the GMAIL server
+$mail->Username   = "$SMTP_USER"; // SMTP account username
+$mail->Password   = "$SMTP_PASS";        // SMTP account password
+$mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
+$mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->Subject    = $subject;
 $mail->IsHTML(true); 
 
@@ -155,6 +147,7 @@ $mail->Body    = $body;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
+  header('Location: ../../Life/ViewClient.php?emailfailed&search='.$keyfielddata); die;
 } else {
     
     $notetype="Email Sent";

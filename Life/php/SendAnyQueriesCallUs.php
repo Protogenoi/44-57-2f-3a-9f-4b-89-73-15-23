@@ -12,13 +12,10 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
                             $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-                            
                             $companynamere=$companydetailsq['company_name'];    
 
-$keyfactsr="Key Facts";
-        
-        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, email_accounts.password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailtype=:emailtypeholder");
-        $query->bindParam(':emailtypeholder', $keyfactsr, PDO::PARAM_STR);
+        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
+$query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         $queryr=$query->fetch(PDO::FETCH_ASSOC);
 
@@ -100,10 +97,6 @@ if(isset($hello_name)) {
      }
      
      }
-     
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -120,9 +113,9 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
     echo "FAIL";
     $uploadOk = 0;
 }
+$email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$email = $_GET['email'] ;
-$recipient = $_GET['recipient'] ;
 $message ="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>

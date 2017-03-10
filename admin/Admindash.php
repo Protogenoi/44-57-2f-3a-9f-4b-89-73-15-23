@@ -813,7 +813,7 @@ $emailacc1=$query->fetch(PDO::FETCH_ASSOC);
         $imap=$emailacc1['imap'];
         $imapport=$emailacc1['imapport'];
                         ?>
-                        <form class="form-horizontal" method="POST" action="../php/AddEmailAccounts.php?add=y">
+                        <form class="form-horizontal" method="POST" action="php/AddEmailAccounts.php?add=y">
                             <fieldset>
 
 <legend>Email Settings (Account 1)</legend>

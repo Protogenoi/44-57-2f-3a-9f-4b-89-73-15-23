@@ -23,7 +23,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             
                             $companynamere=$companydetailsq['company_name'];        
         
-if($companynamere=='The Review Bureau') {   
+if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {   
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -61,8 +61,7 @@ $mail->SMTPSecure = "ssl";
 $mail->Port       = $SMTP_PORT;                    
 $mail->Username   = "$SMTP_USER"; 
 $mail->Password   = "$SMTP_PASS";
-$mail->SMTPDebug  = 2;
-$mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
+#$mail->SMTPDebug  = 0;
 
 if (isset($_FILES["fileToUpload"]) &&
     $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {

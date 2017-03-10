@@ -16,6 +16,14 @@ include('../../includes/ADL_PDO_CON.php');
         $SMTP_PASS=$queryr['password'];
         $SMTP_USER=$queryr['email'];
         $signat=  html_entity_decode($queryr['sig']);
+        
+        $cnquery = $pdo->prepare("select company_name from company_details limit 1");
+                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
+                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+                            
+                            $companynamere=$companydetailsq['company_name'];  
+                            
+if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {                               
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -55,16 +63,15 @@ $mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
     $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
     $mail->ConfirmReadingTo = "$emailbccdb";
 
-$mail->IsSMTP(); // telling the class to use SMTP
+$mail->IsSMTP(); 
 $mail->CharSet = 'UTF-8';
-$mail->Host       = "$SMTP_HOST"; // SMTP server
-$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->Host       = "$SMTP_HOST"; 
+$mail->SMTPAuth   = true;                  
 $mail->SMTPSecure = "ssl"; 
-$mail->Port       = $SMTP_PORT;                    // set the SMTP port for the GMAIL server
-$mail->Username   = "$SMTP_USER"; // SMTP account username
-$mail->Password   = "$SMTP_PASS";        // SMTP account password
+$mail->Port       = $SMTP_PORT;                    
+$mail->Username   = "$SMTP_USER";
+$mail->Password   = "$SMTP_PASS";
 
-$mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
 if (isset($_FILES["fileToUpload"]) &&
     $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
     $mail->AddAttachment($_FILES["fileToUpload"]["tmp_name"],
@@ -108,7 +115,7 @@ $mail->AddBCC("$emailbccdb", "$emaildisplaynamedb");
 $mail->Subject    = $subject;
 $mail->IsHTML(true); 
 
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
 
 $address = $email;
 $mail->AddAddress($address, $recipient);
@@ -119,5 +126,7 @@ if(!$mail->Send()) {
   header('Location: ../InternalEmail.php?emailfailed'); die;
 } else {
 header('Location: ../InternalEmail.php?emailsent&emailto='.$email); die;
+}
+
 }
     ?>

@@ -12,7 +12,40 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 }
 
+require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+include('../../includes/ADL_PDO_CON.php');
 
+        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
+        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        $queryr=$query->fetch(PDO::FETCH_ASSOC);
+        $emailfromdb=$queryr['emailfrom'];
+        $emailbccdb=$queryr['emailbcc'];
+        $emailreplydb=$queryr['emailreply'];
+        $emailsubjectdb=$queryr['emailsubject'];
+        $SMTP_HOST=$queryr['smtp'];
+        $SMTP_PORT=$queryr['smtpport'];
+        $emaildisplaynamedb=$queryr['displayname'];
+        $SMTP_PASS=$queryr['password'];
+        $SMTP_USER=$queryr['email'];
+        $signat=  html_entity_decode($queryr['sig']);
+        
+                $cnquery = $pdo->prepare("select company_name from company_details limit 1");
+                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
+                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+                            
+                            $companynamere=$companydetailsq['company_name'];       
+                            
+if(isset($companynamere))  {      
+
+
+$search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
+$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if($companynamere=='The Review Bureau') {
+    
 if(isset($hello_name)) {
     
      switch ($hello_name) {
@@ -66,31 +99,7 @@ if(isset($hello_name)) {
              
      }
      
-     }
-
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
-include('../../includes/ADL_PDO_CON.php');
-
-        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
-        $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
-        $query->execute()or die(print_r($query->errorInfo(), true));
-        $queryr=$query->fetch(PDO::FETCH_ASSOC);
-        $emailfromdb=$queryr['emailfrom'];
-        $emailbccdb=$queryr['emailbcc'];
-        $emailreplydb=$queryr['emailreply'];
-        $emailsubjectdb=$queryr['emailsubject'];
-        $SMTP_HOST=$queryr['smtp'];
-        $SMTP_PORT=$queryr['smtpport'];
-        $emaildisplaynamedb=$queryr['displayname'];
-        $SMTP_PASS=$queryr['password'];
-        $SMTP_USER=$queryr['email'];
-        $signat=  html_entity_decode($queryr['sig']);
-
-
-$search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
-$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
-$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+     }    
 
 $subject = "The Review Bureau - Direct Debit" ;
 $sig = "<br>-- \n
@@ -119,27 +128,22 @@ $mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
     $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
     $mail->ConfirmReadingTo = "$emailbccdb";
 
-$mail->IsSMTP(); // telling the class to use SMTP
+$mail->IsSMTP(); 
 $mail->CharSet = 'UTF-8';
-$mail->Host       = "$SMTP_HOST"; // SMTP server
-//$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
-                                           // 1 = errors and messages
-                                           // 2 = messages only
-$mail->SMTPAuth   = true;                  // enable SMTP authentication
+$mail->Host       = "$SMTP_HOST"; 
+$mail->SMTPAuth   = true;                 
 $mail->SMTPSecure = "ssl"; 
-$mail->Port       = $SMTP_PORT;                    // set the SMTP port for the GMAIL server
-$mail->Username   = "$SMTP_USER"; // SMTP account username
-$mail->Password   = "$SMTP_PASS";        // SMTP account password
+$mail->Port       = $SMTP_PORT;                   
+$mail->Username   = "$SMTP_USER"; 
+$mail->Password   = "$SMTP_PASS";     
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->Subject    = $subject;
 $mail->IsHTML(true); 
-
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
 $address = $email;
 $mail->AddAddress($address, $recipient);
 $mail->Body    = $body;
-
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
@@ -163,5 +167,107 @@ $ref= "$recipient";
   header('Location: ../../Life/ViewClient.php?emailsent&search='.$search.'&emailto='.$email); die;
 
 }
+}
 
+if($companynamere=='ADL_CUS') {
+    
+if(isset($hello_name)) {
+    
+     switch ($hello_name) {
+         case "Michael":
+             $hello_name_full="Michael Owen";
+             break;
+         case "Dean":
+             $hello_name_full="Dean Howell";
+             break;
+         case "Helen":
+             $hello_name_full="Helen Hinder";
+             break;
+         case "Andrew":
+             $hello_name_full="Andrew Collier";
+             break;
+         case "David":
+             $hello_name_full="David Govier";
+             break;
+         default:
+             $hello_name_full=$hello_name;
+             
+     }
+     
+     }
+     
+$subject = "The Financial Assessment Centre - Direct Debit" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+
+$signat";
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+There is an issue with your Legal and General direct debit <strong>$policy</strong>. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 02036 349 515 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Thursday 10:00 - 18:30, Fridays 10:00 - 16:00.</p>
+          Many thanks,<br>
+$hello_name_full<br>The Financial Assessment Centre
+          </p>";
+$body .= $sig;
+
+$mail             = new PHPMailer();
+
+$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
+    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
+    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
+    $mail->ConfirmReadingTo = "$emailbccdb";
+
+$mail->IsSMTP(); 
+$mail->CharSet = 'UTF-8';
+$mail->Host       = "$SMTP_HOST"; 
+$mail->SMTPAuth   = true;                
+$mail->SMTPSecure = "ssl"; 
+$mail->Port       = $SMTP_PORT;                  
+$mail->Username   = "$SMTP_USER";
+$mail->Password   = "$SMTP_PASS";      
+$mail->AddEmbeddedImage('../../uploads/LoginLogo.jpg', 'logo');
+$mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
+$mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
+$mail->Subject    = $subject;
+$mail->IsHTML(true); 
+
+
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
+$address = $email;
+$mail->AddAddress($address, $recipient);
+$mail->Body    = $body;
+
+
+if(!$mail->Send()) {
+  echo "Mailer Error: " . $mail->ErrorInfo;
+} else {
+    
+    $notetype="Email Sent";
+$message="Uncontactable email sent ($email)";
+$ref= "$recipient";
+
+
+                $noteq = $pdo->prepare("INSERT into client_note set client_id=:id, note_type=:type, client_name=:ref, message=:message, sent_by=:sent");
+                $noteq->bindParam(':id', $search, PDO::PARAM_STR);
+                $noteq->bindParam(':sent', $hello_name, PDO::PARAM_STR);
+                $noteq->bindParam(':type', $notetype, PDO::PARAM_STR);
+                $noteq->bindParam(':message', $message, PDO::PARAM_STR);
+                $noteq->bindParam(':ref', $ref, PDO::PARAM_STR);
+                $noteq->execute()or die(print_r($noteq->errorInfo(), true));
+    
+    
+  header('Location: ../../Life/ViewClient.php?emailsent&search='.$search.'&emailto='.$email); die;
+
+}     
+    
+}
+
+}
     ?>

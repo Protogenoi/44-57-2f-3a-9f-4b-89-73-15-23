@@ -177,13 +177,12 @@ $(document).ready(function() {
             } },
          { "data": "client_id",
             "render": function(data, type, full, meta) {
-                return '<a href="/AddProduct.php?Life=y&search=' + data + '">Add Policy</a>';
+                return '<a href="/Home/AddPolicy.php?Home=y&search=' + data + '">Add Policy</a>';
             } },
         ],
     } );
 
 } );
-		</script>
-               
+</script>            
 </body>
 </html>

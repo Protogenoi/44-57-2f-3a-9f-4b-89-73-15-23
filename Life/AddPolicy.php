@@ -12,6 +12,8 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 }
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+include('../includes/ADL_PDO_CON.php'); 
 if(isset($fferror)) {
     if($fferror=='1') {
         
@@ -22,7 +24,19 @@ if(isset($fferror)) {
     }
     
     }
-?>
+          
+          if(isset($EXECUTE)){
+              if ($EXECUTE =='1') {
+
+$query = $pdo->prepare("SELECT company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
+$query->bindParam(':CID',$search, PDO::PARAM_STR);
+$query->execute(); 
+  $data2=$query->fetch(PDO::FETCH_ASSOC);     
+
+if(isset($data2['company']) && $data2['company']=='TRB Home Insurance' || $data2['company']=='Home Insurance' || $data2['company']=='CUS Home Insurance')  {
+    header('Location: ../Home/AddPolicy.php?Home=y&CID='.$search); die;
+}
+          ?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Add Product</title>
@@ -79,7 +93,6 @@ input.currency {
 <body>
 
 <?php include('../includes/navbar.php'); 
-include('../includes/ADL_PDO_CON.php'); 
     include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
     if($ffanalytics=='1') {
@@ -88,7 +101,7 @@ include('../includes/ADL_PDO_CON.php');
     
     }
 
-$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+
 ?>
 
 <br>
@@ -99,16 +112,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
       <div class="panel-heading">Add Product</div>
       <div class="panel-body">
           
-          <?php 
-          
-          if(isset($EXECUTE)){
-              if ($EXECUTE =='1') {
 
-$query = $pdo->prepare("SELECT company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
-$query->bindParam(':CID',$search, PDO::PARAM_STR);
-$query->execute(); 
-  $data2=$query->fetch(PDO::FETCH_ASSOC);       
-          ?>
       
 <form class="AddClient" action="php/AddPolicy.php?EXECUTE=1&CID=<?php echo $search;?>" method="POST">
 
@@ -149,9 +153,10 @@ $query->execute();
     <?php } 
     if($data2['company']=='TRB Royal London' || $data2['company']=='CUS Royal London') { ?>
 <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="Royal London" placeholder="Royal London" required>
-<?php } } if($data2['company']!='TRB WOL' || $data2['company']!='CUS WOL' || $data2['company']!='TRB Royal London' || $data2['company']!='CUS Royal London' || $data2['company']!='TRB WOL' || $data2['company']!='CUS WOL') { ?>
-<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; } if($data2['company']=='TRB Royal London') { echo "Royal London"; }  } ?>" required>
-<?php } ?>
+<?php } }
+    if($data2['company']!='TRB WOL' || $data2['company']!='CUS WOL' || $data2['company']!='TRB Royal London' || $data2['company']!='CUS Royal London' || $data2['company']!='TRB WOL' || $data2['company']!='CUS WOL') { ?>
+<input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "WOL"; }  } ?>" required>
+              <?php } ?>
 <label for="application_number"></label>
 </p>
 <br>

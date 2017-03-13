@@ -99,6 +99,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
   <select class="form-control" name="custype" id="custype" style="width: 170px" required>
       <option value="">Select...</option>
       <?php if($companynamere=='The Review Bureau') { ?>
+                    <option value="TRB Archive">TRB Archive</option>
                     <option value="The Review Bureau">TRB Life Insurance</option>
                     <option value="TRB Royal London">Royal London</option>
                     <option value="TRB WOL">WOL</option>

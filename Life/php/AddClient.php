@@ -30,7 +30,7 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
+    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='TRB Archive' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
             
     ?>
 
@@ -375,7 +375,7 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $
 
 <div class="col-md-4">
 
-<?php if($custype=='The Review Bureau' || 'Assura' || 'TRB WOL') { ?>
+<?php if($custype=='The Review Bureau' || 'Assura' || 'TRB WOL' || 'TRB Archive') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life">
 <?php }
 if($custype=='TRB Vitality') { ?>
@@ -416,7 +416,7 @@ if($custype=='CUS Home Insurance') { ?>
 
 <br>
 <label for="sale_date">Sale Date:</label>
-<input class="form-control" type="text" id="sale_date" value="<?php echo $date = date('Y-m-d H:i:s');?>" placeholder="<?php echo $date = date('Y-m-d H:i:s');?>" name="sale_date"  style="width: 140px" required>
+<input class="form-control" type="text" id="sale_date" value="<?php if($custype=='TRB Archive') { echo "2013"; } else { echo $date = date('Y-m-d H:i:s'); } ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s');?>" name="sale_date"  style="width: 140px" required>
 
 <br>
 
@@ -434,6 +434,9 @@ if($custype=='CUS Home Insurance') { ?>
   <select class="form-control" name="type" id="type" style="width: 140px" required>
   <option value="">Select...</option>
   <option value="LTA">LTA</option>
+      <?php if(isset($custype)) { if($custype=='TRB Archive') { ?>
+  <option value="TRB Archive" <?php if($custype=='TRB Archive') { echo "selected"; } ?> >TRB Archive</option>
+  <?php } } ?>
   <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { ?>
   <option value="LTA SIC">LTA SIC (Vitality)</option>
   <?php } } ?>
@@ -454,7 +457,7 @@ if($custype=='CUS Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL_CUS') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Archive') { echo "selected"; } } ?>>Legal & General</option>
   <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
@@ -471,7 +474,7 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" required/>
+        <input <?php if($custype=='TRB Archive') { echo "value='0'"; } ?> autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" required/>
     </div> 
 <br>
 
@@ -480,7 +483,7 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="commission">Commission</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
+        <input <?php if($custype=='TRB Archive') { echo "value='0'"; } ?> autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
     </div> 
 <br>
 
@@ -489,7 +492,7 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="commission">Cover Amount</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
+        <input <?php if($custype=='TRB Archive') { echo "value='0'"; } ?> autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
     </div> 
 <br>
 
@@ -498,7 +501,7 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="commission">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
+        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "value='WOL'"; } if($custype=='TRB Archive') { echo "value='0'"; } } ?> required/>
     </div> 
         <br>
 
@@ -555,7 +558,7 @@ if($custype=='CUS Home Insurance') { ?>
 <option value="3 year">3 year</option>
 <option value="4 year">4 year</option>
 <option value="5 year">5 year</option>
-<option value="0" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>0</option>
+<option value="0" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL' || $custype=='TRB Archive') { echo "selected"; } } ?>>0</option>
   </select>
 </div>
 
@@ -565,7 +568,7 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="commission">Drip</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
+        <input <?php if($custype=='TRB Archive') { echo "value='0'"; } ?> autocomplete="off" style="width: 140px" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
     </div> 
 
 <br>

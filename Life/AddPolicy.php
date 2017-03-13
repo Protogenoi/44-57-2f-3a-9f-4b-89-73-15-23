@@ -137,7 +137,7 @@ $query->execute();
 
 <p>
 <label for="sale_date">Sale Date:</label>
-<input type="text" id="sale_date" name="sale_date" value="<?php echo $date = date('Y-m-d H:i:s');?>" placeholder="<?php echo $date = date('Y-m-d H:i:s');?>"class="form-control" style="width: 170px" required>
+<input type="text" id="sale_date" name="sale_date" value="<?php if($data2['company']=='TRB Archive') { echo "2013"; } else { echo $date = date('Y-m-d H:i:s'); } ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s');?>"class="form-control" style="width: 170px" required>
 </p>
 <br>
 
@@ -169,6 +169,7 @@ $query->execute();
   <select class="form-control" name="type" id="type" style="width: 170px" required>
   <option value="">Select...</option>
   <option value="LTA">LTA</option>
+    <option value="TRB Archive" <?php if(isset($data2['company'])) { if($data2['company']=='TRB Archive') { echo "selected"; } } ?> >TRB Archive</option>
   <?php if(isset($data2['company'])) { if($data2['company']=='TRB Vitality' || $data2['company']=='CUS Vitality') { ?>
   <option value="LTA SIC">LTA SIC (Vitality)</option>
   <?php } } ?>
@@ -177,7 +178,7 @@ $query->execute();
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <option value="WOL" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?>>WOL</option>
+  <option value="WOL" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?> >WOL</option>
   </select>
 </div>
 </p>
@@ -187,7 +188,7 @@ $query->execute();
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau' || $data2['company']=='ADL_CUS') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Legal and General" <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau' || $data2['company']=='TRB Archive' ||  $data2['company']=='ADL_CUS') { echo "selected"; } } ?>>Legal & General</option>
   <option value="Vitality" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
@@ -207,7 +208,7 @@ $query->execute();
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
+        <input <?php if($data2['company']=='TRB Archive') { echo "value='0'"; } ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
     </div> 
 </p>
 <?php $cal=2400.00/100; ?>
@@ -220,7 +221,7 @@ $query->execute();
         <label for="commission">Commission</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
+        <input <?php if($data2['company']=='TRB Archive') { echo "value='0'"; } ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
     </div> 
 </p>
 <!--
@@ -238,7 +239,7 @@ $query->execute();
         <label for="commission">Cover Amount</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
+        <input <?php if($data2['company']=='TRB Archive') { echo "value='0'"; } ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
     </div> 
 </p>
 
@@ -247,7 +248,7 @@ $query->execute();
         <label for="commission">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
+        <input <?php if($data2['company']=='TRB Archive') { echo "value='0'"; } ?> style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "value='WOL'"; } } ?> required/>
     </div> 
 </p>
 
@@ -305,7 +306,7 @@ $query->execute();
 <option value="3 year">3 year</option>
 <option value="4 year">4 year</option>
 <option value="5 year">5 year</option>
-<option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL') { echo "selected"; } } ?> value="0">0</option>
+<option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL' || $data2['company']=='CUS WOL' || $data2['company']=='TRB Archive') { echo "selected"; } } ?> value="0">0</option>
   </select>
 </div>
 </p>
@@ -315,7 +316,7 @@ $query->execute();
         <label for="commission">Drip</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
+        <input <?php if($data2['company']=='TRB Archive') { echo "value='0'"; } ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
     </div> 
 </p>
 

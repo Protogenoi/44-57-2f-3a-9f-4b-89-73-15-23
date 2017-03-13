@@ -88,10 +88,7 @@ include('includes/ADL_PDO_CON.php');
     
     }
 
-$AddLife= filter_input(INPUT_GET, 'Life', FILTER_SANITIZE_NUMBER_INT);
 $AddPension= filter_input(INPUT_GET, 'Pension', FILTER_SANITIZE_NUMBER_INT);
-$AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
-
 ?>
 
 <br>
@@ -139,15 +136,7 @@ if(isset($AddPension)){
             echo"</p>";
             
             ?>
-        
-<!--
-        <div class="form-group">
-            <label for="provider">Provider:</label>
-            <select class="form-control" name="provider" id="Provider" style="width: 170px" required>
-                <option value="L&G">Legal and General</option>
-            </select>
-        </div>
--->        
+    
                 <p>
             <label for="provider">Provider:</label>
             <input type='text' id='provider' name='provider' class="form-control" autocomplete="off" style="width: 170px" required>
@@ -239,18 +228,12 @@ if(isset($AddPension)){
 
 <?php } } ?>
 
-
-
 <div class="col-md-4">
 </div>
 </div>
 </div>
 </div>
 </div>
-      </div>
-    </div>
- </div>
-</div>
-
+  
 </body>
 </html>

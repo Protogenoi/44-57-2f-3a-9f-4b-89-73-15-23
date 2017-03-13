@@ -376,14 +376,13 @@ $("#lead").easyAutocomplete(options);</script>
 </div>
 
 <br>
+<div class="btn-group">
 <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
+<a href="ViewClient.php?search=<?php echo $search;?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
 </div>
+ </div>
 </form>
-<br>
-<br>
-<form class="AddClient" method="POST" action="ViewClient.php?search=<?php echo $search;?>">
-<button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-</form>
+
 
 <?php
 

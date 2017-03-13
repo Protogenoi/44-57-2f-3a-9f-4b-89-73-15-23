@@ -147,7 +147,7 @@ if(isset($fferror)) {
                         <?php } ?>
 
                         
-                        <li><a class="list-group-item" href="../AddProduct.php?Home=y&CID=<?php echo $CID; ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
+                        <li><a class="list-group-item" href="AddPolicy.php?Home=y&CID=<?php echo $CID; ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                     </div>
                 </ul>
             </li>

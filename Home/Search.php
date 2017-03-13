@@ -177,7 +177,7 @@ $(document).ready(function() {
             } },
          { "data": "client_id",
             "render": function(data, type, full, meta) {
-                return '<a href="/Home/AddPolicy.php?Home=y&search=' + data + '">Add Policy</a>';
+                return '<a href="AddPolicy.php?Home=y&CID=' + data + '">Add Policy</a>';
             } },
         ],
     } );

@@ -174,6 +174,10 @@ if(isset($fferror)) {
         echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
         
     }
+        if($WHICH_COMPANY=='TRB Archive') {
+        echo "<div class='notice notice-default' role='alert'><strong> <center>Archive Client</center></strong> </div>";
+        
+    }
         if($WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='CUS WOL') {
         echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
         
@@ -603,7 +607,7 @@ if(isset($fferror)) {
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='ADL_CUS' || $WHICH_COMPANY=='CUS Vitality' || $WHICH_COMPANY=='CUS WOL' || $WHICH_COMPANY=='CUS Royal London' || $WHICH_COMPANY=='CUS Aviva') {
+                        if($WHICH_COMPANY=='The Review Bureau' || 'TRB Archive' || $WHICH_COMPANY=='TRB Vitality' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='ADL_CUS' || $WHICH_COMPANY=='CUS Vitality' || $WHICH_COMPANY=='CUS WOL' || $WHICH_COMPANY=='CUS Royal London' || $WHICH_COMPANY=='CUS Aviva') {
                         
                         try {
                         

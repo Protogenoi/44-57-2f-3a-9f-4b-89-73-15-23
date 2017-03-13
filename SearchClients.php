@@ -244,7 +244,7 @@ $(document).ready(function() {
             } },
          { "data": "client_id",
             "render": function(data, type, full, meta) {
-                return '<a href="/AddProduct.php?Life=y&search=' + data + '">Add Policy</a>';
+                return '<a href="/Life/AddPolicy.php?EXECUTE=1&search=' + data + '">Add Policy</a>';
             } },
         ],
     } );

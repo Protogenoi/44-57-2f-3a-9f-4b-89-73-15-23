@@ -74,7 +74,7 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             $file_loc = $_FILES['file']['tmp_name'];
             $file_size = $_FILES['file']['size'];
             $file_type = $_FILES['file']['type'];
-            $folder="../FinUploads/";
+            $folder="../FinUploads/Home/";
             
             $new_size = $file_size/1024;  
             $new_file_name = strtolower($file);
@@ -115,7 +115,7 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             $file_loc = $_FILES['file']['tmp_name'];
             $file_size = $_FILES['file']['size'];
             $file_type = $_FILES['file']['type'];
-            $folder="../FinUploads/";
+            $folder="../FinUploads/Vitality/";
             
             $new_size = $file_size/1024;  
             $new_file_name = strtolower($file);
@@ -156,7 +156,7 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             $file_loc = $_FILES['file']['tmp_name'];
             $file_size = $_FILES['file']['size'];
             $file_type = $_FILES['file']['type'];
-            $folder="../FinUploads/";
+            $folder="../FinUploads/LANDG/";
             
             $new_size = $file_size/1024;  
             $new_file_name = strtolower($file);
@@ -186,7 +186,131 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             
             header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Life'); die;
             
-            }                 
+            }
+            
+            
+        if($query=='Aviva') {
+            
+            $uploadtype="Aviva Financials";
+            $date=date("y-m-d-G:i:s");
+            
+            $file = $date."-".$hello_name."-".$_FILES['file']['name'];
+            $file_loc = $_FILES['file']['tmp_name'];
+            $file_size = $_FILES['file']['size'];
+            $file_type = $_FILES['file']['type'];
+            $folder="../FinUploads/Aviva/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($file);
+            $final_file=str_replace("'","",$new_file_name);
+            
+            if(move_uploaded_file($file_loc,$folder.$final_file)) {
+
+                try {
+                
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype=:uploadtype");
+                $query->bindParam(':file',$final_file, PDO::PARAM_STR);
+                $query->bindParam(':type',$file_type, PDO::PARAM_STR);
+                $query->bindParam(':size',$new_size, PDO::PARAM_STR);
+                $query->bindParam(':uploadtype',$uploadtype, PDO::PARAM_STR); 
+                $query->execute(); 
+                
+                }
+                
+                catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }
+                
+                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Aviva'); die;
+                
+            }
+            
+            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Aviva'); die;
+            
+            } 
+            
+        if($query=='WOL') {
+            
+            $uploadtype="WOL Financials";
+            $date=date("y-m-d-G:i:s");
+            
+            $file = $date."-".$hello_name."-".$_FILES['file']['name'];
+            $file_loc = $_FILES['file']['tmp_name'];
+            $file_size = $_FILES['file']['size'];
+            $file_type = $_FILES['file']['type'];
+            $folder="../FinUploads/WOL/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($file);
+            $final_file=str_replace("'","",$new_file_name);
+            
+            if(move_uploaded_file($file_loc,$folder.$final_file)) {
+
+                try {
+                
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype=:uploadtype");
+                $query->bindParam(':file',$final_file, PDO::PARAM_STR);
+                $query->bindParam(':type',$file_type, PDO::PARAM_STR);
+                $query->bindParam(':size',$new_size, PDO::PARAM_STR);
+                $query->bindParam(':uploadtype',$uploadtype, PDO::PARAM_STR); 
+                $query->execute(); 
+                
+                }
+                
+                catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }
+                
+                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=WOL'); die;
+                
+            }
+            
+            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=WOL'); die;
+            
+            }  
+            
+        if($query=='RoyalLondon') {
+            
+            $uploadtype="Royal London Financials";
+            $date=date("y-m-d-G:i:s");
+            
+            $file = $date."-".$hello_name."-".$_FILES['file']['name'];
+            $file_loc = $_FILES['file']['tmp_name'];
+            $file_size = $_FILES['file']['size'];
+            $file_type = $_FILES['file']['type'];
+            $folder="../FinUploads/RoyalLondon/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($file);
+            $final_file=str_replace("'","",$new_file_name);
+            
+            if(move_uploaded_file($file_loc,$folder.$final_file)) {
+
+                try {
+                
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype=:uploadtype");
+                $query->bindParam(':file',$final_file, PDO::PARAM_STR);
+                $query->bindParam(':type',$file_type, PDO::PARAM_STR);
+                $query->bindParam(':size',$new_size, PDO::PARAM_STR);
+                $query->bindParam(':uploadtype',$uploadtype, PDO::PARAM_STR); 
+                $query->execute(); 
+                
+                }
+                
+                catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }
+                
+                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=RoyalLondon'); die;
+                
+            }
+            
+            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=RoyalLondon'); die;
+            
+            }              
             
             }            
             

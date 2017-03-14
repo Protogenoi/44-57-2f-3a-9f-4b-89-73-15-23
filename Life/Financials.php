@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 if($fflife=='0') {
@@ -9,6 +9,13 @@ if($fflife=='0') {
     header('Location: ../CRMmain.php'); die;
     
 }
+
+include ("../includes/ADL_PDO_CON.php");
+
+$cnquery = $pdo->prepare("select company_name from company_details limit 1");
+$cnquery->execute()or die(print_r($query->errorInfo(), true));
+$companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
+$companynamere=$companydetailsq['company_name'];
 
 include('../includes/adl_features.php');
 
@@ -26,10 +33,21 @@ if(isset($fferror)) {
 include('../includes/adlfunctions.php');
 include('../includes/Access_Levels.php');
 
-      if (!in_array($hello_name,$Level_10_Access, true)) {
+if($companynamere=='The Review Bureau') {
+    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
+if (!in_array($hello_name,$Level_2_Access, true)) {
     
-    header('Location: ../CRMmain.php'); die;
-} 
+    header('Location: ../CRMmain.php?AccessDenied'); die;
+}
+}
+
+if($companynamere=='ADL_CUS') {
+    $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
+if (!in_array($hello_name,$Level_2_Access, true)) {
+    
+    header('Location: ../CRMmain.php?AccessDenied'); die;
+}
+}
 
 $FILTER= filter_input(INPUT_POST, 'FILTER', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -50,8 +68,9 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 </head>
 <body>
     
-    <?php include('../includes/navbar.php');
-    include('../includes/adl_features.php');   
+    <?php     if ($hello_name!='Jade') {
+    include('../includes/navbar.php');
+    }
     
     if($ffanalytics=='1') {  
         include_once('../php/analyticstracking.php'); 

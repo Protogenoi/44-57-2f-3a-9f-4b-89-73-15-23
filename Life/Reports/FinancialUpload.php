@@ -110,37 +110,16 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
     <div class="form-group col-xs-2">
   <label class="col-xs-2 control-label" for="query"></label>
     <select id="query" name="query" class="form-control" onchange="this.form.submit()" required>
-        <?php if(isset($query)) { 
-            if($query=='Life') { ?> 
-        <option value="Life" selected>Life Financials</option>
-        <option value="Home">Home Financials</option>
-        <option value="Vitality">Vitality Financials</option>
-      <?php }
-        }
-?>
-           <?php if(isset($query)) { 
-            if($query=='Home') { ?> 
-        <option value="Life">Life Financials</option>
-        <option value="Home" selected>Home Financials</option>
-        <option value="Vitality">Vitality Financials</option>
-      <?php }
-        }
-?>
-                   <?php if(isset($query)) { 
-            if($query=='Vitality') { ?> 
-        <option value="Life">Life Financials</option>
-        <option value="Home">Home Financials</option>
-        <option value="Vitality" selected>Vitality Financials</option>
-      <?php }
-        }
-?>     
-           <?php if(empty($query)) { ?>
+
         <option value="">Select...</option>
-        <option value="Life" selected>Life Financials</option>
-        <option value="Home">Home Financials</option>
-        <option value="Vitality">Vitality Financials</option>
-      <?php }
-?>   
+        <option <?php if(isset($query)) { if($query=='Life') { echo "selected"; } } ?> value="Life">Legal & General Financials</option>
+        <option <?php if(isset($query)) { if($query=='Home') { echo "selected"; } } ?> value="Home">Home Financials</option>
+        <option <?php if(isset($query)) { if($query=='Vitality') { echo "selected"; } } ?> value="Vitality">Vitality Financials</option>
+        <option <?php if(isset($query)) { if($query=='Aviva') { echo "selected"; } } ?> value="Aviva">Aviva Financials</option>
+        <option <?php if(isset($query)) { if($query=='WOL') { echo "selected"; } } ?> value="WOL">One Family Financials</option>
+        <option <?php if(isset($query)) { if($query=='RoyalLondon') { echo "selected"; } } ?> value="RoyalLondon">Royal London Financials</option>
+
+  
     </select>
 </div>
                 </fieldset>
@@ -158,7 +137,7 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                     <div class="form-group">
                         <label class="col-md-3 control-label" for=""></label>
                         <div class="col-md-3">
-                            <button id="" name="" class="btn btn-primary btn-block"><i class="fa fa-upload"></i> <?php if(isset($query)) { echo "$query"; } else { echo "The Review Bureau"; } ?> Upload</button>
+                            <button id="" name="" class="btn btn-primary btn-block"><i class="fa fa-upload"></i> <?php if(isset($query)) { echo "$query"; } else { echo $companynamere; } ?> Upload</button>
                         </div>
                     </div>
                 
@@ -186,22 +165,31 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                         case "Vitality":
                             $type="Vitality Financials";
                             break;
+                        case "WOL":
+                            $type="WOL Financials";
+                            break;
+                        case "Aviva":
+                            $type="Aviva Financials";
+                            break;
+                            case "RoyalLondon":
+                            $type="Royal London Financials";
+                            break;
                         default:
                             $type="Financial Comms";
                             
                     }
                     
-                    $filesloaded = $pdo->prepare("select file, uploadtype from tbl_uploads where uploadtype=:type ORDER BY id DESC");   
+                    $filesloaded = $pdo->prepare("select DATE(added_date) as added_date, file, uploadtype from tbl_uploads where uploadtype=:type ORDER BY id DESC");   
                     $filesloaded->bindParam(':type', $type, PDO::PARAM_STR);
                     
                     }
                     
                     else {
-                        $filesloaded = $pdo->prepare("select file, uploadtype from tbl_uploads where uploadtype='Financial Comms' ORDER BY id DESC");
+                        $filesloaded = $pdo->prepare("select DATE(added_date) as added_date, file, uploadtype from tbl_uploads where uploadtype='Financial Comms' ORDER BY id DESC");
                         }
                 ?>
             
-            <span class="label label-primary"><?php if(isset($query)) { echo "$query"; } else { echo "The Review Bureau"; } ?> Uploads</span>
+            <span class="label label-primary"><?php if(isset($query)) { echo "$query"; } else { echo $companynamere; } ?> Uploads</span>
                     
                     <?php
                     
@@ -211,12 +199,46 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                             
                             $file=$row['file'];
                             $uploadtype=$row['uploadtype'];
+                            $added_dates=$row['added_date'];
                             
+                          if(isset($query)) { 
+                              if($query=='Life') {  
+                                  
+                                  $DATE_CHECK=date("Y-m-d");
+                                  
+                                  if($added_dates<$DATE_CHECK) {
+                                  ?>
+                                     <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                  <?php } else { ?>  
+                                     <a class="list-group-item" href="../FinUploads/LANDG/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                 
+                              <?php     } }  
+                                    if($query=='Home') { ?>
+                         <a class="list-group-item" href="../FinUploads/Home/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                       
+                                    <?php    }
+        if($query=='Vitality') { ?>
+                                    <a class="list-group-item" href="../FinUploads/Vitality/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+
+         <?php   }
+        if($query=='Aviva') { ?>
+                                    <a class="list-group-item" href="../FinUploads/Aviva/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+
+      <?php  }
+        if($query=='WOL') { ?>
+                              <a class="list-group-item" href="../FinUploads/WOL/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+      
+     <?php       }
+        if($query=='RoyalLondon') {  ?>
+                                    <a class="list-group-item" href="../FinUploads/RoyalLondon/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+
+          <?php  }
+                          } else {
                         ?>
                             
-                        <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
-
-                        <?php
+                         <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                         <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                          <?php }
                         
                         }
                         

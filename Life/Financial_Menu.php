@@ -64,7 +64,7 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
 			
                     
                     <li>
-                        <a href="Reports/Financial_Reports.php">
+                        <a href="Financials.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Financial<br/>Report</h2>

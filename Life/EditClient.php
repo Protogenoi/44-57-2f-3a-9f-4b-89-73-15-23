@@ -149,7 +149,7 @@ if(isset($life)) {
 <select class="form-control" name="company" id="company" style="width: 170px" required="yes">
                      
                     <?php if(isset($data2['company'])) { 
-                        if($data2['company']=='The Review Bureau' || $data2['company']=='TRB Vitality' || $data2['company']=='TRB Royal London' || $data2['company']=='TRB Home Insurance' || $data2['company']=='Assura' || $data2['company']=='TRB WOL' || $data2['company']=='TRB Aviva') {
+                        if($data2['company']=='The Review Bureau' || $data2['company']=='TRB Archive' || $data2['company']=='TRB Vitality' || $data2['company']=='TRB Royal London' || $data2['company']=='TRB Home Insurance' || $data2['company']=='Assura' || $data2['company']=='TRB WOL' || $data2['company']=='TRB Aviva') {
                         ?>
                     
                     <option <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">TRB Life Insurance</option>
@@ -159,6 +159,7 @@ if(isset($life)) {
                     <option <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?> value="Assura">Assura Life Insurance</option>
                     <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?> value="TRB WOL">WOL</option>
                     <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva') { echo "selected"; } } ?> value="TRB Aviva">Aviva</option>
+                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Archive') { echo "selected"; } } ?> value="TRB Archive">TRB Archive</option>
                         <?php } 
                     if($data2['company']=='ADL_CUS' || $data2['company']=='CUS Vitality' || $data2['company']=='CUS Royal London' || $data2['company']=='CUS Home Insurance' || $data2['company']=='Assura' || $data2['company']=='CUS WOL' || $data2['company']=='CUS Aviva') {
                         ?>

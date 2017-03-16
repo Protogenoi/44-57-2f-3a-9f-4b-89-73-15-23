@@ -955,13 +955,13 @@ while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-xs-6 col-md-6">
-                                        <h3>Upload financial data</h3>
+                                        <h3>Upload Legal & General financials</h3>
                                         
 <?php if (!empty($_GET[success])) { echo "<b>Your file has been imported.</b><br><br>"; } ?>
                                         
                                         
-                                        <form action="/upload/finrupload.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" />
+                                        <form action="/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required/>
                                             <input type="hidden" name="Processor" value="<?php echo $hello_name?>">
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
@@ -971,6 +971,36 @@ while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
                                             <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
                                         </form>
                                     </div>
+                                    <div class="col-xs-6 col-md-6">
+                                        <h3>Upload WOL financials</h3>
+                                                                               
+                                        
+                                        <form action="/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>
+                                 <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Royal London financials</h3>
+                                                                               
+                                        
+                                        <form action="/upload/finrupload.php?EXECUTE=3" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>   
+                                 <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Vitality financials</h3>
+                                                                               
+                                        
+                                        <form action="/upload/finrupload.php?EXECUTE=4" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>                                      
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='0') {
+    if($fferror=='1') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -16,7 +16,7 @@ if(isset($fferror)) {
     }
 
 include('../../includes/ADL_PDO_CON.php');
-include('../../includes/ADL_MYSQLI_CON.php');
+include('../../classes/database_class.php'); 
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -29,23 +29,30 @@ $PRO_PERCENT= filter_input(INPUT_POST, 'PRO_PERCENT', FILTER_SANITIZE_SPECIAL_CH
 $PRO_COMPANY= filter_input(INPUT_POST, 'PRO_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
 $PRO_ACTIVE= filter_input(INPUT_POST, 'PRO_ACTIVE', FILTER_SANITIZE_SPECIAL_CHARS);
 
+$database = new Database(); 
+            $database->query("Select insurance_company_id from insurance_company WHERE insurance_company_id=:insurance_company_id");
+            $database->bind(':insurance_company_id', $PRO_ID);
+            $database->execute(); 
+            
+if ($database->rowCount()>=1) {
 
 
-$dupcheck = "Select insurance_company_id from insurance_company WHERE insurance_company_id=$PRO_ID";
-$duperaw = $conn->query($dupcheck);
-
-if ($duperaw->num_rows >= 1) {
-
-    $UPDATE = $pdo->prepare("UPDATE insurance_company set insurance_company_name=:insurance_company_name, insurance_company_active=:insurance_company_active, insurance_company_added_by=:insurance_company_added_by, insurance_company_percent=:insurance_company_percent WHERE insurance_company_id=:insurance_company_id");
-        $UPDATE->bindParam(':insurance_company_id', $PRO_ID, PDO::PARAM_INT);
-        $UPDATE->bindParam(':insurance_company_percent', $PRO_PERCENT, PDO::PARAM_STR, 500);
-        $UPDATE->bindParam(':insurance_company_name', $PRO_COMPANY, PDO::PARAM_STR, 500);
-        $UPDATE->bindParam(':insurance_company_active', $PRO_ACTIVE, PDO::PARAM_INT);
-        $UPDATE->bindParam(':insurance_company_added_by', $hello_name, PDO::PARAM_STR, 500);
-        $UPDATE->execute()or die(print_r($UPDATE->errorInfo(), true));
+$database->query("UPDATE insurance_company set insurance_company_name=:name, insurance_company_active=:active, insurance_company_added_by=:added_by, insurance_company_percent=:percent WHERE insurance_company_id=:id");
+        $database->bind(':id', $PRO_ID);
+        $database->bind(':percent', $PRO_PERCENT);
+        $database->bind(':name', $PRO_COMPANY);
+        $database->bind(':active', $PRO_ACTIVE);
+        $database->bind(':added_by', $hello_name);
+        $database->execute();
+        
+        if(isset($fferror)) {
+    if($fferror=='0') {       
+    header('Location: ../../admin/Admindash.php?RETURN=UPDATED&provider=y'); die;
+    }
+                    }
 }
 
-if ($duperaw->num_rows <= 0) {
+else {
     
     $INSERT = $pdo->prepare("INSERT INTO insurance_company set insurance_company_name=:insurance_company_name, insurance_company_active=:insurance_company_active, insurance_company_added_by=:insurance_company_added_by, insurance_company_percent=:insurance_company_percent");
         $INSERT->bindParam(':insurance_company_percent', $PRO_PERCENT, PDO::PARAM_STR, 500);
@@ -54,13 +61,15 @@ if ($duperaw->num_rows <= 0) {
         $INSERT->bindParam(':insurance_company_added_by', $hello_name, PDO::PARAM_STR, 500);
         $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
         
-}
-
-if(isset($fferror)) {
+ if(isset($fferror)) {
     if($fferror=='0') {       
     header('Location: ../../admin/Admindash.php?RETURN=UPDATED&provider=y'); die;
     }
-                    }
+                    }       
+        
+}
+
+
 }
 } else {
 if(isset($fferror)) {

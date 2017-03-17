@@ -2135,7 +2135,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                 ?>
                                 
                         <tr><input type="hidden" value="<?php echo $PRO_ID; ?>" name="PRO_ID">
-                        <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" id="provider-json" value="<?php if(isset($PRO_COMPANY)) { echo $PRO_COMPANY; } ?>" required></td>                      
+                        <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" value="<?php if(isset($PRO_COMPANY)) { echo $PRO_COMPANY; } ?>" required></td>                      
                         <td><input size="12" class="form-control" type="text" name="PRO_PERCENT" value="<?php if(isset($PRO_PERCENT)) { echo $PRO_PERCENT; } ?>"></td>
                         <td>
                             <select name="PRO_ACTIVE" class="form-control" required>

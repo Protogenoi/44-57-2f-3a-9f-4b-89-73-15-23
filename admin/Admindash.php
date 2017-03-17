@@ -40,6 +40,8 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                     <a class="list-group-item" href="Admindash.php?admindash=y"><i class="fa fa-cog fa-fw"></i>&nbsp; Admin Dashboard</a>
                     
                     <a class="list-group-item" href="?company=y"><i class="fa fa-info-circle fa-fw"></i>&nbsp; Company Info</a>
+                    
+                    <a class="list-group-item" href="?provider=y"><i class="fa fa-bank fa-fw"></i>&nbsp; Provider List</a>
                
                     <a class="list-group-item" href="?users=y"><i class="fa fa-user fa-fw"></i>&nbsp; User configuration</a>
                
@@ -82,6 +84,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                         $fireselect= filter_input(INPUT_GET, 'Firewall', FILTER_SANITIZE_SPECIAL_CHARS);
                         $vicidialselect= filter_input(INPUT_GET, 'Vicidial', FILTER_SANITIZE_SPECIAL_CHARS);
                         $connexselect= filter_input(INPUT_GET, 'Connex', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $providerselect= filter_input(INPUT_GET, 'provider', FILTER_SANITIZE_SPECIAL_CHARS);
                         $settingsselect= filter_input(INPUT_GET, 'Settings', FILTER_SANITIZE_SPECIAL_CHARS);
                         $companyselect= filter_input(INPUT_GET, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
                         $Googleselect= filter_input(INPUT_GET, 'Google', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -2050,6 +2053,105 @@ $telacc=$query->fetch(PDO::FETCH_ASSOC);
 
                         <?php } 
                         
+                         if($providerselect=='y') { ?>
+                            
+                        <h1><i class="fa fa-bank"></i> Provider List</h1>
+                        
+                        <?php
+                        
+                        $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if(isset($RETURN)){
+    
+  
+
+    if ($RETURN =='UPDATED') {
+
+print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Company details have been updated!</div><br>");
+    }
+
+            if ($RETURN =='FAIL') {
+
+print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes have been made!</div><br>");
+    }
+}                
+                        ?>
+                                               
+                        <h1>Add new or update insurance providers</h1><br>
+                        
+                        <ul class="nav nav-pills">
+                            <li class="active"><a data-toggle="pill" href="#provider"><i class="fa fa-align-justify"></i> List</a></li>
+                        </ul>
+                        <br>                       
+                        <div class="tab-content">   
+                            <div id="providersettings" class="tab-pane fade in active">
+                                
+                                 <form method="post" action="php/AddCompany.php?EXECUTE=1">
+                                 <table id="providersettings" class="table table-hover">
+                                     <thead>
+                                         <tr>
+                                             <th>Company</th>
+                                             <th>Percent</th>
+                                             <th>Active</th>
+                                         </tr>
+                                     </thead>
+                                     
+                        <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" placeholder="Add a new company" required></td>                      
+                        <td><input size="12" class="form-control" type="text" name="PRO_PERCENT" placeholder="Percentage taken by company for financial calculations"></td>
+                        <td>
+                            <select name="PRO_ACTIVE" class="form-control" required>
+                                <option value=" ">Make active to show when adding clients/policies</option>
+                                <option value="0">Disabled</option>
+                                <option value="1">Active</option>
+                               
+                        </select>
+                        </td>                                      
+                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> ADD</button></td>   
+                                 </form>
+                                <form method="post" action="php/AddCompany.php?EXECUTE=1">
+                                <?php
+                                
+                                $PRO_QRY = $pdo->prepare("SELECT insurance_company_id, insurance_company_name, insurance_company_percent, insurance_company_active FROM insurance_company");
+                                $PRO_QRY->execute()or die(print_r($query->errorInfo(), true)); ?>
+                                
+                                <form method="post" action="php/AddCompany.php?EXECUTE=2">
+                                 <table id="providersettings" class="table table-hover">
+                                     <thead>
+                                         <tr>
+                                             <th>Company</th>
+                                             <th>Percent</th>
+                                             <th>Active</th>
+                                         </tr>
+                                     </thead>
+                                
+                                <?php
+                                while ($result=$PRO_QRY->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                $PRO_ID=$result['insurance_company_id'];    
+                                $PRO_COMPANY=$result['insurance_company_name'];    
+                                $PRO_PERCENT=$result['insurance_company_percent']; 
+                                $PRO_ACTIVE=$result['insurance_company_active']; 
+                                
+                                ?>
+                                
+                        <tr><input type="hidden" value="<?php echo $PRO_ID; ?>" name="PRO_ID">
+                        <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" id="provider-json" value="<?php if(isset($PRO_COMPANY)) { echo $PRO_COMPANY; } ?>" required></td>                      
+                        <td><input size="12" class="form-control" type="text" name="PRO_PERCENT" value="<?php if(isset($PRO_PERCENT)) { echo $PRO_PERCENT; } ?>"></td>
+                        <td>
+                            <select name="PRO_ACTIVE" class="form-control" required>
+                                <option <?php if(isset($PRO_ACTIVE)) { if($PRO_ACTIVE=='0') { echo "selected"; } } ?> value="0">Disabled</option>
+                                <option <?php if(isset($PRO_ACTIVE)) { if($PRO_ACTIVE=='1') { echo "selected"; } }?> value="1">Active</option>
+                               
+                        </select>
+                        </td>                                    
+                        <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td></tr>            
+                               <?php } ?>
+                                 </table>
+                                </form>
+                            </div>
+                        </div>
+
+                        <?php }  
                         
                          if($connexselect=='y') { ?>
                             

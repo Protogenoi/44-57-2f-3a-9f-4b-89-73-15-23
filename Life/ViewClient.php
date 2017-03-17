@@ -234,6 +234,7 @@ if(isset($fferror)) {
 
                         if (in_array($hello_name,$Level_3_Access, true)) { ?>
                         <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li>
+                        <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                         <?php } ?>
                         <?php 
                         
@@ -241,8 +242,6 @@ if(isset($fferror)) {
                         <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
                         <?php } ?>
 
-                        
-                        <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                     </div>
                 </ul>
             </li>
@@ -250,7 +249,7 @@ if(isset($fferror)) {
             <li id='HIDE_ALERTS'><a data-toggle="pill"><i class='fa fa-eye-slash fa-fw'></i> Hide Alerts</a></li>
             
         </ul>
-        <br>
+   
         
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
@@ -261,7 +260,6 @@ if(isset($fferror)) {
  
                         <div class="col-md-4">
                             <h3><span class="label label-primary">Client Details</span></h3>
-                            
                             
                             <p>
                             <div class="input-group">
@@ -611,17 +609,19 @@ if(isset($fferror)) {
                         
                         try {
                         
-                        $hometable = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.insurer, financial_statistics_history.payment_amount, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.soj, client_policy.drip, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.comm_term, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.submitted_date, client_policy.commission FROM client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.Policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID GROUP BY client_policy.policy_number");
+                        $hometable = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, financial_statistics_history.payment_amount, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.covera, client_policy.client_id, client_policy.client_name, client_policy.application_number, client_policy.premium, client_policy.type, client_policy.comm_term, client_policy.CommissionType, client_policy.PolicyStatus FROM client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.Policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID AND insurer='Legal and General' GROUP BY client_policy.policy_number");
                         $hometable->bindParam(':CID', $search, PDO::PARAM_INT);
                         $hometable->execute();
                             if ($hometable->rowCount()>0) { ?>
                     <table id="ClientListTable" class="table table-hover">
                         <thead>
+                                                        <tr>
+                                <th colspan='12'>Legal and General Policies</th>
+                            </tr>
                             <tr>
                                 <th>Client</th>
                                 <th>Policy</th>
                                 <th>AN</th>
-                                <th>Insurer</th>
                                 <th>Type</th>
                                 <th>Comm Type</th>
                                 <th>Term</th>
@@ -655,17 +655,7 @@ if(isset($fferror)) {
                                     else {
                                     echo "<td><form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'><input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
                                     }
-                                    echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$anref' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $anref</a></td>";
-                                    
-                                    if($result['insurer']=='Legal and General') {
-                                        
-                                     echo "<td>L&G</td>";    
-                                    }
-                                    
-                                    else {
-                                    echo "<td>".$result['insurer']."</td>";           
-                                    }
-                                    
+                                    echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$anref' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $anref</a></td>";                                  
                                     echo "<td>".$result['type']."</td>";
                                     echo "<td>".$result['CommissionType']."</td>";
                                     echo "<td>".$result['polterm']."</td>";
@@ -775,16 +765,650 @@ if(isset($fferror)) {
                               </table>   
                                                                                 
                                                                             <?php    } 
-                                                                                
-                                                                                else {
-                                                                                    echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No policies have been added to this client.</div>";
-                                                                                    
-                                                                                }
                                                                                                                                             }
                  catch (PDOException $e) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
+                
+                        try {
+                        
+                        $WOL_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, wol_financials.wol_comm, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.covera, client_policy.client_id, client_policy.client_name, client_policy.premium, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.commission FROM client_policy LEFT JOIN wol_financials ON client_policy.policy_number = wol_financials.wol_policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID AND insurer='One Family' GROUP BY client_policy.policy_number");
+                        $WOL_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $WOL_POLS->execute();
+                            if ($WOL_POLS->rowCount()>0) { ?>
+                    <table id="ClientListTable" class="table table-hover">
+                        <thead>
+                                                        <tr>
+                                <th colspan='7'>One Family Policies</th>
+                            </tr>
+                            <tr>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Premium</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>EWS</th>
+                                <th>Financial</th>
+                                <th colspan="4">Options</th>
+                            </tr>
+                        </thead> 
+                            
+                            <?php 
+                            
+                            while ($result=$WOL_POLS->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                    $poldid=$result['id'];
+                                    $polref=$result['policy_number'];
+                                    $polcap[]=$result['id'];
+                                    $polname=$result['client_name'];
+                                    
+                                    $ADLSTATUS=$result['ADLSTATUS'];
+                                    $EWSSTATUS=$result['warning'];
+                                    
+                                    echo '<tr>';
+                                    echo "<td>$polname</td>";
+                                    if(empty($polref)) {
+                                      echo "<td>TBC</td>";  
+                                    }
+                                    else {
+                                    echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
+                                    }
+                               
+                                    echo "<td>£".$result['premium']."</td>";
+                                    echo "<td>£".$result['covera']."</td>";
+                                    
+                                    if ($result['PolicyStatus']=='CLAWBACK'||['PolicyStatus']=='CLAWBACK-LAPSE' || $result['PolicyStatus'] =='Declined') {
+                                        echo "<td><span class=\"label label-danger\">".$result['PolicyStatus']."</span></td>"; }
+                                        
+                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number' || $result['PolicyStatus']=='Awaiting Policy Number') {
+                                            echo "<td><span class=\"label label-warning\">".$result['PolicyStatus']."</span></td>";}
+                                            
+                                            elseif ($result['PolicyStatus']=='SUBMITTED-LIVE' || $result['PolicyStatus']=='Live') {
+                                                echo "<td><span class=\"label label-success\">".$result['PolicyStatus']."</span></td>"; }
+                                                    
+                                                    else {
+                                                        echo "<td><span class=\"label label-default\">".$result['PolicyStatus']."</span></td>"; }     
+                                                        
+                                    if($ADLSTATUS != $EWSSTATUS) {
+                                        switch ($EWSSTATUS) {
+                                            case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
+                                                break;
+                                                case "WILL CANCEL":
+                                                echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
+                                                break;
+                                            case "REDRAWN":
+                                                case "WILL REDRAW":
+                                                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
+                                                    break;
+                                                case "CANCELLED":
+                                                    case "CFO":
+                                                        case "LAPSED":
+                                                            case "CANCELLED DD":
+                                                                case "BOUNCED DD":
+                                                                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
+                                                                    break;
+                                                                default:
+                                                                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
+                                                                    
+                                        }
+                                        
+                                        }
+                                        
+                                        else {
+                                            
+                                            switch ($ADLSTATUS) {
+                                                case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
+                                                break;
+                                                    case "WILL CANCEL":
+                                                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
+                                                    break;
+                                                case "REDRAWN":
+                                                    case "WILL REDRAW":
+                                                        echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
+                                                        break;
+                                                    case "CANCELLED":
+                                                        case "CFO":
+                                                            case "LAPSED":
+                                                                case "CANCELLED DD":
+                                                                    case "BOUNCED DD":
+                                                                        echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
+                                                                        break;
+                                                                    default:
+                                                                        echo "<td><span class='label label-info'>$ADLSTATUS</td>";
+                                                                        
+                                            }
+                                            
+                                            }
+                                            
+                                            if(($result['wol_comm'])) {
+                                                echo "<td><span class='label label-warning'>On Financial</span> </td>";
+                                                
+                                            }
+                                            
+                                            else {
+                                               
+                                                echo "<td> </td>";
+                                                
+                                            }
+                                            
+                                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+                                            echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
+                                                                                    
+                                                                                    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
+                                                                                        if (in_array($hello_name,$Level_10_Access, true)) {
+                                                                                    
+                                                                                    
+                                                                                    echo "<td>
+                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
+                                                                                        <input type='hidden' id='policyID' name='policyID' value='$poldid'>
+                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
+                                                                                            </form>
+                                                                                            </td>";
+                                                                                    }
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    if(!empty($EWSSTATUS))  {
+                                                                                    echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
+                                                                                    }
+                                                                                    echo "</tr>";
+                                                                                    
+                                                                                } ?>
+                        
+                              </table>   
+                                                                                
+                                                                            <?php    } 
+                                                                                                                                            }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }   
+                
+                       try {
+                        
+                        $RL_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.type, client_policy.CommissionType, client_policy.polterm, royal_london_financials.royal_london_comm, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.covera, client_policy.client_id, client_policy.client_name, client_policy.premium,  client_policy.CommissionType, client_policy.PolicyStatus, client_policy.commission FROM client_policy LEFT JOIN royal_london_financials ON client_policy.policy_number = royal_london_financials.royal_london_policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID AND insurer='Royal London' GROUP BY client_policy.policy_number");
+                        $RL_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $RL_POLS->execute();
+                            if ($RL_POLS->rowCount()>0) { ?>
+                    <table id="ClientListTable" class="table table-hover">
+                        <thead>
+                                                        <tr>
+                                <th colspan='7'>Royal London Policies</th>
+                            </tr>
+                            <tr>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Type</th>
+                                <th>Comm Type</th>
+                                <th>Term</th>
+                                <th>Premium</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>EWS</th>
+                                <th>Financial</th>
+                                <th colspan="4">Options</th>
+                            </tr>
+                        </thead> 
+                            
+                            <?php 
+                            
+                            while ($result=$RL_POLS->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                    $poldid=$result['id'];
+                                    $polref=$result['policy_number'];
+                                    $polcap[]=$result['id'];
+                                    $polname=$result['client_name'];
+                                    
+                                    $ADLSTATUS=$result['ADLSTATUS'];
+                                    $EWSSTATUS=$result['warning'];
+                                    
+                                    echo '<tr>';
+                                    echo "<td>$polname</td>";
+                                    if(empty($polref)) {
+                                      echo "<td>TBC</td>";  
+                                    }
+                                    else {
+                                    echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
+                                    }
+                               echo "<td>".$result['type']."</td>";
+                                    echo "<td>".$result['CommissionType']."</td>";
+                                    echo "<td>".$result['polterm']."</td>";
+                                    echo "<td>£".$result['premium']."</td>";
+                                    echo "<td>£".$result['covera']."</td>";
+                                    
+                                    if ($result['PolicyStatus']=='CLAWBACK'||['PolicyStatus']=='CLAWBACK-LAPSE' || $result['PolicyStatus'] =='Declined') {
+                                        echo "<td><span class=\"label label-danger\">".$result['PolicyStatus']."</span></td>"; }
+                                        
+                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number' || $result['PolicyStatus']=='Awaiting Policy Number') {
+                                            echo "<td><span class=\"label label-warning\">".$result['PolicyStatus']."</span></td>";}
+                                            
+                                            elseif ($result['PolicyStatus']=='SUBMITTED-LIVE' || $result['PolicyStatus']=='Live') {
+                                                echo "<td><span class=\"label label-success\">".$result['PolicyStatus']."</span></td>"; }
+                                                    
+                                                    else {
+                                                        echo "<td><span class=\"label label-default\">".$result['PolicyStatus']."</span></td>"; }     
+                                                        
+                                    if($ADLSTATUS != $EWSSTATUS) {
+                                        switch ($EWSSTATUS) {
+                                            case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
+                                                break;
+                                                case "WILL CANCEL":
+                                                echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
+                                                break;
+                                            case "REDRAWN":
+                                                case "WILL REDRAW":
+                                                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
+                                                    break;
+                                                case "CANCELLED":
+                                                    case "CFO":
+                                                        case "LAPSED":
+                                                            case "CANCELLED DD":
+                                                                case "BOUNCED DD":
+                                                                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
+                                                                    break;
+                                                                default:
+                                                                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
+                                                                    
+                                        }
+                                        
+                                        }
+                                        
+                                        else {
+                                            
+                                            switch ($ADLSTATUS) {
+                                                case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
+                                                break;
+                                                    case "WILL CANCEL":
+                                                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
+                                                    break;
+                                                case "REDRAWN":
+                                                    case "WILL REDRAW":
+                                                        echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
+                                                        break;
+                                                    case "CANCELLED":
+                                                        case "CFO":
+                                                            case "LAPSED":
+                                                                case "CANCELLED DD":
+                                                                    case "BOUNCED DD":
+                                                                        echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
+                                                                        break;
+                                                                    default:
+                                                                        echo "<td><span class='label label-info'>$ADLSTATUS</td>";
+                                                                        
+                                            }
+                                            
+                                            }
+                                            
+                                            if(($result['royal_london_comm'])) {
+                                                echo "<td><span class='label label-warning'>On Financial</span> </td>";
+                                                
+                                            }
+                                            
+                                            else {
+                                               
+                                                echo "<td> </td>";
+                                                
+                                            }
+                                            
+                                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+                                            echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
+                                                                                    
+                                                                                    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
+                                                                                        if (in_array($hello_name,$Level_10_Access, true)) {
+                                                                                    
+                                                                                    
+                                                                                    echo "<td>
+                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
+                                                                                        <input type='hidden' id='policyID' name='policyID' value='$poldid'>
+                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
+                                                                                            </form>
+                                                                                            </td>";
+                                                                                    }
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    if(!empty($EWSSTATUS))  {
+                                                                                    echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
+                                                                                    }
+                                                                                    echo "</tr>";
+                                                                                    
+                                                                                } ?>
+                        
+                              </table>   
+                                                                                
+                                                                            <?php    } 
+                                                                                                                                            }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }     
+                
+   try {
+                        
+                        $AV_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.type, client_policy.CommissionType, client_policy.polterm, client_policy.insurer, wol_financials.wol_comm, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.client_name, client_policy.sale_date, client_policy.premium, client_policy.submitted_by, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.submitted_date, client_policy.commission FROM client_policy LEFT JOIN wol_financials ON client_policy.policy_number = wol_financials.wol_policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID AND insurer='Aviva' GROUP BY client_policy.policy_number");
+                        $AV_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $AV_POLS->execute();
+                            if ($AV_POLS->rowCount()>0) { ?>
+                    <table id="ClientListTable" class="table table-hover">
+                        <thead>
+                                                        <tr>
+                                <th colspan='7'>Aviva Policies</th>
+                            </tr>
+                            <tr>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Type</th>
+                                <th>Comm Type</th>
+                                <th>Term</th>
+                                <th>Premium</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>EWS</th>
+                                <th>Financial</th>
+                                <th colspan="4">Options</th>
+                            </tr>
+                        </thead> 
+                            
+                            <?php 
+                            
+                            while ($result=$AV_POLS->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                    $poldid=$result['id'];
+                                    $polref=$result['policy_number'];
+                                    $polcap[]=$result['id'];
+                                    $polname=$result['client_name'];
+                                    
+                                    $ADLSTATUS=$result['ADLSTATUS'];
+                                    $EWSSTATUS=$result['warning'];
+                                    
+                                    echo '<tr>';
+                                    echo "<td>$polname</td>";
+                                    if(empty($polref)) {
+                                      echo "<td>TBC</td>";  
+                                    }
+                                    else {
+                                    echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
+                                    }
+                               echo "<td>".$result['type']."</td>";
+                                    echo "<td>".$result['CommissionType']."</td>";
+                                    echo "<td>".$result['polterm']."</td>";
+                                    echo "<td>£".$result['premium']."</td>";
+                                    echo "<td>£".$result['covera']."</td>";
+                                    
+                                    if ($result['PolicyStatus']=='CLAWBACK'||['PolicyStatus']=='CLAWBACK-LAPSE' || $result['PolicyStatus'] =='Declined') {
+                                        echo "<td><span class=\"label label-danger\">".$result['PolicyStatus']."</span></td>"; }
+                                        
+                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number' || $result['PolicyStatus']=='Awaiting Policy Number') {
+                                            echo "<td><span class=\"label label-warning\">".$result['PolicyStatus']."</span></td>";}
+                                            
+                                            elseif ($result['PolicyStatus']=='SUBMITTED-LIVE' || $result['PolicyStatus']=='Live') {
+                                                echo "<td><span class=\"label label-success\">".$result['PolicyStatus']."</span></td>"; }
+                                                    
+                                                    else {
+                                                        echo "<td><span class=\"label label-default\">".$result['PolicyStatus']."</span></td>"; }     
+                                                        
+                                    if($ADLSTATUS != $EWSSTATUS) {
+                                        switch ($EWSSTATUS) {
+                                            case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
+                                                break;
+                                                case "WILL CANCEL":
+                                                echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
+                                                break;
+                                            case "REDRAWN":
+                                                case "WILL REDRAW":
+                                                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
+                                                    break;
+                                                case "CANCELLED":
+                                                    case "CFO":
+                                                        case "LAPSED":
+                                                            case "CANCELLED DD":
+                                                                case "BOUNCED DD":
+                                                                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
+                                                                    break;
+                                                                default:
+                                                                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
+                                                                    
+                                        }
+                                        
+                                        }
+                                        
+                                        else {
+                                            
+                                            switch ($ADLSTATUS) {
+                                                case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
+                                                break;
+                                                    case "WILL CANCEL":
+                                                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
+                                                    break;
+                                                case "REDRAWN":
+                                                    case "WILL REDRAW":
+                                                        echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
+                                                        break;
+                                                    case "CANCELLED":
+                                                        case "CFO":
+                                                            case "LAPSED":
+                                                                case "CANCELLED DD":
+                                                                    case "BOUNCED DD":
+                                                                        echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
+                                                                        break;
+                                                                    default:
+                                                                        echo "<td><span class='label label-info'>$ADLSTATUS</td>";
+                                                                        
+                                            }
+                                            
+                                            }
+                                            
+                                            if(($result['wol_comm'])) {
+                                                echo "<td><span class='label label-warning'>On Financial</span> </td>";
+                                                
+                                            }
+                                            
+                                            else {
+                                               
+                                                echo "<td> </td>";
+                                                
+                                            }
+                                            
+                                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+                                            echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
+                                                                                    
+                                                                                    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
+                                                                                        if (in_array($hello_name,$Level_10_Access, true)) {
+                                                                                    
+                                                                                    
+                                                                                    echo "<td>
+                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
+                                                                                        <input type='hidden' id='policyID' name='policyID' value='$poldid'>
+                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
+                                                                                            </form>
+                                                                                            </td>";
+                                                                                    }
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    if(!empty($EWSSTATUS))  {
+                                                                                    echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
+                                                                                    }
+                                                                                    echo "</tr>";
+                                                                                    
+                                                                                } ?>
+                        
+                              </table>   
+                                                                                
+                                                                            <?php    } 
+                                                                            }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }  
+                
+   try {
+                        
+                        $AV_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.type, client_policy.CommissionType, client_policy.polterm, client_policy.insurer, vitality_financials.vitality_comm, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.client_name, client_policy.premium, client_policy.submitted_by, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.commission FROM client_policy LEFT JOIN vitality_financials ON client_policy.policy_number = vitality_financials.vitality_policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID AND insurer='Vitality' GROUP BY client_policy.policy_number");
+                        $AV_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $AV_POLS->execute();
+                            if ($AV_POLS->rowCount()>0) { ?>
+                    <table id="ClientListTable" class="table table-hover">
+                        <thead>
+                                                        <tr>
+                                <th colspan='7'>Vitality Policies</th>
+                            </tr>
+                            <tr>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Type</th>
+                                <th>Comm Type</th>
+                                <th>Term</th>
+                                <th>Premium</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>EWS</th>
+                                <th>Financial</th>
+                                <th colspan="4">Options</th>
+                            </tr>
+                        </thead> 
+                            
+                            <?php 
+                            
+                            while ($result=$AV_POLS->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                    $poldid=$result['id'];
+                                    $polref=$result['policy_number'];
+                                    $polcap[]=$result['id'];
+                                    $polname=$result['client_name'];
+                                    
+                                    $ADLSTATUS=$result['ADLSTATUS'];
+                                    $EWSSTATUS=$result['warning'];
+                                    
+                                    echo '<tr>';
+                                    echo "<td>$polname</td>";
+                                    if(empty($polref)) {
+                                      echo "<td>TBC</td>";  
+                                    }
+                                    else {
+                                    echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
+                                    }
+                               echo "<td>".$result['type']."</td>";
+                                    echo "<td>".$result['CommissionType']."</td>";
+                                    echo "<td>".$result['polterm']."</td>";
+                                    echo "<td>£".$result['premium']."</td>";
+                                    echo "<td>£".$result['covera']."</td>";
+                                    
+                                    if ($result['PolicyStatus']=='CLAWBACK'||['PolicyStatus']=='CLAWBACK-LAPSE' || $result['PolicyStatus'] =='Declined') {
+                                        echo "<td><span class=\"label label-danger\">".$result['PolicyStatus']."</span></td>"; }
+                                        
+                                        elseif ($result['PolicyStatus']=='PENDING' || $result['PolicyStatus']=='Live Awaiting Policy Number' || $result['PolicyStatus']=='Awaiting Policy Number') {
+                                            echo "<td><span class=\"label label-warning\">".$result['PolicyStatus']."</span></td>";}
+                                            
+                                            elseif ($result['PolicyStatus']=='SUBMITTED-LIVE' || $result['PolicyStatus']=='Live') {
+                                                echo "<td><span class=\"label label-success\">".$result['PolicyStatus']."</span></td>"; }
+                                                    
+                                                    else {
+                                                        echo "<td><span class=\"label label-default\">".$result['PolicyStatus']."</span></td>"; }     
+                                                        
+                                    if($ADLSTATUS != $EWSSTATUS) {
+                                        switch ($EWSSTATUS) {
+                                            case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
+                                                break;
+                                                case "WILL CANCEL":
+                                                echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
+                                                break;
+                                            case "REDRAWN":
+                                                case "WILL REDRAW":
+                                                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
+                                                    break;
+                                                case "CANCELLED":
+                                                    case "CFO":
+                                                        case "LAPSED":
+                                                            case "CANCELLED DD":
+                                                                case "BOUNCED DD":
+                                                                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
+                                                                    break;
+                                                                default:
+                                                                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
+                                                                    
+                                        }
+                                        
+                                        }
+                                        
+                                        else {
+                                            
+                                            switch ($ADLSTATUS) {
+                                                case "RE-INSTATED":
+                                                echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
+                                                break;
+                                                    case "WILL CANCEL":
+                                                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
+                                                    break;
+                                                case "REDRAWN":
+                                                    case "WILL REDRAW":
+                                                        echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
+                                                        break;
+                                                    case "CANCELLED":
+                                                        case "CFO":
+                                                            case "LAPSED":
+                                                                case "CANCELLED DD":
+                                                                    case "BOUNCED DD":
+                                                                        echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
+                                                                        break;
+                                                                    default:
+                                                                        echo "<td><span class='label label-info'>$ADLSTATUS</td>";
+                                                                        
+                                            }
+                                            
+                                            }
+                                            
+                                            if(($result['vitality_comm'])) {
+                                                echo "<td><span class='label label-warning'>On Financial</span> </td>";
+                                                
+                                            }
+                                            
+                                            else {
+                                               
+                                                echo "<td> </td>";
+                                                
+                                            }
+                                            
+                                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+                                            echo "<td><a href='EditPolicy.php?id=$poldid&search=$search&name=$polname' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
+                                                                                    
+                                                                                    if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
+                                                                                        if (in_array($hello_name,$Level_10_Access, true)) {
+                                                                                    
+                                                                                    
+                                                                                    echo "<td>
+                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
+                                                                                        <input type='hidden' id='policyID' name='policyID' value='$poldid'>
+                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
+                                                                                            </form>
+                                                                                            </td>";
+                                                                                    }
+                                                                                    }
+                                                                                    
+                                                                                    
+                                                                                    if(!empty($EWSSTATUS))  {
+                                                                                    echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
+                                                                                    }
+                                                                                    echo "</tr>";
+                                                                                    
+                                                                                } ?>
+                        
+                              </table>   
+                                                                                
+                                                                            <?php    } 
+                                                                            }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }                  
                                                                                 ?>
               
                     
@@ -1802,15 +2426,15 @@ if(isset($fferror)) {
                     
                     try {
                     
-                    $financial = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE client_id=:id GROUP BY financial_statistics_history.id");
-                    $financial->bindParam(':id', $search, PDO::PARAM_INT);
+                    $LG_FIN = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE client_id=:id GROUP BY financial_statistics_history.id");
+                    $LG_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+                    $LG_FIN->execute()or die(print_r($LG_FIN->errorInfo(), true));
+                    if ($LG_FIN->rowCount()>0) { ?>
                     
-                    ?>
-                    
-                    <table  class='table table-hover table-condensed'>
+                                        <table  class='table table-hover table-condensed'>
                         <thead>
                             <tr>
-                                <th colspan='7'>Financial Report</th>
+                                <th colspan='7'>Legal and General</th>
                             </tr>
                         <th>Comm Date</th>
                         <th>Policy</th>
@@ -1823,9 +2447,7 @@ if(isset($fferror)) {
                     
                     <?php
                     
-                    $financial->execute()or die(print_r($financial->errorInfo(), true));
-                    if ($financial->rowCount()>0) {
-                        while ($row=$financial->fetch(PDO::FETCH_ASSOC)){
+                        while ($row=$LG_FIN->fetch(PDO::FETCH_ASSOC)){
                             
                             $formattedpayment = number_format($row['payment'], 2);
                             $formatteddeduction = number_format($row['deduction'], 2);
@@ -1850,19 +2472,180 @@ if(isset($fferror)) {
                                     }
                                     
                                     } 
-                                    
-                                    else {
-                                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-                                        
-                                    }
+
                                       }
                  catch (PDOException $e) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
+                
+                ?>
+                    </table>
+                    <?php
+                    try {
+                    
+                    $VIT_FIN = $pdo->prepare("SELECT vitality_financials.vitality_insert_date, vitality_financials.vitality_comm, vitality_financials.vitality_comm_status, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM vitality_financials join client_policy on vitality_financials.vitality_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY vitality_financials.vitality_id");
+                    $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);                
+                    $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
+                    if ($VIT_FIN->rowCount()>0) { ?>
+                    
+                                        <table  class='table table-hover table-condensed'>
+                        <thead>
+                            <tr>
+                                <th colspan='7'>Vitality</th>
+                            </tr>
+                        <th>Comm Date</th>
+                        <th>Policy</th>
+                        <th>Commission Type</th>
+                        <th>Policy Status</th>
+                        <th>Closer</th>
+                        <th>Lead</th>
+                        <th>Amount</th>
+                    </thead>
+                    
+                    <?php
+                    
+                        while ($row=$VIT_FIN->fetch(PDO::FETCH_ASSOC)){
+            
+                            echo '<tr>';
+                            echo "<td>".$row['vitality_insert_date']."</td>";
+                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>".$row['policy_number']."</a></td>";
+                            echo "<td>".$row['vitality_comm_status']."</td>";
+                            echo "<td>".$row['policystatus']."</td>";
+                            echo "<td>".$row['closer']."</td>";
+                            echo "<td>".$row['lead']."</td>";
+                            if (intval($row['vitality_comm'])>0) {
+                                echo "<td><span class=\"label label-success\">".$row['vitality_comm']."</span></td>"; }
+                                else if (intval($row["vitality_comm"])<0) {
+                                    echo "<td><span class=\"label label-danger\">".$row['vitality_comm']."</span></td>"; }
+                                    else {
+                                        echo "<td>".$row['vitality_comm']."</td>"; }
+                                        echo "</tr>";
+                                        echo "\n";
+                                        
+                                    }
+                                    
+                                    } 
+
+                                      }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }                
                                   ?>
                     
                     </table>
+                    
+                    <?php
+                    try {
+                    
+                    $RL_FIN = $pdo->prepare("SELECT royal_london_financials.royal_london_insert_date, royal_london_financials.royal_london_comm, royal_london_financials.royal_london_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM royal_london_financials join client_policy on royal_london_financials.royal_london_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY royal_london_financials.royal_london_id");
+                    $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);                
+                    $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
+                    if ($RL_FIN->rowCount()>0) { ?>
+                    
+                                        <table  class='table table-hover table-condensed'>
+                        <thead>
+                            <tr>
+                                <th colspan='7'>Royal London</th>
+                            </tr>
+                        <th>Comm Date</th>
+                        <th>Policy</th>
+                        <th>Commission Type</th>
+                        <th>Policy Status</th>
+                        <th>Closer</th>
+                        <th>Lead</th>
+                        <th>Amount</th>
+                    </thead>
+                    
+                    <?php
+                    
+                        while ($row=$RL_FIN->fetch(PDO::FETCH_ASSOC)){
+            
+                            echo '<tr>';
+                            echo "<td>".$row['royal_london_insert_date']."</td>";
+                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>".$row['policy_number']."</a></td>";
+                            echo "<td>".$row['royal_london_type']."</td>";
+                            echo "<td>".$row['policystatus']."</td>";
+                            echo "<td>".$row['closer']."</td>";
+                            echo "<td>".$row['lead']."</td>";
+                            if (intval($row['royal_london_comm'])>0) {
+                                echo "<td><span class=\"label label-success\">".$row['royal_london_comm']."</span></td>"; }
+                                else if (intval($row["royal_london_comm"])<0) {
+                                    echo "<td><span class=\"label label-danger\">".$row['royal_london_comm']."</span></td>"; }
+                                    else {
+                                        echo "<td>".$row['royal_london_comm']."</td>"; }
+                                        echo "</tr>";
+                                        echo "\n";
+                                        
+                                    }
+                                    
+                                    } 
+                                    
+                                        }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }                
+                                  ?>
+                    
+                    </table>
+                    
+                    <?php
+                    try {
+                    
+                    $WOL_FIN = $pdo->prepare("SELECT wol_financials.wol_insert_date, wol_financials.wol_comm, wol_financials.wol_comm_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM wol_financials join client_policy on wol_financials.wol_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY wol_financials.wol_id");
+                    $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);                
+                    $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
+                    if ($WOL_FIN->rowCount()>0) { ?>
+                    
+                                        <table  class='table table-hover table-condensed'>
+                        <thead>
+                            <tr>
+                                <th colspan='7'>One Family</th>
+                            </tr>
+                        <th>Comm Date</th>
+                        <th>Policy</th>
+                        <th>Commission Type</th>
+                        <th>Policy Status</th>
+                        <th>Closer</th>
+                        <th>Lead</th>
+                        <th>Amount</th>
+                    </thead>
+                    
+                    <?php
+                    
+                        while ($row=$WOL_FIN->fetch(PDO::FETCH_ASSOC)){
+            
+                            echo '<tr>';
+                            echo "<td>".$row['wol_insert_date']."</td>";
+                            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>".$row['policy_number']."</a></td>";
+                            echo "<td>".$row['wol_comm_type']."</td>";
+                            echo "<td>".$row['policystatus']."</td>";
+                            echo "<td>".$row['closer']."</td>";
+                            echo "<td>".$row['lead']."</td>";
+                            if (intval($row['wol_comm'])>0) {
+                                echo "<td><span class=\"label label-success\">".$row['wol_comm']."</span></td>"; }
+                                else if (intval($row["wol_comm"])<0) {
+                                    echo "<td><span class=\"label label-danger\">".$row['wol_comm']."</span></td>"; }
+                                    else {
+                                        echo "<td>".$row['wol_comm']."</td>"; }
+                                        echo "</tr>";
+                                        echo "\n";
+                                        
+                                    }
+                                    
+                                    } 
+
+                                      }
+                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }                
+                                  ?>
+                    
+                    </table>                    
+                    
                 </div>
             </div>
             

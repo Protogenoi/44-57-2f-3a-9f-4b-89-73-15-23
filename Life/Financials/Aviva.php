@@ -1337,7 +1337,7 @@ $PAY_AMOUNT = number_format($row['aviva_comm'], 2);
             <div class="container">
 <?php
 
-$query = $pdo->prepare("select entry_date, id, policy_number, payment_type, aviva_comm from aviva_nomatch");
+$query = $pdo->prepare("select aviva_nomatch_insert_date, aviva_nomatch_id, aviva_nomatch_policy, payment_type, aviva_nomatch_comm from aviva_nomatch");
 ?>
                 <table class="table table-hover">
                     <thead>
@@ -1355,12 +1355,12 @@ $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
 while ($row=$query->fetch(PDO::FETCH_ASSOC)){
 
-$policy = $row['policy_number'];
-$AMOUNT = $row['payment_type'];
-$iddd = $row['id'];
+$policy = $row['aviva_nomatch_policy'];
+$AMOUNT = $row['aviva_nomatch_comm'];
+$iddd = $row['aviva_nomatch_id'];
 
     echo '<tr>'; 
-    echo"<td>".$row['entry_date']."</td>";
+    echo"<td>".$row['aviva_nomatch_insert_date']."</td>";
     echo "<td>$policy</td>"; 
        if (intval($row['aviva_comm'])>0) {
        echo "<td><span class=\"label label-success\">".$row['aviva_comm']."</span></td>"; }

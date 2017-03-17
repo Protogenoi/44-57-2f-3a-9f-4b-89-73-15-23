@@ -211,7 +211,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                     </fieldset>
                 </form>        
                 <?php 
-                $simply_biz = "2.5";
+                $simply_biz = "25";
                 
                 $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN vitality_financials ON client_policy.policy_number = vitality_financials.vitality_policy WHERE vitality_financials.vitality_policy IS NULL AND client_policy.insurer ='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
                 $PIPE_query->execute()or die(print_r($PIPE_query->errorInfo(), true));

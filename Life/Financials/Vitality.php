@@ -146,7 +146,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     <select id="INSURER" name="INSURER" class="form-control" onchange="this.form.submit()" required>
         <option <?php if(isset($INSURER)) { if($INSURER=='LegalandGeneral') { echo "selected"; } } ?> value="LegalandGeneral" selected>Legal And General</option>
         <option <?php if(isset($INSURER)) { if($INSURER=='Aviva') { echo "selected"; } } ?> value="Aviva">Aviva</option>
-        <option <?php if(isset($INSURER)) { if($INSURER=='RoyalLondon') { echo "selected"; } } ?> value="RoyalLondon">Royal London</option>
+        <option <?php if(isset($INSURER)) { if($INSURER=='RoyalLondon') { echo "selected"; } } ?> value="RoyalLondon">Vitality</option>
         <option <?php if(isset($INSURER)) { if($INSURER=='WOL') { echo "selected"; } } ?> value="WOL">One Family</option>
         <option <?php if(isset($INSURER)) { if($INSURER=='Vitality') { echo "selected"; } } ?> value="Vitality">Vitality</option>
     </select>
@@ -213,7 +213,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                 <?php 
                 $simply_biz = "25";
                 
-                $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN vitality_financials ON client_policy.policy_number = vitality_financials.vitality_policy WHERE vitality_financials.vitality_policy IS NULL AND client_policy.insurer ='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
+                $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN vitality_financials ON client_policy.policy_number = vitality_financials.vitality_policy WHERE vitality_financials.vitality_policy IS NULL AND client_policy.insurer ='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
                 $PIPE_query->execute()or die(print_r($PIPE_query->errorInfo(), true));
                 $row_rsmyQuery=$PIPE_query->fetch(PDO::FETCH_ASSOC);
                 $ORIG_pipe = $row_rsmyQuery['pipe']; 
@@ -229,7 +229,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     FROM vitality_financials WHERE DATE(vitality_insert_date)=:commdate");
     $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
 
-    $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%'");
+    $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%'");
         $MISSING_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
@@ -239,7 +239,7 @@ $commdate= filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         $simply_MISSING_SUM = ($simply_biz/100) * $ORIG_MISSING_SUM;
         $MISSING_SUM=$ORIG_MISSING_SUM-$simply_MISSING_SUM;        
         
-        $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND client_policy.policy_number NOT like '%DU%'");
+        $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND client_policy.policy_number NOT like '%DU%'");
         $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
@@ -279,7 +279,7 @@ WHERE DATE(vitality_financials.vitality_insert_date) = :commdate AND client_poli
     
         $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Royal London' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Vitality' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
         $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
         $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
@@ -290,7 +290,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
         $TBC_SUM_UNFORMATTED=$ORIG_TBC_SUM-$simply_EXP_TBC;    
         $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);  
         
-        $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Royal London' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+        $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Vitality' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
         $PENDING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);  
         $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
         $PENDING_SUM_QRY_RS=$PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -309,7 +309,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
      SUM(CASE WHEN vitality_financials.vitality_comm>=0 THEN vitality_financials.vitality_comm ELSE 0 END) as totalgross
     FROM vitality_financials ");
                     
-        $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%'");
+        $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%'");
         $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
         $MISSING_SUM_QRY_RS=$MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
         $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
@@ -320,7 +320,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
             $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission
 FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
+WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
  
         $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
         $TBC_SUM_QRY_RS=$TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -330,7 +330,7 @@ WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_pol
         $TBC_SUM_UNFORMATTED=$ORIG_TBC_SUM-$simply_EXP_TBC;    
         $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);
         
-         $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Royal London' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'"); 
+         $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Vitality' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'"); 
         $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
         $PENDING_SUM_QRY_RS=$PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
         $ORIG_PENDING_SUM = $PENDING_SUM_QRY_RS['commission'];                    
@@ -560,7 +560,7 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
 
 $query = $pdo->prepare("select id AS PID, client_id AS CID, client_name, policy_number, policystatus, commission, DATE(sale_date) AS SALE_DATE
 FROM client_policy
-WHERE insurer='Royal London' AND DATE(sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT like '%DU%'");
+WHERE insurer='Vitality' AND DATE(sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT like '%DU%'");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -624,7 +624,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 
 $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Royal London' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Vitality' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
@@ -681,7 +681,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 
 $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Royal London' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select vitality_policy from vitality_financials) AND insurer='Vitality' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
     $count = $query->rowCount();
@@ -751,7 +751,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 $query = $pdo->prepare("select DATE(client_policy.sale_date) AS SALE_DATE, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, vitality_financials.vitality_policy, vitality_financials.vitality_comm, DATE(vitality_financials.vitality_insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%' ");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%' ");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -810,7 +810,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, vitality_financials.vitality_policy, vitality_financials.vitality_comm, DATE(vitality_financials.vitality_insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
     $count = $query->rowCount();
@@ -875,7 +875,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 $query = $pdo->prepare("select DATE(client_policy.sale_date) AS sale_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, vitality_financials.vitality_policy, vitality_financials.vitality_comm, DATE(vitality_financials.vitality_insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Royal London' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') ORDER BY DATE(client_policy.sale_date)");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Vitality' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') ORDER BY DATE(client_policy.sale_date)");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -934,7 +934,7 @@ echo "<td><span class=\"label label-default\">".$row['policystatus']."</span></t
 $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE 
 FROM client_policy
 LEFT JOIN vitality_financials ON vitality_financials.vitality_policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Royal London' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Royal London' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policy_number NOT IN(select vitality_financials.vitality_policy from vitality_financials) AND client_policy.insurer='Vitality' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Vitality' ORDER BY client_policy.commission DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
     $count = $query->rowCount();
@@ -1206,14 +1206,14 @@ while ($row=$query->fetch(PDO::FETCH_ASSOC)){
                 <?php
                 if(isset($datefrom)){
                
-    $COMMIN_SUM_QRY = $pdo->prepare("select sum(vitality_financials.vitality_comm) AS vitality_comm from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm >= 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Royal London'");
+    $COMMIN_SUM_QRY = $pdo->prepare("select sum(vitality_financials.vitality_comm) AS vitality_comm from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm >= 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Vitality'");
     $COMMIN_SUM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
         $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
         $COMMIN_SUM_QRY_RS=$COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
         $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['vitality_comm'];                            
 $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
-$query = $pdo->prepare("select vitality_financials.vitality_comm, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, vitality_financials.vitality_policy, client_policy.client_name, client_policy.client_id from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm >= 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Royal London'");
+$query = $pdo->prepare("select vitality_financials.vitality_comm, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, vitality_financials.vitality_policy, client_policy.client_name, client_policy.client_id from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm >= 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Vitality'");
     $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {
@@ -1272,14 +1272,14 @@ $PAY_AMOUNT = number_format($row['vitality_comm'], 2);
                 <?php
                 if(isset($datefrom)){
                     
-                       $COMMOUT_SUM_QRY = $pdo->prepare("select sum(vitality_financials.vitality_comm) AS vitality_comm from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm < 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Royal London'");
+                       $COMMOUT_SUM_QRY = $pdo->prepare("select sum(vitality_financials.vitality_comm) AS vitality_comm from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm < 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Vitality'");
     $COMMOUT_SUM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
         $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
         $COMMOUT_SUM_QRY_RS=$COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
         $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['vitality_comm'];                            
 $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2); 
 
-$query = $pdo->prepare("select vitality_financials.vitality_comm, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, vitality_financials.vitality_policy, client_policy.client_name, client_policy.client_id from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm < 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Royal London'");
+$query = $pdo->prepare("select vitality_financials.vitality_comm, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, vitality_financials.vitality_policy, client_policy.client_name, client_policy.client_id from vitality_financials LEFT JOIN client_policy on vitality_financials.vitality_policy=client_policy.policy_number where vitality_financials.vitality_comm < 0 AND DATE(vitality_financials.vitality_insert_date) =:commdate AND client_policy.insurer ='Vitality'");
     $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
 if ($query->rowCount()>0) {

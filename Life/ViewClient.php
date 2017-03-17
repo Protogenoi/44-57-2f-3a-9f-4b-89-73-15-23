@@ -2987,6 +2987,12 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 $TMicon="fa-exclamation-triangle";
                 break;
             case "Financial Uploaded":
+                case "Legal and General Financial Uploaded":
+                case "Royal London Financial Uploaded":
+                    case "Aviva Financial Uploaded":
+                        case "Vitality Financial Uploaded":
+                            case "One Family Financial Uploaded":
+                                case "WOL Financial Uploaded":
                 $TMicon="fa-gbp";
                 break;
             case "Dealsheet":

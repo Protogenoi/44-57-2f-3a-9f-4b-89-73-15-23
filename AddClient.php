@@ -14,7 +14,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>Add Client</title>
+<title>ADL | Add Client</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
@@ -98,24 +98,53 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
   <label for="custtype">Product:</label>
   <select class="form-control" name="custype" id="custype" style="width: 170px" required>
       <option value="">Select...</option>
-      <?php if($companynamere=='The Review Bureau') { ?>
-                    <option value="TRB Archive">TRB Archive</option>
-                    <option value="The Review Bureau">TRB Life Insurance</option>
-                    <option value="TRB Royal London">Royal London</option>
-                    <option value="TRB WOL">WOL</option>
-                    <option value="TRB Vitality">Vitality</option>
-                    <option value="TRB Home Insurance">Home Insurance</option>
-                    <option value="Assura">Assura Life Insurance</option>
-                    <option value="TRB Aviva">Aviva</option>
-      <?php } else {?>
-                    <option value="ADL_CUS">Legal and General</option>
-                    <option value="CUS Royal London">Royal London</option>
-                    <option value="CUS WOL">WOL</option>
-                    <option value="CUS Vitality">Vitality</option>
-                    <option value="CUS Home Insurance">Home Insurance</option>
-                    <option value="CUS Aviva">Aviva</option>
-      <?php } ?>
-
+      <?php         
+          
+          $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_name DESC");
+          $COMP_QRY->execute();
+          if ($COMP_QRY->rowCount()>0) {
+              while ($result=$COMP_QRY->fetch(PDO::FETCH_ASSOC)){ 
+                  
+                  $CUSTYPE=$result['insurance_company_name'];
+                  
+                                                      switch ($CUSTYPE) {
+                                            case "TRB Archive":
+                                                $DISPLAY_CUS="Archive";
+                                                break;
+                                                case "The Review Bureau":
+                                                    case "ADL_CUS":
+                                                $DISPLAY_CUS="Legal & General";
+                                                break;
+                                            case "TRB Royal London":
+                                                    $DISPLAY_CUS="Royal London";
+                                                    break;
+                                                case "TRB WOL":
+                                                    case "TRB One Family":
+                                                        $CUSTYPE="TRB WOL";
+                                                    $DISPLAY_CUS="One Family";
+                                                    break;
+                                                    case "TRB Vitality":
+                                                    $DISPLAY_CUS="Vitality";
+                                                        break;
+                                                        case "TRB Home Insurance":
+                                                    $DISPLAY_CUS="Home Insurance";
+                                                            break;
+                                                            case "Assura":
+                                                    $DISPLAY_CUS="Assura";
+                                                                break;
+                                                                case "TRB Aviva":
+                                                    $DISPLAY_CUS="Aviva";
+                                                                    break;
+                                                                default:
+                                                                    $DISPLAY_CUS=$CUSTYPE;
+                                                                    
+                                        }
+                  
+                  ?>
+      <option value="<?php if(isset($CUSTYPE)) { echo $CUSTYPE; } ?>"><?php if(isset($CUSTYPE)) { echo $DISPLAY_CUS; } ?></option>
+          <?php    }
+          } ?>         
+     
   </select>
 </div>
             </p>

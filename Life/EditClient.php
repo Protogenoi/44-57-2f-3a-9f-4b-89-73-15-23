@@ -149,28 +149,52 @@ if(isset($life)) {
 <select class="form-control" name="company" id="company" style="width: 170px" required="yes">
                      
                     <?php if(isset($data2['company'])) { 
-                        if($data2['company']=='The Review Bureau' || $data2['company']=='TRB Archive' || $data2['company']=='TRB Vitality' || $data2['company']=='TRB Royal London' || $data2['company']=='TRB Home Insurance' || $data2['company']=='Assura' || $data2['company']=='TRB WOL' || $data2['company']=='TRB Aviva') {
-                        ?>
-                    
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">TRB Life Insurance</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Vitality') { echo "selected"; } } ?> value="TRB Vitality">Vitality</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Royal London') { echo "selected"; } } ?> value="TRB Royal London">Royal London</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Home Insurance') { echo "selected"; } } ?> value="TRB Home Insurance">Home Insurance</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?> value="Assura">Assura Life Insurance</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB WOL') { echo "selected"; } } ?> value="TRB WOL">WOL</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Aviva') { echo "selected"; } } ?> value="TRB Aviva">Aviva</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='TRB Archive') { echo "selected"; } } ?> value="TRB Archive">TRB Archive</option>
-                        <?php } 
-                    if($data2['company']=='ADL_CUS' || $data2['company']=='CUS Vitality' || $data2['company']=='CUS Royal London' || $data2['company']=='CUS Home Insurance' || $data2['company']=='Assura' || $data2['company']=='CUS WOL' || $data2['company']=='CUS Aviva') {
-                        ?>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='ADL_CUS') { echo "selected"; } } ?> value="ADL_CUS">Legal and General</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Vitality') { echo "selected"; } } ?> value="CUS Vitality">Vitality</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Royal London') { echo "selected"; } } ?> value="CUS Royal London">Royal London</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS Home Insurance') { echo "selected"; } } ?> value="CUS Home Insurance">Home Insurance</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='Assura') { echo "selected"; } } ?> value="Assura">Assura Life Insurance</option>
-                    <option <?php if(isset($data2['company'])) { if($data2['company']=='CUS WOL') { echo "selected"; } } ?> value="CUS WOL">WOL</option>
-                    
-                    <?php } }?>
+                        
+                        
+$COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_name DESC");
+          $COMP_QRY->execute();
+          if ($COMP_QRY->rowCount()>0) {
+              while ($result=$COMP_QRY->fetch(PDO::FETCH_ASSOC)){ 
+                  
+                  $CUSTYPE=$result['insurance_company_name'];
+                  
+                                                      switch ($CUSTYPE) {
+                                            case "TRB Archive":
+                                                $DISPLAY_CUS="Archive";
+                                                break;
+                                                case "The Review Bureau":
+                                                    case "ADL_CUS":
+                                                $DISPLAY_CUS="Legal & General";
+                                                break;
+                                            case "TRB Royal London":
+                                                    $DISPLAY_CUS="Royal London";
+                                                    break;
+                                                case "TRB WOL":
+                                                    case "TRB One Family":
+                                                        $CUSTYPE="TRB WOL";
+                                                    $DISPLAY_CUS="One Family";
+                                                    break;
+                                                    case "TRB Vitality":
+                                                    $DISPLAY_CUS="Vitality";
+                                                        break;
+                                                        case "TRB Home Insurance":
+                                                    $DISPLAY_CUS="Home Insurance";
+                                                            break;
+                                                            case "Assura":
+                                                    $DISPLAY_CUS="Assura";
+                                                                break;
+                                                                case "TRB Aviva":
+                                                    $DISPLAY_CUS="Aviva";
+                                                                    break;
+                                                                default:
+                                                                    $DISPLAY_CUS=$CUSTYPE;
+                                                                    
+                                        }
+                  
+                  ?>
+      <option value="<?php if(isset($CUSTYPE)) { echo $CUSTYPE; } ?>" <?php if(isset($data2['company'])) { if($data2['company']==$CUSTYPE) { echo "selected"; } } ?> ><?php if(isset($CUSTYPE)) { echo $DISPLAY_CUS; } ?></option>
+          <?php    }
+          }  }?>
   </select>
 </div>
 </div>

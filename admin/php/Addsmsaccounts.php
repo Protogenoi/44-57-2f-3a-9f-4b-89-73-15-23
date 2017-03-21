@@ -18,27 +18,60 @@ if(isset($fferror)) {
     }
     
 include('../../includes/ADL_PDO_CON.php');
+
 $addsms= filter_input(INPUT_GET, 'addsms', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($addsms)) {
 
-$smsprovider= filter_input(INPUT_POST, 'smsprovider', FILTER_SANITIZE_SPECIAL_CHARS);
+$provider= filter_input(INPUT_GET, 'provider', FILTER_SANITIZE_SPECIAL_CHARS);
 $smsusername= filter_input(INPUT_POST, 'smsusername', FILTER_SANITIZE_SPECIAL_CHARS);
 $smspassword= filter_input(INPUT_POST, 'smspassword', FILTER_SANITIZE_SPECIAL_CHARS);
-    $query = $pdo->prepare("INSERT INTO sms_accounts set submitter=:hello, smsprovider=:provider, smsusername=:user, smspassword=AES_ENCRYPT(:pass, UNHEX(:key))");
-    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);    
-    $query->bindParam(':provider', $smsprovider, PDO::PARAM_STR, 50);
-        $query->bindParam(':user', $smsusername, PDO::PARAM_STR, 100);
-        $query->bindParam(':pass', $smspassword, PDO::PARAM_STR, 500);
-        $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 100);
+
+if(isset($provider)){
+
+    if($provider=='Twilio') {
+       //select original encrpted password see if theres a match. If it is do nothing else encrpted new password 
+        $SID= filter_input(INPUT_POST, 'SID', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TOKEN= filter_input(INPUT_POST, 'TOKEN', FILTER_SANITIZE_SPECIAL_CHARS);
         
-        $query->execute()or die(print_r($query->errorInfo(), true));
-                            if(isset($fferror)) {
-    if($fferror=='0') {
-    header('Location: ../Admindash.php?smsaccount=y&SMS=y'); die;
-    }
-                            }
-}
+    $query = $pdo->prepare("INSERT INTO twilio_account set twilio_account_updated_by=:hello, twilio_account_sid=:SID, twilio_account_token=AES_ENCRYPT(:TOKEN, UNHEX(:key))");
+    $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+    $query->bindParam(':SID', $SID, PDO::PARAM_STR, 100);
+    $query->bindParam(':TOKEN', $TOKEN, PDO::PARAM_STR, 500);
+    $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 100);
+    $query->execute()or die(print_r($query->errorInfo(), true));
+    
+    if(isset($fferror)) {
+        if($fferror=='0') {
+            header('Location: ../Admindash.php?smsaccount=y&SMS=y'); die;
+            
+        }
+        
+        }     
+        
+        }
+        
+        if($provider=='BulkSMS') {
+            
+            $query = $pdo->prepare("INSERT INTO sms_accounts set submitter=:hello, smsprovider='Bulk SMS', smsusername=:user, smspassword=AES_ENCRYPT(:pass, UNHEX(:key))");
+            $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+            $query->bindParam(':user', $smsusername, PDO::PARAM_STR, 100);
+            $query->bindParam(':pass', $smspassword, PDO::PARAM_STR, 500);
+            $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 100);     
+            $query->execute()or die(print_r($query->errorInfo(), true));
+            
+            if(isset($fferror)) {
+                if($fferror=='0') {
+                    header('Location: ../Admindash.php?smsaccount=y&SMS=y'); die;
+                    }
+                    
+                }
+                
+                } 
+                
+                }
+                
+                }
 
 $newsmsmessagevar= filter_input(INPUT_GET, 'newsmsmessage', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -62,9 +95,12 @@ $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 }
 
 else {
-                            if(isset($fferror)) {
-    if($fferror=='0') {
-    header('Location: ../Admindash.php?smsaccount=failed&SMS=y'); die;
-    }
-                            }
-}
+    if(isset($fferror)) {
+        if($fferror=='0') {
+            header('Location: ../Admindash.php?smsaccount=failed&SMS=y'); die;
+            
+        }
+        
+        }
+        
+        }

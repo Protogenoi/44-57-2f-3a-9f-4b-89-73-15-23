@@ -446,7 +446,12 @@ echo "<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"
                             
                         <h1><i class="fa fa-commenting-o"></i> SMS Configuration</h1>
                         <br>                            
-                        <?php $getsmsbal = file_get_contents("https://www.bulksms.co.uk/eapi/user/get_credits/1/1.1?username=$smsuser&password=$smspass");
+                        <?php 
+                        
+                        if(isset($smspro)) {
+                        if($smspro=='Bulk SMS') {
+                            $getsmsbal = file_get_contents("https://www.bulksms.co.uk/eapi/user/get_credits/1/1.1?username=$smsuser&password=$smspass");
+
                                 
                                 $str = substr($getsmsbal, 2); ?>
                         <table class="table table-hover">
@@ -470,7 +475,9 @@ echo "<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"
                             </tr>
                         </table>
                             
-                            <?php
+                        <?php }
+                        
+                        }
                         
                         $smsaccount= filter_input(INPUT_GET, 'smsaccount', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -520,7 +527,8 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         <li class="active"><a data-toggle="pill" href="#"><i class="fa  fa-envelope-o"></i></a></li>
         <li><a data-toggle="pill" href="#SMSTemplates">SMS Templates</a></li>
         <li><a data-toggle="pill" href="#SMSAddmessage">Add message</a></li>
-        <li><a data-toggle="pill" href="#SMSSettings">SMS Settings</a></li>
+        <li><a data-toggle="pill" href="#SMSSettings">Bulk SMS Settings</a></li>
+        <li><a data-toggle="pill" href="#TwilioSettings">Twilio</a></li>
 
                             </ul>
                         <br>
@@ -688,25 +696,11 @@ echo "</table>";
                             </div>
                             
  <div id="SMSSettings" class="tab-pane fade">
-     
-     <p>Enter you SMS provider/gateway settings here.</p>
-                        
-                        <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?addsms">
-                            <fieldset>
-                                <legend>SMS Settings</legend>
 
-<div class="form-group">
-  <label class="col-md-4 control-label" for="smsprovider">Provider</label>
-  <div class="col-md-4">
-    <select id="smsprovider" name="smsprovider" class="form-control" required>
-                <?php if(isset($smspro)){ ?>
-        <option value="<?php echo $smspro;?>"><?php echo $smspro;?></option>
-        <?php } else {?>
-        <option value="">Select...</option><?php }?>
-      <option value="Bulk SMS">Bulk SMS</option>
-    </select>
-  </div>
-</div>
+                        
+                        <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?addsms&provider=BulkSMS">
+                            <fieldset>
+                                <legend>Bulk SMS</legend>
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="smsusername">Username</label>  
@@ -720,6 +714,51 @@ echo "</table>";
   <label class="col-md-4 control-label" for="smspassword">Password</label>
   <div class="col-md-4">
     <input id="smspassword" name="smspassword" placeholder="" class="form-control input-md" value="<?php echo $smspass;?>" required="" type="password">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <button id="submitsms" name="submitsms" class="btn btn-success">Submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+ </div>
+
+ <div id="TwilioSettings" class="tab-pane fade">
+     
+     <?php
+     
+     $TWILIO_QRY = $pdo->prepare("select twilio_account_sid, twilio_account_token from twilio_account LIMIT 1");
+     $TWILIO_QRY->execute()or die(print_r($query->errorInfo(), true));
+     $TWILIO_RESULT=$TWILIO_QRY->fetch(PDO::FETCH_ASSOC);          
+     
+     $TWILIO_SID=$TWILIO_RESULT['twilio_account_sid'];
+     $TWILIO_TOKEN=$TWILIO_RESULT['twilio_account_token'];
+        
+     ?>
+     
+     <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?addsms&provider=Twilio">
+         <fieldset>
+             <legend>Twilio Settings</legend>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="SID">ACCOUNT SID</label>  
+  <div class="col-md-4">
+                        <input id="smsusername" name="SID" placeholder="Used for Twilio REST API" class="form-control input-md" value="<?php if(isset($TWILIO_SID)) { echo $TWILIO_SID; } ?>" required type="text">
+    
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="TOKEN">Auth Token</label>
+  <div class="col-md-4">
+    <input id="smspassword" name="TOKEN" placeholder="" class="form-control input-md" value="<?php if(isset($TWILIO_TOKEN)) { echo $TWILIO_TOKEN; } ?>" required type="password">
     
   </div>
 </div>

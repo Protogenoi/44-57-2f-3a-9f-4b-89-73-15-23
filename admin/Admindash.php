@@ -2125,7 +2125,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                         <div class="tab-content">   
                             <div id="providersettings" class="tab-pane fade in active">
                                 
-                                 <form method="post" action="php/AddCompany.php?EXECUTE=1">
+                                 <form method="post" action="php/AddCompany.php?EXECUTE=1">  
                                  <table id="providersettings" class="table table-hover">
                                      <thead>
                                          <tr>
@@ -2134,7 +2134,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                              <th>Active</th>
                                          </tr>
                                      </thead>
-                                     
+                                   
                         <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" placeholder="Add a new company" required></td>                      
                         <td><input size="12" class="form-control" type="text" name="PRO_PERCENT" placeholder="Percentage taken by company for financial calculations"></td>
                         <td>
@@ -2146,14 +2146,16 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                         </select>
                         </td>                                      
                         <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> ADD</button></td>   
+                                 </table>
                                  </form>
-                                <form method="post" action="php/AddCompany.php?EXECUTE=1">
+                                     
+                                
                                 <?php
                                 
                                 $PRO_QRY = $pdo->prepare("SELECT insurance_company_id, insurance_company_name, insurance_company_percent, insurance_company_active FROM insurance_company");
                                 $PRO_QRY->execute()or die(print_r($query->errorInfo(), true)); ?>
                                 
-                                <form method="post" action="php/AddCompany.php?EXECUTE=2">
+                                
                                  <table id="providersettings" class="table table-hover">
                                      <thead>
                                          <tr>
@@ -2162,7 +2164,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                              <th>Active</th>
                                          </tr>
                                      </thead>
-                                
+                              
                                 <?php
                                 while ($result=$PRO_QRY->fetch(PDO::FETCH_ASSOC)){
                                     
@@ -2172,7 +2174,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                 $PRO_ACTIVE=$result['insurance_company_active']; 
                                 
                                 ?>
-                                
+                         <form method="post" action="php/AddCompany.php?EXECUTE=1">       
                         <tr><input type="hidden" value="<?php echo $PRO_ID; ?>" name="PRO_ID">
                         <td><input size="12" class="form-control" type="text" name="PRO_COMPANY" value="<?php if(isset($PRO_COMPANY)) { echo $PRO_COMPANY; } ?>" required></td>                      
                         <td><input size="12" class="form-control" type="text" name="PRO_PERCENT" value="<?php if(isset($PRO_PERCENT)) { echo $PRO_PERCENT; } ?>"></td>
@@ -2183,10 +2185,12 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
                                
                         </select>
                         </td>                                    
-                        <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td></tr>            
+                        <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td>
+                         </tr>
+                         </form>        
                                <?php } ?>
-                                 </table>
-                                </form>
+                               </table>   
+                                
                             </div>
                         </div>
 

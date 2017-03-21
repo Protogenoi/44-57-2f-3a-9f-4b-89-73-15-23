@@ -218,8 +218,8 @@ which need be filled in, are in bold text.</b></font></p>
 <div class="wrap">
   <p><b>Please sign in the box below your name(or names for a joint policy)</b> , your signatures must be witnessed by an independent adult witness. Please note the witness cannot be someone named in the trust or your spouse. <b>The witness must then fill out the following sections</b>:
 <ul>
-<b><li>3 - Their fullname.</li>
-<li>4 - Tthe witness signature.</li>
+<b><li>3 - Their full name.</li>
+<li>4 - The witness signature.</li>
 <li>5 - The address of the witness.</li>
 <li>6 - The date they signed.</li></b>
 </ul></p>
@@ -397,8 +397,8 @@ which need be filled in, are in bold text.</b></font></p>
 <div class="wrap">
   <p><b>Please sign in the box below your name (or names for a joint policy)</b>, your signatures must be witnessed by an independent adult witness. Please note the witness cannot be someone named in the trust or your spouse. <b>The witness must then fill out the following sections</b>:
 <ul>
-<b><li>3 - Their fullname.</li>
-<li>4 - Tthe witness signature.</li>
+<b><li>3 - Their full name.</li>
+<li>4 - The witness signature.</li>
 <li>5 - The address of the witness.</li>
 <li>6 - The date they signed.</li></b>
 </ul></p>

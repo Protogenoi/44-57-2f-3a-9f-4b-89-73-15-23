@@ -1720,8 +1720,8 @@ if(isset($fferror)) {
                                 </p>
                             </form>
                             
-                            <form class="AddClient" method="POST" action="/php/sms.php">
-                                <input type="hidden" name="keyfield" value="<?php echo $search?>">
+                            <form class="AddClient" method="POST" action="SMS/Send.php">
+                                <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                 <div class="form-group">
                                     <label for="selectsms">Select SMS:</label>
                                     <select class="form-control" name="selectopt">
@@ -1990,7 +1990,10 @@ if(isset($fferror)) {
 
                         <span class="label label-primary"><?php echo $data2['title'];?> <?php echo $data2['last_name'];?> Letters/Emails</span>
                         <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                        <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
                         <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                        <?php } ?>
+                        <a class="list-group-item" href="Templates/TrustGuide.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                         <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php echo $clientonemail;?>&recipient=<?php echo $data2['title'];?> <?php echo $data2['first_name'];?> <?php echo $data2['last_name'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
@@ -2000,7 +2003,10 @@ if(isset($fferror)) {
                         <?php if (!empty($data2['first_name2'])) { ?>
                         <span class="label label-primary"><?php echo $data2['title2'];?> <?php echo $data2['last_name2'];?> Letters/Emails</span> 
                         <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                        <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
                         <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                        <?php } ?>
+                        <a class="list-group-item" href="Templates/TrustGuide.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                         <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                         <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                         <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search;?>&email=<?php if(!empty($clienttwomail)) {echo $clienttwomail; } else { echo $clientonemail; }?>&recipient=<?php echo $data2['title2'];?> <?php echo $data2['first_name2'];?> <?php echo $data2['last_name2'];?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>

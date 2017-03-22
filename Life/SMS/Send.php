@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -41,7 +41,7 @@ $FullName= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
     $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);    
 
     $SMS_MESSAGE=$result['message'];
-    $countryCode = "+";
+    $countryCode = "+44";
     $newNumber = preg_replace('/^0?/', ''.$countryCode, $num);
     
 }
@@ -52,10 +52,11 @@ use Twilio\Rest\Client;
 $client = new Client($SID, $TOKEN);
 
 $client->messages->create(
-    '+447401434619',
+    "$newNumber",
     array(
         'from' => '+441792720471',
-        'body' => "$SMS_MESSAGE"
+        'body' => "$SMS_MESSAGE",
+        'statusCallback' => "https://dev.adlcrm.com/Life/SMS/Status.php?EXECUTE=1"
     )
 );
 

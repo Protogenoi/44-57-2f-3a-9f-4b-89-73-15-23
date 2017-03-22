@@ -128,25 +128,27 @@ font-size: 95%;
             Adelaide Street<br/>  
                 Swansea<br/> 
                     SA1 1SB<br/> 
-<br/>
-Main Tel: 08450 950 041<br/> 
+                    
+<div>
+  <div style="float:right">Main Tel: 08450 950 041<br/> 
 Alt Tel: 01792 735 002<br/> 
 Email: <a href="mailto:info@thereviewbureau.com" style="background-color: rgb(255, 255, 255);">info@thereviewbureau.com</a><br/> 
             <br/>
-           <time datetime="'.$TODAY.'"> '.$TODAY.'</time>
-        </div>
-
-     <div align="left">
-                 '.(!empty($clientone) ? $NAMEONE."" : '').'   
+           <time datetime="'.$TODAY.'"> '.$TODAY.'</time></div>
+  <div style="float:left" align="left">                 '.(!empty($clientone) ? $NAMEONE."" : '').'   
                 '.(!empty($clienttwo) ? $NAMETWO."" : '').' 
                     '.(!empty($joint) ? "$NAMEONE & $NAMETWO"."" : '').'<br/>
             '.(!empty($ADD1) ? $ADD1."<br/>" : '').' 
             '.(!empty($ADD2) ? $ADD2."<br/>" : '').' 
             '.(!empty($ADD3) ? $ADD3."<br/>" : '').' 
               '.(!empty($TOWN) ? $TOWN."<br/>" : '').' 
-                   '.(!empty($POSTCODE) ? $POSTCODE."<br/>" : '').'           
+                   '.(!empty($POSTCODE) ? $POSTCODE."<br/>" : '').'   </div>
+</div>
+<br/>
+
         </div>
-        
+
+    
         <div class="divSubject">
             '.(!empty($clientone) ? $NAMEONE.": Life Insurance Trust Guide" : '').'   
                 '.(!empty($clienttwo) ? $NAMETWO.": Life Insurance Trust Guide" : '').' 
@@ -166,8 +168,9 @@ Email: <a href="mailto:info@thereviewbureau.com" style="background-color: rgb(25
 <p>If you have more than one policy, each policy needs to be put into Trust individually, hence why you may have multiple trust forms included in the pack.</p>
 
 <p>Thank you,<br>'.$hello_name_full.'</p>
-<p><br><br><br><br><br><br></p>
 
+
+<div style="page-break-after: always;"></div>
 
 
 
@@ -281,7 +284,9 @@ which need be filled in, are in bold text.</b></font></p>
 
                             
                             $dompdf = new Dompdf();
-                            $dompdf->loadHtml('<style>header, .full-width {
+                            $dompdf->loadHtml('<style>
+                                
+header, .full-width {
   width: 100%;
   background: #6871b1;
 }
@@ -290,42 +295,43 @@ which need be filled in, are in bold text.</b></font></p>
   max-width: 40em;
   margin: 0 auto;
 }
-            
+      body {
+font-size: 95%;
+}
 .divSubject {
                 clear: both;
                 font-weight: bold;
-                padding-top: 50px;
+                padding-top: 20px;
             }
 </style>
 
 
 
      <div align="right">
-     <img src="../../uploads/LoginLogo.jpg" alt="COMPANY LOGO" width="140"><br/>
+     <img src="../../uploads/LoginLogo.jpg" alt="COMPANY LOGO" width="150"><br/>
             The Financial Assessment Centre<br/>
             Suite 1E, The Post House<br/>
             Adelaide Street<br/>  
                 Swansea<br/> 
-                    SA1 1SB<br/> 
+  <div style="float:right">                  SA1 1SB
 <br/>
-Main Tel: 02036 349515<br/> 
-Alt Tel: 07554 844444<br/> 
+Main Tel: 02036 349 515<br/> 
+Alt Tel: 07554 844 444<br/> 
 Email: <a href="mailto:info@thereviewdepartment.co.uk" style="background-color: rgb(255, 255, 255);">info@thereviewdepartment.co.uk</a><br/> 
-            <br/>
-           <time datetime="'.$TODAY.'"> '.$TODAY.'</time>
-        </div>
-
-
-
-     <div align="left">
-                 '.(!empty($clientone) ? $NAMEONE."" : '').'   
+           
+           <time datetime="'.$TODAY.'"> '.$TODAY.'</time></div>
+               
+  <div style="float:left" align="left">                 '.(!empty($clientone) ? $NAMEONE."" : '').'   
                 '.(!empty($clienttwo) ? $NAMETWO."" : '').' 
                     '.(!empty($joint) ? "$NAMEONE & $NAMETWO"."" : '').'<br/>
             '.(!empty($ADD1) ? $ADD1."<br/>" : '').' 
             '.(!empty($ADD2) ? $ADD2."<br/>" : '').' 
             '.(!empty($ADD3) ? $ADD3."<br/>" : '').' 
               '.(!empty($TOWN) ? $TOWN."<br/>" : '').' 
-                   '.(!empty($POSTCODE) ? $POSTCODE."<br/>" : '').'           
+                   '.(!empty($POSTCODE) ? $POSTCODE."<br/>" : '').'   </div>
+</div>
+<br/>
+
         </div>
         
         <div class="divSubject">
@@ -347,8 +353,8 @@ Email: <a href="mailto:info@thereviewdepartment.co.uk" style="background-color: 
 <p>If you have more than one policy, each policy needs to be put into Trust individually, hence why you may have multiple trust forms included in the pack.</p>
 
 <p>Thank you,<br>'.$hello_name_full.'</p>
-<p><br></p>
 
+<div style="page-break-after: always;"></div>
 
 <h1 style="text-align: center; margin-bottom: 0.28cm; line-height: 108%;"><span style="font-size: 12pt; color: inherit; font-family: inherit;"><b>TRUST FORM GUIDE-PAGE BY PAGE</b></span></h1>
 <p></p>
@@ -415,7 +421,7 @@ which need be filled in, are in bold text.</b></font></p>
 
 
 }
-$dompdf->setPaper('A4');
+$dompdf->setPaper('Letter');
 $dompdf->render();
 $dompdf->stream('Trust_Guide.pdf',array('Attachment'=>0));
                             }

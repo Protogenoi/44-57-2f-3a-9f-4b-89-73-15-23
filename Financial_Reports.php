@@ -1,45 +1,45 @@
-<?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+<?php
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if($fflife=='0') {
-    
-    header('Location: /CRMmain.php'); die;
-    
+require_once(__DIR__ . '/includes/adl_features.php');
+require_once(__DIR__ . '/includes/Access_Levels.php');
+require_once(__DIR__ . '/includes/adlfunctions.php');
+require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/php/analyticstracking.php');
 }
 
-include('../includes/adl_features.php');
-
-if(isset($fferror)) {
-    if($fferror=='0') {
-        
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
+}
 
-include('includes/ADL_PDO_CON.php');
-include('includes/adlfunctions.php');
-include('includes/Access_Levels.php');
+if ($fflife == '0') {
 
-      if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: /CRMmain.php'); die;
-} 
+    header('Location: /CRMmain.php');
+    die;
+}
 
-if(isset($_GET["datefrom"])) $datefrom = $_GET["datefrom"];
-if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
+if (!in_array($hello_name, $Level_10_Access, true)) {
 
-    $query = $pdo->prepare("UPDATE client_policy INNER JOIN financial_statisics ON client_policy.policy_number = financial_statisics.policy_number SET client_policy.PolicyStatus = financial_statisics.trans_type");
-    $query->execute()or die(print_r($query->errorInfo(), true));
+    header('Location: /CRMmain.php');
+    die;
+}
 
+$datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+$query = $pdo->prepare("UPDATE client_policy INNER JOIN financial_statisics ON client_policy.policy_number = financial_statisics.policy_number SET client_policy.PolicyStatus = financial_statisics.trans_type");
+$query->execute()or die(print_r($query->errorInfo(), true));
 ?>
-
 <!DOCTYPE html>
 <html>
     <title>ADL | Financial Database</title>
@@ -51,122 +51,110 @@ if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <!-- new smoothness 
-    
-    <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-    
-    -->
-   
+
     <style>
         .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
     </style>
-      
+
 </head>
 <body>
-    
-        <?php include('includes/navbar.php');
-                include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
-    
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-        ?>
-    
+
+    <?php require_once(__DIR__ . '/includes/navbar.php'); ?>
+
     <div class="container">
-        
+
         <?php
-        
-        $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    if(isset($RECHECK)) {
-        
-        if($RECHECK=='y') {
-            
-            print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> Policy found on recheck!</div>");
-            
-        }
-        
-        if($RECHECK=='n') {
-        
-            print("<div class=\"notice notice-danger\" role=\"alert\" ><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Policy not found on recheck!</div>");
-            
-    }
-    
-    }
-    
-               
-                    $SearchByPol= filter_input(INPUT_GET, 'SearchByPol', FILTER_SANITIZE_NUMBER_INT);
-                    $FINpolicy_number= filter_input(INPUT_POST, 'FINpolicy_number', FILTER_SANITIZE_SPECIAL_CHARS);
+        $RECHECK = filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    
-    if(isset($SearchByPol)) {        
-        if($SearchByPol=='1') {
-            
+        if (isset($RECHECK)) {
+
+            if ($RECHECK == 'y') {
+
+                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> Policy found on recheck!</div>");
+            }
+
+            if ($RECHECK == 'n') {
+
+                print("<div class=\"notice notice-danger\" role=\"alert\" ><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Policy not found on recheck!</div>");
+            }
+        }
+
+
+        $SearchByPol = filter_input(INPUT_GET, 'SearchByPol', FILTER_SANITIZE_NUMBER_INT);
+        $FINpolicy_number = filter_input(INPUT_POST, 'FINpolicy_number', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+        if (isset($SearchByPol)) {
+            if ($SearchByPol == '1') {
+
                 $FinSearchRowCount = $pdo->prepare("select policy from financial_statistics_history where policy=:id");
-    $FinSearchRowCount->bindParam(':id', $FINpolicy_number, PDO::PARAM_STR);
-    $FinSearchRowCount->execute();
-    $FinSearchRowCountdata=$FinSearchRowCount->fetch(PDO::FETCH_ASSOC);
-     if ($count = $FinSearchRowCount->rowCount()>0) {  
-            
-            echo "<div class=\"notice notice-success\" role=\"alert\" id='HIDEFINFOUND'><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> Policy found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEFINFOUND'>&times;</a></div>";
-            
+                $FinSearchRowCount->bindParam(':id', $FINpolicy_number, PDO::PARAM_STR);
+                $FinSearchRowCount->execute();
+                $FinSearchRowCountdata = $FinSearchRowCount->fetch(PDO::FETCH_ASSOC);
+                if ($count = $FinSearchRowCount->rowCount() > 0) {
+
+                    echo "<div class=\"notice notice-success\" role=\"alert\" id='HIDEFINFOUND'><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> Policy found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEFINFOUND'>&times;</a></div>";
+                }
+
+                if ($count = $FinSearchRowCount->rowCount() <= 0) {
+
+                    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDEFINNOTFOUND'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Warning:</strong> Policy not found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEFINNOTFOUND'>&times;</a></div>";
+                }
+            }
         }
-       
-        if ($count = $FinSearchRowCount->rowCount()<=0) {
-            
-          echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDEFINNOTFOUND'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Warning:</strong> Policy not found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEFINNOTFOUND'>&times;</a></div>";  
-            
-        
-        }
-        }
-    }
 
 
-    
-    if(isset($datefrom)) {
-        
-        $datefromnew ="$datefrom 01:00:00";
-        $datetonew= "$dateto 23:00:00"; 
-        
+
+        if (isset($datefrom)) {
+
+            $datefromnew = "$datefrom 01:00:00";
+            $datetonew = "$dateto 23:00:00";
+
             $unpaidamount = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS paidtotal from financial_statistics_history where financial_statistics_history.payment_amount < 0 AND insert_date between :datefromholder AND :datetoholder;");
-    $unpaidamount->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $unpaidamount->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
-    $unpaidamount->execute()or die(print_r($query->errorInfo(), true));
-    $unpaidamounts=$unpaidamount->fetch(PDO::FETCH_ASSOC);
-    
-    #$unpdamount=$unpaidamounts['paidtotal'];
-$unpdamount = number_format($unpaidamounts['paidtotal'], 2);
+            $unpaidamount->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+            $unpaidamount->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+            $unpaidamount->execute()or die(print_r($query->errorInfo(), true));
+            $unpaidamounts = $unpaidamount->fetch(PDO::FETCH_ASSOC);
 
-$paidamount = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS paidtotal from financial_statistics_history where financial_statistics_history.payment_amount >= 0 AND insert_date between :datefromholder AND :datetoholder;");
-    $paidamount->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $paidamount->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
-    $paidamount->execute()or die(print_r($query->errorInfo(), true));
-    $paidamounts=$paidamount->fetch(PDO::FETCH_ASSOC);
-    
-    #$pdamount=$paidamounts['paidtotal'];
-$pdamount = number_format($paidamounts['paidtotal'], 2);
-    }
-        
+            #$unpdamount=$unpaidamounts['paidtotal'];
+            $unpdamount = number_format($unpaidamounts['paidtotal'], 2);
+
+            $paidamount = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS paidtotal from financial_statistics_history where financial_statistics_history.payment_amount >= 0 AND insert_date between :datefromholder AND :datetoholder;");
+            $paidamount->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+            $paidamount->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+            $paidamount->execute()or die(print_r($query->errorInfo(), true));
+            $paidamounts = $paidamount->fetch(PDO::FETCH_ASSOC);
+
+            #$pdamount=$paidamounts['paidtotal'];
+            $pdamount = number_format($paidamounts['paidtotal'], 2);
+        }
         ?>
 
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#home">Financial Report</a>
             </li>
             <li><a data-toggle="pill" href="#menu7">Paid Policies <span class="badge alert-warning">
-                <?php $paidbadge = $pdo->query("select distinct count(policy) As badge from financial_statistics_history where payment_amount >= 0");
-            $row = $paidbadge->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
+                        <?php
+                        $paidbadge = $pdo->query("select distinct count(policy) As badge from financial_statistics_history where payment_amount >= 0");
+                        $row = $paidbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
                     </span></a>
             </li>
             <li><a data-toggle="pill" href="#menu1">Clawback Policies <span class="badge alert-warning">
-                <?php $clawbadge = $pdo->query("select distinct count(policy) As badge from financial_statistics_history where payment_amount < 0");
-            $row = $clawbadge->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
+                        <?php
+                        $clawbadge = $pdo->query("select distinct count(policy) As badge from financial_statistics_history where payment_amount < 0");
+                        $row = $clawbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
                     </span></a>
             </li>
             <li><a data-toggle="pill" href="#menu4">Unmatched Policies <span class="badge alert-warning">
-                <?php $nomatchbadge = $pdo->query("select count(id) AS badge from financial_statistics_nomatch");
-            $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
+                        <?php
+                        $nomatchbadge = $pdo->query("select count(id) AS badge from financial_statistics_nomatch");
+                        $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
                     </span></a>
             </li>
             <li><a data-toggle="pill" href="#TBC">TBC Policies</a>
@@ -175,13 +163,19 @@ $pdamount = number_format($paidamounts['paidtotal'], 2);
             <li><a data-toggle="pill" href="#menu5">Double Clawbacks</a>
             </li>
             <li><a data-toggle="pill" href="#menu6">Unpaid Policies <span class="badge alert-warning">
-                <?php $statement = $pdo->query("select count(*) AS badge FROM client_policy LEFT JOIN financial_statistics_history on financial_statistics_history.policy=client_policy.policy_number  WHERE  financial_statistics_history.id IS NULL AND client_policy.insurer !='Assura' AND client_policy.policy_number NOT like '%DUNCA%' OR client_policy.policy_number like '%DUBTL%' OR client_policy.policy_number like '%UINH%'");
-            $row = $statement->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
+                        <?php
+                        $statement = $pdo->query("select count(*) AS badge FROM client_policy LEFT JOIN financial_statistics_history on financial_statistics_history.policy=client_policy.policy_number  WHERE  financial_statistics_history.id IS NULL AND client_policy.insurer !='Assura' AND client_policy.policy_number NOT like '%DUNCA%' OR client_policy.policy_number like '%DUBTL%' OR client_policy.policy_number like '%UINH%'");
+                        $row = $statement->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
                     </span></a>
             </li>  
-                        <li><a data-toggle="pill" href="#homeinsurance">Home Unpaid <span class="badge alert-warning">
-                <?php $statement = $pdo->query("select count(*) AS badge FROM client_policy LEFT JOIN financial_statistics_history on financial_statistics_history.policy=client_policy.policy_number  WHERE  financial_statistics_history.id IS NULL AND client_policy.policy_number like '%DUNCA%' OR client_policy.policy_number like '%DUBTL%' OR client_policy.policy_number like '%UINH%'");
-            $row = $statement->fetch(PDO::FETCH_ASSOC); echo htmlentities($row['badge']);?>
+            <li><a data-toggle="pill" href="#homeinsurance">Home Unpaid <span class="badge alert-warning">
+                        <?php
+                        $statement = $pdo->query("select count(*) AS badge FROM client_policy LEFT JOIN financial_statistics_history on financial_statistics_history.policy=client_policy.policy_number  WHERE  financial_statistics_history.id IS NULL AND client_policy.policy_number like '%DUNCA%' OR client_policy.policy_number like '%DUBTL%' OR client_policy.policy_number like '%UINH%'");
+                        $row = $statement->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
                     </span></a>
             </li> 
             <li><a data-toggle="pill" href="#finsearch">Policy Search</a>
@@ -190,88 +184,85 @@ $pdamount = number_format($paidamounts['paidtotal'], 2);
         </ul>
     </div>
     <div class="tab-content">
-        
+
         <div id="home" class="tab-pane fade in active">
             <div class="container">
-<?php if (!empty($_GET[success])) { echo "<b>Your file has been imported.</b><br><br>"; } ?>
-                
-                
+                <?php
+                if (!empty($_GET[success])) {
+                    echo "<b>Your file has been imported.</b><br><br>";
+                }
+                ?>
+
+
                 <br>
-                
+
                 <form action=" " method="get">
-                    
+
                     <div class="form-group">
                         <div class="col-xs-2">
                             <input type="text" id="datefrom" name="datefrom" placeholder="Date from:" class="form-control" value="<?php echo $datefrom ?>" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="col-xs-2">
                             <input type="text" id="dateto" name="dateto" class="form-control" placeholder="Date to" value="<?php echo $dateto ?>" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <div class="col-xs-2">
                             <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
-                    
+
                     </fieldset>
                 </form>
-                
-<?php
 
-    $TBC_UNPAID = $pdo->prepare("SELECT sum(commission) AS paidtotal FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General'");
-    $TBC_UNPAID->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $TBC_UNPAID->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
-    $TBC_UNPAID->execute()or die(print_r($query->errorInfo(), true));
-    $TBC_UNPAIDs=$TBC_UNPAID->fetch(PDO::FETCH_ASSOC);
-    
-    #$unpdamount=$TBC_UNPAIDs['paidtotal'];
-$TBC_UNPAID_AMOUNT = number_format($TBC_UNPAIDs['paidtotal'], 2);        
+                <?php
+                $TBC_UNPAID = $pdo->prepare("SELECT sum(commission) AS paidtotal FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General'");
+                $TBC_UNPAID->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+                $TBC_UNPAID->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                $TBC_UNPAID->execute()or die(print_r($query->errorInfo(), true));
+                $TBC_UNPAIDs = $TBC_UNPAID->fetch(PDO::FETCH_ASSOC);
+                $TBC_UNPAID_AMOUNT = number_format($TBC_UNPAIDs['paidtotal'], 2);
 
-if(isset($datefrom)) { ?>
-                <div class="btn-group">
-                    <a href="export/ExportData.php?financialExport=paid&dateto=<?php echo $datetonew;?>&datefrom=<?php echo $datefromnew;?>" class="btn btn-success"><i class="fa fa-download"></i> Export Paid</a>
-                    <a href="export/ExportData.php?financialExport=unpaid&dateto=<?php echo $datetonew;?>&datefrom=<?php echo $datefromnew;?>" class="btn btn-danger"><i class="fa fa-download"></i> Export Unpaid</a>
-                </div>
-<?php }
+                if (isset($datefrom)) {
+                    ?>
+                    <div class="btn-group">
+                        <a href="export/ExportData.php?financialExport=paid&dateto=<?php echo $datetonew; ?>&datefrom=<?php echo $datefromnew; ?>" class="btn btn-success"><i class="fa fa-download"></i> Export Paid</a>
+                        <a href="export/ExportData.php?financialExport=unpaid&dateto=<?php echo $datetonew; ?>&datefrom=<?php echo $datefromnew; ?>" class="btn btn-danger"><i class="fa fa-download"></i> Export Unpaid</a>
+                    </div>
+                    <?php
+                }
 
-    $query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.policy WHERE financial_statistics_history.policy IS NULL AND client_policy.insurer !='Assura' ");
-    $query->execute()or die(print_r($query->errorInfo(), true));
-    $row_rsmyQuery=$query->fetch(PDO::FETCH_ASSOC);
-
-
-$pipe = $row_rsmyQuery['pipe'];
+                $query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.policy WHERE financial_statistics_history.policy IS NULL AND client_policy.insurer !='Assura' ");
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                $row_rsmyQuery = $query->fetch(PDO::FETCH_ASSOC);
+                $pipe = $row_rsmyQuery['pipe'];
 
 
 
-if(isset($datefrom)) {
+                if (isset($datefrom)) {
 
 
-$query = $pdo->prepare("SELECT 
+                    $query = $pdo->prepare("SELECT 
     SUM(CASE WHEN financial_statistics_history.payment_amount < 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
     FROM financial_statistics_history WHERE insert_date between :datefromholder AND :datetoholder");
-    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
-    
-}
+                    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                } else {
 
-else {
-    
-    $query = $pdo->prepare("SELECT SUM(CASE WHEN financial_statistics_history.payment_amount<0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
+                    $query = $pdo->prepare("SELECT SUM(CASE WHEN financial_statistics_history.payment_amount<0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
      SUM(CASE WHEN financial_statistics_history.payment_amount>=0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
     FROM financial_statistics_history ");
-    
-}
+                }
 
 
-echo "<table  class=\"table table-hover\">";
+                echo "<table  class=\"table table-hover\">";
 
-echo "  <thead>
+                echo "  <thead>
 
     <tr>
     <th colspan= 15>Statistics for $datefrom - $dateto</th>
@@ -287,85 +278,82 @@ echo "  <thead>
     </tr>
     </thead>";
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($result=$query->fetch(PDO::FETCH_ASSOC)){
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$totalgross = $result['totalgross'];
-$totalloss = abs($result['totalloss']); 
-$totalrate = "25.00";
+                        $totalgross = $result['totalgross'];
+                        $totalloss = abs($result['totalloss']);
+                        $totalrate = "25.00";
 
-$totalnet = $totalgross - $totalloss;
+                        $totalnet = $totalgross - $totalloss;
 
-$hwifsd = ($totalrate/100) * $totalnet ;
-$netcom = $totalnet - $hwifsd;
+                        $hwifsd = ($totalrate / 100) * $totalnet;
+                        $netcom = $totalnet - $hwifsd;
 
-$formattedpipe = number_format($pipe, 2);
-$formattedtotalgross = number_format($totalgross, 2);
-$formattedtotalloss = number_format($totalloss, 2);
-$formattedtotalnet = number_format($totalnet, 2);
-$formattedhwifsd = number_format($hwifsd, 2);
-$formattednetcom = number_format($netcom, 2);
+                        $formattedpipe = number_format($pipe, 2);
+                        $formattedtotalgross = number_format($totalgross, 2);
+                        $formattedtotalloss = number_format($totalloss, 2);
+                        $formattedtotalnet = number_format($totalnet, 2);
+                        $formattedhwifsd = number_format($hwifsd, 2);
+                        $formattednetcom = number_format($netcom, 2);
 
-    echo '<tr class='.$class.'>';
-    echo "<td>15%</td>";
-    echo "<td>10%</td>";
-    echo "<td>£$formattedtotalgross</td>";
-    echo "<td>£$formattedtotalloss</td>";
-    echo "<td>£$formattedtotalnet</td>";
-    echo "<td>£$formattedhwifsd</td>";
-    echo "<td>£$formattednetcom</td>";
-    echo "<td>£$formattedpipe</td>";
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-echo "</table>";
+                        echo '<tr class=' . $class . '>';
+                        echo "<td>15%</td>";
+                        echo "<td>10%</td>";
+                        echo "<td>£$formattedtotalgross</td>";
+                        echo "<td>£$formattedtotalloss</td>";
+                        echo "<td>£$formattedtotalnet</td>";
+                        echo "<td>£$formattedhwifsd</td>";
+                        echo "<td>£$formattednetcom</td>";
+                        echo "<td>£$formattedpipe</td>";
+                        echo "</tr>";
+                        echo "\n";
+                    }
+                } else {
+                    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                }
+                echo "</table>";
 
-if(isset($datefrom)) {
-    
-    ?>
-                
-                <form class="form-vertical">
-                                <div class="form-group"> 
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount";?>" disabled>
-  </div>
-</div>
-               
-                                <div class="form-group">
-    
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount";?>" disabled>
-  </div>
-</div>
-                    
-     
-               
-                                <div class="form-group">
-    
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT";?>" disabled>
-  </div>
-</div>
-                   
-    </form> 
-                <br>
-                <br>
-                <br>
-                <?php
+                if (isset($datefrom)) {
+                    ?>
+
+                    <form class="form-vertical">
+                        <div class="form-group"> 
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount"; ?>" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount"; ?>" disabled>
+                            </div>
+                        </div>
 
 
-$query = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.id AS POLID, client_policy.client_id AS CID FROM financial_statistics_history left join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE insert_date between :datefromholder2 and :datetoholder2 GROUP BY financial_statistics_history.id ORDER by payment_amount DESC");
-    $query->bindParam(':datefromholder2', $datefromnew, PDO::PARAM_STR, 100);
-    $query->bindParam(':datetoholder2', $datetonew, PDO::PARAM_STR, 100);
+
+                        <div class="form-group">
+
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT"; ?>" disabled>
+                            </div>
+                        </div>
+
+                    </form> 
+                    <br>
+                    <br>
+                    <br>
+                    <?php
+                    $query = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.id AS POLID, client_policy.client_id AS CID FROM financial_statistics_history left join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE insert_date between :datefromholder2 and :datetoholder2 GROUP BY financial_statistics_history.id ORDER by payment_amount DESC");
+                    $query->bindParam(':datefromholder2', $datefromnew, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datetoholder2', $datetonew, PDO::PARAM_STR, 100);
 
 
-echo "<table  class=\"table table-hover table-condensed\">";
+                    echo "<table  class=\"table table-hover table-condensed\">";
 
-echo "  <thead>
+                    echo "  <thead>
 
     <tr>
     <th colspan='3'>Transactions for $datefrom - $dateto</th>
@@ -376,73 +364,66 @@ echo "  <thead>
     </tr>
     </thead>";
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$formattedpayment = number_format($row['payment'], 2);
-$formatteddeduction = number_format($row['deduction'], 2);
-$clientid = $row['policy_number'];
+                            $formattedpayment = number_format($row['payment'], 2);
+                            $formatteddeduction = number_format($row['deduction'], 2);
+                            $clientid = $row['policy_number'];
 
-    echo '<tr class='.$class.'>';
-    echo "<td><a href='/Life/ViewPolicy.php?policyID=".$row['POLID']."&search=".$row['CID']."' target='_blank'>".$row['Policy']."</a></td>";
-    echo "<td>".$row['Policy_Name']."</td>";
-      if (intval($row['Payment_Amount'])>0) {
-       echo "<td><span class=\"label label-success\">".$row['Payment_Amount']."</span></td>"; }
-       else if (intval($row["Payment_Amount"])<0) {
-           echo "<td><span class=\"label label-danger\">".$row['Payment_Amount']."</span></td>"; }
-           else {
-               echo "<td>".$row['Payment_Amount']."</td>"; }
+                            echo '<tr class=' . $class . '>';
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['POLID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['Policy'] . "</a></td>";
+                            echo "<td>" . $row['Policy_Name'] . "</td>";
+                            if (intval($row['Payment_Amount']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['Payment_Amount'] . "</span></td>";
+                            } else if (intval($row["Payment_Amount"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['Payment_Amount'] . "</span></td>";
+                            } else {
+                                echo "<td>" . $row['Payment_Amount'] . "</td>";
+                            }
 
 
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-echo "</table>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                    echo "</table>";
+                }
+                ?>   
 
-}
-?>   
-                
             </div>
         </div>
-        
-                <div id="menu7" class="tab-pane fade">   
+
+        <div id="menu7" class="tab-pane fade">   
             <div class="container">           
-                
-<?php
 
-if(isset($datefrom)) {
-
-
-    ?>
- 
-                <form class="form-vertical">
-                                <div class="form-group"> 
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount";?>" disabled>
-  </div>
-</div>
-    </form> 
-                
                 <?php
-    
-$query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND client_policy.insurer !='Assura' AND insert_date between :datefromholder AND :datetoholder;");
-    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                if (isset($datefrom)) {
+                    ?>
 
-}
+                    <form class="form-vertical">
+                        <div class="form-group"> 
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Paid £$pdamount"; ?>" disabled>
+                            </div>
+                        </div>
+                    </form> 
 
-else {
+                    <?php
+                    $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND client_policy.insurer !='Assura' AND insert_date between :datefromholder AND :datetoholder;");
+                    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                } else {
 
-$query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND client_policy.insurer !='Assura' group by financial_statistics_history.policy;");
-}
+                    $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND client_policy.insurer !='Assura' group by financial_statistics_history.policy;");
+                }
 
-echo "<table class=\"table table-hover\"  >";
+                echo "<table class=\"table table-hover\"  >";
 
-echo "  <thead>
+                echo "  <thead>
 
     <tr>
     <th colspan= 15>PAID Policies</th>
@@ -455,71 +436,63 @@ echo "  <thead>
     </tr>
     </thead>";
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$policy = $row['policy'];
-$PAY_AMOUNT = number_format($row['payment_amount'], 2);
+                        $policy = $row['policy'];
+                        $PAY_AMOUNT = number_format($row['payment_amount'], 2);
 
-    echo '<tr class='.$class.'>';
-    echo "<td>".$row['sale_date']."</td>";
-    echo "<td>".$row['client_name']."</td>";
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>"; 
-   echo "<td>".$row['CommissionType']."</td>";
-       if (intval($PAY_AMOUNT)>0) {
-       echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>"; }
-       else if (intval($PAY_AMOUNT)<0) {
-           echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>"; }
-           else {
-               echo "<td>$PAY_AMOUNT</td>"; }
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available (PAID Policies)</div>";
-}
-echo "</table>";
-
-?>   
+                        echo '<tr class=' . $class . '>';
+                        echo "<td>" . $row['sale_date'] . "</td>";
+                        echo "<td>" . $row['client_name'] . "</td>";
+                        echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                        echo "<td>" . $row['CommissionType'] . "</td>";
+                        if (intval($PAY_AMOUNT) > 0) {
+                            echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                        } else if (intval($PAY_AMOUNT) < 0) {
+                            echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
+                        } else {
+                            echo "<td>$PAY_AMOUNT</td>";
+                        }
+                        echo "</tr>";
+                        echo "\n";
+                    }
+                } else {
+                    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available (PAID Policies)</div>";
+                }
+                echo "</table>";
+                ?>   
             </div>
         </div>
-        
+
         <div id="menu1" class="tab-pane fade">   
             <div class="container">
-<?php
-
-if(isset($datefrom)) {
-    
-
-    ?>
- 
-                <form class="form-vertical">
-               
-                                <div class="form-group">
-    
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount";?>" disabled>
-  </div>
-</div>
-    </form> 
                 <?php
- 
+                if (isset($datefrom)) {
+                    ?>
 
-$query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND client_policy.insurer !='Assura' AND insert_date between :datefromholder AND :datetoholder;");
-    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
-    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                    <form class="form-vertical">
 
-}
+                        <div class="form-group">
 
-else {
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "COMM Clawback £$unpdamount"; ?>" disabled>
+                            </div>
+                        </div>
+                    </form> 
+                    <?php
+                    $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND client_policy.insurer !='Assura' AND insert_date between :datefromholder AND :datetoholder;");
+                    $query->bindParam(':datefromholder', $datefromnew, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datetoholder', $datetonew, PDO::PARAM_STR, 100);
+                } else {
 
-$query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND client_policy.insurer !='Assura' group by financial_statistics_history.policy;");
-}
+                    $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, client_policy.sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND client_policy.insurer !='Assura' group by financial_statistics_history.policy;");
+                }
 
-echo "<table class=\"table table-hover\"  >";
+                echo "<table class=\"table table-hover\"  >";
 
-echo "  <thead>
+                echo "  <thead>
 
     <tr>
     <th colspan= 15>CLAWBACK Policies</th>
@@ -533,42 +506,41 @@ echo "  <thead>
     </tr>
     </thead>";
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$policy = $row['policy'];
+                        $policy = $row['policy'];
 
-    echo '<tr class='.$class.'>';
-    echo "<td>".$row['sale_date']."</td>";
-    echo "<td>".$row['client_name']."</td>";
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>"; 
-   echo "<td>".$row['CommissionType']."</td>";
-   echo "<td>".$row['payment_due_date']."</td>";
-       if (intval($row['payment_amount'])>0) {
-       echo "<td><span class=\"label label-success\">".$row['payment_amount']."</span></td>"; }
-       else if (intval($row["payment_amount"])<0) {
-           echo "<td><span class=\"label label-danger\">".$row['payment_amount']."</span></td>"; }
-           else {
-               echo "<td>".$row['payment_amount']."</td>"; }
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available (Clawback Policies)</div>";
-}
-echo "</table>";
-
-?>   
+                        echo '<tr class=' . $class . '>';
+                        echo "<td>" . $row['sale_date'] . "</td>";
+                        echo "<td>" . $row['client_name'] . "</td>";
+                        echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                        echo "<td>" . $row['CommissionType'] . "</td>";
+                        echo "<td>" . $row['payment_due_date'] . "</td>";
+                        if (intval($row['payment_amount']) > 0) {
+                            echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
+                        } else if (intval($row["payment_amount"]) < 0) {
+                            echo "<td><span class=\"label label-danger\">" . $row['payment_amount'] . "</span></td>";
+                        } else {
+                            echo "<td>" . $row['payment_amount'] . "</td>";
+                        }
+                        echo "</tr>";
+                        echo "\n";
+                    }
+                } else {
+                    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available (Clawback Policies)</div>";
+                }
+                echo "</table>";
+                ?>   
             </div>
         </div>
-        
-                <div id="menu4" class="tab-pane fade">   
-            <div class="container">
-<?php
 
-$query = $pdo->prepare("select entry_date, id, policy_number, payment_type, payment_amount from financial_statistics_nomatch");
-?>
+        <div id="menu4" class="tab-pane fade">   
+            <div class="container">
+                <?php
+                $query = $pdo->prepare("select entry_date, id, policy_number, payment_type, payment_amount from financial_statistics_nomatch");
+                ?>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -578,49 +550,44 @@ $query = $pdo->prepare("select entry_date, id, policy_number, payment_type, paym
                     <th>Policy</th>
                     <th>Payment Amount</th>
                     <th>Re-check</th>
-                </thead>
-<?php 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                    </thead>
+                    <?php
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$policy = $row['policy_number'];
-$paytype = $row['payment_type'];
-$iddd = $row['id'];
+                            $policy = $row['policy_number'];
+                            $paytype = $row['payment_type'];
+                            $iddd = $row['id'];
 
-    echo '<tr class='.$class.'>'; 
-    echo"<td>".$row['entry_date']."</td>";
-    echo "<td>$policy</td>"; 
-       if (intval($row['payment_amount'])>0) {
-       echo "<td><span class=\"label label-success\">".$row['payment_amount']."</span></td>"; }
-       else if (intval($row["payment_amount"])<0) {
-           echo "<td><span class=\"label label-danger\">".$row['payment_amount']."</span></td>"; }
-           else {
-               echo "<td>".$row['payment_amount']."</td>"; }
-               echo "<td><a href='php/Financial_Recheck.php?RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-success\" role=\"alert\"><strong>Info!</strong> No unmatched policies!</div>";
-}
-
-
-?>   
+                            echo '<tr class=' . $class . '>';
+                            echo"<td>" . $row['entry_date'] . "</td>";
+                            echo "<td>$policy</td>";
+                            if (intval($row['payment_amount']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
+                            } else if (intval($row["payment_amount"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['payment_amount'] . "</span></td>";
+                            } else {
+                                echo "<td>" . $row['payment_amount'] . "</td>";
+                            }
+                            echo "<td><a href='php/Financial_Recheck.php?RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong>Info!</strong> No unmatched policies!</div>";
+                    }
+                    ?>   
                 </table>
             </div>
         </div>
-        
+
         <div id="menu2" class="tab-pane fade">
             <div class="container">
-<?php
+                <?php
+                echo "<table class=\"table table-hover\"  >";
 
-
-
-
-echo "<table class=\"table table-hover\"  >";
-
-echo "  <thead>
+                echo "  <thead>
 
     <tr>
     <th colspan= 15>EWS Stats</th>
@@ -642,29 +609,29 @@ echo "  <thead>
 
 
 
-    echo '<tr class='.$class.'>';
-     echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "<td></td>";
-    echo "</tr>";
-    echo "\n";
+                echo '<tr class=' . $class . '>';
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "<td></td>";
+                echo "</tr>";
+                echo "\n";
 
-echo "</table>";
+                echo "</table>";
 
-$query = $pdo->prepare("SELECT client_policy.client_id , client_policy.sale_date , ews_data.policy_number , ews_data.warning , client_policy.PolicyStatus , ews_data.last_full_premium_paid , client_policy.premium , ews_data.clawback_due , ews_data.clawback_date , ews_data.date_added FROM ews_data LEFT JOIN client_policy ON ews_data.policy_number=client_policy.policy_number LEFT JOIN client_details ON client_policy.client_id=client_details.client_id");
+                $query = $pdo->prepare("SELECT client_policy.client_id , client_policy.sale_date , ews_data.policy_number , ews_data.warning , client_policy.PolicyStatus , ews_data.last_full_premium_paid , client_policy.premium , ews_data.clawback_due , ews_data.clawback_date , ews_data.date_added FROM ews_data LEFT JOIN client_policy ON ews_data.policy_number=client_policy.policy_number LEFT JOIN client_details ON client_policy.client_id=client_details.client_id");
 
-echo "<table  class=\"table table-hover\">";
+                echo "<table  class=\"table table-hover\">";
 
-echo "  <thead>
+                echo "  <thead>
 
     <tr>
     <th colspan= 15>EWS Ledger</th>
@@ -681,70 +648,65 @@ echo "  <thead>
     </tr>
     </thead>";
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-$formattedpre = number_format($row['premium'], 2);
+                        $formattedpre = number_format($row['premium'], 2);
 
-$formatteddue = number_format($row['clawback_due'], 2);
+                        $formatteddue = number_format($row['clawback_due'], 2);
 
-$clientid = $row['policy_number'];
+                        $clientid = $row['policy_number'];
 
-    echo '<tr class='.$class.'>';
-    echo "<td>".$row['sale_date']."</td>";
-    echo "<td>".$row['date_added']."</td>";
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$clientid</a></td>"; 
-    echo "<td>".$row['warning']."</td>";
-    echo "<td>".$row['PolicyStatus']."</td>";
-    echo "<td>".$row['last_full_premium_paid']."</td>";
-    echo "<td>£$formattedpre</td>";
-    echo "<td>£$formatteddue</td>";
-    echo "<td>".$row['clawback_date']."</td>";
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-echo "</table>";
+                        echo '<tr class=' . $class . '>';
+                        echo "<td>" . $row['sale_date'] . "</td>";
+                        echo "<td>" . $row['date_added'] . "</td>";
+                        echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$clientid</a></td>";
+                        echo "<td>" . $row['warning'] . "</td>";
+                        echo "<td>" . $row['PolicyStatus'] . "</td>";
+                        echo "<td>" . $row['last_full_premium_paid'] . "</td>";
+                        echo "<td>£$formattedpre</td>";
+                        echo "<td>£$formatteddue</td>";
+                        echo "<td>" . $row['clawback_date'] . "</td>";
+                        echo "</tr>";
+                        echo "\n";
+                    }
+                } else {
+                    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                }
+                echo "</table>";
+                ?>   
 
-?>   
-                
             </div>
         </div>
-        
+
         <div id="menu5" class="tab-pane fade">
             <div class="container">
-        <?php
+                <?php
+                $query = $pdo->prepare("select client_name,policy_number from client_policy where policy_number in (SELECT financial_statistics_history.policy as policy FROM financial_statistics_history WHERE financial_statistics_history.Payment_Type ='X' group by financial_statistics_history.policy having count(*) > 1)");
+
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        $doubbleclawbackarray[$row['policy_number']]['CLIENTINFO']['Name'] = $row['client_name'];
+                    }
+                }
 
 
-$query = $pdo->prepare("select client_name,policy_number from client_policy where policy_number in (SELECT financial_statistics_history.policy as policy FROM financial_statistics_history WHERE financial_statistics_history.Payment_Type ='X' group by financial_statistics_history.policy having count(*) > 1)");
-        
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
-        $doubbleclawbackarray[$row['policy_number']]['CLIENTINFO']['Name']=$row['client_name'];
-}
-}
-        
-        
-$query = $pdo->prepare("SELECT policy,Payment_Date,Payment_Type,Payment_Due_Date,Premium_Type,Premium_Amount,Premium_Frequency,insert_date,uploader from (SELECT financial_statistics_history.policy as policy FROM financial_statistics_history WHERE financial_statistics_history.Payment_Type ='X' group by financial_statistics_history.policy having count(*) > 1) tbl1 join financial_statistics_history using(policy)");
+                $query = $pdo->prepare("SELECT policy,Payment_Date,Payment_Type,Payment_Due_Date,Premium_Type,Premium_Amount,Premium_Frequency,insert_date,uploader from (SELECT financial_statistics_history.policy as policy FROM financial_statistics_history WHERE financial_statistics_history.Payment_Type ='X' group by financial_statistics_history.policy having count(*) > 1) tbl1 join financial_statistics_history using(policy)");
 
-$query->execute()or die(print_r($query->errorInfo(), true));
-if ($query->rowCount()>0) {
-while ($row=$query->fetch(PDO::FETCH_ASSOC)){
+                $query->execute()or die(print_r($query->errorInfo(), true));
+                if ($query->rowCount() > 0) {
+                    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 
-$doubbleclawbackarray[$row['policy']][]=$row;
-}
+                        $doubbleclawbackarray[$row['policy']][] = $row;
+                    }
+                } else {
+                    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                }
+                ?>
 
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-
-?>
-                
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -754,9 +716,8 @@ $doubbleclawbackarray[$row['policy']][]=$row;
                     </thead>
                     <tbody>
                         <?php
-                        foreach($doubbleclawbackarray as $ZoVoS_polnum => $ZoVoS_data)
-                        {
-echo<<<ZOVOS
+                        foreach ($doubbleclawbackarray as $ZoVoS_polnum => $ZoVoS_data) {
+                            echo<<<ZOVOS
                          <tr onclick='$(".{$ZoVoS_polnum}").toggle();'>
                             <th>
                                 {$ZoVoS_polnum}
@@ -767,182 +728,167 @@ echo<<<ZOVOS
                         </tr>
 ZOVOS;
 
-                                
-                        foreach($ZoVoS_data as $key => $value)
-                        {
-                            if ($key !== 'CLIENTINFO')
-                            {
-                                echo '<tr class="'.$ZoVoS_polnum.' SubRow" style="display: none;">';
-                                echo "<td colspan='2'>";
-                                foreach ($value as $Z_type => $Z_dat)
-                                {
 
-                                    echo "<div>";
-                                    if ($Z_type != 'policy')
-                                    {
-                                        echo "$Z_dat<br>";
+                            foreach ($ZoVoS_data as $key => $value) {
+                                if ($key !== 'CLIENTINFO') {
+                                    echo '<tr class="' . $ZoVoS_polnum . ' SubRow" style="display: none;">';
+                                    echo "<td colspan='2'>";
+                                    foreach ($value as $Z_type => $Z_dat) {
+
+                                        echo "<div>";
+                                        if ($Z_type != 'policy') {
+                                            echo "$Z_dat<br>";
+                                        }
+                                        echo "</div>";
                                     }
-                                    echo "</div>";
+                                    echo "</td>";
+                                    echo '</tr>';
                                 }
-                                echo "</td>";
-                                echo '</tr>';
                             }
                         }
-                        }
-?>
+                        ?>
                     </tbody>
                 </table>
-<?php
-echo '<pre>';
-print_r($doubbleclawbackarray);
-echo '</pre>';
+                <?php
+                echo '<pre>';
+                print_r($doubbleclawbackarray);
+                echo '</pre>';
+                ?>           
 
-?>           
-                
             </div>   
         </div>
-        
-         <div id="homeinsurance" class="tab-pane fade">
-             <div class="container">
-                 <?php
-                         $unpaidhome = $pdo->prepare("SELECT client_policy.client_name, client_policy.client_id, client_policy.id, client_policy.policy_number
+
+        <div id="homeinsurance" class="tab-pane fade">
+            <div class="container">
+                <?php $unpaidhome = $pdo->prepare("SELECT client_policy.client_name, client_policy.client_id, client_policy.id, client_policy.policy_number
 FROM client_policy
 LEFT JOIN financial_statistics_history  on financial_statistics_history.policy=client_policy.policy_number 
 WHERE  financial_statistics_history.id IS NULL AND client_policy.policy_number like '%DUNCA%' OR client_policy.policy_number like '%DUBTL%' OR client_policy.policy_number like '%UINH%' "); ?>
-                
+
                 <table class="table table-hover">
                     <thead>
-                       <tr>
-                       <th colspan="2">Unpaid Policies</th>
-                       </tr>
-                       <th>Client Name</th>
-                       <th>Policy Number</th>
-                </thead>
-<?php
-$unpaidhome->execute()or die(print_r($unpaidhome->errorInfo(), true));
-if ($unpaidhome->rowCount()>0) {
-while ($row=$unpaidhome->fetch(PDO::FETCH_ASSOC)){
+                        <tr>
+                            <th colspan="2">Unpaid Policies</th>
+                        </tr>
+                    <th>Client Name</th>
+                    <th>Policy Number</th>
+                    </thead>
+                    <?php
+                    $unpaidhome->execute()or die(print_r($unpaidhome->errorInfo(), true));
+                    if ($unpaidhome->rowCount() > 0) {
+                        while ($row = $unpaidhome->fetch(PDO::FETCH_ASSOC)) {
 
 
 
-    echo '<tr class='.$class.'>';
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>".$row['client_name']."</a></td>";
-   echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "' target='_blank'>".$row['policy_number']."</a></td>"; 
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-
-
-?>         
+                            echo '<tr class=' . $class . '>';
+                            echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>" . $row['client_name'] . "</a></td>";
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                    ?>         
                 </table>    
-                 
-                 
-             </div>
-         </div>
+
+
+            </div>
+        </div>
 
         <div id="TBC" class="tab-pane fade">
             <div class="container">
-                
-                                <form class="form-vertical">
-               
-                                <div class="form-group">
-    
-  <div class="col-xs-2 col-lg-3">
-  <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT";?>" disabled>
-  </div>
-</div>
-    </form> 
- 
-        <?php
-        
-        $TBC_QUERY = $pdo->prepare("SELECT DATE(sale_date) AS sale_date, commission, policystatus, client_name, client_id, id, policy_number FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General' ORDER BY sale_date"); ?>
-                
+
+                <form class="form-vertical">
+
+                    <div class="form-group">
+
+                        <div class="col-xs-2 col-lg-3">
+                            <input id="textinput" name="textinput" placeholder="placeholder" class="form-control input-md" type="text" value="<?php echo "Total TBC £$TBC_UNPAID_AMOUNT"; ?>" disabled>
+                        </div>
+                    </div>
+                </form> 
+
+                <?php $TBC_QUERY = $pdo->prepare("SELECT DATE(sale_date) AS sale_date, commission, policystatus, client_name, client_id, id, policy_number FROM client_policy WHERE policystatus='Awaiting Policy Number' AND insurer ='Legal and General' ORDER BY sale_date"); ?>
+
                 <table class="table table-hover">
                     <thead>
-                       <tr>
-                       <th colspan="5">TBC (Live Awaiting Policy Number) Policies</th>
-                       </tr>
+                        <tr>
+                            <th colspan="5">TBC (Live Awaiting Policy Number) Policies</th>
+                        </tr>
                     <th>Sale Date</th>
-                       <th>Client Name</th>
-                       <th>Policy Number</th>
-                       <th>COMM</th>
-                       <th>Policy Status</th>
-                </thead>
-<?php
-$TBC_QUERY->execute()or die(print_r($TBC_QUERY->errorInfo(), true));
-if ($TBC_QUERY->rowCount()>0) {
-while ($row=$TBC_QUERY->fetch(PDO::FETCH_ASSOC)){
+                    <th>Client Name</th>
+                    <th>Policy Number</th>
+                    <th>COMM</th>
+                    <th>Policy Status</th>
+                    </thead>
+                    <?php
+                    $TBC_QUERY->execute()or die(print_r($TBC_QUERY->errorInfo(), true));
+                    if ($TBC_QUERY->rowCount() > 0) {
+                        while ($row = $TBC_QUERY->fetch(PDO::FETCH_ASSOC)) {
 
 
 
-    echo '<tr class='.$class.'>';
-    echo "<td>".$row['sale_date']."</td>";
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>".$row['client_name']."</a></td>";
-   echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "&search=". $row['client_id']."' target='_blank'>".$row['policy_number']."</a></td>"; 
-   echo "<td>£".$row['commission']."</td>";
-   echo "<td>".$row['policystatus']."</td>";
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-
-?>         
+                            echo '<tr class=' . $class . '>';
+                            echo "<td>" . $row['sale_date'] . "</td>";
+                            echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>" . $row['client_name'] . "</a></td>";
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "&search=" . $row['client_id'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                            echo "<td>£" . $row['commission'] . "</td>";
+                            echo "<td>" . $row['policystatus'] . "</td>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                    ?>         
                 </table>
             </div>     
         </div>        
-                    
+
         <div id="menu6" class="tab-pane fade">
             <div class="container">
-                
-                
-        <?php
-        
-        $unpaid = $pdo->prepare("SELECT client_policy.client_name, client_policy.client_id, client_policy.id, client_policy.policy_number
+
+
+                <?php $unpaid = $pdo->prepare("SELECT client_policy.client_name, client_policy.client_id, client_policy.id, client_policy.policy_number
 FROM client_policy
 LEFT JOIN financial_statistics_history  on financial_statistics_history.policy=client_policy.policy_number 
 WHERE  financial_statistics_history.id IS NULL AND client_policy.policy_number NOT like '%DUNCA%' AND client_policy.insurer !='Assura' "); ?>
-                
+
                 <table class="table table-hover">
                     <thead>
-                       <tr>
-                       <th colspan="2">Unpaid Policies</th>
-                       </tr>
-                       <th>Client Name</th>
-                       <th>Policy Number</th>
-                </thead>
-<?php
-$unpaid->execute()or die(print_r($unpaid->errorInfo(), true));
-if ($unpaid->rowCount()>0) {
-while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
+                        <tr>
+                            <th colspan="2">Unpaid Policies</th>
+                        </tr>
+                    <th>Client Name</th>
+                    <th>Policy Number</th>
+                    </thead>
+                    <?php
+                    $unpaid->execute()or die(print_r($unpaid->errorInfo(), true));
+                    if ($unpaid->rowCount() > 0) {
+                        while ($row = $unpaid->fetch(PDO::FETCH_ASSOC)) {
 
 
 
-    echo '<tr class='.$class.'>';
-   echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>".$row['client_name']."</a></td>";
-   echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "' target='_blank'>".$row['policy_number']."</a></td>"; 
-    echo "</tr>";
-    echo "\n";
-    }
-} else {
-    echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-}
-
-
-?>         
+                            echo '<tr class=' . $class . '>';
+                            echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>" . $row['client_name'] . "</a></td>";
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['id'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                    ?>         
                 </table>     
-                
+
             </div>
-                        
+
         </div>
-        
-        
+
+
         <div id="menu3" class="tab-pane fade">
-            
+
             <div class="container">
                 <br>
                 <div class="row">
@@ -956,45 +902,49 @@ while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
                                 <div class="row">
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload Legal & General financials</h3>
-                                        
-<?php if (!empty($_GET[success])) { echo "<b>Your file has been imported.</b><br><br>"; } ?>
-                                        
-                                        
+
+                                        <?php
+                                        if (!empty($_GET[success])) {
+                                            echo "<b>Your file has been imported.</b><br><br>";
+                                        }
+                                        ?>
+
+
                                         <form action="/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                             <input class="form-control" name="csv" type="file" id="csv" required/>
-                                            <input type="hidden" name="Processor" value="<?php echo $hello_name?>">
+                                            <input type="hidden" name="Processor" value="<?php echo $hello_name ?>">
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
-                                        
+
                                         <form action="/export/finreporttemp.php" method="post">
                                             <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
                                         </form>
                                     </div>
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload WOL financials</h3>
-                                                                               
-                                        
+
+
                                         <form action="/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                             <input class="form-control" name="csv" type="file" id="csv" required/>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
                                     </div>
-                                 <div class="col-xs-6 col-md-6">
+                                    <div class="col-xs-6 col-md-6">
                                         <h3>Upload Royal London financials</h3>
-                                                                               
-                                        
+
+
                                         <form action="/upload/finrupload.php?EXECUTE=3" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                             <input class="form-control" name="csv" type="file" id="csv" required/>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
                                     </div>   
-                                 <div class="col-xs-6 col-md-6">
+                                    <div class="col-xs-6 col-md-6">
                                         <h3>Upload Vitality financials</h3>
-                                                                               
-                                        
+
+
                                         <form action="/upload/finrupload.php?EXECUTE=4" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                             <input class="form-control" name="csv" type="file" id="csv" required/>
                                             <br>
@@ -1006,156 +956,150 @@ while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
                         </div>
                     </div>
                 </div>
-                  <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="text-center">
-                    <center><img src="img/loading.gif" class="icon" /></center>
-                    <h4>Uploading... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button></h4>
-                </div>
+                <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <center><img src="img/loading.gif" class="icon" /></center>
+                                    <h4>Uploading... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
             </div>
         </div>
-    </div>
-</div>  
-            </div>
-        </div>
-        
+
         <div id="finsearch" class="tab-pane fade">            
             <div class="container">
-            
+
                 <form class="form-inline" method="POST" action="Financial_Reports.php?SearchByPol=1#finsearch">
-<fieldset>
+                    <fieldset>
 
-<legend>Search Financials by Policy Number</legend>
+                        <legend>Search Financials by Policy Number</legend>
 
-<div class="form-group">
-   
-  <div class="col-xs-2 col-lg-3">
-  <input id="policy_number" name="FINpolicy_number" <?php if(isset($FINpolicy_number)) { echo "value=$FINpolicy_number";}?> class="form-control input-md" required type="text">
-    
-  </div>
-</div>
+                        <div class="form-group">
 
-<div class="btn-group">
-    <button id="button1id" name="button1id" class="btn btn-success"<i class="fa fa-search"></i> Search</button>
-    <a href="#" class="btn btn-danger "><i class="fa fa-refresh"></i> Reset</a>
-  </div>
+                            <div class="col-xs-2 col-lg-3">
+                                <input id="policy_number" name="FINpolicy_number" <?php
+                                if (isset($FINpolicy_number)) {
+                                    echo "value=$FINpolicy_number";
+                                }
+                                ?> class="form-control input-md" required type="text">
+
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button id="button1id" name="button1id" class="btn btn-success"<i class="fa fa-search"></i> Search</button>
+                            <a href="#" class="btn btn-danger "><i class="fa fa-refresh"></i> Reset</a>
+                        </div>
 
 
 
-</fieldset>
-</form>
-                
-                <?php 
-                
-                       if(isset($SearchByPol)) {
-                    if($SearchByPol=='1') {
-                                       
-                        
+                    </fieldset>
+                </form>
+
+                <?php
+                if (isset($SearchByPol)) {
+                    if ($SearchByPol == '1') {
+
+
                         $financial = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE policy=:id GROUP BY financial_statistics_history.id");
                         $financial->bindParam(':id', $FINpolicy_number, PDO::PARAM_STR);
-                    
                         ?>
-                    
-                    <table  class='table table-hover table-condensed'>
-                        <thead>
-                            <tr>
-                                <th colspan='7'>Financial Report</th>
-                            </tr>
-                        <th>Comm Date</th>
-                        <th>Policy</th>
-                        <th>Commission Type</th>
-                        <th>Policy Status</th>
-                        <th>Closer</th>
-                        <th>Lead</th>
-                        <th>Amount</th>
-                    </thead>
-                    
-                    <?php
-                    
-                    $financial->execute()or die(print_r($financial->errorInfo(), true));
-                    if ($financial->rowCount()>0) {
-                        while ($row=$financial->fetch(PDO::FETCH_ASSOC)){
-                            
-                            $formattedpayment = number_format($row['payment'], 2);
-                            $formatteddeduction = number_format($row['deduction'], 2);
-                            $clientid = $row['policy_number'];
-                            
-                            echo '<tr class='.$class.'>';
-                            echo "<td>".$row['insert_date']."</td>";
-                            echo "<td><a target='_blank' href='/ViewPolicy.php?&policyID=".$row['POLID']."'>".$row['Policy']."</a></td>";
-                            echo "<td>".$row['CommissionType']."</td>";
-                            echo "<td>".$row['policystatus']."</td>";
-                            echo "<td>".$row['closer']."</td>";
-                            echo "<td>".$row['lead']."</td>";
-                            if (intval($row['Payment_Amount'])>0) {
-                                echo "<td><span class=\"label label-success\">".$row['Payment_Amount']."</span></td>"; }
-                                else if (intval($row["Payment_Amount"])<0) {
-                                    echo "<td><span class=\"label label-danger\">".$row['Payment_Amount']."</span></td>"; }
-                                    else {
-                                        echo "<td>".$row['Payment_Amount']."</td>"; }
-                                        echo "</tr>";
-                                        echo "\n";
-                                        
+
+                        <table  class='table table-hover table-condensed'>
+                            <thead>
+                                <tr>
+                                    <th colspan='7'>Financial Report</th>
+                                </tr>
+                            <th>Comm Date</th>
+                            <th>Policy</th>
+                            <th>Commission Type</th>
+                            <th>Policy Status</th>
+                            <th>Closer</th>
+                            <th>Lead</th>
+                            <th>Amount</th>
+                            </thead>
+
+                            <?php
+                            $financial->execute()or die(print_r($financial->errorInfo(), true));
+                            if ($financial->rowCount() > 0) {
+                                while ($row = $financial->fetch(PDO::FETCH_ASSOC)) {
+
+                                    $formattedpayment = number_format($row['payment'], 2);
+                                    $formatteddeduction = number_format($row['deduction'], 2);
+                                    $clientid = $row['policy_number'];
+
+                                    echo '<tr class=' . $class . '>';
+                                    echo "<td>" . $row['insert_date'] . "</td>";
+                                    echo "<td><a target='_blank' href='/ViewPolicy.php?&policyID=" . $row['POLID'] . "'>" . $row['Policy'] . "</a></td>";
+                                    echo "<td>" . $row['CommissionType'] . "</td>";
+                                    echo "<td>" . $row['policystatus'] . "</td>";
+                                    echo "<td>" . $row['closer'] . "</td>";
+                                    echo "<td>" . $row['lead'] . "</td>";
+                                    if (intval($row['Payment_Amount']) > 0) {
+                                        echo "<td><span class=\"label label-success\">" . $row['Payment_Amount'] . "</span></td>";
+                                    } else if (intval($row["Payment_Amount"]) < 0) {
+                                        echo "<td><span class=\"label label-danger\">" . $row['Payment_Amount'] . "</span></td>";
+                                    } else {
+                                        echo "<td>" . $row['Payment_Amount'] . "</td>";
                                     }
-                                    
-                                    } 
-                                    
-                                    else {
-                                        echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-                                        
-                                    }
-                                    
-                                    ?>
-                    
-                    </table>
-                        
-                <?php        
-                
+                                    echo "</tr>";
+                                    echo "\n";
+                                }
+                            } else {
+                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                            }
+                            ?>
+
+                        </table>
+
+                        <?php
                     }
                 }
-            
                 ?>
-                
-        </div>
+
+            </div>
         </div>
     </div>
 
-<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script> 
-<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-<script type="text/javascript" language="javascript" src="js/datatables/jquery.DATATABLES.min.js"></script>
-        <script>
-            $( "#CLICKTOHIDEFINFOUND" ).click(function() {
-  $( "#HIDEFINFOUND" ).fadeOut( "slow", function() {
-
-  });
-});
-
-$( "#CLICKTOHIDEFINNOTFOUND" ).click(function() {
-  $( "#HIDEFINNOTFOUND" ).fadeOut( "slow", function() {
-
-  });
-});
-            </script>
-        <script>
-
-$(document).ready(function() {
-   if(window.location.href.split('#').length > 1 )
-      {
-      $tab_to_nav_to=window.location.href.split('#')[1];
-      if ($(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']").length)
-         {
-         $(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']")[0].click();
-         }
-      }
-});
-
-</script>
+    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script> 
+    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" language="javascript" src="js/datatables/jquery.DATATABLES.min.js"></script>
     <script>
-        $(function() {
-            $( "#datefrom" ).datepicker({
+        $("#CLICKTOHIDEFINFOUND").click(function () {
+            $("#HIDEFINFOUND").fadeOut("slow", function () {
+
+            });
+        });
+
+        $("#CLICKTOHIDEFINNOTFOUND").click(function () {
+            $("#HIDEFINNOTFOUND").fadeOut("slow", function () {
+
+            });
+        });
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            if (window.location.href.split('#').length > 1)
+            {
+                $tab_to_nav_to = window.location.href.split('#')[1];
+                if ($(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']").length)
+                {
+                    $(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']")[0].click();
+                }
+            }
+        });
+
+    </script>
+    <script>
+        $(function () {
+            $("#datefrom").datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,
@@ -1164,8 +1108,8 @@ $(document).ready(function() {
         });
     </script>
     <script>
-        $(function() {
-            $( "#dateto" ).datepicker({
+        $(function () {
+            $("#dateto").datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,

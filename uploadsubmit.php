@@ -1,28 +1,30 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 4);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+require_once(__DIR__ . '/includes/adl_features.php');
+require_once(__DIR__ . '/includes/Access_Levels.php');
+require_once(__DIR__ . '/includes/adlfunctions.php');
 
-if(isset($fferror)) {
-    if($fferror=='0') {
-        
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
+}
 
 $Home= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if(isset($Home)) {
         if($Home=='y') {
-            
-            include('includes/ADL_PDO_CON.php'); 
+            require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
             
 $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -80,7 +82,7 @@ $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if(isset($life)) {
         if($life=='y') {
-            include('includes/ADL_PDO_CON.php');
+            require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
             
 $search= filter_input(INPUT_POST, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -140,7 +142,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if(isset($EXECUTE)) {
         if($EXECUTE=='10') {
-            include('includes/ADL_PDO_CON.php');
+            require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
             
 $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -193,15 +195,14 @@ header('Location: /Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?
         }
     }    
     
-
-include_once 'includes/uploaddb.php';
+require_once(__DIR__ . '/includes/uploaddb.php');
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $stageid= filter_input(INPUT_POST, 'stageid', FILTER_SANITIZE_NUMBER_INT);
 $task= filter_input(INPUT_POST, 'task', FILTER_SANITIZE_SPECIAL_CHARS);
    
 if(isset($task)) {
-   include('includes/ADL_PDO_CON.php'); 
+   require_once(__DIR__ . '/includes/ADL_PDO_CON.php'); 
     if($task=='Stage 1 Receipt of Client Agreement') {
 
         $policyid= filter_input(INPUT_POST, 'policyid', FILTER_SANITIZE_SPECIAL_CHARS);

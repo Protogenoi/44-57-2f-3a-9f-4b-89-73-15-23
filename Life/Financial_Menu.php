@@ -1,39 +1,54 @@
-<?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+<?php
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php'); 
-if ($fflife=='0') {
-        
-        header('Location: ../CRMmain.php?AccessDenied'); die;
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
     }
+}
 
+if ($fflife == '0') {
 
-include ("../includes/ADL_PDO_CON.php");
+    header('Location: ../CRMmain.php?AccessDenied');
+    die;
+}
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));
-$companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-$companynamere=$companydetailsq['company_name'];
+$companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
+$companynamere = $companydetailsq['company_name'];
 
-if($companynamere=='The Review Bureau') {
+if ($companynamere == 'The Review Bureau') {
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
-if (!in_array($hello_name,$Level_2_Access, true)) {
-    
-    header('Location: ../CRMmain.php?AccessDenied'); die;
-}
+    if (!in_array($hello_name, $Level_2_Access, true)) {
+
+        header('Location: ../CRMmain.php?AccessDenied');
+        die;
+    }
 }
 
-if($companynamere=='ADL_CUS') {
+if ($companynamere == 'ADL_CUS') {
     $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
-if (!in_array($hello_name,$Level_2_Access, true)) {
-    
-    header('Location: ../CRMmain.php?AccessDenied'); die;
-}
-}
+    if (!in_array($hello_name, $Level_2_Access, true)) {
 
+        header('Location: ../CRMmain.php?AccessDenied');
+        die;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,22 +62,18 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
-    
-<?php     if ($hello_name!='Jade') {
-    include('../includes/navbar.php');
-    }
 
-    if($ffanalytics=='1') {    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
+    <?php
+    if ($hello_name != 'Jade') {
+        require_once(__DIR__ . '/../includes/navbar.php');
     }
-?> 
+    ?> 
     <div class="container">        
         <div class="row">
             <div class="twelve columns">
                 <ul class="ca-menu">
-			
-                    
+
+
                     <li>
                         <a href="Financials.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
@@ -72,7 +83,7 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                             </div>
                         </a>
                     </li>
-                    
+
                     <li>
                         <a href="Reports/FinancialUpload.php">
                             <span class="ca-icon"><i class="fa fa-upload"></i></span>
@@ -83,15 +94,15 @@ if (!in_array($hello_name,$Level_2_Access, true)) {
                         </a>
                     </li>
 
-                    
 
 
-                    
+
+
                 </ul>
             </div>
         </div>
     </div>
-    
+
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 </body>

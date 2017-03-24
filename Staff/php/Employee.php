@@ -425,7 +425,30 @@ else {
            header('Location: ../ViewEmployee.php?RETURN=HOLBOOKED&REF='.$REF); die;
     
     }  
+
+         if($EXECUTE=='9') {
+
+    $notes= filter_input(INPUT_POST, 'notes', FILTER_SANITIZE_SPECIAL_CHARS);     
+
+    $database = new Database();
+    $database->beginTransaction();
     
+    $database->query("UPDATE employee_details set updated_by=:hello, employed='1' WHERE employee_id=:REF");
+    $database->bind(':REF',$REF);
+    $database->bind(':hello',$hello_name);
+    $database->execute();
+            
+            $database->query("INSERT INTO employee_timeline set note_type='Note Added', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$REF);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$notes); 
+            $database->execute(); 
+            
+            $database->endTransaction();
+            
+           header('Location: ../ViewEmployee.php?RETURN=ClientHired&REF='.$REF); die;
+    
+    }    
     
 }
 

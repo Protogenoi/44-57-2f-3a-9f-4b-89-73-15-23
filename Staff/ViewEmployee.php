@@ -206,7 +206,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                         
                                         <?php
                                         
-                                        $HOLS_COUNT_QRY = $pdo->prepare("select SUM(days) AS count from employee_holidays WHERE employee_id=:REF");
+                                        $HOLS_COUNT_QRY = $pdo->prepare("select SUM(days) AS count from employee_holidays WHERE employee_id=:REF AND DATE(start) >='2017'");
                                         $HOLS_COUNT_QRY->bindParam(':REF', $REF, PDO::PARAM_INT);
                                         $HOLS_COUNT_QRY->execute()or die(print_r($APP_COUNT->errorInfo(), true));
                                         $result=$HOLS_COUNT_QRY->fetch(PDO::FETCH_ASSOC);
@@ -394,7 +394,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                     
                      <div class='container'>
                         <div class="row">
-                            <form method="post" id="clientnotessubtab" action="php/Employee.php?EXECUTE=5&REF=<?php echo $REF; ?>" class="form-horizontal">
+                            <form method="post" id="clientnotessubtab" action="php/Employee.php?EXECUTE=9&REF=<?php echo $REF; ?>" class="form-horizontal">
                             
                             
                             <div class="form-group">
@@ -646,9 +646,12 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                 <select style="width: 170px" class="form-control" name="uploadtype" required>
                                     <option value="">Select...</option>
                                     <option value="Contract">Employee Contract</option>
+                                    <option value="Old Contract">Old Employee Contract</option>
                                     <option value="New Starter Form">New Starter Form</option>
+                                    <option value="HM Checklist">HM Checklist</option>
                                     <option value="Copy of ID">Copy of ID</option>
                                     <option value="CV">CV</option>
+                                    <option value="Written Warning">Written Warning</option>
                                     <option value="Correspondence">Correspondence</option>
                                     <option value="Payslip">Payslip</option> 
                                     <option value="Holiday Form">Holiday Form</option>
@@ -678,7 +681,8 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                         $uploadtype=$row['uploadtype'];
                                         
                                         switch ($uploadtype) {
-                                            case "AssuraPol":
+                                            case "New Starter Form":
+                                                case "HM Checklist":
                                                 $typeimage="fa-file-pdf-o";
                                                 break;
                                             case "Happy Call":                                                
@@ -690,11 +694,15 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                             case "lifenotes":
                                                 $typeimage="fa-file-text-o";
                                                 break;
-                                            case "TONIC Acount Updates";
-                                                $typeimage="fa-check-square-o";
+                                            case "Contract";
+                                                case "Old Contract";
+                                                $typeimage="fa-balance-scale";
                                                 break;
-                                            case "LifeLeadAudit":
-                                                $typeimage="fa-folder-open";
+                                            case "Holiday Form":
+                                                $typeimage="fa-plane";
+                                                break;
+                                            case "Written Warning":
+                                                $typeimage="fa-exclamation-triangle";
                                                 break;
                                             default:
                                                 $typeimage=$uploadtype;  
@@ -705,7 +713,34 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                       if(file_exists("../uploads/employee/$REF/$file")){ ?>
                                 <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                     <?php }  }
-                                  
+                                    
+                                                                                                          if($row['uploadtype']=='HM Checklist') {
+                                      if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }
+                                    
+                                                                      if($row['uploadtype']=='New Starter Form') {
+                                      if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }
+                                    
+                                                                                                          if($row['uploadtype']=='Contract') {
+                                      if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }
+                                                                                                                                           if($row['uploadtype']=='Old Contract') {
+                                      if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }
+                                    if($row['uploadtype']=='Holiday Form') {
+                                                                       if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }   
+                                     if($row['uploadtype']=='Written Warning') {
+                                                                       if(file_exists("../uploads/employee/$REF/$file")){ ?>
+                                <a class="list-group-item" href="../uploads/employee/<?php echo $REF ; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <?php }  }  
+                                    
                                     }
                                 } else { ?>
                                                                  <a class="list-group-item" ><i class="fa fa-exclamation fa-fw" aria-hidden="true"></i> &nbsp; No files have been uploaded to this employee</a>

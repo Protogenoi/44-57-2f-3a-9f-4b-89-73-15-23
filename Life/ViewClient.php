@@ -1190,7 +1190,11 @@ if (isset($fileuploadedfail)) {
 
                                     <span class="label label-primary">Joint Letters/Emails</span>
                                     <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
+                                    <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
                                     <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
+                                    <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
+                                    <a class="list-group-item" href="Templates/TrustGuide.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
+                                    <?php } ?>
                                     <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
     <?php } ?>
 

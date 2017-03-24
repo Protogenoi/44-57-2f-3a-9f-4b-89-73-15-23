@@ -135,6 +135,8 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <div class='col-md-4'>
 <select class='form-control' name='closer' id='full_name' required>
     <?php echo "<option value='" . $result['closer'] . "'>" . $result['closer'] . "</option>"; ?>
+ <?php if($companynamere=='The Review Bureau') { ?>
+    
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -143,13 +145,20 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <option value="Nathan">Nathan</option> 
 <option value="Richard">Richard</option>
 <option value="Ricky">Ricky</option> 
-<option value="Sarah">Sarah</option>  
-<option value="Nicola">Nicola</option> 
-<option value="Jack">Jack</option> 
-<option value="Gavin">Gavin</option> 
-<option value="Matthew">Matthew</option> 
+<option value="Sarah">Sarah</option>
+<option value="Stavros">Stavros</option>
+<option value="Nicola">Nicola</option>  
+<option value="Gavin">Gavin</option>
 <option value="Rhys">Rhys</option> 
 <option value="David">David</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+<option value="Sam Morris">Sam Morris</option> 
+<option value="Steve Pattin">Steve Pattin</option> 
+    <?php } ?>
 </select>
 </div>
 </div>
@@ -160,7 +169,8 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <div class='col-md-4'>
 <select class='form-control' name='closer2' id='closer2' > 
     <?php echo "<option value='" . $result['closer2'] . "'>" . $result['closer2'] . "</option>"; ?>
-<option value="None">None</option>    
+ <?php if($companynamere=='The Review Bureau') { ?>
+    
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -169,13 +179,20 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <option value="Nathan">Nathan</option> 
 <option value="Richard">Richard</option>
 <option value="Ricky">Ricky</option> 
-<option value="Sarah">Sarah</option>  
-<option value="Nicola">Nicola</option> 
-<option value="Jack">Jack</option> 
-<option value="Gavin">Gavin</option> 
-<option value="Matthew">Matthew</option> 
+<option value="Sarah">Sarah</option>
+<option value="Stavros">Stavros</option>
+<option value="Nicola">Nicola</option>  
+<option value="Gavin">Gavin</option>
 <option value="Rhys">Rhys</option> 
 <option value="David">David</option> 
+    <?php } if($companynamere=='ADL_CUS') {?>
+<option value="Dan Matthews">Dan Matthews</option>
+<option value="Joe Rimmell">Joe Rimmell</option>
+<option value="Jordan Davies">Jordan Davies</option>
+<option value="Matthew Brace">Matthew Brace</option>  
+<option value="Sam Morris">Sam Morris</option> 
+<option value="Steve Pattin">Steve Pattin</option> 
+    <?php } ?>
 </select>
 </div>
 </div>

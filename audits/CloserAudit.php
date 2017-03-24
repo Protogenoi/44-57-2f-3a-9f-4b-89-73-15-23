@@ -122,6 +122,8 @@ function textAreaAdjust(o) {
 <option value="Joe Rimmell">Joe Rimmell</option>
 <option value="Jordan Davies">Jordan Davies</option>
 <option value="Matthew Brace">Matthew Brace</option>  
+<option value="Sam Morris">Sam Morris</option> 
+<option value="Steve Pattin">Steve Pattin</option> 
     <?php } ?>
 </select>
 </div>
@@ -152,6 +154,8 @@ function textAreaAdjust(o) {
 <option value="Joe Rimmell">Joe Rimmell</option>
 <option value="Jordan Davies">Jordan Davies</option>
 <option value="Matthew Brace">Matthew Brace</option>  
+<option value="Sam Morris">Sam Morris</option> 
+<option value="Steve Pattin">Steve Pattin</option> 
     <?php } ?>
 </select>
 </div>

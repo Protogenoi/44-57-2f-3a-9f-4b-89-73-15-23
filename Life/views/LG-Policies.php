@@ -36,7 +36,16 @@
         if (empty($polref)) {
             echo "<td>TBC</td>";
         } else {
-            echo "<td><form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'><input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLG' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
+            echo "<td><form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'>
+<input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value='$polref'>
+<input type='hidden' name='searchCriteria.period' id='searchCriteria.period' value='' >
+<input type='hidden' name='searchCriteria.agentNumber' id='searchCriteria.agentNumber' value='' >
+<input type='hidden' name='searchCriteria.status' id='searchCriteria.status' value='' >
+<input type='hidden' name='searchCriteria.oiiType' id='searchCriteria.oiiType' value='' >
+<input type='hidden' name='searchCriteria.includeLife' value='true' >
+<input type='hidden' name='searchCriteria.includeGI' id='searchCriteria.includeGI' value='false' >
+<button type='submit' value='SEARCH' name='command' class='btn btn-default btn-sm'>
+<i class='fa fa-search'></i> $polref</button></form></form></td>";
         }
         echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$ANID' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $ANID</a></td>";
         echo "<td>" . $LG_Policies['type'] . "</td>";

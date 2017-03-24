@@ -149,6 +149,7 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <option value="Gavin">Gavin</option> 
 <option value="Matthew">Matthew</option> 
 <option value="Rhys">Rhys</option> 
+<option value="David">David</option> 
 </select>
 </div>
 </div>
@@ -174,6 +175,7 @@ $result=$query->fetch(PDO::FETCH_ASSOC)
 <option value="Gavin">Gavin</option> 
 <option value="Matthew">Matthew</option> 
 <option value="Rhys">Rhys</option> 
+<option value="David">David</option> 
 </select>
 </div>
 </div>

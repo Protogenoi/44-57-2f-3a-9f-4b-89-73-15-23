@@ -116,6 +116,7 @@ function textAreaAdjust(o) {
 <option value="Nicola">Nicola</option>  
 <option value="Gavin">Gavin</option>
 <option value="Rhys">Rhys</option> 
+<option value="David">David</option> 
     <?php } if($companynamere=='ADL_CUS') {?>
 <option value="Dan Matthews">Dan Matthews</option>
 <option value="Joe Rimmell">Joe Rimmell</option>
@@ -145,6 +146,7 @@ function textAreaAdjust(o) {
 <option value="Nicola">Nicola</option> 
 <option value="Gavin">Gavin</option> 
 <option value="Rhys">Rhys</option> 
+<option value="David">David</option> 
     <?php } if($companynamere=='ADL_CUS') {?>
 <option value="Dan Matthews">Dan Matthews</option>
 <option value="Joe Rimmell">Joe Rimmell</option>

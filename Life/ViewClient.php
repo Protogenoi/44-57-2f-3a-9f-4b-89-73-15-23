@@ -111,7 +111,7 @@ if (isset($Single_Client['callauditid'])) {
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="../summernote-master/dist/summernote.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="../img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
             background-color: #8e44ad;
@@ -2724,9 +2724,6 @@ if (isset($Single_Client['callauditid'])) {
                     </div>
                 </div></div>
 
-            <script type="text/javascript">
-                $('.clockpicker').clockpicker();
-            </script>
             <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
             <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
             <script type="text/javascript">

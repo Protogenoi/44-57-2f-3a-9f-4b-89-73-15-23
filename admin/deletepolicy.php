@@ -1,10 +1,25 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '0') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '0') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
         if (!in_array($hello_name,$Level_10_Access, true)) {
     
@@ -36,10 +51,10 @@ include('../includes/Access_Levels.php');
 
 <body>
 
-<?php include('../includes/navbar.php'); 
-include('includes/ADL_PDO_CON.php'); 
+<?php require_once(__DIR__ . '/../includes/navbar.php');
 
- $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLifePolicy', FILTER_SANITIZE_SPECIAL_CHARS);
+
+ $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLGPolicy', FILTER_SANITIZE_SPECIAL_CHARS);
  $home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
  
  if(isset($home)){
@@ -96,19 +111,19 @@ include('includes/ADL_PDO_CON.php');
 
 <p>
 <label for="client_name">Policy Holder</label>
-<input type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']; ?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
 <p>
 <label for="sale_date">Sale Date:</label>
-<input type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]; ?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
 <p>
 <label for="policy_number">Policy Number</label>
-<input type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>" class="form-control" readonly style="width: 200px">
+<input type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]; ?>" class="form-control" readonly style="width: 200px">
 </p>
 
 
@@ -149,25 +164,25 @@ include('includes/ADL_PDO_CON.php');
         <label for="cover">Cover Amount</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 170px" type="number" value="<?php echo $data2['cover']?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="cover" name="cover" class="form-control" readonly style="width: 200px"/>
+        <input style="width: 170px" type="number" value="<?php echo $data2['cover']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="cover" name="cover" class="form-control" readonly style="width: 200px"/>
     </div> 
 </p>
 
 
 <p>
 <label for="PolicyStatus">Policy Status</label>
-  <input type="text" value="<?php echo $data2['status']?>" class="form-control" readonly style="width: 200px">
+  <input type="text" value="<?php echo $data2['status']; ?>" class="form-control" readonly style="width: 200px">
 </select>
 </p>
 
 <p>
 <label for="closer">Closer:</label>
-<input type='text' id='closer' name='closer' value="<?php echo $data2["closer"]?>" class="form-control" readonly style="width: 200px">
+<input type='text' id='closer' name='closer' value="<?php echo $data2["closer"]; ?>" class="form-control" readonly style="width: 200px">
 </p>
 
 <p>
 <label for="lead">Lead Gen:</label>
-<input type='text' id='lead' name='lead' value="<?php echo $data2["lead"]?>" class="form-control" readonly style="width: 200px">
+<input type='text' id='lead' name='lead' value="<?php echo $data2["lead"]; ?>" class="form-control" readonly style="width: 200px">
 </p>
 
 </form>
@@ -217,29 +232,29 @@ if(isset($DeleteLifePolicy)) {
 
 <p>
 <label for="client_name">Policy Holder</label>
-<input class="form-control" style="width: 170px" type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']?>" disabled>
+<input class="form-control" style="width: 170px" type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']; ?>" disabled>
 
 
 <p>
 <label for="soj">Single or Joint:</label>
 <select class="form-control" style="width: 170px" name="soj" disabled>
-<option value="<?php echo $data2[soj]?>"><?php echo $data2['soj']?></option>
+<option value="<?php echo $data2['soj']; ?>"><?php echo $data2['soj']; ?></option>
 </select>
 </p>
 
 <p>
 <label for="sale_date">Sale Date:</label>
-<input class="form-control" style="width: 170px" type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]?>" disabled>
+<input class="form-control" style="width: 170px" type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]; ?>" disabled>
 
 
 <p>
 <label for="policy_number">Policy Number</label>
-<input class="form-control" style="width: 170px" type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>" disabled>
+<input class="form-control" style="width: 170px" type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]; ?>" disabled>
 
 
 <p>
 <label for="application_number">Application Number:</label>
-<input class="form-control" style="width: 170px" type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"]?>" disabled>
+<input class="form-control" style="width: 170px" type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"]; ?>" disabled>
 
 
 <p>
@@ -282,14 +297,14 @@ if(isset($DeleteLifePolicy)) {
         <label for="polterm">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input style="width: 130px" type="text" class="form-control" id="polterm" name="polterm" value="<?php echo $data2['polterm']?>" disabled/>
+        <input style="width: 130px" type="text" class="form-control" id="polterm" name="polterm" value="<?php echo $data2['polterm']; ?>" disabled/>
     </div> 
 </p>
 
 <p>
 <label for="CommissionType">Commission Type</label>
 <select class="form-control" style="width: 170px" name="CommissionType" style="width: 200px" disabled>
-  <option value="<?php echo $data2["CommissionType"]?>"><?php echo $data2["CommissionType"]?></option>
+  <option value="<?php echo $data2["CommissionType"]; ?>"><?php echo $data2["CommissionType"]; ?></option>
 </select>
 </p>
 
@@ -305,36 +320,36 @@ if(isset($DeleteLifePolicy)) {
         <label for="commission">Drip</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" type="number" value="<?php echo $data2["drip"]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" disabled/>
+        <input style="width: 140px" type="number" value="<?php echo $data2["drip"]; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" disabled/>
     </div> 
 </p>
 
 <p>
 <label for="PolicyStatus">Policy Status</label>
 <select class="form-control" style="width: 170px" name="PolicyStatus" style="width: 200px" disabled>
-  <option value="<?php echo $data2[policystatus]?>"><?php echo $data2[policystatus]?></option>
+  <option value="<?php echo $data2['policystatus']; ?>"><?php echo $data2['policystatus']; ?></option>
 </select>
 </p>
 
 <label for="closer">Closer:</label>
-<input class="form-control" style="width: 170px" type='text' id='closer' name='closer' style="width: 170px" value="<?php echo $data2["closer"]?>" disabled>
+<input class="form-control" style="width: 170px" type='text' id='closer' name='closer' style="width: 170px" value="<?php echo $data2["closer"]; ?>" disabled>
 
 
 <br>
 
 <p>
 <label for="lead">Lead Gen:</label>
-<input class="form-control" style="width: 170px" type='text' id='lead' name='lead' style="width: 170px" value="<?php echo $data2["lead"]?>" disabled>
+<input class="form-control" style="width: 170px" type='text' id='lead' name='lead' style="width: 170px" value="<?php echo $data2["lead"]; ?>" disabled>
 
 </form>
 </div>
 
 
 <form id="from1" id="form1"  class="AddClient" enctype="multipart/form-data" method="POST" action="/php/deletepolicysubmit.php?DeleteLifePolicy=1">
-<input type="hidden" id="deletepolicyID" name="deletepolicyID" value="<?php echo $data2["id"]?>">
-<input type="hidden" id="client_id" name="client_id" value="<?php echo $data2["client_id"]?>">
-<input type="hidden" id="name" name="name" value="<?php echo $data2['client_name']?>">
-<input type="hidden" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]?>">
+<input type="hidden" id="deletepolicyID" name="deletepolicyID" value="<?php echo $data2["id"]; ?>">
+<input type="hidden" id="client_id" name="client_id" value="<?php echo $data2["client_id"]; ?>">
+<input type="hidden" id="name" name="name" value="<?php echo $data2['client_name']; ?>">
+<input type="hidden" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"]; ?>">
 <button name='delete' class="btn btn-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> Delete Policy</button>
 </form>
 <?php } } ?>

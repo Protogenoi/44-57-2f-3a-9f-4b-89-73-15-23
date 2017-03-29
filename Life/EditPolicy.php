@@ -219,6 +219,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                         <option value="DTA CIC">DTA + CIC</option>
                                         <option value="CIC">CIC</option>
                                         <option value="FPIP">FPIP</option>
+                                        <option value="Income Protection">Income Protection</option>
                                         <option value="WOL">WOL</option>
                                     </select>
                                 </div>

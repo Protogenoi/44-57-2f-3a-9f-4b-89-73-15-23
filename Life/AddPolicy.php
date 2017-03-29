@@ -200,6 +200,11 @@ if (isset($EXECUTE)) {
                                             <option value="DTA CIC">DTA + CIC</option>
                                             <option value="CIC">CIC</option>
                                             <option value="FPIP">FPIP</option>
+                                            <?php
+                                    if (isset($data2['company'])) {
+                                        if ($data2['company'] == 'TRB Aviva' || $data2['company'] == 'CUS Aviva') {  ?> 
+                                                   <option value="Income Protection">Income Protection</option>
+                                    <?php } } ?>
                                             <option value="WOL" <?php
                                     if (isset($data2['company'])) {
                                         if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {

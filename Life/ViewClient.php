@@ -110,8 +110,8 @@ if (isset($Single_Client['callauditid'])) {
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
-    <link rel="stylesheet" href="../summernote-master/dist/summernote.css">
-    <link href="../img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
             background-color: #8e44ad;
@@ -891,11 +891,11 @@ if (isset($Single_Client['callauditid'])) {
                                             <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" readonly>
                                         </p>
                                     </form>
-                                    <?php if ($hello_name == 'Michael') { ?>
+                                   
                                         <form class="AddClient" method="POST" action="SMS/Send.php">
-                                        <?php } else { ?>
-                                            <form class="AddClient" method="POST" action="../php/sms.php">
-                                            <?php } ?>
+                                  
+                                          <!--  <form class="AddClient" method="POST" action="../php/sms.php"> -->
+                                         
                                             <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                             <div class="form-group">
                                                 <label for="selectsms">Select SMS:</label>

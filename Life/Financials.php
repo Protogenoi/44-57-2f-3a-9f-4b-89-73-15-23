@@ -117,7 +117,7 @@ if ($hello_name != 'Jade') {
         <ul class="nav nav-pills">
 
             <li class="active"><a data-toggle="pill" href="#home">Financials</a></li>
-            <li><a data-toggle="pill" href="#PENDING">Pending</a></li>
+            <li><a data-toggle="pill" href="#PENDING">Unpaid</a></li>
             <li><a data-toggle="pill" href="#MISSING">Missing</a></li>
             <li><a data-toggle="pill" href="#TBC">TBC</a></li>
 <?php if (isset($datefrom)) { ?>
@@ -235,13 +235,6 @@ if ($hello_name != 'Jade') {
                         <?php
                         $simply_biz = "2.5";
 
-                        $PIPE_query = $pdo->prepare("select sum(client_policy.commission) AS pipe from client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.policy WHERE financial_statistics_history.policy IS NULL AND client_policy.insurer ='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
-                        $PIPE_query->execute()or die(print_r($PIPE_query->errorInfo(), true));
-                        $row_rsmyQuery = $PIPE_query->fetch(PDO::FETCH_ASSOC);
-                        $ORIG_pipe = $row_rsmyQuery['pipe'];
-
-                        $simply_ORIG_pipe = ($simply_biz / 100) * $ORIG_pipe;
-                        $pipe = $ORIG_pipe - $simply_ORIG_pipe;
 
                         if (isset($datefrom)) {
 
@@ -301,7 +294,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 
                             $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
+WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
                             $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
@@ -374,12 +367,11 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                 <th>EST Total Gross</th>
                                 <th>Projected Gross</th>
                             <?php } ?>
-                            <th>Pending</th>
-                            <th>TBC</th>
+                            <th>Unpaid</th>
+                            <th>Awaiting</th>
                             <?php if (isset($datefrom)) { ?>
 
                             <?php } ?>
-                            <th>EST Pipeline</th>
                             </tr>
                             </thead>
 
@@ -408,7 +400,6 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                         $totalONTIME_LS = number_format($POL_ON_TM_SUM_LS, 2);
                                         $totalNOTTIME_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                                     }
-                                    $formattedpipe = number_format($pipe, 2);
                                     $formattedtotalgross = number_format($totalgross, 2);
                                     $formattedtotalloss = number_format($totalloss, 2);
                                     $formattedtotalnet = number_format($totalnet, 2);
@@ -437,7 +428,6 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                         echo "<td>£$PENDING_SUM</td>";
                                     }
                                     echo "<td>£$TBC_SUM</td>";
-                                    echo "<td>£$formattedpipe</td>";
                                     echo "</tr>";
                                     echo "\n";
                                 }
@@ -656,7 +646,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Pending for <?php echo "2017-01-01 to $dateto ($count records) | Total £$PENDING_SUM | ADL £$ORIG_PENDING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$PENDING_SUM | ADL £$ORIG_PENDING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -694,7 +684,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
 
         <?php
     } else {
-        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Pending Policies Found!</div>";
+        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Unpaid Policies Found!</div>";
     }
 } else {
 
@@ -711,7 +701,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT I
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Pending for <?php echo "2017-01-01 to"; ?> <?php echo date('Y-m-d'); ?> <?php echo " ($count records) | Total £$PENDING_SUM | ADL £$ORIG_PENDING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to"; ?> <?php echo date('Y-m-d'); ?> <?php echo " ($count records) | Total £$PENDING_SUM | ADL £$ORIG_PENDING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>

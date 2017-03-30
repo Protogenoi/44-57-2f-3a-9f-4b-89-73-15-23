@@ -264,9 +264,11 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                         <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['premium'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" />
                                     </div> 
                                     </p>
+<?php
 
-
-                                    <p>
+if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                    
+                                       <p>
                                     <div class="form-row">
                                         <label for="commission">Commission</label>
                                         <div class="input-group"> 
@@ -274,6 +276,14 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                             <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['commission'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" />
                                         </div> 
                                         </p>
+
+<?php } else { ?>
+
+    <div class="alert alert-info"><strong>Commission!</strong> <?php if($companynamere == 'The Review Bureau') { echo "See Matt or Leigh to update COMM Amount"; } else { ?> See a Manger to update COMM amount. <?php } ?></div>                                     
+                                        
+<?php } ?>
+
+                                 
 
                                         <p>
                                         <div class="form-row">

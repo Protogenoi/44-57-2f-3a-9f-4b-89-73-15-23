@@ -44,7 +44,9 @@ $lead=filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera=filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm=filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
+if($PolicyStatus=="Live Waiting Policy Number") {
+    $sale_date="TBC";
+}
 
         $dupeck = $pdo->prepare("SELECT policy_number from client_policy where policy_number=:pol AND client_id !=:id");
 $dupeck->bindParam(':pol',$policy_number, PDO::PARAM_STR);

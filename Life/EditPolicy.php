@@ -147,7 +147,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                                 <p>
                                     <label for="sale_date">Sale Date:</label>
-                                    <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"] ?>" class="form-control" style="width: 170px" required>
+                                    <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php if($data2['policystatus']=='Live Awaiting Policy Number') { echo "TBC"; } else { echo $data2["sale_date"]; } ?>" class="form-control" style="width: 170px" required>
                                 </p>
 
                                 <p>
@@ -467,8 +467,7 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                         <label for="PolicyStatus">Policy Status:</label>
                                                         <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
                                                             <option value="<?php echo $data2['policystatus'] ?>"><?php echo $data2['policystatus']; ?></option>
-                                                            <option value="Live">Live</option>
-                                                            <option value="Awaiting Policy Number">Awaiting Policy Number (TBC Policies)</option>
+                                                            <option value="Live">Live</option>                                                           
                                                             <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
                                                             <option value="NTU">NTU</option>
                                                             <option value="Declined">Declined</option>

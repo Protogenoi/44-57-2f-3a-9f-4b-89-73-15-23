@@ -540,7 +540,9 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                     <option value="Incorrect Policy Type">Incorrect Policy Type  (LTA, DTA, etc...)</option>
                                                     <option value="Incorrect Insurer">Incorrect Insurer</option>
                                                     <option value="Incorrect Premium">Incorrect Premium</option>
+                                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                     <option value="Incorrect Commission">Incorrect Commission</option>
+                                                    <?php } ?>
                                                     <option value="Incorrect Comm Type">Incorrect Comms</option>
                                                     <option value="Incorrect Clawback Term">Incorrect Clawback Term</option>
                                                     <option value="Incorrect Drip">Incorrect Drip</option>
@@ -548,7 +550,7 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                     <option value="Incorrect Closer">Incorrect Closer</option>
                                                     <option value="Update Policy Status">Update Policy Status</option>
                                                     <option value="Updated Cover Amount">Update Cover Amount</option>
-<?php if ($hello_name == 'Michael') { ?>
+<?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                         <option value="Admin Change">Admin Change</option>
 <?php } ?>
                                                 </select>

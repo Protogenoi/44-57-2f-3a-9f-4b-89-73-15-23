@@ -54,7 +54,12 @@ $lead= filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera= filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm= filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
+
 $date2=date("Y-m-d G:i:s");
+
+if($PolicyStatus=="Live Waiting Policy Number") {
+    $sale_date="TBC";
+}
 
 if($policy_number=='TBC' || $policy_number=='tbc') {
     

@@ -90,11 +90,11 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 </head>
 <body>
 
-<?php
-if ($hello_name != 'Jade') {
-    require_once(__DIR__ . '/../includes/navbar.php');
-}
-?>
+    <?php
+    if ($hello_name != 'Jade') {
+        require_once(__DIR__ . '/../includes/navbar.php');
+    }
+    ?>
 
     <div class="container">
         <?php
@@ -120,7 +120,7 @@ if ($hello_name != 'Jade') {
             <li><a data-toggle="pill" href="#PENDING">Unpaid</a></li>
             <li><a data-toggle="pill" href="#MISSING">Missing</a></li>
             <li><a data-toggle="pill" href="#Awaiting">Awaiting</a></li>
-<?php if (isset($datefrom)) { ?>
+            <?php if (isset($datefrom)) { ?>
                 <li><a data-toggle="pill" href="#EXPECTED">Expected</a></li>
                 <li><a data-toggle="pill" href="#POLINDATE">Policies on Time</a></li>
                 <li><a data-toggle="pill" href="#POLOUTDATE">Late Policies</a></li>
@@ -128,10 +128,11 @@ if ($hello_name != 'Jade') {
                 <li><a data-toggle="pill" href="#COMMOUT">Total Loss</a></li>
                 <li><a data-toggle="pill" href="#RAW">RAW</a></li>
                 <li><a data-toggle="pill" href="#EXPORT">Export</a></li>
-<?php } ?>
+            <?php } ?>
 
             <li><a data-toggle="pill" href="#NOMATCH">Unmatched Policies <span class="badge alert-warning">
-                        <?php $nomatchbadge = $pdo->query("select count(id) AS badge from financial_statistics_nomatch");
+                        <?php
+                        $nomatchbadge = $pdo->query("select count(id) AS badge from financial_statistics_nomatch");
                         $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
                         echo htmlentities($row['badge']);
                         ?>
@@ -141,31 +142,41 @@ if ($hello_name != 'Jade') {
                 <div class="form-group col-xs-3">
                     <label class="col-md-4 control-label" for="query"></label>
                     <select id="INSURER" name="INSURER" class="form-control" onchange="this.form.submit()" required>
-                        <option <?php if (isset($INSURER)) {
+                        <option <?php
+                        if (isset($INSURER)) {
                             if ($INSURER == 'LegalandGeneral') {
                                 echo "selected";
                             }
-                        } ?> value="LegalandGeneral" selected>Legal And General</option>
-                        <option <?php if (isset($INSURER)) {
-                            if ($INSURER == 'Aviva') {
-                                echo "selected";
+                        }
+                        ?> value="LegalandGeneral" selected>Legal And General</option>
+                        <option <?php
+                            if (isset($INSURER)) {
+                                if ($INSURER == 'Aviva') {
+                                    echo "selected";
+                                }
                             }
-                        } ?> value="Aviva">Aviva</option>
-                        <option <?php if (isset($INSURER)) {
+                            ?> value="Aviva">Aviva</option>
+                        <option <?php
+                        if (isset($INSURER)) {
                             if ($INSURER == 'RoyalLondon') {
                                 echo "selected";
                             }
-                        } ?> value="RoyalLondon">Royal London</option>
-                        <option <?php if (isset($INSURER)) {
+                        }
+                        ?> value="RoyalLondon">Royal London</option>
+                        <option <?php
+                        if (isset($INSURER)) {
                             if ($INSURER == 'WOL') {
                                 echo "selected";
                             }
-                        } ?> value="WOL">One Family</option>
-                        <option <?php if (isset($INSURER)) {
+                        }
+                        ?> value="WOL">One Family</option>
+                        <option <?php
+                        if (isset($INSURER)) {
                             if ($INSURER == 'Vitality') {
                                 echo "selected";
                             }
-                        } ?> value="Vitality">Vitality</option>
+                        }
+                        ?> value="Vitality">Vitality</option>
                     </select>
                 </div>
             </form>
@@ -189,37 +200,41 @@ if ($hello_name != 'Jade') {
 
                             <div class="form-group">
                                 <div class="col-xs-2">
-                                    <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php if (isset($datefrom)) {
+                                    <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                        if (isset($datefrom)) {
                             echo $datefrom;
-                        } ?>" required>
+                        }
+                        ?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-xs-2">
-                                    <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php if (isset($dateto)) {
+                                    <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                        if (isset($dateto)) {
                                             echo $dateto;
-                                        } ?>" required>
+                                        }
+                                        ?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-xs-2">
                                     <select class="form-control" name="commdate">
-                        <?php
-                        $COM_DATE_query = $pdo->prepare("SELECT DATE(insert_date) AS insert_date FROM financial_statistics_history group by DATE(insert_date) ORDER BY insert_date DESC");
-                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
-                        if ($COM_DATE_query->rowCount() > 0) {
-                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
-                                if (isset($row['insert_date'])) {
-                                    ?>
+<?php
+$COM_DATE_query = $pdo->prepare("SELECT DATE(insert_date) AS insert_date FROM financial_statistics_history group by DATE(insert_date) ORDER BY insert_date DESC");
+$COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+if ($COM_DATE_query->rowCount() > 0) {
+    while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+        if (isset($row['insert_date'])) {
+            ?>
                                                     <option value="<?php echo $row['insert_date']; ?>"><?php echo $row['insert_date']; ?></option>
 
-                                <?php
-                                }
-                            }
-                        }
-                        ?>   
+            <?php
+        }
+    }
+}
+?>   
                                     </select>
                                 </div>
                             </div>       
@@ -244,7 +259,7 @@ if ($hello_name != 'Jade') {
     FROM financial_statistics_history WHERE DATE(insert_date)=:commdate");
                             $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
 
-                            $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%Awaiting%'");
+                            $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
                             $MISSING_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
@@ -305,7 +320,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                             $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
                             $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
 
-                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
                             $PENDING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
                             $PENDING_SUM_QRY_RS = $PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -321,7 +336,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
      SUM(CASE WHEN financial_statistics_history.payment_amount>=0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
     FROM financial_statistics_history ");
 
-                            $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%Awaiting%'");
+                            $MISSING_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
                             $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
                             $MISSING_SUM_QRY_RS = $MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
@@ -342,7 +357,7 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                             $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
                             $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
 
-                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
                             $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
                             $PENDING_SUM_QRY_RS = $PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_PENDING_SUM = $PENDING_SUM_QRY_RS['commission'];
@@ -359,9 +374,11 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php if (isset($datefrom)) {
+                                    <th colspan="8"><?php
+                            if (isset($datefrom)) {
                                 echo "ADL Projections for $commdate";
-                            } ?></th>
+                            }
+                            ?></th>
                                 </tr>
                             <?php if (isset($datefrom)) { ?>
                                 <th>EST Total Gross</th>
@@ -442,9 +459,11 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                     <thead>
 
                                         <tr>
-                                            <th colspan="8"><?php if (isset($datefrom)) {
+                                            <th colspan="8"><?php
+                                if (isset($datefrom)) {
                                     echo "RAW COMMS statistics for $commdate";
-                                } ?></th>
+                                }
+                                ?></th>
                                         </tr>
                                     <th>Total Gross</th> 
                                     <th>Total Loss</th>
@@ -473,9 +492,11 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                     <thead>
 
                                         <tr>
-                                            <th colspan="8"><?php if (isset($datefrom)) {
+                                            <th colspan="8"><?php
+                                if (isset($datefrom)) {
                                     echo "RAW COMMS breakdown $commdate";
-                                } ?></th>
+                                }
+                                ?></th>
                                         </tr>
                                     <th>Payments on Time</th> 
                                     <th>Deductions on Time</th>
@@ -493,8 +514,8 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
 
                                 </table>
 
-<?php }
-?>
+                <?php }
+                ?>
 
                         </table>    
 
@@ -505,18 +526,18 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
         <div id="RAW" class="tab-pane fade">
             <div class="container">
 
-                    <?php
-                    if (isset($datefrom)) {
+<?php
+if (isset($datefrom)) {
 
-                        $query = $pdo->prepare("select client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.Policy_Name, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
+    $query = $pdo->prepare("select client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.Policy_Name, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financial_statistics_history.payment_amount DESC");
-                        $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
-                        $query->execute()or die(print_r($query->errorInfo(), true));
-                        if ($query->rowCount() > 0) {
-                            $count = $query->rowCount();
-                            ?>
+    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+    $query->execute()or die(print_r($query->errorInfo(), true));
+    if ($query->rowCount() > 0) {
+        $count = $query->rowCount();
+        ?>
 
                         <table  class="table table-hover table-condensed">
 
@@ -551,12 +572,12 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
                         ?>
                         </table>
 
-        <?php
-    } else {
-        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-    }
-}
-?>                                       
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                }
+                ?>                                       
             </div>
         </div>
 
@@ -570,7 +591,7 @@ if (isset($datefrom)) {
 
     $query = $pdo->prepare("select id AS PID, client_id AS CID, client_name, policy_number, policystatus, commission, DATE(sale_date) AS SALE_DATE
 FROM client_policy
-WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT like '%Awaiting%' AND client_policy.policy_number NOT like '%DU%'");
+WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND client_policy.policystatus != 'Awaiting' AND client_policy.policy_number NOT like '%DU%'");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -591,55 +612,55 @@ WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dat
                             </tr>
                             </thead>
 
-                        <?php
-                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                            $ORIG_EXP_COMMISSION = $row['commission'];
+                                $ORIG_EXP_COMMISSION = $row['commission'];
 
-                            $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
-                            $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
 
-                            echo '<tr>';
-                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                            echo "<td>" . $row['client_name'] . "</td>";
-                            if (intval($EXP_COMMISSION) > 0) {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
-                            } else if (intval($EXP_COMMISSION) < 0) {
-                                echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
-                            } else {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                echo '<tr>';
+                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
                             }
-                            echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                            echo "</tr>";
-                            echo "\n";
-                        }
-                        ?>
+                            ?>
                         </table>
 
-        <?php
-    } else {
-        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-    }
-}
-?>
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                }
+                ?>
             </div>
         </div>
 
         <div id="PENDING" class="tab-pane fade">
             <div class="container">
 
-                    <?php
-                    if (isset($datefrom)) {
+<?php
+if (isset($datefrom)) {
 
-                        $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
+    $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
-                        $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                        $query->execute()or die(print_r($query->errorInfo(), true));
-                        if ($query->rowCount() > 0) {
-                            $count = $query->rowCount();
-                            ?>
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+    $query->execute()or die(print_r($query->errorInfo(), true));
+    if ($query->rowCount() > 0) {
+        $count = $query->rowCount();
+        ?>
 
                         <table  class="table table-hover table-condensed">
 
@@ -655,31 +676,31 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
                             <th>ADL Status</th>
                             </tr>
                             </thead>
-                        <?php
-                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                            $ORIG_EXP_COMMISSION = $row['commission'];
+                                $ORIG_EXP_COMMISSION = $row['commission'];
 
-                            $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
-                            $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
 
-                            echo '<tr>';
-                            echo "<td>" . $row['SALE_DATE'] . "</td>";
-                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                            echo "<td>" . $row['client_name'] . "</td>";
-                            if (intval($EXP_COMMISSION) > 0) {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
-                            } else if (intval($EXP_COMMISSION) < 0) {
-                                echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
-                            } else {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                echo '<tr>';
+                                echo "<td>" . $row['SALE_DATE'] . "</td>";
+                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
                             }
-                            echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                            echo "</tr>";
-                            echo "\n";
-                        }
-                        ?>
+                            ?>
                         </table>
 
         <?php
@@ -690,7 +711,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
 
     $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -710,31 +731,31 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT I
                             <th>ADL Status</th>
                             </tr>
                             </thead>
-                        <?php
-                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                            $ORIG_EXP_COMMISSION = $row['commission'];
+                                $ORIG_EXP_COMMISSION = $row['commission'];
 
-                            $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
-                            $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
 
-                            echo '<tr>';
-                            echo "<td>" . $row['SALE_DATE'] . "</td>";
-                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                            echo "<td>" . $row['client_name'] . "</td>";
-                            if (intval($EXP_COMMISSION) > 0) {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
-                            } else if (intval($EXP_COMMISSION) < 0) {
-                                echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
-                            } else {
-                                echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                echo '<tr>';
+                                echo "<td>" . $row['SALE_DATE'] . "</td>";
+                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
                             }
-                            echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                            echo "</tr>";
-                            echo "\n";
-                        }
-                        ?>
+                            ?>
                         </table>
 
                         <?php
@@ -757,7 +778,7 @@ if (isset($datefrom)) {
     $query = $pdo->prepare("select DATE(client_policy.sale_date) AS SALE_DATE, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%Awaiting%' ");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%'");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -815,7 +836,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
     $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT like '%Awaiting%' AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policystatus != 'Awaiting' AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -874,7 +895,7 @@ WHERE client_policy.policy_number NOT like '%Awaiting%' AND client_policy.policy
 <?php
 if (isset($datefrom)) {
 
-    $query = $pdo->prepare("select DATE(client_policy.sale_date) AS sale_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
+    $query = $pdo->prepare("select DATE(client_policy.submitted_date) AS submitted_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' ORDER BY DATE(client_policy.sale_date)");
@@ -903,12 +924,13 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
+                                $AWAITING_SUB_DATE=$row['submitted_date'];
 
                                 $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
                                 $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
 
                                 echo '<tr>';
-                                echo "<td>" . $row['sale_date'] . "</td>";
+                                echo "<td>$AWAITING_SUB_DATE</td>";
                                 echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
@@ -932,10 +954,10 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
     }
 } else {
 
-    $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE 
+    $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.submitted_date) AS submitted_date, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' OR client_policy.policy_number like '%Awaiting%' AND client_policy.insurer='Legal and General' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' AND client_policy.insurer='Legal and General' ORDER BY client_policy.commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -955,26 +977,28 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                             <th>ADL Status</th>
                             </tr>
                             </thead>
-                            <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        <?php
+                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            
+                            $AWAITING_SUB_DATE=$row['submitted_date'];
 
-                                echo '<tr>';
-                                echo "<td>" . $row['SALE_DATE'] . "</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['commission']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
-                                } else if (intval($row["commission"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['commission'] . "</span></td>";
-                                } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
-                                }
-                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                                echo "</tr>";
-                                echo "\n";
+                            echo '<tr>';
+                            echo "<td>$AWAITING_SUB_DATE</td>";
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                            echo "<td>" . $row['client_name'] . "</td>";
+                            if (intval($row['commission']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
+                            } else if (intval($row["commission"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['commission'] . "</span></td>";
+                            } else {
+                                echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
                             }
-                            ?>
+                            echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                        ?>
                         </table>
 
                         <?php
@@ -1026,33 +1050,33 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <th>COMM Amount</th>
                             </tr>
                             </thead>
-                            <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        <?php
+                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['payment_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
-                                } else if (intval($row["payment_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['payment_amount'] . "</span></td>";
-                                } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
-                                }
-
-
-                                echo "</tr>";
-                                echo "\n";
+                            echo '<tr>';
+                            echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                            echo "<td>" . $row['client_name'] . "</td>";
+                            if (intval($row['payment_amount']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
+                            } else if (intval($row["payment_amount"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['payment_amount'] . "</span></td>";
+                            } else {
+                                echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
                             }
-                            ?>
+
+
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                        ?>
                         </table>
 
-        <?php
-    } else {
-        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-    }
-}
-?>
+                                    <?php
+                                } else {
+                                    echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                                }
+                            }
+                            ?>
             </div>   
 
         </div> 
@@ -1066,22 +1090,26 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <label class="col-md-4 control-label" for="query"></label>
                             <select id="FILTER" name="FILTER" class="form-control" onchange="this.form.submit()" required>
                                 <option>Select to filter by paid or deductions</option>
-                                <option <?php if (isset($FILTER)) {
-                    if ($FILTER == '1') {
-                        echo "selected";
+                                <option <?php
+                    if (isset($FILTER)) {
+                        if ($FILTER == '1') {
+                            echo "selected";
+                        }
                     }
-                } ?> value="1">Late Paid</option>
-                                <option <?php if (isset($FILTER)) {
-                    if ($FILTER == '2') {
-                        echo "selected";
+                    ?> value="1">Late Paid</option>
+                                <option <?php
+                    if (isset($FILTER)) {
+                        if ($FILTER == '2') {
+                            echo "selected";
+                        }
                     }
-                } ?> value="2">Late Deductions</option>
+                    ?> value="2">Late Deductions</option>
 
                             </select>
                         </div>
                     </form>    
 
-                <?php
+                    <?php
                 }
 
                 if (isset($datefrom) && isset($FILTER)) {
@@ -1476,16 +1504,16 @@ if (isset($datefrom)) {
     <script type="text/javascript" language="javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
     <script>
 
-    $(document).ready(function () {
-        if (window.location.href.split('#').length > 1)
-        {
-            $tab_to_nav_to = window.location.href.split('#')[1];
-            if ($(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']").length)
-            {
-                $(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']")[0].click();
-            }
-        }
-    });
+                            $(document).ready(function () {
+                                if (window.location.href.split('#').length > 1)
+                                {
+                                    $tab_to_nav_to = window.location.href.split('#')[1];
+                                    if ($(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']").length)
+                                    {
+                                        $(".nav-pills > li > a[href='#" + $tab_to_nav_to + "']")[0].click();
+                                    }
+                                }
+                            });
 
     </script>
     <script>

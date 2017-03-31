@@ -32,9 +32,9 @@ if (isset($fferror)) {
         $status= filter_input(INPUT_POST, 'status', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $year= filter_input(INPUT_POST, 'year', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $col= filter_input(INPUT_POST, 'col', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
+        $year="2017";
         if($query=='add') {
-            $year="2017";
+            
             echo "$lead $col $closer $notes $status $year $hello_name";
             
             $INSERT = $pdo->prepare("INSERT INTO pad_statistics SET pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_added_by=:hello");

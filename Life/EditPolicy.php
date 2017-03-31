@@ -90,6 +90,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
 
+    $SUB_DATE = $data2['client_policy.submitted_date'];
     $NAME = $data2['NAME'];
     $NAME2 = $data2['NAME2'];
     ?>
@@ -118,12 +119,12 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 <div class="form-group">
                                     <label for="client_name">Policy Holder</label>
                                     <select class="form-control" name="client_name" id="client_name" style="width: 170px" required>
-<?php if (isset($client_namePOST)) { ?>
+                                        <?php if (isset($client_namePOST)) { ?>
                                             <option value="<?php echo $client_namePOST; ?>"><?php echo $client_namePOST; ?></option>
 
                                         <?php } ?>
                                         <option value="<?php echo $NAME; ?>"><?php echo $NAME ?></option>
-<?php if (!empty($NAME2)) { ?>
+                                        <?php if (!empty($NAME2)) { ?>
                                             <option value="<?php echo $NAME2; ?>"><?php echo $NAME2 ?></option>   
                                             <option value="<?php echo "$NAME and $NAME2"; ?>"><?php echo "$NAME and $NAME2" ?></option>  
                                             <?php
@@ -146,57 +147,80 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </p>
 
                                 <p>
-                                    <label for="sale_date">Sale Date:</label>
-                                    <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php if($data2['policystatus']=='Live Awaiting Policy Number') { echo "TBC"; } else { echo $data2["sale_date"]; } ?>" class="form-control" style="width: 170px" required>
+                                    <label for="submitted_date">Sale Date:</label>
+                                    <input  class="form-control"type="text" id="submitted_date" name="submitted_date" value="<?php echo $data2["submitted_date"]; ?>" class="form-control" style="width: 170px" required>
+                                </p>
+
+
+                                <p>
+                                    <label for="sale_date">Submitted Date:</label>
+                                    <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php if ($data2['policystatus'] == 'Awaiting') {
+                                            echo "TBC";
+                                        } else {
+                                            echo $data2["sale_date"];
+                                        } ?>" class="form-control" style="width: 170px" required>
                                 </p>
 
                                 <p>
                                     <label for="policy_number">Policy Number</label>
-                                    <input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"] ?>" <?php if ($data2['insurer'] == 'Legal and General') {
+                                    <input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"] ?>" <?php
+                                        if ($data2['insurer'] == 'Legal and General') {
                                             echo "maxlength='10'";
-                                        } ?> class="form-control" style="width: 170px" required>
+                                        }
+                                        ?> class="form-control" style="width: 170px" required>
                                 </p>
 
-<?php if (isset($data2["insurer"])) {
-    if ($data2['insurer'] != 'Legal and General') { ?>
+                                        <?php if (isset($data2["insurer"])) {
+                                            if ($data2['insurer'] != 'Legal and General') {
+                                                ?>
                                         <p>
                                         <div class="form-group">
                                             <label for="application_number">Application Number:</label>
                                             <select class="form-control" name="application_number" id="application_number" style="width: 170px" required>
-                                                <option <?php if ($data2['application_number'] == 'One Family') {
-            echo "selected";
-        } else {
-            if ($data2['insurer'] == 'One Family') {
-                echo "selected";
-            }
-        } ?> value="One Family">One Family</option>
-                                                <option <?php if ($data2['application_number'] == 'Royal London') {
-            echo "selected";
-        } else {
-            if ($data2['insurer'] == 'Royal London') {
-                echo "selected";
-            }
-        } ?> value="Royal London">Royal London</option>
-                                                <option <?php if ($data2['application_number'] == 'Vitality') {
-            echo "selected";
-        } else {
-            if ($data2['insurer'] == 'Vitality') {
-                echo "selected";
-            }
-        } ?> value="Vitality">Vitality</option>
-                                                <option <?php if ($data2['application_number'] == 'Aviva') {
-            echo "selected";
-        } else {
-            if ($data2['insurer'] == 'Aviva') {
-                echo "selected";
-            }
-        } ?> value="Aviva">Aviva</option>
+                                                <option <?php
+                                                if ($data2['application_number'] == 'One Family') {
+                                                    echo "selected";
+                                                } else {
+                                                    if ($data2['insurer'] == 'One Family') {
+                                                        echo "selected";
+                                                    }
+                                                }
+                                                ?> value="One Family">One Family</option>
+                                                <option <?php
+                                        if ($data2['application_number'] == 'Royal London') {
+                                            echo "selected";
+                                        } else {
+                                            if ($data2['insurer'] == 'Royal London') {
+                                                echo "selected";
+                                            }
+                                        }
+                                                ?> value="Royal London">Royal London</option>
+                                                <option <?php
+                                            if ($data2['application_number'] == 'Vitality') {
+                                                echo "selected";
+                                            } else {
+                                                if ($data2['insurer'] == 'Vitality') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?> value="Vitality">Vitality</option>
+                                                <option <?php
+                                            if ($data2['application_number'] == 'Aviva') {
+                                                echo "selected";
+                                            } else {
+                                                if ($data2['insurer'] == 'Aviva') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?> value="Aviva">Aviva</option>
                                             </select>
                                         </div>
                                         </p>
-    <?php }
+    <?php
+    }
 } if (isset($data2["insurer"])) {
-    if ($data2['insurer'] == 'Legal and General') { ?>
+    if ($data2['insurer'] == 'Legal and General') {
+        ?>
                                         <p>
                                             <label for="application_number">Application Number:</label>
                                             <input  class="form-control"type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"] ?>" class="form-control" style="width: 170px" required>
@@ -204,7 +228,8 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                             <span class="help-block">For L&G Direct use LG Direct</span>  
                                         </p>
     <?php }
-} ?>
+}
+?>
 
 
                                 <p>
@@ -229,27 +254,41 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 <div class="form-group">
                                     <label for="insurer">Insurer:</label>
                                     <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
-                                        <option <?php if ($data2["insurer"] == 'One Family') {
-    echo "selected";
-} ?> value="One Family">One Family</option>
-                                        <option <?php if ($data2["insurer"] == 'Royal London') {
-    echo "selected";
-} ?> value="Royal London">Royal London</option>
-                                        <option <?php if ($data2["insurer"] == 'Assura') {
-    echo "selected";
-} ?> value="Assura">Assura</option>
-                                        <option <?php if ($data2["insurer"] == 'Legal and General') {
-    echo "selected";
-} ?> value="Legal and General">Legal & General</option>
-                                        <option <?php if ($data2["insurer"] == 'Vitality') {
-    echo "selected";
-} ?> value="Vitality">Vitality</option>
-                                        <option <?php if ($data2["insurer"] == 'Bright Grey') {
-    echo "selected";
-} ?> value="Bright Grey">Bright Grey</option>
-                                        <option <?php if ($data2["insurer"] == 'Aviva') {
-    echo "selected";
-} ?> value="Aviva">Aviva</option>
+                                        <option <?php
+                                        if ($data2["insurer"] == 'One Family') {
+                                            echo "selected";
+                                        }
+?> value="One Family">One Family</option>
+                                        <option <?php
+                                        if ($data2["insurer"] == 'Royal London') {
+                                            echo "selected";
+                                        }
+?> value="Royal London">Royal London</option>
+                                        <option <?php
+                                        if ($data2["insurer"] == 'Assura') {
+                                            echo "selected";
+                                        }
+?> value="Assura">Assura</option>
+                                        <option <?php
+                                    if ($data2["insurer"] == 'Legal and General') {
+                                        echo "selected";
+                                    }
+?> value="Legal and General">Legal & General</option>
+                                        <option <?php
+                                    if ($data2["insurer"] == 'Vitality') {
+                                        echo "selected";
+                                    }
+?> value="Vitality">Vitality</option>
+                                        <option <?php
+                                        if ($data2["insurer"] == 'Bright Grey') {
+                                            echo "selected";
+                                        }
+                                        ?> value="Bright Grey">Bright Grey</option>
+                                        <option <?php
+                                        if ($data2["insurer"] == 'Aviva') {
+                                            echo "selected";
+                                        }
+                                        ?> value="Aviva">Aviva</option>
                                     </select>
                                 </div>
                                 </p>
@@ -264,26 +303,26 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                         <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['premium'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" />
                                     </div> 
                                     </p>
-<?php
+                                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
 
-if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                                    
-                                       <p>
-                                    <div class="form-row">
-                                        <label for="commission">Commission</label>
-                                        <div class="input-group"> 
-                                            <span class="input-group-addon">£</span>
-                                            <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['commission'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" />
-                                        </div> 
-                                        </p>
+                                        <p>
+                                        <div class="form-row">
+                                            <label for="commission">Commission</label>
+                                            <div class="input-group"> 
+                                                <span class="input-group-addon">£</span>
+                                                <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['commission'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" />
+                                            </div> 
+                                            </p>
 
 <?php } else { ?>
 
-    <div class="alert alert-info"><strong>Commission!</strong> <?php if($companynamere == 'The Review Bureau') { echo "See Matt or Leigh to update COMM Amount"; } else { ?> See a Manger to update COMM amount. <?php } ?></div>                                     
-                                        
-<?php } ?>
+                                            <div class="alert alert-info"><strong>Commission!</strong> <?php if ($companynamere == 'The Review Bureau') {
+        echo "See Matt or Leigh to update COMM Amount";
+    } else { ?> See a Manger to update COMM amount. <?php } ?></div>                                     
 
-                                 
+                                                            <?php } ?>
+
+
 
                                         <p>
                                         <div class="form-row">
@@ -299,11 +338,11 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                 <label for="polterm">Policy Term</label>
                                                 <div class="input-group"> 
                                                     <span class="input-group-addon">yrs</span>
-<?php if ($data2['insurer'] == 'One Family') { ?>
+                                                        <?php if ($data2['insurer'] == 'One Family') { ?>
                                                         <input style="width: 125px" type="text" class="form-control" id="polterm" name="polterm" value="WOL" placeholder="WOL">
-<?php } else { ?>
+                                                        <?php } else { ?>
                                                         <input style="width: 125px" type="text" class="form-control" id="polterm" name="polterm" value="<?php echo $data2['polterm'] ?>" required/>
-<?php } ?>
+                                                            <?php } ?>
                                                 </div> 
                                                 </p>
 
@@ -312,15 +351,21 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                 <div class="form-group">
                                                     <label for="CommissionType">Comms:</label>
                                                     <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
-                                                        <option <?php if ($data2["CommissionType"] == 'Indemnity') {
-    echo "selected";
-} ?> value="Indemnity">Indemnity</option>
-                                                        <option <?php if ($data2["CommissionType"] == 'Non Idenmity') {
-    echo "selected";
-} ?> value="Non Idenmity">Non-Idemnity</option>
-                                                        <option <?php if ($data2["CommissionType"] == 'NA') {
-    echo "selected";
-} ?> value="NA">N/A</option>
+                                                        <option <?php
+                                                        if ($data2["CommissionType"] == 'Indemnity') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="Indemnity">Indemnity</option>
+                                                        <option <?php
+                                                        if ($data2["CommissionType"] == 'Non Idenmity') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="Non Idenmity">Non-Idemnity</option>
+                                                        <option <?php
+                                                        if ($data2["CommissionType"] == 'NA') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="NA">N/A</option>
                                                     </select>
                                                 </div>
                                                 </p>
@@ -331,124 +376,200 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                     <label for="comm_term">Clawback Term:</label>
                                                     <select class="form-control" name="comm_term" id="comm_term" style="width: 170px" required>
                                                         <option value="<?php echo $data2["comm_term"]; ?>"><?php echo $data2["comm_term"]; ?></option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '1 year') {
-    echo "selected";
-} ?> value="1 year">1 year</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '2 year') {
-    echo "selected";
-} ?> value="2 year">2 year</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '3 year') {
-    echo "selected";
-} ?> value="3 year">3 year</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '4 year') {
-    echo "selected";
-} ?> value="4 year">4 year</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '5 year') {
-    echo "selected";
-} ?> value="5 year">5 year</option>
-                                                        <option <?php if ($data2["insurer"] == 'One Family') {
-    echo "selected";
-} else {
-    if (isset($data2["comm_term"]) && $data2['comm_term'] == '0') {
-        echo "selected";
-    }
-} ?> value="0">0</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '12') {
-    echo "selected";
-} ?> value="12">12</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '22') {
-    echo "selected";
-} ?> value="22">22</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '23') {
-    echo "selected";
-} ?> value="23">23</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '24') {
-    echo "selected";
-} ?> value="24">24</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '25') {
-    echo "selected";
-} ?> value="25">25</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '26') {
-    echo "selected";
-} ?> value="26">26</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '27') {
-    echo "selected";
-} ?> value="27">27</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '28') {
-    echo "selected";
-} ?> value="28">28</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '29') {
-    echo "selected";
-} ?> value="29">29</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '30') {
-    echo "selected";
-} ?> value="30">30</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '31') {
-    echo "selected";
-} ?> value="31">31</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '32') {
-    echo "selected";
-} ?> value="32">32</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '33') {
-    echo "selected";
-} ?> value="33">33</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '34') {
-    echo "selected";
-} ?> value="34">34</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '35') {
-    echo "selected";
-} ?> value="35">35</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '36') {
-    echo "selected";
-} ?> value="36">36</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '37') {
-    echo "selected";
-} ?> value="37">37</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '38') {
-    echo "selected";
-} ?> value="38">38</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '39') {
-    echo "selected";
-} ?> value="39">39</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '40') {
-                                                        echo "selected";
-                                                    } ?> value="40">40</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '41') {
-                                                        echo "selected";
-                                                    } ?> value="41">41</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '42') {
-                                                        echo "selected";
-                                                    } ?> value="42">42</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '43') {
-                                                        echo "selected";
-                                                    } ?> value="43">43</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '44') {
-                                                        echo "selected";
-                                                    } ?> value="44">44</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '45') {
-                                                        echo "selected";
-                                                    } ?> value="45">45</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '46') {
-                                                        echo "selected";
-                                                    } ?> value="46">46</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '47') {
-                                                        echo "selected";
-                                                    } ?> value="47">47</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '48') {
-                                                        echo "selected";
-                                                    } ?> value="48">48</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '49') {
-                                                        echo "selected";
-                                                    } ?> value="49">49</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '50') {
-                                                        echo "selected";
-                                                    } ?> value="50">50</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '51') {
-                                                        echo "selected";
-                                                    } ?> value="51">51</option>
-                                                        <option <?php if (isset($data2["comm_term"]) && $data2['comm_term'] == '52') {
-                                                        echo "selected";
-                                                    } ?> value="52">52</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '1 year') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="1 year">1 year</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '2 year') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="2 year">2 year</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '3 year') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="3 year">3 year</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '4 year') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="4 year">4 year</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '5 year') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="5 year">5 year</option>
+                                                        <option <?php
+                                                        if ($data2["insurer"] == 'One Family') {
+                                                            echo "selected";
+                                                        } else {
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '0') {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?> value="0">0</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '12') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="12">12</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '22') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="22">22</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '23') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="23">23</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '24') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="24">24</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '25') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="25">25</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '26') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="26">26</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '27') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="27">27</option>
+                                                        <option <?php
+                                                        if (isset($data2["comm_term"]) && $data2['comm_term'] == '28') {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="28">28</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '29') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="29">29</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '30') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="30">30</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '31') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="31">31</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '32') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="32">32</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '33') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="33">33</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '34') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="34">34</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '35') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="35">35</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '36') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="36">36</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '37') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="37">37</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '38') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="38">38</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '39') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="39">39</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '40') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="40">40</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '41') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="41">41</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '42') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="42">42</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '43') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="43">43</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '44') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="44">44</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '45') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="45">45</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '46') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="46">46</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '47') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="47">47</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '48') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="48">48</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '49') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="49">49</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '50') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="50">50</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '51') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="51">51</option>
+                                                        <option <?php
+                                                            if (isset($data2["comm_term"]) && $data2['comm_term'] == '52') {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="52">52</option>
                                                     </select>
                                                 </div>
                                                 </p>
@@ -468,22 +589,26 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                         <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
                                                             <option value="<?php echo $data2['policystatus'] ?>"><?php echo $data2['policystatus']; ?></option>
                                                             <option value="Live">Live</option>                                                           
-                                                            <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
+                                                            <option value="Awaiting">Awaiting</option>
                                                             <option value="NTU">NTU</option>
                                                             <option value="Declined">Declined</option>
                                                             <option value="Redrawn">Redrawn</option>
                                                             <option value="Cancelled">Cancelled</option>
                                                             <option value="On Hold">On Hold</option>
-<?php if (isset($companynamere)) {
+<?php
+if (isset($companynamere)) {
     if ($companynamere == 'Assura') {
         echo "<option value='Underwritten'>Underwritten</option>";
     }
-} ?>
-<?php if (isset($companynamere)) {
+}
+?>
+<?php
+if (isset($companynamere)) {
     if ($companynamere == 'Assura') {
         echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
     }
-} ?>
+}
+?>
                                                         </select>
                                                     </div>
                                                     </p>
@@ -494,11 +619,13 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                 <label for="closer">Closer:</label>
                                                 <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                                 <script>var options = {
-                                                        url: "/JSON/<?php if ($companynamere == 'The Review Bureau') {
+                                                        url: "/JSON/<?php
+if ($companynamere == 'The Review Bureau') {
     echo "CloserNames";
 } else {
     echo "CUS_CLOSERS";
-} ?>.json",
+}
+?>.json",
                                                         getValue: "full_name",
                                                         list: {
                                                             match: {
@@ -512,11 +639,13 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                 <label for="lead">Lead Gen:</label>
                                                 <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                                 <script>var options = {
-                                                        url: "/JSON/<?php if ($companynamere == 'The Review Bureau') {
+                                                        url: "/JSON/<?php
+if ($companynamere == 'The Review Bureau') {
     echo "LeadGenNames";
 } else {
     echo "CUS_LEAD";
-} ?>.json",
+}
+?>.json",
                                                         getValue: "full_name",
                                                         list: {
                                                             match: {
@@ -536,12 +665,13 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
                                                     <option value="Incorrect Application Number">Application Number</option>
                                                     <option value="Incorrect Policy Holder">Incorrect Policy Holder</option>
                                                     <option value="Incorrect Sale Date">Incorrect Sale Date</option>
+                                                    <option value="Incorrect Submitted Date<">Incorrect Submitted Date</option>
                                                     <option value="Incorrect Policy Type">Incorrect Policy Type  (LTA, DTA, etc...)</option>
                                                     <option value="Incorrect Insurer">Incorrect Insurer</option>
                                                     <option value="Incorrect Premium">Incorrect Premium</option>
-                                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                                                    <option value="Incorrect Commission">Incorrect Commission</option>
-                                                    <?php } ?>
+<?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                                        <option value="Incorrect Commission">Incorrect Commission</option>
+<?php } ?>
                                                     <option value="Incorrect Comm Type">Incorrect Comms</option>
                                                     <option value="Incorrect Clawback Term">Incorrect Clawback Term</option>
                                                     <option value="Incorrect Drip">Incorrect Drip</option>
@@ -611,9 +741,9 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
 
     <script src="/js/sweet-alert.min.js"></script>
     <script>
-       $(function () {
-           $("#dob").datepicker();
-       });
+        $(function () {
+            $("#dob").datepicker();
+        });
     </script>
     <script>
         $(function () {
@@ -635,6 +765,16 @@ if (in_array($hello_name, $Level_10_Access, true)) { ?>
     <script>
         $(function () {
             $("#sale_date").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+    </script>
+        <script>
+        $(function () {
+            $("#submitted_date").datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,

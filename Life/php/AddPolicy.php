@@ -53,11 +53,9 @@ $closer= filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
 $lead= filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera= filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm= filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
+$submitted_date= filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
-$date2=date("Y-m-d G:i:s");
-
-if($PolicyStatus=="Live Waiting Policy Number") {
+if($PolicyStatus=="Awaiting") {
     $sale_date="TBC";
 }
 
@@ -114,7 +112,7 @@ $insert->bindParam(':CommissionType',$CommissionType, PDO::PARAM_STR);
 $insert->bindParam(':PolicyStatus',$PolicyStatus, PDO::PARAM_STR);
 $insert->bindParam(':comm_term',$comm_term, PDO::PARAM_STR);
 $insert->bindParam(':drip',$drip, PDO::PARAM_STR);
-$insert->bindParam(':date',$date2, PDO::PARAM_STR);
+$insert->bindParam(':date',$submitted_date, PDO::PARAM_STR);
 $insert->bindParam(':soj',$soj, PDO::PARAM_STR);
 $insert->bindParam(':closer',$closer, PDO::PARAM_STR);
 $insert->bindParam(':lead',$lead, PDO::PARAM_STR);
@@ -162,7 +160,7 @@ $insert->bindParam(':CommissionType',$CommissionType, PDO::PARAM_STR);
 $insert->bindParam(':PolicyStatus',$PolicyStatus, PDO::PARAM_STR);
 $insert->bindParam(':comm_term',$comm_term, PDO::PARAM_STR);
 $insert->bindParam(':drip',$drip, PDO::PARAM_STR);
-$insert->bindParam(':date',$date2, PDO::PARAM_STR);
+$insert->bindParam(':date',$submitted_date, PDO::PARAM_STR);
 $insert->bindParam(':soj',$soj, PDO::PARAM_STR);
 $insert->bindParam(':closer',$closer, PDO::PARAM_STR);
 $insert->bindParam(':lead',$lead, PDO::PARAM_STR);
@@ -193,4 +191,3 @@ header('Location: ../../Life/ViewClient.php?policyadded=y&search='.$CID.'&policy
     }
 }
 ?>
-

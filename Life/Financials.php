@@ -119,7 +119,7 @@ if ($hello_name != 'Jade') {
             <li class="active"><a data-toggle="pill" href="#home">Financials</a></li>
             <li><a data-toggle="pill" href="#PENDING">Unpaid</a></li>
             <li><a data-toggle="pill" href="#MISSING">Missing</a></li>
-            <li><a data-toggle="pill" href="#TBC">TBC</a></li>
+            <li><a data-toggle="pill" href="#Awaiting">Awaiting</a></li>
 <?php if (isset($datefrom)) { ?>
                 <li><a data-toggle="pill" href="#EXPECTED">Expected</a></li>
                 <li><a data-toggle="pill" href="#POLINDATE">Policies on Time</a></li>
@@ -292,20 +292,20 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             $POL_NOT_TM_SUM = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_PLUS'];
                             $POL_NOT_TM_SUM_LS = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_LOSS'];
 
-                            $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
+                            $Awaiting_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
-                            $TBC_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                            $TBC_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
-                            $TBC_SUM_QRY_RS = $TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_TBC_SUM = $TBC_SUM_QRY_RS['commission'];
+WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting'");
+                            $Awaiting_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $Awaiting_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                            $Awaiting_SUM_QRY->execute()or die(print_r($Awaiting_SUM_QRY->errorInfo(), true));
+                            $Awaiting_SUM_QRY_RS = $Awaiting_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                            $ORIG_Awaiting_SUM = $Awaiting_SUM_QRY_RS['commission'];
 
-                            $simply_EXP_TBC = ($simply_biz / 100) * $ORIG_TBC_SUM;
-                            $TBC_SUM_UNFORMATTED = $ORIG_TBC_SUM - $simply_EXP_TBC;
-                            $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);
+                            $simply_EXP_Awaiting = ($simply_biz / 100) * $ORIG_Awaiting_SUM;
+                            $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
+                            $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
 
-                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
                             $PENDING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
                             $PENDING_SUM_QRY_RS = $PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -329,20 +329,20 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                             $simply_MISSING_SUM = ($simply_biz / 100) * $ORIG_MISSING_SUM;
                             $MISSING_SUM = $ORIG_MISSING_SUM - $simply_MISSING_SUM;
 
-                            $TBC_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission
+                            $Awaiting_SUM_QRY = $pdo->prepare("select sum(client_policy.commission) AS commission
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number')");
+WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting'");
 
-                            $TBC_SUM_QRY->execute()or die(print_r($TBC_SUM_QRY->errorInfo(), true));
-                            $TBC_SUM_QRY_RS = $TBC_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_TBC_SUM = $TBC_SUM_QRY_RS['commission'];
+                            $Awaiting_SUM_QRY->execute()or die(print_r($Awaiting_SUM_QRY->errorInfo(), true));
+                            $Awaiting_SUM_QRY_RS = $Awaiting_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                            $ORIG_Awaiting_SUM = $Awaiting_SUM_QRY_RS['commission'];
 
-                            $simply_EXP_TBC = ($simply_biz / 100) * $ORIG_TBC_SUM;
-                            $TBC_SUM_UNFORMATTED = $ORIG_TBC_SUM - $simply_EXP_TBC;
-                            $TBC_SUM = number_format($TBC_SUM_UNFORMATTED, 2);
+                            $simply_EXP_Awaiting = ($simply_biz / 100) * $ORIG_Awaiting_SUM;
+                            $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
+                            $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
 
-                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+                            $PENDING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
                             $PENDING_SUM_QRY->execute()or die(print_r($PENDING_SUM_QRY->errorInfo(), true));
                             $PENDING_SUM_QRY_RS = $PENDING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_PENDING_SUM = $PENDING_SUM_QRY_RS['commission'];
@@ -408,12 +408,12 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                     if (isset($datefrom)) {
                                         $formattedexpected = number_format($EXPECTED_SUM, 2);
 
-                                        $TBC_MIN_GROSS = $ORIG_EXPECTED_SUM - $ORIG_TBC_SUM;
-                                        $TBC_MIN = number_format($TBC_MIN_GROSS, 2);
+                                        $Awaiting_MIN_GROSS = $ORIG_EXPECTED_SUM - $ORIG_Awaiting_SUM;
+                                        $Awaiting_MIN = number_format($Awaiting_MIN_GROSS, 2);
 
-                                        $simply_EXPECTED_SUM = ($simply_biz / 100) * $TBC_MIN_GROSS;
-                                        $GROSS_MIN_TBC = $TBC_MIN_GROSS - $simply_EXPECTED_SUM;
-                                        $FORMATTED_TBC_MIN = number_format($GROSS_MIN_TBC, 2);
+                                        $simply_EXPECTED_SUM = ($simply_biz / 100) * $Awaiting_MIN_GROSS;
+                                        $GROSS_MIN_Awaiting = $Awaiting_MIN_GROSS - $simply_EXPECTED_SUM;
+                                        $FORMATTED_Awaiting_MIN = number_format($GROSS_MIN_Awaiting, 2);
                                     }
                                     $formattedmissing = number_format($MISSING_SUM, 2);
 
@@ -422,12 +422,12 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                                     echo '<tr>';
                                     if (isset($datefrom)) {
                                         echo "<td>£$formattedexpected</td>";
-                                        echo "<td>£$FORMATTED_TBC_MIN</td>";
+                                        echo "<td>£$FORMATTED_Awaiting_MIN</td>";
                                         echo "<td>£$PENDING_SUM</td>";
                                     } else {
                                         echo "<td>£$PENDING_SUM</td>";
                                     }
-                                    echo "<td>£$TBC_SUM</td>";
+                                    echo "<td>£$Awaiting_SUM</td>";
                                     echo "</tr>";
                                     echo "\n";
                                 }
@@ -634,7 +634,7 @@ WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dat
 
                         $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
                         $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                         $query->execute()or die(print_r($query->errorInfo(), true));
                         if ($query->rowCount() > 0) {
@@ -690,7 +690,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
 
     $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
+WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -757,7 +757,7 @@ if (isset($datefrom)) {
     $query = $pdo->prepare("select DATE(client_policy.sale_date) AS SALE_DATE, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%' ");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' AND client_policy.policy_number NOT like '%tbc%' ");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -815,7 +815,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
     $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Live Awaiting Policy Number','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Awaiting','Awaiting Policy Number','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND client_policy.policy_number NOT like '%DU%' ORDER BY client_policy.commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -868,7 +868,7 @@ WHERE client_policy.policy_number NOT like '%tbc%' AND client_policy.policy_numb
         </div>
 
 
-        <div id="TBC" class="tab-pane fade">
+        <div id="Awaiting" class="tab-pane fade">
             <div class="container">
 
 <?php
@@ -877,7 +877,7 @@ if (isset($datefrom)) {
     $query = $pdo->prepare("select DATE(client_policy.sale_date) AS sale_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') ORDER BY DATE(client_policy.sale_date)");
+WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' ORDER BY DATE(client_policy.sale_date)");
     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -890,7 +890,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>TBC for <?php echo "$commdate ($count records)| Total £$TBC_SUM | ADL £$ORIG_TBC_SUM"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$commdate ($count records)| Total £$Awaiting_SUM | ADL £$ORIG_Awaiting_SUM"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -928,14 +928,14 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
 
         <?php
     } else {
-        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No TBC Policies found</div>";
+        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Awaiting Policies found</div>";
     }
 } else {
 
     $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.sale_date) AS SALE_DATE, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus IN ('Awaiting Policy Number','Live Awaiting Policy Number') OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' ORDER BY client_policy.commission DESC");
+WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' OR client_policy.policy_number like '%tbc%' AND client_policy.insurer='Legal and General' ORDER BY client_policy.commission DESC");
     $query->execute()or die(print_r($query->errorInfo(), true));
     if ($query->rowCount() > 0) {
         $count = $query->rowCount();
@@ -946,7 +946,7 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>TBC <?php echo "($count records) | Total £$TBC_SUM | ADL £$ORIG_TBC_SUM"; ?></th>
+                                    <th colspan='3'>Awaiting <?php echo "($count records) | Total £$Awaiting_SUM | ADL £$ORIG_Awaiting_SUM"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -979,7 +979,7 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
 
                         <?php
                     } else {
-                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No TBC policies found!</div>";
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Awaiting policies found!</div>";
                     }
                 }
                 ?>
@@ -1439,7 +1439,7 @@ if (isset($datefrom)) {
 
 
                                         <div class="col-xs-4">
-                                            <a href='../export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> TBC</a>
+                                            <a href='../export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>

@@ -468,10 +468,6 @@ ews_data.policy_number
                             </p>
 
                             <p>
-                                <input type="hidden" id="submitted_date" name="submitted_date" value="<?php echo $data2["submitted_date"]; ?>" class="form-control" readonly style="width: 200px">
-                            </p>
-
-                            <p>
                                 <label for="client_name">Policy Holder</label>
                                 <input type="text" id="client_name" name="client_name" value="<?php echo $data2['client_name']; ?>" class="form-control" readonly style="width: 200px">
                             </p>
@@ -481,9 +477,14 @@ ews_data.policy_number
                                 <label for="soj">Single or Joint:</label>
                                 <input type="text" value="<?php echo $data2['soj']; ?>" class="form-control" readonly style="width: 200px">
                             </p>
+                            
+                            <p>
+                                <label for="submitted_date">Sale Date:</label>
+                                <input type="text" id="submitted_date" name="submitted_date" value="<?php echo $data2["submitted_date"]; ?>" class="form-control" readonly style="width: 200px">
+                                                        </p>
 
                             <p>
-                                <label for="sale_date">Sale Date:</label>
+                                <label for="sale_date">Submitted Date:</label>
                                 <input type="text" id="sale_date" name="sale_date" value="<?php echo $data2["sale_date"]; ?>" class="form-control" readonly style="width: 200px">
                             </p>
 

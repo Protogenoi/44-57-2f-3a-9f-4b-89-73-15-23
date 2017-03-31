@@ -34,7 +34,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
 
-        $query = $pdo->prepare("SELECT company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
+        $query = $pdo->prepare("SELECT submitted_date, company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
         $query->bindParam(':CID', $search, PDO::PARAM_STR);
         $query->execute();
         $data2 = $query->fetch(PDO::FETCH_ASSOC);
@@ -64,6 +64,14 @@ if (isset($EXECUTE)) {
             <script>
                 $(function () {
                     $("#sale_date").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });
+                $(function () {
+                    $("#submitted_date").datepicker({
                         dateFormat: 'yy-mm-dd',
                         changeMonth: true,
                         changeYear: true,
@@ -137,7 +145,18 @@ if (isset($EXECUTE)) {
                                     </p>
 
                                     <p>
-                                        <label for="sale_date">Sale Date:</label>
+                                        <label for="submitted_date">Sale Date:</label>
+                                        <input type="text" id="submitted_date" name="submitted_date" value="<?php
+                                        if ($data2['company'] == 'TRB Archive') {
+                                            echo "2013";
+                                        } else {
+                                            echo $date = date('Y-m-d H:i:s');
+                                        }
+                                        ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
+                                    </p>
+
+                                    <p>
+                                        <label for="sale_date">Submitted Date:</label>
                                         <input type="text" id="sale_date" name="sale_date" value="<?php
                                         if ($data2['company'] == 'TRB Archive') {
                                             echo "2013";
@@ -146,7 +165,6 @@ if (isset($EXECUTE)) {
                                         }
                                         ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
                                     </p>
-                                    <br>
 
                                     <p>
                                         <label for="application_number">Application Number:</label>
@@ -159,7 +177,7 @@ if (isset($EXECUTE)) {
                                                 echo "Royal London";
                                             }
                                             ?>" required>
-        <?php } ?>
+                                               <?php } ?>
                                         <label for="application_number"></label>
                                     </p>
                                     <br>
@@ -168,10 +186,10 @@ if (isset($EXECUTE)) {
                                     <p>
                                         <label for="policy_number">Policy Number:</label>
                                         <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
-        if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
-            echo "maxlength='10'";
-        }
-        ?> placeholder="TBC">
+                                        if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
+                                            echo "maxlength='10'";
+                                        }
+                                        ?> placeholder="TBC">
                                     </p>
                                     <br>
 
@@ -182,17 +200,19 @@ if (isset($EXECUTE)) {
                                             <option value="">Select...</option>
                                             <option value="LTA">LTA</option>
                                             <option value="TRB Archive" <?php
-        if (isset($data2['company'])) {
-            if ($data2['company'] == 'TRB Archive') {
-                echo "selected";
-            }
-        }
-        ?> >TRB Archive</option>
-        <?php if (isset($data2['company'])) {
-            if ($data2['company'] == 'TRB Vitality' || $data2['company'] == 'CUS Vitality') {
-                ?>
+                                            if (isset($data2['company'])) {
+                                                if ($data2['company'] == 'TRB Archive') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?> >TRB Archive</option>
+                                                    <?php
+                                                    if (isset($data2['company'])) {
+                                                        if ($data2['company'] == 'TRB Vitality' || $data2['company'] == 'CUS Vitality') {
+                                                            ?>
                                                     <option value="LTA SIC">LTA SIC (Vitality)</option>
-                                                <?php }
+                                                <?php
+                                                }
                                             }
                                             ?>
                                             <option value="LTA CIC">LTA + CIC</option>
@@ -201,16 +221,18 @@ if (isset($EXECUTE)) {
                                             <option value="CIC">CIC</option>
                                             <option value="FPIP">FPIP</option>
                                             <?php
-                                    if (isset($data2['company'])) {
-                                        if ($data2['company'] == 'TRB Aviva' || $data2['company'] == 'CUS Aviva') {  ?> 
-                                                   <option value="Income Protection">Income Protection</option>
-                                    <?php } } ?>
+                                            if (isset($data2['company'])) {
+                                                if ($data2['company'] == 'TRB Aviva' || $data2['company'] == 'CUS Aviva') {
+                                                    ?> 
+                                                    <option value="Income Protection">Income Protection</option>
+                                                <?php }
+                                            } ?>
                                             <option value="WOL" <?php
-                                    if (isset($data2['company'])) {
-                                        if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
-                                            echo "selected";
-                                        }
-                                    }
+                                            if (isset($data2['company'])) {
+                                                if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
+                                                    echo "selected";
+                                                }
+                                            }
                                             ?> >WOL</option>
                                         </select>
                                     </div>
@@ -229,12 +251,12 @@ if (isset($EXECUTE)) {
                                             }
                                             ?>>Legal & General</option>
                                             <option value="Vitality" <?php
-                                                    if (isset($data2['company'])) {
-                                                        if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
-                                                            echo "selected";
-                                                        }
-                                                    }
-                                                    ?>>Vitality</option>
+                                            if (isset($data2['company'])) {
+                                                if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>Vitality</option>
                                             <option value="Assura" <?php
                                             if (isset($data2['company'])) {
                                                 if ($data2['company'] == 'Assura') {
@@ -258,12 +280,12 @@ if (isset($EXECUTE)) {
                                             }
                                             ?>>One Family</option>
                                             <option value="Aviva" <?php
-                                        if (isset($data2['company'])) {
-                                            if ($data2['company'] == 'TRB Aviva' || $data2['company'] == 'CUS Aviva') {
-                                                echo "selected";
+                                            if (isset($data2['company'])) {
+                                                if ($data2['company'] == 'TRB Aviva' || $data2['company'] == 'CUS Aviva') {
+                                                    echo "selected";
+                                                }
                                             }
-                                        }
-                                        ?>>Aviva</option>
+                                            ?>>Aviva</option>
                                         </select>
                                     </div>
                                     </p>
@@ -278,10 +300,10 @@ if (isset($EXECUTE)) {
                                         <div class="input-group"> 
                                             <span class="input-group-addon">£</span>
                                             <input <?php
-                                        if ($data2['company'] == 'TRB Archive') {
-                                            echo "value='0'";
-                                        }
-                                        ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
+                                            if ($data2['company'] == 'TRB Archive') {
+                                                echo "value='0'";
+                                            }
+                                            ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
                                         </div> 
                                         </p>
         <?php $cal = 2400.00 / 100; ?>
@@ -317,10 +339,10 @@ if (isset($EXECUTE)) {
                                             <div class="input-group"> 
                                                 <span class="input-group-addon">£</span>
                                                 <input <?php
-                                                        if ($data2['company'] == 'TRB Archive') {
-                                                            echo "value='0'";
-                                                        }
-                                                        ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
+        if ($data2['company'] == 'TRB Archive') {
+            echo "value='0'";
+        }
+        ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
                                             </div> 
                                             </p>
 
@@ -330,16 +352,16 @@ if (isset($EXECUTE)) {
                                                 <div class="input-group"> 
                                                     <span class="input-group-addon">yrs</span>
                                                     <input <?php
-                                                if ($data2['company'] == 'TRB Archive') {
-                                                    echo "value='0'";
-                                                }
-                                                ?> style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php
-                                                if (isset($data2['company'])) {
-                                                    if ($data2['company'] == 'TRB WOL') {
-                                                        echo "value='WOL'";
-                                                    }
-                                                }
-                                                ?> required/>
+                                                        if ($data2['company'] == 'TRB Archive') {
+                                                            echo "value='0'";
+                                                        }
+                                                        ?> style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php
+                                                        if (isset($data2['company'])) {
+                                                            if ($data2['company'] == 'TRB WOL') {
+                                                                echo "value='WOL'";
+                                                            }
+                                                        }
+                                                        ?> required/>
                                                 </div> 
                                                 </p>
 
@@ -351,12 +373,12 @@ if (isset($EXECUTE)) {
                                                         <option value="Indemnity">Indemnity</option>
                                                         <option value="Non Idenmity">Non-Idemnity</option>
                                                         <option value="NA" <?php
-                                                if (isset($data2['company'])) {
-                                                    if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
-                                                        echo "selected";
-                                                    }
-                                                }
-                                                ?>>N/A</option>
+                                                        if (isset($data2['company'])) {
+                                                            if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL') {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?>>N/A</option>
                                                     </select>
                                                 </div>
                                                 </p>
@@ -404,12 +426,12 @@ if (isset($EXECUTE)) {
                                                         <option value="4 year">4 year</option>
                                                         <option value="5 year">5 year</option>
                                                         <option <?php
-                                                            if (isset($data2['company'])) {
-                                                                if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL' || $data2['company'] == 'TRB Archive') {
-                                                                    echo "selected";
-                                                                }
+                                                        if (isset($data2['company'])) {
+                                                            if ($data2['company'] == 'TRB WOL' || $data2['company'] == 'CUS WOL' || $data2['company'] == 'TRB Archive') {
+                                                                echo "selected";
                                                             }
-                                                            ?> value="0">0</option>
+                                                        }
+                                                        ?> value="0">0</option>
                                                     </select>
                                                 </div>
                                                 </p>
@@ -420,10 +442,10 @@ if (isset($EXECUTE)) {
                                                     <div class="input-group"> 
                                                         <span class="input-group-addon">£</span>
                                                         <input <?php
-                                                            if ($data2['company'] == 'TRB Archive') {
-                                                                echo "value='0'";
-                                                            }
-                                                            ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
+                                                        if ($data2['company'] == 'TRB Archive') {
+                                                            echo "value='0'";
+                                                        }
+                                                        ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
                                                     </div> 
                                                     </p>
 
@@ -438,20 +460,20 @@ if (isset($EXECUTE)) {
                                                             <option value="NTU">NTU</option>
                                                             <option value="Declined">Declined</option>
                                                             <option value="Redrawn">Redrawn</option>
-        <?php
-        if (isset($companynamere)) {
-            if ($companynamere == 'Assura') {
-                echo "<option value='Underwritten'>Underwritten</option>";
-            }
-        }
-        ?>
-        <?php
-        if (isset($companynamere)) {
-            if ($companynamere == 'Assura') {
-                echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
-            }
-        }
-        ?>
+                                                            <?php
+                                                            if (isset($companynamere)) {
+                                                                if ($companynamere == 'Assura') {
+                                                                    echo "<option value='Underwritten'>Underwritten</option>";
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <?php
+                                                            if (isset($companynamere)) {
+                                                                if ($companynamere == 'Assura') {
+                                                                    echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
+                                                                }
+                                                            }
+                                                            ?>
 
                                                         </select>
                                                     </div>
@@ -463,12 +485,12 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-        if ($companynamere == 'The Review Bureau') {
-            echo "CloserNames";
-        } else {
-            echo "CUS_CLOSERS";
-        }
-        ?>.json",
+                                                            if ($companynamere == 'The Review Bureau') {
+                                                                echo "CloserNames";
+                                                            } else {
+                                                                echo "CUS_CLOSERS";
+                                                            }
+                                                            ?>.json",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {
@@ -486,12 +508,12 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-                                    if ($companynamere == 'The Review Bureau') {
-                                        echo "LeadGenNames";
-                                    } else {
-                                        echo "CUS_LEAD";
-                                    }
-                                    ?>.json",
+                                                            if ($companynamere == 'The Review Bureau') {
+                                                                echo "LeadGenNames";
+                                                            } else {
+                                                                echo "CUS_LEAD";
+                                                            }
+                                                            ?>.json",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

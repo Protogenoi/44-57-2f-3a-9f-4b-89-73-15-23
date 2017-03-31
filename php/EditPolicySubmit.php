@@ -44,7 +44,10 @@ $lead=filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera=filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm=filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if($PolicyStatus=="Live Waiting Policy Number") {
+$submitted_date=filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+if($PolicyStatus=="Awaiting") {
     $sale_date="TBC";
 }
 
@@ -63,9 +66,10 @@ $origdetails=$query->fetch(PDO::FETCH_ASSOC);
 
 $oname=$origdetails['orig_policy'];
 
-$update = $pdo->prepare("UPDATE client_policy SET covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
+$update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
 $update->bindParam(':origpolholder',$policyunid, PDO::PARAM_INT);
 $update->bindParam(':covera',$covera, PDO::PARAM_INT);
+$update->bindParam(':sub',$submitted_date, PDO::PARAM_STR);
 $update->bindParam(':soj',$soj, PDO::PARAM_STR);
 $update->bindParam(':client_name',$client_name, PDO::PARAM_STR);
 $update->bindParam(':sale_date',$sale_date, PDO::PARAM_STR);
@@ -136,10 +140,11 @@ $origdetails=$query->fetch(PDO::FETCH_ASSOC);
 
 $oname=$origdetails['orig_policy'];
 
-$update = $pdo->prepare("UPDATE client_policy SET covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
+$update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
 $update->bindParam(':origpolholder',$policyunid, PDO::PARAM_INT);
 $update->bindParam(':covera',$covera, PDO::PARAM_INT);
 $update->bindParam(':soj',$soj, PDO::PARAM_STR);
+$update->bindParam(':sub',$submitted_date, PDO::PARAM_STR);
 $update->bindParam(':client_name',$client_name, PDO::PARAM_STR);
 $update->bindParam(':sale_date',$sale_date, PDO::PARAM_STR);
 $update->bindParam(':application_number',$application_number, PDO::PARAM_STR);
@@ -158,8 +163,6 @@ $update->bindParam(':lead',$lead, PDO::PARAM_STR);
 $update->bindParam(':polterm',$polterm, PDO::PARAM_STR);
 $update->bindParam(':origpolholder',$policyunid, PDO::PARAM_INT);
 $update->execute(); 
-
-
 
 $clientnamedata2= $client_name; 
 
@@ -232,12 +235,4 @@ header('Location: ../Life/ViewClient.php?policyedited=y&search='.$keyfield); die
 
     }
 }
-
-
-
-
-    
-   # header('Location: ../Life/ViewClient.php?policyedited=n&search='.$keyfield); die;
-
-
 ?>

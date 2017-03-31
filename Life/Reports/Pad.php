@@ -131,7 +131,7 @@ $Today_TIME = date("h:i:s");
         <?php
         if (isset($query) && $query=='Edit') {
 
-            $PAD_EDIT = $pdo->prepare("SELECT pad_statistics_lead, pad_statistics_closer, pad_statistics_notes, pad_statistics_status, pad_statistics_col FROM pad_statistics WHERE pad_statistics_id=:id");
+            $PAD_EDIT = $pdo->prepare("SELECT pad_statistics_id, pad_statistics_lead, pad_statistics_closer, pad_statistics_notes, pad_statistics_status, pad_statistics_col FROM pad_statistics WHERE pad_statistics_id=:id");
             $PAD_EDIT->bindParam(':id', $PAD_ID, PDO::PARAM_INT);
             $PAD_EDIT->execute();
             if ($PAD_EDIT->rowCount() > 0) {

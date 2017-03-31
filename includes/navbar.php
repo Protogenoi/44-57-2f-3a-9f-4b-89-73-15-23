@@ -164,6 +164,7 @@ if (in_array($hello_name, $Level_10_Access, true)) {
                                 <li><a href="/Staff/Search.php">Search Database</a></li> 
                                 <li><a href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
                                 <li><a href="/Staff/Reports/RAG.php">RAG</a></li> 
+                                <li><a href="/Life/Reports/Pad.php">PAD</a></li> 
     <?php } ?>
                             <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <li><a href='/admin/users.php'>User Accounts</a></li>

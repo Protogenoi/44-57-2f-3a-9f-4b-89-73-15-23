@@ -58,8 +58,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                 yearRange: "-100:-0"
             });
         });
-    </script>
-    <script>
         $(function () {
             $("#dob2").datepicker({
                 dateFormat: 'yy-mm-dd',
@@ -150,7 +148,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </select>
                             </div>
                             </p>
-
+                            <p>asdasdas</p>
                             <p>
                             <div class="form-group">
                                 <label for="title">Title:</label>

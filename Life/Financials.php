@@ -257,17 +257,18 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             
                             
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-
-
-    require_once(__DIR__ . '/models/financials/TotalMissingWithDates.php');
+    require_once(__DIR__ . '/models/financials/LG/TotalMissingWithDates.php');
     $TotalMissingWithDates = new TotalMissingWithDatesModal($pdo);
     $TotalMissingWithDatesList = $TotalMissingWithDates->getTotalMissingWithDates($datefrom, $dateto);
-    require_once(__DIR__ . '/views/financials/Total-Missing-With-Dates.php');
-                       
-                            
-                            //END OF CALCULATION
-                            
-                            
+    require_once(__DIR__ . '/views/financials/LG/Total-Missing-With-Dates.php');
+                       //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/financials/LG/TotalAwaitingWithDates.php');
+    $TotalAwaitingWithDates = new TotalAwaitingWithDatesModal($pdo);
+    $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($datefrom, $dateto);
+    require_once(__DIR__ . '/views/financials/LG/Total-Awaiting-With-Dates.php');                            
+    //END OF CALCULATION                        
                             
 
                             $query = $pdo->prepare("SELECT 
@@ -313,22 +314,6 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             $POL_NOT_TM_SUM = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_PLUS'];
                             $POL_NOT_TM_SUM_LS = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_LOSS'];
-
-                            $Awaiting_SUM_QRY = $pdo->prepare("SELECT sum(client_policy.commission) AS commission 
-                                FROM client_policy
-LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto 
-AND client_policy.insurer='Legal and General' 
-AND client_policy.policystatus ='Awaiting'");
-                            $Awaiting_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                            $Awaiting_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $Awaiting_SUM_QRY->execute()or die(print_r($Awaiting_SUM_QRY->errorInfo(), true));
-                            $Awaiting_SUM_QRY_RS = $Awaiting_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_Awaiting_SUM = $Awaiting_SUM_QRY_RS['commission'];
-
-                            $simply_EXP_Awaiting = ($simply_biz / 100) * $ORIG_Awaiting_SUM;
-                            $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
-                            $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
 
                             $MISSING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
                             $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
@@ -428,7 +413,13 @@ WHERE
                                 <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto"; ?>." ></i></th>
                             <?php } ?>
                             <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>."></i></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+
+ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i></th>
                             <?php if (isset($datefrom)) { ?>
 
                             <?php } ?>
@@ -484,7 +475,7 @@ WHERE
                                     } else {
                                         echo "<td>£$MISSING_SUM</td>";
                                     }
-                                    echo "<td>£$Awaiting_SUM</td>";
+                                    echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                     echo "</tr>";
                                     echo "\n";
                                 }
@@ -907,7 +898,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$commdate ($count records)| Total £$Awaiting_SUM | ADL £$ORIG_Awaiting_SUM"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$commdate ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>

@@ -519,8 +519,7 @@ if (isset($EXECUTE)) {
     </div>                              
                            <div class="alert alert-info"><strong>Policy Status:</strong> 
        For any policy where the submitted date is unknown. The policy status should be Awaiting. <br><br>     <div class="form-group">
-                                                        <label for="PolicyStatus">Policy Status:</label>
-                                                        <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
+                                                                                                                <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
                                                             <option value="">Select...</option>
                                                             <option value="Live">Live</option>
                                                             <option value="Awaiting">Awaiting</option>

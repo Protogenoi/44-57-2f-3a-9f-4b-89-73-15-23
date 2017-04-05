@@ -303,27 +303,29 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                         <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['premium'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" />
                                     </div> 
                                     </p>
-                                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-
-                                        <p>
+                                                    
+<?php if(in_array($hello_name, $Level_10_Access, true) || $hello_name=="Tina") { ?>
+                                    <p>
                                         <div class="form-row">
-                                            <label for="commission">Commission</label>
-                                            <div class="input-group"> 
+                                            <label for="covera">Commission</label>
+                                              <div class="input-group"> 
                                                 <span class="input-group-addon">£</span>
                                                 <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['commission'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" />
-                                            </div> 
-                                            </p>
-
+                                            </div>
+                                                                             
+                                        </p>
+                                                     
 <?php } else { ?>
-
-                                            <div class="alert alert-info"><strong>Commission!</strong> <?php if ($companynamere == 'The Review Bureau') {
-        echo "See Matt or Leigh to update COMM Amount";
-    } else { ?> See a Manger to update COMM amount. <?php } ?></div>                                     
-
-                                                            <?php } ?>
-
-
-
+                                    <p>
+                                        <div class="form-row">
+                                            <div class="alert alert-info"><strong>Commission: See an authorised person to update the amount</strong><br>
+                                              <div class="input-group"> 
+                                                <span class="input-group-addon">£</span>
+                                                <input  class="form-control currency" style="width: 140px" min="0" type="text" readonly="true" value="<?php echo $data2['commission'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" />
+                                            </div>
+                                            </div>                                     
+                                        </p>
+<?php } ?>
                                         <p>
                                         <div class="form-row">
                                             <label for="covera">Cover Amount</label>

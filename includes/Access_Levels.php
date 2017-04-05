@@ -9,10 +9,10 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $companynamere=$companydetailsq['company_name'];
                             
                             if($companynamere=='The Review Bureau') {
-                                $Level_10_Access = array("Michael", "Matt", "leighton");
-                                $Level_8_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
-                                $Level_3_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
-                                $Level_1_Access = array("Michael", "Matt", "leighton", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
+                                $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
+                                $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
+                                $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
+                                $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
                                 $Task_Access = array("Michael", "Abbiek", "Victoria","Keith");
                                 $SECRET = array("Michael","Abbiek", "carys","Jakob","Nicola","Tina",'Amy',"Victoria","Christian");
                                 $Agent_Access = array ("111111111");

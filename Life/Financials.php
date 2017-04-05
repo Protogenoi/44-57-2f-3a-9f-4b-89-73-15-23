@@ -268,16 +268,20 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     $TotalAwaitingWithDates = new TotalAwaitingWithDatesModal($pdo);
     $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($datefrom, $dateto);
     require_once(__DIR__ . '/views/financials/LG/Total-Awaiting-With-Dates.php');                            
-    //END OF CALCULATION                        
-                            
+    //END OF CALCULATION
+    
+//CALCULATE EXPECTED AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/financials/LG/TotalExpectedWithDates.php');
+    $TotalExpectedWithDates = new TotalExpectedWithDatesModal($pdo);
+    $TotalExpectedWithDatesList = $TotalExpectedWithDates->getTotalExpectedWithDates($datefrom, $dateto);
+    require_once(__DIR__ . '/views/financials/LG/Total-Expected-With-Dates.php');  
+    
 
-                            $query = $pdo->prepare("SELECT 
-    SUM(CASE WHEN financial_statistics_history.payment_amount < 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
-    SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
-    FROM financial_statistics_history WHERE DATE(insert_date)=:commdate");
-                            $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
-
-                            $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND client_policy.policy_number NOT like '%DU%'");
+//CALCULATE NET| GROSS
+$TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$TOTAL_NET_GROSS_FOR = number_format($TOTAL_NET_GROSS, 2);                                       
+//END OF CALCULATION    
+                                $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND client_policy.policy_number NOT like '%DU%'");
                             $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
@@ -286,6 +290,16 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
                             $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
                             $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
+    //END OF CALCULATION          
+                            
+
+                            $query = $pdo->prepare("SELECT 
+    SUM(CASE WHEN financial_statistics_history.payment_amount < 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
+    SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
+    FROM financial_statistics_history WHERE DATE(insert_date)=:commdate");
+                            $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+
+
 
                             $POL_ON_TM_QRY = $pdo->prepare("select 
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as PAID_TOTAL_PLUS,
@@ -409,8 +423,14 @@ WHERE
                                         ?></th>
                                 </tr>
                                 <?php if (isset($datefrom)) { ?>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>."></i> </th>
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto"; ?>." ></i></th>
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                                   
+ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_FOR"; ?>." ></i></th>
                             <?php } ?>
                             <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i></th>
                             <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
@@ -463,14 +483,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i></th>
                                         $Awaiting_MIN = number_format($Awaiting_MIN_GROSS, 2);
 
                                         $simply_EXPECTED_SUM = ($simply_biz / 100) * $Awaiting_MIN_GROSS;
-                                        $GROSS_MIN_Awaiting = $Awaiting_MIN_GROSS - $simply_EXPECTED_SUM;
-                                        $FORMATTED_Awaiting_MIN = number_format($GROSS_MIN_Awaiting, 2);
+  
                                     }
                                 
                                     echo '<tr>';
                                     if (isset($datefrom)) {
                                         echo "<td>£$formattedexpected</td>";
-                                        echo "<td>£$FORMATTED_Awaiting_MIN</td>";
+                                        echo "<td>£$TOTAL_NET_GROSS_FOR</td>";
                                         echo "<td>£$MISSING_SUM</td>";
                                     } else {
                                         echo "<td>£$MISSING_SUM</td>";
@@ -629,7 +648,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
 
                     $query = $pdo->prepare("select id AS PID, client_id AS CID, client_name, policy_number, policystatus, commission, DATE(sale_date) AS SALE_DATE
 FROM client_policy
-WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND client_policy.policystatus != 'Awaiting' AND client_policy.policy_number NOT like '%DU%'");
+WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold')");
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -641,7 +660,7 @@ WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dat
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$commdate ($count records) | Total £$formattedexpected"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$commdate ($count records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>

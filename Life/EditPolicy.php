@@ -671,7 +671,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                                 <div class="alert alert-info"><strong>Submitted Date:</strong> 
-                                    This the policy live date on the insurers portal. <br> <br>  <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php
+                                    This is the policy live date on the insurers portal. <br> <br>  <input  class="form-control"type="text" id="sale_date" name="sale_date" value="<?php
                                     if ($data2['policystatus'] == 'Awaiting') {
                                         echo "TBC";
                                     } else {

@@ -509,7 +509,7 @@ if (isset($EXECUTE)) {
                
  
 <div class="alert alert-info"><strong>Submitted Date:</strong> 
-    This the policy live date on the insurers portal. <br> <br><input type="text" id="sale_date" name="sale_date" value="<?php
+    This is the policy live date on the insurers portal. <br> <br><input type="text" id="sale_date" name="sale_date" value="<?php
                                         if ($data2['company'] == 'TRB Archive') {
                                             echo "2013";
                                         } else {

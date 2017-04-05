@@ -144,27 +144,7 @@ if (isset($EXECUTE)) {
                                     </div>
                                     </p>
 
-                                    <p>
-                                        <label for="submitted_date">Sale Date:</label>
-                                        <input type="text" id="submitted_date" name="submitted_date" value="<?php
-                                        if ($data2['company'] == 'TRB Archive') {
-                                            echo "2013";
-                                        } else {
-                                            echo $date = date('Y-m-d H:i:s');
-                                        }
-                                        ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
-                                    </p>
-
-                                    <p>
-                                        <label for="sale_date">Submitted Date:</label>
-                                        <input type="text" id="sale_date" name="sale_date" value="<?php
-                                        if ($data2['company'] == 'TRB Archive') {
-                                            echo "2013";
-                                        } else {
-                                            echo $date = date('Y-m-d H:i:s');
-                                        }
-                                        ?>" placeholder="<?php echo $date = date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
-                                    </p>
+                                 
 
                                     <p>
                                         <label for="application_number">Application Number:</label>
@@ -449,35 +429,7 @@ if (isset($EXECUTE)) {
                                                     </div> 
                                                     </p>
 
-                                                    <p>
-                                                    <div class="form-group">
-                                                        <label for="PolicyStatus">Policy Status:</label>
-                                                        <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
-                                                            <option value="">Select...</option>
-                                                            <option value="Live">Live</option>
-                                                            <option value="Live Awaiting Policy Number">Live Awaiting Policy Number</option>
-                                                            <option value="Not Live">Not Live</option>
-                                                            <option value="NTU">NTU</option>
-                                                            <option value="Declined">Declined</option>
-                                                            <option value="Redrawn">Redrawn</option>
-                                                            <?php
-                                                            if (isset($companynamere)) {
-                                                                if ($companynamere == 'Assura') {
-                                                                    echo "<option value='Underwritten'>Underwritten</option>";
-                                                                }
-                                                            }
-                                                            ?>
-                                                            <?php
-                                                            if (isset($companynamere)) {
-                                                                if ($companynamere == 'Assura') {
-                                                                    echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
-                                                                }
-                                                            }
-                                                            ?>
-
-                                                        </select>
-                                                    </div>
-                                                    </p>
+                               
 
                                                     <p>
                                                         <label for="closer">Closer:</label>
@@ -532,26 +484,79 @@ if (isset($EXECUTE)) {
                                                     <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
                                                 </div>
                                             </div>
-                                            </form>
+                                           
 
 
         <?php
     }
 }
 ?>
-
+</div>
+                                    </div>
+                                </div>
                                     <div class="col-md-4">
 
-                                    </div>
+ <div class="alert alert-info"><strong>Sale Date:</strong> 
+       This is the sale date on the dealsheet. <br><br> <input type="text" id="submitted_date" name="submitted_date" value="<?php
+                                        if ($data2['company'] == 'TRB Archive') {
+                                            echo "2013";
+                                        } else {
+                                            echo date('Y-m-d H:i:s');
+                                        }
+                                        ?>" placeholder="<?php echo date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
 
+    </div>   
+               
+ 
+<div class="alert alert-info"><strong>Submitted Date:</strong> 
+    This the policy live date on the insurers portal. <br> <br><input type="text" id="sale_date" name="sale_date" value="<?php
+                                        if ($data2['company'] == 'TRB Archive') {
+                                            echo "2013";
+                                        } else {
+                                            echo date('Y-m-d H:i:s');
+                                        }
+                                        ?>" placeholder="<?php echo date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
+    </div>                              
+                           <div class="alert alert-info"><strong>Policy Status:</strong> 
+       For any policy where the submitted date is unknown. The policy status should be Awaiting. <br><br>     <div class="form-group">
+                                                        <label for="PolicyStatus">Policy Status:</label>
+                                                        <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
+                                                            <option value="">Select...</option>
+                                                            <option value="Live">Live</option>
+                                                            <option value="Awaiting">Awaiting</option>
+                                                            <option value="Not Live">Not Live</option>
+                                                            <option value="NTU">NTU</option>
+                                                            <option value="Declined">Declined</option>
+                                                            <option value="Redrawn">Redrawn</option>
+                                                            <?php
+                                                            if (isset($companynamere)) {
+                                                                if ($companynamere == 'Assura') {
+                                                                    echo "<option value='Underwritten'>Underwritten</option>";
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <?php
+                                                            if (isset($companynamere)) {
+                                                                if ($companynamere == 'Assura') {
+                                                                    echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
+                                                                }
+                                                            }
+                                                            ?>
+
+                                                        </select>
+                                                    </div>
+
+    </div>                                    
+                                                    
+                                        
+                                    </div>
+ </form>
                                 </div>
 
-                            </div>
+                         
 
                         </div>
                 </div>
             </div>
-        </div>
-    </div>
 </body>
 </html>

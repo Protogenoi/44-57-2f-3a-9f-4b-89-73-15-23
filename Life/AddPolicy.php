@@ -39,6 +39,10 @@ if (isset($EXECUTE)) {
         $query->execute();
         $data2 = $query->fetch(PDO::FETCH_ASSOC);
 
+        if(isset($data2['Name2'])) {
+            $NAME2=$data2['Name2'];
+        }
+        
         if (isset($data2['company']) && $data2['company'] == 'TRB Home Insurance' || $data2['company'] == 'Home Insurance' || $data2['company'] == 'CUS Home Insurance') {
             header('Location: ../Home/AddPolicy.php?Home=y&CID=' . $search);
             die;
@@ -126,7 +130,7 @@ if (isset($EXECUTE)) {
                                        <div class="alert alert-info"><strong>Client Name:</strong> 
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>                                         <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
                                             <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
-                                            <?php if (isset($data2["Name2"])) { ?>
+                                            <?php if (isset($NAME2)) { ?>
                                             <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
                                             <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
                                             <?php } ?>    
@@ -157,14 +161,7 @@ if (isset($EXECUTE)) {
                                         ?> value="TBC">
 
                             </div>   
-                                    <p>
-                                        <label for="policy_number">Policy Number:</label>
-                                        <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
-                                        if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
-                                            echo "maxlength='10'";
-                                        }
-                                        ?> placeholder="For Awaiting/TBC polices">
-                                    </p>
+                                   
                                     <br>
 
                                     <p>

@@ -123,29 +123,14 @@ if (isset($EXECUTE)) {
 
                                 <div class="col-md-4">
 
-
-                                    <p>
-                                        <label for='client_name'>Client Name</label>
-                                        <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
+                                       <div class="alert alert-info"><strong>Client Name:</strong> 
+                                    Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>                                         <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
                                             <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
                                             <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
                                             <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
                                         </select>
-                                    </p>
 
-
-                                    <p>
-                                    <div class="form-group">
-                                        <label for="soj">Single or Joint:</label>
-                                        <select class="form-control" name="soj" id="soj" style="width: 170px" required>
-                                            <option value="Single">Single</option>
-                                            <option value="Joint">Joint</option>
-                                        </select>
-                                    </div>
-                                    </p>
-
-
-
+                                </div>   
                                     <p>
                                         <label for="application_number">Application Number:</label>
                                         <?php if (isset($data2['company'])) { ?>

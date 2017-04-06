@@ -45,6 +45,11 @@ $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
+if(strpos($client_name, ' and ') !== false) {
+    $soj="Joint";
+} else {
+    $soj="Single";
+}
 
 if ($PolicyStatus == "Awaiting") {
     $sale_date = "TBC";

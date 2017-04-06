@@ -93,6 +93,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     $SUB_DATE = $data2['client_policy.submitted_date'];
     $NAME = $data2['NAME'];
     $NAME2 = $data2['NAME2'];
+    $NAME3 = "$data2[NAME] and $data2[NAME2]";
     ?>
     <div class="container">
         <div class="editpolicy">
@@ -107,7 +108,9 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                     <div class="panel-body">
 
                         <form id="from1" id="form1" class="AddClient" method="post" action="../php/EditPolicySubmit.php" enctype="multipart/form-data">
-
+<input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
+<input type="hidden" name="NAME2" value="<?php echo $NAME2; ?>">
+<input type="hidden" name="NAME3" value="<?php echo $NAME3; ?>">
                             <input  class="form-control"type="hidden" name="keyfield" value="<?php echo $search ?>">
                             <input  class="form-control"type="hidden" name="policyID" value="<?php echo $data2['policy_number'] ?>">
                             <input  class="form-control"type="hidden" name="policyunid" value="<?php echo $data2['id'] ?>"> 
@@ -115,6 +118,23 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                             <div class="col-md-4">
 
+                                                                <div class="alert alert-info"><strong>Client Name:</strong> 
+                                    Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br> <select class="form-control" name="client_name" id="client_name" style="width: 170px" required>
+                                        <?php if (isset($client_namePOST)) { ?>
+                                            <option value="<?php echo $client_namePOST; ?>"><?php echo $client_namePOST; ?></option>
+
+                                        <?php } ?>
+                                        <option value="<?php echo $NAME; ?>"><?php echo $NAME ?></option>
+                                        <?php if (!empty($NAME2)) { ?>
+                                            <option value="<?php echo $NAME2; ?>"><?php echo $NAME2 ?></option>   
+                                            <option value="<?php echo "$NAME and $NAME2"; ?>"><?php echo "$NAME and $NAME2" ?></option>  
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+
+                                </div>   
+                                
                                 <p>
                                 <div class="form-group">
                                     <label for="client_name">Policy Holder</label>
@@ -134,17 +154,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </div>
                                 </p>
 
-
-                                <p>
-                                <div class="form-group">
-                                    <label for="soj">Single or Joint:</label>
-                                    <select class="form-control" name="soj" id="soj" style="width: 170px" required>
-                                        <option value="<?php echo $data2['soj'] ?>"><?php echo $data2['soj'] ?></option>
-                                        <option value="Single">Single</option>
-                                        <option value="Joint">Joint</option>
-                                    </select>
-                                </div>
-                                </p>
 
                                 <div class="alert alert-info"><strong>Policy Number:</strong> 
                                     For Awaiting polices, a unique ID is generated. <br><br>  <input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"] ?>" <?php

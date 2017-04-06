@@ -146,14 +146,15 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </div>
                                 </p>
 
-                                <p>
-                                    <label for="policy_number">Policy Number</label>
-                                    <input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"] ?>" <?php
+                                <div class="alert alert-info"><strong>Policy Number:</strong> 
+                                    For Awaiting polices, leave as TBC. A unique ID will be generated. <br><br>  <input  class="form-control"type="text" id="policy_number" name="policy_number" value="<?php echo $data2["policy_number"] ?>" <?php
                                     if ($data2['insurer'] == 'Legal and General') {
                                         echo "maxlength='10'";
                                     }
                                     ?> class="form-control" style="width: 170px" required>
-                                </p>
+
+
+                                </div>                                   
 
                                 <?php
                                 if (isset($data2["insurer"])) {

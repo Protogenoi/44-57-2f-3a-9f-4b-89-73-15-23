@@ -126,9 +126,11 @@ if (isset($EXECUTE)) {
                                        <div class="alert alert-info"><strong>Client Name:</strong> 
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>                                         <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
                                             <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
+                                            <?php if (isset($data2["Name2"])) { ?>
                                             <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
                                             <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
-                                        </select>
+                                            <?php } ?>    
+                                    </select>
 
                                 </div>   
                                     <p>

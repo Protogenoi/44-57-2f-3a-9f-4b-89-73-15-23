@@ -10,6 +10,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             
                             if($companynamere=='The Review Bureau') {
                                 $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
+                                $Level_9_Access = array("Michael", "Matt", "leighton","Nick","carys");
                                 $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
                                 $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
                                 $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");

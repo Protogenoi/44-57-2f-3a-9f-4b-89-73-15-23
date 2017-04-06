@@ -55,7 +55,6 @@ $covera= filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm= filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 $submitted_date= filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$DATE_FOR_TBC_POL= filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_NUMBER_INT);
 
 if($PolicyStatus=="Awaiting") {
     $sale_date="TBC";
@@ -63,6 +62,7 @@ if($PolicyStatus=="Awaiting") {
 
 if(isset($policy_number)) {
     if($policy_number=='TBC') {
+        $DATE_FOR_TBC_POL=preg_replace("/[^0-9]/","",$submitted_date);
         $policy_number="TBC $DATE_FOR_TBC_POL";
     }
 }

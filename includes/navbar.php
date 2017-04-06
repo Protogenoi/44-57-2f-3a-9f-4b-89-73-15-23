@@ -155,7 +155,7 @@ if ($companynamere == 'HWIFS') {
 
 <?php }
 
-if (in_array($hello_name, $Level_10_Access, true)) {
+if (in_array($hello_name, $Level_9_Access, true)) {
     ?>
 
                     <li class='dropdown'>
@@ -169,7 +169,9 @@ if (in_array($hello_name, $Level_10_Access, true)) {
                                 <li><a href="/Life/Reports/Pad.php">PAD</a></li> 
     <?php } ?>
                             <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
+                            <?php if ($hello_name == 'Michael') { ?>
                             <li><a href='/admin/users.php'>User Accounts</a></li>
+                            <?php } ?>
                         </ul>  
                     </li>
 

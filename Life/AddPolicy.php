@@ -478,7 +478,6 @@ if (isset($EXECUTE)) {
 
                                                 </div>
 
-                                                <br>
                                                 <div class="btn-group">
                                                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
                                                     <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
@@ -547,7 +546,10 @@ if (isset($EXECUTE)) {
 
     </div>                                    
                                                     
-                                        
+             <div class="btn-group">
+                                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
+                                                    <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+                                                </div>                             
                                     </div>
  </form>
                                 </div>

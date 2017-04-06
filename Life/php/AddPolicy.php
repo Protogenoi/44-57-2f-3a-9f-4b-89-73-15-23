@@ -55,15 +55,16 @@ $covera= filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm= filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 $submitted_date= filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
+$DATE_FOR_TBC_POL= filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_NUMBER_INT);
+
 if($PolicyStatus=="Awaiting") {
     $sale_date="TBC";
 }
 
-if($policy_number=='TBC' || $policy_number=='tbc') {
-    
-	$random_id=mt_rand(5, 99);
-    $policy_number="$policy_number $random_id";
-    
+if(isset($policy_number)) {
+    if($policy_number=='TBC') {
+        $policy_number="TBC $DATE_FOR_TBC_POL";
+    }
 }
 
 $dupeck = $pdo->prepare("SELECT policy_number from client_policy where policy_number=:pol");

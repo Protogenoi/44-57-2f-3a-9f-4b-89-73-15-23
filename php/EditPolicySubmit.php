@@ -49,11 +49,7 @@ $submitted_date=filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECI
 
 if($PolicyStatus=="Awaiting") {
     $sale_date="TBC";
-}
-if(isset($policy_number)) {
-    if($policy_number=='TBC') {
-        $policy_number="TBC $policyunid";
-    }
+    $policy_number="TBC $policyunid";
 }
 
         $dupeck = $pdo->prepare("SELECT policy_number from client_policy where policy_number=:pol AND client_id !=:id");

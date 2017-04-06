@@ -62,6 +62,12 @@ if (isset($EXECUTE)) {
             $policy_number = "TBC $DATE_FOR_TBC_POL";
         }
 
+if(strpos($client_name, ' and ') !== false) {
+    $soj="Joint";
+} else {
+    $soj="Single";
+}        
+        
         $dupeck = $pdo->prepare("SELECT policy_number from client_policy where policy_number=:pol");
         $dupeck->bindParam(':pol', $policy_number, PDO::PARAM_STR);
         $dupeck->execute();

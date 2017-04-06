@@ -162,14 +162,21 @@ if (isset($EXECUTE)) {
                                     </p>
                                     <br>
 
+                            <div class="alert alert-info"><strong>Policy Number:</strong> 
+                                For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
+                                        if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
+                                            echo "maxlength='10'";
+                                        }
+                                        ?> value="TBC">
 
+                            </div>   
                                     <p>
                                         <label for="policy_number">Policy Number:</label>
                                         <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
                                         if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
                                             echo "maxlength='10'";
                                         }
-                                        ?> placeholder="TBC">
+                                        ?> placeholder="For Awaiting/TBC polices">
                                     </p>
                                     <br>
 

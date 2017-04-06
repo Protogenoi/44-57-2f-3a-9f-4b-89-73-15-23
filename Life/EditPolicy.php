@@ -621,41 +621,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                                         $("#lead").easyAutocomplete(options);</script>
 
-                                    <br>
-                                    <select class="form-control" name="changereason" required>
-                                        <option value="">Select update reason...</option>
-                                        <option value="Updated TBC Policy Number">Updated TBC Policy Number</option>
-                                        <option value="Incorrect Policy Number">Incorrect Policy Number</option>
-                                        <option value="Incorrect Single/Joint">Incorrect Single/Joint</option>
-                                        <option value="Incorrect Application Number">Application Number</option>
-                                        <option value="Incorrect Policy Holder">Incorrect Policy Holder</option>
-                                        <option value="Incorrect Sale Date">Incorrect Sale Date</option>
-                                        <option value="Incorrect Submitted Date<">Incorrect Submitted Date</option>
-                                        <option value="Incorrect Policy Type">Incorrect Policy Type  (LTA, DTA, etc...)</option>
-                                        <option value="Incorrect Insurer">Incorrect Insurer</option>
-                                        <option value="Incorrect Premium">Incorrect Premium</option>
-                                        <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                                            <option value="Incorrect Commission">Incorrect Commission</option>
-                                        <?php } ?>
-                                        <option value="Incorrect Comm Type">Incorrect Comms</option>
-                                        <option value="Incorrect Clawback Term">Incorrect Clawback Term</option>
-                                        <option value="Incorrect Drip">Incorrect Drip</option>
-                                        <option value="Incorrect Lead Gen">Incorrect Lead Gen</option>
-                                        <option value="Incorrect Closer">Incorrect Closer</option>
-                                        <option value="Update Policy Status">Update Policy Status</option>
-                                        <option value="Updated Cover Amount">Update Cover Amount</option>
-                                        <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                                            <option value="Admin Change">Admin Change</option>
-                                        <?php } ?>
-                                    </select>
-                                    <br>
-
-
-                                    <button name='search' value="<?php echo $search ?>" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
-
-
-
-                                    <a href="ViewClient.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                                 </div>
 
                             </div>
@@ -708,6 +673,40 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     </div>
 
                                 </div>                                    
+                                <select class="form-control" name="changereason" required>
+                                    <option value="">Select update reason...</option>
+                                    <option value="Updated TBC Policy Number">Updated TBC Policy Number</option>
+                                    <option value="Incorrect Policy Number">Incorrect Policy Number</option>
+                                    <option value="Incorrect Single/Joint">Incorrect Single/Joint</option>
+                                    <option value="Incorrect Application Number">Application Number</option>
+                                    <option value="Incorrect Policy Holder">Incorrect Policy Holder</option>
+                                    <option value="Incorrect Sale Date">Incorrect Sale Date</option>
+                                    <option value="Incorrect Submitted Date<">Incorrect Submitted Date</option>
+                                    <option value="Incorrect Policy Type">Incorrect Policy Type  (LTA, DTA, etc...)</option>
+                                    <option value="Incorrect Insurer">Incorrect Insurer</option>
+                                    <option value="Incorrect Premium">Incorrect Premium</option>
+                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                        <option value="Incorrect Commission">Incorrect Commission</option>
+                                    <?php } ?>
+                                    <option value="Incorrect Comm Type">Incorrect Comms Type</option>
+                                    <option value="Incorrect Clawback Term">Incorrect Clawback Term</option>
+                                    <option value="Incorrect Drip">Incorrect Drip</option>
+                                    <option value="Incorrect Lead Gen">Incorrect Lead Gen</option>
+                                    <option value="Incorrect Closer">Incorrect Closer</option>
+                                    <option value="Update Policy Status">Update Policy Status</option>
+                                    <option value="Updated Cover Amount">Update Cover Amount</option>
+                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                        <option value="Admin Change">Admin Change</option>
+                                    <?php } ?>
+                                </select>
+                                <br>
+
+
+                                <button name='search' value="<?php echo $search ?>" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
+
+
+
+                                <a href="ViewClient.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
 
                             </div>                                            
 

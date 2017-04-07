@@ -852,39 +852,6 @@ if (isset($Single_Client['callauditid'])) {
                                     ?>
                                     <br> 
 
-                                    <?php
-                                    $getsmsbal = file_get_contents("https://www.bulksms.co.uk/eapi/user/get_credits/1/1.1?username=$smsuser&password=$smspass");
-
-                                    $str = substr($getsmsbal, 2);
-                                    ?>
-
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Provider</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-                                        <tr>
-                                            <td><?php echo $smspro; ?></td>
-                                            <td <?php
-                                if ($str >= '1') {
-                                    echo 'bgcolor="#85E085"';
-                                } else {
-                                    echo 'bgcolor="#FF4D4D"';
-                                }
-                                    ?>>
-
-                                                <?php
-                                                if ($str >= '1') {
-                                                    echo $str;
-                                                }
-                                                ?>
-
-                                            </td>
-                                        </tr>
-                                    </table>
-
                                     <form class="AddClient">
                                         <p>
                                             <label for="phone_number">Contact Number:</label>
@@ -894,7 +861,7 @@ if (isset($Single_Client['callauditid'])) {
                                    
                                         <form class="AddClient" method="POST" action="SMS/Send.php">
                                   
-                                          <!--  <form class="AddClient" method="POST" action="../php/sms.php"> -->
+                        
                                          
                                             <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                             <div class="form-group">

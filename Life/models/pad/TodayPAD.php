@@ -8,7 +8,7 @@ class TodayPadModal {
         $this->pdo = $pdo;
     }
 
-    public function getTodayPad() {
+    public function getTodayPad($TEAM) {
 
         $stmt = $this->pdo->prepare("SELECT 
     pad_statistics_group,
@@ -23,8 +23,9 @@ class TodayPadModal {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE()
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group=:team
 ORDER BY pad_statistics_added_date DESC");
+        $stmt->bindParam(':team', $TEAM, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

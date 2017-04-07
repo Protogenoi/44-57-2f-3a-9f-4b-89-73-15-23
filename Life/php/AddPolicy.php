@@ -15,7 +15,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '0') {
+    if ($fferror == '1') {
 
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -58,16 +58,18 @@ if (isset($EXECUTE)) {
 
         if ($PolicyStatus == "Awaiting") {
             $sale_date = "TBC";
-            $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $submitted_date);
+            $DATE = date("Y/m/d h:i:s");
+            $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $DATE);
+
             $policy_number = "TBC $DATE_FOR_TBC_POL";
         }
 
-if(strpos($client_name, ' and ') !== false) {
-    $soj="Joint";
-} else {
-    $soj="Single";
-}        
-        
+        if (strpos($client_name, ' and ') !== false) {
+            $soj = "Joint";
+        } else {
+            $soj = "Single";
+        }
+
         $dupeck = $pdo->prepare("SELECT policy_number from client_policy where policy_number=:pol");
         $dupeck->bindParam(':pol', $policy_number, PDO::PARAM_STR);
         $dupeck->execute();

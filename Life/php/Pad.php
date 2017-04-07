@@ -25,6 +25,7 @@ if (isset($fferror)) {
     
     if(isset($query)) {
         
+        $pad_group= filter_input(INPUT_POST, 'group', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
         $pad_id= filter_input(INPUT_POST, 'pad_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);        
         $lead= filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $closer= filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -37,7 +38,8 @@ if (isset($fferror)) {
             
             echo "$lead $col $closer $notes $status $year $hello_name";
             
-            $INSERT = $pdo->prepare("INSERT INTO pad_statistics SET pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_added_by=:hello");
+            $INSERT = $pdo->prepare("INSERT INTO pad_statistics SET pad_statistics_group=:group, pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_added_by=:hello");
+            $INSERT->bindParam(':group', $pad_group, PDO::PARAM_STR); 
             $INSERT->bindParam(':lead', $lead, PDO::PARAM_STR); 
             $INSERT->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $INSERT->bindParam(':notes', $notes, PDO::PARAM_STR); 
@@ -53,7 +55,9 @@ if (isset($fferror)) {
                 
         if($query=='edit') {
             
-            $UPDATE = $pdo->prepare("UPDATE pad_statistics SET pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_updated_by=:hello WHERE pad_statistics_id=:id");
+            
+            $UPDATE = $pdo->prepare("UPDATE pad_statistics SET pad_statistics_group=:group, pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_updated_by=:hello WHERE pad_statistics_id=:id");
+            $UPDATE->bindParam(':group', $pad_group, PDO::PARAM_STR); 
             $UPDATE->bindParam(':id', $pad_id, PDO::PARAM_INT); 
             $UPDATE->bindParam(':lead', $lead, PDO::PARAM_STR); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
@@ -67,6 +71,37 @@ if (isset($fferror)) {
             header('Location: ../../../Life/Reports/Pad.php?result=UPDATED'); die;
             
         }
+        
+        if($query=='Edit') {
+            
+            
+            $UPDATE = $pdo->prepare("UPDATE pad_statistics SET pad_statistics_group=:group, pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status=:status, pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_updated_by=:hello WHERE pad_statistics_id=:id");
+            $UPDATE->bindParam(':group', $pad_group, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':id', $pad_id, PDO::PARAM_INT); 
+            $UPDATE->bindParam(':lead', $lead, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':notes', $notes, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':status', $status, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':year', $year, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':col', $col, PDO::PARAM_STR);
+            $UPDATE->bindParam(':hello', $hello_name, PDO::PARAM_STR); 
+            $UPDATE->execute();
+            
+            header('Location: ../../../Life/Reports/Pad.php?result=UPDATED'); die;
+            
+        }        
+        
+        if($query=='Delete') {
+            
+            $pad_id= filter_input(INPUT_GET, 'pad_id', FILTER_SANITIZE_NUMBER_INT);  
+            
+            $DELETE = $pdo->prepare("DELETE FROM pad_statistics WHERE pad_statistics_id=:id LIMIT 1");
+            $DELETE->bindParam(':id', $pad_id, PDO::PARAM_INT); 
+            $DELETE->execute();
+            
+            header('Location: ../../../Life/Reports/Pad.php?result=DELETED'); die;
+            
+        }        
         
         if($query=='Alledit') {
             

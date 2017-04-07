@@ -465,20 +465,20 @@ GROUP BY pad_statistics_status");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/TodayPAD.php');
+                                        require_once(__DIR__ . '/../models/pad/TodayPAD.php');
                                         $TodayPad = new TodayPadModal($pdo);
                                         $TodayPadList = $TodayPad->getTodayPad($datefrom);
-                                        require_once(__DIR__ . '/../views/Today-PAD.php');
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE()");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/TodayPAD.php');
+                                        require_once(__DIR__ . '/../models/pad/TodayPAD.php');
                                         $TodayPad = new TodayPadModal($pdo);
                                         $TodayPadList = $TodayPad->getTodayPad();
-                                        require_once(__DIR__ . '/../views/Today-PAD.php');
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 }
                                 ?>           

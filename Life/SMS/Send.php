@@ -42,6 +42,13 @@ $FullName= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $SMS_MESSAGE=$result['message'];
     $countryCode = "+44";
+    
+    $NO_ZERO_CHK =strlen($num);
+    
+    if($NO_ZERO_CHK < 11) {
+        $num="0$num";
+    }
+    
     $newNumber = preg_replace('/^0?/', ''.$countryCode, $num);
     
 }

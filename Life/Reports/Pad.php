@@ -1226,7 +1226,7 @@ GROUP BY pad_statistics_status");
                              
                                 <?php
                                 if (isset($datefrom)) {
-                                    $TEAM = "Training";
+
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Training'");
                                     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
@@ -1234,11 +1234,11 @@ GROUP BY pad_statistics_status");
 
                                         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
                                         $TodayPad = new TRAININGTodayPadModal($pdo);
-                                        $TodayPadList = $TodayPad->TRAININGgetTodayPad($datefrom, $TEAM);
+                                        $TodayPadList = $TodayPad->TRAININGgetTodayPad($datefrom);
                                         require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
-                                    $TEAM = "Training";
+             
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -1251,7 +1251,7 @@ WHERE
 
                                         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
                                         $TRAININGTodayPad = new TRAININGTodayPadModal($pdo);
-                                        $TRAININGTodayPadList = $TRAININGTodayPad->TRAININGgetTodayPad($TEAM);
+                                        $TRAININGTodayPadList = $TRAININGTodayPad->TRAININGgetTodayPad();
                                         require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
                                     }
                                 }
@@ -1273,7 +1273,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-                                <?php
+                                    <?php
                                 $stmt_CLO_COM = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
 FROM
@@ -1299,14 +1299,14 @@ GROUP BY pad_statistics_status");
                                     echo $data_CLO_status['status_count'];
                                 }
 
-                                $CLOSER_COMM_ALL = number_format($data_CLO_COM['COMM'], 2);
+                                $CLO_COMM_ALL = number_format($data_CLO_COM['COMM'], 6);
                                 ?>
-                                Total: <?php echo "£$CLOSER_COMM_ALL"; ?>
+                                Total: <?php echo "£$CLO_COMM_ALL"; ?>
 
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-6"></div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                                 <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
@@ -1328,27 +1328,28 @@ GROUP BY pad_statistics_status");
                             </thead>
                             <?php
                             if (isset($datefrom)) {
-                                $TEAM = 'Closers';
-                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Closer'");
+                             
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Closers'");
                                 $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                 $TODAY_PAD_CK->execute();
                                 if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                     require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
-                                    $TeamPad = new CloserTeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->ClosergetTeamPad($datefrom,$TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $TeamPad = new CLOSERTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->CLOSERgetTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/CLOSER/Team-PAD.php');
                                 }
                             } else {
-                                $TEAM = 'Closers';
-                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Closers'");
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Closers'");
                                 $Team_PAD_CK->execute();
                                 if ($Team_PAD_CK->rowCount() > 0) {
 
                                     require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
-                                    $TeamPad = new CloserTeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->ClosergetTeamPad($TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $CLOSERTeamPad = new CLOSERTeamPadModal($pdo);
+                                    $CLOSERTeamPadList = $CLOSERTeamPad->CLOSERgetTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/CLOSER/Team-PAD.php');
+
                                 }
                             }
                             ?>     
@@ -1358,73 +1359,39 @@ GROUP BY pad_statistics_status");
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="../php/Pad.php?query=add">
-                                    <table id="pad" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Lead</th>
-                                                <th>COMM</th>
-                                                <th>Closer</th>
-                                                <th>Notes</th>
-                                                <th>Team</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-
-                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                        <td><input size="12" class="form-control" type="text" name="col"></td>
-                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                        <td><input type="text" class="form-control" name="notes"></td>
-                                        <td> <select name="group" class="form-control" required>
-                                                <option value="">Select Team</option>
-                                                <option value="POD 1">POD 1</option>
-                                                <option value="POD 2">POD 2</option>
-                                                <option value="POD 3">POD 3</option>
-                                                <option value="POD 4">POD 4</option>
-                                                <option value="POD 5">POD 5</option>
-                                                <option value="POD 6">POD 6</option>
-                                                <option value="Training">Training</option>
-                                                <option value="Closers">Closers</option>
-                                                <option value="Admin">Admin</option>
-                                            </select></td>
-                                        <td> <select name="status" class="form-control" required>
-                                                <option value="">Select Status</option>
-                                                <option value="White">White</option>
-                                                <option value="Green">Green</option>
-                                                <option value="Red">Red</option>
-                                            </select></td>
-                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                    </table>
-                                </form>
-
+                             
                                 <?php
                                 if (isset($datefrom)) {
-                                    $TEAM = "Closers";
+
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Closers'");
                                     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                         require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
-                                        $CLOTodayPad = new CloserTodayPadModal($pdo);
-                                        $CLOTodayPadList = $CLOTodayPad->ClosergetTodayPad($TEAM);
-                                        require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
+                                        $TodayPad = new CLOSERTodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->CLOSERgetTodayPad($datefrom);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
-                                    $TEAM = "Closers";
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Closers'");
+                                    $TEAM = "Closer";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'Closers'");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                         require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
-                                        $CLOTodayPad = new CloserTodayPadModal($pdo);
-                                        $CLOTodayPadList = $CLOTodayPad->ClosergetTodayPad($TEAM);
+                                        $CLOSERTodayPad = new CLOSERTodayPadModal($pdo);
+                                        $CLOSERTodayPadList = $CLOSERTodayPad->CLOSERgetTodayPad();
                                         require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
-                                        
                                     }
                                 }
-                                ?>           
+                                ?>       
 
                             </div>
                         </div>

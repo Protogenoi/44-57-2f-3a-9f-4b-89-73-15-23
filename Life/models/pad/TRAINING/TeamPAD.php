@@ -17,7 +17,7 @@ class TRAININGTeamPadModal {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6' GROUP BY pad_statistics_group");
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training' GROUP BY pad_statistics_group");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

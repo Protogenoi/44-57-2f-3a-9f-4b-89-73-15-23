@@ -18,25 +18,25 @@
 
         <?php
         $i++;
-                $PAD_group = $POD5Today_Pad['pad_statistics_group'];
-                $PAD_id = $POD5Today_Pad['pad_statistics_id'];
-                $PAD_lead = $POD5Today_Pad['pad_statistics_lead'];
-                $PAD_closer = $POD5Today_Pad['pad_statistics_closer'];
-                $PAD_notes = $POD5Today_Pad['pad_statistics_notes'];
-                $PAD_status = $POD5Today_Pad['pad_statistics_status'];
-                $PAD_our_col = $POD5Today_Pad['pad_statistics_col'];
-                $PAD_our_date = $POD5Today_Pad['pad_statistics_update_date'];
+                $PAD_group = $POD6Today_Pad['pad_statistics_group'];
+                $PAD_id = $POD6Today_Pad['pad_statistics_id'];
+                $PAD_lead = $POD6Today_Pad['pad_statistics_lead'];
+                $PAD_closer = $POD6Today_Pad['pad_statistics_closer'];
+                $PAD_notes = $POD6Today_Pad['pad_statistics_notes'];
+                $PAD_status = $POD6Today_Pad['pad_statistics_status'];
+                $PAD_our_col = $POD6Today_Pad['pad_statistics_col'];
+                $PAD_our_date = $POD6Today_Pad['pad_statistics_update_date'];
 ?>
                         <form action="../php/Pad.php?query=Edit" method="POST">            
                         <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
                                      <td><?php echo $i; ?></td>
-                                            <td><input size="5" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
+                                            <td><input size="6" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
                     echo $PAD_our_date;
                 } ?>"></td>   
                                 <td><input size="8" class="form-control" type="text" name="lead" id="provider-json" value="<?php if (isset($PAD_lead)) {
                     echo $PAD_lead;
                 } ?>"></td>                      
-                                <td><input size="5" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
+                                <td><input size="6" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
                     echo $PAD_our_col;
                 } ?>"></td>
                                 <td><input size="12" class="form-control" type="text" name="closer" value="<?php if (isset($PAD_closer)) {
@@ -62,25 +62,25 @@
                         ?> value="POD 2">POD 2</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 5') {
+                            if ($PAD_group == 'POD 6') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 5">POD 5</option>
+                        ?> value="POD 6">POD 6</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 5') {
+                            if ($PAD_group == 'POD 6') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 5">POD 5</option>
+                        ?> value="POD 6">POD 6</option>
                         <option <?php
                             if (isset($PAD_group)) {
-                                if ($PAD_group == 'POD 5') {
+                                if ($PAD_group == 'POD 6') {
                                     echo "selected";
                                 }
                             }
-                            ?> value="POD 5">POD 5</option>
+                            ?> value="POD 6">POD 6</option>
                         <option <?php
                         if (isset($PAD_group)) {
                             if ($PAD_group == 'POD 6') {

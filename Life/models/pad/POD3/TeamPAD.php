@@ -8,7 +8,7 @@ class POD3TeamPadModal {
         $this->pdo = $pdo;
     }
 
-    public function POD3getTeamPad($TEAM) {
+    public function POD3getTeamPad() {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
@@ -17,8 +17,7 @@ class POD3TeamPadModal {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group=:team GROUP BY pad_statistics_group");
-        $stmt->bindParam(':team', $TEAM, PDO::PARAM_STR);
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 3' GROUP BY pad_statistics_group");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

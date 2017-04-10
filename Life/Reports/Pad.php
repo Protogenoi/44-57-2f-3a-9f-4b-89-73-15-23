@@ -1026,14 +1026,14 @@ GROUP BY pad_statistics_status");
                                     echo $data_SIX_status['status_count'];
                                 }
 
-                                $SIX_COMM_ALL = number_format($data_SIX_COM['COMM'], 2);
+                                $SIX_COMM_ALL = number_format($data_SIX_COM['COMM'], 6);
                                 ?>
                                 Total: <?php echo "£$SIX_COMM_ALL"; ?>
 
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-6"></div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                                 <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
@@ -1045,7 +1045,7 @@ GROUP BY pad_statistics_status");
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Pod 6 Statistics</th>
+                                    <th>POD 6 Statistics</th>
                                 </tr>
                                 <tr>
                                     <th>Team</th>
@@ -1055,27 +1055,28 @@ GROUP BY pad_statistics_status");
                             </thead>
                             <?php
                             if (isset($datefrom)) {
-                                $TEAM = 'POD 6';
+                             
                                 $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 6'");
                                 $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                 $TODAY_PAD_CK->execute();
                                 if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                   require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
+                                    require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
                                     $TeamPad = new POD6TeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->POD6getTeamPad($datefrom,$TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $TeamPadList = $TeamPad->POD6getTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/POD6/Team-PAD.php');
                                 }
                             } else {
-                                $TEAM = 'POD 6';
-                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 6'");
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 6'");
                                 $Team_PAD_CK->execute();
                                 if ($Team_PAD_CK->rowCount() > 0) {
-                                    
-                                   require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
-                                    $TeamPad = new POD6TeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->POD6getTeamPad($TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+
+                                    require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
+                                    $POD6TeamPad = new POD6TeamPadModal($pdo);
+                                    $POD6TeamPadList = $POD6TeamPad->POD6getTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/POD6/Team-PAD.php');
+
                                 }
                             }
                             ?>     
@@ -1085,46 +1086,7 @@ GROUP BY pad_statistics_status");
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="../php/Pad.php?query=add">
-                                    <table id="pad" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Lead</th>
-                                                <th>COMM</th>
-                                                <th>Closer</th>
-                                                <th>Notes</th>
-                                                <th>Team</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-
-                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                        <td><input size="12" class="form-control" type="text" name="col"></td>
-                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                        <td><input type="text" class="form-control" name="notes"></td>
-                                        <td> <select name="group" class="form-control" required>
-                                                <option value="">Select Team</option>
-                                                <option value="POD 1">POD 1</option>
-                                                <option value="POD 2">POD 2</option>
-                                                <option value="POD 3">POD 3</option>
-                                                <option value="POD 4">POD 4</option>
-                                                <option value="POD 5">POD 5</option>
-                                                <option value="POD 6">POD 6</option>
-                                                <option value="Training">Training</option>
-                                                <option value="Closers">Closers</option>
-                                                <option value="Admin">Admin</option>
-                                            </select></td>
-                                        <td> <select name="status" class="form-control" required>
-                                                <option value="">Select Status</option>
-                                                <option value="White">White</option>
-                                                <option value="Green">Green</option>
-                                                <option value="Red">Red</option>
-                                            </select></td>
-                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                    </table>
-                                </form>
-
+                             
                                 <?php
                                 if (isset($datefrom)) {
                                     $TEAM = "POD 6";
@@ -1133,15 +1095,20 @@ GROUP BY pad_statistics_status");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-
                                         require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
-                                        $POD6TodayPad = new POD6TodayPadModal($pdo);
-                                        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad($datefrom,$TEAM);
-                                        require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
+                                        $TodayPad = new POD6TodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->POD6getTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
                                     $TEAM = "POD 6";
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 6'");
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'POD 6'");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 

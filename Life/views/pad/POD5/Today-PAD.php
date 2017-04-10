@@ -30,13 +30,13 @@
                         <form action="../php/Pad.php?query=Edit" method="POST">            
                         <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
                                      <td><?php echo $i; ?></td>
-                                            <td><input size="4" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
+                                            <td><input size="5" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
                     echo $PAD_our_date;
                 } ?>"></td>   
                                 <td><input size="8" class="form-control" type="text" name="lead" id="provider-json" value="<?php if (isset($PAD_lead)) {
                     echo $PAD_lead;
                 } ?>"></td>                      
-                                <td><input size="4" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
+                                <td><input size="5" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
                     echo $PAD_our_col;
                 } ?>"></td>
                                 <td><input size="12" class="form-control" type="text" name="closer" value="<?php if (isset($PAD_closer)) {
@@ -62,18 +62,18 @@
                         ?> value="POD 2">POD 2</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 3') {
+                            if ($PAD_group == 'POD 5') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 3">POD 3</option>
+                        ?> value="POD 5">POD 5</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 4') {
+                            if ($PAD_group == 'POD 5') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 4">POD 4</option>
+                        ?> value="POD 5">POD 5</option>
                         <option <?php
                             if (isset($PAD_group)) {
                                 if ($PAD_group == 'POD 5') {

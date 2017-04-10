@@ -1,6 +1,6 @@
 <?php
 
-if (isset($datafrom)) {
+if (isset($datefrom)) {
 
     class TodayPadModal {
 

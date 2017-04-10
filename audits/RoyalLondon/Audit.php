@@ -4,14 +4,26 @@ $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '0') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 if ($ffaudits=='0') {
         
         header('Location: /CRMmain.php'); die;
     }
-
-include('../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
@@ -24,7 +36,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 if(isset($EXECUTE)) {
     if($EXECUTE=='VIEW' || $EXECUTE=='EDIT') {
         $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
-        include('../../classes/database_class.php'); 
+        require_once(__DIR__ . '/../../classes/database_class.php');
         
     $database = new Database();  
     $database->beginTransaction();
@@ -524,15 +536,15 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 <title>ADL | Royal London Audit</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../styles/layout.css" type="text/css" />
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
-<link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
-<script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../../styles/layout.css" type="text/css" />
+<link rel="stylesheet" href="../../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css">
+<link href="../../../img/favicon.ico" rel="icon" type="image/x-icon" />
+<script type="text/javascript" language="javascript" src="../../../js/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="../../../js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="../../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
@@ -544,11 +556,6 @@ function textAreaAdjust(o) {
 <body>
 
 <?php include('../../includes/navbar.php'); 
-    if($ffanalytics=='1') {
-    
-    include('../../php/analyticstracking.php'); 
-    
-    }
 ?>
 
 <div class="container">

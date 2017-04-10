@@ -13,19 +13,19 @@
                                 <th></th>
                             </tr>
                         </thead>
-    <?php $i='0'; foreach ($POD6TodayPadList as $POD6Today_Pad): ?>
+    <?php $i='0'; foreach ($TRAININGTodayPadList as $TRAININGToday_Pad): ?>
 
 
         <?php
         $i++;
-                $PAD_group = $POD6Today_Pad['pad_statistics_group'];
-                $PAD_id = $POD6Today_Pad['pad_statistics_id'];
-                $PAD_lead = $POD6Today_Pad['pad_statistics_lead'];
-                $PAD_closer = $POD6Today_Pad['pad_statistics_closer'];
-                $PAD_notes = $POD6Today_Pad['pad_statistics_notes'];
-                $PAD_status = $POD6Today_Pad['pad_statistics_status'];
-                $PAD_our_col = $POD6Today_Pad['pad_statistics_col'];
-                $PAD_our_date = $POD6Today_Pad['pad_statistics_update_date'];
+                $PAD_group = $TRAININGToday_Pad['pad_statistics_group'];
+                $PAD_id = $TRAININGToday_Pad['pad_statistics_id'];
+                $PAD_lead = $TRAININGToday_Pad['pad_statistics_lead'];
+                $PAD_closer = $TRAININGToday_Pad['pad_statistics_closer'];
+                $PAD_notes = $TRAININGToday_Pad['pad_statistics_notes'];
+                $PAD_status = $TRAININGToday_Pad['pad_statistics_status'];
+                $PAD_our_col = $TRAININGToday_Pad['pad_statistics_col'];
+                $PAD_our_date = $TRAININGToday_Pad['pad_statistics_update_date'];
 ?>
                         <form action="../php/Pad.php?query=Edit" method="POST">            
                         <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">

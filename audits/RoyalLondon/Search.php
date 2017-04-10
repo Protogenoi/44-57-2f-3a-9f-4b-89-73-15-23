@@ -133,7 +133,7 @@ include('../../includes/ADL_PDO_CON.php');
                 <div class="text-center">
                     <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
                     <br>
-                    <h3>Searching Whole of Life Database... </h3>
+                    <h3>Searching Royal London Audits... </h3>
                 </div>
             </div>
         </div>
@@ -184,11 +184,11 @@ $(document).ready(function() {
             { "data": "grade" },
   { "data": "audit_id",
             "render": function(data, type, full, meta) {
-                return '<a href="Audit.php?EXECUTE=Edit&AUDITIT=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
+                return '<a href="Audit.php?EXECUTE=EDIT&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
             } },
  { "data": "audit_id",
             "render": function(data, type, full, meta) {
-                return '<a href="Audit.php?EXECUTE=View&AUDITIT=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
+                return '<a href="Audit.php?EXECUTE=VIEW&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
             } },
         ],
         "order": [[1, 'desc']]

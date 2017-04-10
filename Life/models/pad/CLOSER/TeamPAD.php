@@ -1,6 +1,6 @@
 <?php
 
-class CloserTeamPadModal {
+class CLOSERTeamPadModal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class CloserTeamPadModal {
         $this->pdo = $pdo;
     }
 
-    public function ClosergetTeamPad($TEAM) {
+    public function CLOSERgetTeamPad() {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
@@ -17,8 +17,7 @@ class CloserTeamPadModal {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group=:team GROUP BY pad_statistics_group");
-        $stmt->bindParam(':team', $TEAM, PDO::PARAM_STR);
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Closers' GROUP BY pad_statistics_group");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

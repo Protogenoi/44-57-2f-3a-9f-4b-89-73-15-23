@@ -65,88 +65,17 @@ $Today_TIME = date("h:i:s");
         <ul class="nav nav-pills">
 
             <li class="active"><a data-toggle="pill" href="#OVERVIEW">Overview</a></li>
-            <li><a data-toggle="pill" href="#POD1">POD 1 Yesterday</a></li>
-            <li><a data-toggle="pill" href="#POD2">POD 2 The Day Before Yesterday</a></li>
-            <li><a data-toggle="pill" href="#POD3">POD 3 The Day After Tomorrow</a></li>
+            <li><a data-toggle="pill" href="#POD1">POD 1 </a></li>
+            <li><a data-toggle="pill" href="#POD2">POD 2</a></li>
+            <li><a data-toggle="pill" href="#POD3">POD 3</a></li>
             <li><a data-toggle="pill" href="#POD4">POD 4</a></li>
             <li><a data-toggle="pill" href="#POD5">POD 5</a></li>
             <li><a data-toggle="pill" href="#POD6">POD 6</a></li>
-            <li><a data-toggle="pill" href="#POD7">POD 7</a></li>
             <li><a data-toggle="pill" href="#TRAINING">Training</a></li>
             <li><a data-toggle="pill" href="#CLOSERS">Closers</a></li>
             <li><a data-toggle="pill" href="#ADMIN">Admin</a></li>
-
-            <form action="" method="GET">
-                <div class="form-group col-xs-3">
-                    <label class="col-md-4 control-label" for="query"></label>
-                    <select id="OPTION" name="OPTION" class="form-control" onchange="this.form.submit()" required>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 1') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 1" selected>POD 1</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 2') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 2">POD 2</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 3') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 3">POD 3</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 4') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 4">POD 4</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 5') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 5">POD 5</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'POD 6') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="POD 6">POD 6</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'TRAINING') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="TRAINING">Training</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'CLOSERS') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="CLOSERS">Closers</option>
-                        <option <?php
-                        if (isset($OPTION)) {
-                            if ($OPTION == 'ADMIN') {
-                                echo "selected";
-                            }
-                        }
-                        ?> value="Admin">Admin</option>
-                    </select>
-                </div>
-            </form>
         </ul>       
+        
         <div class="tab-content">
             <div id="OVERVIEW" class="tab-pane fade in active">
                 <div class="panel panel-default">
@@ -243,43 +172,37 @@ GROUP BY pad_statistics_status");
                                     <th>TOTAL</th>
                                 </tr>
                             </thead>
-                                <?php
-                                if (isset($datefrom)) {
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 1'");
-                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
-                                    $TODAY_PAD_CK->execute();
-                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+                            <?php
+                            if (isset($datefrom)) {
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/pad/TeamPAD.php');
-                                        $TeamPad = new TeamPadModal($pdo);
-                                        $TeamPadList = $TeamPad->getTeamPad($datefrom);
-                                        require_once(__DIR__ . '/../views/pad/Team-PAD.php');
-                                    }
-                                } else {
-                                    $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE()");
-                                    $Team_PAD_CK->execute();
-                                    if ($Team_PAD_CK->rowCount() > 0) {
-
-                                        require_once(__DIR__ . '/../models/pad/TeamPAD.php');
-                                        $TeamPad = new TeamPadModal($pdo);
-                                        $TeamPadList = $TeamPad->getTeamPad();
-                                        require_once(__DIR__ . '/../views/pad/Team-PAD.php');
-                                    }
+                                    require_once(__DIR__ . '/../models/pad/TeamsPAD.php');
+                                    $TeamPad = new TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->getTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/Teams-PAD.php');
                                 }
-                                ?>     
+                            } else {
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE()");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/TeamsPAD.php');
+                                    $TeamPad = new TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->getTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/Teams-PAD.php');
+                                }
+                            }
+                            ?>     
                         </table>
 
 
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="<?php
-                                if (isset($query) && $query == 'Edit') {
-                                    echo '../php/Pad.php?query=edit';
-                                } else {
-                                    echo '../php/Pad.php?query=add';
-                                }
-                                ?>">
+                                <form method="post" action="../php/Pad.php?query=add">
                                     <table id="pad" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -287,177 +210,38 @@ GROUP BY pad_statistics_status");
                                                 <th>COMM</th>
                                                 <th>Closer</th>
                                                 <th>Notes</th>
+                                                <th>Team</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
 
-                                        <?php
-                                        if (isset($query) && $query == 'Edit') {
-
-                                            $PAD_EDIT = $pdo->prepare("SELECT pad_statistics_group, pad_statistics_id, pad_statistics_lead, pad_statistics_closer, pad_statistics_notes, pad_statistics_status, pad_statistics_col FROM pad_statistics WHERE pad_statistics_id=:id");
-                                            $PAD_EDIT->bindParam(':id', $PAD_ID, PDO::PARAM_INT);
-                                            $PAD_EDIT->execute();
-                                            if ($PAD_EDIT->rowCount() > 0) {
-                                                $PAD_EDIT_result = $PAD_EDIT->fetch(PDO::FETCH_ASSOC);
-
-                                                $PAD_group = $PAD_EDIT_result['pad_statistics_group'];
-                                                $PAD_id = $PAD_EDIT_result['pad_statistics_id'];
-                                                $PAD_lead = $PAD_EDIT_result['pad_statistics_lead'];
-                                                $PAD_closer = $PAD_EDIT_result['pad_statistics_closer'];
-                                                $PAD_notes = $PAD_EDIT_result['pad_statistics_notes'];
-                                                $PAD_status = $PAD_EDIT_result['pad_statistics_status'];
-                                                $PAD_our_col = $PAD_EDIT_result['pad_statistics_col'];
-                                                ?>
-
-                                                <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
-                                                <td><input size="12" class="form-control" type="text" name="lead" id="provider-json" value="<?php
-                                                    if (isset($PAD_lead)) {
-                                                        echo $PAD_lead;
-                                                    }
-                                                    ?>"></td>                      
-                                                <td><input size="12" class="form-control" type="text" name="col" value="<?php
-                                                    if (isset($PAD_our_col)) {
-                                                        echo $PAD_our_col;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="12" class="form-control" type="text" name="closer" value="<?php
-                                                    if (isset($PAD_closer)) {
-                                                        echo $PAD_closer;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="8" class="form-control" type="text" name="notes" value="<?php
-                                                    if (isset($PAD_notes)) {
-                                                        echo $PAD_notes;
-                                                    }
-                                                    ?>"></td>
-                                                <td>                   <select id="group" name="group" class="form-control" required>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 1') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 1" selected>POD 1</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 2') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 2">POD 2</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 3') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 3">POD 3</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 4') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 4">POD 4</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 5') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 5">POD 5</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 6') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 6">POD 6</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Training') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Training">Training</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Closers') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Closers">Closers</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Admin') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Admin">Admin</option>
-                                                    </select></td>
-
-                                                <td><select name="status" class="form-control" required>
-                                                        <option>Select Status</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'White') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="White">White</option>                              
-                                                        <option<?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Green') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Green">Green</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Red') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Red">Red</option>
-
-                                                    </select></td>
-
-                                                <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
-                                                <td><a href="?query=CloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
-
-                                                <?php
-                                            }
-                                        } else {
-                                            ?>
-                                            <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                            <td><input size="12" class="form-control" type="text" name="col"></td>
-                                            <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                            <td><input type="text" class="form-control" name="notes"></td>
-                                            <td> <select name="group" class="form-control" required>
-                                                    <option value="">Select Team</option>
-                                                    <option value="POD 1">POD 1</option>
-                                                    <option value="POD 2">POD 2</option>
-                                                    <option value="POD 3">POD 3</option>
-                                                    <option value="POD 4">POD 4</option>
-                                                    <option value="POD 5">POD 5</option>
-                                                    <option value="POD 6">POD 6</option>
-                                                    <option value="POD 7">POD 7</option>
-                                                    <option value="Training">Training</option>
-                                                    <option value="Closers">Closers</option>
-                                                    <option value="Admin">Admin</option>
-                                                </select></td>
-                                            <td> <select name="status" class="form-control" required>
-                                                    <option value="">Select Status</option>
-                                                    <option value="White">White</option>
-                                                    <option value="Green">Green</option>
-                                                    <option value="Red">Red</option>
-                                                </select></td>
-                                            <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                        <?php } ?>
-
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
                                     </table>
                                 </form>
+
                                 <?php
                                 if (isset($datefrom)) {
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date");
@@ -465,20 +249,20 @@ GROUP BY pad_statistics_status");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/pad/TodayPAD.php');
+                                        require_once(__DIR__ . '/../models/pad/AllTodayPAD.php');
                                         $TodayPad = new TodayPadModal($pdo);
                                         $TodayPadList = $TodayPad->getTodayPad($datefrom);
-                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
+                                        require_once(__DIR__ . '/../views/pad/AllToday-PAD.php');
                                     }
                                 } else {
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE()");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/pad/TodayPAD.php');
+                                        require_once(__DIR__ . '/../models/pad/AllTodayPAD.php');
                                         $TodayPad = new TodayPadModal($pdo);
                                         $TodayPadList = $TodayPad->getTodayPad();
-                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
+                                        require_once(__DIR__ . '/../views/pad/AllToday-PAD.php');
                                     }
                                 }
                                 ?>           
@@ -490,68 +274,101 @@ GROUP BY pad_statistics_status");
                 </div>
             </div><!--END OVERVIEW-->
 
-            <div id="POD1" class="tab-pane fade">
-
+            <div id="POD1" class="tab-pane fade in"> <!-- POD 1 -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">      
+                    <div class="panel-heading">
                         <h3 class="panel-title">POD 1 Statistics</h3>
                     </div>
                     <div class="panel-body">
-                         <div class="col-md-12">
+
+                        <div class="col-md-12">
 
                             <div class="col-md-4">
                                 <?php
-                                $stmt5 = $pdo->prepare("SELECT 
+                                $stmt_ONE_COM = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_added_date) ='2017-04-06'");
-                                $stmt5->execute();
-                                $data5 = $stmt5->fetch(PDO::FETCH_ASSOC);
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 1'");
+                                $stmt_ONE_COM->execute();
+                                $data_ONE_COM = $stmt_ONE_COM->fetch(PDO::FETCH_ASSOC);
 
-                                $stmt_status6 = $pdo->prepare("SELECT 
+                                $stmt_ONE_status = $pdo->prepare("SELECT 
     COUNT(pad_statistics_status) AS status_count,
     pad_statistics_status
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_added_date) ='2017-04-06'
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 1'
 GROUP BY pad_statistics_status");
-                                $stmt_status6->execute();
-                                while ($data6 = $stmt_status6->fetch(PDO::FETCH_ASSOC)) {
+                                $stmt_ONE_status->execute();
+                                while ($data_ONE_status = $stmt_ONE_status->fetch(PDO::FETCH_ASSOC)) {
                                     ?> 
-                                    <?php echo $data6['pad_statistics_status']; ?> 
+                                    <?php echo $data_ONE_status['pad_statistics_status']; ?> 
                                     <?php
-                                    echo $data6['status_count'];
+                                    echo $data_ONE_status['status_count'];
                                 }
 
-                                $TOTAL_COMM_ALL99 = number_format($data5['COMM'], 2);
+                                $ONE_COMM_ALL = number_format($data_ONE_COM['COMM'], 2);
                                 ?>
-                                Total: <?php echo "£$TOTAL_COMM_ALL99"; ?>
+                                Total: <?php echo "£$ONE_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
 
                             <div class="col-md-4">
 
-                                <?php echo "<h3>Thursday 6th of April 2017</h3>"; ?>
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
 
                             </div>
 
                         </div>
 
-  <div class="row">
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>POD 1 Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'POD 1';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date) =:date AND pad_statistics_group='POD 1'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD1/TeamPAD.php');
+                                    $TeamPad = new POD1TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD1getTeamPad($datefrom, $TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'POD 1';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date) >=CURDATE() AND pad_statistics_group='POD 1'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD1/TeamPAD.php');
+                                    $TeamPad = new POD1TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD1getTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+                        <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="<?php
-                                if (isset($query) && $query == 'Edit') {
-                                    echo '../php/Pad.php?query=edit';
-                                } else {
-                                    echo '../php/Pad.php?query=add';
-                                }
-                                ?>">
+                                <form method="post" action="../php/Pad.php?query=add">
                                     <table id="pad" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -559,261 +376,442 @@ GROUP BY pad_statistics_status");
                                                 <th>COMM</th>
                                                 <th>Closer</th>
                                                 <th>Notes</th>
+                                                <th>Team</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
 
-                                        <?php
-                                        if (isset($query) && $query == 'Edit') {
-
-                                            $PAD_EDIT = $pdo->prepare("SELECT pad_statistics_group, pad_statistics_id, pad_statistics_lead, pad_statistics_closer, pad_statistics_notes, pad_statistics_status, pad_statistics_col FROM pad_statistics WHERE pad_statistics_id=:id");
-                                            $PAD_EDIT->bindParam(':id', $PAD_ID, PDO::PARAM_INT);
-                                            $PAD_EDIT->execute();
-                                            if ($PAD_EDIT->rowCount() > 0) {
-                                                $PAD_EDIT_result = $PAD_EDIT->fetch(PDO::FETCH_ASSOC);
-
-                                                $PAD_group = $PAD_EDIT_result['pad_statistics_group'];
-                                                $PAD_id = $PAD_EDIT_result['pad_statistics_id'];
-                                                $PAD_lead = $PAD_EDIT_result['pad_statistics_lead'];
-                                                $PAD_closer = $PAD_EDIT_result['pad_statistics_closer'];
-                                                $PAD_notes = $PAD_EDIT_result['pad_statistics_notes'];
-                                                $PAD_status = $PAD_EDIT_result['pad_statistics_status'];
-                                                $PAD_our_col = $PAD_EDIT_result['pad_statistics_col'];
-                                                ?>
-
-                                                <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
-                                                <td><input size="12" class="form-control" type="text" name="lead" id="provider-json" value="<?php
-                                                    if (isset($PAD_lead)) {
-                                                        echo $PAD_lead;
-                                                    }
-                                                    ?>"></td>                      
-                                                <td><input size="12" class="form-control" type="text" name="col" value="<?php
-                                                    if (isset($PAD_our_col)) {
-                                                        echo $PAD_our_col;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="12" class="form-control" type="text" name="closer" value="<?php
-                                                    if (isset($PAD_closer)) {
-                                                        echo $PAD_closer;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="8" class="form-control" type="text" name="notes" value="<?php
-                                                    if (isset($PAD_notes)) {
-                                                        echo $PAD_notes;
-                                                    }
-                                                    ?>"></td>
-                                                <td>                   <select id="group" name="group" class="form-control" required>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 1') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 1" selected>POD 1</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 2') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 2">POD 2</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 3') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 3">POD 3</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 4') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 4">POD 4</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 5') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 5">POD 5</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 6') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 6">POD 6</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Training') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Training">Training</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Closers') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Closers">Closers</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Admin') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Admin">Admin</option>
-                                                    </select></td>
-
-                                                <td><select name="status" class="form-control" required>
-                                                        <option>Select Status</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'White') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="White">White</option>                              
-                                                        <option<?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Green') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Green">Green</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Red') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Red">Red</option>
-
-                                                    </select></td>
-
-                                                <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
-                                                <td><a href="?query=CloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
-
-                                                <?php
-                                            }
-                                        } else {
-                                            ?>
-                                            <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                            <td><input size="12" class="form-control" type="text" name="col"></td>
-                                            <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                            <td><input type="text" class="form-control" name="notes"></td>
-                                            <td> <select name="group" class="form-control" required>
-                                                    <option value="">Select Team</option>
-                                                    <option value="POD 1">POD 1</option>
-                                                    <option value="POD 2">POD 2</option>
-                                                    <option value="POD 3">POD 3</option>
-                                                    <option value="POD 4">POD 4</option>
-                                                    <option value="POD 5">POD 5</option>
-                                                    <option value="POD 6">POD 6</option>
-                                                    <option value="POD 7">POD 7</option>
-                                                    <option value="Training">Training</option>
-                                                    <option value="Closers">Closers</option>
-                                                    <option value="Admin">Admin</option>
-                                                </select></td>
-                                            <td> <select name="status" class="form-control" required>
-                                                    <option value="">Select Status</option>
-                                                    <option value="White">White</option>
-                                                    <option value="Green">Green</option>
-                                                    <option value="Red">Red</option>
-                                                </select></td>
-                                            <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                        <?php } ?>
-
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
                                     </table>
                                 </form>
+
                                 <?php
-                          
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date<CURDATE()");
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 1";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 1'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/pad/YesterdayPAD.php');
-                                        $YesterdayPad = new YesterdayPadModal($pdo);
-                                        $YesterdayPadList = $YesterdayPad->getYesterdayPad();
-                                        require_once(__DIR__ . '/../views/pad/Yesterday-PAD.php');
+                                        require_once(__DIR__ . '/../models/pad/TodayPAD.php');
+                                        $TodayPad = new TodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->getTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
-                           
+                                } else {
+                                    $TEAM = "POD 1";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 1'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD1/TodayPAD.php');
+                                        $TodayPad = new POD1TodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->POD1getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
+                                    }
+                                }
                                 ?>           
 
                             </div>
                         </div>
                     </div>
+
                 </div>
+            </div>    <!-- END POD1 -->              
 
-
-            </div><!-- END POD 1 -->
- 
-            <div id="POD2" class="tab-pane fade">
-
+            <div id="POD2" class="tab-pane fade in"> <!-- POD 2 -->
                 <div class="panel panel-default">
-                    <div class="panel-heading">      
+                    <div class="panel-heading">
                         <h3 class="panel-title">POD 2 Statistics</h3>
                     </div>
                     <div class="panel-body">
-                         <div class="col-md-12">
+
+                        <div class="col-md-12">
 
                             <div class="col-md-4">
                                 <?php
-                                $stmt6 = $pdo->prepare("SELECT 
+                                $stmt_TWO_COM = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_added_date) ='2017-04-05'");
-                                $stmt6->execute();
-                                $data6 = $stmt6->fetch(PDO::FETCH_ASSOC);
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 2'");
+                                $stmt_TWO_COM->execute();
+                                $data_TWO_COM = $stmt_TWO_COM->fetch(PDO::FETCH_ASSOC);
 
-                                $stmt_status7 = $pdo->prepare("SELECT 
+                                $stmt_TWO_status = $pdo->prepare("SELECT 
     COUNT(pad_statistics_status) AS status_count,
     pad_statistics_status
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_added_date) ='2017-04-05'
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 2'
 GROUP BY pad_statistics_status");
-                                $stmt_status7->execute();
-                                while ($data7 = $stmt_status7->fetch(PDO::FETCH_ASSOC)) {
+                                $stmt_TWO_status->execute();
+                                while ($data_TWO_status = $stmt_TWO_status->fetch(PDO::FETCH_ASSOC)) {
                                     ?> 
-                                    <?php echo $data7['pad_statistics_status']; ?> 
+                                    <?php echo $data_TWO_status['pad_statistics_status']; ?> 
                                     <?php
-                                    echo $data7['status_count'];
+                                    echo $data_TWO_status['status_count'];
                                 }
 
-                                $TOTAL_COMM_ALL5 = number_format($data6['COMM'], 2);
+                                $TWO_COMM_ALL = number_format($data_TWO_COM['COMM'], 2);
                                 ?>
-                                Total: <?php echo "£$TOTAL_COMM_ALL5"; ?>
+                                Total: <?php echo "£$TWO_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
 
                             <div class="col-md-4">
 
-                                <?php echo "<h3>Wednesday 5th of April 2017</h3>"; ?>
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
 
                             </div>
 
                         </div>
 
-  <div class="row">
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>POD 2 Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                             
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 2'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD2/TeamPAD.php');
+                                    $TeamPad = new POD2TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD2getTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/POD2/Team-PAD.php');
+                                }
+                            } else {
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 2'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD2/TeamPAD.php');
+                                    $POD2TeamPad = new POD2TeamPadModal($pdo);
+                                    $POD2TeamPadList = $POD2TeamPad->POD2getTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/POD2/Team-PAD.php');
+
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="<?php
-                                if (isset($query) && $query == 'Edit') {
-                                    echo '../php/Pad.php?query=edit';
+                             
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 2";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 2'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD2/TodayPAD.php');
+                                        $TodayPad = new POD2TodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->POD2getTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
+                                    }
                                 } else {
-                                    echo '../php/Pad.php?query=add';
+                                    $TEAM = "POD 2";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'POD 2'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD2/TodayPAD.php');
+                                        $POD2TodayPad = new POD2TodayPadModal($pdo);
+                                        $POD2TodayPadList = $POD2TodayPad->POD2getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD2/Today-PAD.php');
+                                    }
                                 }
-                                ?>">
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END POD2 -->              
+
+            <div id="POD3" class="tab-pane fade in"> <!-- POD 3 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">POD 3 Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                                         <?php
+                                $stmt_THREE_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 3'");
+                                $stmt_THREE_COM->execute();
+                                $data_THREE_COM = $stmt_THREE_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_THREE_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 3'
+GROUP BY pad_statistics_status");
+                                $stmt_THREE_status->execute();
+                                while ($data_THREE_status = $stmt_THREE_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_THREE_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_THREE_status['status_count'];
+                                }
+
+                                $THREE_COMM_ALL = number_format($data_THREE_COM['COMM'], 3);
+                                ?>
+                                Total: <?php echo "£$THREE_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>POD 3 Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                             
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 3'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD3/TeamPAD.php');
+                                    $TeamPad = new POD3TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD3getTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/POD3/Team-PAD.php');
+                                }
+                            } else {
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 3'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD3/TeamPAD.php');
+                                    $POD3TeamPad = new POD3TeamPadModal($pdo);
+                                    $POD3TeamPadList = $POD3TeamPad->POD3getTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/POD3/Team-PAD.php');
+
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                             
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 3";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 3'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD3/TodayPAD.php');
+                                        $TodayPad = new POD3TodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->POD3getTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "POD 3";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'POD 3'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD3/TodayPAD.php');
+                                        $POD3TodayPad = new POD3TodayPadModal($pdo);
+                                        $POD3TodayPadList = $POD3TodayPad->POD3getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD3/Today-PAD.php');
+                                    }
+                                }
+                                ?>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END POD3 -->
+
+            <div id="POD4" class="tab-pane fade in"> <!-- POD 4 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">POD 4 Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_FOUR_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 4'");
+                                $stmt_FOUR_COM->execute();
+                                $data_FOUR_COM = $stmt_FOUR_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_FOUR_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 4'
+GROUP BY pad_statistics_status");
+                                $stmt_FOUR_status->execute();
+                                while ($data_FOUR_status = $stmt_FOUR_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_FOUR_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_FOUR_status['status_count'];
+                                }
+
+                                $FOUR_COMM_ALL = number_format($data_FOUR_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$FOUR_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Admin Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'POD 4';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 4'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD4/TeamPAD.php');
+                                    $POD4TeamPad = new POD4TeamPadModal($pdo);
+                                    $POD4TeamPadList = $POD4TeamPad->POD4getTeamPad($datefrom, $TEAM);
+                                    require_once(__DIR__ . '/../views/pad/POD4/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'POD 4';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 4'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD4/TeamPAD.php');
+                                    $TeamPad = new POD4TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD4getTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
                                     <table id="pad" class="table table-hover">
                                         <thead>
                                             <tr>
@@ -821,204 +819,924 @@ GROUP BY pad_statistics_status");
                                                 <th>COMM</th>
                                                 <th>Closer</th>
                                                 <th>Notes</th>
+                                                <th>Team</th>
                                                 <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
 
-                                        <?php
-                                        if (isset($query) && $query == 'Edit') {
-
-                                            $PAD_EDIT = $pdo->prepare("SELECT pad_statistics_group, pad_statistics_id, pad_statistics_lead, pad_statistics_closer, pad_statistics_notes, pad_statistics_status, pad_statistics_col FROM pad_statistics WHERE pad_statistics_id=:id");
-                                            $PAD_EDIT->bindParam(':id', $PAD_ID, PDO::PARAM_INT);
-                                            $PAD_EDIT->execute();
-                                            if ($PAD_EDIT->rowCount() > 0) {
-                                                $PAD_EDIT_result = $PAD_EDIT->fetch(PDO::FETCH_ASSOC);
-
-                                                $PAD_group = $PAD_EDIT_result['pad_statistics_group'];
-                                                $PAD_id = $PAD_EDIT_result['pad_statistics_id'];
-                                                $PAD_lead = $PAD_EDIT_result['pad_statistics_lead'];
-                                                $PAD_closer = $PAD_EDIT_result['pad_statistics_closer'];
-                                                $PAD_notes = $PAD_EDIT_result['pad_statistics_notes'];
-                                                $PAD_status = $PAD_EDIT_result['pad_statistics_status'];
-                                                $PAD_our_col = $PAD_EDIT_result['pad_statistics_col'];
-                                                ?>
-
-                                                <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
-                                                <td><input size="12" class="form-control" type="text" name="lead" id="provider-json" value="<?php
-                                                    if (isset($PAD_lead)) {
-                                                        echo $PAD_lead;
-                                                    }
-                                                    ?>"></td>                      
-                                                <td><input size="12" class="form-control" type="text" name="col" value="<?php
-                                                    if (isset($PAD_our_col)) {
-                                                        echo $PAD_our_col;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="12" class="form-control" type="text" name="closer" value="<?php
-                                                    if (isset($PAD_closer)) {
-                                                        echo $PAD_closer;
-                                                    }
-                                                    ?>"></td>
-                                                <td><input size="8" class="form-control" type="text" name="notes" value="<?php
-                                                    if (isset($PAD_notes)) {
-                                                        echo $PAD_notes;
-                                                    }
-                                                    ?>"></td>
-                                                <td>                   <select id="group" name="group" class="form-control" required>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 1') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 1" selected>POD 1</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 2') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 2">POD 2</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 3') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 3">POD 3</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 4') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 4">POD 4</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 5') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 5">POD 5</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'POD 6') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="POD 6">POD 6</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Training') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Training">Training</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Closers') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Closers">Closers</option>
-                                                        <option <?php
-                                                        if (isset($PAD_group)) {
-                                                            if ($PAD_group == 'Admin') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Admin">Admin</option>
-                                                    </select></td>
-
-                                                <td><select name="status" class="form-control" required>
-                                                        <option>Select Status</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'White') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="White">White</option>                              
-                                                        <option<?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Green') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Green">Green</option>
-                                                        <option <?php
-                                                        if (isset($PAD_status)) {
-                                                            if ($PAD_status == 'Red') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?> value="Red">Red</option>
-
-                                                    </select></td>
-
-                                                <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
-                                                <td><a href="?query=CloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
-
-                                                <?php
-                                            }
-                                        } else {
-                                            ?>
-                                            <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                            <td><input size="12" class="form-control" type="text" name="col"></td>
-                                            <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                            <td><input type="text" class="form-control" name="notes"></td>
-                                            <td> <select name="group" class="form-control" required>
-                                                    <option value="">Select Team</option>
-                                                    <option value="POD 1">POD 1</option>
-                                                    <option value="POD 2">POD 2</option>
-                                                    <option value="POD 3">POD 3</option>
-                                                    <option value="POD 4">POD 4</option>
-                                                    <option value="POD 5">POD 5</option>
-                                                    <option value="POD 6">POD 6</option>
-                                                    <option value="POD 7">POD 7</option>
-                                                    <option value="Training">Training</option>
-                                                    <option value="Closers">Closers</option>
-                                                    <option value="Admin">Admin</option>
-                                                </select></td>
-                                            <td> <select name="status" class="form-control" required>
-                                                    <option value="">Select Status</option>
-                                                    <option value="White">White</option>
-                                                    <option value="Green">Green</option>
-                                                    <option value="Red">Red</option>
-                                                </select></td>
-                                            <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                        <?php } ?>
-
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
                                     </table>
                                 </form>
+
                                 <?php
-                          
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date) ='2017-04-05'");
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 4";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 4'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-                                        require_once(__DIR__ . '/../models/pad/DayBeforeYesterdayPAD.php');
-                                        $DayBeforeYesterdayPad = new DayBeforeYesterdayPadModal($pdo);
-                                        $DayBeforeYesterdayPadList = $DayBeforeYesterdayPad->getDayBeforeYesterdayPad();
-                                        require_once(__DIR__ . '/../views/pad/DayBeforeYesterday-PAD.php');
+                                        require_once(__DIR__ . '/../models/pad/POD4/TodayPAD.php');
+                                        $POD4TodayPad = new POD4TodayPadModal($pdo);
+                                        $POD4TodayPadList = $POD4TodayPad->POD4getTodayPad($datefrom,$TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD4/Today-PAD.php');
                                     }
-                           
+                                } else {
+                                    $TEAM = "POD 4";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 4'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD4/TodayPAD.php');
+                                        $POD4TodayPad = new POD4TodayPadModal($pdo);
+                                        $POD4TodayPadList = $POD4TodayPad->POD4getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD4/Today-PAD.php');
+                                    }
+                                }
                                 ?>           
 
                             </div>
                         </div>
                     </div>
+
                 </div>
+            </div>    <!-- END POD4 -->  
+
+            <div id="POD5" class="tab-pane fade in"> <!-- POD 5 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">POD 5 Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_FIVE_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 5'");
+                                $stmt_FIVE_COM->execute();
+                                $data_FIVE_COM = $stmt_FIVE_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_FIVE_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 5'
+GROUP BY pad_statistics_status");
+                                $stmt_FIVE_status->execute();
+                                while ($data_FIVE_status = $stmt_FIVE_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_FIVE_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_FIVE_status['status_count'];
+                                }
+
+                                $FIVE_COMM_ALL = number_format($data_FIVE_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$FIVE_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Admin Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'POD 5';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 5'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD5/TeamPAD.php');
+                                    $TeamPad = new POD5TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD5getTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'POD 5';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 5'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/POD5/TeamPAD.php');
+                                    $TeamPad = new POD5TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD5getTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
 
 
-            </div><!-- END POD 2 -->            
-            
-       </div><!--END TAB CONTENT-->
-        </div>
-        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
+                                    <table id="pad" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead</th>
+                                                <th>COMM</th>
+                                                <th>Closer</th>
+                                                <th>Notes</th>
+                                                <th>Team</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
+                                    </table>
+                                </form>
+
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 5";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 5'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD5/TodayPAD.php');
+                                        $POD5TodayPad = new POD5TodayPadModal($pdo);
+                                        $POD5TodayPadList = $POD5TodayPad->POD5getTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD5/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "POD 5";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 5'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD5/TodayPAD.php');
+                                        $POD5TodayPad = new POD5TodayPadModal($pdo);
+                                        $POD5TodayPadList = $POD5TodayPad->POD5getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD5/Today-PAD.php');
+                                    }
+                                }
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END POD5 -->                  
+
+            <div id="POD6" class="tab-pane fade in"> <!-- POD 6 -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">POD 6 Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_SIX_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6'");
+                                $stmt_SIX_COM->execute();
+                                $data_SIX_COM = $stmt_SIX_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_SIX_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6'
+GROUP BY pad_statistics_status");
+                                $stmt_SIX_status->execute();
+                                while ($data_SIX_status = $stmt_SIX_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_SIX_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_SIX_status['status_count'];
+                                }
+
+                                $SIX_COMM_ALL = number_format($data_SIX_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$SIX_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Pod 6 Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'POD 6';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 6'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                   require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
+                                    $TeamPad = new POD6TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD6getTeamPad($datefrom,$TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'POD 6';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 6'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+                                    
+                                   require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
+                                    $TeamPad = new POD6TeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->POD6getTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
+                                    <table id="pad" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead</th>
+                                                <th>COMM</th>
+                                                <th>Closer</th>
+                                                <th>Notes</th>
+                                                <th>Team</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
+                                    </table>
+                                </form>
+
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "POD 6";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 6'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+
+                                        require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
+                                        $POD6TodayPad = new POD6TodayPadModal($pdo);
+                                        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad($datefrom,$TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "POD 6";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='POD 6'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
+                                        $POD6TodayPad = new POD6TodayPadModal($pdo);
+                                        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
+                                    }
+                                }
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END POD6 --> 
+
+            <div id="TRAINING" class="tab-pane fade in"> <!-- Training -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Training Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_TRN_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'");
+                                $stmt_TRN_COM->execute();
+                                $data_TRN_COM = $stmt_TRN_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_TRN_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'
+GROUP BY pad_statistics_status");
+                                $stmt_TRN_status->execute();
+                                while ($data_TRN_status = $stmt_TRN_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_TRN_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_TRN_status['status_count'];
+                                }
+
+                                $TRN_COMM_ALL = number_format($data_TRN_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$TRN_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Training Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'Training';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Training'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
+                                    $TeamPad = new TRAININGTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->TRAININGgetTeamPad($datefrom, $TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'Training';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Training'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
+                                    $TeamPad = new TRAININGTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->TRAININGgetTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
+                                    <table id="pad" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead</th>
+                                                <th>COMM</th>
+                                                <th>Closer</th>
+                                                <th>Notes</th>
+                                                <th>Team</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
+                                    </table>
+                                </form>
+
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "Training";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Training'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
+                                        $TRNTodayPad = new POD6TodayPadModal($pdo);
+                                        $TRNTodayPadList = $TRNTodayPad->POD6getTodayPad($datefrom,$TEAM);
+                                        require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "Training";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Training'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+                                        
+                                        require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
+                                        $TRNTodayPad = new TRAININGTodayPadModal($pdo);
+                                        $TRNTodayPadList = $TRNTodayPad->TRAININGgetTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
+                                    }
+                                }
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END Training -->             
+
+            <div id="CLOSERS" class="tab-pane fade in"> <!-- CLOSER TEAM -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Closer Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_CLO_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Closers'");
+                                $stmt_CLO_COM->execute();
+                                $data_CLO_COM = $stmt_CLO_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_CLO_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Closers'
+GROUP BY pad_statistics_status");
+                                $stmt_CLO_status->execute();
+                                while ($data_CLO_status = $stmt_CLO_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_CLO_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_CLO_status['status_count'];
+                                }
+
+                                $CLOSER_COMM_ALL = number_format($data_CLO_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$CLOSER_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Closer Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'Closers';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Closer'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
+                                    $TeamPad = new CloserTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->ClosergetTeamPad($datefrom,$TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'Closers';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Closers'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
+                                    $TeamPad = new CloserTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->ClosergetTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
+                                    <table id="pad" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead</th>
+                                                <th>COMM</th>
+                                                <th>Closer</th>
+                                                <th>Notes</th>
+                                                <th>Team</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
+                                    </table>
+                                </form>
+
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "Closers";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Closers'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
+                                        $CLOTodayPad = new CloserTodayPadModal($pdo);
+                                        $CLOTodayPadList = $CLOTodayPad->ClosergetTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "Closers";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Closers'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
+                                        $CLOTodayPad = new CloserTodayPadModal($pdo);
+                                        $CLOTodayPadList = $CLOTodayPad->ClosergetTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
+                                        
+                                    }
+                                }
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>            <!-- END OF CLOSERS -->
+
+            <div id="ADMIN" class="tab-pane fade in">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Admin Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_ADM_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin'");
+                                $stmt_ADM_COM->execute();
+                                $data_ADM_COM = $stmt_ADM_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_ADM_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin'
+GROUP BY pad_statistics_status");
+                                $stmt_ADM_status->execute();
+                                while ($data_ADM_status = $stmt_ADM_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_ADM_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_ADM_status['status_count'];
+                                }
+
+                                $ADMIN_COMM_ALL = number_format($data_ADM_COM['COMM'], 2);
+                                ?>
+                                Total: <?php echo "£$ADMIN_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>$Today_DATES</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Admin Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
+                            <?php
+                            if (isset($datefrom)) {
+                                $TEAM = 'Admin';
+                                $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Admin'");
+                                $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                $TODAY_PAD_CK->execute();
+                                if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
+                                    $ADMTeamPad = new ADMINTeamPadModal($pdo);
+                                    $ADMTeamPadList = $ADMTeamPad->ADMINgetTeamPad($datefrom, $TEAM);
+                                    require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
+                                }
+                            } else {
+                                $TEAM = 'Admin';
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Admin'");
+                                $Team_PAD_CK->execute();
+                                if ($Team_PAD_CK->rowCount() > 0) {
+
+                                    require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
+                                    $TeamPad = new AdminTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->AdmingetTeamPad($TEAM);
+                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                }
+                            }
+                            ?>     
+                        </table>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+                                <form method="post" action="../php/Pad.php?query=add">
+                                    <table id="pad" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead</th>
+                                                <th>COMM</th>
+                                                <th>Closer</th>
+                                                <th>Notes</th>
+                                                <th>Team</th>
+                                                <th>Status</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
+                                        <td><input size="12" class="form-control" type="text" name="col"></td>
+                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
+                                        <td><input type="text" class="form-control" name="notes"></td>
+                                        <td> <select name="group" class="form-control" required>
+                                                <option value="">Select Team</option>
+                                                <option value="POD 1">POD 1</option>
+                                                <option value="POD 2">POD 2</option>
+                                                <option value="POD 3">POD 3</option>
+                                                <option value="POD 4">POD 4</option>
+                                                <option value="POD 5">POD 5</option>
+                                                <option value="POD 6">POD 6</option>
+                                                <option value="Training">Training</option>
+                                                <option value="Closers">Closers</option>
+                                                <option value="Admin">Admin</option>
+                                            </select></td>
+                                        <td> <select name="status" class="form-control" required>
+                                                <option value="">Select Status</option>
+                                                <option value="White">White</option>
+                                                <option value="Green">Green</option>
+                                                <option value="Red">Red</option>
+                                            </select></td>
+                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
+                                    </table>
+                                </form>
+
+                                <?php
+                                if (isset($datefrom)) {
+                                    $TEAM = "Admin";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Admin'");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
+                                        $ADMTodayPad = new AdminTodayPadModal($pdo);
+                                        $ADMTodayPadList = $ADMTodayPad->AdmingetTodayPad($datefrom,$TEAM);
+                                        require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
+                                    }
+                                } else {
+                                    $TEAM = "Admin";
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Admin'");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
+                                        $ADMTodayPad = new AdminTodayPadModal($pdo);
+                                        $ADMTodayPadList = $ADMTodayPad->AdmingetTodayPad($TEAM);
+                                        require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
+                                    }
+                                }
+                                ?>           
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END ADMIN -->
+
+        </div><!--END TAB CONTENT-->
+    </div>
+    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
 </body>
 </html>

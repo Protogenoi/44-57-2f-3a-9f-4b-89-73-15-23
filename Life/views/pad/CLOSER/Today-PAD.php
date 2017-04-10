@@ -13,30 +13,30 @@
                                 <th></th>
                             </tr>
                         </thead>
-    <?php $i='0'; foreach ($CLOTodayPadList as $CLOToday_Pad): ?>
+    <?php $i='0'; foreach ($CLOSERTodayPadList as $CLOSERToday_Pad): ?>
 
 
         <?php
         $i++;
-                $PAD_group = $CLOToday_Pad['pad_statistics_group'];
-                $PAD_id = $CLOToday_Pad['pad_statistics_id'];
-                $PAD_lead = $CLOToday_Pad['pad_statistics_lead'];
-                $PAD_closer = $CLOToday_Pad['pad_statistics_closer'];
-                $PAD_notes = $CLOToday_Pad['pad_statistics_notes'];
-                $PAD_status = $CLOToday_Pad['pad_statistics_status'];
-                $PAD_our_col = $CLOToday_Pad['pad_statistics_col'];
-                $PAD_our_date = $CLOToday_Pad['pad_statistics_update_date'];
+                $PAD_group = $CLOSERToday_Pad['pad_statistics_group'];
+                $PAD_id = $CLOSERToday_Pad['pad_statistics_id'];
+                $PAD_lead = $CLOSERToday_Pad['pad_statistics_lead'];
+                $PAD_closer = $CLOSERToday_Pad['pad_statistics_closer'];
+                $PAD_notes = $CLOSERToday_Pad['pad_statistics_notes'];
+                $PAD_status = $CLOSERToday_Pad['pad_statistics_status'];
+                $PAD_our_col = $CLOSERToday_Pad['pad_statistics_col'];
+                $PAD_our_date = $CLOSERToday_Pad['pad_statistics_update_date'];
 ?>
                         <form action="../php/Pad.php?query=Edit" method="POST">            
                         <input type="hidden" value="<?php echo $PAD_id; ?>" name="pad_id">
                                      <td><?php echo $i; ?></td>
-                                            <td><input size="4" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
+                                            <td><input size="6" disabled class="form-control" type="text" name="date" id="date" value="<?php if (isset($PAD_our_date)) {
                     echo $PAD_our_date;
                 } ?>"></td>   
                                 <td><input size="8" class="form-control" type="text" name="lead" id="provider-json" value="<?php if (isset($PAD_lead)) {
                     echo $PAD_lead;
                 } ?>"></td>                      
-                                <td><input size="4" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
+                                <td><input size="6" class="form-control" type="text" name="col" value="<?php if (isset($PAD_our_col)) {
                     echo $PAD_our_col;
                 } ?>"></td>
                                 <td><input size="12" class="form-control" type="text" name="closer" value="<?php if (isset($PAD_closer)) {
@@ -62,25 +62,25 @@
                         ?> value="POD 2">POD 2</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 3') {
+                            if ($PAD_group == 'POD 6') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 3">POD 3</option>
+                        ?> value="POD 6">POD 6</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 4') {
+                            if ($PAD_group == 'POD 6') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 4">POD 4</option>
+                        ?> value="POD 6">POD 6</option>
                         <option <?php
                             if (isset($PAD_group)) {
-                                if ($PAD_group == 'POD 5') {
+                                if ($PAD_group == 'POD 6') {
                                     echo "selected";
                                 }
                             }
-                            ?> value="POD 5">POD 5</option>
+                            ?> value="POD 6">POD 6</option>
                         <option <?php
                         if (isset($PAD_group)) {
                             if ($PAD_group == 'POD 6') {

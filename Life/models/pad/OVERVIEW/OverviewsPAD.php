@@ -19,7 +19,7 @@ if (isset($datafrom)) {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date=:datefrom GROUP BY pad_statistics_group");
+   DATE(pad_statistics_added_date)=:datefrom GROUP BY pad_statistics_group");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -74,6 +74,7 @@ $Today_TIME = date("h:i:s");
             <li><a data-toggle="pill" href="#TRAINING">Training</a></li>
             <li><a data-toggle="pill" href="#CLOSERS">Closers</a></li>
             <li><a data-toggle="pill" href="#ADMIN">Admin</a></li>
+            <li><a data-toggle="pill" href="#YES">2017-04-07</a></li>
         </ul>       
 
         <div class="tab-content">
@@ -1533,6 +1534,103 @@ WHERE
 
                 </div>
             </div>    <!-- END ADMIN -->
+            
+            
+            <div id="YES" class="tab-pane fade in">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">2017-04-07 Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="col-md-12">
+
+                            <div class="col-md-4">
+                                <?php
+                                $stmt_YES_COM = $pdo->prepare("SELECT 
+    SUM(pad_statistics_col) AS COMM
+FROM
+    pad_statistics
+WHERE
+    DATE(pad_statistics_added_date) ='2017-04-07'");
+                                $stmt_YES_COM->execute();
+                                $data_YES_COM = $stmt_YES_COM->fetch(PDO::FETCH_ASSOC);
+
+                                $stmt_YES_status = $pdo->prepare("SELECT 
+    COUNT(pad_statistics_status) AS status_count,
+    pad_statistics_status
+FROM
+    pad_statistics
+WHERE
+    DATE(pad_statistics_added_date) ='2017-04-07'
+GROUP BY pad_statistics_status");
+                                $stmt_YES_status->execute();
+                                while ($data_YES_status = $stmt_YES_status->fetch(PDO::FETCH_ASSOC)) {
+                                    ?> 
+                                    <?php echo $data_YES_status['pad_statistics_status']; ?> 
+                                    <?php
+                                    echo $data_YES_status['status_count'];
+                                }
+
+                                $YES_COMM_ALL = number_format($data_YES_COM['COMM'], 6);
+                                ?>
+                                Total: <?php echo "£$YES_COMM_ALL"; ?>
+
+                            </div>
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-4">
+
+                                <?php echo "<h3>2017-04-07</h3>"; ?>
+                                <?php echo "<h4>$Today_TIME</h4>"; ?>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="list-group">
+                                <span class="label label-primary">Pad</span>
+
+                                <?php
+                                if (isset($datefrom)) {
+
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date");
+                                    $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/YesterdayPAD.php');
+                                        $Yesterday_Pad = new YesterdayPadModal($pdo);
+                                        $YesterdayPadList = $Yesterday_Pad->getYesterdayPad($datefrom);
+                                        require_once(__DIR__ . '/../views/pad/Yesterday-PAD.php');
+                                    }
+                                } else {
+
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    DATE(pad_statistics_added_date) ='2017-04-07'
+       ");
+                                    $TODAY_PAD_CK->execute();
+                                    if ($TODAY_PAD_CK->rowCount() > 0) {
+
+                                        require_once(__DIR__ . '/../models/pad/YesterdayPAD.php');
+                                        $Yesterday_Pad = new YesterdayPadModal($pdo);
+                                        $YesterdayPadList = $Yesterday_Pad->getYesterdayPad();
+                                        require_once(__DIR__ . '/../views/pad/Yesterday-PAD.php');
+                                    }
+                                }
+                                ?>  
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    <!-- END YES -->
 
         </div><!--END TAB CONTENT-->
     </div>

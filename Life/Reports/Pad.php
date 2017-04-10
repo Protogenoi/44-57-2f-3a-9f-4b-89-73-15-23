@@ -1089,7 +1089,7 @@ GROUP BY pad_statistics_status");
                              
                                 <?php
                                 if (isset($datefrom)) {
-                                    $TEAM = "POD 6";
+    
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='POD 6'");
                                     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
@@ -1097,7 +1097,7 @@ GROUP BY pad_statistics_status");
 
                                         require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
                                         $TodayPad = new POD6TodayPadModal($pdo);
-                                        $TodayPadList = $TodayPad->POD6getTodayPad($datefrom, $TEAM);
+                                        $TodayPadList = $TodayPad->POD6getTodayPad($datefrom);
                                         require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
@@ -1114,7 +1114,7 @@ WHERE
 
                                         require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
                                         $POD6TodayPad = new POD6TodayPadModal($pdo);
-                                        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad($TEAM);
+                                        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad();
                                         require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
                                     }
                                 }
@@ -1137,17 +1137,17 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-                                <?php
-                                $stmt_TRN_COM = $pdo->prepare("SELECT 
+                                   <?php
+                                $stmt_TRAIN_COM = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
 FROM
     pad_statistics
 WHERE
     pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'");
-                                $stmt_TRN_COM->execute();
-                                $data_TRN_COM = $stmt_TRN_COM->fetch(PDO::FETCH_ASSOC);
+                                $stmt_TRAIN_COM->execute();
+                                $data_TRAIN_COM = $stmt_TRAIN_COM->fetch(PDO::FETCH_ASSOC);
 
-                                $stmt_TRN_status = $pdo->prepare("SELECT 
+                                $stmt_TRAIN_status = $pdo->prepare("SELECT 
     COUNT(pad_statistics_status) AS status_count,
     pad_statistics_status
 FROM
@@ -1155,22 +1155,22 @@ FROM
 WHERE
     pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'
 GROUP BY pad_statistics_status");
-                                $stmt_TRN_status->execute();
-                                while ($data_TRN_status = $stmt_TRN_status->fetch(PDO::FETCH_ASSOC)) {
+                                $stmt_TRAIN_status->execute();
+                                while ($data_TRAIN_status = $stmt_TRAIN_status->fetch(PDO::FETCH_ASSOC)) {
                                     ?> 
-                                    <?php echo $data_TRN_status['pad_statistics_status']; ?> 
+                                    <?php echo $data_TRAIN_status['pad_statistics_status']; ?> 
                                     <?php
-                                    echo $data_TRN_status['status_count'];
+                                    echo $data_TRAIN_status['status_count'];
                                 }
 
-                                $TRN_COMM_ALL = number_format($data_TRN_COM['COMM'], 2);
+                                $TRAIN_COMM_ALL = number_format($data_TRAIN_COM['COMM'], 6);
                                 ?>
-                                Total: <?php echo "£$TRN_COMM_ALL"; ?>
+                                Total: <?php echo "£$TRAIN_COMM_ALL"; ?>
 
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-6"></div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                                 <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
@@ -1192,7 +1192,7 @@ GROUP BY pad_statistics_status");
                             </thead>
                             <?php
                             if (isset($datefrom)) {
-                                $TEAM = 'Training';
+                             
                                 $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Training'");
                                 $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                 $TODAY_PAD_CK->execute();
@@ -1200,19 +1200,20 @@ GROUP BY pad_statistics_status");
 
                                     require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
                                     $TeamPad = new TRAININGTeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->TRAININGgetTeamPad($datefrom, $TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $TeamPadList = $TeamPad->TRAININGgetTeamPad($datefrom);
+                                    require_once(__DIR__ . '/../views/pad/TRAINING/Team-PAD.php');
                                 }
                             } else {
-                                $TEAM = 'Training';
-                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Training'");
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Training'");
                                 $Team_PAD_CK->execute();
                                 if ($Team_PAD_CK->rowCount() > 0) {
 
                                     require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
-                                    $TeamPad = new TRAININGTeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->TRAININGgetTeamPad($TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $TRAININGTeamPad = new TRAININGTeamPadModal($pdo);
+                                    $TRAININGTeamPadList = $TRAININGTeamPad->TRAININGgetTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/TRAINING/Team-PAD.php');
+
                                 }
                             }
                             ?>     
@@ -1222,46 +1223,7 @@ GROUP BY pad_statistics_status");
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="../php/Pad.php?query=add">
-                                    <table id="pad" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Lead</th>
-                                                <th>COMM</th>
-                                                <th>Closer</th>
-                                                <th>Notes</th>
-                                                <th>Team</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-
-                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                        <td><input size="12" class="form-control" type="text" name="col"></td>
-                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                        <td><input type="text" class="form-control" name="notes"></td>
-                                        <td> <select name="group" class="form-control" required>
-                                                <option value="">Select Team</option>
-                                                <option value="POD 1">POD 1</option>
-                                                <option value="POD 2">POD 2</option>
-                                                <option value="POD 3">POD 3</option>
-                                                <option value="POD 4">POD 4</option>
-                                                <option value="POD 5">POD 5</option>
-                                                <option value="POD 6">POD 6</option>
-                                                <option value="Training">Training</option>
-                                                <option value="Closers">Closers</option>
-                                                <option value="Admin">Admin</option>
-                                            </select></td>
-                                        <td> <select name="status" class="form-control" required>
-                                                <option value="">Select Status</option>
-                                                <option value="White">White</option>
-                                                <option value="Green">Green</option>
-                                                <option value="Red">Red</option>
-                                            </select></td>
-                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                    </table>
-                                </form>
-
+                             
                                 <?php
                                 if (isset($datefrom)) {
                                     $TEAM = "Training";
@@ -1271,24 +1233,29 @@ GROUP BY pad_statistics_status");
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
-                                        $TRNTodayPad = new POD6TodayPadModal($pdo);
-                                        $TRNTodayPadList = $TRNTodayPad->POD6getTodayPad($datefrom,$TEAM);
-                                        require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
+                                        $TodayPad = new TRAININGTodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->TRAININGgetTodayPad($datefrom, $TEAM);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
                                     $TEAM = "Training";
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Training'");
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'Training'");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
-                                        
+
                                         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
-                                        $TRNTodayPad = new TRAININGTodayPadModal($pdo);
-                                        $TRNTodayPadList = $TRNTodayPad->TRAININGgetTodayPad($TEAM);
+                                        $TRAININGTodayPad = new TRAININGTodayPadModal($pdo);
+                                        $TRAININGTodayPadList = $TRAININGTodayPad->TRAININGgetTodayPad($TEAM);
                                         require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
                                     }
                                 }
-                                ?>           
-
+                                ?>      
                             </div>
                         </div>
                     </div>

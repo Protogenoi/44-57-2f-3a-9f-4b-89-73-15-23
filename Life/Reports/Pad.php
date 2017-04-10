@@ -1410,7 +1410,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-                                <?php
+                                    <?php
                                 $stmt_ADM_COM = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
 FROM
@@ -1436,14 +1436,14 @@ GROUP BY pad_statistics_status");
                                     echo $data_ADM_status['status_count'];
                                 }
 
-                                $ADMIN_COMM_ALL = number_format($data_ADM_COM['COMM'], 2);
+                                $ADM_COMM_ALL = number_format($data_ADM_COM['COMM'], 6);
                                 ?>
-                                Total: <?php echo "£$ADMIN_COMM_ALL"; ?>
+                                Total: <?php echo "£$ADM_COMM_ALL"; ?>
 
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-6"></div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
 
                                 <?php echo "<h3>$Today_DATES</h3>"; ?>
                                 <?php echo "<h4>$Today_TIME</h4>"; ?>
@@ -1465,27 +1465,28 @@ GROUP BY pad_statistics_status");
                             </thead>
                             <?php
                             if (isset($datefrom)) {
-                                $TEAM = 'Admin';
+                             
                                 $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Admin'");
                                 $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                 $TODAY_PAD_CK->execute();
                                 if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                     require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
-                                    $ADMTeamPad = new ADMINTeamPadModal($pdo);
-                                    $ADMTeamPadList = $ADMTeamPad->ADMINgetTeamPad($datefrom, $TEAM);
+                                    $TeamPad = new ADMINTeamPadModal($pdo);
+                                    $TeamPadList = $TeamPad->ADMINgetTeamPad($datefrom);
                                     require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
                                 }
                             } else {
-                                $TEAM = 'Admin';
-                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Admin'");
+                               
+                                $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Admin'");
                                 $Team_PAD_CK->execute();
                                 if ($Team_PAD_CK->rowCount() > 0) {
 
                                     require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
-                                    $TeamPad = new AdminTeamPadModal($pdo);
-                                    $TeamPadList = $TeamPad->AdmingetTeamPad($TEAM);
-                                    require_once(__DIR__ . '/../views/pad/Team-PAD.php');
+                                    $ADMINTeamPad = new ADMINTeamPadModal($pdo);
+                                    $ADMINTeamPadList = $ADMINTeamPad->ADMINgetTeamPad();
+                                    require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
+
                                 }
                             }
                             ?>     
@@ -1495,73 +1496,39 @@ GROUP BY pad_statistics_status");
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
-                                <form method="post" action="../php/Pad.php?query=add">
-                                    <table id="pad" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Lead</th>
-                                                <th>COMM</th>
-                                                <th>Closer</th>
-                                                <th>Notes</th>
-                                                <th>Team</th>
-                                                <th>Status</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-
-                                        <td><input size="12" class="form-control" type="text" name="lead" id="provider-json"></td>                      
-                                        <td><input size="12" class="form-control" type="text" name="col"></td>
-                                        <td><input size="12" class="form-control" type="text" name="closer"></td>
-                                        <td><input type="text" class="form-control" name="notes"></td>
-                                        <td> <select name="group" class="form-control" required>
-                                                <option value="">Select Team</option>
-                                                <option value="POD 1">POD 1</option>
-                                                <option value="POD 2">POD 2</option>
-                                                <option value="POD 3">POD 3</option>
-                                                <option value="POD 4">POD 4</option>
-                                                <option value="POD 5">POD 5</option>
-                                                <option value="POD 6">POD 6</option>
-                                                <option value="Training">Training</option>
-                                                <option value="Closers">Closers</option>
-                                                <option value="Admin">Admin</option>
-                                            </select></td>
-                                        <td> <select name="status" class="form-control" required>
-                                                <option value="">Select Status</option>
-                                                <option value="White">White</option>
-                                                <option value="Green">Green</option>
-                                                <option value="Red">Red</option>
-                                            </select></td>
-                                        <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
-                                    </table>
-                                </form>
-
+                             
                                 <?php
                                 if (isset($datefrom)) {
-                                    $TEAM = "Admin";
+
                                     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date=:date AND pad_statistics_group='Admin'");
                                     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                         require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
-                                        $ADMTodayPad = new AdminTodayPadModal($pdo);
-                                        $ADMTodayPadList = $ADMTodayPad->AdmingetTodayPad($datefrom,$TEAM);
-                                        require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
+                                        $TodayPad = new ADMINTodayPadModal($pdo);
+                                        $TodayPadList = $TodayPad->ADMINgetTodayPad($datefrom);
+                                        require_once(__DIR__ . '/../views/pad/Today-PAD.php');
                                     }
                                 } else {
                                     $TEAM = "Admin";
-                                    $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE() AND pad_statistics_group='Admin'");
+                                    $TODAY_PAD_CK = $pdo->prepare("SELECT 
+    pad_statistics_id
+FROM
+    pad_statistics
+WHERE
+    pad_statistics_added_date >= CURDATE()
+        AND pad_statistics_group = 'Admin'");
                                     $TODAY_PAD_CK->execute();
                                     if ($TODAY_PAD_CK->rowCount() > 0) {
 
                                         require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
-                                        $ADMTodayPad = new AdminTodayPadModal($pdo);
-                                        $ADMTodayPadList = $ADMTodayPad->AdmingetTodayPad($TEAM);
+                                        $ADMINTodayPad = new ADMINTodayPadModal($pdo);
+                                        $ADMINTodayPadList = $ADMINTodayPad->ADMINgetTodayPad();
                                         require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
                                     }
                                 }
-                                ?>           
-
+                                ?>  
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ class YesterdayPadModal {
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_added_date)  ='2017-04-07'
+    DATE(pad_statistics_added_date)  ='2017-04-06'
 ORDER BY pad_statistics_added_date DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

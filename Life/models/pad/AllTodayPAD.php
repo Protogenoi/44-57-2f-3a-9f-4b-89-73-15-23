@@ -36,7 +36,6 @@ ORDER BY pad_statistics_added_date DESC");
 
 } else {
     
-}
 
 class TodayPadModal {
 
@@ -68,5 +67,5 @@ ORDER BY pad_statistics_added_date DESC");
     }
 
 }
-
+}
 ?>

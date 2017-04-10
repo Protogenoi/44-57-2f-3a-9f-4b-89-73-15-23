@@ -62,11 +62,11 @@
                         ?> value="POD 2">POD 2</option>
                         <option <?php
                         if (isset($PAD_group)) {
-                            if ($PAD_group == 'POD 3') {
+                            if ($PAD_group == 'POD 4') {
                                 echo "selected";
                             }
                         }
-                        ?> value="POD 3">POD 3</option>
+                        ?> value="POD 4">POD 4</option>
                         <option <?php
                         if (isset($PAD_group)) {
                             if ($PAD_group == 'POD 4') {

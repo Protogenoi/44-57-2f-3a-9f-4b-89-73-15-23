@@ -23,7 +23,7 @@ class TRAININGTodayPadModal {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6'
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'
 ORDER BY pad_statistics_added_date DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -944,97 +944,99 @@ if (isset($Single_Client['callauditid'])) {
                             </div>
                             <div class="modal-body">
 
-                                <?php if ($ffsms == '1') {
-                                    ?>
+                                <?php
+                                if ($ffsms == '1') {
 
+                                    try {
+
+                                        $smsquery = $pdo->prepare("select smsprovider, smsusername, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword from sms_accounts limit 1");
+                                        $smsquery->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
+                                        $smsquery->execute()or die(print_r($query->errorInfo(), true));
+                                        $smsaccount = $smsquery->fetch(PDO::FETCH_ASSOC);
+
+                                        $smsuser = $smsaccount['smsusername'];
+                                        $smspass = $smsaccount['smspassword'];
+                                        $smspro = $smsaccount['smsprovider'];
+                                    } catch (PDOException $e) {
+                                        echo 'Connection failed: ' . $e->getMessage();
+                                    }
+                                    ?>
                                     <br> 
-
-                                    <?php
-                                    $getsmsbal = file_get_contents("https://www.bulksms.co.uk/eapi/user/get_credits/1/1.1?username=$smsuser&password=$smspass");
-
-                                    $str = substr($getsmsbal, 2);
-                                    ?>
-
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Provider</th>
-                                                <th>Balance</th>
-                                            </tr>
-                                        </thead>
-                                        <tr>
-                                            <td><?php echo $smspro; ?></td>
-                                            <td <?php
-                                if ($str >= '1') {
-                                    echo 'bgcolor="#85E085"';
-                                } else {
-                                    echo 'bgcolor="#FF4D4D"';
-                                }
-                                    ?>>
-
-                                                <?php
-                                                if ($str >= '1') {
-                                                    echo $str;
-                                                }
-                                                ?>
-
-                                            </td>
-                                        </tr>
-                                    </table>
 
                                     <form class="AddClient">
                                         <p>
                                             <label for="phone_number">Contact Number:</label>
-                                            <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>" readonly>
+                                            <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number'] ?>" readonly>
                                         </p>
                                     </form>
+                                   
+                                        <form class="AddClient" method="POST" action="SMS/Send.php">
+                                  
+                        
+                                         
+                                            <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                            <div class="form-group">
+                                                <label for="selectsms">Select SMS:</label>
+                                                <select class="form-control" name="selectopt">
+                                                    <option value=" ">Select message...</option>
 
-                                    <form class="AddClient" method="POST" action="/php/sms.php">
-                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
-                                        <div class="form-group">
-                                            <label for="selectsms">Select SMS:</label>
-                                            <select class="form-control" name="selectopt">
-                                                <option value=" ">Select message...</option>
-
-                                                <?php
-                                                try {
-                                                    $query = $pdo->prepare("SELECT title from sms_templates");
-                                                    $query->execute();
-                                                    if ($query->rowCount() > 0) {
-                                                        while ($smstitles2 = $query->fetch(PDO::FETCH_ASSOC)) {
-
-                                                            $smstitle = $smstitles2['title'];
-                                                            echo "<option value='$smstitle'>$smstitle</option>";
+                                                    <?php
+                                                    if (isset($WHICH_COMPANY)) {
+                                                        if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                            $SMS_INSURER = 'Legal and General';
+                                                        }
+                                                        if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
+                                                            $SMS_INSURER = 'One Family';
+                                                        }
+                                                        if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') {
+                                                            $SMS_INSURER = 'Vitality';
+                                                        }
+                                                        if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
+                                                            $SMS_INSURER = 'Royal London';
                                                         }
                                                     }
-                                                } catch (PDOException $e) {
-                                                    echo 'Connection failed: ' . $e->getMessage();
-                                                }
-                                                ?>
 
-                                            </select>
-                                        </div>
+                                                    try {
 
-                                        <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                        <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
+                                                        $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer OR insurer='NA'");
+                                                        $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_INT);
+                                                        $SMSquery->execute();
+                                                        if ($SMSquery->rowCount() > 0) {
+                                                            while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
 
-                                        <br>
-                                        <br>
+                                                                $smstitle = $smstitles['title'];
+                                                                echo "<option value='$smstitle'>$smstitle</option>";
+                                                            }
+                                                        }
+                                                    } catch (PDOException $e) {
+                                                        echo 'Connection failed: ' . $e->getMessage();
+                                                    }
+                                                    ?>
 
-                                        <?php
-                                        if ($str >= '1') {
-                                            echo "<button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                        } else {
-                                            echo "<button type='submit' class='btn btn-warning' disalbed><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                        }
-                                        ?>
+                                                </select>
+                                            </div>
 
-                                    </form>
+                                            <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                            <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
+                                            <br>
+                                            <br>
 
-                                <?php } else { ?>
+                                            <?php
+                                            if ($str >= '1') {
 
-                                    <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
-                                <?php } ?>
+                                                echo "<button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>";
+                                            } else {
+
+                                                echo "<button type='submit' class='btn btn-warning' disalbed><i class='fa fa-mobile'></i> SEND SMS</button>";
+                                            }
+                                            ?>
+
+                                        </form>
+
+                                    <?php } else { ?>
+
+                                        <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
+                                    <?php } ?>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>

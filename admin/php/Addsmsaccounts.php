@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -81,10 +81,10 @@ $smsmessagevar= filter_input(INPUT_POST, 'smsmessage', FILTER_SANITIZE_SPECIAL_C
 $smstitle= filter_input(INPUT_POST, 'smstitle', FILTER_SANITIZE_SPECIAL_CHARS);
 $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $query = $pdo->prepare("INSERT INTO sms_templates set title=:titleholder, insurer=:insurer, message=:messageholder");
+    $query = $pdo->prepare("INSERT INTO sms_templates set title=:title, insurer=:insurer, message=:message");
     $query->bindParam(':insurer', $insurer, PDO::PARAM_STR, 500);
-        $query->bindParam(':titleholder', $smstitle, PDO::PARAM_STR, 500);
-        $query->bindParam(':messageholder', $smsmessagevar, PDO::PARAM_STR, 500);
+        $query->bindParam(':title', $smstitle, PDO::PARAM_STR, 500);
+        $query->bindParam(':message', $smsmessagevar, PDO::PARAM_STR, 500);
         
         $query->execute()or die(print_r($query->errorInfo(), true));
                             if(isset($fferror)) {

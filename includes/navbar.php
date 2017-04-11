@@ -117,6 +117,10 @@ if ($companynamere == 'HWIFS') {
 
                         <?php }
 
+                        if($ffsms=='1') { ?>
+                            <li><a href="/Life/SMS/Report.php">SMS Report</a></li>
+                          <?php  }
+                        
                         if ($ffcalendar == '1') {
                             ?>
 
@@ -181,7 +185,7 @@ if (in_array($hello_name, $Level_9_Access, true)) {
                 <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
 
-<?php if (in_array($hello_name, $Task_Access, true)) { ?>
+<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_9_Access, true))) { ?>
                 <div class="LIVERESULTS">
 
                 </div>
@@ -189,7 +193,7 @@ if (in_array($hello_name, $Level_9_Access, true)) {
         </div>
     </nav>
 </div>
-<?php if (in_array($hello_name, $Task_Access, true)) { ?>
+<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_9_Access, true))) { ?>
     <script>
         function refresh_div() {
             jQuery.ajax({

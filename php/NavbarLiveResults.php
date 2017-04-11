@@ -64,6 +64,30 @@
                    
                } 
                
+               if($ffsms=='1') { 
+                   
+                   $RPY_stmt = $pdo->prepare("SELECT 
+    count(note_id) AS badge 
+FROM
+    client_note
+WHERE
+    note_type = 'Client SMS Reply'");
+                   $RPY_stmt->execute();
+                   $RPY_stmtresult=$RPY_stmt->fetch(PDO::FETCH_ASSOC);
+                   
+                   $RPY_stmt2 = $pdo->prepare("SELECT 
+    count(note_id) AS badge 
+FROM
+    client_note
+WHERE
+    note_type = 'SMS Failed'");
+                   $RPY_stmt2->execute();
+                   $RPY_stmtresult2=$RPY_stmt2->fetch(PDO::FETCH_ASSOC);
+                   
+
+                   
+               }               
+               
                ?>
 
             <ul class="nav navbar-nav navbar-right">
@@ -73,7 +97,10 @@
                     <?php if($fflife=='1') { ?>
                 
                 <li><a href="/Life/Reports/Tasks.php"><i class="fa fa-list-ul"></i> Tasks <span class="badge alert-success"><?php echo "Today $navbarresult[badge]";?> </span> <span class="badge <?php if($navbarresult2['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php echo "Expired $navbarresult2[badge]";?> </span> </a></li>
-                    
+                    <?php if($ffsms=='1') { ?>
+                                <li><a href="/Life/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-success"> <?php if($RPY_stmtresult['badge']<='0') { echo "<i class='fa-commenting-o'></i> 0";} else { echo "<i class='fa-commenting-o'></i> $RPY_stmtresult[badge]"; }?> </span> <span class="badge <?php if($RPY_stmtresult2['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php if($RPY_stmtresult2[badge]<='0') { echo "<i class='fa-commenting'></i> 0"; } else { echo "<i class='fa-commenting'></i> $RPY_stmtresult2[badge]"; } ?> </span> </a></li>
+
+                    <?php } ?>
                     <?php } if($ffpensions=='1') { ?>
                 
                 <li><a href="/Pensions/Reports/PensionTasks.php"><i class="fa fa-user"></i>  <?php echo $hello_name?> Tasks <span class="badge <?php if($navbarresult2['badge']=='0') { echo "alert-info";} else { echo "alert-danger"; }?>"><?php echo "Active $navbarresult2[badge]";?> </span> </a></li>

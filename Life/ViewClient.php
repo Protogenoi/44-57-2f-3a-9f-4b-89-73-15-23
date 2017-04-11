@@ -2306,8 +2306,12 @@ if (isset($Single_Client['callauditid'])) {
                                             case "Policy Added":
                                                 $TMicon = "fa-check";
                                                 break;
+                                            case "Client SMS Reply":
+                                                $TMicon = "fa-phone-square";
+                                                break;
                                             case "EWS Status update":
                                             case"EWS Uploaded";
+                                                case"SMS Failed";
                                                 $TMicon = "fa-exclamation-triangle";
                                                 break;
                                             case "Financial Uploaded":

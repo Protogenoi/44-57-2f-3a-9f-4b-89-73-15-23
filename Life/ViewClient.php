@@ -910,15 +910,7 @@ if (isset($Single_Client['callauditid'])) {
                                             <br>
                                             <br>
 
-                                            <?php
-                                            if ($str >= '1') {
-
-                                                echo "<button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                            } else {
-
-                                                echo "<button type='submit' class='btn btn-warning' disalbed><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                            }
-                                            ?>
+                                            <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>
 
                                         </form>
 
@@ -1021,15 +1013,7 @@ if (isset($Single_Client['callauditid'])) {
                                             <br>
                                             <br>
 
-                                            <?php
-                                            if ($str >= '1') {
-
-                                                echo "<button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                            } else {
-
-                                                echo "<button type='submit' class='btn btn-warning' disalbed><i class='fa fa-mobile'></i> SEND SMS</button>";
-                                            }
-                                            ?>
+                                         <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>";
 
                                         </form>
 

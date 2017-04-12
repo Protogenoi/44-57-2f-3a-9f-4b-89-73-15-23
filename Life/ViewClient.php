@@ -646,7 +646,7 @@ if (isset($Single_Client['callauditid'])) {
 
 
                                                 if (isset($result['id'])) {
-                                                    $poldid = $result['id'];
+                                                    $PID = $result['id'];
                                                 }
                                                 if (isset($result['application_number'])) {
                                                     $anref = $result['application_number'];
@@ -1643,7 +1643,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                             $clientid = $row['policy_number'];
                                         }
-                                        
+
                                         if (isset($row['POLID'])) {
 
                                             $PID = $row['POLID'];
@@ -1698,9 +1698,14 @@ if (isset($Single_Client['callauditid'])) {
                                     <?php
                                     while ($row = $VIT_FIN->fetch(PDO::FETCH_ASSOC)) {
 
+                                        if (isset($row['POLID'])) {
+
+                                            $PID = $row['POLID'];
+                                        }
+
                                         echo '<tr>';
                                         echo "<td>" . $row['vitality_insert_date'] . "</td>";
-                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
                                         echo "<td>" . $row['vitality_comm_status'] . "</td>";
                                         echo "<td>" . $row['policystatus'] . "</td>";
                                         echo "<td>" . $row['closer'] . "</td>";
@@ -1749,9 +1754,14 @@ if (isset($Single_Client['callauditid'])) {
                                     <?php
                                     while ($row = $RL_FIN->fetch(PDO::FETCH_ASSOC)) {
 
+                                        if (isset($row['POLID'])) {
+
+                                            $PID = $row['POLID'];
+                                        }
+
                                         echo '<tr>';
                                         echo "<td>" . $row['royal_london_insert_date'] . "</td>";
-                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
                                         echo "<td>" . $row['royal_london_type'] . "</td>";
                                         echo "<td>" . $row['policystatus'] . "</td>";
                                         echo "<td>" . $row['closer'] . "</td>";
@@ -1800,9 +1810,14 @@ if (isset($Single_Client['callauditid'])) {
                                     <?php
                                     while ($row = $WOL_FIN->fetch(PDO::FETCH_ASSOC)) {
 
+                                        if (isset($row['POLID'])) {
+
+                                            $PID = $row['POLID'];
+                                        }
+
                                         echo '<tr>';
                                         echo "<td>" . $row['wol_insert_date'] . "</td>";
-                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
                                         echo "<td>" . $row['wol_comm_type'] . "</td>";
                                         echo "<td>" . $row['policystatus'] . "</td>";
                                         echo "<td>" . $row['closer'] . "</td>";

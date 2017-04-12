@@ -46,6 +46,12 @@ if(isset($fferror)) {
                             $INSERT->bindParam(':CALLERID',$MESSAGE, PDO::PARAM_STR);
                             $INSERT->execute();
                             
+                          $SMS_INSERT = $pdo->prepare("INSERT INTO sms_inbound set sms_inbound_client_id=:CID, sms_inbound_phone=:PHONE, sms_inbound_type='SMS Delivered', sms_inbound_msg=:MSG");
+                          $SMS_INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
+                          $SMS_INSERT->bindParam(':MSG',$MESSAGE, PDO::PARAM_STR);
+                          $SMS_INSERT->bindParam(':PHONE',$CALLID, PDO::PARAM_STR);
+                          $SMS_INSERT->execute();                            
+                            
                         }
                         
                         }
@@ -76,6 +82,12 @@ if(isset($fferror)) {
                             $INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
                             $INSERT->bindParam(':CALLERID',$MESSAGE, PDO::PARAM_STR);
                             $INSERT->execute();
+                            
+                            $SMS_INSERT = $pdo->prepare("INSERT INTO sms_inbound set sms_inbound_client_id=:CID, sms_inbound_phone=:PHONE, sms_inbound_type='SMS Failed', sms_inbound_msg=:MSG");
+                            $SMS_INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
+                            $SMS_INSERT->bindParam(':MSG',$MESSAGE, PDO::PARAM_STR);
+                            $SMS_INSERT->bindParam(':PHONE',$CALLID, PDO::PARAM_STR);
+                            $SMS_INSERT->execute();
                             
                         }
                         

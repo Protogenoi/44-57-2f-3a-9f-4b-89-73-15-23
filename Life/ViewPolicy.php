@@ -582,7 +582,7 @@ ews_data.policy_number
 
                                                 <p>
                                                     <label for="PolicyStatus">Policy Status</label>
-                                                    <input type="text" value="<?php echo $data2[policystatus] ?>" class="form-control" readonly style="width: 200px">
+                                                    <input type="text" value="<?php echo $data2['policystatus']; ?>" class="form-control" readonly style="width: 200px">
                                                     </select>
                                                 </p>
 

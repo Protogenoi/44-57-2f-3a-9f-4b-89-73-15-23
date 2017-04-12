@@ -511,12 +511,15 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
     if (isset($hello_name)) {
         if (in_array($hello_name, array("Michael", "Jakob", "Nicola", "carys", "Abbiek", "Georgia", "Amy", "Nathan", "Mike"))) {
-            $SANTA_TIME = date("H");
-            ?>
-            <audio autoplay>
-                <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
-            </audio>  
-            <?php
+
+            if ($XMAS == 'December') {
+                $SANTA_TIME = date("H");
+                ?>
+                <audio autoplay>
+                    <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
+                </audio>  
+                <?php
+            }
         }
     }
     ?>

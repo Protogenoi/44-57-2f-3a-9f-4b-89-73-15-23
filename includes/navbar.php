@@ -63,6 +63,13 @@ if ($companynamere == 'HWIFS') {
     $Level_1_Access = array("Michael");
 }
 ?>
+<style>.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}</style>
 <div class="bs-example">
     <nav role="navigation" class="navbar navbar-default">
         <div class="navbar-header">
@@ -185,7 +192,7 @@ if (in_array($hello_name, $Level_9_Access, true)) {
                 <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
 
-<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_9_Access, true))) { ?>
+<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_3_Access, true))) { ?>
                 <div class="LIVERESULTS">
 
                 </div>
@@ -193,7 +200,7 @@ if (in_array($hello_name, $Level_9_Access, true)) {
         </div>
     </nav>
 </div>
-<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_9_Access, true))) { ?>
+<?php if(in_array($hello_name, $Task_Access, true)  || (in_array($hello_name, $Level_3_Access, true))) { ?>
     <script>
         function refresh_div() {
             jQuery.ajax({

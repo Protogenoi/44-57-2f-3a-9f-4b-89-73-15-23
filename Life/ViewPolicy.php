@@ -605,28 +605,6 @@ ews_data.policy_number
 
                             </div>
                         </div>
-                        <!--
-                        <form class="AddClient" method="post" action="../php/AddNotes.php?ViewPolicyNotes=1" enctype="multipart/form-data">
-                            <input type="hidden" name="client_id" value="<?php echo $search ?>">
-                            <input type="hidden" name="client_name" value="<?php echo $data2['client_name'] ?>">
-                            <input type="hidden" name="policy_number" value="<?php echo $data2['policy_number'] ?>">
-                            
-                            <p>
-                                <label for="notes">Add Policy Notes:</label>  
-                                <textarea name="notes" id="notes" rows="15" cols="85" placeholder="Add Notes Here" required></textarea>
-                            </p>
-                            
-                            <br>
-                            
-                            <button type="submit" class="btn btn-primary "><span class="glyphicon glyphicon-plus"></span> Add Notes</button>
-                        </form>
-                        <br>
-                        
-                        <form class="AddClient" method="GET" action="ViewClient.php?search=<?php echo $data2[client_id] ?>" enctype="multipart/form-data">
-                            <input type="hidden" name="search" value="<?php echo $data2["client_id"] ?>">
-                            <button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
-                        </form>
-                        -->
                 </div>
             </div>
         </div>    

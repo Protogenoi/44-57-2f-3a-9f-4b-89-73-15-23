@@ -1199,7 +1199,7 @@ if (isset($Single_Client['callauditid'])) {
 
 
 
-                                if (!empty($leadid1) || ($leadid2) || $leadid3) {
+                                if(isset($leadid1) && $leadid1 >'0') {
                                     ?>
                                     <span class="label label-primary">Call Recordings</span>
 

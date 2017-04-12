@@ -50,7 +50,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
         <div class="container">
 
 <?php
-if ($companynamere = 'The Review Bureau' || $companynamere = 'ADL_CUS') {
+if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
     if ($ffsms == '1') {
         ?>
 
@@ -101,31 +101,31 @@ if ($companynamere = 'The Review Bureau' || $companynamere = 'ADL_CUS') {
                 if ($SEARCH_BY == 'Sent') {
 
                     $SEARCH = $pdo->prepare("SELECT 
-    client_id, message, date_sent, note_type
+    sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_date, sms_inbound_type
 FROM
-    client_note
+    sms_inbound
 WHERE
-    note_type = 'SMS Delivered'");
+    sms_inbound_type = 'SMS Delivered'");
                 }
 
                 if ($SEARCH_BY == 'Failed') {
 
                     $SEARCH = $pdo->prepare("SELECT 
-    client_id, message, date_sent, note_type
+    sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_date, sms_inbound_type
 FROM
-    client_note
+    sms_inbound
 WHERE
-        note_type = 'SMS Failed'");
+        sms_inbound_type = 'SMS Failed'");
                 }
 
                 if ($SEARCH_BY == 'Responses') {
 
                     $SEARCH = $pdo->prepare("SELECT 
-    client_id, message, date_sent, note_type
+    sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_date, sms_inbound_type
 FROM
-    client_note
+    sms_inbound
 WHERE
-    note_type = 'Client SMS Reply'");
+    sms_inbound_type = 'Client SMS Reply'");
                 } 
                 ?>        
 
@@ -135,13 +135,15 @@ WHERE
                                         <th>Date</th>
                                         <th>SMS Response</th>
                                         <th>SMS Message</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
                                         <th>Date</th>
                                         <th>SMS Response</th>
-                                        <th>Message</th>
+                                        <th>SMS Message</th>
+                                        <th></th>
                                     </tr>
                                 </tfoot>
 
@@ -151,9 +153,10 @@ WHERE
                     while ($result = $SEARCH->fetch(PDO::FETCH_ASSOC)) {
 
 
-                        echo "<tr class='clickable-row' data-href='../ViewClient.php?search=" . $result['client_id'] . "#menu4'><td>" . $result['date_sent'] . "</td>";
-                        echo "<td>" . $result['note_type'] . "</td>";
-                        echo "<td>" . $result['message'] . "</td>";
+                        echo "<tr class='clickable-row' data-href='../ViewClient.php?search=" . $result['sms_inbound_client_id'] . "#menu4'><td>" . $result['sms_inbound_date'] . "</td>";
+                        echo "<td>" . $result['sms_inbound_type'] . "</td>";
+                        echo "<td>" . $result['sms_inbound_msg'] . "</td>";
+                        echo "<td><a href='Update.php?EXECUTE=1&NID=".$result['sms_inbound_id']."&TYPE=".$result['sms_inbound_type']."&PHONE=".$result['sms_inbound_phone']."&CID=".$result['sms_inbound_client_id']."'><i class='fa fa-check-circle-o'></i></a></td>";
                         echo "</tr>";
                     }
                 } else {

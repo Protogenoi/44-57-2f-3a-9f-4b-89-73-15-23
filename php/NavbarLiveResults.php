@@ -64,20 +64,20 @@ if ($ffpensions == '1') {
 if ($ffsms == '1') {
 
     $RPY_stmt = $pdo->prepare("SELECT 
-    count(note_id) AS badge 
+    count(sms_inbound_id) AS badge 
 FROM
-    client_note
+    sms_inbound
 WHERE
-    note_type = 'Client SMS Reply'");
+    sms_inbound_type = 'Client SMS Reply'");
     $RPY_stmt->execute();
     $RPY_stmtresult = $RPY_stmt->fetch(PDO::FETCH_ASSOC);
 
     $RPY_stmt2 = $pdo->prepare("SELECT 
-    count(note_id) AS badge 
+    count(sms_inbound_id) AS badge 
 FROM
-    client_note
+    sms_inbound
 WHERE
-    note_type = 'SMS Failed'");
+    sms_inbound_type = 'SMS Failed'");
     $RPY_stmt2->execute();
     $RPY_stmtresult2 = $RPY_stmt2->fetch(PDO::FETCH_ASSOC);
 }

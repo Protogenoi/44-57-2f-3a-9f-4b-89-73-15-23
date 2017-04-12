@@ -1643,10 +1643,15 @@ if (isset($Single_Client['callauditid'])) {
 
                                             $clientid = $row['policy_number'];
                                         }
+                                        
+                                        if (isset($row['POLID'])) {
+
+                                            $PID = $row['POLID'];
+                                        }
 
                                         echo '<tr>';
                                         echo "<td>" . $row['insert_date'] . "</td>";
-                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['Policy'] . "</a></td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['Policy'] . "</a></td>";
                                         echo "<td>" . $row['CommissionType'] . "</td>";
                                         echo "<td>" . $row['policystatus'] . "</td>";
                                         echo "<td>" . $row['closer'] . "</td>";

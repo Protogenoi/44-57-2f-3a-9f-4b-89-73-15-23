@@ -644,13 +644,26 @@ if (isset($Single_Client['callauditid'])) {
                                         if ($hometable->rowCount() > 0) {
                                             while ($result = $hometable->fetch(PDO::FETCH_ASSOC)) {
 
-                                                $poldid = $result['id'];
-                                                $anref = $result['application_number'];
-                                                $polref = $result['policy_number'];
-                                                $polcap[] = $result['id'];
 
-                                                $ADLSTATUS = $result['ADLSTATUS'];
-                                                $EWSSTATUS = $result['warning'];
+                                                if (isset($result['id'])) {
+                                                    $poldid = $result['id'];
+                                                }
+                                                if (isset($result['application_number'])) {
+                                                    $anref = $result['application_number'];
+                                                }
+                                                if (isset($result['policy_number'])) {
+                                                    $polref = $result['policy_number'];
+                                                }
+
+                                                if (isset($result['ADLSTATUS'])) {
+                                                    $ADLSTATUS = $result['ADLSTATUS'];
+                                                }
+                                                if (isset($result['warning'])) {
+                                                    $EWSSTATUS = $result['warning'];
+                                                }
+
+
+
 
                                                 echo '<tr>';
                                                 echo "<td>" . $result['client_name'] . "</td>";
@@ -1199,7 +1212,7 @@ if (isset($Single_Client['callauditid'])) {
 
 
 
-                                if(isset($leadid1) && $leadid1 >'0') {
+                                if (isset($leadid1) && $leadid1 > '0') {
                                     ?>
                                     <span class="label label-primary">Call Recordings</span>
 
@@ -1654,14 +1667,14 @@ if (isset($Single_Client['callauditid'])) {
                             }
                             ?>
                         </table>
-                            <?php
-                            try {
+                        <?php
+                        try {
 
-                                $VIT_FIN = $pdo->prepare("SELECT vitality_financials.vitality_insert_date, vitality_financials.vitality_comm, vitality_financials.vitality_comm_status, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM vitality_financials join client_policy on vitality_financials.vitality_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY vitality_financials.vitality_id");
-                                $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-                                $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
-                                if ($VIT_FIN->rowCount() > 0) {
-                                    ?>
+                            $VIT_FIN = $pdo->prepare("SELECT vitality_financials.vitality_insert_date, vitality_financials.vitality_comm, vitality_financials.vitality_comm_status, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM vitality_financials join client_policy on vitality_financials.vitality_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY vitality_financials.vitality_id");
+                            $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+                            $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
+                            if ($VIT_FIN->rowCount() > 0) {
+                                ?>
 
                                 <table  class='table table-hover table-condensed'>
                                     <thead>
@@ -1677,42 +1690,42 @@ if (isset($Single_Client['callauditid'])) {
                                     <th>Amount</th>
                                     </thead>
 
-        <?php
-        while ($row = $VIT_FIN->fetch(PDO::FETCH_ASSOC)) {
+                                    <?php
+                                    while ($row = $VIT_FIN->fetch(PDO::FETCH_ASSOC)) {
 
-            echo '<tr>';
-            echo "<td>" . $row['vitality_insert_date'] . "</td>";
-            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
-            echo "<td>" . $row['vitality_comm_status'] . "</td>";
-            echo "<td>" . $row['policystatus'] . "</td>";
-            echo "<td>" . $row['closer'] . "</td>";
-            echo "<td>" . $row['lead'] . "</td>";
-            if (intval($row['vitality_comm']) > 0) {
-                echo "<td><span class=\"label label-success\">" . $row['vitality_comm'] . "</span></td>";
-            } else if (intval($row["vitality_comm"]) < 0) {
-                echo "<td><span class=\"label label-danger\">" . $row['vitality_comm'] . "</span></td>";
-            } else {
-                echo "<td>" . $row['vitality_comm'] . "</td>";
-            }
-            echo "</tr>";
-            echo "\n";
-        }
-    }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}
-?>
+                                        echo '<tr>';
+                                        echo "<td>" . $row['vitality_insert_date'] . "</td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td>" . $row['vitality_comm_status'] . "</td>";
+                                        echo "<td>" . $row['policystatus'] . "</td>";
+                                        echo "<td>" . $row['closer'] . "</td>";
+                                        echo "<td>" . $row['lead'] . "</td>";
+                                        if (intval($row['vitality_comm']) > 0) {
+                                            echo "<td><span class=\"label label-success\">" . $row['vitality_comm'] . "</span></td>";
+                                        } else if (intval($row["vitality_comm"]) < 0) {
+                                            echo "<td><span class=\"label label-danger\">" . $row['vitality_comm'] . "</span></td>";
+                                        } else {
+                                            echo "<td>" . $row['vitality_comm'] . "</td>";
+                                        }
+                                        echo "</tr>";
+                                        echo "\n";
+                                    }
+                                }
+                            } catch (PDOException $e) {
+                                echo 'Connection failed: ' . $e->getMessage();
+                            }
+                            ?>
 
                         </table>
 
-<?php
-try {
+                        <?php
+                        try {
 
-    $RL_FIN = $pdo->prepare("SELECT royal_london_financials.royal_london_insert_date, royal_london_financials.royal_london_comm, royal_london_financials.royal_london_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM royal_london_financials join client_policy on royal_london_financials.royal_london_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY royal_london_financials.royal_london_id");
-    $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
-    if ($RL_FIN->rowCount() > 0) {
-        ?>
+                            $RL_FIN = $pdo->prepare("SELECT royal_london_financials.royal_london_insert_date, royal_london_financials.royal_london_comm, royal_london_financials.royal_london_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM royal_london_financials join client_policy on royal_london_financials.royal_london_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY royal_london_financials.royal_london_id");
+                            $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+                            $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
+                            if ($RL_FIN->rowCount() > 0) {
+                                ?>
 
                                 <table  class='table table-hover table-condensed'>
                                     <thead>
@@ -1728,42 +1741,42 @@ try {
                                     <th>Amount</th>
                                     </thead>
 
-        <?php
-        while ($row = $RL_FIN->fetch(PDO::FETCH_ASSOC)) {
+                                    <?php
+                                    while ($row = $RL_FIN->fetch(PDO::FETCH_ASSOC)) {
 
-            echo '<tr>';
-            echo "<td>" . $row['royal_london_insert_date'] . "</td>";
-            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
-            echo "<td>" . $row['royal_london_type'] . "</td>";
-            echo "<td>" . $row['policystatus'] . "</td>";
-            echo "<td>" . $row['closer'] . "</td>";
-            echo "<td>" . $row['lead'] . "</td>";
-            if (intval($row['royal_london_comm']) > 0) {
-                echo "<td><span class=\"label label-success\">" . $row['royal_london_comm'] . "</span></td>";
-            } else if (intval($row["royal_london_comm"]) < 0) {
-                echo "<td><span class=\"label label-danger\">" . $row['royal_london_comm'] . "</span></td>";
-            } else {
-                echo "<td>" . $row['royal_london_comm'] . "</td>";
-            }
-            echo "</tr>";
-            echo "\n";
-        }
-    }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}
-?>
+                                        echo '<tr>';
+                                        echo "<td>" . $row['royal_london_insert_date'] . "</td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td>" . $row['royal_london_type'] . "</td>";
+                                        echo "<td>" . $row['policystatus'] . "</td>";
+                                        echo "<td>" . $row['closer'] . "</td>";
+                                        echo "<td>" . $row['lead'] . "</td>";
+                                        if (intval($row['royal_london_comm']) > 0) {
+                                            echo "<td><span class=\"label label-success\">" . $row['royal_london_comm'] . "</span></td>";
+                                        } else if (intval($row["royal_london_comm"]) < 0) {
+                                            echo "<td><span class=\"label label-danger\">" . $row['royal_london_comm'] . "</span></td>";
+                                        } else {
+                                            echo "<td>" . $row['royal_london_comm'] . "</td>";
+                                        }
+                                        echo "</tr>";
+                                        echo "\n";
+                                    }
+                                }
+                            } catch (PDOException $e) {
+                                echo 'Connection failed: ' . $e->getMessage();
+                            }
+                            ?>
 
                         </table>
 
-<?php
-try {
+                        <?php
+                        try {
 
-    $WOL_FIN = $pdo->prepare("SELECT wol_financials.wol_insert_date, wol_financials.wol_comm, wol_financials.wol_comm_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM wol_financials join client_policy on wol_financials.wol_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY wol_financials.wol_id");
-    $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
-    if ($WOL_FIN->rowCount() > 0) {
-        ?>
+                            $WOL_FIN = $pdo->prepare("SELECT wol_financials.wol_insert_date, wol_financials.wol_comm, wol_financials.wol_comm_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM wol_financials join client_policy on wol_financials.wol_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY wol_financials.wol_id");
+                            $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+                            $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
+                            if ($WOL_FIN->rowCount() > 0) {
+                                ?>
 
                                 <table  class='table table-hover table-condensed'>
                                     <thead>
@@ -1779,31 +1792,31 @@ try {
                                     <th>Amount</th>
                                     </thead>
 
-        <?php
-        while ($row = $WOL_FIN->fetch(PDO::FETCH_ASSOC)) {
+                                    <?php
+                                    while ($row = $WOL_FIN->fetch(PDO::FETCH_ASSOC)) {
 
-            echo '<tr>';
-            echo "<td>" . $row['wol_insert_date'] . "</td>";
-            echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
-            echo "<td>" . $row['wol_comm_type'] . "</td>";
-            echo "<td>" . $row['policystatus'] . "</td>";
-            echo "<td>" . $row['closer'] . "</td>";
-            echo "<td>" . $row['lead'] . "</td>";
-            if (intval($row['wol_comm']) > 0) {
-                echo "<td><span class=\"label label-success\">" . $row['wol_comm'] . "</span></td>";
-            } else if (intval($row["wol_comm"]) < 0) {
-                echo "<td><span class=\"label label-danger\">" . $row['wol_comm'] . "</span></td>";
-            } else {
-                echo "<td>" . $row['wol_comm'] . "</td>";
-            }
-            echo "</tr>";
-            echo "\n";
-        }
-    }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}
-?>
+                                        echo '<tr>';
+                                        echo "<td>" . $row['wol_insert_date'] . "</td>";
+                                        echo "<td><a href='ViewPolicy.php?policyID=$poldid&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                        echo "<td>" . $row['wol_comm_type'] . "</td>";
+                                        echo "<td>" . $row['policystatus'] . "</td>";
+                                        echo "<td>" . $row['closer'] . "</td>";
+                                        echo "<td>" . $row['lead'] . "</td>";
+                                        if (intval($row['wol_comm']) > 0) {
+                                            echo "<td><span class=\"label label-success\">" . $row['wol_comm'] . "</span></td>";
+                                        } else if (intval($row["wol_comm"]) < 0) {
+                                            echo "<td><span class=\"label label-danger\">" . $row['wol_comm'] . "</span></td>";
+                                        } else {
+                                            echo "<td>" . $row['wol_comm'] . "</td>";
+                                        }
+                                        echo "</tr>";
+                                        echo "\n";
+                                    }
+                                }
+                            } catch (PDOException $e) {
+                                echo 'Connection failed: ' . $e->getMessage();
+                            }
+                            ?>
 
                         </table>                    
 
@@ -1812,63 +1825,63 @@ try {
 
                 <div id="menu4" class="tab-pane fade">
 
-<?php
-$clientnotesadded = filter_input(INPUT_GET, 'clientnotesadded', FILTER_SANITIZE_SPECIAL_CHARS);
-if (isset($clientnotesadded)) {
-    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client notes added!</div>");
-}
+                    <?php
+                    $clientnotesadded = filter_input(INPUT_GET, 'clientnotesadded', FILTER_SANITIZE_SPECIAL_CHARS);
+                    if (isset($clientnotesadded)) {
+                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client notes added!</div>");
+                    }
 
-$TaskSelect = filter_input(INPUT_GET, 'TaskSelect', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $TaskSelect = filter_input(INPUT_GET, 'TaskSelect', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (isset($TaskSelect)) {
-    if ($TaskSelect == 'CYD') {
+                    if (isset($TaskSelect)) {
+                        if ($TaskSelect == 'CYD') {
 
-        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> CYD Task Updated!</div>";
-    }
+                            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> CYD Task Updated!</div>";
+                        }
 
-    if ($TaskSelect == '5 day') {
+                        if ($TaskSelect == '5 day') {
 
-        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 5 Day Task Updated!</div>";
-    }
+                            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 5 Day Task Updated!</div>";
+                        }
 
-    if ($TaskSelect == '24 48') {
+                        if ($TaskSelect == '24 48') {
 
-        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 24-48 Day Task Updated!</div>";
-    }
+                            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 24-48 Day Task Updated!</div>";
+                        }
 
-    if ($TaskSelect == '18 day') {
+                        if ($TaskSelect == '18 day') {
 
-        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>";
-    }
-}
+                            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>";
+                        }
+                    }
 
-if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                    if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
 
-    $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
-    $database->bind(':cid', $search);
-    $database->execute();
-    $result = $database->single();
+                        $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
+                        $database->bind(':cid', $search);
+                        $database->execute();
+                        $result = $database->single();
 
-    $HappyPol = $result['HappyPol'];
-    $DocsArrived = $result['DocsArrived'];
-    $CYDReturned = $result['CYDReturned'];
-    $RemindDD = $result['RemindDD'];
-    $PitchTPS = $result['PitchTPS'];
-    $PitchTrust = $result['PitchTrust'];
-    $Upsells = $result['Upsells'];
-    $Taskoption = $result['Task'];
-    ?>
+                        $HappyPol = $result['HappyPol'];
+                        $DocsArrived = $result['DocsArrived'];
+                        $CYDReturned = $result['CYDReturned'];
+                        $RemindDD = $result['RemindDD'];
+                        $PitchTPS = $result['PitchTPS'];
+                        $PitchTrust = $result['PitchTrust'];
+                        $Upsells = $result['Upsells'];
+                        $Taskoption = $result['Task'];
+                        ?>
                         <center>
                             <br><br>
 
                             <div class="btn-group">
                                 <button data-toggle="collapse" data-target="#HappyPol" class="<?php
-                    if (empty($HappyPol)) {
-                        echo "btn btn-danger";
-                    } else {
-                        echo "btn btn-success";
-                    }
-    ?>">Happy with Policy <br><?php echo $HappyPol; ?></button>                 
+                                if (empty($HappyPol)) {
+                                    echo "btn btn-danger";
+                                } else {
+                                    echo "btn btn-success";
+                                }
+                                ?>">Happy with Policy <br><?php echo $HappyPol; ?></button>                 
                                 <button data-toggle="collapse" data-target="#DocsArrived" class="<?php
                                 if (empty($DocsArrived)) {
                                     echo "btn btn-danger";
@@ -1950,22 +1963,22 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="HappyPol-0">
                                                 <input name="HappyPol" id="HappyPol-0" value="No" type="radio" <?php
-                            if (isset($HappyPol)) {
-                                if ($HappyPol == 'No') {
-                                    echo "checked='checked'";
-                                }
-                            }
-                                ?>>
+                                                if (isset($HappyPol)) {
+                                                    if ($HappyPol == 'No') {
+                                                        echo "checked='checked'";
+                                                    }
+                                                }
+                                                ?>>
                                                 No
                                             </label> 
                                             <label class="radio-inline" for="HappyPol-1">
                                                 <input name="HappyPol" id="HappyPol-1" value="Yes" type="radio" <?php
-                                            if (isset($HappyPol)) {
-                                                if ($HappyPol == 'Yes') {
-                                                    echo "checked='checked'";
+                                                if (isset($HappyPol)) {
+                                                    if ($HappyPol == 'Yes') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Yes
                                             </label>
                                         </div>
@@ -1980,32 +1993,32 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="DocsArrived-0">
                                                 <input name="DocsArrived" id="DocsArrived-0" value="No"  type="radio" <?php
-                                            if (isset($DocsArrived)) {
-                                                if ($DocsArrived == 'No') {
-                                                    echo "checked='checked'";
+                                                if (isset($DocsArrived)) {
+                                                    if ($DocsArrived == 'No') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 No
                                             </label> 
                                             <label class="radio-inline" for="DocsArrived-1">
                                                 <input name="DocsArrived" id="DocsArrived-1" value="Yes" type="radio" <?php
-                                            if (isset($DocsArrived)) {
-                                                if ($DocsArrived == 'Yes') {
-                                                    echo "checked='checked'";
+                                                if (isset($DocsArrived)) {
+                                                    if ($DocsArrived == 'Yes') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Yes
                                             </label>
                                             <label class="radio-inline" for="DocsArrived-3">
                                                 <input name="DocsArrived" id="DocsArrived-3" value="Not Checked" type="radio" <?php
-                                            if (isset($DocsArrived)) {
-                                                if ($DocsArrived == 'Not Checked') {
-                                                    echo "checked='checked'";
+                                                if (isset($DocsArrived)) {
+                                                    if ($DocsArrived == 'Not Checked') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Not Checked
                                             </label>
                                         </div>
@@ -2020,32 +2033,32 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="CYDReturned-0">
                                                 <input name="CYDReturned" id="CYDReturned-0" value="Yes complete with Legal and General"  type="radio" <?php
-                                            if (isset($CYDReturned)) {
-                                                if ($CYDReturned == 'Yes complete with Legal and General') {
-                                                    echo "checked='checked'";
+                                                if (isset($CYDReturned)) {
+                                                    if ($CYDReturned == 'Yes complete with Legal and General') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Yes complete with Legal and General
                                             </label> 
                                             <label class="radio-inline" for="CYDReturned-1">
                                                 <input name="CYDReturned" id="CYDReturned-1" value="Yes Legal and General not received" type="radio" <?php
-                                            if (isset($CYDReturned)) {
-                                                if ($CYDReturned == 'Yes Legal and General not received') {
-                                                    echo "checked='checked'";
+                                                if (isset($CYDReturned)) {
+                                                    if ($CYDReturned == 'Yes Legal and General not received') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Yes Legal and General not received
                                             </label> 
                                             <label class="radio-inline" for="CYDReturned-2">
                                                 <input name="CYDReturned" id="CYDReturned-2" value="No" type="radio" <?php
-                                            if (isset($CYDReturned)) {
-                                                if ($CYDReturned == 'No') {
-                                                    echo "checked='checked'";
+                                                if (isset($CYDReturned)) {
+                                                    if ($CYDReturned == 'No') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 No
                                             </label>
                                         </div>
@@ -2060,52 +2073,52 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="RemindDD-0">
                                                 <input name="RemindDD" id="RemindDD-0" value="Old DD Cancelled"  type="radio" <?php
-                                            if (isset($RemindDD)) {
-                                                if ($RemindDD == 'Old DD Cancelled') {
-                                                    echo "checked='checked'";
+                                                if (isset($RemindDD)) {
+                                                    if ($RemindDD == 'Old DD Cancelled') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Old DD Cancelled
                                             </label> 
                                             <label class="radio-inline" for="RemindDD-1">
                                                 <input name="RemindDD" id="RemindDD-1" value="Old DD Not Cancelled" type="radio" <?php
-                                            if (isset($RemindDD)) {
-                                                if ($RemindDD == 'Old DD Not Cancelled') {
-                                                    echo "checked='checked'";
+                                                if (isset($RemindDD)) {
+                                                    if ($RemindDD == 'Old DD Not Cancelled') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Old DD Not Cancelled
                                             </label> 
                                             <label class="radio-inline" for="RemindDD-2">
                                                 <input name="RemindDD" id="RemindDD-2" value="Replacing Legal and General" type="radio" <?php
-                                            if (isset($RemindDD)) {
-                                                if ($RemindDD == 'Replacing Legal and General') {
-                                                    echo "checked='checked'";
+                                                if (isset($RemindDD)) {
+                                                    if ($RemindDD == 'Replacing Legal and General') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Replacing Legal and General
                                             </label> 
                                             <label class="radio-inline" for="RemindDD-3">
                                                 <input name="RemindDD" id="RemindDD-3" value="Keeping Old Policy" type="radio" <?php
-                                            if (isset($RemindDD)) {
-                                                if ($RemindDD == 'Keeping Old Policy') {
-                                                    echo "checked='checked'";
+                                                if (isset($RemindDD)) {
+                                                    if ($RemindDD == 'Keeping Old Policy') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Keeping Old Policy
                                             </label>
                                             <label class="radio-inline" for="RemindDD-4">
                                                 <input name="RemindDD" id="RemindDD-4" value="New Policy" type="radio" <?php
-                                            if (isset($RemindDD)) {
-                                                if ($RemindDD == 'New Policy') {
-                                                    echo "checked='checked'";
+                                                if (isset($RemindDD)) {
+                                                    if ($RemindDD == 'New Policy') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 New Policy
                                             </label>
                                         </div>
@@ -2120,22 +2133,22 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="PitchTPS-0">
                                                 <input name="PitchTPS" id="PitchTPS-0" value="Wants"  type="radio" <?php
-                                            if (isset($PitchTPS)) {
-                                                if ($PitchTPS == 'Wants') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTPS)) {
+                                                    if ($PitchTPS == 'Wants') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Wants
                                             </label> 
                                             <label class="radio-inline" for="PitchTPS-1">
                                                 <input name="PitchTPS" id="PitchTPS-1" value="Doesnt Want" type="radio" <?php
-                                            if (isset($PitchTPS)) {
-                                                if ($PitchTPS == 'Doesnt Want') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTPS)) {
+                                                    if ($PitchTPS == 'Doesnt Want') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Doesnt Want
                                             </label>
                                         </div>
@@ -2150,42 +2163,42 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="PitchTrust-0">
                                                 <input name="PitchTrust" id="PitchTrust-0" value="Wants by Post"  type="radio" <?php
-                                            if (isset($PitchTrust)) {
-                                                if ($PitchTrust == 'Wants by Post') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTrust)) {
+                                                    if ($PitchTrust == 'Wants by Post') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Wants by Post
                                             </label> 
                                             <label class="radio-inline" for="PitchTrust-1">
                                                 <input name="PitchTrust" id="PitchTrust-1" value="Wants by Email" type="radio" <?php
-                                            if (isset($PitchTrust)) {
-                                                if ($PitchTrust == 'Wants by Email') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTrust)) {
+                                                    if ($PitchTrust == 'Wants by Email') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Wants by Email
                                             </label> 
                                             <label class="radio-inline" for="PitchTrust-2">
                                                 <input name="PitchTrust" id="PitchTrust-2" value="Doesnt Want" type="radio" <?php
-                                            if (isset($PitchTrust)) {
-                                                if ($PitchTrust == 'Doesnt Want') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTrust)) {
+                                                    if ($PitchTrust == 'Doesnt Want') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Doesnt Want
                                             </label> 
                                             <label class="radio-inline" for="PitchTrust-3">
                                                 <input name="PitchTrust" id="PitchTrust-3" value="Both" type="radio"<?php
-                                            if (isset($PitchTrust)) {
-                                                if ($PitchTrust == 'Both') {
-                                                    echo "checked='checked'";
+                                                if (isset($PitchTrust)) {
+                                                    if ($PitchTrust == 'Both') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Both
                                             </label>
                                         </div>
@@ -2200,22 +2213,22 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                         <div class="col-md-4"> 
                                             <label class="radio-inline" for="Upsells-0">
                                                 <input name="Upsells" id="Upsells-0" value="No"  type="radio" <?php
-                                            if (isset($Upsells)) {
-                                                if ($Upsells == 'No') {
-                                                    echo "checked='checked'";
+                                                if (isset($Upsells)) {
+                                                    if ($Upsells == 'No') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 No
                                             </label> 
                                             <label class="radio-inline" for="Upsells-1">
                                                 <input name="Upsells" id="Upsells-1" value="Yes" type="radio" <?php
-                                            if (isset($Upsells)) {
-                                                if ($Upsells == 'Yes') {
-                                                    echo "checked='checked'";
+                                                if (isset($Upsells)) {
+                                                    if ($Upsells == 'Yes') {
+                                                        echo "checked='checked'";
+                                                    }
                                                 }
-                                            }
-                                ?>>
+                                                ?>>
                                                 Yes
                                             </label>
                                         </div>
@@ -2226,7 +2239,7 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                         </center> 
                         </form>          
 
-<?php } ?>
+                    <?php } ?>
 
                     <div class='container'>
                         <div class="row">
@@ -2239,7 +2252,7 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                                     <div class="col-md-4">
                                         <select id="selectbasic" name="client_name" class="form-control" required>
                                             <option value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?></option>
-<?php if (!empty($Single_Client['title2'])) { ?>
+                                            <?php if (!empty($Single_Client['title2'])) { ?>
                                                 <option value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?></option>
                                             <?php } ?>
                                         </select>
@@ -2266,13 +2279,13 @@ if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' 
                     </div>
 
                     <h3><span class="label label-info">Client Timeline</span></h3>             
-<?php
-if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
-    try {
+                    <?php
+                    if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+                        try {
 
-        $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
-        $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
-        ?><br><br>	
+                            $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
+                            $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
+                            ?><br><br>	
 
                             <table class="table table-hover">
                                 <thead>
@@ -2284,119 +2297,119 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                                         <th>Message</th>
                                     </tr>
                                 </thead>
-        <?php
-        $clientnote->execute();
-        if ($clientnote->rowCount() > 0) {
-            while ($result = $clientnote->fetch(PDO::FETCH_ASSOC)) {
+                                <?php
+                                $clientnote->execute();
+                                if ($clientnote->rowCount() > 0) {
+                                    while ($result = $clientnote->fetch(PDO::FETCH_ASSOC)) {
 
-                switch ($result['note_type']) {
+                                        switch ($result['note_type']) {
 
-                    case "Client Added":
-                        $TMicon = "fa-user-plus";
-                        break;
-                    case "Policy Deleted":
-                        $TMicon = "fa-exclamation";
-                        break;
-                    case "CRM Alert":
-                    case "Policy Added":
-                        $TMicon = "fa-check";
-                        break;
-                    case "Client SMS Reply":
-                        $TMicon = "fa-phone-square";
-                        break;
-                    case "EWS Status update":
-                    case"EWS Uploaded";
-                    case"SMS Failed";
-                        $TMicon = "fa-exclamation-triangle";
-                        break;
-                    case "Financial Uploaded":
-                    case "Legal and General Financial Uploaded":
-                    case "Royal London Financial Uploaded":
-                    case "Aviva Financial Uploaded":
-                    case "Vitality Financial Uploaded":
-                    case "One Family Financial Uploaded":
-                    case "WOL Financial Uploaded":
-                        $TMicon = "fa-gbp";
-                        break;
-                    case "Dealsheet":
-                    case"LGpolicy";
-                    case"LGkeyfacts";
-                    case"Recording";
-                    case"Closer Call Recording";
-                    case"Agent Call Recording";
-                    case"Admin Call Recording";
-                        $TMicon = "fa-upload";
-                        break;
+                                            case "Client Added":
+                                                $TMicon = "fa-user-plus";
+                                                break;
+                                            case "Policy Deleted":
+                                                $TMicon = "fa-exclamation";
+                                                break;
+                                            case "CRM Alert":
+                                            case "Policy Added":
+                                                $TMicon = "fa-check";
+                                                break;
+                                            case "Client SMS Reply":
+                                                $TMicon = "fa-phone-square";
+                                                break;
+                                            case "EWS Status update":
+                                            case"EWS Uploaded";
+                                            case"SMS Failed";
+                                                $TMicon = "fa-exclamation-triangle";
+                                                break;
+                                            case "Financial Uploaded":
+                                            case "Legal and General Financial Uploaded":
+                                            case "Royal London Financial Uploaded":
+                                            case "Aviva Financial Uploaded":
+                                            case "Vitality Financial Uploaded":
+                                            case "One Family Financial Uploaded":
+                                            case "WOL Financial Uploaded":
+                                                $TMicon = "fa-gbp";
+                                                break;
+                                            case "Dealsheet":
+                                            case"LGpolicy";
+                                            case"LGkeyfacts";
+                                            case"Recording";
+                                            case"Closer Call Recording";
+                                            case"Agent Call Recording";
+                                            case"Admin Call Recording";
+                                                $TMicon = "fa-upload";
+                                                break;
 
-                    case stristr($result['note_type'], "Tasks"):
-                        $TMicon = "fa-tasks";
-                        break;
-                    case stristr($result['note_type'], "Callback"):
-                        $TMicon = "fa-calendar-check-o";
-                        break;
+                                            case stristr($result['note_type'], "Tasks"):
+                                                $TMicon = "fa-tasks";
+                                                break;
+                                            case stristr($result['note_type'], "Callback"):
+                                                $TMicon = "fa-calendar-check-o";
+                                                break;
 
-                    case "Client Note":
-                    case "Policy Details Updated":
-                    case "Policy Update":
-                        $TMicon = "fa-pencil";
-                        break;
+                                            case "Client Note":
+                                            case "Policy Details Updated":
+                                            case "Policy Update":
+                                                $TMicon = "fa-pencil";
+                                                break;
 
-                    case "Task 24 48":
-                    case "Task 5 day":
-                    case "Task CYD":
-                    case "Task 18 day":
-                    case "Tasks 24 48":
-                    case "Tasks 5 day":
-                    case "Tasks CYD":
-                    case "Tasks 18 day":
-                    case "Tasks Trust":
-                        $TMicon = "fa-tasks";
-                        break;
-                    case "Email Sent":
-                        $TMicon = "fa-envelope-o";
-                        break;
-                    case "Client Edited":
-                    case "TONIC Acount Updates ":
-                    case "Client Details Updated":
-                        $TMicon = "fa-edit";
-                        break;
-                    case "SMS Delivered":
-                    case "SMS Update":
-                        $TMicon = "fa-mobile-phone";
-                        break;
-                    case "Sent SMS":
-                    case "Callback":
-                        $TMicon = "fa-phone";
-                        break;
-                    default:
-                        $TMicon = "fa-bomb";
-                }
+                                            case "Task 24 48":
+                                            case "Task 5 day":
+                                            case "Task CYD":
+                                            case "Task 18 day":
+                                            case "Tasks 24 48":
+                                            case "Tasks 5 day":
+                                            case "Tasks CYD":
+                                            case "Tasks 18 day":
+                                            case "Tasks Trust":
+                                                $TMicon = "fa-tasks";
+                                                break;
+                                            case "Email Sent":
+                                                $TMicon = "fa-envelope-o";
+                                                break;
+                                            case "Client Edited":
+                                            case "TONIC Acount Updates ":
+                                            case "Client Details Updated":
+                                                $TMicon = "fa-edit";
+                                                break;
+                                            case "SMS Delivered":
+                                            case "SMS Update":
+                                                $TMicon = "fa-mobile-phone";
+                                                break;
+                                            case "Sent SMS":
+                                            case "Callback":
+                                                $TMicon = "fa-phone";
+                                                break;
+                                            default:
+                                                $TMicon = "fa-bomb";
+                                        }
 
-                $TIMELINE_MESSAGE = html_entity_decode($result['message']);
-                echo '<tr>';
-                echo "<td>" . $result['date_sent'] . "</td>";
-                echo "<td>" . $result['sent_by'] . "</td>";
-                echo "<td>" . $result['client_name'] . "</td>";
-                echo "<td><i class='fa $TMicon'></i> " . $result['note_type'] . "</td>";
+                                        $TIMELINE_MESSAGE = html_entity_decode($result['message']);
+                                        echo '<tr>';
+                                        echo "<td>" . $result['date_sent'] . "</td>";
+                                        echo "<td>" . $result['sent_by'] . "</td>";
+                                        echo "<td>" . $result['client_name'] . "</td>";
+                                        echo "<td><i class='fa $TMicon'></i> " . $result['note_type'] . "</td>";
 
-                if (in_array($hello_name, $Level_3_Access, true)) {
+                                        if (in_array($hello_name, $Level_3_Access, true)) {
 
-                    echo "<td><b>$TIMELINE_MESSAGE</b></td>";
-                } else {
+                                            echo "<td><b>$TIMELINE_MESSAGE</b></td>";
+                                        } else {
 
-                    echo "<td><b>$TIMELINE_MESSAGE</b></td>";
-                }
-                echo "</tr>";
-            }
-        } else {
-            echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No data/information found (Client notes)</div>";
-        }
-        echo "</table>";
-    } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-    }
-}
-?>
+                                            echo "<td><b>$TIMELINE_MESSAGE</b></td>";
+                                        }
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No data/information found (Client notes)</div>";
+                                }
+                                echo "</table>";
+                            } catch (PDOException $e) {
+                                echo 'Connection failed: ' . $e->getMessage();
+                            }
+                        }
+                        ?>
                 </div>
 
             </div>
@@ -2409,7 +2422,7 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                             <h4 class="modal-title">Email: <?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> <i>(<?php echo $Single_Client['email2']; ?>)</i></h4>
                         </div>
                         <div class="modal-body">
-<?php if ($ffclientemails == '1') { ?>
+                            <?php if ($ffclientemails == '1') { ?>
 
                                 <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
 
@@ -2441,7 +2454,7 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                                     <br>
                                     <button type="submit" class="btn btn-warning "><span class="glyphicon glyphicon-envelope"></span> Send Email</button>
                                 </form>
-<?php } ?>
+                            <?php } ?>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span>Close</button>
@@ -2458,7 +2471,7 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                             <h4 class="modal-title">Email: <?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> <i>(<?php echo $Single_Client['email']; ?>)</i></h4>
                         </div>
                         <div class="modal-body">
-<?php if ($ffclientemails == '1') { ?>
+                            <?php if ($ffclientemails == '1') { ?>
 
                                 <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
 
@@ -2492,7 +2505,7 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                                     <br>
                                     <button type="submit" class="btn btn-warning "><span class="glyphicon glyphicon-envelope"></span> Send Email</button>
                                 </form>
-<?php } ?>
+                            <?php } ?>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span>Close</button>
@@ -2542,25 +2555,25 @@ if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
                                                                         <select id='assign' name='assign' class='form-control'>
                                                                             <option value='<?php echo $hello_name; ?>'><?php echo $hello_name; ?></option>
 
-<?php
-try {
+                                                                            <?php
+                                                                            try {
 
-    $calluser = $pdo->prepare("SELECT login, real_name from users where extra_info ='User'");
+                                                                                $calluser = $pdo->prepare("SELECT login, real_name from users where extra_info ='User'");
 
-    $calluser->execute()or die(print_r($calluser->errorInfo(), true));
-    if ($calluser->rowCount() > 0) {
-        while ($row = $calluser->fetch(PDO::FETCH_ASSOC)) {
-            ?>
+                                                                                $calluser->execute()or die(print_r($calluser->errorInfo(), true));
+                                                                                if ($calluser->rowCount() > 0) {
+                                                                                    while ($row = $calluser->fetch(PDO::FETCH_ASSOC)) {
+                                                                                        ?>
 
                                                                                         <option value='<?php echo $row['login']; ?>'><?php echo $row['real_name']; ?></option>
 
-            <?php
-        }
-    }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}
-?>
+                                                                                        <?php
+                                                                                    }
+                                                                                }
+                                                                            } catch (PDOException $e) {
+                                                                                echo 'Connection failed: ' . $e->getMessage();
+                                                                            }
+                                                                            ?>
 
                                                                         </select>
                                                                     </div>
@@ -2575,7 +2588,7 @@ try {
                                                                             if (isset($CB_DATE)) {
                                                                                 echo $CB_DATE;
                                                                             }
-?>" required />
+                                                                            ?>" required />
                                                                             <span class="input-group-addon">
                                                                                 <span class="glyphicon glyphicon-calendar"></span>
                                                                             </span>
@@ -2592,7 +2605,7 @@ try {
                                                                             if (isset($CB_TIME)) {
                                                                                 echo $CB_TIME;
                                                                             }
-?>" required  />
+                                                                            ?>" required  />
                                                                             <span class="input-group-addon">
                                                                                 <span class="glyphicon glyphicon-time"></span>
                                                                             </span>
@@ -2622,7 +2635,7 @@ try {
                                                                             if (isset($NOTES)) {
                                                                                 echo $NOTES;
                                                                             }
-?></textarea>
+                                                                            ?></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -2638,12 +2651,12 @@ try {
                                         <div id="CB_TWO" class="tab-pane fade">
                                             <div class="row">
 
-<?php
-$query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, callback_date, callback_time, reminder, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_callbacks WHERE client_id=:CID AND complete='n' ORDER BY ordersort ASC");
-$query->bindParam(':CID', $search, PDO::PARAM_INT);
-$query->execute();
-if ($query->rowCount() > 0) {
-    ?>
+                                                <?php
+                                                $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, callback_date, callback_time, reminder, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_callbacks WHERE client_id=:CID AND complete='n' ORDER BY ordersort ASC");
+                                                $query->bindParam(':CID', $search, PDO::PARAM_INT);
+                                                $query->execute();
+                                                if ($query->rowCount() > 0) {
+                                                    ?>
 
                                                     <table class="table table-hover">
                                                         <thead>                    
@@ -2652,33 +2665,33 @@ if ($query->rowCount() > 0) {
                                                         <th></th>
                                                         </thead>
 
-    <?php
-    while ($calllist = $query->fetch(PDO::FETCH_ASSOC)) {
+                                                        <?php
+                                                        while ($calllist = $query->fetch(PDO::FETCH_ASSOC)) {
 
-        $callbackid = $calllist['id'];
-        $search = $calllist['client_id'];
-        $NAME = $calllist['client_name'];
-        $TIME = $calllist['calltimeid'];
-        $NOTES = $calllist['notes'];
-        $REMINDER = $calllist['reminder'];
-        $CB_DATE = $calllist['callback_date'];
-        $CB_TIME = $calllist['callback_time'];
+                                                            $callbackid = $calllist['id'];
+                                                            $search = $calllist['client_id'];
+                                                            $NAME = $calllist['client_name'];
+                                                            $TIME = $calllist['calltimeid'];
+                                                            $NOTES = $calllist['notes'];
+                                                            $REMINDER = $calllist['reminder'];
+                                                            $CB_DATE = $calllist['callback_date'];
+                                                            $CB_TIME = $calllist['callback_time'];
 
-        echo "<tr>";
-        echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$search'>" . $calllist['client_name'] . "</a></td>";
-        echo "<td class='text-left'>" . $calllist['calltimeid'] . "</td>";
-        echo "<td><a href='/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class='btn btn-success btn-sm'><i class='fa fa-check'></i> Complete</a></td>";
-        echo "</tr>";
-        ?>    
+                                                            echo "<tr>";
+                                                            echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$search'>" . $calllist['client_name'] . "</a></td>";
+                                                            echo "<td class='text-left'>" . $calllist['calltimeid'] . "</td>";
+                                                            echo "<td><a href='/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class='btn btn-success btn-sm'><i class='fa fa-check'></i> Complete</a></td>";
+                                                            echo "</tr>";
+                                                            ?>    
 
                                                         <?php } ?>
                                                     </table>   
 
-                                                        <?php
-                                                    } else {
-                                                        echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
-                                                    }
-                                                    ?>                                                             
+                                                    <?php
+                                                } else {
+                                                    echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No call backs found</div>";
+                                                }
+                                                ?>                                                             
 
                                             </div>
                                         </div>
@@ -2890,6 +2903,6 @@ if ($query->rowCount() > 0) {
                 });
 
             </script>
-<?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
+            <?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
             </body>
             </html>

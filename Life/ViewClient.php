@@ -2366,6 +2366,7 @@ if (isset($Single_Client['callauditid'])) {
                                                 $TMicon = "fa-edit";
                                                 break;
                                             case "SMS Delivered":
+                                            case "SMS Update":
                                                 $TMicon = "fa-mobile-phone";
                                                 break;
                                             case "Sent SMS":

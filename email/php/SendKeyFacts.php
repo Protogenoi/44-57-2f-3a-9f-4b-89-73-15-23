@@ -124,7 +124,7 @@ if(!$mail->Send()) {
    $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
 
-header('Location: ../../KeyFactsEmail.php?emailsent&emailto='.$email); die;
+header('Location: ../../email/KeyFactsEmail.php?emailsent&emailto='.$email); die;
   
 }
 
@@ -255,7 +255,7 @@ if(!$mail->Send()) {
    $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
 
-header('Location: ../../KeyFactsEmail.php?emailsent&emailto='.$email); die;
+header('Location: ../../email/KeyFactsEmail.php?emailsent&emailto='.$email); die;
     
 }
 
@@ -362,7 +362,7 @@ $mail->Body    = $body;
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
   
-  header('Location: ../../KeyFactsEmail.php?emailfailed'); die;
+  header('Location: ../../email/KeyFactsEmail.php?emailfailed'); die;
   
 } else {
    
@@ -370,12 +370,12 @@ if(!$mail->Send()) {
    $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
 
-header('Location: ../../KeyFactsEmail.php?emailsent&emailto='.$email); die;
+header('Location: ../../email/KeyFactsEmail.php?emailsent&emailto='.$email); die;
   
 }
 
 }
 
 }
-header('Location: ../../KeyFactsEmail.php?emailfailed'); die;
+header('Location: ../../email/KeyFactsEmail.php?emailfailed'); die;
     ?>

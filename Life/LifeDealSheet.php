@@ -46,18 +46,46 @@ $Today_DATE = date("d-M-Y");
 $Today_DATES = date("l jS \of F Y");
 $Today_TIME = date("h:i:s");
 
+if(in_array($hello_name, $Closer_Access, true)) {
+    
+    
+            $CLO_CR = $pdo->prepare("SELECT 
+    COUNT(IF(sale = 'SALE',
+        1,
+        NULL)) AS Sales,
+ COUNT(IF(sale IN ('SALE' , 'NoCard',
+            'QDE',
+            'DEC',
+            'QUN',
+            'QNQ',
+            'DIDNO',
+            'QCBK',
+            'QQQ',
+            'Other',
+            'QML'),
+        1,
+        NULL)) AS Leads
+FROM
+    closer_trackers
+
+WHERE
+date_added > DATE(NOW()) 
+AND closer=:closer");
+        $CLO_CR->bindParam(':closer', $hello_name, PDO::PARAM_STR);
+        $CLO_CR->execute();
+        $CLO_CR_RESULT = $CLO_CR->fetch(PDO::FETCH_ASSOC);
+        
+                            if ( $CLO_CR_RESULT['Sales'] == '0') {
+                        $Formattedrate = "0.0";
+                    } else {
+                        $Conversionrate =  $CLO_CR_RESULT['Leads'] /  $CLO_CR_RESULT['Sales'];
+                        $SINGLE_CLOSER_RATE = number_format($Conversionrate, 1);
+                    }
+    
+}
 
 switch ($hello_name) {
 
-    case "Michael";
-        $real_name = 'Michael';
-        break;
-    case "carys";
-        $real_name = 'Carys';
-        break;
-    case "Abbiek";
-        $real_name = 'Abbie';
-        break;
     case "511";
         $real_name = 'Kyle';
         break;
@@ -101,8 +129,24 @@ switch ($hello_name) {
     <link rel="stylesheet" type="text/css" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link rel="stylesheet" type="text/css" href="/style/admindash.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    
+    <?php if(in_array($hello_name, $Closer_Access, true)) { 
+        
+        if($SINGLE_CLOSER_RATE>=1.5) { ?> <style>
+            .CLOSE_RATE {
+            background-color:#B00004;
+    }
+        </style> 
+            <?php } 
+    
+   if($SINGLE_CLOSER_RATE<=1.5) {  ?> 
+        <style>
+            .CLOSE_RATE {
+            background-color:#16A53F;
+        }
+        </style> 
+            <?php } } ?>
     <style>
-
         .form-row input {
             padding: 3px 1px;
             width: 100%;
@@ -119,7 +163,7 @@ switch ($hello_name) {
             z-index: 3;
         }
     </style>
-    <body>
+    <body <?php if(in_array($hello_name, $Closer_Access, true)) { if($CLO_CR>='1.5') { echo "bgcolor='#B00004'"; } else { echo "bgcolor='#16A53F'" ?>   <?php } } ?>>
 
         <div id="wrapper">
             <div id="sidebar-wrapper">
@@ -143,7 +187,7 @@ switch ($hello_name) {
 
                     <button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button>
 
-                    <?php if (in_array($hello_name, $Closer_Access, true)) { ?>
+                    <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Level_9_Access, true))  { ?>
 
                         <a class="list-group-item" href="?query=CloserDealSheets"><i class="fa fa-folder-open-o fa-fw"></i>&nbsp; <?php echo $real_name; ?> Dealsheets</a>
                         <a class="list-group-item" href="?query=AllCloserDealSheets"><i class="fa fa-folder fa-fw"></i>&nbsp; All Closer Dealsheets</a>
@@ -6517,7 +6561,7 @@ switch ($hello_name) {
         $TrackerEdit = filter_input(INPUT_GET, 'TrackerEdit', FILTER_SANITIZE_SPECIAL_CHARS);
         ?>
 
-        <div class="container">
+        <div class="container CLOSE_RATE">
 
             <div class="col-md-12">
 
@@ -6534,7 +6578,7 @@ switch ($hello_name) {
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $real_name; ?> Trackers</span>
+                <span class="label label-primary"><?php echo $real_name; ?> Trackers | Close Rate = <?php echo $SINGLE_CLOSER_RATE; ?></span>
                 <form method="post" action="<?php if (isset($TrackerEdit)) {
             echo 'php/Tracker.php?query=edit';
         } else {

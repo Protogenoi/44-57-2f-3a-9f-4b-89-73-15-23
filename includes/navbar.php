@@ -204,7 +204,7 @@ if (in_array($hello_name, $Level_9_Access, true)) {
     <script>
         function refresh_div() {
             jQuery.ajax({
-                url: '/php/NavbarLiveResults.php?name=<?php echo $hello_name; ?>',
+                url: '/php/NavbarLiveResults.php?name=<?php if(isset($hello_name)) { echo $hello_name; } ?>',
                 type: 'POST',
                 success: function (results) {
                     jQuery(".LIVERESULTS").html(results);

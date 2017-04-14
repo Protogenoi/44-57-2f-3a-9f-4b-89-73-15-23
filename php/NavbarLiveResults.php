@@ -19,11 +19,6 @@ if ($fflife == '1') {
     $navbar2->execute();
     $navbarresult2 = $navbar2->fetch(PDO::FETCH_ASSOC);
 
-    $Callbk = $pdo->prepare("select count(id) AS badge from scheduled_callbacks WHERE complete ='N' and assign=:assign");
-    $Callbk->bindParam(':assign', $hello_name, PDO::PARAM_STR, 25);
-    $Callbk->execute();
-    $Callbkresult = $Callbk->fetch(PDO::FETCH_ASSOC);
-
     $set_timea = date("G:i", strtotime('-30 minutes'));
     $set_time_toa = date("G:i", strtotime('+20 minutes'));
 
@@ -32,33 +27,7 @@ if ($fflife == '1') {
     $query->bindParam(':time', $set_timea, PDO::PARAM_STR);
     $query->bindParam(':timeto', $set_time_toa, PDO::PARAM_STR);
     $query->execute();
-    $queryresult = $query->fetch(PDO::FETCH_ASSOC);
-}
-
-if ($ffpensions == '1') {
-
-    $NAVdate = date("Y-m-d");
-    $hello_name = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $navbar2 = $pdo->prepare("SELECT count(stage_id) AS badge from pension_stages WHERE active_stage='Y' and complete='No' AND added_by =:navbarname ");
-    $navbar2->bindParam(':navbarname', $hello_name, PDO::PARAM_STR, 25);
-    $navbar2->execute();
-    $navbarresult2 = $navbar2->fetch(PDO::FETCH_ASSOC);
-
-    $Callbk = $pdo->prepare("select count(id) AS badge from scheduled_pension_callbacks WHERE complete ='N' and assign=:assign");
-    $Callbk->bindParam(':assign', $hello_name, PDO::PARAM_STR, 25);
-    $Callbk->execute();
-    $Callbkresult = $Callbk->fetch(PDO::FETCH_ASSOC);
-
-    $set_timea = date("G:i", strtotime('-30 minutes'));
-    $set_time_toa = date("G:i", strtotime('+20 minutes'));
-
-    $query = $pdo->prepare("SELECT count(id) AS badge from scheduled_pension_callbacks WHERE callback_date = CURDATE() AND reminder <= :timeto AND reminder >= :time AND complete='N' and assign =:hello");
-    $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
-    $query->bindParam(':time', $set_timea, PDO::PARAM_STR);
-    $query->bindParam(':timeto', $set_time_toa, PDO::PARAM_STR);
-    $query->execute();
-    $queryresult = $query->fetch(PDO::FETCH_ASSOC);
+    $ACT_CBS = $query->fetch(PDO::FETCH_ASSOC);
 }
 
 if ($ffsms == '1') {
@@ -84,25 +53,18 @@ WHERE
 ?>
 
 <ul class="nav navbar-nav navbar-right">
+    <?php if ($ffcallbacks == '1') {
+if ($ACT_CBS['badge'] > 0) { ?>
+        <li><a href="/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 
-    <li><a href="/calendar/calendar.php"> <i class="fa fa-phone"></i> <span class="badge alert-success"><?php echo "Total $Callbkresult[badge]" ?></span> <span class="badge <?php
-            if ($queryresult['badge'] == '0') {
-                echo "alert-info";
-            } else {
-                echo "alert-danger";
-            }
-            ?>"><?php echo "Active $queryresult[badge]"; ?></span></a></li>
+        } if ($fflife == '1') {
 
-            <?php if ($fflife == '1') { ?>
+        if ($navbarresult['badge'] > 0) {
+            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i>  Today <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
+    if ($navbarresult2['badge'] > 0) {
+            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i>  Expired <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
+        }
 
-        <li><a href="/Life/Reports/Tasks.php"><i class="fa fa-list-ul"></i> <span class="badge alert-success"><?php echo "Today $navbarresult[badge]"; ?> </span> <span class="badge <?php
-                if ($navbarresult2['badge'] == '0') {
-                    echo "alert-info";
-                } else {
-                    echo "alert-danger";
-                }
-                ?>"><?php echo "Expired $navbarresult2[badge]"; ?> </span> </a></li>
-        <?php
         if ($ffsms == '1') {
             if ($RPY_stmtresult['badge'] >= '1') {
                 ?>
@@ -113,20 +75,9 @@ WHERE
             if ($RPY_stmtresult2['badge'] >= '1') {
                 ?>                <li><a href="/Life/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-danger"> <i class='fa fa-comment-o'></i> <?php echo $RPY_stmtresult2['badge']; ?> </span> </a></li>
 
-                                                                                                                               <?php
-                                                                                                                               }
-                                                                                                                           }
-                                                                                                                       } if ($ffpensions == '1') {
-                                                                                                                           ?>
-
-        <li><a href="/Pensions/Reports/PensionTasks.php"><i class="fa fa-user"></i>  <?php echo $hello_name ?> Tasks <span class="badge <?php
-    if ($navbarresult2['badge'] == '0') {
-        echo "alert-info";
-    } else {
-        echo "alert-danger";
-    }
-    ?>"><?php echo "Active $navbarresult2[badge]"; ?> </span> </a></li>
-
-<?php } ?>
+                <?php
+            }
+        }
+    } ?>
 
 </ul>

@@ -1,6 +1,6 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT'] . "/includes/adl_features.php");
-include ($_SERVER['DOCUMENT_ROOT'] . "/includes/ADL_PDO_CON.php");
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($fflife == '1') {
 

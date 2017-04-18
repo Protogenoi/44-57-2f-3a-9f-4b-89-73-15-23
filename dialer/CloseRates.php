@@ -117,8 +117,17 @@ ORDER BY Sales, Leads");
                         $Conversionrate = $LEADS / $SALES;
                         $Formattedrate = number_format($Conversionrate, 1);
                     }
-
-                    echo '<td class="status_READY10"><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
+                    
+                    if($Formattedrate==0) {
+                   $CR_BG_COL= "bgcolor='orange'";
+                    }
+                                        if($Formattedrate<1.6 && $Formattedrate>=1) {
+                   $CR_BG_COL= "bgcolor='green'";
+                    }
+                    if($Formattedrate>1.5) {
+                   $CR_BG_COL= "bgcolor='red'";
+                    }
+                    echo '<td '.$CR_BG_COL.'><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
                 }
             }
             ?>
@@ -194,7 +203,6 @@ ORDER BY Sales, Leads");
                                                             $TRK_sale="Quote Mortgage Lead";
                                                             $TRK_BG="#669900";
                                                             break;
-                                                    
                                                         default:
                                                            $TRK_sale=$TRK_sale;
                                                             $TRK_BG="#ffffff";

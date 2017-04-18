@@ -6213,7 +6213,7 @@ switch ($hello_name) {
         <?php
         if (isset($TrackerEdit)) {
 
-            $TRACKER_EDIT = $pdo->prepare("SELECT read_dec, lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+            $TRACKER_EDIT = $pdo->prepare("SELECT lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
             $TRACKER_EDIT->bindParam(':closer', $EditCloser, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
@@ -6252,8 +6252,6 @@ switch ($hello_name) {
 
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
                 $TRK_EDIT_LEAD_UP = $TRACKER_EDIT_result['lead_up'];
-                
-                $TRK_EDIT_DEC = $TRACKER_EDIT_result['read_dec'];
                 ?>
 
                                 <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
@@ -6358,7 +6356,7 @@ switch ($hello_name) {
         if (isset($SETDATES)) {
             if ($CloserSelect != 'All') {
 
-                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);
             }
@@ -6366,7 +6364,7 @@ switch ($hello_name) {
             if ($CloserSelect != 'All') {
 
 
-                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);
             }
         }
@@ -6374,12 +6372,12 @@ switch ($hello_name) {
         if (isset($SETDATES)) {
             if ($CloserSelect == 'All') {
 
-                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
             }
         } else {
 
-            $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");
+            $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");
         }
 
         $TRACKER->execute();
@@ -6423,7 +6421,6 @@ switch ($hello_name) {
 
                 $TRK_mtg = $TRACKERresult['mtg'];
                 $TRK_lead_up = $TRACKERresult['lead_up'];
-                $TRK_read_dec = $TRACKERresult['read_dec'];
                 ?>
 
                             <tr>
@@ -6557,7 +6554,7 @@ switch ($hello_name) {
         <?php
         if (isset($TrackerEdit)) {
 
-            $TRACKER_EDIT = $pdo->prepare("SELECT read_dec, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+            $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
             $TRACKER_EDIT->bindParam(':closer', $real_name, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
@@ -6577,7 +6574,6 @@ switch ($hello_name) {
 
                 $TRK_EDIT_LEAD_UP = $TRACKER_EDIT_result['lead_up'];
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
-                $TRK_EDIT_DEC = $TRACKER_EDIT_result['read_dec'];
                 ?>
 
                                 <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
@@ -6701,7 +6697,7 @@ switch ($hello_name) {
                     </table>
                 </form>
         <?php
-        $TRACKER = $pdo->prepare("SELECT read_dec, mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+        $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
         $TRACKER->bindParam(':closer', $real_name, PDO::PARAM_STR);
         $TRACKER->execute();
         if ($TRACKER->rowCount() > 0) {
@@ -6737,15 +6733,11 @@ switch ($hello_name) {
                 $TRK_client = $TRACKERresult['client'];
                 $TRK_phone = $TRACKERresult['phone'];
                 $TRK_current_premium = $TRACKERresult['current_premium'];
-
                 $TRK_our_premium = $TRACKERresult['our_premium'];
                 $TRK_comments = $TRACKERresult['comments'];
                 $TRK_sale = $TRACKERresult['sale'];
-
-
                 $TRK_LEAD_UP = $TRACKERresult['lead_up'];
                 $TRK_MTG = $TRACKERresult['mtg'];
-                $TRK_DEC = $TRACKERresult['read_dec'];
                 ?>
 
                             <tr><td><?php echo $i; ?></td>

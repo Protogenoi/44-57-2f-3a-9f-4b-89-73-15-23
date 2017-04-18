@@ -125,7 +125,7 @@ ORDER BY Sales, Leads");
                     if ($Formattedrate <=4.9 && $Formattedrate >= 1) {
                         $CR_BG_COL = "bgcolor='green'";
                     }
-                    if ($Formattedrate > 6) {
+                    if ($Formattedrate >= 6) {
                         $CR_BG_COL = "bgcolor='red'";
                     }
                     echo '<td ' . $CR_BG_COL . '><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';

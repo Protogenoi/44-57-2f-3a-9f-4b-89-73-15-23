@@ -94,6 +94,7 @@ if ($companynamere == 'HWIFS') {
         </div>
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
+                <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
                 <li class="active"><a href="/CRMmain.php"><i class="fa fa-home">  Home</i></a></li>
                 <li><a href="/AddClient.php"><i class="fa fa-user-plus">  Add</i></a></li>
                 <li><a href="/SearchClients.php"><i class="fa fa-search">  Search</i></a></li>
@@ -169,7 +170,7 @@ if ($companynamere == 'HWIFS') {
                         </ul>
                     </li>
 
-<?php }
+                <?php } }
 
       if($ffdealsheets=='1') { 
  ?>

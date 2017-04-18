@@ -37,6 +37,11 @@ if ($companynamere == 'The Review Bureau') {
     $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Keith", "Renee", "Victoria", "Christian", "Audits", "Tiaba");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Victoria", "Christian");
     $Task_Access = array("Michael", "Abbiek", "Victoria", "Keith");
+    
+                                $Agent_Access = array ("111111111");
+                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
+                                $Manager_Access = array ("Richard","Michael","carys","leighton","Nick","Matt");
+                                $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
 }
 
 if ($companynamere == 'ADL_CUS') {
@@ -166,6 +171,39 @@ if ($companynamere == 'HWIFS') {
 
 <?php }
 
+      if($ffdealsheets=='1') { 
+ ?>
+            <li class="dropdown">
+        <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
+          E-Stats
+        <b class='caret'></b></a>
+        <ul role='menu' class='dropdown-menu'>
+            <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
+            <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $Level_9_Access, true)) { ?> 
+            <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
+            <li><a href="/Life/LifeDealSheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
+            <?php } 
+            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
+<li><a href="/Life/LifeDealSheet.php?query=CloserTrackers"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers</a></li>
+<li><a href="/Life/LifeDealSheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
+<li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>
+<?php } ?>
+<?php if (in_array($hello_name, $Manager_Access, true)) { ?>
+<li><a href="/Life/LifeDealSheet.php?query=AllCloserTrackers">Search Trackers</a></li>
+<li><a href="/Life/LifeDealSheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
+<?php } ?>
+          <?php if (in_array($hello_name, $Level_9_Access, true)) {  ?>
+          <li><a href="/Life/Reports/Pad.php">PAD</a></li>
+          <?php } if (in_array($hello_name, $QA_Access) || in_array($hello_name, $Level_9_Access, true)) {  ?>
+          <li><a href="/Life/LifeDealSheet.php?query=QADealSheets">Dealsheets for QA</a></li>
+          <li><a href="Life/LifeDealSheet.php?query=CompletedDeals">Completed Dealsheets</a></li>
+          <?php } ?>
+
+      </ul>
+      <?php
+  
+       }
+
 if (in_array($hello_name, $Level_9_Access, true)) {
     ?>
 
@@ -177,7 +215,6 @@ if (in_array($hello_name, $Level_9_Access, true)) {
                                 <li><a href="/Staff/Search.php">Search Database</a></li> 
                                 <li><a href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
                                 <li><a href="/Staff/Reports/RAG.php">RAG</a></li> 
-                                <li><a href="/Life/Reports/Pad.php">PAD</a></li> 
     <?php } ?>
                             <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php if ($hello_name == 'Michael') { ?>

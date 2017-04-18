@@ -165,49 +165,8 @@ switch ($hello_name) {
     </style>
     <body <?php if(in_array($hello_name, $Closer_Access, true)) { if($CLO_CR>='1.5') { echo "bgcolor='#B00004'"; } else { echo "bgcolor='#16A53F'" ?>   <?php } } ?>>
 
-        <div id="wrapper">
-            <div id="sidebar-wrapper">
-                <h2>&nbsp; &nbsp; &nbsp;ADL CRM</h2>
-                <div class="list-group"><br><br>
-
-                    <a class="list-group-item confirmation" href="LifeDealSheet.php"><i class="fa fa-file-o fa-fw"></i>&nbsp; New Dealsheet</a>
-
-                    <script type="text/javascript">
-                        var elems = document.getElementsByClassName('confirmation');
-                        var confirmIt = function (e) {
-                            if (!confirm('Are you sure you want to create a new dealsheet?'))
-                                e.preventDefault();
-                        };
-                        for (var i = 0, l = elems.length; i < l; i++) {
-                            elems[i].addEventListener('click', confirmIt, false);
-                        }
-                    </script>
-
-                    <a class="list-group-item" href="?query=ListCallbacks"><i class="fa fa-calendar-check-o fa-fw"></i>&nbsp; Callbacks</a>
-
-                    <button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button>
-
-                    <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Level_9_Access, true))  { ?>
-
-                        <a class="list-group-item" href="?query=CloserDealSheets"><i class="fa fa-folder-open-o fa-fw"></i>&nbsp; <?php echo $real_name; ?> Dealsheets</a>
-                        <a class="list-group-item" href="?query=AllCloserDealSheets"><i class="fa fa-folder fa-fw"></i>&nbsp; All Closer Dealsheets</a>
-                        <a class="list-group-item" href="?query=CloserTrackers"><i class="fa fa-bullseye fa-fw"></i>&nbsp; <?php echo $real_name; ?> Trackers</a>
-                        <a class="list-group-item" href="?query=AllCloserTrackers"><i class="fa fa-th-list fa-fw"></i>&nbsp; All Trackers</a>
-                        <a class="list-group-item" href="/email/KeyFactsEmail.php" target="_blank"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Keyfacts email</a>
-
-                    <?php } ?>
-
-                    <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-
-                        <a class="list-group-item" href="?query=QADealSheets"><i class="fa fa-folder-open fa-fw"></i>&nbsp; Dealsheet's for QA</a>    
-                        <a class="list-group-item" href="LifeDealSheet.php?query=CompletedDeals"><i class="fa fa-file-o fa-fw"></i>&nbsp; Completed Dealsheets</a>
-
-                    <?php } ?>
-                    <a class="list-group-item" href="../index.php?Logout"><i class="fa fa-sign-out fa-fw"></i>&nbsp; Logout</a>
-                </div>
-
-            </div>  
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><i class="fa fa-eye-slash"></i> Hide/Show Side Bar</a>
+<?php     require_once(__DIR__ . '/../includes/navbar.php'); ?>
+        
             <div class="container">
                 <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $real_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
@@ -1290,15 +1249,13 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
                                                     <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James Adams">James Adams</option>
-                                    <option value="Kyle Barnett">Kyle Barnett</option>  
-                                    <option value="Nathan James">Nathan James</option> 
-                                    <option value="Richard Michaels">Richard Michaels</option>
-                                    <option value="Ricky Dennis">Ricky Dennis</option> 
-                                    <option value="Sarah Wallace">Sarah Wallace</option>
-                                    <option value="Gavin Fulford">Gavin Fulford</option> 
-                                    <option value="Matthew Jasper">Matthew Jasper</option> 
-                                    <option value="Rhys Morris">Rhys Morris</option>
+                                    <option value="Jamess">Jamess</option>
+                                    <option value="Kyle">Kyle</option>  
+                                    <option value="David">David</option> 
+                                    <option value="Richard">Richard</option>
+                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
+                                    <option value="Sarah">Sarah</option>
+                                    <option value="Gavin">Gavin</option> 
                                     <option value="Assura">Assura</option> 
                                 </select>
                             </div>
@@ -2394,15 +2351,13 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
         <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James Adams">James Adams</option>
-                                    <option value="Kyle Barnett">Kyle Barnett</option>  
-                                    <option value="Nathan James">Nathan James</option> 
-                                    <option value="Richard Michaels">Richard Michaels</option>
-                                    <option value="Ricky Dennis">Ricky Dennis</option> 
-                                    <option value="Sarah Wallace">Sarah Wallace</option>
-                                    <option value="Gavin Fulford">Gavin Fulford</option> 
-                                    <option value="Matthew Jasper">Matthew Jasper</option> 
-                                    <option value="Rhys Morris">Rhys Morris</option>
+                                    <option value="Jamess">Jamess</option>
+                                    <option value="Kyle">Kyle</option>  
+                                    <option value="David">David</option> 
+                                    <option value="Richard">Richard</option>
+                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
+                                    <option value="Sarah">Sarah</option>
+                                    <option value="Gavin">Gavin</option> 
                                     <option value="Assura">Assura</option> 
                                 </select>
                             </div>
@@ -3501,15 +3456,13 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
         <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James Adams">James Adams</option>
-                                    <option value="Kyle Barnett">Kyle Barnett</option>  
-                                    <option value="Nathan James">Nathan James</option> 
-                                    <option value="Richard Michaels">Richard Michaels</option>
-                                    <option value="Ricky Dennis">Ricky Dennis</option> 
-                                    <option value="Sarah Wallace">Sarah Wallace</option>
-                                    <option value="Gavin Fulford">Gavin Fulford</option> 
-                                    <option value="Matthew Jasper">Matthew Jasper</option> 
-                                    <option value="Rhys Morris">Rhys Morris</option>
+                                    <option value="Jamess">Jamess</option>
+                                    <option value="Kyle">Kyle</option>  
+                                    <option value="David">David</option> 
+                                    <option value="Richard">Richard</option>
+                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
+                                    <option value="Sarah">Sarah</option>
+                                    <option value="Gavin">Gavin</option> 
                                     <option value="Assura">Assura</option> 
                                 </select>
                             </div>
@@ -5979,15 +5932,13 @@ switch ($hello_name) {
         <?php } ?>
                             <option value="CLOSER CALLBACK">SET AS CALLBACK</option>            
                             <option value="Carys Riley">Carys Riley</option>
-                            <option value="James Adams">James Adams</option>
-                            <option value="Kyle Barnett">Kyle Barnett</option>  
-                            <option value="Nathan James">Nathan James</option> 
-                            <option value="Richard Michaels">Richard Michaels</option>
-                            <option value="Ricky Dennis">Ricky Dennis</option> 
-                            <option value="Sarah Wallace">Sarah Wallace</option>
-                            <option value="Gavin Fulford">Gavin Fulford</option> 
-                            <option value="Matthew Jasper">Matthew Jasper</option> 
-                            <option value="Rhys Morris">Rhys Morris</option>
+                            <option value="Jamess">Jamess</option>
+                            <option value="Kyle">Kyle</option>  
+                            <option value="David">David</option> 
+                            <option value="Richard">Richard</option>
+                            <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah</option>
+                            <option value="Gavin">Gavin</option> 
                             <option value="Assura">Assura</option> 
                         </select>
                     </div>
@@ -6149,15 +6100,13 @@ switch ($hello_name) {
         <?php } ?>
                                 <option value="All">All</option>
                                 <option value="Michael">Michael</option>
-                                <option value="Nathan James">Nathan James</option>
-                                <option value="Sarah Wallace">Sarah Wallace</option>
-                                <option value="Ricky Derrick">Ricky Derrick</option>
-                                <option value="Richard Michaels">Richard Michaels</option>
-                                <option value="Gavin Fulford">Gavin Fulford</option>
-                                <option value="Matthew Jasper">Matthew Jasper</option>
-                                <option value="Rhys Morris">Rhys Morris</option>
-                                <option value="Kyle Barnett">Kyle Barnett</option>
-                                <option value="James Adam">James Adams<option>
+                                <option value="David">David</option>
+                                <option value="Sarah">Sarah</option>
+                                <option value="Hayley">Hayley</option>
+                                <option value="Richard">Richard</option>
+                                <option value="Gavin">Gavin</option>
+                                <option value="Kyle">Kyle</option>
+                                <option value="James">Jamess<option>
                             </select>
                         </div>
                         <div class="col-md-12">
@@ -6236,7 +6185,7 @@ switch ($hello_name) {
             ?>
                                     <option value="<?php echo $TRACKER_year; ?>"><?php echo $TRACKER_year; ?></option>
         <?php } else { ?>
-                                    <option value="2016">2016</option>
+                                    <option value="2017">2017</option>
         <?php
         }
         $INCyear = date("Y") - 100;
@@ -6264,7 +6213,7 @@ switch ($hello_name) {
         <?php
         if (isset($TrackerEdit)) {
 
-            $TRACKER_EDIT = $pdo->prepare("SELECT lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+            $TRACKER_EDIT = $pdo->prepare("SELECT read_dec, lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
             $TRACKER_EDIT->bindParam(':closer', $EditCloser, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
@@ -6274,6 +6223,7 @@ switch ($hello_name) {
                             <table id="tracker" class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Closer</th>
                                         <th>Agent</th>
                                         <th>Client</th>
                                         <th>Phone</th>
@@ -6281,7 +6231,7 @@ switch ($hello_name) {
                                         <th>Our Premium</th>
                                         <th>Comments</th>
                                         <th>DISPO</th>
-                                        <th>Lead UP?</th>
+                                        <th>DEC READ?</th>
                                         <th>MTG</th>
                                     </tr>
                                 </thead>
@@ -6302,10 +6252,14 @@ switch ($hello_name) {
 
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
                 $TRK_EDIT_LEAD_UP = $TRACKER_EDIT_result['lead_up'];
+                
+                $TRK_EDIT_DEC = $TRACKER_EDIT_result['read_dec'];
                 ?>
 
-                                <input type="hidden" value="<?php echo $TRK_EDIT_closer; ?>" name="closer">
                                 <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
+                                                                <td><input size="12" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                    echo $TRK_EDIT_closer;
+                } ?>"></td>     
                                 <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
                 } ?>"></td>                      
@@ -6384,13 +6338,10 @@ switch ($hello_name) {
                 } ?> value="Other">Other</option>
                                     </select>
                                 </td>
-
-
-
-                                <td><input size="4" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
+                                <td><input size="2" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
                     echo $TRK_EDIT_LEAD_UP;
                 } ?>"></td>
-                                <td><input size="4" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
+                                <td><input size="2" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
                     echo $TRK_EDIT_MTG;
                 } ?>"></td>
                                 <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
@@ -6407,7 +6358,7 @@ switch ($hello_name) {
         if (isset($SETDATES)) {
             if ($CloserSelect != 'All') {
 
-                $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);
             }
@@ -6415,7 +6366,7 @@ switch ($hello_name) {
             if ($CloserSelect != 'All') {
 
 
-                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);
             }
         }
@@ -6423,12 +6374,12 @@ switch ($hello_name) {
         if (isset($SETDATES)) {
             if ($CloserSelect == 'All') {
 
-                $TRACKER = $pdo->prepare("SELECT lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg,  date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE DATE(date_updated) = :date ORDER BY date_added");
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
             }
         } else {
 
-            $TRACKER = $pdo->prepare("SELECT lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");
+            $TRACKER = $pdo->prepare("SELECT read_dec, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added");
         }
 
         $TRACKER->execute();
@@ -6439,6 +6390,7 @@ switch ($hello_name) {
                         <thead>
                             <tr>
                                 <th>Row</th>
+                                <th>Closer</th>
                                 <th>Agent</th>
                                 <th>Client</th>
                                 <th>Phone</th>
@@ -6446,7 +6398,7 @@ switch ($hello_name) {
                                 <th>Our Premium</th>
                                 <th>Comments</th>
                                 <th>DISPO</th>
-                                <th>Lead UP?</th>
+                                <th>DEC READ?</th>
                                 <th>MTG</th>
                                 <th></th>
                             </tr>
@@ -6471,10 +6423,12 @@ switch ($hello_name) {
 
                 $TRK_mtg = $TRACKERresult['mtg'];
                 $TRK_lead_up = $TRACKERresult['lead_up'];
+                $TRK_read_dec = $TRACKERresult['read_dec'];
                 ?>
 
                             <tr>
                                 <td><?php echo $i; ?></td>
+                                <td><?php echo $TRK_closer; ?></td>
                                 <td><?php echo $TRK_agent; ?></td>
                                 <td><?php echo $TRK_client; ?></td>
                                 <td><?php echo $TRK_phone; ?></td>
@@ -6592,17 +6546,18 @@ switch ($hello_name) {
                                 <th>Phone</th>
                                 <th>Current Premium</th>
                                 <th>Our Premium</th>
-                                <th>Comments</th>
+                                <th>Notes</th>
                                 <th>DISPO</th>
-                                <th>Lead UP?</th>
+                                <th>DEC READ?</th>
                                 <th>MTG</th>
+                                <th></th>
                             </tr>
                         </thead>
 
         <?php
         if (isset($TrackerEdit)) {
 
-            $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+            $TRACKER_EDIT = $pdo->prepare("SELECT read_dec, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
             $TRACKER_EDIT->bindParam(':closer', $real_name, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
@@ -6622,6 +6577,7 @@ switch ($hello_name) {
 
                 $TRK_EDIT_LEAD_UP = $TRACKER_EDIT_result['lead_up'];
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
+                $TRK_EDIT_DEC = $TRACKER_EDIT_result['read_dec'];
                 ?>
 
                                 <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
@@ -6635,10 +6591,10 @@ switch ($hello_name) {
                                 <td><input size="12" class="form-control" type="text" name="phone" value="<?php if (isset($TRK_EDIT_phone)) {
                     echo $TRK_EDIT_phone;
                 } ?>"></td>
-                                <td><input size="8" class="form-control" type="text" name="current_premium" value="<?php if (isset($TRK_EDIT_current_premium)) {
+                                <td><input size="7" class="form-control" type="text" name="current_premium" value="<?php if (isset($TRK_EDIT_current_premium)) {
                     echo $TRK_EDIT_current_premium;
                 } ?>"></td>
-                                <td><input size="8" class="form-control" type="text" name="our_premium" value="<?php if (isset($TRK_EDIT_our_premium)) {
+                                <td><input size="7" class="form-control" type="text" name="our_premium" value="<?php if (isset($TRK_EDIT_our_premium)) {
                     echo $TRK_EDIT_our_premium;
                 } ?>"></td>
                                 <td><input type="text" class="form-control" name="comments" value="<?php if (isset($TRK_EDIT_comments)) {
@@ -6702,10 +6658,10 @@ switch ($hello_name) {
                     }
                 } ?> value="Other">Other</option>
                                     </select></td>
-                                <td><input size="3" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
+                                <td><input size="2" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
                     echo $TRK_EDIT_LEAD_UP;
                 } ?>"></td>
-                                <td><input size="3" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
+                                <td><input size="2" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
                     echo $TRK_EDIT_MTG;
                 } ?>"></td>
                                 <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
@@ -6736,6 +6692,7 @@ switch ($hello_name) {
                                     <option value="DETRA">Declined but passed to upsale</option>
                                     <option value="Other">Other</option>
                                 </select></td>
+                            
                             <td><input size="3" class="form-control" type="text" name="LEAD_UP"></td>
                             <td><input size="3" class="form-control" type="text" name="MTG"></td>
                             <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
@@ -6744,7 +6701,7 @@ switch ($hello_name) {
                     </table>
                 </form>
         <?php
-        $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+        $TRACKER = $pdo->prepare("SELECT read_dec, mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
         $TRACKER->bindParam(':closer', $real_name, PDO::PARAM_STR);
         $TRACKER->execute();
         if ($TRACKER->rowCount() > 0) {
@@ -6761,7 +6718,7 @@ switch ($hello_name) {
                                 <th>Our Premium</th>
                                 <th>Comments</th>
                                 <th>DISPO</th>
-                                <th>Lead UP?</th>
+                                <th>DEC READ?</th>
                                 <th>MTG</th>
                                 <th></th>
                             </tr>
@@ -6788,6 +6745,7 @@ switch ($hello_name) {
 
                 $TRK_LEAD_UP = $TRACKERresult['lead_up'];
                 $TRK_MTG = $TRACKERresult['mtg'];
+                $TRK_DEC = $TRACKERresult['read_dec'];
                 ?>
 
                             <tr><td><?php echo $i; ?></td>
@@ -6855,7 +6813,8 @@ switch ($hello_name) {
                     }
                 } ?> value="Other">Other</option>
                                     </select></td>
-                                <td><?php echo $TRK_LEAD_UP; ?></td>    
+                                                                   
+                                                             <td><?php echo $TRK_LEAD_UP; ?></td>    
                                 <td><?php echo $TRK_MTG; ?></td>
                                 <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
                 <?php }
@@ -7694,15 +7653,13 @@ switch ($hello_name) {
                     <option value="">SEND TO CLOSER OR SET AS CALLBACK</option>
                     <option value="CALLBACK">Set as Callback</option>
                     <option value="Carys Riley">Carys Riley</option>
-                    <option value="James Adams">James Adams</option>
-                    <option value="Kyle Barnett">Kyle Barnett</option>  
-                    <option value="Nathan James">Nathan James</option> 
-                    <option value="Richard Michaels">Richard Michaels</option>
-                    <option value="Ricky Dennis">Ricky Dennis</option> 
-                    <option value="Sarah Wallace">Sarah Wallace</option>
-                    <option value="Gavin Fulford">Gavin Fulford</option>
-                    <option value="Matthew Jasper">Matthew Jasper</option> 
-                    <option value="Rhys Morris">Rhys Morris</option> 
+                    <option value="Jamess">Jamess</option>
+                    <option value="Kyle">Kyle</option>  
+                    <option value="David">David</option> 
+                    <option value="Richard">Richard</option>
+                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
+                    <option value="Sarah">Sarah</option>
+                    <option value="Gavin">Gavin</option>
                     <option value="Assura">Assura</option> 
                 </select>
             </div>
@@ -7819,13 +7776,13 @@ $("#provider-json").easyAutocomplete(options);</script>
         $("#wrapper").toggleClass("toggled");
     });
 </script>
-<script>
+<!--<script>
     $(function () {
         $('#CloserSelect').change(function () {
             this.form.submit();
         });
     });
-</script>
+</script>-->
 
 <script src="/js/jquery.postcodes.min.js"></script>
 <script>

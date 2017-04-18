@@ -38,7 +38,7 @@ if(isset($fferror)) {
         
         if($query=='add') {
             
-            $INSERT = $pdo->prepare("insert into closer_trackers set read_dec=:read, mtg=:mtg, lead_up=:up, agent=:agent, closer=:closer, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale");
+            $INSERT = $pdo->prepare("insert into closer_trackers set mtg=:mtg, lead_up=:up, agent=:agent, closer=:closer, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale");
             $INSERT->bindParam(':agent', $agent, PDO::PARAM_STR); 
             $INSERT->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $INSERT->bindParam(':client', $client, PDO::PARAM_STR); 
@@ -49,7 +49,6 @@ if(isset($fferror)) {
             $INSERT->bindParam(':comments', $comments, PDO::PARAM_STR); 
             $INSERT->bindParam(':sale', $sale, PDO::PARAM_STR); 
             $INSERT->bindParam(':up', $LEAD_UP, PDO::PARAM_STR); 
-            $INSERT->bindParam(':read', $dec, PDO::PARAM_STR);
             $INSERT->execute();
             
             header('Location: ../LifeDealSheet.php?query=CloserTrackers&result=ADDED'); die;
@@ -58,7 +57,7 @@ if(isset($fferror)) {
                 
         if($query=='edit') {
             
-            $UPDATE = $pdo->prepare("UPDATE closer_trackers set read_dec=:read, mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id AND closer=:closer");
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id AND closer=:closer");
             $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $UPDATE->bindParam(':agent', $agent, PDO::PARAM_STR); 
@@ -70,7 +69,6 @@ if(isset($fferror)) {
             $UPDATE->bindParam(':comments', $comments, PDO::PARAM_STR); 
             $UPDATE->bindParam(':sale', $sale, PDO::PARAM_STR); 
             $UPDATE->bindParam(':mtg', $MTG, PDO::PARAM_STR); 
-            $UPDATE->bindParam(':read', $dec, PDO::PARAM_STR); 
             $UPDATE->execute();
             
             header('Location: ../LifeDealSheet.php?query=CloserTrackers&result=UPDATED'); die;
@@ -79,7 +77,7 @@ if(isset($fferror)) {
         
         if($query=='Alledit') {
             
-            $UPDATE = $pdo->prepare("UPDATE closer_trackers set read_dec=:read, mtg=:mtg, lead_up=:up,  closer=:closer, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up,  closer=:closer, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
             $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $UPDATE->bindParam(':agent', $agent, PDO::PARAM_STR); 
@@ -91,7 +89,6 @@ if(isset($fferror)) {
             $UPDATE->bindParam(':comments', $comments, PDO::PARAM_STR); 
             $UPDATE->bindParam(':sale', $sale, PDO::PARAM_STR); 
             $UPDATE->bindParam(':mtg', $MTG, PDO::PARAM_STR); 
-            $UPDATE->bindParam(':read', $dec, PDO::PARAM_STR);
             $UPDATE->execute();
             
             header('Location: ../LifeDealSheet.php?query=AllCloserTrackers&result=UPDATED'); die;

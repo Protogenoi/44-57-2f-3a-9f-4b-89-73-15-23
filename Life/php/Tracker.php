@@ -51,6 +51,20 @@ if(isset($fferror)) {
             $INSERT->bindParam(':up', $LEAD_UP, PDO::PARAM_STR); 
             $INSERT->execute();
             
+            $year="2017";
+            $group="NOT SET";
+            $col="NOT SET";
+            
+            $PAD_INSERT = $pdo->prepare("INSERT INTO pad_statistics SET pad_statistics_group=:group, pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status='White', pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_added_by=:hello");
+            $PAD_INSERT->bindParam(':group', $pad_group, PDO::PARAM_STR); 
+            $PAD_INSERT->bindParam(':lead', $lead, PDO::PARAM_STR); 
+            $PAD_INSERT->bindParam(':closer', $closer, PDO::PARAM_STR); 
+            $PAD_INSERT->bindParam(':notes', $comments, PDO::PARAM_STR); 
+            $PAD_INSERT->bindParam(':year', $year, PDO::PARAM_STR); 
+            $PAD_INSERT->bindParam(':col', $col, PDO::PARAM_STR);
+            $PAD_INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR); 
+            $PAD_INSERT->execute();
+            
             header('Location: ../LifeDealSheet.php?query=CloserTrackers&result=ADDED'); die;
             
         }     

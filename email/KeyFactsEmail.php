@@ -26,11 +26,7 @@ if ($ffkeyfactsemail == '0') {
     die;
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
 
-    header('Location: ../CRMmain.php?AccessDenied');
-    die;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

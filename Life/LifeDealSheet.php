@@ -6099,7 +6099,7 @@ switch ($hello_name) {
                                     <option value="">Select a closer</option>
         <?php } ?>
                                 <option value="All">All</option>
-                                <option value="Michael">Michael</option>
+                                <option value="Mike">Mike</option>
                                 <option value="David">David</option>
                                 <option value="Sarah">Sarah</option>
                                 <option value="Hayley">Hayley</option>
@@ -6278,7 +6278,7 @@ switch ($hello_name) {
                 } ?>"></td>
                                 <td>
                                     <select name="sale" class="form-control" required>
-                                        <option>DISPO</option>
+                                        <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'SALE') {
                         echo "selected";
@@ -6434,7 +6434,7 @@ switch ($hello_name) {
                                 <td><?php echo $TRK_comments; ?></td>
                                 <td>
                                     <select name="sale" class="form-control" required>
-                                        <option>DISPO</option>
+                                        <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_sale)) {
                     if ($TRK_sale == 'SALE') {
                         echo "selected";
@@ -6597,7 +6597,7 @@ switch ($hello_name) {
                     echo $TRK_EDIT_comments;
                 } ?>"></td>
                                 <td>                            <select name="sale" class="form-control" required>
-                                        <option>DISPO</option>
+                                        <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'SALE') {
                         echo "selected";
@@ -6675,7 +6675,7 @@ switch ($hello_name) {
                             <td><input size="8" class="form-control" type="text" name="our_premium"></td>
                             <td><input type="text" class="form-control" name="comments"></td>
                             <td> <select name="sale" class="form-control" required>
-                                    <option>DISPO</option>
+                                    <option value="">DISPO</option>
                                     <option value="SALE">Sale</option>
                                     <option value="QUN">Underwritten</option>
                                     <option value="QQQ">Quoted</option>
@@ -6748,7 +6748,7 @@ switch ($hello_name) {
                                 <td><?php echo $TRK_our_premium; ?></td>
                                 <td><?php echo $TRK_comments; ?></td>
                                 <td><select name="sale" class="form-control" required>
-                                        <option>DISPO</option>
+                                        <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_sale)) {
                     if ($TRK_sale == 'SALE') {
                         echo "selected";

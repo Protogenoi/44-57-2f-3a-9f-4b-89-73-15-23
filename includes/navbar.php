@@ -40,7 +40,7 @@ if ($companynamere == 'The Review Bureau') {
     
                                 $Agent_Access = array ("111111111");
                                 $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
-                                $Manager_Access = array ("Richard","Michael","carys","leighton","Nick","Matt");
+                                $Manager_Access_Access = array ("Richard","Michael","carys","leighton","Nick","Matt");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
 }
 
@@ -182,16 +182,16 @@ if ($companynamere == 'HWIFS') {
             <?php if(in_array($hello_name, $Agent_Access, true)) { ?> 
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
       <?php }
-            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true)) { ?> 
+            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?> 
             <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
             <li><a href="/Life/LifeDealSheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
             <?php } 
-            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true)) { ?>
+            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?>
 <li><a href="/Life/LifeDealSheet.php?query=CloserTrackers"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
 <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>
 <?php } ?>
-<?php if(in_array($hello_name, $Manager, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
+<?php if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserTrackers">Search Trackers</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
 <?php } ?>

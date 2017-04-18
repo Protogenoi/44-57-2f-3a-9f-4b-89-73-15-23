@@ -113,21 +113,22 @@ ORDER BY Sales, Leads");
 
                     if ($SALES == '0') {
                         $Formattedrate = "0.0";
+                        $CR_BG_COL = "bgcolor='white'";
                     } else {
                         $Conversionrate = $LEADS / $SALES;
                         $Formattedrate = number_format($Conversionrate, 1);
                     }
-                    
-                    if($Formattedrate==0) {
-                   $CR_BG_COL= "bgcolor='orange'";
+
+                    if ($Formattedrate >4.9 && $Formattedrate<6) {
+                        $CR_BG_COL = "bgcolor='orange'";
                     }
-                                        if($Formattedrate<1.6 && $Formattedrate>=1) {
-                   $CR_BG_COL= "bgcolor='green'";
+                    if ($Formattedrate <=4.9 && $Formattedrate >= 1) {
+                        $CR_BG_COL = "bgcolor='green'";
                     }
-                    if($Formattedrate>1.5) {
-                   $CR_BG_COL= "bgcolor='red'";
+                    if ($Formattedrate > 6) {
+                        $CR_BG_COL = "bgcolor='red'";
                     }
-                    echo '<td '.$CR_BG_COL.'><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
+                    echo '<td ' . $CR_BG_COL . '><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
                 }
             }
             ?>
@@ -169,44 +170,44 @@ ORDER BY Sales, Leads");
                     $TRK_our_premium = $TRACKERresult['our_premium'];
                     $TRK_comments = $TRACKERresult['comments'];
                     $TRK_sale = $TRACKERresult['sale'];
-                    
-                         switch ($TRK_sale) {
-                                                        case "QCBK":
-                                                            $TRK_sale="Quoted Callback";
-                                                            $TRK_BG="#cc99ff";
-                                                            break;
-                                                        case "SALE":
-                                                              $TRK_sale="SALE";
-                                                            $TRK_BG="#00ff00";
-                                                            break;
-                                                        case "QQQ":
-                                                               $TRK_sale="Quoted";
-                                                            $TRK_BG="#66ccff";
-                                                            break;
-                                                        case "NoCard":
-                                                               $TRK_sale="No Card Details";
-                                                            $TRK_BG="##cc0000";
-                                                            break;
-                                                        case "QUN":
-                                                               $TRK_sale="Underwritten";
-                                                            $TRK_BG="#ff0066";
-                                                            break;
-                                                        case "QNQ":
-                                                            $TRK_sale="No Quote";
-                                                            $TRK_BG="#ffcc00";
-                                                            break;
-                                                        case "DIDNO":
-                                                            $TRK_sale="Quote Not Beaten";
-                                                            $TRK_BG="#ff6600";
-                                                            break;
-                                                            case "QDE":
-                                                            $TRK_sale="Quote Mortgage Lead";
-                                                            $TRK_BG="#669900";
-                                                            break;
-                                                        default:
-                                                           $TRK_sale=$TRK_sale;
-                                                            $TRK_BG="#ffffff";
-                                                    }
+
+                    switch ($TRK_sale) {
+                        case "QCBK":
+                            $TRK_sale = "Quoted Callback";
+                            $TRK_BG = "#cc99ff";
+                            break;
+                        case "SALE":
+                            $TRK_sale = "SALE";
+                            $TRK_BG = "#00ff00";
+                            break;
+                        case "QQQ":
+                            $TRK_sale = "Quoted";
+                            $TRK_BG = "#66ccff";
+                            break;
+                        case "NoCard":
+                            $TRK_sale = "No Card Details";
+                            $TRK_BG = "##cc0000";
+                            break;
+                        case "QUN":
+                            $TRK_sale = "Underwritten";
+                            $TRK_BG = "#ff0066";
+                            break;
+                        case "QNQ":
+                            $TRK_sale = "No Quote";
+                            $TRK_BG = "#ffcc00";
+                            break;
+                        case "DIDNO":
+                            $TRK_sale = "Quote Not Beaten";
+                            $TRK_BG = "#ff6600";
+                            break;
+                        case "QDE":
+                            $TRK_sale = "Quote Mortgage Lead";
+                            $TRK_BG = "#669900";
+                            break;
+                        default:
+                            $TRK_sale = $TRK_sale;
+                            $TRK_BG = "#ffffff";
+                    }
                     ?>
 
                     <tr>
@@ -219,7 +220,8 @@ ORDER BY Sales, Leads");
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_comments; ?></strong></td>
                         <td bgcolor="<?php echo $TRK_BG; ?>"><strong><?php echo $TRK_sale; ?></strong></td>
 
-                    <?php }
+                    <?php
+                    }
                 }
                 ?>          
         </table> 

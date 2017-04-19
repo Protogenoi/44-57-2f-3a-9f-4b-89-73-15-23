@@ -1,3 +1,14 @@
+ <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>POD 1 Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>AVG</th>
+                                    <th>TOTAL</th>
+                                </tr>
+                            </thead>
 <?php foreach ($TeamPadList as $Team_Pad): ?>
 
     <?php
@@ -19,4 +30,4 @@
                    ?>"></td></tr>
 
 <?php endforeach ?>
-        
+ </table>

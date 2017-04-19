@@ -12,13 +12,13 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                                 $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
                                 $Level_9_Access = array("Michael", "Matt", "leighton","Nick","carys");
                                 $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Tina","Heidy","Nicola","Mike");
-                                $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
-                                $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Mike","Keith","Renee","Victoria","Christian","Audits","Tiaba");
-                                $Task_Access = array("Michael", "Abbiek", "Victoria","Keith");
+                                $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Victoria","Christian","Audits");
+                                $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina",'Heidy','Amy',"Victoria","Christian","Audits");
+                                $Task_Access = array("Michael", "Abbiek", "Victoria");
                                 $SECRET = array("Michael","Abbiek", "carys","Jakob","Nicola","Tina",'Amy',"Victoria","Christian");
                                 $Agent_Access = array ("111111111");
                                 $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
-                                $Manager_Access = array ("Richard");
+                                $Manager_Access = array ("Richard","Keith");
                                 $QA_Access = array ("Abbiek", "carys","Jakob","Nicola","Tina","Amy");
                                
 

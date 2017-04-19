@@ -1,4 +1,14 @@
-<?php foreach ($TeamPadList as $Team_Pad): ?>
+                                <table  class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Team Statistics</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Team</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+<?php foreach ($TeamPadList as $Team_Pad):?>
 
     <?php
     $POD_COMM = number_format($Team_Pad['COMM'], 2);
@@ -11,6 +21,9 @@
                    if (isset($POD_COMM)) {
                    echo "£$POD_COMM (Avg £$POD_AVG)";}
                    
-                   ?>"></td></tr>
+                   ?>"></td>
+    
+    </tr>
 
 <?php endforeach ?>
+                                </table>

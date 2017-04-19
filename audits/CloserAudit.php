@@ -183,7 +183,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc1" style="display:none">
-                            <textarea class="form-control"id="c1" name="c1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c1" name="c1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -226,7 +226,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc2" style="display:none">
-                            <textarea class="form-control"id="c2" name="c2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c2" name="c2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -270,7 +270,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc3" style="display:none">
-                            <textarea class="form-control"id="c3" name="c3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c3" name="c3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -314,7 +314,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc4" style="display:none">
-                            <textarea class="form-control"id="c4" name="c4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c4" name="c4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -358,7 +358,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc5" style="display:none">
-                            <textarea class="form-control"id="c5" name="c5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c5" name="c5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -411,7 +411,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc6" style="display:none">
-                            <textarea class="form-control"id="c6" name="c6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c6" name="c6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -455,7 +455,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc7" style="display:none">
-                            <textarea class="form-control"id="c7" name="c7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c7" name="c7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -499,7 +499,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                    value="No" id="noCheck">No
                         </p>
                         <div id="ifYes" style="display:none">
-                            <textarea class="form-control"id="c8" name="c8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c8" name="c8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -544,7 +544,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc9" style="display:none">
-                            <textarea class="form-control"id="c9" name="c9" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c9" name="c9" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -589,7 +589,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc10" style="display:none">
-                            <textarea class="form-control"id="c10" name="c10" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c10" name="c10" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -633,7 +633,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc11" style="display:none">
-                            <textarea class="form-control"id="c11" name="c11" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c11" name="c11" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -687,7 +687,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc12" style="display:none">
-                            <textarea class="form-control"id="c12" name="c12" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c12" name="c12" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -735,7 +735,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc53" style="display:none">
-                            <textarea class="form-control"id="c53" name="c53" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c53" name="c53" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -780,7 +780,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc13" style="display:none">
-                            <textarea class="form-control"id="c13" name="c13" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c13" name="c13" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -826,7 +826,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                         <div id="ifYesc14" style="display:none">
-                            <textarea class="form-control"id="c14" name="c14" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c14" name="c14" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -881,7 +881,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc15" style="display:none">
-                            <textarea class="form-control"id="c15" name="c15" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c15" name="c15" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -935,7 +935,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc55" style="display:none">
-                            <textarea class="form-control"id="c55" name="c55" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c55" name="c55" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -979,7 +979,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc17" style="display:none">
-                            <textarea class="form-control"id="c17" name="c17" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c17" name="c17" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1023,7 +1023,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc16" style="display:none">
-                            <textarea class="form-control"id="c16" name="c16" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c16" name="c16" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1073,7 +1073,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc31" style="display:none">
-                            <textarea class="form-control"id="c31" name="c31" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c31" name="c31" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1117,7 +1117,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc18" style="display:none">
-                            <textarea class="form-control"id="c18" name="c18" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft21" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c18" name="c18" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft21" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1161,7 +1161,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc19" style="display:none">
-                            <textarea class="form-control"id="c19" name="c19" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft22" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c19" name="c19" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft22" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1205,7 +1205,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc20" style="display:none">
-                            <textarea class="form-control"id="c20" name="c20" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c20" name="c20" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1249,7 +1249,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc21" style="display:none">
-                            <textarea class="form-control"id="c21" name="c21" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c21" name="c21" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1293,7 +1293,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc22" style="display:none">
-                            <textarea class="form-control"id="c22" name="c22" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft25" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c22" name="c22" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft25" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1337,7 +1337,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc23" style="display:none">
-                            <textarea class="form-control"id="c23" name="c23" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c23" name="c23" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft26" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1381,7 +1381,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc24" style="display:none">
-                            <textarea class="form-control"id="c24" name="c24" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c24" name="c24" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1425,7 +1425,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc25" style="display:none">
-                            <textarea class="form-control"id="c25" name="c25" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c25" name="c25" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1469,7 +1469,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc26" style="display:none">
-                            <textarea class="form-control"id="c26" name="c26" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c26" name="c26" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1512,7 +1512,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc27" style="display:none">
-                            <textarea class="form-control"id="c27" name="c27" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c27" name="c27" rows="1" cols="75" maxlength="2500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1556,7 +1556,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc28" style="display:none">
-                            <textarea class="form-control"id="c28" name="c28" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c28" name="c28" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1601,7 +1601,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </select>
                         </p>
 
-                        <textarea class="form-control"id="c29" name="c29" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
+                        <textarea class="form-control"id="c29" name="c29" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
                         <script>
                             $(document).ready(function () {
                                 $('#characterLeft32').text('500 characters left');
@@ -1644,7 +1644,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc30" style="display:none">
-                            <textarea class="form-control"id="c30" name="c30" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c30" name="c30" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1692,7 +1692,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc54" style="display:none">
-                            <textarea class="form-control"id="c54" name="c54" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c54" name="c54" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1747,7 +1747,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc32" style="display:none">
-                            <textarea class="form-control"id="c32" name="c32" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c32" name="c32" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1791,7 +1791,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc33" style="display:none">
-                            <textarea class="form-control"id="c33" name="c33" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c33" name="c33" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1835,7 +1835,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc34" style="display:none">
-                            <textarea class="form-control"id="c34" name="c34" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c34" name="c34" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1879,7 +1879,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc35" style="display:none">
-                            <textarea class="form-control"id="c35" name="c35" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c35" name="c35" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1923,7 +1923,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc36" style="display:none">
-                            <textarea class="form-control"id="c36" name="c36" rows="1" cols="75" maxlength="1500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c36" name="c36" rows="1" cols="75" maxlength="1500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1980,7 +1980,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc38" style="display:none">
-                            <textarea class="form-control"id="c38" name="c38" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c38" name="c38" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2025,7 +2025,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc39" style="display:none">
-                            <textarea class="form-control"id="c39" name="c39" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c39" name="c39" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2071,7 +2071,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc40" style="display:none">
-                            <textarea class="form-control"id="c40" name="c40" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c40" name="c40" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft43" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2115,7 +2115,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc41" style="display:none">
-                            <textarea class="form-control"id="c41" name="c41" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c41" name="c41" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft44" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2159,7 +2159,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc42" style="display:none">
-                            <textarea class="form-control"id="c42" name="c42" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c42" name="c42" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft45" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2203,7 +2203,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc43" style="display:none">
-                            <textarea class="form-control"id="c43" name="c43" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c43" name="c43" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft46" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2248,7 +2248,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc44" style="display:none">
-                            <textarea class="form-control"id="c44" name="c44" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c44" name="c44" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft47" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2295,7 +2295,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc45" style="display:none">
-                            <textarea class="form-control"id="c45" name="c45" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c45" name="c45" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft48" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2350,7 +2350,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc46" style="display:none">
-                            <textarea class="form-control"id="c46" name="c46" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c46" name="c46" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft49" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2394,7 +2394,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc47" style="display:none">
-                            <textarea class="form-control"id="c47" name="c47" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c47" name="c47" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft50" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2438,7 +2438,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc48" style="display:none">
-                            <textarea class="form-control"id="c48" name="c48" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c48" name="c48" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft51" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2482,7 +2482,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc49" style="display:none">
-                            <textarea class="form-control"id="c49" name="c49" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c49" name="c49" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft52" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2526,7 +2526,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc50" style="display:none">
-                            <textarea class="form-control"id="c50" name="c50" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c50" name="c50" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft53" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2570,7 +2570,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc51" style="display:none">
-                            <textarea class="form-control"id="c51" name="c51" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c51" name="c51" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft54" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2614,7 +2614,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </p>
 
                         <div id="ifYesc52" style="display:none">
-                            <textarea class="form-control"id="c52" name="c52" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php echo $comment; ?></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="c52" name="c52" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft55" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {

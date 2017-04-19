@@ -1,4 +1,3 @@
- 
 <table id="pad" class="table table-hover">
                         <thead>
                             <tr>

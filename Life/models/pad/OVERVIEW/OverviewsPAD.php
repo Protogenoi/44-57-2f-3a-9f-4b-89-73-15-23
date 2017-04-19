@@ -1,7 +1,5 @@
 <?php
 
-if (isset($datafrom)) {
-
     class TeamPadModal {
 
         protected $pdo;
@@ -11,7 +9,7 @@ if (isset($datafrom)) {
         }
 
         public function getTeamPad($datefrom) {
-
+if (isset($datefrom)) {
             $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
     AVG(pad_statistics_col) AS AVG,
@@ -24,20 +22,8 @@ WHERE
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
-    }
-
-} else {
-
-    class TeamPadModal {
-
-        protected $pdo;
-
-        public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
-
-        public function getTeamPad() {
+        
+        if (!isset($datefrom)) {
 
             $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
@@ -51,7 +37,7 @@ WHERE
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-    }
 
 }
+    }
 ?>

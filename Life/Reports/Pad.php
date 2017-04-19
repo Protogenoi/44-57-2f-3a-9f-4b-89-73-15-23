@@ -787,7 +787,7 @@ if (isset($datefrom)) {
         $TeamPadList = $TeamPad->POD5getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD5/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 5'");
     $Team_PAD_CK->execute();
@@ -817,7 +817,7 @@ if (isset($datefrom)) {
         $TodayPadList = $TodayPad->POD5getTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD5/Today-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -853,35 +853,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-<?php
-$stmt_SIX_COM = $pdo->prepare("SELECT 
-    SUM(pad_statistics_col) AS COMM
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6'");
-$stmt_SIX_COM->execute();
-$data_SIX_COM = $stmt_SIX_COM->fetch(PDO::FETCH_ASSOC);
 
-$stmt_SIX_status = $pdo->prepare("SELECT 
-    COUNT(pad_statistics_status) AS status_count,
-    pad_statistics_status
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 6'
-GROUP BY pad_statistics_status");
-$stmt_SIX_status->execute();
-while ($data_SIX_status = $stmt_SIX_status->fetch(PDO::FETCH_ASSOC)) {
-    ?> 
-                                    <?php echo $data_SIX_status['pad_statistics_status']; ?> 
-                                    <?php
-                                    echo $data_SIX_status['status_count'];
-                                }
-
-                                $SIX_COMM_ALL = number_format($data_SIX_COM['COMM'], 6);
-                                ?>
-                                Total: <?php echo "£$SIX_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
@@ -895,17 +867,6 @@ while ($data_SIX_status = $stmt_SIX_status->fetch(PDO::FETCH_ASSOC)) {
 
                         </div>
 
-                        <table  class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>POD 6 Statistics</th>
-                                </tr>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>AVG</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
 <?php
 if (isset($datefrom)) {
 
@@ -915,26 +876,23 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
-        $POD6TeamPad = new POD6TeamPadModal($pdo);
-        $POD6TeamPadList = $POD6TeamPad->POD6getTeamPad($datefrom);
+        $TeamPad = new POD6TeamPadModal($pdo);
+        $TeamPadList = $TeamPad->POD6getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD6/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 6'");
     $Team_PAD_CK->execute();
     if ($Team_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD6/TeamPAD.php');
-        $POD6TeamPad = new POD6TeamPadModal($pdo);
-        $POD6TeamPadList = $POD6TeamPad->POD6getTeamPad();
+        $TeamPad = new POD6TeamPadModal($pdo);
+        $TeamPadList = $TeamPad->POD6getTeamPad();
         require_once(__DIR__ . '/../views/pad/POD6/Team-PAD.php');
     }
 }
 ?>     
-                        </table>
-
-
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
@@ -948,12 +906,12 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
-        $POD6TodayPad = new POD6TodayPadModal($pdo);
-        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad($datefrom);
+        $TodayPad = new POD6TodayPadModal($pdo);
+        $TodayPadList = $TodayPad->POD6getTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
     }
-} else {
-    $TEAM = "POD 6";
+} if (!isset($datefrom)) {
+
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -965,8 +923,8 @@ WHERE
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD6/TodayPAD.php');
-        $POD6TodayPad = new POD6TodayPadModal($pdo);
-        $POD6TodayPadList = $POD6TodayPad->POD6getTodayPad();
+        $TodayPad = new POD6TodayPadModal($pdo);
+        $TodayPadList = $TodayPad->POD6getTodayPad();
         require_once(__DIR__ . '/../views/pad/POD6/Today-PAD.php');
     }
 }

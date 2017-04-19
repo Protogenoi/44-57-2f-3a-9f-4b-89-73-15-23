@@ -663,35 +663,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-<?php
-$stmt_FOUR_COM = $pdo->prepare("SELECT 
-    SUM(pad_statistics_col) AS COMM
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 4'");
-$stmt_FOUR_COM->execute();
-$data_FOUR_COM = $stmt_FOUR_COM->fetch(PDO::FETCH_ASSOC);
 
-$stmt_FOUR_status = $pdo->prepare("SELECT 
-    COUNT(pad_statistics_status) AS status_count,
-    pad_statistics_status
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='POD 4'
-GROUP BY pad_statistics_status");
-$stmt_FOUR_status->execute();
-while ($data_FOUR_status = $stmt_FOUR_status->fetch(PDO::FETCH_ASSOC)) {
-    ?> 
-                                    <?php echo $data_FOUR_status['pad_statistics_status']; ?> 
-                                    <?php
-                                    echo $data_FOUR_status['status_count'];
-                                }
-
-                                $FOUR_COMM_ALL = number_format($data_FOUR_COM['COMM'], 4);
-                                ?>
-                                Total: <?php echo "£$FOUR_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
@@ -705,17 +677,7 @@ while ($data_FOUR_status = $stmt_FOUR_status->fetch(PDO::FETCH_ASSOC)) {
 
                         </div>
 
-                        <table  class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>POD 4 Statistics</th>
-                                </tr>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>AVG</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
+
 <?php
 if (isset($datefrom)) {
 
@@ -725,8 +687,8 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD4/TeamPAD.php');
-        $POD4TeamPad = new POD4TeamPadModal($pdo);
-        $POD4TeamPadList = $POD4TeamPad->POD4getTeamPad($datefrom);
+        $TeamPad = new POD4TeamPadModal($pdo);
+        $TeamPadList = $TeamPad->POD4getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD4/Team-PAD.php');
     }
 } else {
@@ -736,13 +698,13 @@ if (isset($datefrom)) {
     if ($Team_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD4/TeamPAD.php');
-        $POD4TeamPad = new POD4TeamPadModal($pdo);
-        $POD4TeamPadList = $POD4TeamPad->POD4getTeamPad();
+        $TeamPad = new POD4TeamPadModal($pdo);
+        $TeamPadList = $TeamPad->POD4getTeamPad();
         require_once(__DIR__ . '/../views/pad/POD4/Team-PAD.php');
     }
 }
 ?>     
-                        </table>
+                     
 
 
                         <div class="row">
@@ -751,19 +713,18 @@ if (isset($datefrom)) {
 
 <?php
 if (isset($datefrom)) {
-    $TEAM = "POD 4";
+
     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)=:date AND pad_statistics_group='POD 4'");
     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD4/TodayPAD.php');
-        $POD4TodayPad = new POD4TodayPadModal($pdo);
-        $POD4TodayPadList = $POD4TodayPad->POD4getTodayPad($datefrom, $TEAM);
+        $TodayPad = new POD4TodayPadModal($pdo);
+        $TodayPadList = $TodayPad->POD4getTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD4/Today-PAD.php');
     }
-} else {
-    $TEAM = "POD 4";
+} if (!isset($datefrom)) {
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -775,8 +736,8 @@ WHERE
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/POD4/TodayPAD.php');
-        $POD4TodayPad = new POD4TodayPadModal($pdo);
-        $POD4TodayPadList = $POD4TodayPad->POD4getTodayPad($TEAM);
+        $TodayPad = new POD4TodayPadModal($pdo);
+        $TodayPadList = $TodayPad->POD4getTodayPad();
         require_once(__DIR__ . '/../views/pad/POD4/Today-PAD.php');
     }
 }

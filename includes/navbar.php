@@ -39,7 +39,7 @@ if ($companynamere == 'The Review Bureau') {
     $Task_Access = array("Michael", "Abbiek", "Victoria");
     
                                 $Agent_Access = array ("111111111");
-                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
+                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin","Keith");
                                 $Manager_Access = array ("Richard","Keith");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
 }

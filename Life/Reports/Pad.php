@@ -205,7 +205,7 @@ if (isset($datefrom)) {
     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
-echo "SMMOOSH $datefrom";
+
         require_once(__DIR__ . '/../models/pad/OVERVIEW/OverviewsPAD.php');
         $TeamPad = new TeamPadModal($pdo);
         $TeamPadList = $TeamPad->getTeamPad($datefrom);
@@ -281,7 +281,8 @@ if (isset($datefrom)) {
         $TodayPadList = $TodayPad->getTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/AllToday-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
+
     $TODAY_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE pad_statistics_added_date>=CURDATE()");
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {

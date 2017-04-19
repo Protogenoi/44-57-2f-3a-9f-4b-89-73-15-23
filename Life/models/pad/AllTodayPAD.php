@@ -1,7 +1,5 @@
 <?php
 
-if (isset($datefrom)) {
-
     class TodayPadModal {
 
         protected $pdo;
@@ -11,7 +9,7 @@ if (isset($datefrom)) {
         }
 
         public function getTodayPad($datefrom) {
-
+if (isset($datefrom)) {
             $stmt = $this->pdo->prepare("SELECT 
     pad_statistics_group,
     pad_statistics_id,
@@ -25,28 +23,15 @@ if (isset($datefrom)) {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date=:datefrom
+    DATE(pad_statistics_added_date)=:datefrom
 ORDER BY pad_statistics_added_date DESC");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+if (!isset($datefrom)) {
 
-    }
-
-} else {
     
-
-class TodayPadModal {
-
-    protected $pdo;
-
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
-
-    public function getTodayPad() {
-
         $stmt = $this->pdo->prepare("SELECT 
     pad_statistics_group,
     pad_statistics_id,
@@ -67,5 +52,6 @@ ORDER BY pad_statistics_added_date DESC");
     }
 
 }
-}
+    }
+
 ?>

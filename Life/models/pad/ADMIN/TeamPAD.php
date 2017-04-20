@@ -1,7 +1,5 @@
 <?php
 
-if (isset($datafrom)) {
-
     class ADMINTeamPadModal {
 
         protected $pdo;
@@ -11,7 +9,7 @@ if (isset($datafrom)) {
         }
 
         public function ADMINgetTeamPad($datefrom) {
-
+if (isset($datefrom)) {
             $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
     AVG(pad_statistics_col) AS AVG,
@@ -19,25 +17,13 @@ if (isset($datafrom)) {
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date=:datefrom AND pad_statistics_group='Admin' GROUP BY pad_statistics_group");
+   DATE(pad_statistics_added_date)=:datefrom AND pad_statistics_group='Admin'");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
-    }
-
-} else {
-
-    class ADMINTeamPadModal {
-
-        protected $pdo;
-
-        public function __construct(PDO $pdo) {
-            $this->pdo = $pdo;
-        }
-
-        public function ADMINgetTeamPad() {
+        
+        if (!isset($datefrom)) {
 
             $stmt = $this->pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM,
@@ -46,12 +32,12 @@ WHERE
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin' GROUP BY pad_statistics_group");
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin'");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
-    }
 
 }
+    }
 ?>

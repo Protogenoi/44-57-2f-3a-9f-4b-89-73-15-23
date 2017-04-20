@@ -947,35 +947,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-<?php
-$stmt_TRAIN_COM = $pdo->prepare("SELECT 
-    SUM(pad_statistics_col) AS COMM
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'");
-$stmt_TRAIN_COM->execute();
-$data_TRAIN_COM = $stmt_TRAIN_COM->fetch(PDO::FETCH_ASSOC);
 
-$stmt_TRAIN_status = $pdo->prepare("SELECT 
-    COUNT(pad_statistics_status) AS status_count,
-    pad_statistics_status
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'
-GROUP BY pad_statistics_status");
-$stmt_TRAIN_status->execute();
-while ($data_TRAIN_status = $stmt_TRAIN_status->fetch(PDO::FETCH_ASSOC)) {
-    ?> 
-                                    <?php echo $data_TRAIN_status['pad_statistics_status']; ?> 
-                                    <?php
-                                    echo $data_TRAIN_status['status_count'];
-                                }
-
-                                $TRAIN_COMM_ALL = number_format($data_TRAIN_COM['COMM'], 6);
-                                ?>
-                                Total: <?php echo "£$TRAIN_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
@@ -989,17 +961,6 @@ while ($data_TRAIN_status = $stmt_TRAIN_status->fetch(PDO::FETCH_ASSOC)) {
 
                         </div>
 
-                        <table  class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Training Statistics</th>
-                                </tr>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>AVG</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
 <?php
 if (isset($datefrom)) {
 
@@ -1009,26 +970,23 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
-        $TRAININGTeamPad = new TRAININGTeamPadModal($pdo);
-        $TRAININGTeamPadList = $TRAININGTeamPad->TRAININGgetTeamPad($datefrom);
+        $TeamPad = new TRAININGTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->TRAININGgetTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/TRAINING/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Training'");
     $Team_PAD_CK->execute();
     if ($Team_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/TRAINING/TeamPAD.php');
-        $TRAININGTeamPad = new TRAININGTeamPadModal($pdo);
-        $TRAININGTeamPadList = $TRAININGTeamPad->TRAININGgetTeamPad();
+        $TeamPad = new TRAININGTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->TRAININGgetTeamPad();
         require_once(__DIR__ . '/../views/pad/TRAINING/Team-PAD.php');
     }
 }
-?>     
-                        </table>
-
-
+?>
                         <div class="row">
                             <div class="list-group">
                                 <span class="label label-primary">Pad</span>
@@ -1042,11 +1000,12 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
-        $TRAININGTodayPad = new TRAININGTodayPadModal($pdo);
-        $TRAININGTodayPadList = $TRAININGTodayPad->TRAININGgetTodayPad($datefrom);
+        $TodayPad = new TRAININGTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->TRAININGgetTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
+        
     }
-} else {
+} if (!isset($datefrom)) {
 
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
@@ -1059,8 +1018,8 @@ WHERE
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/TRAINING/TodayPAD.php');
-        $TRAININGTodayPad = new TRAININGTodayPadModal($pdo);
-        $TRAININGTodayPadList = $TRAININGTodayPad->TRAININGgetTodayPad();
+        $TodayPad = new TRAININGTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->TRAININGgetTodayPad();
         require_once(__DIR__ . '/../views/pad/TRAINING/Today-PAD.php');
     }
 }

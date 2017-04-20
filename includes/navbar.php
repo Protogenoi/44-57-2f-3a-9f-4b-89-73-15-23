@@ -38,13 +38,13 @@ if ($companynamere == 'The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton","Nick","carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Victoria", "Christian");
     $Task_Access = array("Michael", "Abbiek", "Victoria");
     
                                 $Agent_Access = array ("111111111");
-                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin","Keith");
+                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
                                 $Manager_Access = array ("Richard","Keith");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
 }
@@ -184,10 +184,8 @@ if ($companynamere == 'HWIFS') {
           E-Stats
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
-            <?php if(in_array($hello_name, $Agent_Access, true)) { ?> 
+            <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?> 
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
-      <?php }
-            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?> 
             <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
             <li><a href="/Life/LifeDealSheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
             <?php } 
@@ -197,6 +195,7 @@ if ($companynamere == 'HWIFS') {
 <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>
 <?php } ?>
 <?php if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
+<li><a href="/Life/LifeDealSheet.php?query=Upsells">Search Upsells</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserTrackers">Search Trackers</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
 <?php } ?>

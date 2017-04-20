@@ -1,22 +1,29 @@
-<?php foreach ($ADMINTeamPadList as $ADMINTeam_Pad): ?>
+                                <table  class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Admin Statistics</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Team</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+<?php foreach ($TeamPadList as $Team_Pad):?>
 
     <?php
-    $ADMIN_COMM = number_format($ADMINTeam_Pad['COMM'], 2);
-    $ADMIN_AVG = number_format($ADMINTeam_Pad['AVG'], 2);
-    $ADMIN_TEAM = $ADMINTeam_Pad['pad_statistics_group'];
+    $POD_COMM = number_format($Team_Pad['COMM'], 2);
+    $POD_AVG = number_format($Team_Pad['AVG'], 2);
+    $POD_TEAM = $Team_Pad['pad_statistics_group'];
     ?>
     <tr>
-        <td><?php echo $ADMIN_TEAM; ?></td>
-                <td><input size="8" disabled class="form-control" type="currency" name="ADMIN_AVG" value="<?php
-                   if (isset($ADMIN_AVG)) {
-                       echo "£$ADMIN_AVG";
-                   }
+        <td><?php echo $POD_TEAM; ?></td>
+        <td><input size="8" disabled class="form-control" type="currency" name="POD_COMM" value="<?php
+                   if (isset($POD_COMM)) {
+                   echo "£$POD_COMM (Avg £$POD_AVG)";}
+                   
                    ?>"></td>
-        <td><input size="8" disabled class="form-control" type="currency" name="ADMIN_COMM" value="<?php
-                   if (isset($ADMIN_COMM)) {
-                       echo "£$ADMIN_COMM";
-                   }
-                   ?>"></td></tr>
+    
+    </tr>
 
 <?php endforeach ?>
-        
+                                </table>

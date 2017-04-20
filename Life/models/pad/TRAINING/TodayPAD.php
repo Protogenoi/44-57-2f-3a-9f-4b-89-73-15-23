@@ -1,18 +1,16 @@
 <?php
 
-if (isset($datafrom)) {  
-    
     class TRAININGTodayPadModal {
 
-    protected $pdo;
+        protected $pdo;
 
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
+        public function __construct(PDO $pdo) {
+            $this->pdo = $pdo;
+        }
 
-    public function TRAININGgetTodayPad($datefrom) {
-
-        $stmt = $this->pdo->prepare("SELECT 
+        public function TRAININGgetTodayPad($datefrom) {
+if (isset($datefrom)) {
+            $stmt = $this->pdo->prepare("SELECT 
     pad_statistics_group,
     pad_statistics_id,
     pad_statistics_lead,
@@ -20,32 +18,18 @@ if (isset($datafrom)) {
     pad_statistics_notes,
     pad_statistics_status,
     pad_statistics_col,
-    DATE(pad_statistics_update_date) AS pad_statistics_update_date,
-    pad_statistics_group
+    DATE(pad_statistics_update_date) AS pad_statistics_update_date
 FROM
     pad_statistics
 WHERE
-    DATE(pad_statistics_update_date)=:datefrom  AND pad_statistics_group='Training'
-ORDER BY pad_statistics_added_date DESC");
-        $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    DATE(pad_statistics_added_date)=:datefrom AND pad_statistics_group='TRAINING'");
+            $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+if (!isset($datefrom)) {
 
-}
     
-} else {
-
-class TRAININGTodayPadModal {
-
-    protected $pdo;
-
-    public function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
-    }
-
-    public function TRAININGgetTodayPad() {
-
         $stmt = $this->pdo->prepare("SELECT 
     pad_statistics_group,
     pad_statistics_id,
@@ -54,19 +38,16 @@ class TRAININGTodayPadModal {
     pad_statistics_notes,
     pad_statistics_status,
     pad_statistics_col,
-    DATE(pad_statistics_update_date) AS pad_statistics_update_date,
-    pad_statistics_group
+    DATE(pad_statistics_update_date) AS pad_statistics_update_date
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Training'
-ORDER BY pad_statistics_added_date DESC");
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='TRAINING'");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
-
-}
+    }
 
 ?>

@@ -1,22 +1,29 @@
-<?php foreach ($CLOSERTeamPadList as $CLOSERTeam_Pad): ?>
+                                <table  class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Closer Statistics</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Team</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+<?php foreach ($TeamPadList as $Team_Pad):?>
 
     <?php
-    $CLOSER_COMM = number_format($CLOSERTeam_Pad['COMM'], 2);
-    $CLOSER_AVG = number_format($CLOSERTeam_Pad['AVG'], 2);
-    $CLOSER_TEAM = $CLOSERTeam_Pad['pad_statistics_group'];
+    $POD_COMM = number_format($Team_Pad['COMM'], 2);
+    $POD_AVG = number_format($Team_Pad['AVG'], 2);
+    $POD_TEAM = $Team_Pad['pad_statistics_group'];
     ?>
     <tr>
-        <td><?php echo $CLOSER_TEAM; ?></td>
-                <td><input size="8" disabled class="form-control" type="currency" name="CLOSER_AVG" value="<?php
-                   if (isset($CLOSER_AVG)) {
-                       echo "£$CLOSER_AVG";
-                   }
+        <td><?php echo $POD_TEAM; ?></td>
+        <td><input size="8" disabled class="form-control" type="currency" name="POD_COMM" value="<?php
+                   if (isset($POD_COMM)) {
+                   echo "£$POD_COMM (Avg £$POD_AVG)";}
+                   
                    ?>"></td>
-        <td><input size="8" disabled class="form-control" type="currency" name="CLOSER_COMM" value="<?php
-                   if (isset($CLOSER_COMM)) {
-                       echo "£$CLOSER_COMM";
-                   }
-                   ?>"></td></tr>
+    
+    </tr>
 
 <?php endforeach ?>
-        
+                                </table>

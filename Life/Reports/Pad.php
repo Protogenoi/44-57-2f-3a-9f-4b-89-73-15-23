@@ -143,7 +143,7 @@ WHERE
 GROUP BY pad_statistics_status");
                                     $stmt_status->bindParam(':date', $datefrom, PDO::PARAM_STR);
                                      $stmt_status->execute();
-                                } else {
+                                } if (!isset($datefrom)) {
 
                                     $stmt = $pdo->prepare("SELECT 
     SUM(pad_statistics_col) AS COMM
@@ -495,7 +495,7 @@ if (isset($datefrom)) {
         $TeamPadList = $TeamPad->POD2getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD2/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 2'");
     $Team_PAD_CK->execute();
@@ -529,7 +529,7 @@ if (isset($datefrom)) {
         require_once(__DIR__ . '/../views/pad/POD2/Today-PAD.php');
         
     }
-} else {
+} if (!isset($datefrom)) {
 
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
@@ -593,7 +593,7 @@ if (isset($datefrom)) {
         $TeamPadList = $TeamPad->POD3getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD3/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 3'");
     $Team_PAD_CK->execute();
@@ -626,8 +626,8 @@ if (isset($datefrom)) {
         $TodayPadList = $TodayPad->POD3getTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD3/Today-PAD.php');
     }
-} else {
-    $TEAM = "POD 3";
+} if (!isset($datefrom)) {
+    
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -691,7 +691,7 @@ if (isset($datefrom)) {
         $TeamPadList = $TeamPad->POD4getTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/POD4/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='POD 4'");
     $Team_PAD_CK->execute();
@@ -1068,7 +1068,7 @@ if (isset($datefrom)) {
         $TeamPadList = $TeamPad->CLOSERgetTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/CLOSER/Team-PAD.php');
     }
-} else {
+}if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Closers'");
     $Team_PAD_CK->execute();
@@ -1100,7 +1100,7 @@ if (isset($datefrom)) {
         require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
 
     }
-} else {
+} if (!isset($datefrom)) {
 
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
@@ -1137,35 +1137,6 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-<?php
-$stmt_ADM_COM = $pdo->prepare("SELECT 
-    SUM(pad_statistics_col) AS COMM
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin'");
-$stmt_ADM_COM->execute();
-$data_ADM_COM = $stmt_ADM_COM->fetch(PDO::FETCH_ASSOC);
-
-$stmt_ADM_status = $pdo->prepare("SELECT 
-    COUNT(pad_statistics_status) AS status_count,
-    pad_statistics_status
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Admin'
-GROUP BY pad_statistics_status");
-$stmt_ADM_status->execute();
-while ($data_ADM_status = $stmt_ADM_status->fetch(PDO::FETCH_ASSOC)) {
-    ?> 
-                                    <?php echo $data_ADM_status['pad_statistics_status']; ?> 
-                                    <?php
-                                    echo $data_ADM_status['status_count'];
-                                }
-
-                                $ADM_COMM_ALL = number_format($data_ADM_COM['COMM'], 6);
-                                ?>
-                                Total: <?php echo "£$ADM_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
@@ -1179,17 +1150,6 @@ while ($data_ADM_status = $stmt_ADM_status->fetch(PDO::FETCH_ASSOC)) {
 
                         </div>
 
-                        <table  class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Admin Statistics</th>
-                                </tr>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>AVG</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
 <?php
 if (isset($datefrom)) {
 
@@ -1199,24 +1159,23 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
-        $ADMINTeamPad = new ADMINTeamPadModal($pdo);
-        $ADMINTeamPadList = $ADMINTeamPad->ADMINgetTeamPad($datefrom);
+        $TeamPad = new ADMINTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->ADMINgetTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $Team_PAD_CK = $pdo->prepare("SELECT pad_statistics_id from pad_statistics WHERE DATE(pad_statistics_added_date)>=CURDATE() AND pad_statistics_group='Admin'");
     $Team_PAD_CK->execute();
     if ($Team_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
-        $ADMINTeamPad = new ADMINTeamPadModal($pdo);
-        $ADMINTeamPadList = $ADMINTeamPad->ADMINgetTeamPad();
+        $TeamPad = new ADMINTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->ADMINgetTeamPad();
         require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
     }
 }
 ?>     
-                        </table>
 
 
                         <div class="row">
@@ -1232,11 +1191,11 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
-        $ADMINTodayPad = new ADMINTodayPadModal($pdo);
-        $ADMINTodayPadList = $ADMINTodayPad->ADMINgetTodayPad($datefrom);
+        $TodayPad = new ADMINTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->ADMINgetTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
@@ -1249,8 +1208,8 @@ WHERE
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
-        $ADMINTodayPad = new ADMINTodayPadModal($pdo);
-        $ADMINTodayPadList = $ADMINTodayPad->ADMINgetTodayPad();
+        $TodayPad = new ADMINTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->ADMINgetTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
     }
 }
@@ -1333,7 +1292,7 @@ if (isset($datefrom)) {
         $YesterdayPadList = $Yesterday_Pad->getYesterdayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/Yesterday-PAD.php');
     }
-} else {
+} if (!isset($datefrom)) {
 
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id

@@ -32,7 +32,7 @@ WHERE
 FROM
     pad_statistics
 WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='TRAINING");
+    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='TRAINING'");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }

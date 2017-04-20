@@ -1041,35 +1041,7 @@ WHERE
                         <div class="col-md-12">
 
                             <div class="col-md-4">
-<?php
-$stmt_CLO_COM = $pdo->prepare("SELECT 
-    SUM(pad_statistics_col) AS COMM
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Closers'");
-$stmt_CLO_COM->execute();
-$data_CLO_COM = $stmt_CLO_COM->fetch(PDO::FETCH_ASSOC);
 
-$stmt_CLO_status = $pdo->prepare("SELECT 
-    COUNT(pad_statistics_status) AS status_count,
-    pad_statistics_status
-FROM
-    pad_statistics
-WHERE
-    pad_statistics_added_date >= CURDATE() AND pad_statistics_group='Closers'
-GROUP BY pad_statistics_status");
-$stmt_CLO_status->execute();
-while ($data_CLO_status = $stmt_CLO_status->fetch(PDO::FETCH_ASSOC)) {
-    ?> 
-                                    <?php echo $data_CLO_status['pad_statistics_status']; ?> 
-                                    <?php
-                                    echo $data_CLO_status['status_count'];
-                                }
-
-                                $CLO_COMM_ALL = number_format($data_CLO_COM['COMM'], 6);
-                                ?>
-                                Total: <?php echo "£$CLO_COMM_ALL"; ?>
 
                             </div>
                             <div class="col-md-4"></div>
@@ -1083,17 +1055,6 @@ while ($data_CLO_status = $stmt_CLO_status->fetch(PDO::FETCH_ASSOC)) {
 
                         </div>
 
-                        <table  class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Closer Statistics</th>
-                                </tr>
-                                <tr>
-                                    <th>Team</th>
-                                    <th>AVG</th>
-                                    <th>TOTAL</th>
-                                </tr>
-                            </thead>
 <?php
 if (isset($datefrom)) {
 
@@ -1103,8 +1064,8 @@ if (isset($datefrom)) {
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
-        $CLOSERTeamPad = new CLOSERTeamPadModal($pdo);
-        $CLOSERTeamPadList = $CLOSERTeamPad->CLOSERgetTeamPad($datefrom);
+        $TeamPad = new CLOSERTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->CLOSERgetTeamPad($datefrom);
         require_once(__DIR__ . '/../views/pad/CLOSER/Team-PAD.php');
     }
 } else {
@@ -1114,14 +1075,12 @@ if (isset($datefrom)) {
     if ($Team_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/CLOSER/TeamPAD.php');
-        $CLOSERTeamPad = new CLOSERTeamPadModal($pdo);
-        $CLOSERTeamPadList = $CLOSERTeamPad->CLOSERgetTeamPad();
+        $TeamPad = new CLOSERTeamPadModal($pdo);
+        $TeamPadList = $TeamPad->CLOSERgetTeamPad();
         require_once(__DIR__ . '/../views/pad/CLOSER/Team-PAD.php');
     }
 }
 ?>     
-                        </table>
-
 
                         <div class="row">
                             <div class="list-group">
@@ -1134,14 +1093,15 @@ if (isset($datefrom)) {
     $TODAY_PAD_CK->bindParam(':date', $datefrom, PDO::PARAM_STR);
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
-
+     
         require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
-        $CLOSERTodayPad = new CLOSERTodayPadModal($pdo);
-        $CLOSERTodayPadList = $CLOSERTodayPad->CLOSERgetTodayPad($datefrom);
+        $TodayPad = new CLOSERTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->CLOSERgetTodayPad($datefrom);
         require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
+
     }
 } else {
-    $TEAM = "Closer";
+
     $TODAY_PAD_CK = $pdo->prepare("SELECT 
     pad_statistics_id
 FROM
@@ -1153,8 +1113,8 @@ WHERE
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
         require_once(__DIR__ . '/../models/pad/CLOSER/TodayPAD.php');
-        $CLOSERTodayPad = new CLOSERTodayPadModal($pdo);
-        $CLOSERTodayPadList = $CLOSERTodayPad->CLOSERgetTodayPad();
+        $TodayPad = new CLOSERTodayPadModal($pdo);
+        $TodayPadList = $TodayPad->CLOSERgetTodayPad();
         require_once(__DIR__ . '/../views/pad/CLOSER/Today-PAD.php');
     }
 }

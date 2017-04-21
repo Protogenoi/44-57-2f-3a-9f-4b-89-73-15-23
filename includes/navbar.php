@@ -192,7 +192,7 @@ if ($companynamere == 'HWIFS') {
 <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>
 <?php } ?>
 <?php if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
-<li><a href="/Life/LifeDealSheet.php?query=Upsells">Search Upsells</a></li>
+<li><a href="/Life/Trackers.php?query=DEFAULT&result=UPDATED">Search Upsells</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserTrackers">Search Trackers</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
 <?php } ?>

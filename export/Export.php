@@ -59,8 +59,51 @@ if(isset($query)) {
         if($query=='LIFE') {
             $simply_biz = "2.5";
             
-            $output = "Application_Number,Policy_Number, Sale_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
-            $query = $pdo->prepare("SELECT financial_statistics_history.payment_amount, client_policy.application_number, client_policy.policy_number, DATE(client_policy.sale_date) AS sale_date, client_policy.commission, DATE(financial_statistics_history.insert_date) AS insert_date, '' AS empty_col , client_policy.client_name, '' AS empty_col , client_details.phone_number,  client_details.alt_number, CONCAT(client_details.dob,' - ',client_details.dob2) AS CDOB, client_details.email, client_details.address1, client_details.address2, CONCAT(client_details.address3, ' ', client_details.town) AS TOWN, client_details.post_code, client_policy.premium, client_policy.type, client_policy.commission,'' AS empty_col ,'' AS empty_col2 , CONCAT(client_policy.lead, '/', client_policy.closer) AS AGENTS, client_policy.policystatus, client_policy.insurer, client_policy.submitted_by, client_details.company, client_details.submitted_date FROM  client_policy LEFT JOIN client_details ON client_policy.client_id=client_details.client_id LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number  WHERE DATE(client_policy.sale_date) between :datefrom and :dateto OR (DATE(client_policy.submitted_date) between :datefrom2 and :dateto2)");
+            $output = "Application_Number,Policy_Number, Sale_Date, OLP_Live_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $query = $pdo->prepare("SELECT 
+    financial_statistics_history.payment_amount,
+    client_policy.application_number,
+    client_policy.policy_number,
+    DATE(client_policy.sale_date) AS sale_date,
+    client_policy.commission,
+    DATE(financial_statistics_history.insert_date) AS insert_date,
+    '' AS empty_col,
+    client_policy.client_name,
+    '' AS empty_col,
+    client_details.phone_number,
+    client_details.alt_number,
+    CONCAT(client_details.dob,
+            ' - ',
+            client_details.dob2) AS CDOB,
+    client_details.email,
+    client_details.address1,
+    client_details.address2,
+    CONCAT(client_details.address3,
+            ' ',
+            client_details.town) AS TOWN,
+    client_details.post_code,
+    client_policy.premium,
+    client_policy.type,
+    client_policy.commission,
+    '' AS empty_col,
+    '' AS empty_col2,
+    CONCAT(client_policy.lead,
+            '/',
+            client_policy.closer) AS AGENTS,
+    client_policy.policystatus,
+    client_policy.insurer,
+    client_policy.submitted_by,
+    client_details.company,
+    DATE(client_details.submitted_date) AS submitted_date
+FROM
+    client_policy
+        LEFT JOIN
+    client_details ON client_policy.client_id = client_details.client_id
+        LEFT JOIN
+    financial_statistics_history ON financial_statistics_history.policy = client_policy.policy_number
+WHERE
+    DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2");
             $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
             $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
             $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
@@ -73,7 +116,7 @@ if(isset($query)) {
                 $pipe=$rs['commission']-$ADL_AMOUNT;  
                 $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
                 
-                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['submitted_date'].",".$rs['sale_date'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
                 
             }
             echo $output;
@@ -83,7 +126,7 @@ if(isset($query)) {
         if($query=='LIFECOMM') {
             $simply_biz = "2.5";
             
-            $output = "Application_Number,Policy_Number, Sale_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,COMM_NAME,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $output = "Application_Number,Policy_Number, Sale_Date, COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,COMM_NAME,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 
 	client_policy.application_number,
     client_policy.policy_number,

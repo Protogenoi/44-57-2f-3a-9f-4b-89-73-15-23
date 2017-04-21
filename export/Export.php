@@ -59,12 +59,13 @@ if(isset($query)) {
         if($query=='LIFE') {
             $simply_biz = "2.5";
             
-            $output = "Application_Number,Policy_Number, Sale_Date, OLP_Live_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 
     financial_statistics_history.payment_amount,
     client_policy.application_number,
     client_policy.policy_number,
-    DATE(client_policy.sale_date) AS sale_date,
+    CONCAT(DATE(client_policy.submitted_date), ' - ',
+    DATE(client_policy.sale_date)) as sale_sub,
     client_policy.commission,
     DATE(financial_statistics_history.insert_date) AS insert_date,
     '' AS empty_col,
@@ -94,7 +95,7 @@ if(isset($query)) {
     client_policy.insurer,
     client_policy.submitted_by,
     client_details.company,
-    DATE(client_details.submitted_date) AS submitted_date
+    client_details.submitted_date
 FROM
     client_policy
         LEFT JOIN
@@ -115,8 +116,9 @@ WHERE
                  $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
                 $pipe=$rs['commission']-$ADL_AMOUNT;  
                 $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
+
                 
-                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['submitted_date'].",".$rs['sale_date'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
                 
             }
             echo $output;

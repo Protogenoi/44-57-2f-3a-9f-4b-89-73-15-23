@@ -581,7 +581,7 @@ if (isset($Single_Client['callauditid'])) {
                                 $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                                 $LG_CHECK->execute();
                                 if ($LG_CHECK->rowCount() > 0) {
-
+                                    $LANG_POL="1";
                                     require_once(__DIR__ . '/models/LGPoliciesModel.php');
                                     $LGPolicies = new LGPoliciesModal($pdo);
                                     $LGPoliciesList = $LGPolicies->getLGPolicies($search);
@@ -592,7 +592,7 @@ if (isset($Single_Client['callauditid'])) {
                                 $VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                                 $VIT_CHECK->execute();
                                 if ($VIT_CHECK->rowCount() > 0) {
-
+                                    $VITALITY_POL="1";
                                     require_once(__DIR__ . '/models/VITALITYPoliciesModal.php');
                                     $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                                     $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
@@ -603,7 +603,7 @@ if (isset($Single_Client['callauditid'])) {
                                 $WOL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                                 $WOL_CHECK->execute();
                                 if ($WOL_CHECK->rowCount() > 0) {
-
+                                    $WOL_POL="1";
                                     require_once(__DIR__ . '/models/WOLPoliciesModal.php');
                                     $WOLPolicies = new WOLPoliciesModal($pdo);
                                     $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
@@ -614,7 +614,7 @@ if (isset($Single_Client['callauditid'])) {
                                 $RL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                                 $RL_CHECK->execute();
                                 if ($RL_CHECK->rowCount() > 0) {
-
+                                    $RL_POL="1";
                                     require_once(__DIR__ . '/models/RLPoliciesModel.php');
                                     $RLPolicies = new RLPoliciesModal($pdo);
                                     $RLPoliciesList = $RLPolicies->getRLPolicies($search);
@@ -625,7 +625,7 @@ if (isset($Single_Client['callauditid'])) {
                                 $Aviva_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                                 $Aviva_CHECK->execute();
                                 if ($Aviva_CHECK->rowCount() > 0) {
-
+                                    $AVIVA_POL="1";
                                     require_once(__DIR__ . '/models/AvivaPoliciesModal.php');
                                     $AvivaPolicies = new AvivaPoliciesModal($pdo);
                                     $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
@@ -1092,25 +1092,46 @@ if (isset($Single_Client['callauditid'])) {
                                         <option value="">Select...</option>
                                         <option value="Closer Call Recording">Closer Call Recording</option>
                                         <option value="Agent Call Recording">Agent Call Recording</option>
+                                        <option value="Dealsheet">Life Dealsheet</option>
+                                        <option disabled>──────────</option>
                                         <option value="Admin Call Recording">Admin Call Recording</option>
                                         <option value="Recording">Call Recording</option>
                                         <option value="Happy Call">Happy Call Recording</option>
                                         <option value="LifeCloserAudit">Closer Audit</option>
                                         <option value="LifeLeadAudit">Lead Audit</option>
-                                        <option value="Dealsheet">Life Dealsheet</option>
-                                        <?php if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') { ?>
+                                        <option disabled>──────────</option>
+                                        <?php 
+                                        if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality' || $VITALITY_POL=='1') { ?>
                                             <option value="Vitalitypolicy">Vitality App</option>
                                             <option value="Vitalitykeyfacts">Vitality Keyfacts</option>
-                                        <?php } elseif ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') { ?>
+                                            <option disabled>──────────</option>
+                                        <?php } 
+                                        if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London' || $RL_POL=='1') { ?>
                                             <option value="RLpolicy">Royal London App</option>
                                             <option value="RLkeyfacts">Royal London Keyfacts</option>
-                                        <?php } else {
+                                            <option disabled>──────────</option>
+                                        <?php } if(isset($LANG_POL) && $LANG_POL=='1') {
                                             ?>
                                             <option value="LGpolicy">L&G App</option>
                                             <option value="LGkeyfacts">L&G Keyfacts</option>
-                                        <?php } if ($WHICH_COMPANY == 'Assura') { ?>
+                                            <option disabled>──────────</option>
+                                        <?php } 
+                                        if(isset($WOL_POL) && $WOL_POL=="1") {
+                                            ?>
+                                            <option value="WOLpolicy">One Family App</option>
+                                            <option value="WOLkeyfacts">One Family Keyfacts</option>
+                                            <option disabled>──────────</option>
+                                        <?php } 
+                                        if(isset($AVIVA_POL) && $AVIVA_POL=='1') {
+                                            ?>
+                                            <option value="Avivapolicy">Aviva App</option>
+                                            <option value="Avivakeyfacts">Aviva Keyfacts</option>
+                                            <option disabled>──────────</option>
+                                        <?php } 
+                                        if ($WHICH_COMPANY == 'Assura') { ?>
                                             <option value="AssuraPol">Assura Policy</option>
                                         <?php } ?>
+                                        
                                         <option value="lifenotes">Notes</option>
                                         <option value="Other">Other</option>
                                     </select>

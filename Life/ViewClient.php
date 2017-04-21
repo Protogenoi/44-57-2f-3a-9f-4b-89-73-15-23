@@ -1099,41 +1099,27 @@ if (isset($Single_Client['callauditid'])) {
                                         <option value="Happy Call">Happy Call Recording</option>
                                         <option value="LifeCloserAudit">Closer Audit</option>
                                         <option value="LifeLeadAudit">Lead Audit</option>
-                                        <option disabled>──────────</option>
-                                        <?php 
-                                        if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality' || $VITALITY_POL=='1') { ?>
+                                        <option disabled>──────────</option>                                  
                                             <option value="Vitalitypolicy">Vitality App</option>
                                             <option value="Vitalitykeyfacts">Vitality Keyfacts</option>
                                             <option disabled>──────────</option>
-                                        <?php } 
-                                        if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London' || $RL_POL=='1') { ?>
                                             <option value="RLpolicy">Royal London App</option>
                                             <option value="RLkeyfacts">Royal London Keyfacts</option>
                                             <option disabled>──────────</option>
-                                        <?php } if(isset($LANG_POL) && $LANG_POL=='1') {
-                                            ?>
                                             <option value="LGpolicy">L&G App</option>
                                             <option value="LGkeyfacts">L&G Keyfacts</option>
                                             <option disabled>──────────</option>
-                                        <?php } 
-                                        if(isset($WOL_POL) && $WOL_POL=="1") {
-                                            ?>
                                             <option value="WOLpolicy">One Family App</option>
                                             <option value="WOLkeyfacts">One Family Keyfacts</option>
                                             <option disabled>──────────</option>
-                                        <?php } 
-                                        if(isset($AVIVA_POL) && $AVIVA_POL=='1') {
-                                            ?>
                                             <option value="Avivapolicy">Aviva App</option>
                                             <option value="Avivakeyfacts">Aviva Keyfacts</option>
                                             <option disabled>──────────</option>
-                                        <?php } 
-                                        if ($WHICH_COMPANY == 'Assura') { ?>
                                             <option value="AssuraPol">Assura Policy</option>
-                                        <?php } ?>
-                                        
+                                            <option disabled>──────────</option>
                                         <option value="lifenotes">Notes</option>
                                         <option value="Other">Other</option>
+                                        <option disabled>──────────</option>
                                     </select>
                                 </div>
                             </label>

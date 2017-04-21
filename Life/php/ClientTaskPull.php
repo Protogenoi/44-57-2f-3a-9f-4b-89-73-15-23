@@ -38,104 +38,104 @@ if(isset($option)) {
     $SELECTquery->execute();
     $result=$SELECTquery->fetch(PDO::FETCH_ASSOC);
     
-    $VAR1=$result['Upsells'];
-    $VAR2=$result['PitchTrust'];
-    $VAR3=$result['PitchTPS'];
-    $VAR4=$result['RemindDD'];
-    $VAR5=$result['CYDReturned'];
-    $VAR6=$result['DocsArrived'];
-    $VAR7=$result['HappyPol'];
+    $VAR_ONE=$result['Upsells'];
+    $VAR_TWO=$result['PitchTrust'];
+    $VAR_THREE=$result['PitchTPS'];
+    $VAR_FOUR=$result['RemindDD'];
+    $VAR_FIVE=$result['CYDReturned'];
+    $VAR_SIX=$result['DocsArrived'];
+    $VAR_SEVEN=$result['HappyPol'];
     
-    $ORIGVAR1=$result['Upsells'];
-    $ORIGVAR2=$result['PitchTrust'];
-    $ORIGVAR3=$result['PitchTPS'];
-    $ORIGVAR4=$result['RemindDD'];
-    $ORIGVAR5=$result['CYDReturned'];
-    $ORIGVAR6=$result['DocsArrived'];
-    $ORIGVAR7=$result['HappyPol'];
+    $ORIGVAR_ONE=$result['Upsells'];
+    $ORIGVAR_TWO=$result['PitchTrust'];
+    $ORIGVAR_THREE=$result['PitchTPS'];
+    $ORIGVAR_FOUR=$result['RemindDD'];
+    $ORIGVAR_FIVE=$result['CYDReturned'];
+    $ORIGVAR_SIX=$result['DocsArrived'];
+    $ORIGVAR_SEVEN=$result['HappyPol'];
     
     
-    if($VAR1 != $Upsells) {
+    if($VAR_ONE != $Upsells) {
         
-        $VAR1="| Upsells - $Upsells |";
+        $VAR_ONE="| Upsells - $Upsells |";
         
     }
     
     else {
         
-        unset($VAR1);
+        unset($VAR_ONE);
         
     }
     
-        if($VAR2 != $PitchTrust) {
+        if($VAR_TWO != $PitchTrust) {
             
-            $VAR2="|Pitch Trust - $PitchTrust |";
+            $VAR_TWO="|Pitch Trust - $PitchTrust |";
         
     }
     
     else {
         
-        unset($VAR2);
+        unset($VAR_TWO);
         
     }
     
-        if($VAR3 != $PitchTPS) {
+        if($VAR_THREE != $PitchTPS) {
             
-            $VAR3="| Pitch TPS - $PitchTPS |";
+            $VAR_THREE="| Pitch TPS - $PitchTPS |";
         
     }
     
         else {
         
-        unset($VAR3);
+        unset($VAR_THREE);
         
     }
     
-        if($VAR4 != $RemindDD) {
+        if($VAR_FOUR != $RemindDD) {
             
-            $VAR4="| Remind/Cancel Old/New DD - $RemindDD |";
+            $VAR_FOUR="| Remind/Cancel Old/New DD - $RemindDD |";
         
     }
     
         else {
         
-        unset($VAR4);
+        unset($VAR_FOUR);
         
     }
     
-        if($VAR5 != $CYDReturned) {
-            $VAR5="| CYD Returned? - $CYDReturned |";
-            $CYDnotes=$VAR5;
+        if($VAR_FIVE != $CYDReturned) {
+            $VAR_FIVE="| CYD Returned? - $CYDReturned |";
+            $CYDnotes=$VAR_FIVE;
             
         }
         else {
-            unset($VAR5);            
+            unset($VAR_FIVE);            
             $CYDnotes="No changes";
             
         }
     
     
-        if($VAR6 != $DocsArrived) {
+        if($VAR_SIX != $DocsArrived) {
             
-            $VAR6="| Docs Emailed? - $DocsArrived |";
+            $VAR_SIX="| Docs Emailed? - $DocsArrived |";
         
     }
     
         else {
         
-        unset($VAR6);
+        unset($VAR_SIX);
         
     }
     
-        if($VAR7 != $HappyPol) {
+        if($VAR_SEVEN != $HappyPol) {
             
-            $VAR7= "| Happy with Policy - $HappyPol |";
+            $VAR_SEVEN= "| Happy with Policy - $HappyPol |";
         
     }
     
         else {
         
-        unset($VAR7);
+        unset($VAR_SEVEN);
         
     }
 
@@ -200,14 +200,14 @@ if(isset($option)) {
         $recept="Task Updated";
   
         
-            if($ORIGVAR1 ==$Upsells && $ORIGVAR2 ==$PitchTrust && $ORIGVAR3 ==$PitchTPS && $ORIGVAR4 ==$RemindDD && $ORIGVAR5 ==$CYDReturned && $ORIGVAR6 ==$DocsArrived && $ORIGVAR7 ==$HappyPol) {
+            if($ORIGVAR_ONE ==$Upsells && $ORIGVAR_TWO ==$PitchTrust && $ORIGVAR_THREE ==$PitchTPS && $ORIGVAR_FOUR ==$RemindDD && $ORIGVAR_FIVE ==$CYDReturned && $ORIGVAR_SIX ==$DocsArrived && $ORIGVAR_SEVEN ==$HappyPol) {
         
         $notes="No changes";
     }
     
     else {
         
-        $notes="$VAR1 $VAR2 $VAR3 $VAR4 $VAR5 $VAR6 $VAR7";
+        $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX $VAR_SEVEN";
         
     }
     

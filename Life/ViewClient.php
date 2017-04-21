@@ -159,22 +159,28 @@ if (isset($Single_Client['callauditid'])) {
         if (isset($WHICH_COMPANY)) {
             if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
+                $WHICH_INSURER="Legal and General";
             }
             if ($WHICH_COMPANY == 'TRB Archive') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Archive Client</center></strong> </div>";
+                $WHICH_INSURER="Archive";
             }
             if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
+                $WHICH_INSURER="One Family ";
             }
             if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'CUS Aviva') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Aviva Client</center></strong> </div>";
+                $WHICH_INSURER="Aviva";
             }
             if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Vitality Client</center></strong> </div>";
+                $WHICH_INSURER="Vitality";
             }
 
             if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Royal London Client</center></strong> </div>";
+                $WHICH_INSURER="Royal London";
             }
         }
         ?>  
@@ -203,15 +209,30 @@ if (isset($Single_Client['callauditid'])) {
             <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                 <li><a data-toggle="pill" href="#menu3">Financial</a></li>
             <?php } ?>
+                
+                            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add Policy <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                        <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LANDG">Legal and General Policy</a></li>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
+                            <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ASSURA">Assura Policy</a></li>
+                        <?php } ?>
+
+                </ul>
+            </li>
 
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <div class="list-group">
                         <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                            <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li>
+                            <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
                             <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
-                        <?php } ?>
+                       <?php } ?>
                         <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                             <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
                         <?php } ?>

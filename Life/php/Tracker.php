@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='0') {
+    if($fferror=='1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -55,6 +55,8 @@ if(isset($fferror)) {
             $year="2017";
             $group="NOT SET";
             $col="NOT SET";
+            
+            $pad_group="NOT SET";
             
             $PAD_INSERT = $pdo->prepare("INSERT INTO pad_statistics SET pad_statistics_group=:group, pad_statistics_lead=:lead, pad_statistics_closer=:closer, pad_statistics_notes=:notes, pad_statistics_status='White', pad_statistics_year=:year, pad_statistics_col=:col, pad_statistics_added_by=:hello");
             $PAD_INSERT->bindParam(':group', $pad_group, PDO::PARAM_STR); 

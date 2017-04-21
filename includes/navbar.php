@@ -1,9 +1,4 @@
 <?php
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
-$page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 0);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 require_once(__DIR__ . '../../includes/adl_features.php');
 
@@ -29,9 +24,11 @@ if (in_array($hello_name, $Level_2_Access, true)) {
     die;
 }
 
+
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));
 $companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
+
 $companynamere = $companydetailsq['company_name'];
 
 if ($companynamere == 'The Review Bureau') {

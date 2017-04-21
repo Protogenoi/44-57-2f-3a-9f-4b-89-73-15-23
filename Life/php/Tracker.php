@@ -19,6 +19,7 @@ if(isset($fferror)) {
     include('../../includes/ADL_PDO_CON.php');
     
     $query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     if(isset($query)) {
         
@@ -111,6 +112,24 @@ if(isset($fferror)) {
         
         }
         
-        header('Location: ../../CRMmain.php'); die;
+        if(isset($EXECUTE)){
+            if($EXECUTE=='1') {
+                $TID= filter_input(INPUT_GET, 'TID', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                $UPSELL_STATUS= filter_input(INPUT_POST, 'UPSELLS_STATUS', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                $UPSELL_NOTES= filter_input(INPUT_POST, 'UPSELLS_NOTES', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+
+                
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set upsell_status=:STATUS, upsell_notes=:NOTES, upsell_agent=:AGENT WHERE tracker_id=:ID");
+            $UPDATE->bindParam(':ID', $TID, PDO::PARAM_INT); 
+            $UPDATE->bindParam(':AGENT', $hello_name, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':NOTES', $UPSELL_NOTES, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':STATUS', $UPSELL_STATUS, PDO::PARAM_STR); 
+            $UPDATE->execute();
+            
+           header('Location: ../Trackers.php?query=DEFAULT&result=UPDATED'); die;
+            }
+        }
+        
+       header('Location: ../../CRMmain.php'); die;
         
         ?>

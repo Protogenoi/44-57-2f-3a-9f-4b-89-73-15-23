@@ -33,13 +33,7 @@ if ($ffdealsheets == '0') {
     header('Location: ../CRMmain.php?Feature=NotEnabled');
     die;
 }
-/*
-  if (!in_array($hello_name,$Agent_Access, true)) {
 
-  header('Location: /CRMmain.php?NoAgentAccess'); die;
-
-  }
- */
 $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $Today_DATE = date("d-M-Y");
@@ -6336,12 +6330,20 @@ switch ($hello_name) {
                 } ?> value="Other">Other</option>
                                     </select>
                                 </td>
-                                <td><input size="2" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
-                    echo $TRK_EDIT_LEAD_UP;
-                } ?>"></td>
-                                <td><input size="2" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
-                    echo $TRK_EDIT_MTG;
-                } ?>"></td>
+                                
+                                <td>
+                                    <select name="LEAD_UP">
+                                        <option <?php if(isset($TRK_EDIT_LEAD_UP) && $TRK_EDIT_LEAD_UP=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_EDIT_LEAD_UP) && $TRK_EDIT_LEAD_UP=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MTG">
+                                        <option <?php if(isset($TRK_EDIT_MTG) && $TRK_EDIT_MTG=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_EDIT_MTG) && $TRK_EDIT_MTG=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                
                                 <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
                                 <td><a href="?query=AllCloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
 
@@ -6356,8 +6358,9 @@ switch ($hello_name) {
         if (isset($SETDATES)) {
             if ($CloserSelect != 'All') {
 
-                $TRACKER = $pdo->prepare("SELECT DATE(date_added) AS date_added, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date ORDER BY date_added");
+                $TRACKER = $pdo->prepare("SELECT DATE(date_added) AS date_added, lead_up, mtg, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND DATE(date_updated) = :date  OR DATE(date_added) = :datetwo ORDER BY date_added");
                 $TRACKER->bindParam(':date', $TRACKER_day_COM, PDO::PARAM_STR);
+                $TRACKER->bindParam(':datetwo', $TRACKER_day_COM, PDO::PARAM_STR);
                 $TRACKER->bindParam(':closer', $CloserSelect, PDO::PARAM_STR);
             }
         } elseif (isset($CloserSelect)) {
@@ -6493,8 +6496,18 @@ $TRK_DATE = $TRACKERresult['date_added'];
                     }
                 } ?> value="Other">Other</option>
                                     </select></td>
-                                <td><?php echo $TRK_lead_up; ?></td>
-                                <td><?php echo $TRK_mtg; ?></td>
+                                                                    <td>
+                                    <select name="LEAD_UP">
+                                        <option <?php if(isset($TRK_lead_up) && $TRK_lead_up=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_lead_up) && $TRK_lead_up=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MTG">
+                                        <option <?php if(isset($TRK_mtg) && $TRK_mtg=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_mtg) && $TRK_mtg=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
                                 <td><a href='LifeDealSheet.php?query=AllCloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>&EditCloser=<?php echo $TRK_closer; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
                 <?php }
             ?>          
@@ -6531,7 +6544,7 @@ $TRK_DATE = $TRACKERresult['date_added'];
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $real_name; ?> Trackers | Close Rate = <?php echo $SINGLE_CLOSER_RATE; ?></span>
+                <span class="label label-primary"><?php echo $real_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
                 <form method="post" action="<?php if (isset($TrackerEdit)) {
             echo 'php/Tracker.php?query=edit';
         } else {
@@ -6656,12 +6669,19 @@ $TRK_DATE = $TRACKERresult['date_added'];
                     }
                 } ?> value="Other">Other</option>
                                     </select></td>
-                                <td><input size="2" class="form-control" type="text" name="LEAD_UP" value="<?php if (isset($TRK_EDIT_LEAD_UP)) {
-                    echo $TRK_EDIT_LEAD_UP;
-                } ?>"></td>
-                                <td><input size="2" class="form-control" type="text" name="MTG" value="<?php if (isset($TRK_EDIT_MTG)) {
-                    echo $TRK_EDIT_MTG;
-                } ?>"></td>
+                                                                                                        <td>
+                                    <select name="LEAD_UP">
+                                        <option <?php if(isset($TRK_EDIT_LEAD_UP) && $TRK_EDIT_LEAD_UP=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_EDIT_LEAD_UP) && $TRK_EDIT_LEAD_UP=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MTG">
+                                        <option <?php if(isset($TRK_EDIT_MTG) && $TRK_EDIT_MTG=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_EDIT_MTG) && $TRK_EDIT_MTG=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                               
                                 <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
                                 <td><a href="?query=CloserTrackers" class="btn btn-danger btn-sm"><i class="fa fa-ban"></i> CANCEL</a></td>
 
@@ -6690,9 +6710,18 @@ $TRK_DATE = $TRACKERresult['date_added'];
                                     <option value="DETRA">Declined but passed to upsale</option>
                                     <option value="Other">Other</option>
                                 </select></td>
-                            
-                            <td><input size="3" class="form-control" type="text" name="LEAD_UP"></td>
-                            <td><input size="3" class="form-control" type="text" name="MTG"></td>
+                              <td>
+                                    <select name="LEAD_UP">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MTG">
+                                        <option value="No">No</option>
+                                        <option value="Yes">Yes</option>
+                                    </select>
+                                </td>
                             <td><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> SAVE</button></td>
         <?php } ?>
 
@@ -6807,9 +6836,18 @@ $TRK_DATE = $TRACKERresult['date_added'];
                     }
                 } ?> value="Other">Other</option>
                                     </select></td>
-                                                                   
-                                                             <td><?php echo $TRK_LEAD_UP; ?></td>    
-                                <td><?php echo $TRK_MTG; ?></td>
+                                                                                                                                            <td>
+                                    <select name="LEAD_UP">
+                                        <option <?php if(isset($TRK_LEAD_UP) && $TRK_LEAD_UP=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_LEAD_UP) && $TRK_LEAD_UP=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MTG">
+                                        <option <?php if(isset($TRK_MTG) && $TRK_MTG=='No') { echo "selected"; } ?> value="No">No</option>
+                                        <option <?php if(isset($TRK_MTG) && $TRK_MTG=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
+                                    </select>
+                                </td>
                                 <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
                 <?php }
             ?>          

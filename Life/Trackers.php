@@ -108,9 +108,10 @@ $Today_TIME = date("h:i:s");
         if ($TRACKER_EDIT->rowCount() > 0) {
             ?>
 
-                                <table id="tracker" class="table table-hover">
+                                <table id="tracker" class="table table-hover table-condensed">
                                     <thead>
                                         <tr>
+                                            <th>Updated Date</th>
                                             <th>Closer</th>
                                             <th>Agent</th>
                                             <th>Client</th>
@@ -151,6 +152,11 @@ $i++;
 
                                         <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                         <tr>          
+                                            <td><?php
+                                                if (isset($TRK_EDIT_DATE)) {
+                                                    echo $TRK_EDIT_DATE;
+                                                }
+                                                ?></td>  
                                             <td><?php
                                                 if (isset($TRK_EDIT_agent)) {
                                                     echo $TRK_EDIT_closer;

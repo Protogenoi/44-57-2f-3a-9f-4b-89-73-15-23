@@ -235,11 +235,11 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </p>
                             <p>
                                 <label for="phone_number">Contact Number:</label>
-                                <input type="tel" id="phone_number" name="phone_number" class="form-control" style="width: 170px" required pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
+                                <input type="tel" id="phone_number" name="phone_number" class="form-control" style="width: 170px" required pattern=".{11}|.{11,11}" maxlength="11" title="Enter a valid phone number">
                             </p>
                             <p>
                                 <label for="alt_number">Alt Number:</label>
-                                <input type="tel" id="alt_number" name="alt_number" class="form-control" style="width: 170px" pattern=".{11}|.{11,12}" maxlength="12" title="Enter a valid phone number">
+                                <input type="tel" id="alt_number" name="alt_number" class="form-control" style="width: 170px" pattern=".{11}|.{11,11}" maxlength="11" title="Enter a valid phone number">
                             </p>
                             <br>
                             <?php if ($ffpost_code == '1') { ?>

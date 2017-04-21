@@ -15,7 +15,7 @@ $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 if (isset($action) && $action == "log_out") {
     $page_protect->log_out();
 }
-
+if(isset($hello_name)) {
 $Level_2_Access = array("Jade");
 
 if (in_array($hello_name, $Level_2_Access, true)) {
@@ -255,4 +255,4 @@ if (in_array($hello_name, $Level_9_Access, true)) {
 
         t = setInterval(refresh_div, 1000);
     </script>
-<?php } ?>
+<?php } }?>

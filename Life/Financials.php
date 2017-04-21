@@ -281,7 +281,7 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 $TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
 $TOTAL_NET_GROSS_FOR = number_format($TOTAL_NET_GROSS, 2);                                       
 //END OF CALCULATION    
-                                $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND client_policy.policy_number NOT like '%DU%'");
+                                $EXPECTED_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) between :datefrom AND :dateto AND insurer='Legal and General' AND client_policy.policystatus NOT like '%CANCELLED%' AND client_policy.policystatus NOT IN ('Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold','Awaiting') AND client_policy.policy_number NOT like '%DU%'");
                             $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
@@ -648,9 +648,11 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
 
                     $query = $pdo->prepare("select id AS PID, client_id AS CID, client_name, policy_number, policystatus, commission, DATE(sale_date) AS SALE_DATE
 FROM client_policy
-WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold')");
+WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND :dateto2 AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold','Awaiting') OR DATE(submitted_date) between :datefrom2 AND :dateto2 AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold','Awaiting')");
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                                        $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();

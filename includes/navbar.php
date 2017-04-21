@@ -35,8 +35,8 @@ if ($companynamere == 'The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton","Nick","carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith","Rhiannon","Ryan");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Victoria", "Christian", "Audits","Keith","Rhiannon","Ryan");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Victoria", "Christian");
     $Task_Access = array("Michael", "Abbiek", "Victoria");
     
@@ -175,7 +175,7 @@ if ($companynamere == 'HWIFS') {
                 <?php } }
 
       if($ffdealsheets=='1') { 
- ?>
+          if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)  || in_array($hello_name, $Level_9_Access, true)) { ?>
             <li class="dropdown">
         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
           E-Stats
@@ -206,7 +206,7 @@ if ($companynamere == 'HWIFS') {
       </ul>
       <?php
   
-       }
+      } }
 
 if (in_array($hello_name, $Level_9_Access, true)) {
     ?>

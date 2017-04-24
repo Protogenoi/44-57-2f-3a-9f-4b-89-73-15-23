@@ -895,8 +895,6 @@ if (isset($Single_Client['callauditid'])) {
 
                                     <form class="AddClient" method="POST" action="SMS/Send.php">
 
-
-
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
                                             <label for="selectsms">Select SMS:</label>
@@ -941,13 +939,13 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
-                                        <br>
-                                        <br>
-
-                                        <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>
+              
+                                        <center>
+                                        <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND TEMPLATE SMS</button>
+                                        </center>
 
                                     </form>
-                                    
+                                    <br>
                                    <?php if(in_array($hello_name, $Level_9_Access,true)) { ?>
                                     
                                      <form class="AddClient" method="POST" action="SMS/Send.php?EXECUTE=1">
@@ -962,10 +960,9 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
-                                        <br>
-                                        <br>
-
-                                        <button type='submit' class='btn btn-primary'><i class='fa fa-mobile'></i> SEND</button>
+                                        <center>
+                                        <button type='submit' class='btn btn-primary'><i class='fa fa-mobile'></i> SEND CUSTOM SMS</button>
+                                        </center>
 
                                     </form>
                                     

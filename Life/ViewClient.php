@@ -947,8 +947,31 @@ if (isset($Single_Client['callauditid'])) {
                                         <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>
 
                                     </form>
+                                    
+                                   <?php if(in_array($hello_name, $Level_9_Access,true)) { ?>
+                                    
+                                     <form class="AddClient" method="POST" action="SMS/Send.php?EXECUTE=1">
 
-                                <?php } else { ?>
+
+
+                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                        <div class="form-group">
+                                            <label for="message">Custom MSG:</label>
+                                            <textarea class="form-control" name="message"></textarea>
+                                        </div>
+
+                                        <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                        <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
+                                        <br>
+                                        <br>
+
+                                        <button type='submit' class='btn btn-primary'><i class='fa fa-mobile'></i> SEND</button>
+
+                                    </form>
+                                    
+                                    <?php } 
+
+                                 } else { ?>
 
                                     <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
                                 <?php } ?>

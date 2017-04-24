@@ -50,6 +50,26 @@ WHERE
     $RPY_stmt2->execute();
     $RPY_stmtresult2 = $RPY_stmt2->fetch(PDO::FETCH_ASSOC);
 }
+
+if($ffkeyfactsemail=='1') {
+
+    $KFS_stmt = $pdo->prepare("SELECT 
+    count(client_details.email) as badge
+FROM
+    client_details
+WHERE
+    client_details.submitted_date >= CURDATE()
+        AND client_details.email NOT IN (SELECT 
+            keyfactsemail_email
+        FROM
+            keyfactsemail
+        WHERE
+            keyfactsemail_added_date >= CURDATE())");
+    $KFS_stmt->execute();
+    $KFS_stmtresult = $KFS_stmt->fetch(PDO::FETCH_ASSOC);
+    
+    
+}
 ?>
 
 <ul class="nav navbar-nav navbar-right">
@@ -63,6 +83,15 @@ if ($ACT_CBS['badge'] > 0) { ?>
             ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i>  Today <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
     if ($navbarresult2['badge'] > 0) {
             ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i>  Expired <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
+        }
+        
+        if($ffkeyfactsemail=='1') {
+            if ($KFS_stmtresult['badge'] >= '1') {
+                ?>
+                <li><a href="#"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
+
+                <?php
+            }          
         }
 
         if ($ffsms == '1') {

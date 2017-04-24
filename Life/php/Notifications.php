@@ -209,7 +209,7 @@ foreach ($result as $value) {
      }
 
      if($ffkeyfactsemail=='1') {
-     if($client_date_added >= "2016-06-17 16:00:00") {
+     if($client_date_added >= "2016-06-17 16:00:00" && $client_date_added <= "2017-04-24 11:54:00") {
          
          $database->query("select email_address from KeyFactsEmails where email_address=:email");
          $database->bind(':email', $clientonemail);

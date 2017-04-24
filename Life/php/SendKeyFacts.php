@@ -14,7 +14,7 @@ require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-$email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);;
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
@@ -143,11 +143,10 @@ if(!$mail->Send()) {
   header('Location: ../ViewClient.php?emailfailed&search='.$search); die;
   
 } else {
-    
-       $emailaddress= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
-   
-   $INSERT = $pdo->prepare("INSERT INTO KeyFactsEmails set email_address=:email");
-   $INSERT->bindParam(':email', $emailaddress, PDO::PARAM_STR);
+       
+   $INSERT = $pdo->prepare("INSERT INTO keyfactsemail set keyfactsemail_email=:email, keyfactsemail_added_by=:hello");
+   $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
+   $INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
    
    $notetype="Email Sent";
@@ -293,10 +292,11 @@ if(!$mail->Send()) {
   
 } else {
     
-       $emailaddress= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
+       $email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
    
-   $INSERT = $pdo->prepare("INSERT INTO KeyFactsEmails set email_address=:email");
-   $INSERT->bindParam(':email', $emailaddress, PDO::PARAM_STR);
+   $INSERT = $pdo->prepare("INSERT INTO keyfactsemail set keyfactsemail_email=:email, keyfactsemail_added_by=:hello");
+   $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
+   $INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
    
    $notetype="Email Sent";
@@ -417,10 +417,11 @@ if(!$mail->Send()) {
   
 } else {
     
-       $emailaddress= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
+       $email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_EMAIL);
    
-   $INSERT = $pdo->prepare("INSERT INTO KeyFactsEmails set email_address=:email");
-   $INSERT->bindParam(':email', $emailaddress, PDO::PARAM_STR);
+   $INSERT = $pdo->prepare("INSERT INTO keyfactsemail set keyfactsemail_email=:email, keyfactsemail_added_by=:hello");
+   $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
+   $INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
    
    $notetype="Email Sent";

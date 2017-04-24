@@ -40,30 +40,44 @@ foreach ($result as $value) {
      echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
     
 
-            $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :searchplaceholder");
-            $database->bind(':searchplaceholder', $likesearch);
+            $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
             $database->execute();
             $database->single();
                 
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Legal & General Keyfacts not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General Keyfacts not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
          
      }
      
-    $database->query("select uploadtype from tbl_uploads where uploadtype='LGpolicy' and file like :searchplaceholder");
-    $database->bind(':searchplaceholder', $likesearch);
+    $database->query("select uploadtype from tbl_uploads where uploadtype='LGpolicy' and file like :search");
+    $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Legal & General App not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General App not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
      }
 
+     if($ffkeyfactsemail=='1') {
+            
+         $database->query("select keyfactsemail_email from keyfactsemail where keyfactsemail_email=:email");
+         $database->bind(':email', $clientonemail);
+         $database->execute();
+         $database->single();
+         if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDECLOSERKF'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";    
+             
      
+     }    
+     
+}     
      
 }
 //END CUS 
@@ -171,29 +185,30 @@ foreach ($result as $value) {
  }
     
 
-            $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :searchplaceholder");
-            $database->bind(':searchplaceholder', $likesearch);
+            $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
             $database->execute();
             $database->single();
                 
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Legal & General Keyfacts not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General Keyfacts not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
          
      }
      
-    $database->query("select uploadtype from tbl_uploads where uploadtype='LGpolicy' and file like :searchplaceholder");
-    $database->bind(':searchplaceholder', $likesearch);
+    $database->query("select uploadtype from tbl_uploads where uploadtype='LGpolicy' and file like :search");
+    $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Legal & General App not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General App not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
      }
 
+     if($ffkeyfactsemail=='1') {
      if($client_date_added >= "2016-06-17 16:00:00") {
          
          $database->query("select email_address from KeyFactsEmails where email_address=:email");
@@ -202,14 +217,30 @@ foreach ($result as $value) {
          $database->single();
          if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDECLOSERKF'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Closer Key Facts Email not sent <i>(Send from Files & Uploads tab)</i>!"
+    echo "<div class='notice notice-danger' role='alert' id='HIDECLOSERKF'><strong><i class='fa fa-envelope-o  fa-lg'></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";     
+         
+     }      
+     
+     }  
+     
+          if($client_date_added >= "2017-04-24 11:55:00") {
+         
+         $database->query("select keyfactsemail_email from keyfactsemail where keyfactsemail_email=:email");
+         $database->bind(':email', $clientonemail);
+         $database->execute();
+         $database->single();
+         if ($database->rowCount()<=0) {  
+         
+    echo "<div class='notice notice-danger' role='alert' id='HIDECLOSERKF'><strong><i class='fa fa-envelope-o  fa-lg'></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";    
          
      }      
      
-     }        
+     }    
      
 }
+    }
 //END TRB
 
 
@@ -223,14 +254,14 @@ if($WHICH_COMPANY=='Assura') {
      
  }   
 
-            $database->query("select uploadtype from tbl_uploads where uploadtype='AssuraPol' and file like :searchplaceholder");
-            $database->bind(':searchplaceholder', $likesearch);
+            $database->query("select uploadtype from tbl_uploads where uploadtype='AssuraPol' and file like :search");
+            $database->bind(':search', $likesearch);
             $database->execute();
             $database->single();
                 
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Assura Policy not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Assura Policy not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
          
      }
@@ -274,13 +305,13 @@ if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Assura' || $WHICH_COM
      
      
     if(!isset($dealsheet_id)) {
-    $database->query("select uploadtype from tbl_uploads where uploadtype='Dealsheet' and file like :searchplaceholder");
-    $database->bind(':searchplaceholder', $likesearch);
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Dealsheet' and file like :search");
+    $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Dealsheet not uploaded!"
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Dealsheet not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
@@ -574,4 +605,3 @@ if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Assura' || $WHICH_COM
                                                                 }
                                                     }
                                                                 ?>
-

@@ -18,6 +18,18 @@ if(isset($fferror)) {
     }
     
 $selectopt= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$search= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_NUMBER_INT);
+
+$num= filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
+$CLIENT_NAME= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
+$SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+$MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
+if(!isset($MESSAGE_OPTION)) {
+    $MESSAGE_OPTION=$SMS_MESSAGE;
+}
 
 if(isset($selectopt)) {
 
@@ -30,10 +42,6 @@ include('../../includes/ADL_PDO_CON.php');
     
     $SID=$SMS_RESULT['twilio_account_sid'];
     $TOKEN=$SMS_RESULT['twilio_account_token'];
-    
-
-$num= filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
-$FullName= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title");
     $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
@@ -53,6 +61,26 @@ $FullName= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
     
 }
 
+if(isset($EXECUTE)) {
+    if($EXECUTE=='1') {
+
+include('../../includes/ADL_PDO_CON.php');
+
+    $SMS_QRY = $pdo->prepare("SELECT twilio_account_sid, AES_DECRYPT(twilio_account_token, UNHEX(:key)) AS twilio_account_token FROM twilio_account");
+    $SMS_QRY->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
+    $SMS_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
+    $SMS_RESULT=$SMS_QRY->fetch(PDO::FETCH_ASSOC);
+    
+    $SID=$SMS_RESULT['twilio_account_sid'];
+    $TOKEN=$SMS_RESULT['twilio_account_token'];
+
+    $countryCode = "+44";
+
+    $newNumber = preg_replace('/^0?/', ''.$countryCode, $num);
+    
+}
+}
+
 require('../../twilio-php-master/Twilio/autoload.php');
 use Twilio\Rest\Client;
 
@@ -67,12 +95,9 @@ $client->messages->create(
     )
 );
 
-$search= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_NUMBER_INT);
+
 
 if(isset($search)) {
-
-$CLIENT_NAME= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
-$MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:search, client_name=:recipientholder, sent_by=:sentbyholder, note_type='Sent SMS', message=:messageholder ");
 $INSERT->bindParam(':search',$search, PDO::PARAM_INT);

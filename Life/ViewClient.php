@@ -863,10 +863,10 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Send SMS</h4>
+                                <h4 class="modal-title"><i class='fa fa-commenting-o'></i> Send SMS</h4>
                             </div>
                             <div class="modal-body">
-
+                            
                                 <?php
                                 if ($ffsms == '1') {
 
@@ -897,8 +897,9 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
+
                                             <label for="selectsms">Select SMS:</label>
-                                            <select class="form-control" name="selectopt">
+                                            <select class="form-control" name="selectopt" id="selectopt">
                                                 <option value=" ">Select message...</option>
 
                                                 <?php
@@ -926,6 +927,9 @@ if (isset($Single_Client['callauditid'])) {
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $smstitle = $smstitles['title'];
+                                                            
+                                                        
+                                                            
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
@@ -936,6 +940,19 @@ if (isset($Single_Client['callauditid'])) {
 
                                             </select>
                                         </div>
+                                        
+                                        <div id="General_Contact" class="SELECTED_SMS well" style="display:none"><b><i>[CLIENT_NAME]</i> Its Very Important We Speak To You Regrading Your Life Insurance Policy. Please Contact <i>[COMPANY NAME]</i> On <i>[COMPANY TEL]</i>.</b></div>
+                                        <div id="CFO" class="SELECTED_SMS well" style="display:none"><b>We are sorry to here that you want to cancel your policy with <i>[INSURER]</i>. Cancelling any protection is an important decision and one that should be considered carefully. To discuss your options please call us on <i>[COMPANY_TEL]</i>. Yours Sincerely, Customer Services, <i>[COMPANY_NAME]</i>.</b></div>
+                                        <div id="CYD" class="SELECTED_SMS well" style="display:none"><b>Your Check Your Details Form Is Outstanding For Your Life Insurance Policy. Please Ensure This Is Completed To <i>[INSURER]</i> via My Account As Soon As Possible. Any Queries Please Contact <i>[COMPANY_NAME]</i> On <i>[COMPANY_TEL]</i>.</b></div>
+                                        <div id="CYD_DD" class="SELECTED_SMS well" style="display:none"><b>Your Check Your Details Form Is Still Outstanding. You Will Have Noticed Your First Direct Debit Has Been Collected Or Will Be Shortly. Please Ensure Your Check Your Details Is Completed Online via My Account. Any Queries Please Contact <i>[COMPANY_NAME] On <i>[COMPANY_TEL]</i></b></div>
+                                        <div id="CYD_POST" class="SELECTED_SMS well" style="display:none"><b>Your Check Your Details form is outstanding for your Life Insurance policy. Please sign and return the form in the freepost envelope as soon as possible. Any queries please contact <i>[COMPANY_NAME]</i> on <i>[COMPANY_TEL]</i></b></div>
+                                        <div id="Direct_Debit" class="SELECTED_SMS well" style="display:none"><b>Your First Direct Debit Is Due To Be Taken Shortly By <i>[INSURER]</i>, All Other Will Follow On Your Selected Date. Any Queries Please Contact <i>[COMPANY_NAME]</i> On <i>[COMPANY_TEL].</b></div>
+                                        <div id="EWS_Bounced" class="SELECTED_SMS well" style="display:none"><b>Your bank has told us that they cannot pay your life insurance premium with <i>[INSURER]</i> by direct debit. To restart your direct debit or update your bank details, please call us on <i>[COMPANY_TEL]</i>. Yours Sincerely, Customer Services, <i>[COMPANY_NAME]</i>.</b></div>
+                                        <div id="EWS_DD_Cancelled" class="SELECTED_SMS well" style="display:none"><b>Your bank has told us the direct debit instruction for your life insurance with [<i>INSURER]</i> has been cancelled, so it cannot be used to collect future premiums. To restart your direct debit or update your bank details, please call us on <i>[COMPANY_TEL]</i>.</b></div>
+                                        <div id="For_any_queries_call_us" class="SELECTED_SMS well" style="display:none"><b>Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on <i>[COMPANY_TEL]</i> or via email <i>[COMPANY_EMAIL]</i>.</b></div>
+                                        <div id="Incomplete_Trust" class="SELECTED_SMS well" style="display:none"><b>We can see that you have not yet completed your trust forms. If you have any questions please contact our <i>[COMPANY_NAME]</i> customer care team on [COMPANY_TEL]</i>.</b></div>
+                                        <div id="Welcome" class="SELECTED_SMS well" style="display:none"><b>Your Policy Has Been Submitted With <i>[INSURER]</i>. All Correspondence Will Follow Shortly. Any Queries Please Contact <i>[COMPANY_NAME]</i> On <i>[COMPANY_TEL]</i>.</b></div>
+
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
@@ -972,7 +989,6 @@ if (isset($Single_Client['callauditid'])) {
 
                                     <div class="alert alert-info"><strong>Info!</strong> SMS feature not enabled.</div>
                                 <?php } ?>
-
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
@@ -986,7 +1002,7 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Send SMS</h4>
+                                <h4 class="modal-title"><i class='fa fa-commenting-o'></i> Send SMS</h4>
                             </div>
                             <div class="modal-body">
 
@@ -2971,6 +2987,14 @@ if (isset($Single_Client['callauditid'])) {
                 });
 
             </script>
+                                                                                                <script>
+                                            $(function() {
+        $('#selectopt').change(function(){
+            $('.SELECTED_SMS').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+    </script>
             <?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
             </body>
             </html>

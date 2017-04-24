@@ -204,9 +204,15 @@ if ($companynamere == 'HWIFS') {
           <?php } ?>
 
       </ul>
+             
       <?php
   
       } }
+      
+      if($ffdealsheets=='1' && in_array($hello_name, $Closer_Access, true)) { ?>
+             <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>      
+                
+      <?php }
 
 if (in_array($hello_name, $Level_9_Access, true)) {
     ?>

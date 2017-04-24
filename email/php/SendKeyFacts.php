@@ -1,6 +1,26 @@
 <?php
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
-include('../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+require_once(__DIR__ . '/../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
         
         $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
         $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
@@ -120,8 +140,9 @@ if(!$mail->Send()) {
   
 } else {
        
-   $INSERT = $pdo->prepare("INSERT INTO KeyFactsEmails set email_address=:email");
+   $INSERT = $pdo->prepare("INSERT INTO keyfactsemail set keyfactsemail_email=:email, keyfactsemail_added_by=:hello");
    $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
+   $INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
 
 header('Location: ../../email/KeyFactsEmail.php?emailsent&emailto='.$email); die;
@@ -345,15 +366,13 @@ if (isset($_FILES["fileToUpload6"]) &&
 }
 
 
-
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
-
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->AddBCC("$emailbccdb", "$emaildisplaynamedb");
 $mail->Subject    = "$emailsubjectdb";
 $mail->IsHTML(true); 
 
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
 
 $mail->AddAddress($email, $recipient);
 
@@ -366,8 +385,9 @@ if(!$mail->Send()) {
   
 } else {
    
-   $INSERT = $pdo->prepare("INSERT INTO KeyFactsEmails set email_address=:email");
+   $INSERT = $pdo->prepare("INSERT INTO keyfactsemail set keyfactsemail_email=:email, keyfactsemail_added_by=:hello");
    $INSERT->bindParam(':email', $email, PDO::PARAM_STR);
+   $INSERT->bindParam(':hello', $hello_name, PDO::PARAM_STR);
    $INSERT->execute()or die(print_r($INSERT->errorInfo(), true));
 
 header('Location: ../../email/KeyFactsEmail.php?emailsent&emailto='.$email); die;

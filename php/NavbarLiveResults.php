@@ -62,9 +62,7 @@ WHERE
         AND client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM
-            keyfactsemail
-        WHERE
-            keyfactsemail_added_date >= CURDATE())");
+            keyfactsemail)");
     $KFS_stmt->execute();
     $KFS_stmtresult = $KFS_stmt->fetch(PDO::FETCH_ASSOC);
     

@@ -1,7 +1,8 @@
                                 <table id="tracker" class="table table-hover table-condensed">
                                     <thead>
                                         <tr>
-                                            <th>Updated Date</th>
+                                            <th>Row</th>
+                                            <th>Date</th>
                                             <th>Closer</th>
                                             <th>Agent</th>
                                             <th>Client</th>
@@ -10,7 +11,7 @@
                                             <th>Our Premium</th>
                                             <th>Comments</th>
                                             <th>DISPO</th>
-                                            <th>DEC READ?</th>
+                                            <th>DEC?</th>
                                             <th>MTG</th>
                                             <th></th>
                                         </tr>
@@ -19,7 +20,7 @@
     <?php $i='0'; foreach ($AgentPadList as $TRACKER_EDIT_result): ?>
 
                                             <?php
-                
+                $i++;
                                         $TRK_EDIT_tracker_id = $TRACKER_EDIT_result['tracker_id'];
                                         $TRK_EDIT_agent = $TRACKER_EDIT_result['agent'];
                                         $TRK_EDIT_closer = $TRACKER_EDIT_result['closer'];
@@ -36,33 +37,35 @@
 
                                         $TRK_EDIT_DATE = $TRACKER_EDIT_result['updated_date'];
 ?>
-                                    
+                                    <form method="POST" action="/Life/Trackers/php/Trackers.php?EXECUTE=2&TYPE=AGENT">
                <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                     <tr>
-                                                                                
+                                                                                                                                                 <td><?php if (isset($i)) {
+                    echo $i;
+                } ?></td>                                             
                                                                 <td><?php if (isset($TRK_EDIT_DATE)) {
                     echo $TRK_EDIT_DATE;
                 } ?></td>    
                                         
-                                                                <td><input size="12" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                <td><input size="8" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_closer;
                 } ?>"></td>     
-                                <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                                <td><input size="8" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
                 } ?>"></td>                      
-                                <td><input size="12" class="form-control" type="text" name="client" value="<?php if (isset($TRK_EDIT_client)) {
+                                <td><input size="8" class="form-control" type="text" name="client" value="<?php if (isset($TRK_EDIT_client)) {
                     echo $TRK_EDIT_client;
                 } ?>"></td>
                                 <td><input size="12" class="form-control" type="text" name="phone" value="<?php if (isset($TRK_EDIT_phone)) {
                     echo $TRK_EDIT_phone;
                 } ?>"></td>
-                                <td><input size="8" class="form-control" type="text" name="current_premium" value="<?php if (isset($TRK_EDIT_current_premium)) {
+                                <td><input size="5" class="form-control" type="text" name="current_premium" value="<?php if (isset($TRK_EDIT_current_premium)) {
                     echo $TRK_EDIT_current_premium;
                 } ?>"></td>
-                                <td><input size="8" class="form-control" type="text" name="our_premium" value="<?php if (isset($TRK_EDIT_our_premium)) {
+                                <td><input size="5" class="form-control" type="text" name="our_premium" value="<?php if (isset($TRK_EDIT_our_premium)) {
                     echo $TRK_EDIT_our_premium;
                 } ?>"></td>
-                                <td><input type="text" class="form-control" name="comments" value="<?php if (isset($TRK_EDIT_comments)) {
+                                <td><input type="text" size="15" class="form-control" name="comments" value="<?php if (isset($TRK_EDIT_comments)) {
                     echo $TRK_EDIT_comments;
                 } ?>"></td>
                                 <td>
@@ -139,9 +142,9 @@
                                     </select>
                                 </td>
                                 
-                                <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> UPDATE</button></td> 
+                                <td><button type="submit" class="btn btn-warning btn-sm"><i class="fa fa-save"></i> </button></td> 
                                     </tr>
-
+                                    </form>
 
     <?php endforeach ?>
          

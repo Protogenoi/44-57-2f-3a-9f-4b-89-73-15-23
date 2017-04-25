@@ -40,7 +40,7 @@ $Today_DATE = date("d-M-Y");
 $Today_DATES = date("l jS \of F Y");
 $Today_TIME = date("h:i:s");
 
-if(in_array($hello_name, $Closer_Access, true)) {
+if(in_array($hello_name, $Closer_Access, true) || $hello_name=='Michael') {
     
     
             $CLO_CR = $pdo->prepare("SELECT 
@@ -124,16 +124,22 @@ switch ($hello_name) {
     <link rel="stylesheet" type="text/css" href="/style/admindash.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     
-    <?php if(in_array($hello_name, $Closer_Access, true)) { 
+    <?php if(in_array($hello_name, $Closer_Access, true) || $hello_name=='Michael') { 
         if(isset($SINGLE_CLOSER_RATE)) {
-        if($SINGLE_CLOSER_RATE>=1.5) { ?> <style>
+        if($SINGLE_CLOSER_RATE>=6) { ?> <style>
             .CLOSE_RATE {
             background-color:#B00004;
     }
         </style> 
             <?php } 
+                    if($SINGLE_CLOSER_RATE >4.9 && $SINGLE_CLOSER_RATE<6) { ?> <style>
+            .CLOSE_RATE {
+            background-color:#FD7900;
+    }
+        </style> 
+            <?php } 
     
-   if($SINGLE_CLOSER_RATE<=1.5) {  ?> 
+   if($SINGLE_CLOSER_RATE <=4.9 && $SINGLE_CLOSER_RATE >= 1) {  ?> 
         <style>
             .CLOSE_RATE {
             background-color:#16A53F;

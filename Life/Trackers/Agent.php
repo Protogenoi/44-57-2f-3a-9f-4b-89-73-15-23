@@ -106,7 +106,9 @@ $Today_TIME = date("h:i:s");
                             </div>
 
                         </form>
-
+                    </div>
+  </div>
+<div class="container-fluid">
                         <?php
 if (isset($datefrom)) {
     $AGT_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE DATE(date_updated)=:date AND agent=:agent");
@@ -134,13 +136,13 @@ if (isset($datefrom)) {
 ?>  
 
                     </div>
-                </div>                    
+                              
             
      <?php   }
 }
 ?>
 
-    </div>
+  
 
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>

@@ -125,7 +125,7 @@ switch ($hello_name) {
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     
     <?php if(in_array($hello_name, $Closer_Access, true)) { 
-        
+        if(isset($SINGLE_CLOSER_RATE)) {
         if($SINGLE_CLOSER_RATE>=1.5) { ?> <style>
             .CLOSE_RATE {
             background-color:#B00004;
@@ -139,7 +139,7 @@ switch ($hello_name) {
             background-color:#16A53F;
         }
         </style> 
-            <?php } } ?>
+    <?php } }  }?>
     <style>
         .form-row input {
             padding: 3px 1px;

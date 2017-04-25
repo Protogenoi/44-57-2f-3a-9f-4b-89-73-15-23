@@ -646,12 +646,29 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
 
 
 
-                    $query = $pdo->prepare("select id AS PID, client_id AS CID, client_name, policy_number, policystatus, commission, DATE(sale_date) AS SALE_DATE
-FROM client_policy
-WHERE insurer='Legal and General' AND DATE(sale_date) between :datefrom AND :dateto AND :dateto2 AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold','Awaiting') OR DATE(submitted_date) between :datefrom2 AND :dateto2 AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Clawback','DECLINED','On hold','Awaiting')");
+                    $query = $pdo->prepare("
+SELECT 
+    id AS PID,
+    client_id AS CID,
+    client_name,
+    policy_number,
+    policystatus,
+    commission,
+    DATE(sale_date) AS SALE_DATE
+FROM
+    client_policy
+WHERE
+    insurer = 'Legal and General'
+        AND DATE(sale_date) BETWEEN :datefrom AND :dateto
+        AND policystatus NOT LIKE '%CANCELLED%'
+        AND policystatus NOT IN ('Clawback' , 'DECLINED', 'On hold', 'Awaiting')
+        OR DATE(submitted_date) BETWEEN :datefrom2 AND :dateto2
+        AND insurer = 'Legal and General'
+        AND policystatus NOT LIKE '%CANCELLED%'
+        AND policystatus NOT IN ('Clawback' , 'DECLINED', 'On hold', 'Awaiting')");
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                                        $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {

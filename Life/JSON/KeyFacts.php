@@ -41,15 +41,13 @@ echo json_encode($results);
     client_details.client_id
 FROM
     client_details
-    JOIN client_policy ON client_details.client_id=client_policy.client_id
+    LEFT JOIN client_policy ON client_details.client_id=client_policy.client_id
 WHERE
     client_details.submitted_date >= CURDATE()
         AND client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM
-            keyfactsemail
-        WHERE
-            keyfactsemail_added_date >= CURDATE())
+            keyfactsemail)
     GROUP BY client_details.email ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));

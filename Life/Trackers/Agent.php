@@ -78,7 +78,7 @@ $Today_TIME = date("h:i:s");
                     </div>
 
                     <div class="list-group">
-                        <span class="label label-primary">Closer Trackers</span>
+                        <span class="label label-primary">Agent Trackers</span>
                         <br><br>
                         <form action="?EXECUTE=1" method="post">
 

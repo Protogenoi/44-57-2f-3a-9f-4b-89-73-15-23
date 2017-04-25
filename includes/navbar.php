@@ -181,15 +181,14 @@ if ($companynamere == 'HWIFS') {
           E-Stats
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
-            <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?> 
+            <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true) || $hello_name='Michael') { ?> 
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
             <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
             <li><a href="/Life/LifeDealSheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
             <?php } 
-            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?>
+            if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true) || $hello_name='Michael') { ?>
 <li><a href="/Life/LifeDealSheet.php?query=CloserTrackers"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers</a></li>
 <li><a href="/Life/LifeDealSheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
-<li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>
 <?php } ?>
 <?php if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Level_9_Access, true)) { ?>
 <li><a href="/Life/Trackers.php?EXECUTE=DEFAULT">Search Upsells</a></li>

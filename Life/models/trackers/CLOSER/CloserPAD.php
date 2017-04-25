@@ -28,7 +28,7 @@ FROM
 WHERE
     DATE(date_updated) >= :datefrom
         AND closer =:closer
-ORDER BY date_added");
+ORDER BY date_added DESC");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
             $stmt->bindParam(':closer', $CLOSER, PDO::PARAM_STR);
             $stmt->execute();
@@ -53,7 +53,7 @@ FROM
     closer_trackers
 WHERE
     date_updated >= CURDATE()
-ORDER BY date_added");
+ORDER BY date_added DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

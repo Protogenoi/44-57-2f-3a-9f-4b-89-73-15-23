@@ -886,7 +886,7 @@ if (isset($Single_Client['callauditid'])) {
                                     ?>
                                     <br> 
 
-                                    <form class="AddClient">
+                                    
 
                                         <?php
                                         $CHECK_NUM = strlen($Single_Client['phone_number']);
@@ -906,15 +906,16 @@ if (isset($Single_Client['callauditid'])) {
                                         <div class="notice notice-danger" role="alert"><strong><i class="fa fa-exclamation-circle fa-lg"></i> Invalid Number:</strong> Please check that the phone number is correct and is in the correct format (i.e. 07401434619) </div>              
 
                                         
-                                        <?php } if($CHK_NUM=='1') { ?>
-
+                                        <?php }
+                                        if($CHK_NUM=='1') { ?>
+<form class="AddClient">
                                         <p>
                                             <label for="phone_number">Contact Number:</label>
                                             <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" readonly>
                                         </p>
+                                        </form>
                                         
-                                        
-                                    </form>
+                                    
 
                                     <form class="AddClient" method="POST" action="<?php if($CHK_NUM=='0') { echo "#"; } if($CHK_NUM=='1') { echo "SMS/Send.php"; } ?>">
 
@@ -1047,7 +1048,7 @@ if ($ffsms == '1') {
     ?>
                                     <br> 
 
-                                    <form class="AddClient">
+                                    
                                         
                                         <?php
                                         $CHECK_NUM_ALT = strlen($Single_Client['alt_number']);
@@ -1068,7 +1069,7 @@ if ($ffsms == '1') {
 
                                         
                                         <?php } if($CHK_NUM_ALT=='1') { ?>
-                                        
+                                    <form class="AddClient">    
                                         <p>
                                             <label for="phone_number">Contact Number:</label>
                                             <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number'] ?>" readonly>
@@ -1161,7 +1162,7 @@ if (isset($fileuploadedfail)) {
 ?>
                     <div class="container">
 
-                        <form action="../../uploadsubmit.php?life=y&life=y" method="post" enctype="multipart/form-data">
+                        <form action="/uploadsubmit.php?life=y" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="uploadclientid" value="<?php echo $search; ?>">
                             <label for="file">Select file...<input type="file" name="file" /></label> 
 

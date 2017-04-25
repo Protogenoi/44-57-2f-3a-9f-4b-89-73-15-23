@@ -1,12 +1,14 @@
 <?php
 require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');
+require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/php/analyticstracking.php');

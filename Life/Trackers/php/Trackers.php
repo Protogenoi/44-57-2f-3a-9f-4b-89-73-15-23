@@ -92,6 +92,21 @@ if ($ffdealsheets == '0') {
    
                 
             }
+               if($EXECUTE=='1') {
+                $TID= filter_input(INPUT_GET, 'TID', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                $UPSELL_STATUS= filter_input(INPUT_POST, 'UPSELLS_STATUS', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                $UPSELL_NOTES= filter_input(INPUT_POST, 'UPSELLS_NOTES', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+
+                
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set upsell_status=:STATUS, upsell_notes=:NOTES, upsell_agent=:AGENT WHERE tracker_id=:ID");
+            $UPDATE->bindParam(':ID', $TID, PDO::PARAM_INT); 
+            $UPDATE->bindParam(':AGENT', $hello_name, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':NOTES', $UPSELL_NOTES, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':STATUS', $UPSELL_STATUS, PDO::PARAM_STR); 
+            $UPDATE->execute();
+            
+           header('Location: /Life/Trackers/Upsell.php?EXECUTE=DEFAULT&RETURN=UPDATED'); die;
+            }
         }
         
        header('Location: ../../CRMmain.php'); die;

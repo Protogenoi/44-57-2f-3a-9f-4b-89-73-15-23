@@ -200,9 +200,13 @@ ORDER BY Sales, Leads");
                             $TRK_sale = "Quote Not Beaten";
                             $TRK_BG = "#ff6600";
                             break;
-                        case "QDE":
+                        case "QML":
                             $TRK_sale = "Quote Mortgage Lead";
                             $TRK_BG = "#669900";
+                            break;
+                        case "QDE":
+                            $TRK_sale = "Decline";
+                            $TRK_BG = "#FF0000";
                             break;
                         default:
                             $TRK_sale = $TRK_sale;

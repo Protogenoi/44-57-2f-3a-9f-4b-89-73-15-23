@@ -26,7 +26,7 @@
                 url: ' ',
                 type: 'POST',
                 success: function (results) {
-                    jQuery(".contain-to-grid").html(results);
+                    jQuery(".container-fluid").html(results);
                 }
             });
         }

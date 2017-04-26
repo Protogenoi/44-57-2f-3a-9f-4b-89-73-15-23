@@ -92,7 +92,7 @@ if ($ffdealsheets == '0') {
    
                 
             }
-               if($EXECUTE=='1') {
+               if($EXECUTE=='3') {
                 $TID= filter_input(INPUT_GET, 'TID', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                 $UPSELL_STATUS= filter_input(INPUT_POST, 'UPSELLS_STATUS', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                 $UPSELL_NOTES= filter_input(INPUT_POST, 'UPSELLS_NOTES', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 

@@ -6227,8 +6227,7 @@ switch ($hello_name) {
                                                             <option value="">Select Agent...</option>
 
 
-                                </select></td>
-                            <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json"></td>                      
+                                </select></td>                    
                             <td><input size="12" class="form-control" type="text" name="client"></td>
                             <td><input size="12" class="form-control" type="text" name="phone"></td>
                             <td><input size="8" class="form-control" type="text" name="current_premium"></td>

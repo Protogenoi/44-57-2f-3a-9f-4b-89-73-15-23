@@ -6223,6 +6223,11 @@ switch ($hello_name) {
         } else {
             ?>
                             <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
+                            <td> <select class="form-control" name="agent_name" id="agent_name">
+                                                            <option value="">Select Agent...</option>
+
+
+                                </select></td>
                             <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json"></td>                      
                             <td><input size="12" class="form-control" type="text" name="client"></td>
                             <td><input size="12" class="form-control" type="text" name="phone"></td>
@@ -7402,5 +7407,14 @@ $("#provider-json").easyAutocomplete(options);</script>
     });
     webshims.polyfill('forms forms-ext');
 </script>
+                                    <script type="text/JavaScript">
+                                    var $select = $('#agent_name');
+                                    $.getJSON('../../JSON/AllNames.json', function(data){
+                                    $select.html('agent_name');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
+                                    })
+                                    });
+                                </script>
 </body>
 </html>

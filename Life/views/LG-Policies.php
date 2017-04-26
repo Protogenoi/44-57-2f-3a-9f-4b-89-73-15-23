@@ -45,7 +45,7 @@
 <input type='hidden' name='searchCriteria.includeLife' value='true' >
 <input type='hidden' name='searchCriteria.includeGI' id='searchCriteria.includeGI' value='false' >
 <button type='submit' value='SEARCH' name='command' class='btn btn-default btn-sm'>
-<i class='fa fa-search'></i> $polref</button></form></form></td>";
+<i class='fa fa-search'></i> $polref</button></form></td>";
         }
         echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$ANID' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $ANID</a></td>";
         echo "<td>" . $LG_Policies['type'] . "</td>";

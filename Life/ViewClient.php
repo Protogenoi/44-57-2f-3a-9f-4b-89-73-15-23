@@ -251,8 +251,6 @@ if (isset($Single_Client['callauditid'])) {
                 <?php require_once(__DIR__ . '/php/Notifications.php'); ?>
                 <div class="container">
 
-                    <form class="AddClient">
-
                         <div class="col-md-4">
                             <h3><span class="label label-primary">Client Details</span></h3>
 
@@ -415,13 +413,30 @@ if (isset($Single_Client['callauditid'])) {
                             <div class="input-group">
                                 <input class="form-control" type="text" id="post_code" name="post_code" value="<?php echo $Single_Client['post_code'] ?>" readonly >
                                 <span class="input-group-btn">
-                                    <a href="#" data-toggle="tooltip" data-placement="right" title="Post Code"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-list-alt"></span></button></a>
+                                   <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
+                                    <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
+<input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='NULL'>
+<input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value=''>
+<input type='hidden' name='searchCriteria.period' id='searchCriteria.period' value='' >
+<input type='hidden' name='searchCriteria.postcode' id='searchCriteria.postcode' value='<?php echo $Single_Client['post_code'] ?>' >
+<input type='hidden' name='searchCriteria.agentNumber' id='searchCriteria.agentNumber' value='' >
+<input type='hidden' name='searchCriteria.status' id='searchCriteria.status' value='' >
+<input type='hidden' name='searchCriteria.oiiType' id='searchCriteria.oiiType' value='' >
+<input type='hidden' name='searchCriteria.includeLife' value='true' >
+<input type='hidden' name='searchCriteria.includeGI' id='searchCriteria.includeGI' value='false' >
+<input type='hidden' name='selectedAgencyNumberForSearch' id='selectedAgencyNumberForSearch' value='7168529' >    
+                                        <button type='submit' value='SEARCH' name='command'class="btn btn-success"><i class="fa fa-search"></i></button>
+</form>
+                                   <?php } else { ?>
+                                    <button class="btn btn-default"><i class="fa fa-search"></i></button>
+                                   <?php } ?>
+
 
                                 </span>
                             </div>
                             </p>
                             <br>
-                            </form>
+                         
                         </div>
                         <br>
                         <br>

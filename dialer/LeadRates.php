@@ -110,6 +110,52 @@ echo $dyn_table;
             
             ?>
         </table>
+       
+        <?php
+  
+
+
+        $NO_LEADS = $pdo->prepare("SELECT 
+    dialer_agents_name
+FROM
+    dialer_agents
+WHERE
+    dialer_agents_name NOT IN (SELECT 
+            agent
+        FROM
+            closer_trackers WHERE date_added >= CURDATE());");
+        ?>
+
+        <table id='main2' cellspacing='0' cellpadding='10'>
+
+            <?php
+            $dyn_table2 = '<table id="main2" cellspacing="0" "cellpadding="10">';
+            
+            $NO_LEADS->execute();
+            if ($NO_LEADS->rowCount() > 0) {
+                    $i2 = 0;
+                while ($result = $NO_LEADS->fetch(PDO::FETCH_ASSOC)) {
+
+                    $AGENT_NAME2 = $result['dialer_agents_name'];
+
+
+                   
+                    
+                     if ($i2 % 7 == 0) { 
+        $dyn_table2 .= '<tr><td bgcolor="white"><strong style="font-size: 40px;">' . $AGENT_NAME2 . '</strong></td>';
+    } else {
+        $dyn_table2 .= '<td bgcolor="white"><strong style="font-size: 40px;">' . $AGENT_NAME2 . ' </strong></td>';
+    }
+    $i2++;
+}
+$dyn_table2 .= '</tr></table>';
+} 
+echo $dyn_table2;
+                    
+          
+            
+            ?>
+        </table>       
 
     </div>
 

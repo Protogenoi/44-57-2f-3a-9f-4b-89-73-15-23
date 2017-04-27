@@ -292,53 +292,68 @@ food_upload();
 
 <?php
 $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
-if(isset($RETURN)) {
-    if($RETURN=='AuditEditSuccess') {
-$grade= filter_input(INPUT_GET, 'grade', FILTER_SANITIZE_SPECIAL_CHARS);
-$totalCorrect= filter_input(INPUT_GET, 'TotalCorrect', FILTER_SANITIZE_SPECIAL_CHARS);
-$percentage= filter_input(INPUT_GET, 'TotalPercent', FILTER_SANITIZE_SPECIAL_CHARS);
-$percentage2= filter_input(INPUT_GET, 'TotalGrade', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+   if(isset($RETURN)) {
+       if($RETURN=='ADDED') { 
+               $GRADE = filter_input(INPUT_GET, 'grade', FILTER_SANITIZE_SPECIAL_CHARS);
+    $TotalCorrect = filter_input(INPUT_GET, 'TotalCorrect', FILTER_SANITIZE_SPECIAL_CHARS);
+           
+           ?>
 
-switch ($grade) {
-    case "Red";
+       <div class="editpolicy">
+    <div class="notice notice-info">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success:</strong> Audit Added!
+    </div>
+
+<?php
+
+ switch ($GRADE) {
+    case "Red":
         $NOTICE_COLOR="danger";
+
         break;
-    case "Green";
-        $NOTICE_COLOR="success";
-        break;
-    case "Amber";
+    case "Amber":
         $NOTICE_COLOR="warning";
+        break;
+    case "Green":
+        $NOTICE_COLOR="success";
         break;
     default:
         $NOTICE_COLOR="info";
-}
+       
+}   ?>
 
-    echo "<div class=\"notice notice-success fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Success!</strong> Closer Audit Successfully Edited.
-    </div>";
+       <div class="editpolicy">
+    <div class="notice notice-<?php echo $NOTICE_COLOR; ?>">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Grade:</strong> <?php echo $GRADE; ?> | Total answered correctly: <?php echo "$TotalCorrect/54";?>.
+    </div>
     
-        echo "<div class=\"warningalert\">
-    <div class=\"notice notice-$NOTICE_COLOR fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Grade</strong> Status $grade ($percentage2%).
-    </div>";
+    <?php
+           
+       }
+       if($RETURN=='FAILED') { ?>
 
-echo "<div class=\"editpolicy\">
-    <div class=\"notice notice-warning\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Audit Score:</strong> $totalCorrect / 54 answered correctly ($percentage%).
-    </div>";    
+<div class="editpolicy">
+<div class="notice notice-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Error!</strong> Closer Audit Failed.
+    </div>
+</div>
+        <?php   
+       }
+   }
+   
 
-}
 
-    }
     ?>
+
 
 <center>
     <div class="btn-group">
 
-        <a href="LandG/Audit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Life Audit</a>
+        <a href="CloserAudit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Life Audit</a>
 <a href="RoyalLondon/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Royal London</a>
 <a href="WOL/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> WOL Audit</a>
 <a href="lead_gen_reports.php?step=New" class="btn btn-info"><i class="fa fa-folder-open"></i> Lead Gen Audits</a>

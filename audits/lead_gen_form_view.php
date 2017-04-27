@@ -20,6 +20,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 }
 
 include('../includes/ADL_PDO_CON.php');
+include('../includes/ADL_MYSQLI_CON.php');
 
 $auditid = '0';
 if(isset($_GET["auditid"])) $auditid = $_GET["auditid"];
@@ -117,43 +118,40 @@ if ($new =='y') {
 </tr>
 <tr>
 <td>Auditor</td>
-<td><?php echo $data3[auditor]?></td>
+<td><?php echo $data3['auditor'];?></td>
 </tr>
 
 <tr>
 <td>Agent(s)</td>
-<td><?php echo $data3[agent]?><br></td>
+<td><?php echo $data3['agent'];?><br></td>
 </tr>
 
 <tr>
 <td>AN Number</td>
-<td><?php echo $data3[an_number]?><br></td>
+<td><?php echo $data3['an_number'];?><br></td>
 </tr>
 
 
 <tr>
 <td>Date Submitted</td>
-<td><?php echo $data3[submitted_date]?></td>
+<td><?php echo $data3['submitted_date'];?></td>
 </tr>
 
 <tr>
 
 
 <td>Grade</td>
-<?php  if($data3['grade']=='Amber') 
-         echo "<td style='background-color: #FF9900;'><b>".$data3['grade']."</b></td>"; 
-  else if($data3['grade']=='Green')
-         echo "<td style='background-color: #109618;'><b>".$data3['grade']."</b></td>"; 
-  else if($data3['grade']=='Red') 
-         echo "<td style='background-color: #DC3912;'><b>".$data3['grade']."</b></td>"; ?>
+<?php  if($data3['grade']=='Amber')  {
+echo "<td style='background-color: #FF9900;'><b>".$data3['grade']."</b></td>"; }
+  else if($data3['grade']=='Green') {
+  echo "<td style='background-color: #109618;'><b>".$data3['grade']."</b></td>"; }
+  else if($data3['grade']=='Red') {
+  echo "<td style='background-color: #DC3912;'><b>".$data3['grade']."</b></td>"; } ?>
 </tr>
 
 </thead>
 </table>
-
-
-
-
+          
 <br>
 <h4>Opening Section 1</h4>
 <br> 
@@ -527,10 +525,7 @@ else {
 
 <?php
 
-$connection = mysql_connect('localhost','root','Cerberus2^n') or die ("Couldn't connect to server."); 
-$db = mysql_select_db('dev_adl_database', $connection) or die ("Couldn't select database."); 
-
-$search=$_POST['search'];
+$search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
 
 $data = 'SELECT * FROM `lead_gen_audit` WHERE `id` = "'.$search.'" OR id ="'.$auditid.'" ';
   $query = mysql_query($data) or die("Couldn't execute query. ". mysql_error());
@@ -549,18 +544,18 @@ $data = 'SELECT * FROM `lead_gen_audit` WHERE `id` = "'.$search.'" OR id ="'.$au
 </tr>
 <tr>
 <td>Auditor</td>
-<td><?php echo $data2[auditor]?></td>
+<td><?php echo $data2['auditor']; ?></td>
 </tr>
 
 <tr>
 <td>Agent(s)</td>
-<td><?php echo $data2[lead_gen_name]?> - <?php echo $data2[lead_gen_name2]?><br></td>
+<td><?php echo $data2['lead_gen_name']; ?> - <?php echo $data2['lead_gen_name2']; ?><br></td>
 </tr>
 
 
 <tr>
 <td>Date Submitted</td>
-<td><?php echo $data2[date_submitted]?></td>
+<td><?php echo $data2['date_submitted']; ?></td>
 </tr>
 
 <tr>

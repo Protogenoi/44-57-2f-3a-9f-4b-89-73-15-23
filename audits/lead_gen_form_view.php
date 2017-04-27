@@ -20,7 +20,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 }
 
 include('../includes/ADL_PDO_CON.php');
-include('../includes/ADL_MYSQLI_CON.php');
 
 $auditid = '0';
 if(isset($_GET["auditid"])) $auditid = $_GET["auditid"];

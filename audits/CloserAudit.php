@@ -140,9 +140,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </select>
                         </div>
 
-                        <input type="hidden" name="auditor" value="<?php echo $hello_name; ?>" readonly>
-
-
                         <label for="policy_id">Policy Number</label>
                         <input type="text" class="form-control" name="policy_id" style="width: 520px">
 
@@ -153,8 +150,8 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                         <p>
                         <div class="form-group">
-                            <label for='formgrade'>Overall compliance grade:</label>
-                            <select class="form-control" name="formgrade" required>
+                            <label for='GRADE'>Overall compliance grade:</label>
+                            <select class="form-control" name="GRADE" required>
                                 <option value="">Select...</option>
                                 <option value="SAVED">Incomplete Audit (SAVE)</option>
                                 <option value="Green">Green</option>

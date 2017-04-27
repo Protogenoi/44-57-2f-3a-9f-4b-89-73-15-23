@@ -173,14 +173,14 @@ if (isset($_GET["auditid"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="policy_number">Policy Number</label>  
                                 <div class="col-md-4">
-                                    <input type="text" name="policy_number" class="form-control input-md" style="width: 220px"  value="<?php echo $result[policy_number] ?>" > 
+                                    <input type="text" name="policy_number" class="form-control input-md" style="width: 220px"  value="<?php echo $result['policy_number']; ?>" > 
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="annumber">AN Number</label>  
                                 <div class="col-md-4">
-                                    <input type="text" name="annumber" class="form-control input-md" style="width: 220px"  value="<?php echo $result[an_number] ?>" > 
+                                    <input type="text" name="annumber" class="form-control input-md" style="width: 220px"  value="<?php echo $result['an_number']; ?>" > 
                                 </div>
                             </div>
 
@@ -230,7 +230,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c1" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea1"><?php echo $result[c1] ?></textarea>
+                                <textarea name="c1" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea1"><?php echo $result['c1']; ?></textarea>
                             <div id="textarea_feedbackc1"></div>
                             <script>
                                 $(document).ready(function () {
@@ -266,7 +266,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c2" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea2"><?php echo $result[c2] ?></textarea>
+                                <textarea name="c2" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea2"><?php echo $result['c2']; ?></textarea>
                             <div id="textarea_feedbackc2"></div>
                             <script>
                                 $(document).ready(function () {
@@ -302,7 +302,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c3" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea3"><?php echo $result[c3] ?></textarea>
+                                <textarea name="c3" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea3"><?php echo $result['c3']; ?></textarea>
                             <div id="textarea_feedbackc3"></div>
                             <script>
                                 $(document).ready(function () {
@@ -339,7 +339,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c4" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea4"><?php echo $result[c4] ?></textarea>
+                                <textarea name="c4" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea4"><?php echo $result['c4']; ?></textarea>
                             <div id="textarea_feedbackc4"></div>
                             <script>
                                 $(document).ready(function () {
@@ -377,7 +377,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c5" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea5"><?php echo $result[c5] ?></textarea>
+                                <textarea name="c5" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea5"><?php echo $result['c5']; ?></textarea>
                             <div id="textarea_feedbackc5"></div>
                             <script>
                                 $(document).ready(function () {
@@ -423,7 +423,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c6" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea6"><?php echo $result[c6] ?></textarea>
+                                <textarea name="c6" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea6"><?php echo $result['c6']; ?></textarea>
                             <div id="textarea_feedbackc6"></div>
                             <script>
                                 $(document).ready(function () {
@@ -460,7 +460,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c7" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea7"><?php echo $result[c7] ?></textarea>
+                                <textarea name="c7" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea7"><?php echo $result['c7']; ?></textarea>
                             <div id="textarea_feedbackc7"></div>
                             <script>
                                 $(document).ready(function () {
@@ -497,7 +497,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c8" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea8"><?php echo $result[c8] ?></textarea>
+                                <textarea name="c8" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea8"><?php echo $result['c8']; ?></textarea>
                             <div id="textarea_feedbackc8"></div>
                             <script>
                                 $(document).ready(function () {
@@ -534,7 +534,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c9" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea9"><?php echo $result[c9] ?></textarea>
+                                <textarea name="c9" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea9"><?php echo $result['c9']; ?></textarea>
                             <div id="textarea_feedbackc9"></div>
                             <script>
                                 $(document).ready(function () {
@@ -571,7 +571,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c10" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea10"><?php echo $result[c10] ?></textarea>
+                                <textarea name="c10" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea10"><?php echo $result['c10']; ?></textarea>
                             <div id="textarea_feedbackc10"></div>
                             <script>
                                 $(document).ready(function () {
@@ -607,7 +607,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c11" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea11"><?php echo $result[c11] ?></textarea>
+                                <textarea name="c11" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea11"><?php echo $result['c11']; ?></textarea>
                             <div id="textarea_feedbackc11"></div>
                             <script>
                                 $(document).ready(function () {
@@ -656,7 +656,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c12" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea12"><?php echo $result[c12] ?></textarea>
+                                <textarea name="c12" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea12"><?php echo $result['c12']; ?></textarea>
                             <div id="textarea_feedbackc12"></div>
                             <script>
                                 $(document).ready(function () {
@@ -691,7 +691,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c53" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea53"><?php echo $result[c53] ?></textarea>
+                                <textarea name="c53" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea53"><?php echo $result['c53']; ?></textarea>
                             <div id="textarea_feedbackc53"></div>
                             <script>
                                 $(document).ready(function () {
@@ -727,7 +727,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c13" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea13"><?php echo $result[c13] ?></textarea>
+                                <textarea name="c13" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea13"><?php echo $result['c13']; ?></textarea>
                             <div id="textarea_feedbackc13"></div>
                             <script>
                                 $(document).ready(function () {
@@ -771,7 +771,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c14" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea14"><?php echo $result[c14] ?></textarea>
+                                <textarea name="c14" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea14"><?php echo $result['c14']; ?></textarea>
                             <div id="textarea_feedbackc14"></div>
                             <script>
                                 $(document).ready(function () {
@@ -808,7 +808,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c15" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea15"><?php echo $result[c15] ?></textarea>
+                                <textarea name="c15" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea15"><?php echo $result['c15']; ?></textarea>
                             <div id="textarea_feedbackc15"></div>
                             <script>
                                 $(document).ready(function () {
@@ -857,7 +857,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c55" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea17"><?php echo $result[c55] ?></textarea>
+                                <textarea name="c55" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea17"><?php echo $result['c55']; ?></textarea>
                             <div id="textarea_feedbackc55"></div>
                             <script>
                                 $(document).ready(function () {
@@ -893,7 +893,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c17" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea17"><?php echo $result[c17] ?></textarea>
+                                <textarea name="c17" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea17"><?php echo $result['c17']; ?></textarea>
                             <div id="textarea_feedbackc17"></div>
                             <script>
                                 $(document).ready(function () {
@@ -928,7 +928,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c16" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea16"><?php echo $result[c16] ?></textarea>
+                                <textarea name="c16" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea16"><?php echo $result['c16']; ?></textarea>
                             <div id="textarea_feedbackc16"></div>
                             <script>
                                 $(document).ready(function () {
@@ -966,7 +966,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c31" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea31"><?php echo $result[c31] ?></textarea>
+                                <textarea name="c31" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea31"><?php echo $result['c31']; ?></textarea>
                             <div id="textarea_feedbackc31"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1003,7 +1003,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c18" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea18"><?php echo $result[c18] ?></textarea>
+                                <textarea name="c18" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea18"><?php echo $result['c18']; ?></textarea>
                             <div id="textarea_feedbackc18"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1039,7 +1039,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c19" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea19"><?php echo $result[c19] ?></textarea>
+                                <textarea name="c19" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea19"><?php echo $result['c19']; ?></textarea>
                             <div id="textarea_feedbackc19"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1075,7 +1075,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c20" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea20"><?php echo $result[c20] ?></textarea>
+                                <textarea name="c20" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea20"><?php echo $result['c20']; ?></textarea>
                             <div id="textarea_feedbackc20"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1111,7 +1111,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c21" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea21"><?php echo $result[c21] ?></textarea>
+                                <textarea name="c21" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea21"><?php echo $result['c21']; ?></textarea>
                             <div id="textarea_feedbackc21"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1146,7 +1146,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c22" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea22"><?php echo $result[c22] ?></textarea>
+                                <textarea name="c22" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea22"><?php echo $result['c22']; ?></textarea>
                             <div id="textarea_feedbackc22"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1182,7 +1182,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c23" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea23"><?php echo $result[c23] ?></textarea>
+                                <textarea name="c23" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea23"><?php echo $result['c23']; ?></textarea>
                             <div id="textarea_feedbackc23"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1218,7 +1218,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c24" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea24"><?php echo $result[c24] ?></textarea>
+                                <textarea name="c24" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea24"><?php echo $result['c24']; ?></textarea>
                             <div id="textarea_feedbackc24"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1253,7 +1253,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c25" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea25"><?php echo $result[c25] ?></textarea>
+                                <textarea name="c25" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea25"><?php echo $result['c25']; ?></textarea>
                             <div id="textarea_feedbackc25"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1289,7 +1289,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c26" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea26"><?php echo $result[c26] ?></textarea>
+                                <textarea name="c26" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea26"><?php echo $result['c26']; ?></textarea>
                             <div id="textarea_feedbackc26"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1325,7 +1325,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c27" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea27"><?php echo $result[c27] ?></textarea>
+                                <textarea name="c27" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea27"><?php echo $result['c27']; ?></textarea>
                             <div id="textarea_feedbackc27"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1360,7 +1360,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c28" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea28"><?php echo $result[c28] ?></textarea>
+                                <textarea name="c28" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea28"><?php echo $result['c28']; ?></textarea>
                             <div id="textarea_feedbackc28"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1407,7 +1407,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c29" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea29"><?php echo $result[c29] ?></textarea>
+                                <textarea name="c29" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea29"><?php echo $result['c29']; ?></textarea>
                             <div id="textarea_feedbackc29"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1454,7 +1454,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c30" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea30"><?php echo $result[c30] ?></textarea>
+                                <textarea name="c30" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea30"><?php echo $result['c30']; ?></textarea>
                             <div id="textarea_feedbackc30"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1490,7 +1490,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c54" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea54"><?php echo $result[c54] ?></textarea>
+                                <textarea name="c54" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea54"><?php echo $result['c54']; ?></textarea>
                             <div id="textarea_feedbackc54"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1538,7 +1538,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c32" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea32"><?php echo $result[c32] ?></textarea>
+                                <textarea name="c32" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea32"><?php echo $result['c32']; ?></textarea>
                             <div id="textarea_feedbackc32"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1577,7 +1577,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c33" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea33"><?php echo $result[c33] ?></textarea>
+                                <textarea name="c33" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea33"><?php echo $result['c33']; ?></textarea>
                             <div id="textarea_feedbackc33"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1613,7 +1613,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c34" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea34"><?php echo $result[c34] ?></textarea>
+                                <textarea name="c34" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea34"><?php echo $result['c34']; ?></textarea>
                             <div id="textarea_feedbackc34"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1648,7 +1648,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c35" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea35"><?php echo $result[c35] ?></textarea>
+                                <textarea name="c35" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea35"><?php echo $result['c35']; ?></textarea>
                             <div id="textarea_feedbackc35"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1684,7 +1684,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c36" rows="1" cols="85" maxlength="1500" onkeyup="textAreaAdjust(this)" id="textarea36"><?php echo $result[c36] ?></textarea>
+                                <textarea name="c36" rows="1" cols="85" maxlength="1500" onkeyup="textAreaAdjust(this)" id="textarea36"><?php echo $result['c36']; ?></textarea>
                             <div id="textarea_feedbackc36"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1733,7 +1733,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c38" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea38"><?php echo $result[c38] ?></textarea>
+                                <textarea name="c38" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea38"><?php echo $result['c38']; ?></textarea>
                             <div id="textarea_feedbackc38"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1770,7 +1770,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c39" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea39"><?php echo $result[c39] ?></textarea>
+                                <textarea name="c39" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea39"><?php echo $result['c39']; ?></textarea>
                             <div id="textarea_feedbackc39"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1806,7 +1806,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c40" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea40"><?php echo $result[c40] ?></textarea>
+                                <textarea name="c40" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea40"><?php echo $result['c40']; ?></textarea>
                             <div id="textarea_feedbackc40"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1843,7 +1843,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c41" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea41"><?php echo $result[c41] ?></textarea>
+                                <textarea name="c41" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea41"><?php echo $result['c41'] ;?></textarea>
                             <div id="textarea_feedbackc41"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1880,7 +1880,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c42" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea42"><?php echo $result[c42] ?></textarea>
+                                <textarea name="c42" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea42"><?php echo $result['c42']; ?></textarea>
                             <div id="textarea_feedbackc42"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1917,7 +1917,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c43" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea43"><?php echo $result[c43] ?></textarea>
+                                <textarea name="c43" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea43"><?php echo $result['c43']; ?></textarea>
                             <div id="textarea_feedbackc43"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1954,7 +1954,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c44" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea44"><?php echo $result[c44] ?></textarea>
+                                <textarea name="c44" rows="1" cols="85" maxlength="2500" onkeyup="textAreaAdjust(this)" id="textarea44"><?php echo $result['c44']; ?></textarea>
                             <div id="textarea_feedbackc44"></div>
                             <script>
                                 $(document).ready(function () {
@@ -1994,7 +1994,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c45" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea45"><?php echo $result[c45] ?></textarea>
+                                <textarea name="c45" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea45"><?php echo $result['c45']; ?></textarea>
                             <div id="textarea_feedbackc45"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2043,7 +2043,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c46" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea46"><?php echo $result[c46] ?></textarea>
+                                <textarea name="c46" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea46"><?php echo $result['c46']; ?></textarea>
                             <div id="textarea_feedbackc46"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2079,7 +2079,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c47" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea47"><?php echo $result[c47] ?></textarea>
+                                <textarea name="c47" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea47"><?php echo $result['c47']; ?></textarea>
                             <div id="textarea_feedbackc47"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2115,7 +2115,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c48" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea48"><?php echo $result[c48] ?></textarea>
+                                <textarea name="c48" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea48"><?php echo $result['c48']; ?></textarea>
                             <div id="textarea_feedbackc48"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2151,7 +2151,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c49" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea49"><?php echo $result[c49] ?></textarea>
+                                <textarea name="c49" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea49"><?php echo $result['c49']; ?></textarea>
                             <div id="textarea_feedbackc49"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2186,7 +2186,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c50" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea50"><?php echo $result[c50] ?></textarea>
+                                <textarea name="c50" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea50"><?php echo $result['c50']; ?></textarea>
                             <div id="textarea_feedbackc50"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2222,7 +2222,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c51" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea51"><?php echo $result[c51] ?></textarea>
+                                <textarea name="c51" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea51"><?php echo $result['c51']; ?></textarea>
                             <div id="textarea_feedbackc51"></div>
                             <script>
                                 $(document).ready(function () {
@@ -2258,7 +2258,7 @@ if (isset($_GET["auditid"])) {
                             <p>
                                 Comments: 
                                 <br>
-                                <textarea name="c52" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea52"><?php echo $result[c52] ?></textarea>
+                                <textarea name="c52" rows="1" cols="85" maxlength="500" onkeyup="textAreaAdjust(this)" id="textarea52"><?php echo $result['c52']; ?></textarea>
                             <div id="textarea_feedbackc52"></div>
                             <script>
                                 $(document).ready(function () {

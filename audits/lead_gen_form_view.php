@@ -166,8 +166,8 @@ else {
 <label for="full_info">Q1. Agent said their name?</label>
 
 
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq1']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq1']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq1']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq1']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q1;?>
 </div>
@@ -184,8 +184,8 @@ else {
 
 
 <label for="obj_handled">Q2. Said where they were calling from?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq2']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq2']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq2']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq2']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q2;?>
 </div>
@@ -201,8 +201,8 @@ else {
     ?>
 
 <label for="rapport">Q3. Said the reason for the call?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq3']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq3']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq3']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq3']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q3;?>
 </div>
@@ -218,8 +218,8 @@ else {
     ?>
 
 <label for="dealsheet_questions">Q4. Used EU gender directive correctly?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq4']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq4']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq4']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq4']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q4;?>
 </div>
@@ -235,8 +235,8 @@ else {
     ?>
 
 <label for="sq5">Q5. Agent followed the script?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq5']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq5']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['sq5']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['sq5']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q5;?>
 </div>
@@ -258,8 +258,8 @@ else {
 
 
 <label for="full_info">Q1. Were all questions asked?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq1']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq1']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq1']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq1']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <br>
 
 <?php 
@@ -272,8 +272,8 @@ else {
     ?>
 
 <label for="obj_handled">Q2. What was the main reason you took out the policy?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq2']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq2']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq2']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq2']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q6;?>
 </div>
@@ -289,8 +289,8 @@ else {
     ?>
 
 <label for="rapport">Q3. Repayment or interest only?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq3']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq3']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq3']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq3']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q7;?>
 </div>
@@ -306,8 +306,8 @@ else {
     ?>
 
 <label for="dealsheet_questions">Q4. When was your last review on the policy?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq4']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq4']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq4']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq4']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q8;?>
 </div>
@@ -323,8 +323,8 @@ else {
     ?>
 
 <label for="full_info">Q5. How did you take out the policy?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq5']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq5']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq5']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq5']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q9;?>
 </div>
@@ -340,8 +340,8 @@ else {
     ?>
 
 <label for="obj_handled">Q6. How much are you paying on a monthly basis?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq6']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq6']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq6']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq6']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q10;?>
 </div>
@@ -357,8 +357,8 @@ else {
     ?>
 
 <label for="rapport">Q7. How much are you covered for?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq7']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq7']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq7']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq7']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q11;?>
 </div>
@@ -374,8 +374,8 @@ else {
     ?>
 
 <label for="dealsheet_questions">Q8. How long do you have left on the policy?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq8']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq8']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq8']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq8']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q12;?>
 </div>
@@ -391,8 +391,8 @@ else {
     ?>
 
 <label for="full_info">Q9. Is your policy single, joint or separate?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq9']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq9']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq9']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq9']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q13;?>
 </div>
@@ -408,8 +408,8 @@ else {
     ?>
 
 <label for="obj_handled">Q10. Have you or your partner smoked in the last 12 months?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq10']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq10']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq10']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq10']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q14;?>
 </div>
@@ -425,8 +425,8 @@ else {
     ?>
 
 <label for="rapport">Q11. Have you or your partner got or has had any health issues?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq11']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq11']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2aq11']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2aq11']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $q15;?>
 </div>
@@ -448,8 +448,8 @@ else {
     ?>
 
 <label for="rapport">Q1. Were all questions asked correctly?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2bq1']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2bq1']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['s2bq1']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['s2bq1']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $data3['q1s2bc1']?>
 </div>
@@ -465,8 +465,8 @@ else {
     ?>
 
 <label for="rapport">Q2. Were all questions recorded correctly?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q2s2bq2']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q2s2bq2']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q2s2bq2']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q2s2bq2']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $data3['q2s2bc2']?>
 </div>
@@ -486,8 +486,8 @@ else {
 <br>  
 
 <label for="rapport">Q1. Did the agent stick to branding compliance?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q1s4q1n']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q1s4q1n']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q1s4q1n']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q1s4q1n']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $data3['q1s4c1n']?>
 </div>
@@ -506,8 +506,8 @@ else {
 <br>  
 
 <label for="rapport">Q1. Were all personal details recorded correctly?</label>
-<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q1s3q1']=="Yes") echo "checked"?>>Yes
-<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q1s3q1']=="No") echo "checked"?>><label for="No">No</label>
+<input type="radio" value="Yes" onclick="return false"onclick="return false"<?php if ($data3['q1s3q1']=="Yes") { echo "checked"; } ?>>Yes
+<input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($data3['q1s3q1']=="No") { echo "checked"; } ?>><label for="No">No</label>
 <div class="phpcomments">
 <?php echo $data3['q1s3c1']?>
 </div>

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
-    <link rel="stylesheet" href="../styles/realtimereport.css" type="text/css" />
-    <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/realtimereport.css" type="text/css" />
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="icon" type="../image/x-icon" href="/img/favicon.ico"  />
@@ -64,7 +64,7 @@ GROUP BY agent
 ORDER BY Sales, Leads");
         ?>
 
-        <table id='main2' cellspacing='0' cellpadding='10'>
+        <table class="table-condensed" cellspacing='0' cellpadding='10'>
 
             <?php
             $dyn_table = '<table id="main2" cellspacing="0" "cellpadding="10">';
@@ -96,9 +96,9 @@ ORDER BY Sales, Leads");
                    
                     
                      if ($i % 7 == 0) { 
-        $dyn_table .= '<tr><td ' . $CR_BG_COL . '><strong style="font-size: 40px;">' . $AGENT_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
+        $dyn_table .= '<tr><td ' . $CR_BG_COL . '><strong style="font-size: 40px;">' . $AGENT_NAME . ' <br>' . $LEADS . '/' . $SALES . ' (' . $Formattedrate . ')</strong></td>';
     } else {
-        $dyn_table .= '<td ' . $CR_BG_COL . '><strong style="font-size: 40px;">' . $AGENT_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
+        $dyn_table .= '<td ' . $CR_BG_COL . '><strong style="font-size: 40px;">' . $AGENT_NAME . ' <br>' . $LEADS . '/' . $SALES . ' (' . $Formattedrate . ')</strong></td>';
     }
     $i++;
 }

@@ -2,7 +2,7 @@
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
-$hello_name = ($page_protect->user_CLOSER != "") ? $page_protect->user_CLOSER : $page_protect->user;
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/Access_Levels.php');

@@ -1249,7 +1249,7 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
                                                     <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="Jamess">Jamess</option>
+                                    <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="David">David</option> 
                                     <option value="Richard">Richard</option>
@@ -2351,7 +2351,7 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
         <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="Jamess">Jamess</option>
+                                    <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="David">David</option> 
                                     <option value="Richard">Richard</option>
@@ -3456,7 +3456,7 @@ switch ($hello_name) {
                                         <option value="">Closer</option>
         <?php } ?>
                                     <option value="Carys Riley">Carys Riley</option>
-                                    <option value="Jamess">Jamess</option>
+                                    <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="David">David</option> 
                                     <option value="Richard">Richard</option>
@@ -5932,7 +5932,7 @@ switch ($hello_name) {
         <?php } ?>
                             <option value="CLOSER CALLBACK">SET AS CALLBACK</option>            
                             <option value="Carys Riley">Carys Riley</option>
-                            <option value="Jamess">Jamess</option>
+                            <option value="James">James</option>
                             <option value="Kyle">Kyle</option>  
                             <option value="David">David</option> 
                             <option value="Richard">Richard</option>
@@ -7222,7 +7222,7 @@ switch ($hello_name) {
                     <option value="">SEND TO CLOSER OR SET AS CALLBACK</option>
                     <option value="CALLBACK">Set as Callback</option>
                     <option value="Carys Riley">Carys Riley</option>
-                    <option value="Jamess">Jamess</option>
+                    <option value="James">James</option>
                     <option value="Kyle">Kyle</option>  
                     <option value="David">David</option> 
                     <option value="Richard">Richard</option>

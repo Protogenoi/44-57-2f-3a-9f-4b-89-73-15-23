@@ -58,7 +58,7 @@ if ($fflife=='0') {
 
       <div class="container">
           
-          <div class='notice notice-primary' role='alert'><h2> <center><strong>Keyfacts email attempts</strong></center></h2> </div>
+          <div class='notice notice-primary' role='alert'><h2> <center><strong><?php if(isset($SEARCH) && $SEARCH=='NotSent') { echo "No attempts at sending a KeyFacts email to client"; } else { echo "KeyFacts email attempts"; } ?></strong></center></h2> </div>
     <br> 
     
     <form action="" method="GET">

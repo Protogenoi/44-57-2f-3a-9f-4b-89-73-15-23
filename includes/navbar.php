@@ -112,15 +112,7 @@ if ($companynamere == 'HWIFS') {
                         <li><a href="/SearchClients.php">Search Clients</a></li>
                         <li><a href="/SearchPolicies.php?query=Life">Search Policies</a></li>
                         <li class="divider"></li>
-                        <li><a href="/CRMReports.php">Reports</a></li>
-
-<?php if ($ffdialler == '1') { ?>
-
-                            <li><a href="/dialer/Recordings.php">Recordings</a></li>
-
-<?php } ?>
-
-                        <li><a href="/Emails.php">Emails</a></li>
+                        <li><a href="/CRMReports.php">Reports</a></li>                        
 
 <?php if (in_array($hello_name, $Level_8_Access, true)) { ?>
 
@@ -132,27 +124,17 @@ if ($companynamere == 'HWIFS') {
         echo "#";
     } ?>">Tasks</a></li>
 
-                        <?php }
+                        <?php } ?>
+                            <li><a href="<?php if ($ffsms == '1') { echo '/Life/SMS/Report.php'; } else { echo '#'; } ?>"><?php if ($ffsms == '1') { echo 'SMS Report'; } else { echo 'SMS Report (not enabled)'; } ?></a></li>
+                            <li class="divider"></li>
+                            
+                            <li><a href="<?php if ($ffcalendar == '1') { echo '/calendar/calendar.php'; } else { echo '#'; } ?>"><?php if ($ffcalendar == '1') { echo 'Calendar'; } else { echo 'Calendar (not enabled)'; } ?></a></li>
+                            <li class="divider"></li>
+                            
+                            <li><a href="/Emails.php">Emails</a></li>
+                            <li><a href="<?php if ($ffkeyfactsemail == '1') { echo '/Life/Reports/Keyfacts.php'; } else { echo '#'; } ?>"><?php if ($ffkeyfactsemail == '1') { echo 'KeyFact Email Report'; } else { echo 'KeyFact Email Report (not enabled)'; } ?></a></li>
+                            <li><a href="<?php if ($hello_name == 'Michael') { echo '/email/emailinbox.php'; } else { echo '#'; } ?>"><?php if ($hello_name == 'Michael') { echo 'Email Inbox'; } else { echo 'Email Inbox (not enabled)'; } ?></a></li>
 
-                        if($ffsms=='1') { ?>
-                            <li><a href="/Life/SMS/Report.php">SMS Report</a></li>
-                          <?php  }
-                          if($ffkeyfactsemail=="1") { ?>
-                            <li><a href="/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
-                         <?php }
-                        
-                        if ($ffcalendar == '1') {
-                            ?>
-
-                            <li><a href="/calendar/calendar.php">Calendar</a></li>
-
-                <?php }
-
-                if ($hello_name == 'Michael') {
-                    ?>
-                            <li><a href="/email/emailinbox.php">Email Inbox</a></li>
-
-<?php } ?>
                     </ul>
                 </li>
 
@@ -169,13 +151,6 @@ if ($companynamere == 'HWIFS') {
                             <li><a href="/audits/WOL/Menu.php">One Family Audits</a></li>
                             <li class="divider"></li>
                             <li><a href="/audits/reports_main.php">Reports</a></li>
-                    <?php if ($ffdialler == '1') { ?>
-
-                                <li><a href="/dialer/Recordings.php">Recordings</a></li>
-
-    <?php } ?>
-
-                            <li><a href="/Emails.php">Emails</a></li>
                         </ul>
                     </li>
 
@@ -185,9 +160,14 @@ if ($companynamere == 'HWIFS') {
           if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)  || in_array($hello_name, $Level_9_Access, true)) { ?>
             <li class="dropdown">
         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
-          E-Stats
+          Dialler
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
+            
+            
+            <li><a href="<?php if ($ffdialler == '1') { echo '/dialer/Recordings.php'; } else  { echo '#'; } ?>"><?php if ($ffdialler == '1') { echo 'Recordings'; } else  { echo 'Dialler Recordings (not enabled)'; } ?></a></li>
+
+            
             <?php if(in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true) || $hello_name=='Michael') { ?> 
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
             <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
@@ -227,13 +207,18 @@ if (in_array($hello_name, $Level_9_Access, true)) {
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                         <ul role='menu' class='dropdown-menu'>
                     <?php if ($ffemployee == '1') { ?>
+                            <li><a href="/dialer/Agents.php">Add Agent/Closer</a></li> 
+                             <li class="divider"></li>
                                 <li><a href="/Staff/Main_Menu.php">Staff Database</a></li> 
                                 <li><a href="/Staff/Search.php">Search Database</a></li> 
                                 <li><a href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
                                 <li><a href="/Staff/Reports/RAG.php">RAG</a></li> 
+                                 
     <?php } ?>
-                            <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
+                            
                             <?php if ($hello_name == 'Michael') { ?>
+                                <li class="divider"></li>
+                             <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <li><a href='/admin/users.php'>User Accounts</a></li>
                             <?php } ?>
                         </ul>  

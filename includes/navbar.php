@@ -111,6 +111,7 @@ if ($companynamere == 'HWIFS') {
                         <li><a href="/AddClient.php">Add Client</a></li>
                         <li><a href="/SearchClients.php">Search Clients</a></li>
                         <li><a href="/SearchPolicies.php?query=Life">Search Policies</a></li>
+                        <li class="divider"></li>
                         <li><a href="/CRMReports.php">Reports</a></li>
 
 <?php if ($ffdialler == '1') { ?>
@@ -136,6 +137,9 @@ if ($companynamere == 'HWIFS') {
                         if($ffsms=='1') { ?>
                             <li><a href="/Life/SMS/Report.php">SMS Report</a></li>
                           <?php  }
+                          if($ffkeyfactsemail=="1") { ?>
+                            <li><a href="/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
+                         <?php }
                         
                         if ($ffcalendar == '1') {
                             ?>
@@ -158,10 +162,12 @@ if ($companynamere == 'HWIFS') {
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Audits <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="/audits/main_menu.php">Main Menu</a></li>
+                            <li class="divider"></li>
                             <li><a href="/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
-                            <li><a href="/audits/auditor_menu.php">Closer Audits</a></li>
+                            <li><a href="/audits/auditor_menu.php">Legal and General Audits</a></li>
                             <li><a href="/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
-                            <li><a href="/audits/WOL/Menu.php">WOL Audits</a></li>
+                            <li><a href="/audits/WOL/Menu.php">One Family Audits</a></li>
+                            <li class="divider"></li>
                             <li><a href="/audits/reports_main.php">Reports</a></li>
                     <?php if ($ffdialler == '1') { ?>
 

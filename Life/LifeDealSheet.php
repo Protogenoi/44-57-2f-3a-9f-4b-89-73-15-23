@@ -7408,7 +7408,7 @@ $("#provider-json").easyAutocomplete(options);</script>
 </script>
                                     <script type="text/JavaScript">
                                     var $select = $('#agent_name');
-                                    $.getJSON('../../JSON/AllNames.json', function(data){
+                                    $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){
                                     $select.html('agent_name');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');

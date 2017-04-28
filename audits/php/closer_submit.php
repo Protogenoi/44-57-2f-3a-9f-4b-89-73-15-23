@@ -1,15 +1,37 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if (isset($_GET['action']) && $_GET['action'] == "log_out") {
-	$page_protect->log_out();
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_MYSQLI_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
 }
 
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
-include('../../includes/ADL_MYSQLI_CON.php'); 
+if ($ffaudits == '0') {
+
+    header('Location: /../../CRMmain.php?FeatureDisabled');
+    die;
+}
+
+if (!in_array($hello_name, $Level_3_Access, true)) {
+
+    header('Location: /../../CRMmain.php');
+    die;
+}
 
  $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -249,18 +271,16 @@ $annumber=preg_replace('/\s+/', '', $AN_NUMBER);
     $policy_id = filter_input(INPUT_POST, 'policy_id', FILTER_SANITIZE_SPECIAL_CHARS);
     $agree = filter_input(INPUT_POST, 'agree', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$sql = "INSERT INTO closer_audits SET
-an_number=$annumber, total=$totalCorrect, cal_grade=$percentage2, score=$percentage2, closer=$full_name, closer2=$full_name2, auditor=$hello_name, policy_number=$policy_id, grade=$GRADE, q1=$q1, c1=$c1, q2=$q2, c2=$c2, q3, c3, q4, c4, q5, c5, q6, c6, q7, c7, q8, c8, q9, c9, q10, c10, q11, c11, q12, c12, q13, c13, q14, c14, q15, c15, q16, c16, q17, c17, q18, c18, q19, c19, q20, c20, q21, c21, q22, c22, q23, c23, q24, c24, q25, c25, q26, c26, q27, c27, q28, c28, q29, c29, q30, c30, q31, c31, q32, c32, q33, c33, q34, c34, q35, c35, q36, c36, q38, c38, q39, c39, q40, c40, q41, c41, q42, c42, q43, c43, q44, c44, q45, c45, q46, c46, q47, c47, q48=$q48, c48=$c48, q49=$q49, c49=$c49, q50=$q50, c50=$c50, q51=$q51, c51=$c51, q52=$q52, c52=$c52, q53=$q53, c53=$c53, q54=$q54, c54=$c54, q55=$q55, c55=$c55, agree=$agree) 
-'$q3', '$c3', '$q4', '$c4', '$q5', '$c5', '$q6', '$c6', '$q7', '$c7', '$q8', '$c8','$q9', '$c9', '$q10','$c10', '$q11', '$c11', '$q12', '$c12', '$q13', '$c13', '$q14', '$c14', '$q15', '$c15', '$q16', '$c16', '$q17', '$c17', '$q18', '$c18', '$q19', '$c19', '$q20', '$c20', '$q21', '$c21', '$q22', '$c22', '$q23', '$c23', '$q24', '$c24', '$q25', '$c25', '$q26', '$c26', '$q27', '$c27', '$q28', '$c28', '$q29', '$c29', '$q30', '$c30', '$q31', '$c31', '$q32', '$c32', '$q33', '$c33', '$q34', '$c34', '$q35', '$c35', '$q36', '$c36', '$q38', '$c38', '$q39', '$c39', '$q40', '$c40', '$q41', '$c41', '$q42', '$c42', '$q43', '$c43', '$q44', '$c44', '$q45', '$c45', '$q46', '$c46', '$q47', '$c47')";
+$sql = "INSERT INTO closer_audits SET an_number='$annumber', total='$totalCorrect', cal_grade='$percentage2', score='$percentage2', closer='$full_name', closer2='$full_name2', auditor='$hello_name', policy_number='$policy_id', grade='$GRADE', q1='$q1', c1='$c1', q2='$q2', c2='$c2', q3='$q3', c3='$c3', q4='$q4', c4='$c4', q5='$q5', c5='$c5', q6='$q6', c6='$c6', q7='$q7', c7='$c7', q8='$q8', c8='$c8', q9='$q9', c9='$c9', q10='$q10', c10='$c10', q11='$q11', c11='$c11', q12='$q12', c12='$c12', q13='$q13', c13='$c13', q14='$q14', c14='$c14', q15='$q15', c15='$c15', q16='$q16', c16='$c16', q17='$q17', c17='$c17', q18='$q18', c18='$c18', q19='$q19', c19='$c19', q20='$q20', c20='$c20', q21='$q21', c21='$c21', q22='$q22', c22='$c22', q23='$q23', c23='$c23', q24='$q24', c24='$c24', q25='$q25', c25='$c25', q26='$q26', c26='$c26', q27='$q27', c27='$c27', q28='$q28', c28='$c28', q29='$q29', c29='$c29', q30='$q30', c30='$c30', q31='$q31', c31='$c31', q32='$q32', c32='$c32', q33='$q33', c33='$c33', q34='$q34', c34='$c34', q35='$q35', c35='$c35', q36='$q36', c36='$c36', q38='$q38', c38='$c38', q39='$q39', c39='$c39', q40='$q40', c40='$c40', q41='$q41', c41='$c41', q42='$q42', c42='$c42', q43='$q43', c43='$c43', q44='$q44', c44='$c44', q45='$q45', c45='$c45', q46='$q46', c46='$c46', q47='$q47', c47='$c47', q48='$q48', c48='$c48', q49='$q49', c49='$c49', q50='$q50', c50='$c50', q51='$q51', c51='$c51', q52='$q52', c52='$c52', q53='$q53', c53='$c53', q54='$q54', c54='$c54', q55='$q55', c55='$c55', agree='$agree'";
 
 if (mysqli_query($conn, $sql)) {
 
     
-        header('Location: ../auditor_menu.php?RETURN=ADDED&grade=' . $GRADE . '&TotalCorrect=' . $totalCorrect);
+    header('Location: ../auditor_menu.php?RETURN=ADDED&grade=' . $GRADE . '&TotalCorrect=' . $totalCorrect);
     
 } else {
 
-    header('Location: ../auditor_menu.php?RETURN=FAILED');
+   header('Location: ../auditor_menu.php?RETURN=FAILED');
 }
 
 

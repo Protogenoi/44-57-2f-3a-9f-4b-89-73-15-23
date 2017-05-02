@@ -164,8 +164,8 @@ function WriteHTML($html)
 $html = '
 <br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
 <br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
-<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the return address is freepost so you do not have to use a stamp.</p>
-<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 01792 735002.</p>
+<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the envelope provided will require a stamp.</p>
+<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0845 950 041.</p>
 
 <br /><br>
 <br /><br>';
@@ -469,7 +469,7 @@ $html = '
 <br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
 <br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
 <br /><br><p>I have also included an optional Letter of Wishes should you wish to provide instructions for your Truestee/s.</p>
-<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the return address is freepost so you do not have to use a stamp.</p>
+<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the envelope provided will require a stamp.</p>
 <br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 03334 432 484.</p>
 
 <br /><br>
@@ -690,7 +690,7 @@ function WriteHTML($html)
 $html = '
 <br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
 <br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
-<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the return address is freepost so you do not have to use a stamp.</p>
+<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the envelope provided will require a stamp.</p>
 <br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 02036 349 515.</p>
 
 <br /><br>

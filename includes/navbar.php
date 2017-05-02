@@ -51,8 +51,8 @@ if ($companynamere == 'ADL_CUS') {
     $Level_10_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
     $Level_9_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
     $Level_8_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
-    $Level_3_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
-    $Level_1_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
+    $Level_3_Access = array("Michael", "Dean", "Helen", "Andrew", "David","James");
+    $Level_1_Access = array("Michael", "Dean", "Helen", "Andrew", "David","James");
     $SECRET = array("Michael");
     $Task_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
 }

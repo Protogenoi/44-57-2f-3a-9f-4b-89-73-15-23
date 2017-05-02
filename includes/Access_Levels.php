@@ -18,7 +18,7 @@ if ($companynamere == 'The Review Bureau') {
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Victoria", "Christian");
     $Agent_Access = array("111111111");
     $Closer_Access = array("James", "Hayley", "David", "Mike", "Kyle", "Sarah", "Richard", "Mike", "Gavin");
-    $Manager_Access = array("Richard", "Keith");
+    $Manager_Access = array("Richard", "Keith","Michael", "Matt", "leighton", "Nick", "carys");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
 }
 

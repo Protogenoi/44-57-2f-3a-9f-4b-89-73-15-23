@@ -2268,7 +2268,7 @@ if ($settingsselect == 'y') {
                             <p>Enable or disable CRM features</p>
                             <br> 
                             <?php
-                            $query = $pdo->prepare("SELECT employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
+                            $query = $pdo->prepare("SELECT trackers, employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
                             $query->execute()or die(print_r($query->errorInfo(), true));
                             $queryfeatures = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -2293,6 +2293,7 @@ if ($settingsselect == 'y') {
                             $fpost_code = $queryfeatures['post_code'];
                             $fdealsheets = $queryfeatures['dealsheets'];
                             $femployee = $queryfeatures['employee'];
+                            $ftracker = $queryfeatures['trackers'];
                             ?>
 
 
@@ -2720,6 +2721,26 @@ if ($settingsselect == 'y') {
                                             </label>
                                         </div>
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="featuretracker">Enable Trackers</label>
+                                        <div class="col-md-4"> 
+                                            <label class="radio-inline" for="featuretracker-0">
+                                                <input name="featuretracker" id="featuretracker-0" value="0" <?php if (!isset($ftracker)) {
+                            echo 'checked="checked"';
+                        } elseif ($ftracker == '0') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                0
+                                            </label> 
+                                            <label class="radio-inline" for="featuretracker-1">
+                                                <input name="featuretracker" id="featuretracker-1" value="1" <?php if ($ftracker == '1') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                1
+                                            </label>
+                                        </div>
+                                    </div>                                    
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="featuressubmit"></label>

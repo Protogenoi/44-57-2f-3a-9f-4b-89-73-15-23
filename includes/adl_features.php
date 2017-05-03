@@ -28,4 +28,4 @@ $checkfeatures=$query->fetch(PDO::FETCH_ASSOC);
             $ffdealsheets=$checkfeatures['dealsheets'];
             $fftrackers=$checkfeatures['trackers'];
             $ffews=$checkfeatures['ews'];
-            $fffinancials=$checkfeatures['finaicals'];
+            $fffinancials=$checkfeatures['financials'];

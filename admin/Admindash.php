@@ -2268,7 +2268,7 @@ if ($settingsselect == 'y') {
                             <p>Enable or disable CRM features</p>
                             <br> 
                             <?php
-                            $query = $pdo->prepare("SELECT trackers, employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
+                            $query = $pdo->prepare("SELECT financials, ews, trackers, employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
                             $query->execute()or die(print_r($query->errorInfo(), true));
                             $queryfeatures = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -2294,6 +2294,8 @@ if ($settingsselect == 'y') {
                             $fdealsheets = $queryfeatures['dealsheets'];
                             $femployee = $queryfeatures['employee'];
                             $ftracker = $queryfeatures['trackers'];
+                            $fews = $queryfeatures['ews'];
+                            $ffinancials = $queryfeatures['financials'];
                             ?>
 
 
@@ -2740,7 +2742,47 @@ if ($settingsselect == 'y') {
                                                 1
                                             </label>
                                         </div>
-                                    </div>                                    
+                                    </div>     
+                                    
+                                     <div class="form-group">
+                                        <label class="col-md-4 control-label" for="featureews">Enable EWS</label>
+                                        <div class="col-md-4"> 
+                                            <label class="radio-inline" for="featureews-0">
+                                                <input name="featureews" id="featureews-0" value="0" <?php if (!isset($fews)) {
+                            echo 'checked="checked"';
+                        } elseif ($fews == '0') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                0
+                                            </label> 
+                                            <label class="radio-inline" for="featureews-1">
+                                                <input name="featureews" id="featureews-1" value="1" <?php if ($fews == '1') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                1
+                                            </label>
+                                        </div>
+                                    </div> 
+                                    
+                                                                        <div class="form-group">
+                                        <label class="col-md-4 control-label" for="featurefinancials">Enable Financials</label>
+                                        <div class="col-md-4"> 
+                                            <label class="radio-inline" for="featurefinancials-0">
+                                                <input name="featurefinancials" id="featurefinancials-0" value="0" <?php if (!isset($ffinancials)) {
+                            echo 'checked="checked"';
+                        } elseif ($ffinancials == '0') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                0
+                                            </label> 
+                                            <label class="radio-inline" for="featurefinancials-1">
+                                                <input name="featurefinancials" id="featurefinancials-1" value="1" <?php if ($ffinancials == '1') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                1
+                                            </label>
+                                        </div>
+                                    </div> 
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="featuressubmit"></label>

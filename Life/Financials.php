@@ -437,8 +437,8 @@ ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_FOR"; ?>." ></i> <a href="?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="../export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_FOR"; ?>." ></i> <a href="../export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <?php } ?>
                                 <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="../export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
@@ -664,7 +664,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
 
 
 
-                    $query = $pdo->prepare("
+                    $EXPECTED_QUERY = $pdo->prepare("
 SELECT 
     id AS PID,
     client_id AS CID,
@@ -676,28 +676,22 @@ SELECT
 FROM
     client_policy
 WHERE
-    insurer = 'Legal and General'
-        AND DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND policystatus NOT LIKE '%CANCELLED%'
-        AND policystatus NOT IN ('Clawback' , 'DECLINED', 'On hold', 'Awaiting')
-        OR DATE(submitted_date) BETWEEN :datefrom2 AND :dateto2
+    DATE(sale_date) BETWEEN :datefrom AND :dateto
         AND insurer = 'Legal and General'
-        AND policystatus NOT LIKE '%CANCELLED%'
-        AND policystatus NOT IN ('Clawback' , 'DECLINED', 'On hold', 'Awaiting')");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR, 100);
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
+        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
+        AND client_policy.policystatus NOT IN ('Clawback' , 'DECLINED','On hold','Awaiting')");
+                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
+                    if ($EXPECTED_QUERY->rowCount() > 0) {
+                        $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
                         ?>
 
                         <table  class="table table-hover table-condensed">
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$commdate ($count records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$commdate ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -707,7 +701,7 @@ WHERE
                             </thead>
 
                             <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $EXPECTED_QUERY->fetch(PDO::FETCH_ASSOC)) {
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
 

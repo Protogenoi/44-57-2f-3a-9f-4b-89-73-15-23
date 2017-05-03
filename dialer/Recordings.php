@@ -1,34 +1,35 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3); 
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../classes/database_class.php');
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-
-include('../includes/adlfunctions.php'); 
+}
 
 if ($ffdialler=='0') {
         
         header('Location: ../CRMmain.php'); die;
     }
 
-include('../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
-    header('Location: /CRMmain.php'); die;
+    header('Location: ../CRMmain.php'); die;
 
 }
 ?>
@@ -70,15 +71,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <body>
     
     <?php 
-    include('../includes/navbar.php');
-    include('../includes/dialler_functions.php');
-    include('../includes/DIALLER_PDO_CON.php');
-    
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+require_once(__DIR__ . '/../includes/navbar.php');
     
     $SERVER= filter_input(INPUT_POST, 'SERVER', FILTER_SANITIZE_SPECIAL_CHARS);
     $QRY = filter_input(INPUT_GET, 'QRY', FILTER_SANITIZE_SPECIAL_CHARS);

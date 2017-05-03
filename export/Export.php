@@ -377,7 +377,66 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
                     }
                     echo $output;
                     exit;
-} 
+}
+
+if($EXECUTE=='ADL_UNPAID') {
+    
+                        $output = "Sale Date, Policy Number, Client Name, ADL Amount, ADL Status\n";
+                    $query = $pdo->prepare("select client_policy.policystatus, client_policy.client_name, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE
+FROM
+    client_policy
+        LEFT JOIN
+    financial_statistics_history ON financial_statistics_history.policy = client_policy.policy_number
+WHERE
+    DATE(client_policy.sale_date) BETWEEN '2017-01-01' AND :dateto
+        AND client_policy.policy_number NOT IN (SELECT 
+            financial_statistics_history.policy
+        FROM
+            financial_statistics_history)
+        AND client_policy.insurer = 'Legal and General'
+        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
+        AND client_policy.policystatus NOT IN ('Awaiting' , 'Clawback',
+        'SUBMITTED-NOT-LIVE',
+        'CANCELLED',
+        'DECLINED')");
+    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 20);
+                    $query->execute();
+                    
+                    $list = $query->fetchAll();
+                    foreach ($list as $rs) {
+                        $output .= $rs['SALE_DATE'].",".$rs['policy_number'].",".$rs['client_name'].",".$rs['commission'].",".$rs['policystatus']."\n";
+                        
+                    }
+                    echo $output;
+                    exit;
+    
+}
+
+if($EXECUTE=='ADL_AWAITING') {
+    
+                        $output = "Submitted Date, Policy Number, Client Name, ADL Amount, ADL Status\n";
+                    $query = $pdo->prepare("select client_policy.policystatus, client_policy.client_name, client_policy.policy_number, client_policy.commission, DATE(client_policy.submitted_date) AS SALE_DATE
+FROM
+    client_policy
+        LEFT JOIN
+    financial_statistics_history ON financial_statistics_history.policy = client_policy.policy_number
+WHERE
+    DATE(client_policy.submitted_date) BETWEEN :datefrom AND :dateto
+        AND client_policy.insurer = 'Legal and General'
+        AND client_policy.policystatus = 'Awaiting'");
+    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 20);
+    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 20);
+                    $query->execute();
+                    
+                    $list = $query->fetchAll();
+                    foreach ($list as $rs) {
+                        $output .= $rs['SALE_DATE'].",".$rs['policy_number'].",".$rs['client_name'].",".$rs['commission'].",".$rs['policystatus']."\n";
+                        
+                    }
+                    echo $output;
+                    exit;
+    
+}
 
 }
 ?>

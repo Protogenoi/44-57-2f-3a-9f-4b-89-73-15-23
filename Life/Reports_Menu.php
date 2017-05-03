@@ -73,13 +73,13 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                             </li>
                             <?php
                             if (isset($hello_name)) {
-                                if ($hello_name == 'Michael') {
+                                if (in_array($hello_name, $Level_10_Access,true)) {
                                     ?>
                                     <li>
                                         <a href="/Financial_Reports.php">
-                                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                                            <span class="ca-icon"><i class="fa fa-upload"></i></span>
                                             <div class="ca-content">
-                                                <h2 class="ca-main">Financial<br/>Report</h2>
+                                                <h2 class="ca-main">Upload<br/>RAW COMMS</h2>
                                                 <h3 class="ca-sub"></h3>
                                             </div>
                                         </a>

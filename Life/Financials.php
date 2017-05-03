@@ -98,6 +98,14 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
     <div class="container">
         <?php
+        
+        if(isset($dateto)) {
+            if($dateto>='2017-04-27' && $datefrom<'2017-04-27') { ?>
+            <div class="notice notice-warning" role="alert"><strong><i class="fa fa-check-circle-o"></i> Info:</strong> HWIFS percentage has changed from 2017-05-03 onwards. These figures will be incorrect. Change the end date to less than 2017-04-27</div>
+ 
+      <?php      }
+        }
+        
         $RECHECK = filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (isset($RECHECK)) {
@@ -453,9 +461,19 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i></th>
 
                                     $totalgross = $result['totalgross'];
                                     $totalloss = abs($result['totalloss']);
+                                    
+                                    if(!isset($datefrom)) {
                                     $totalrate = "25.00";
+                                    
+                                    }
 
                                     if (isset($datefrom)) {
+                                        if($datefrom>='2017-04-27') {
+                                            $totalrate = "22.5";
+                                        }
+                                        else {
+                                           $totalrate = "25.00"; 
+                                        }
                                         $totaldifference = $EXPECTED_SUM - $totalgross;
                                     }
 
@@ -518,7 +536,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i></th>
                                     <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$commdate"; ?>."></i></th> 
                                     <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$commdate"; ?>."></i></th>
                                     <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$commdate"; ?>."></i></th>   
-                                    <th>HWIFS <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction."></i></th> 
+                                    <th>HWIFS <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
                                     <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - HWIFS for COMM date <?php echo "$commdate"; ?>."></i></th> 
                                     <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$commdate"; ?>."></i></th>
                                     <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$commdate"; ?>.

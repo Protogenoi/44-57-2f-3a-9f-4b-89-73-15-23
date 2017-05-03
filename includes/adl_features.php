@@ -1,9 +1,7 @@
 <?php
+require_once(__DIR__ . '/ADL_PDO_CON.php');
 
-include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
-
-
-$query = $pdo->prepare("SELECT dealsheets, employee, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
+$query = $pdo->prepare("SELECT trackers, dealsheets, employee, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
 $query->execute()or die(print_r($query->errorInfo(), true));
 $checkfeatures=$query->fetch(PDO::FETCH_ASSOC);
             
@@ -28,3 +26,4 @@ $checkfeatures=$query->fetch(PDO::FETCH_ASSOC);
             $ffpost_code=$checkfeatures['post_code'];
             $ffemployee=$checkfeatures['employee'];
             $ffdealsheets=$checkfeatures['dealsheets'];
+            $fftrackers=$checkfeatures['trackers'];

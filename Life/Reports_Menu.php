@@ -59,6 +59,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
 
                     <?php
                     if ($fflife == '1') {
+                        if (isset($hello_name)) {
                         if (in_array($hello_name, $Level_10_Access, true)) {
                             ?>
 
@@ -72,8 +73,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                                 </a>
                             </li>
                             <?php
-                            if (isset($hello_name)) {
-                                if (in_array($hello_name, $Level_10_Access,true)) {
+                            
                                     ?>
                                     <li>
                                         <a href="/Financial_Reports.php">
@@ -86,7 +86,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                                     </li>
 
                                     <?php
-                                }
+                             
                             }
                         }
                         if (in_array($hello_name, $Level_8_Access, true)) {

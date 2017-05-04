@@ -8,11 +8,10 @@ include('../../includes/ADL_PDO_CON.php');
 include('../../includes/ADL_MYSQLI_CON.php');
 include('../../includes/adl_features.php');
 
-if($fflife=='0') {
-    
-    header('Location: ../../CRMmain.php'); die;
-    
+if($ffews=='0') {
+    header('Location: ../../CRMmain.php?FEATURE=EWS');
 }
+
 
 include('../../includes/Access_Levels.php');
 

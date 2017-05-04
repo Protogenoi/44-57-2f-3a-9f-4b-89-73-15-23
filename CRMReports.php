@@ -59,6 +59,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                     <?php
                     if ($fflife == '1') {
                         if (in_array($hello_name, $Level_8_Access, true)) {
+                            if($fffinancials=='1' || $ffews=='1') {
                             ?>
                             <li>
                                 <a href="Life/Reports_Menu.php">
@@ -69,7 +70,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                                     </div>
                                 </a>
                             </li>
-
+                            <?php } ?>
                             <li>
                                 <a href="calendar/All_Callbacks.php">
                                     <span class="ca-icon"><i class="fa fa-phone"></i></span>

@@ -103,12 +103,12 @@ if ($companynamere == 'Assura') {
                         <li class="divider"></li>
                         <li><a href="<?php if(in_array($hello_name, $Level_8_Access, true)) { echo "/CRMReports.php"; } else { echo "#"; } ?>">Reports</a></li>                        
                         <li><a href="<?php if ($fflife == '1' && in_array($hello_name, $Level_8_Access, true)) { echo "Life/Reports/AllTasks.php"; } else { echo "#"; } ?>">Tasks</a></li>
-                        <li><a <?php if ($ffsms == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffsms == '1' && in_array($hello_name, $Level_8_Access, true)) { echo '/Life/SMS/Report.php'; } else { echo '?FEATURE=SMS'; } ?>">SMS Report <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>
+                        <li><a <?php if ($ffsms == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffsms == '1' && in_array($hello_name, $Level_8_Access, true)) { echo '/Life/SMS/Report.php'; } else { echo '/CRMmain.php?FEATURE=SMS'; } ?>">SMS Report <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>
                         <li><a <?php if ($ffcalendar == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffcalendar == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/calendar/calendar.php'; } else { echo '#'; } ?>">Callbacks <?php if ($ffcalendar == '0') { echo '(not enabled)'; } ?></a></li>
                         <li class="divider"></li>
                             
                             <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "/Emails.php"; } else { echo "#"; } ?>">Emails</a></li>
-                            <li><a <?php if ($ffkeyfactsemail == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffkeyfactsemail == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/Life/Reports/Keyfacts.php'; } else { echo '?FEATURE=KEYFACTSEMAIL'; } ?>">KeyFact Email Report <?php if ($ffkeyfactsemail == '0') { echo '(not enabled)'; } ?></a></li>
+                            <li><a <?php if ($ffkeyfactsemail == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffkeyfactsemail == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/Life/Reports/Keyfacts.php'; } else { echo '/CRMmain.php?FEATURE=KEYFACTSEMAIL'; } ?>">KeyFact Email Report <?php if ($ffkeyfactsemail == '0') { echo '(not enabled)'; } ?></a></li>
                             <li><a href="<?php if ($hello_name == 'Michael') { echo '/email/emailinbox.php'; } else { echo '#'; } ?>"><?php if ($hello_name == 'Michael') { echo 'Email Inbox'; } else { echo 'Email Inbox (not enabled)'; } ?></a></li>
                     </ul>
                 </li>
@@ -133,28 +133,28 @@ if ($companynamere == 'Assura') {
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
             
-            <li><a <?php if ($ffdialler == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdialler == '1') { echo '/dialer/Recordings.php'; } else  { echo '?FEATURE=DIALER'; } ?>">Recordings <?php if ($ffdialler == '0') {  echo '(not enabled)'; } ?></a></li>
+            <li><a <?php if ($ffdialler == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdialler == '1') { echo '/dialer/Recordings.php'; } else  { echo '/CRMmain.php?FEATURE=DIALER'; } ?>">Recordings <?php if ($ffdialler == '0') {  echo '(not enabled)'; } ?></a></li>
 
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
-            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php'; } else { echo '?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php?query=ListCallbacks'; } else { echo '?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php?query=ListCallbacks'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
              <li class="divider"></li>
             
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserTrackers'; } else { echo '?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserDealSheets'; } else { echo '?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserTrackers'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
+<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>
  
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/dialer/Agents.php'; } else { echo '?FEATURE=TRACKERS'; } ?>">Add Agent/Closer <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>                   
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Trackers.php?EXECUTE=DEFAULT'; } else { echo '?FEATURE=TRACKERS'; } ?>">Search Upsells <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Trackers/Closers.php?EXECUTE=1'; } else { echo '?FEATURE=TRACKERS'; } ?>">Search Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=AllCloserDealSheets'; } else { echo '?FEATURE=DEALSHEETS'; } ?>">Search Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/dialer/Agents.php'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Add Agent/Closer <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>                   
+<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Trackers.php?EXECUTE=DEFAULT'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Upsells <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
+<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Trackers/Closers.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
+<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=AllCloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Search Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>
  
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/Pad.php'; } else { echo '?FEATURE=DEALSHEETS'; } ?>">PAD <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/Pad.php'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">PAD <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
            <li class="divider"></li>
            
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/LifeDealSheet.php?query=QADealSheets'; } else { echo '?FEATURE=DEALSHEETS'; } ?>">Dealsheets for QA <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/LifeDealSheet.php?query=CompletedDeals'; } else { echo '?FEATURE=DEALSHEETS'; } ?>">Completed Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/LifeDealSheet.php?query=QADealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Dealsheets for QA <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
+          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/LifeDealSheet.php?query=CompletedDeals'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Completed Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
 
       </ul>
              
@@ -171,10 +171,12 @@ if ($companynamere == 'Assura') {
                     <li class='dropdown'>
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                         <ul role='menu' class='dropdown-menu'>
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Main_Menu.php'; } else { echo '?FEATURE=EMPLOYEE'; } ?>">Staff Database <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Holidays/Calendar.php'; } else { echo '?FEATURE=EMPLOYEE'; } ?>">Holidays <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Reports/RAG.php'; } else { echo '?FEATURE=EMPLOYEE'; } ?>">Register <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Assets/Assets.php'; } else { echo '?FEATURE=ASSETS'; } ?>">Asset Management <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($fffinancials == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($fffinancials == '1' && in_array($hello_name, $Level_10_Access, true)) { echo '/Life/Financials.php'; } else { echo '/CRMmain.php?FEATURE=FINANCIALS'; } ?>">Financials <?php if ($fffinancials == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffews == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffews == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/EWS.php'; } else { echo '/CRMmain.php?FEATURE=EWS'; } ?>">EWS <?php if ($ffews == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Main_Menu.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Staff Database <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Holidays/Calendar.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Holidays <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Reports/RAG.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Register <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Assets/Assets.php'; } else { echo '/CRMmain.php?FEATURE=ASSETS'; } ?>">Asset Management <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
 
                                  <li class="divider"></li>
                             
@@ -293,7 +295,32 @@ if ($companynamere == 'Assura') {
             <li>ADL ensures that your SMS messaging service complies with the Telephone Consumer Protection Act (TCPA).</li>
         </div>
               
-        <?php } ?>     
+        <?php } ?>  
+           <?php if ($FEATURE== 'FINANCIALS') { ?>
+        <div class='notice notice-info' role='alert'><strong><h2>Financials</h2></strong>
+            <br>
+            <li>ADL can give projected earning across a date range (Gross, net etc..).</li>
+            <li>Upload RAW COMMs directly to ADL to search through data.</li>
+            <li>Create customised criteria to search through data.</li>
+            <li>Identify missing policy numbers.</li>
+            <li>Identify policies that you have not been paid on.</li>
+            <li>Identify policy statuses.</li>
+            <li>Display financials statistics from RAW COMM uploads.</li>
+            <li>Compare the RAW COMMS with what should of been paid.</li>
+        </div>
+              
+        <?php } ?>      
+           <?php if ($FEATURE== 'EWS') { ?>
+        <div class='notice notice-info' role='alert'><strong><h2>Early Warning System (EWS)</h2></strong>
+            <br>
+            <li>Upload EWS directly to ADL to search through data.</li>
+            <li>Assign EWS warnings to employee's to deal with.</li>
+            <li>Build up a complete history from the EWS data.</li>
+            <li>EWS warning will link directly to the client profile.</li>
+            <li>ADL will provide a good overview of the EWS data and can be further customised.</li>
+        </div>
+              
+        <?php } ?>         
     </div> 
  <?php }
 ?>

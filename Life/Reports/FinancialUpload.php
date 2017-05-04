@@ -20,6 +20,10 @@ if (isset($fferror)) {
     }
 }
 
+if($fffinancials=='0') {
+    header('Location: /../../CRMmain.php?FEATURE=FINANCIALS');
+}
+
 if ($companynamere == 'The Review Bureau') {
 
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");

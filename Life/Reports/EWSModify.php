@@ -19,6 +19,11 @@ if(isset($fferror)) {
     
     }
     
+if($ffews=='0') {
+    header('Location: ../../CRMmain.php?FEATURE=EWS');
+}
+    
+    
     if (!in_array($hello_name,$Level_8_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;

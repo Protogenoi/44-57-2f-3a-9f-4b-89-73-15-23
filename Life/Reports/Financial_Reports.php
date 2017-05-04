@@ -5,10 +5,8 @@ $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 include('../../includes/adl_features.php');
 
-if($fflife=='0') {
-    
-    header('Location: ../../CRMmain.php'); die;
-    
+if($fffinancials=='0') {
+    header('Location: ../../CRMmain.php?FEATURE=FINANCIALS');
 }
 
 include ("../../includes/ADL_PDO_CON.php");

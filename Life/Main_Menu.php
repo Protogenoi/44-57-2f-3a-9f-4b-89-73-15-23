@@ -76,7 +76,8 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </a>
                         </li>
 
-                        <?php if (in_array($hello_name, $Level_8_Access, true)) { ?>
+                        <?php if (in_array($hello_name, $Level_8_Access, true)) { 
+                            if($fffinancials=='1' || $ffews=='1') { ?> 
 
                             <li>
                                 <a href="Reports_Menu.php">
@@ -89,7 +90,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </li>
 
                         <?php
-                        }
+                        } }
 
                         if (in_array($hello_name, $Level_3_Access, true)) {
                             ?>

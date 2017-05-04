@@ -11,7 +11,7 @@
         public function getAGENTPad($datefrom, $CLOSER) {
 if (isset($datefrom)) {
             $stmt = $this->pdo->prepare("SELECT 
-    DATE(date_updated) AS updated_date,
+    date_updated AS updated_date,
     lead_up,
     mtg,
     closer,
@@ -37,7 +37,7 @@ ORDER BY date_added DESC");
 if (!isset($datefrom)) {
 
         $stmt = $this->pdo->prepare("SELECT 
-    DATE(date_updated) AS updated_date,
+    date_updated AS updated_date,
     lead_up,
     mtg,
     closer,

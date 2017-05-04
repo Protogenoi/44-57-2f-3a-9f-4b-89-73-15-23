@@ -21,7 +21,7 @@ if (isset($fferror)) {
     }
 }
 
-if ($fflife == '0') {
+if ($fffinancials == '0') {
 
     header('Location: ../CRMmain.php');
     die;

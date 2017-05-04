@@ -6,10 +6,10 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 include('../../includes/adlfunctions.php'); 
 
-if ($fflife=='0') {
-        
-        header('Location: ../../CRMmain.php'); die;
-    }
+if($ffews=='0') {
+    header('Location: ../../CRMmain.php?FEATURE=EWS');
+}
+
     
     include('../../includes/Access_Levels.php');
 

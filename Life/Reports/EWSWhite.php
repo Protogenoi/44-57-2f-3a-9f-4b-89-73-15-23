@@ -7,11 +7,10 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 include('../../includes/adlfunctions.php');
 include('../../includes/Access_Levels.php');
     
-if($fflife=='0') {
-    
-    header('Location: ../../CRMmain.php'); die;
-    
+if($ffews=='0') {
+    header('Location: ../../CRMmain.php?FEATURE=EWS');
 }
+
 
 if (!in_array($hello_name,$Level_8_Access, true)) {
     

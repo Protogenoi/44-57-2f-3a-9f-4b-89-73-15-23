@@ -21,10 +21,8 @@ if (isset($fferror)) {
     }
 }
 
-if ($fflife == '0') {
-
-    header('Location: ../CRMmain.php?AccessDenied');
-    die;
+if($fffinancials=='0') {
+    header('Location: ../CRMmain.php?FEATURE=FINANCIALS');
 }
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");

@@ -130,7 +130,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                         }
 
                         if (in_array($hello_name, $Level_10_Access, true)) {
-                            if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+                            if ($fffinancials == '1') {
                                 ?>
 
                                 <li>
@@ -179,41 +179,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                         }
                     }
 
-                    if ($ffpensions == '1') {
-                        ?>
-
-                        <li>
-                            <a href="Pensions/Reports/PensionStages.php">
-                                <span class="ca-icon"><i class="fa fa-list-alt"></i></span>
-                                <div class="ca-content">
-                                    <h2 class="ca-main">Pension<br/>Tasks</h2>
-                                    <h3 class="ca-sub"></h3>
-                                </div>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="Pensions/Reports/Cancelled_Clients.php">
-                                <span class="ca-icon"><i class="fa fa-user-times"></i></span>
-                                <div class="ca-content">
-                                    <h2 class="ca-main">Cancelled<br/>Clients</h2>
-                                    <h3 class="ca-sub"></h3>
-                                </div>
-                            </a>
-                        </li>    
-
-
-                        <li>
-                            <a href="calendar/All_Callbacks.php">
-                                <span class="ca-icon"><i class="fa fa-phone"></i></span>
-                                <div class="ca-content">
-                                    <h2 class="ca-main">All Active<br/>Callbacks</h2>
-                                    <h3 class="ca-sub"></h3>
-                                </div>
-                            </a>
-                        </li>
-
-                    <?php } ?>
+?>
 
                 </ul>
             </div>

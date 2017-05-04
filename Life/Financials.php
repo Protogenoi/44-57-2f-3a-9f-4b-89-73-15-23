@@ -100,8 +100,8 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         <?php
         
         if(isset($dateto)) {
-            if($dateto>='2017-04-27' && $datefrom<'2017-04-27') { ?>
-            <div class="notice notice-warning" role="alert"><strong><i class="fa fa-check-circle-o"></i> Info:</strong> HWIFS percentage has changed from 2017-05-03 onwards. These figures will be incorrect. Change the end date to less than 2017-04-27</div>
+            if($dateto>='2017-04-20' && $datefrom<'2017-04-20') { ?>
+            <div class="notice notice-warning" role="alert"><strong><i class="fa fa-check-circle-o"></i> Info:</strong> HWIFS percentage has changed from 2017-05-03 onwards. These figures will be incorrect. Change the end date to less than 2017-04-20</div>
  
       <?php      }
         }
@@ -468,7 +468,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="../export/Export.ph
                                     }
 
                                     if (isset($datefrom)) {
-                                        if($datefrom>='2017-04-27') {
+                                        if($datefrom>='2017-04-20') {
                                             $totalrate = "22.5";
                                         }
                                         else {

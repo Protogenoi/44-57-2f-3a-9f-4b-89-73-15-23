@@ -26,6 +26,10 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
     header('Location: ../CRMmain.php');
     die;
 }
+
+if($fffinancials=='0' || $ffews=='0') {
+    header('Location: ../CRMmain.php?FEATURE=FINANCIALS');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +65,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                     if ($fflife == '1') {
                         if (isset($hello_name)) {
                         if (in_array($hello_name, $Level_10_Access, true)) {
+                            if($fffinancials=='1') {
                             ?>
 
                             <li>
@@ -87,9 +92,10 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
 
                                     <?php
                              
-                            }
+                        } }
                         }
                         if (in_array($hello_name, $Level_8_Access, true)) {
+                            if($ffews=='1') {
                             ?>
 
                             <li>
@@ -153,7 +159,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                             </li>
 
                         <?php
-                        }
+                        } }
                     }
                     ?>     
                 </ul>

@@ -1,7 +1,7 @@
 <?php
 $TIMELOCK = date('H');
 
-if($TIMELOCK>='20') {
+if($TIMELOCK>='20' || $TIMELOCK<'08') {
    
     header('Location: /index.php');
     die;

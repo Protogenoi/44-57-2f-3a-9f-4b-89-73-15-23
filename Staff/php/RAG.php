@@ -56,6 +56,7 @@ if(isset($EXECUTE)) {
     $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $SALES= filter_input(INPUT_POST, 'SALES', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $CANCELS= filter_input(INPUT_POST, 'CANCELS', FILTER_SANITIZE_SPECIAL_CHARS);
     $LEADS= filter_input(INPUT_POST, 'LEADS', FILTER_SANITIZE_SPECIAL_CHARS); 
     $HOURS= filter_input(INPUT_POST, 'HOURS', FILTER_SANITIZE_SPECIAL_CHARS);
     $MINUS= filter_input(INPUT_POST, 'MINUS', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -65,8 +66,9 @@ if(isset($EXECUTE)) {
     $database = new Database();
     $database->beginTransaction();
     
-    $database->query("UPDATE lead_rag set hours=:hours, minus=:minus, updated_by=:hello WHERE employee_id=:REF AND date=:date");
+    $database->query("UPDATE lead_rag set cancels=:cancels, hours=:hours, minus=:minus, updated_by=:hello WHERE employee_id=:REF AND date=:date");
     $database->bind(':REF',$REF);
+    $database->bind(':cancels',$CANCELS);
     $database->bind(':hours',$HOURS);
     $database->bind(':minus',$MINUS);
     $database->bind(':date',$DATE);

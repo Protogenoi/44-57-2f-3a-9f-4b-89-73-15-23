@@ -78,7 +78,8 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     <a href="RAG.php" class="btn btn-default"><i class="fa fa-arrow-left"></i> Back</a>
                 </div>
                 <div class="col-xs-7">
-                    <div class="text-right">           
+                    <div class="text-right">   
+                        <a class="btn btn-primary" href='/Staff/Export/Export.php?EXECUTE=1&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-download"></i> Export</a>
                         <a class="btn btn-warning" href='?RETURN=AVERAGESTATS&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-bar-chart "></i> Average Stats</a>
                         <a class="btn btn-info" href='?RETURN=REGISTERSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-calendar-check-o"></i> Employee Register</a>
                     </div>
@@ -88,7 +89,7 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     <?php
     
 
-$RAG_WEEK_QRY = $pdo->prepare("SELECT CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, SUM(lead_rag.sales) AS sales, SUM(lead_rag.hours) AS hours, SUM(lead_rag.minus) AS minus, SUM(lead_rag.leads) AS leads FROM lead_rag JOIN employee_details ON employee_details.employee_id = lead_rag.employee_id WHERE substr(lead_rag.date,5) between :START_DATE AND :END_DATE GROUP BY lead_rag.employee_id");
+$RAG_WEEK_QRY = $pdo->prepare("SELECT SUM(lead_rag.cancels) AS cancels, CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, SUM(lead_rag.sales) AS sales, SUM(lead_rag.hours) AS hours, SUM(lead_rag.minus) AS minus, SUM(lead_rag.leads) AS leads FROM lead_rag JOIN employee_details ON employee_details.employee_id = lead_rag.employee_id WHERE substr(lead_rag.date,5) between :START_DATE AND :END_DATE GROUP BY lead_rag.employee_id");
 $RAG_WEEK_QRY->bindParam(':START_DATE', $START_DATE, PDO::PARAM_STR);
 $RAG_WEEK_QRY->bindParam(':END_DATE', $END_DATE, PDO::PARAM_STR);
 $RAG_WEEK_QRY->execute();
@@ -101,6 +102,7 @@ if ($RAG_WEEK_QRY->rowCount()>0) { ?>
                 <th>TOTAL SALES</th>
                 <th>TOTAL LEADS</th>
                 <th>TOTAL CR</th>
+                <th>TOTAL CANCELS</th>
                 <th>TOTAL Hours</th>
                 <th>TOTAL Minus</th>
             </tr>     
@@ -113,6 +115,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     $HOURS=$result['hours'];
     $MINUS=$result['minus'];
     $NAME=$result['NAME'];
+    $CANCELS=$result['cancels'];
 
 ?>
     
@@ -121,6 +124,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
     <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $MINUS; ?>" name="MINUS"></td>
     </tr> 
@@ -154,7 +158,7 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     <br>
     <?php
 
-$RAG_WEEK_QRY = $pdo->prepare("SELECT CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, AVG(lead_rag.sales) AS sales, AVG(lead_rag.hours) AS hours, AVG(lead_rag.minus) AS minus, AVG(lead_rag.leads) AS leads FROM lead_rag JOIN employee_details ON employee_details.employee_id = lead_rag.employee_id WHERE substr(lead_rag.date,5) between :START_DATE AND :END_DATE GROUP BY lead_rag.employee_id");
+$RAG_WEEK_QRY = $pdo->prepare("SELECT AVG(lead_rag.cancels) AS cancels, CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, AVG(lead_rag.sales) AS sales, AVG(lead_rag.hours) AS hours, AVG(lead_rag.minus) AS minus, AVG(lead_rag.leads) AS leads FROM lead_rag JOIN employee_details ON employee_details.employee_id = lead_rag.employee_id WHERE substr(lead_rag.date,5) between :START_DATE AND :END_DATE GROUP BY lead_rag.employee_id");
 $RAG_WEEK_QRY->bindParam(':START_DATE', $START_DATE, PDO::PARAM_STR);
 $RAG_WEEK_QRY->bindParam(':END_DATE', $END_DATE, PDO::PARAM_STR);
 $RAG_WEEK_QRY->execute();
@@ -167,6 +171,7 @@ if ($RAG_WEEK_QRY->rowCount()>0) { ?>
                 <th>AVG SALES</th>
                 <th>AVG LEADS</th>
                 <th>AVG CR</th>
+                <th>AVG CANCELS</th>
                 <th>AVG Hours</th>
                 <th>AVG Minus</th>
             </tr>     
@@ -179,6 +184,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     $HOURS=$result['hours'];
     $MINUS=$result['minus'];
     $NAME=$result['NAME'];
+    $CANCELS=$result['cancels'];
 
 ?>
     
@@ -187,6 +193,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
     <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $MINUS; ?>" name="MINUS"></td>
     </tr> 
@@ -534,7 +541,7 @@ for($d=1; $d<=31; $d++)
     
 <?php 
 
-$RAG_QRY = $pdo->prepare("select employee_register.worked, employee_register.bank, employee_register.holiday, employee_register.sick, employee_register.awol, employee_register.authorised, employee_register.training, lead_rag.id, CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, employee_details.employee_id, lead_rag.sales, lead_rag.leads, lead_rag.hours, lead_rag.minus, lead_rag.updated_by, lead_rag.updated_date from lead_rag JOIN employee_details on lead_rag.employee_id = employee_details.employee_id JOIN employee_register on employee_register.lead_rag_id = lead_rag.id WHERE lead_rag.date=:DATE");
+$RAG_QRY = $pdo->prepare("select lead_rag.cancels, employee_register.worked, employee_register.bank, employee_register.holiday, employee_register.sick, employee_register.awol, employee_register.authorised, employee_register.training, lead_rag.id, CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, employee_details.employee_id, lead_rag.sales, lead_rag.leads, lead_rag.hours, lead_rag.minus, lead_rag.updated_by, lead_rag.updated_date from lead_rag JOIN employee_details on lead_rag.employee_id = employee_details.employee_id JOIN employee_register on employee_register.lead_rag_id = lead_rag.id WHERE lead_rag.date=:DATE ORDER BY employee_details.lastname");
 $RAG_QRY->bindParam(':DATE', $DATE, PDO::PARAM_STR);
 $RAG_QRY->execute();
 if ($RAG_QRY->rowCount()>0) { ?>
@@ -546,6 +553,7 @@ if ($RAG_QRY->rowCount()>0) { ?>
                 <th>SALES</th>
                 <th>LEADS</th>
                 <th>CR</th>
+                <th>Cancels</th>
                 <th>Hours</th>
                 <th>Minus 25</th>
                 <th>Register</th>
@@ -564,6 +572,7 @@ while ($result=$RAG_QRY->fetch(PDO::FETCH_ASSOC)){
     $REF=$result['employee_id'];
     $NAME=$result['NAME'];
     $RAGID=$result['id'];
+    $CANCELS=$result['cancels'];
     
     $WORKED=$result['worked'];
     $HOLIDAY=$result['holiday'];
@@ -576,9 +585,10 @@ while ($result=$RAG_QRY->fetch(PDO::FETCH_ASSOC)){
     <form method="POST" action="../php/RAG.php?EXECUTE=2<?php echo "&REF=$REF&MONTH=$MONTH&YEAR=$YEAR&DATE=$DATE&LEADRAG=$RAGID"; ?>">      
     <tr> 
     <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
-    <td><input type="text" class="form-control" value="<?php echo $SALES; ?>" name="SALES"></td>
-    <td><input type="text" class="form-control" value="<?php echo $LEADS; ?>" name="LEADS"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
     <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" value="<?php echo $MINUS; ?>" name="MINUS"></td>
     <td><select name="REGISTER" class="form-control">
@@ -812,8 +822,8 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
      
     <tr> 
     <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
-    <td><input type="text" class="form-control" value="<?php echo $SALES; ?>" name="SALES"></td>
-    <td><input type="text" class="form-control" value="<?php echo $LEADS; ?>" name="LEADS"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
+    <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
     <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
     <td><input type="text" class="form-control" value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" value="<?php echo $MINUS; ?>" name="MINUS"></td>

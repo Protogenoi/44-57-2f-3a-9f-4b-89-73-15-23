@@ -128,7 +128,7 @@ WHERE
         $database = new Database();
         $database->beginTransaction();
 
-        $database->query("UPDATE lead_rag set leads=:leads, sales=:sales updated_by=:hello WHERE id=:RID");
+        $database->query("UPDATE lead_rag set leads=:leads, sales=:sales, updated_by=:hello WHERE id=:RID");
         $database->bind(':RID', $RAG_ID);
         $database->bind(':leads',$LEADS);
         $database->bind(':sales',$SALES);

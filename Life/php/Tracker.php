@@ -56,10 +56,7 @@ WHERE
         $GET_EID->execute();
         $EID_RESULT = $GET_EID->fetch(PDO::FETCH_ASSOC);
 
-   
-        
         $EID = $EID_RESULT['employee_id'];
-        
     
         //INSERT INTO TRACKERS
 
@@ -111,7 +108,7 @@ date_added > DATE(NOW()) AND agent=:agent");
         //CHECK IF AGENT IS ALREADY ON RAG
         
         $CHK_RAG = $pdo->prepare("SELECT 
-    employee_id
+    employee_id, id
 FROM
     lead_rag
 WHERE
@@ -124,13 +121,15 @@ WHERE
         $CHK_RAGRESULT = $CHK_RAG->fetch(PDO::FETCH_ASSOC);     
         if ($count = $CHK_RAG->rowCount()>=1) { 
             
+            $RAG_ID=$CHK_RAGRESULT['id'];
+            
             //IF YES UPDATE
             
         $database = new Database();
         $database->beginTransaction();
 
-        $database->query("UPDATE lead_rag set leads=:leads, sales=:sales updated_by=:hello WHERE employee_id=:EID");
-        $database->bind(':REF', $EID);
+        $database->query("UPDATE lead_rag set leads=:leads, sales=:sales updated_by=:hello WHERE id=:RID");
+        $database->bind(':RID', $RAG_ID);
         $database->bind(':leads',$LEADS);
         $database->bind(':sales',$SALES);
         $database->bind(':hello', $hello_name);
@@ -188,7 +187,23 @@ WHERE
     }
 
     if ($query == 'edit') {
+        
+        //GET EMPLOYEE_ID TO ADD TO RAG
+        
+        $GET_EID = $pdo->prepare("SELECT 
+    employee_id
+FROM
+    employee_details
+WHERE
+    CONCAT(firstname, ' ', lastname) = :NAME");
+        $GET_EID->bindParam(':NAME', $agent, PDO::PARAM_STR);
+        $GET_EID->execute();
+        $EID_RESULT = $GET_EID->fetch(PDO::FETCH_ASSOC);
 
+        $EID = $EID_RESULT['employee_id'];        
+
+        //UPDATE TRACKERS
+        
         $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id AND closer=:closer");
         $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT);
         $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR);
@@ -202,12 +217,118 @@ WHERE
         $UPDATE->bindParam(':sale', $sale, PDO::PARAM_STR);
         $UPDATE->bindParam(':mtg', $MTG, PDO::PARAM_STR);
         $UPDATE->execute();
+        
+        //CHECK IF AGENT IS ON EMPLOYEE DATABASE FIRST OTHERWISE IGNORE BELOW
+        if($EID>'0') {
+            
+         //GET LEADS AND SALES
+            
+        $GET_LS = $pdo->prepare("SELECT 
+agent,
+    COUNT(IF(sale = 'SALE',
+        1,
+        NULL)) AS Sales,
+ COUNT(IF(sale IN ('SALE' , 'NoCard',
+            'QDE',
+            'DEC',
+            'QUN',
+            'DIDNO',
+            'QCBK',
+            'QQQ',
+            'QML'),
+        1,
+        NULL)) AS Leads
+FROM
+    closer_trackers
+
+WHERE
+date_added > DATE(NOW()) AND agent=:agent");
+        $GET_LS->bindParam(':agent', $agent, PDO::PARAM_STR);
+        $GET_LS->execute();
+        $GL_RESULT = $GET_LS->fetch(PDO::FETCH_ASSOC);
+   
+        $SALES=$GL_RESULT['Sales'];
+        $LEADS=$GL_RESULT['Leads'];
+        
+        //CHECK IF AGENT IS ALREADY ON RAG
+        
+        $CHK_RAG = $pdo->prepare("SELECT 
+    employee_id, id
+FROM
+    lead_rag
+WHERE
+    employee_id =:EID AND date=:date AND year=:year AND month=:month ");
+        $CHK_RAG->bindParam(':EID', $EID, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':date', $DATE, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':year', $YEAR, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':month', $MONTH, PDO::PARAM_STR);
+        $CHK_RAG->execute();
+        $CHK_RAGRESULT = $CHK_RAG->fetch(PDO::FETCH_ASSOC);     
+        if ($count = $CHK_RAG->rowCount()>=1) { 
+        
+        $RAG_ID=$CHK_RAGRESULT['id'];    
+            //IF YES UPDATE
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("UPDATE lead_rag set sales=:sales, leads=:leads, updated_by=:hello WHERE id=:RID AND month=:month AND year=:year AND date=:date");
+        $database->bind(':RID', $RAG_ID);
+        $database->bind(':leads',$LEADS);
+        $database->bind(':sales',$SALES);
+        $database->bind(':date', $DATE);
+        $database->bind(':year', $YEAR);
+        $database->bind(':month', $MONTH);
+        $database->bind(':hello', $hello_name);
+        $database->execute();
+
+        $database->endTransaction();
+            
+            
+        } else {
+
+            //IF NO INSERT
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("INSERT INTO lead_rag set sales=:sales, leads=:leads, updated_by=:hello, employee_id=:REF, month=:month, year=:year, date=:date");
+        $database->bind(':REF', $EID);
+        $database->bind(':leads',$LEADS);
+        $database->bind(':sales',$SALES);
+        $database->bind(':date', $DATE);
+        $database->bind(':year', $YEAR);
+        $database->bind(':month', $MONTH);
+        $database->bind(':hello', $hello_name);
+        $database->execute();
+ 
+        }
+        
+        }        
+        
+        
 
         header('Location: ../LifeDealSheet.php?query=CloserTrackers&result=UPDATED');
         die;
     }
 
     if ($query == 'Alledit') {
+        
+        //GET EMPLOYEE_ID TO ADD TO RAG
+        
+        $GET_EID = $pdo->prepare("SELECT 
+    employee_id
+FROM
+    employee_details
+WHERE
+    CONCAT(firstname, ' ', lastname) = :NAME");
+        $GET_EID->bindParam(':NAME', $agent, PDO::PARAM_STR);
+        $GET_EID->execute();
+        $EID_RESULT = $GET_EID->fetch(PDO::FETCH_ASSOC);
+
+        $EID = $EID_RESULT['employee_id'];        
+
+        //UPDATE TRACKERS        
 
         $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up,  closer=:closer, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
         $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT);
@@ -222,6 +343,94 @@ WHERE
         $UPDATE->bindParam(':sale', $sale, PDO::PARAM_STR);
         $UPDATE->bindParam(':mtg', $MTG, PDO::PARAM_STR);
         $UPDATE->execute();
+        
+        //CHECK IF AGENT IS ON EMPLOYEE DATABASE FIRST OTHERWISE IGNORE BELOW
+        if($EID>'0') {
+            
+         //GET LEADS AND SALES
+            
+        $GET_LS = $pdo->prepare("SELECT 
+agent,
+    COUNT(IF(sale = 'SALE',
+        1,
+        NULL)) AS Sales,
+ COUNT(IF(sale IN ('SALE' , 'NoCard',
+            'QDE',
+            'DEC',
+            'QUN',
+            'DIDNO',
+            'QCBK',
+            'QQQ',
+            'QML'),
+        1,
+        NULL)) AS Leads
+FROM
+    closer_trackers
+
+WHERE
+date_added > DATE(NOW()) AND agent=:agent");
+        $GET_LS->bindParam(':agent', $agent, PDO::PARAM_STR);
+        $GET_LS->execute();
+        $GL_RESULT = $GET_LS->fetch(PDO::FETCH_ASSOC);
+   
+        $SALES=$GL_RESULT['Sales'];
+        $LEADS=$GL_RESULT['Leads'];
+        
+        //CHECK IF AGENT IS ALREADY ON RAG
+        
+        $CHK_RAG = $pdo->prepare("SELECT 
+    employee_id, id
+FROM
+    lead_rag
+WHERE
+    employee_id =:EID AND date=:date AND year=:year AND month=:month ");
+        $CHK_RAG->bindParam(':EID', $EID, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':date', $DATE, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':year', $YEAR, PDO::PARAM_STR);
+        $CHK_RAG->bindParam(':month', $MONTH, PDO::PARAM_STR);
+        $CHK_RAG->execute();
+        $CHK_RAGRESULT = $CHK_RAG->fetch(PDO::FETCH_ASSOC);     
+        if ($count = $CHK_RAG->rowCount()>=1) { 
+        
+        $RAG_ID=$CHK_RAGRESULT['id'];    
+            //IF YES UPDATE
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("UPDATE lead_rag set sales=:sales, leads=:leads, updated_by=:hello WHERE id=:RID AND month=:month AND year=:year AND date=:date");
+        $database->bind(':RID', $RAG_ID);
+        $database->bind(':leads',$LEADS);
+        $database->bind(':sales',$SALES);
+        $database->bind(':date', $DATE);
+        $database->bind(':year', $YEAR);
+        $database->bind(':month', $MONTH);
+        $database->bind(':hello', $hello_name);
+        $database->execute();
+
+        $database->endTransaction();
+            
+            
+        } else {
+
+            //IF NO INSERT
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("INSERT INTO lead_rag set sales=:sales, leads=:leads, updated_by=:hello, employee_id=:REF, month=:month, year=:year, date=:date");
+        $database->bind(':REF', $EID);
+        $database->bind(':leads',$LEADS);
+        $database->bind(':sales',$SALES);
+        $database->bind(':date', $DATE);
+        $database->bind(':year', $YEAR);
+        $database->bind(':month', $MONTH);
+        $database->bind(':hello', $hello_name);
+        $database->execute();
+ 
+        }
+        
+        }           
 
         header('Location: ../LifeDealSheet.php?query=AllCloserTrackers&result=UPDATED');
         die;

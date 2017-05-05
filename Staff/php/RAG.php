@@ -65,10 +65,8 @@ if(isset($EXECUTE)) {
     $database = new Database();
     $database->beginTransaction();
     
-    $database->query("UPDATE lead_rag set sales=:sales, hours=:hours, minus=:minus, leads=:leads, updated_by=:hello WHERE employee_id=:REF AND date=:date");
+    $database->query("UPDATE lead_rag set hours=:hours, minus=:minus, updated_by=:hello WHERE employee_id=:REF AND date=:date");
     $database->bind(':REF',$REF);
-    $database->bind(':leads',$LEADS);
-    $database->bind(':sales',$SALES);
     $database->bind(':hours',$HOURS);
     $database->bind(':minus',$MINUS);
     $database->bind(':date',$DATE);

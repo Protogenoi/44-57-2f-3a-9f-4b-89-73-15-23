@@ -1,9 +1,4 @@
 <?php
-require_once(__DIR__ . '/classes/access_user/access_user_class.php');
-$page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-
 $TIMELOCK = date('H');
 
 if($TIMELOCK>='20') {
@@ -12,6 +7,11 @@ if($TIMELOCK>='20') {
     die;
     
 }
+
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');

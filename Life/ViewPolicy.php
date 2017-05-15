@@ -231,6 +231,7 @@ ews_data.policy_number
                                                     <option value="REDRAWN">REDRAWN</option>
                                                     <option value="WILL REDRAW">WILL REDRAW</option>
                                                     <option value="CANCELLED">CANCELLED</option>
+                                                    <option value="FUTURE CALLBACK">Future Callback</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -385,6 +386,7 @@ ews_data.policy_number
                                                     <option value="REDRAWN">REDRAWN</option>
                                                     <option value="WILL REDRAW">WILL REDRAW</option>
                                                     <option value="CANCELLED">CANCELLED</option>
+                                                    <option value="FUTURE CALLBACK">Future Callback</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -289,6 +289,7 @@ ews_data.policy_number
                                                     <option value="black" style="background-color:black;color:white;">Black</option>
                                                     <option value="blue" style="background-color:blue;color:white;">Blue</option>
                                                     <option value="Grey" style="background-color:grey;color:white;">Grey</option>
+                                                    <option value="yellow" style="background-color:yellow;color:black;">Future Callback</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -400,6 +401,7 @@ ews_data.policy_number
                                                     <option value="black" style="background-color:black;color:white;">Black</option>
                                                     <option value="blue" style="background-color:blue;color:white;">Blue</option>
                                                     <option value="Grey" style="background-color:grey;color:white;">Grey</option>
+                                                    <option value="yellow" style="background-color:yellow;color:black;">Future Callback</option>
                                                 </select>
                                             </div>
                                         </div>

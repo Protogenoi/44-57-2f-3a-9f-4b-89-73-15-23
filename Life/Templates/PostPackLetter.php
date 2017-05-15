@@ -164,7 +164,7 @@ function WriteHTML($html)
 
 
 $html = '
-<br /><br><p>As per our conversation please find encloded the documents relating to your Legal & General life insurance, for your records I have enclosed the Person Quotation, Policy Terms and Conditions and Policy Summary.</p>
+<br /><br><p>As per our conversation please find enclosed the documents relating to your Legal & General life insurance, for your records I have enclosed the Person Quotation, Policy Terms and Conditions and Policy Summary.</p>
 <br /><br><p>As discussed, you will now be able to create an online account with Legal & General so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online Legal & General will send you a "Checking Your Details" form by post.</p>
 <br /><br><p>Please ensure that you do complete your "Check your details" form as quickly as possible either online or by post as this will help to avoid any delays in the future if you should need to claim on the policy.</p>
 <br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Friday 10:00 - 18:30 on 0845 095 0041.</p>
@@ -690,7 +690,7 @@ function WriteHTML($html)
 
 
 $html = '
-<br /><br><p>As per our conversation please find encloded the documents relating to your Legal & General life insurance, for your records I have enclosed the Person Quotation, Policy Terms and Conditions and Policy Summary.</p>
+<br /><br><p>As per our conversation please find enclosed the documents relating to your Legal & General life insurance, for your records I have enclosed the Person Quotation, Policy Terms and Conditions and Policy Summary.</p>
 <br /><br><p>As discussed, you will now be able to create an online account with Legal & General so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online Legal & General will send you a "Checking Your Details" form by post.</p>
 <br /><br><p>Please ensure that you do complete your "Check your details" form as quickly as possible either online or by post as this will help to avoid any delays in the future if you should need to claim on the policy.</p>
 <br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Thursday 10:00 - 18:30, Fridays 10:00 - 16:00 on 02036 349 515.</p>

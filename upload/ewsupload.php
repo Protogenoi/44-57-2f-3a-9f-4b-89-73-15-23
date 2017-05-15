@@ -66,7 +66,7 @@ $correct_start = date("Y-m-d" , strtotime($policy_start_date));
         if ($data[0]) {
             if ($master != 'Master Agent No.' && $data[0] != 'Master_Agent_No.' ) {
                 
-            $warningcheck = $pdo->prepare("SELECT ournotes, warning, policy_number from ews_data where policy_number=:policy AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN')");
+            $warningcheck = $pdo->prepare("SELECT ournotes, warning, policy_number from ews_data where policy_number=:policy AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN','FUTURE CALLBACK')");
             $warningcheck->bindParam(':policy',$new_policy, PDO::PARAM_STR);
             $warningcheck->execute()or die(print_r($ewsdata->errorInfo(), true)); 
             $resultCHK=$warningcheck->fetch(PDO::FETCH_ASSOC);
@@ -80,6 +80,9 @@ $correct_start = date("Y-m-d" , strtotime($policy_start_date));
                 switch($newwarning) {
                     case "WILL CANCEL";
                         $color='orange';
+                        break;
+                        case "Future Callback";
+                        $color='yellow';
                         break;
                     case "CANCELLED";
                         $color="red";

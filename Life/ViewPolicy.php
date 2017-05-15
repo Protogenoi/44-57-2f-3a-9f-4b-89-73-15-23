@@ -203,7 +203,7 @@ ews_data.policy_number
                                 $ews_status_status = $ewsresult['ews_status_status'];
                                 ?>
 
-                                <form action="/php/ewsclientnotessubmit.php?EWS=2" method="POST" id="from1" autocomplete="off" class="form-horizontal">
+                                <form action="php/EWSUpdate.php?EXECUTE=1" method="POST" id="from1" autocomplete="off" class="form-horizontal">
 
                                     <input type='hidden' name='client_id' value='<?php echo $search; ?>'>
                                     <input type='hidden' name='policy_number' value='<?php echo $policy_number; ?>'>
@@ -357,7 +357,7 @@ ews_data.policy_number
                                 $ews_status_status = $ewsresult['ews_status_status'];
                                 ?>
 
-                                <form action="/php/ewsclientnotessubmit.php?EWS=2" method="POST" id="from1" autocomplete="off" class="form-horizontal">
+                                <form action="php/EWSUpdate.php?EXECUTE=1" method="POST" id="from1" autocomplete="off" class="form-horizontal">
 
                                     <input type='hidden' name='client_id' value='<?php echo $search; ?>'>
                                     <input type='hidden' name='policy_number' value='<?php echo $policy_number; ?>'>

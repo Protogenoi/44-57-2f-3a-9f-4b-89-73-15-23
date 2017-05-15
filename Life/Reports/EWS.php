@@ -143,6 +143,9 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 case("green"):
                                                     $colorclass = 'green';
                                                     break;
+                                                    case("yellow"):
+                                                    $colorclass = 'yellow';
+                                                    break;
                                                         
                                      }
                                      
@@ -218,6 +221,9 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                                                     break;
                                                 case("green"):
                                                     $colorclass = 'green';
+                                                    break;
+                                                  case("yellow"):
+                                                    $colorclass = 'yellow';
                                                     break;
                                                 
                                      }
@@ -403,6 +409,9 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 case("green"):
                                                     $colorclass = 'green';
                                                     break;
+                                                  case("yellow"):
+                                                    $colorclass = 'yellow';
+                                                    break;
                                                         
                                      }
                                 
@@ -507,6 +516,9 @@ ews_data.policy_number
                                                     break;
                                                 case("green"):
                                                     $colorclass = 'green';
+                                                    break;
+                                                  case("yellow"):
+                                                    $colorclass = 'yellow';
                                                     break;
                                                 default:
                                                     $colorclass='black';
@@ -786,7 +798,8 @@ ews_data.policy_number
                     '<option value="red" style="background-color:red;color:white;">Red</option>' +
                     '<option value="black" style="background-color:black;color:white;">Black</option>' +
                     '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:blue;color:white;">Grey</option>' +
+                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
+                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
                     '</select></td>'+
 
                     '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
@@ -968,7 +981,8 @@ ews_data.policy_number
                     '<option value="red" style="background-color:red;color:white;">Red</option>' +
                     '<option value="black" style="background-color:black;color:white;">Black</option>' +
                     '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:blue;color:white;">Grey</option>' +
+                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
+                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
                     '</select></td>'+
 
                     '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
@@ -1150,7 +1164,8 @@ ews_data.policy_number
                     '<option value="red" style="background-color:red;color:white;">Red</option>' +
                     '<option value="black" style="background-color:black;color:white;">Black</option>' +
                     '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:blue;color:white;">Grey</option>' +
+                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
+                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
                     '</select></td>'+
 
                     '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
@@ -1336,7 +1351,8 @@ ews_data.policy_number
                     '<option value="red" style="background-color:red;color:white;">Red</option>' +
                     '<option value="black" style="background-color:black;color:white;">Black</option>' +
                     '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:blue;color:white;">Grey</option>' +
+                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
+                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
                     '</select></td>'+
 
                     '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
@@ -1508,7 +1524,8 @@ ews_data.policy_number
                     '<option value="red" style="background-color:red;color:white;">Red</option>' +
                     '<option value="black" style="background-color:black;color:white;">Black</option>' +
                     '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:blue;color:white;">Grey</option>' +
+                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
+                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
                     '</select></td>'+
 
                     '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+

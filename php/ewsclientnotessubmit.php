@@ -138,7 +138,7 @@ header('Location: ../EWSfiles.php?RETURN=EWSNotesUpdated'); die;
         $warning= filter_input(INPUT_POST, 'warning', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $notetypedata="EWS Status update";
-        $status_update="$warning changed to $status - $notes";
+        $status_update="$warning changed to $status ($newcolour) - $notes";
         
         $qnotes = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
   

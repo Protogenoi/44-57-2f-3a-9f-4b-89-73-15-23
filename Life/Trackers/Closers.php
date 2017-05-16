@@ -86,6 +86,7 @@ $Today_TIME = date("h:i:s");
                             <div class="col-md-12">
                                 <div class="col-md-4">
                              <select class="form-control" name="CLOSER" id="CLOSER">
+                                <option value="All">All</option>
                                 <option value="Mike">Mike</option>
                                 <option value="David">David</option>
                                 <option value="Sarah">Sarah</option>
@@ -117,6 +118,8 @@ $Today_TIME = date("h:i:s");
 <div class="container-fluid">
                         <?php
 if (isset($datefrom)) {
+    if(isset($CLOSER)) {
+        if($CLOSER!='All') {
     $CLO_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE DATE(date_updated)=:date AND closer=:closer");
     $CLO_CHK->bindParam(':date', $datefrom, PDO::PARAM_STR);
     $CLO_CHK->bindParam(':closer', $CLOSER, PDO::PARAM_STR);
@@ -128,7 +131,24 @@ if (isset($datefrom)) {
         $CloserPadList = $CloserPad->getCLOSERPad($datefrom,$CLOSER);
         require_once(__DIR__ . '/../views/trackers/CLOSER/Closer-PAD.php');
     }
-} if (!isset($datefrom)) {
+} 
+
+if($CLOSER=='All') {
+        $CLO_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE DATE(date_updated)=:date");
+    $CLO_CHK->bindParam(':date', $datefrom, PDO::PARAM_STR);
+    $CLO_CHK->execute();
+    if ($CLO_CHK->rowCount() > 0) {
+
+        require_once(__DIR__ . '/../models/trackers/CLOSER/AllCloserPAD.php');
+        $CloserPad = new AllCLOSERPadModal($pdo);
+        $CloserPadList = $CloserPad->AllgetCLOSERPad($datefrom);
+        require_once(__DIR__ . '/../views/trackers/CLOSER/AllCloser-PAD.php');
+    }
+}
+    }
+} 
+
+if (!isset($datefrom)) {
     $CLO_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE date_updated >=CURDATE()");
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {

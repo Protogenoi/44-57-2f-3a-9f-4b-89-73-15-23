@@ -1018,9 +1018,7 @@ if (isset($Single_Client['callauditid'])) {
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $smstitle = $smstitles['title'];
-
-
-
+                           
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
@@ -1032,12 +1030,12 @@ if (isset($Single_Client['callauditid'])) {
                                             </select>
                                         </div>
 
-                                        <div id="General_Contact" class="SELECTED_SMS well" style="display:none">[CLIENT_NAME] Its Very Important We Speak To You Regrading Your Life Insurance Policy. Please Contact [COMPANY NAME] On [COMPANY TEL].</div>
+                                        <div id="General_Contact" class="SELECTED_SMS well" style="display:none">[CLIENT_NAME] Its Very Important We Speak To You Regarding Your Life Insurance Policy. Please Contact [COMPANY NAME] On [COMPANY TEL].</div>
                                         <div id="CFO" class="SELECTED_SMS well" style="display:none">We are sorry to here that you want to cancel your policy with [INSURER]. Cancelling any protection is an important decision and one that should be considered carefully. To discuss your options please call us on [COMPANY_TEL]. Yours Sincerely, Customer Services, [COMPANY_NAME].</div>
                                         <div id="CYD" class="SELECTED_SMS well" style="display:none">Your Check Your Details Form Is Outstanding For Your Life Insurance Policy. Please Ensure This Is Completed To [INSURER] via My Account As Soon As Possible. Any Queries Please Contact [COMPANY_NAME] On [COMPANY_TEL].</div>
                                         <div id="CYD_DD" class="SELECTED_SMS well" style="display:none">Your Check Your Details Form Is Still Outstanding. You Will Have Noticed Your First Direct Debit Has Been Collected Or Will Be Shortly. Please Ensure Your Check Your Details Is Completed Online via My Account. Any Queries Please Contact [COMPANY_NAME] On [COMPANY_TEL]</div>
                                         <div id="CYD_POST" class="SELECTED_SMS well" style="display:none">Your Check Your Details form is outstanding for your Life Insurance policy. Please sign and return the form in the freepost envelope as soon as possible. Any queries please contact [COMPANY_NAME] on [COMPANY_TEL]</div>
-                                        <div id="Direct_Debit" class="SELECTED_SMS well" style="display:none">Your First Direct Debit Is Due To Be Taken Shortly By [INSURER], All Other Will Follow On Your Selected Date. Any Queries Please Contact [COMPANY_NAME] On [COMPANY_TEL].</div>
+                                        <div id="Direct_Debit" class="SELECTED_SMS well" style="display:none">Your First Direct Debit Is Due To Be Taken Shortly By [INSURER/<?php echo $SMS_INSURER; ?>], All Other Will Follow On Your Selected Date. Any Queries Please Contact [COMPANY_NAME] On [COMPANY_TEL].</div>
                                         <div id="EWS_Bounced" class="SELECTED_SMS well" style="display:none">Your bank has told us that they cannot pay your life insurance premium with [INSURER] by direct debit. To restart your direct debit or update your bank details, please call us on [COMPANY_TEL]. Yours Sincerely, Customer Services, [COMPANY_NAME].</div>
                                         <div id="EWS_DD_Cancelled" class="SELECTED_SMS well" style="display:none">Your bank has told us the direct debit instruction for your life insurance with [INSURER] has been cancelled, so it cannot be used to collect future premiums. To restart your direct debit or update your bank details, please call us on [COMPANY_TEL].</div>
                                         <div id="For_any_queries_call_us" class="SELECTED_SMS well" style="display:none">Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on [COMPANY_TEL] or via email [COMPANY_EMAIL].</div>
@@ -1046,6 +1044,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
+                                        <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
 
                                         <center>
                                             <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND TEMPLATE SMS</button>
@@ -1189,6 +1188,7 @@ if (isset($Single_Client['callauditid'])) {
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $smstitle = $smstitles['title'];
+                                                          
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
@@ -1202,6 +1202,8 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
+                                                                           <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
+
                                         <br>
                                         <br>
 

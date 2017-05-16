@@ -25,7 +25,7 @@ $num= filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
 $CLIENT_NAME= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
 $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
+$SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 if(!isset($MESSAGE_OPTION)) {
     $MESSAGE_OPTION=$SMS_MESSAGE;
@@ -42,12 +42,24 @@ include('../../includes/ADL_PDO_CON.php');
     
     $SID=$SMS_RESULT['twilio_account_sid'];
     $TOKEN=$SMS_RESULT['twilio_account_token'];
-
-    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title");
+    
+    if($selectopt=='General_Contact' || $selectopt=='For_any_queries_call_us') {
+        $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer='NA'");
     $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
+    $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
+    $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);        
+    }
+    
+    else {
+
+    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer=:SMS_INSURER");
+    $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
+    $MES_QRY->bindParam(':SMS_INSURER', $SMS_INSURER, PDO::PARAM_STR, 100);
     $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
     $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);    
 
+    }
+    
     $SMS_MESSAGE=$result['message'];
     $countryCode = "+44";
     

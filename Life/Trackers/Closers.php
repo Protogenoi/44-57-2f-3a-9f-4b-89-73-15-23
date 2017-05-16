@@ -125,6 +125,11 @@ if (isset($datefrom)) {
     $CLO_CHK->bindParam(':closer', $CLOSER, PDO::PARAM_STR);
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
+        
+        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsPAD.php');
+        $StatsPad = new STATSPadModal($pdo);
+        $StatsPadList = $StatsPad->getSTATSPad($datefrom,$CLOSER);
+        require_once(__DIR__ . '/../views/trackers/CLOSER/Stats-PAD.php');
 
         require_once(__DIR__ . '/../models/trackers/CLOSER/CloserPAD.php');
         $CloserPad = new CLOSERPadModal($pdo);
@@ -138,11 +143,18 @@ if($CLOSER=='All') {
     $CLO_CHK->bindParam(':date', $datefrom, PDO::PARAM_STR);
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
+        
+       require_once(__DIR__ . '/../models/trackers/CLOSER/AllStatsPAD.php');
+        $AllStatsPad = new AllSTATSPadModal($pdo);
+        $AllStatsPadList = $AllStatsPad->AllgetSTATSPad();
+        require_once(__DIR__ . '/../views/trackers/CLOSER/AllStats-PAD.php');
+       
 
         require_once(__DIR__ . '/../models/trackers/CLOSER/AllCloserPAD.php');
         $CloserPad = new AllCLOSERPadModal($pdo);
         $CloserPadList = $CloserPad->AllgetCLOSERPad($datefrom);
         require_once(__DIR__ . '/../views/trackers/CLOSER/AllCloser-PAD.php');
+        
     }
 }
     }
@@ -152,6 +164,11 @@ if (!isset($datefrom)) {
     $CLO_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE date_updated >=CURDATE()");
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
+        
+        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsPAD.php');
+        $StatsPad = new STATSPadModal($pdo);
+        $StatsPadList = $StatsPad->getSTATSPad();
+        require_once(__DIR__ . '/../views/trackers/CLOSER/Stats-PAD.php');
 
         require_once(__DIR__ . '/../models/trackers/CLOSER/CloserPAD.php');
         $CloserPad = new CLOSERPadModal($pdo);

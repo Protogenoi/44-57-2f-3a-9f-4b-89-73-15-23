@@ -26,7 +26,7 @@ if (isset($datefrom)) {
 FROM
     closer_trackers
 WHERE
-    DATE(date_updated) >= :datefrom
+    DATE(date_added) = :datefrom
         AND agent =:agent
 ORDER BY date_added DESC");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);

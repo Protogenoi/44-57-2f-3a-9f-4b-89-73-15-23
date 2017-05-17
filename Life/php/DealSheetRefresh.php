@@ -85,7 +85,7 @@ if(isset($query)) {
       </div>
       
                     <div class="list-group">
-                        <span class="label label-primary"><?php echo $real_name; ?> Dealsheets</span>
+                        <span class="label label-primary">Dealsheets for <?php echo $real_name; ?></span>
                         
                         <?php
                         

@@ -932,7 +932,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
                 <?php
                 if (isset($datefrom)) {
 
-                    $query = $pdo->prepare("select DATE(client_policy.submitted_date) AS submitted_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
+                    $query = $pdo->prepare("select client_policy.application_number, DATE(client_policy.submitted_date) AS submitted_date, client_policy.policystatus, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, financial_statistics_history.policy, financial_statistics_history.payment_amount, DATE(financial_statistics_history.insert_date) AS COMM_DATE 
 FROM client_policy
 LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' ORDER BY DATE(client_policy.sale_date)");
@@ -952,6 +952,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
+                            <th>App</th>
                             <th>Client</th>
                             <th>ADL Amount</th>
                             <th>ADL Status</th>
@@ -962,6 +963,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
                                 $AWAITING_SUB_DATE = $row['submitted_date'];
+                                $AWAITING_APP = $row['application_number'];
 
                                 $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
                                 $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
@@ -969,6 +971,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                                 echo '<tr>';
                                 echo "<td>$AWAITING_SUB_DATE</td>";
                                 echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>$AWAITING_APP</td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
                                     echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";

@@ -779,7 +779,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_1_num">POLICY#</label>
-                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_1'])) {
+                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number"  maxlength="20"value="<?php if (isset($data4['pol_num_1'])) {
                 echo $data4['pol_num_1'];
             } ?>">
                                     </div>
@@ -868,7 +868,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_2_num">POLICY#</label>
-                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_2'])) {
+                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_2'])) {
                 echo $data4['pol_num_2'];
             } ?>"> 
                                     </div>
@@ -957,7 +957,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_3_num">POLICY#</label>
-                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_3'])) {
+                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_3'])) {
                 echo $data4['pol_num_3'];
             } ?>">
                                     </div>
@@ -1046,7 +1046,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_4_num">POLICY#</label>
-                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_4'])) {
+                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_4'])) {
                 echo $data4['pol_num_4'];
             } ?>">
                                     </div>
@@ -1884,7 +1884,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_1_num">POLICY#</label>
-                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_1'])) {
+                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_1'])) {
                                 echo $data4['pol_num_1'];
                             } ?>">
                                     </div>
@@ -1973,7 +1973,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_2_num">POLICY#</label>
-                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_2'])) {
+                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_2'])) {
                 echo $data4['pol_num_2'];
             } ?>"> 
                                     </div>
@@ -2062,7 +2062,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_3_num">POLICY#</label>
-                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_3'])) {
+                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_3'])) {
                                             echo $data4['pol_num_3'];
                                         } ?>">
                                     </div>
@@ -2151,7 +2151,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_4_num">POLICY#</label>
-                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_4'])) {
+                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_4'])) {
                                                 echo $data4['pol_num_4'];
                                             } ?>">
                                     </div>
@@ -2992,7 +2992,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_1_num">POLICY#</label>
-                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_1'])) {
+                                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_1'])) {
                 echo $data4['pol_num_1'];
             } ?>">
                                     </div>
@@ -3081,7 +3081,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_2_num">POLICY#</label>
-                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_2'])) {
+                                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_2'])) {
                 echo $data4['pol_num_2'];
             } ?>"> 
                                     </div>
@@ -3170,7 +3170,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_3_num">POLICY#</label>
-                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_3'])) {
+                                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_3'])) {
                 echo $data4['pol_num_3'];
             } ?>">
                                     </div>
@@ -3259,7 +3259,7 @@ switch ($hello_name) {
 
                                     <div class="col-md-2">
                                         <label class="col-md-2 control-label" for="pol_4_num">POLICY#</label>
-                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_4'])) {
+                                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_4'])) {
                     echo $data4['pol_num_4'];
                 } ?>">
                                     </div>
@@ -5467,7 +5467,7 @@ switch ($hello_name) {
 
                             <div class="col-md-2">
                                 <label class="col-md-2 control-label" for="pol_1_num">POLICY#</label>
-                                <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_1'])) {
+                                <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_1'])) {
                         echo $data4['pol_num_1'];
                     } ?>">
                             </div>
@@ -5556,7 +5556,7 @@ switch ($hello_name) {
 
                             <div class="col-md-2">
                                 <label class="col-md-2 control-label" for="pol_2_num">POLICY#</label>
-                                <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_2'])) {
+                                <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_2'])) {
                 echo $data4['pol_num_2'];
             } ?>"> 
                             </div>
@@ -5645,7 +5645,7 @@ switch ($hello_name) {
 
                             <div class="col-md-2">
                                 <label class="col-md-2 control-label" for="pol_3_num">POLICY#</label>
-                                <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_3'])) {
+                                <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_3'])) {
                                     echo $data4['pol_num_3'];
                                 } ?>">
                             </div>
@@ -5734,7 +5734,7 @@ switch ($hello_name) {
 
                             <div class="col-md-2">
                                 <label class="col-md-2 control-label" for="pol_4_num">POLICY#</label>
-                                <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" value="<?php if (isset($data4['pol_num_4'])) {
+                                <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20" value="<?php if (isset($data4['pol_num_4'])) {
                                     echo $data4['pol_num_4'];
                                 } ?>">
                             </div>
@@ -6928,7 +6928,7 @@ switch ($hello_name) {
 
                     <div class="col-md-2">
                         <label class="col-md-2 control-label" for="pol_1_num">POLICY#</label>
-                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number">
+                        <input type="text" name="pol_1_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20">
                     </div>
 
                     <div class="col-md-1">
@@ -6985,7 +6985,7 @@ switch ($hello_name) {
 
                     <div class="col-md-2">
                         <label class="col-md-2 control-label" for="pol_2_num">POLICY#</label>
-                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number">
+                        <input type="text" name="pol_2_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20">
                     </div>
 
                     <div class="col-md-1">
@@ -7042,7 +7042,7 @@ switch ($hello_name) {
 
                     <div class="col-md-2">
                         <label class="col-md-2 control-label" for="pol_3_num">POLICY#</label>
-                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number">
+                        <input type="text" name="pol_3_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20">
                     </div>
 
                     <div class="col-md-1">
@@ -7099,7 +7099,7 @@ switch ($hello_name) {
 
                     <div class="col-md-2">
                         <label class="col-md-2 control-label" for="pol_4_num">POLICY#</label>
-                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number">
+                        <input type="text" name="pol_4_num" class="form-control input-md" placeholder="New Policy Number" maxlength="20">
                     </div>
 
                     <div class="col-md-1">

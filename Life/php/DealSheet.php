@@ -470,6 +470,38 @@ $database->execute();
             
             
             }
+            
+            
+            /*   PART 4 */
+            
+            $database->query("SELECT deal_id FROM dealsheet_prt4 WHERE deal_id=:deal_id");
+            $database->bind(':deal_id',$deal_id);
+            $database->execute(); 
+            
+            if ($database->rowCount()>=1) {
+                
+                $database->query("UPDATE dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time WHERE deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();     
+                
+                
+            }
+            
+            else {
+            
+                $database->query("INSERT dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time, deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();    
+            
+            }            
    
             
             $lastid =  $database->lastInsertId();
@@ -774,6 +806,37 @@ $database->execute();
             
             
             }
+            
+ /*   PART 4 */
+            
+            $database->query("SELECT deal_id FROM dealsheet_prt4 WHERE deal_id=:deal_id");
+            $database->bind(':deal_id',$deal_id);
+            $database->execute(); 
+            
+            if ($database->rowCount()>=1) {
+                
+                $database->query("UPDATE dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time WHERE deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();     
+                
+                
+            }
+            
+            else {
+            
+                $database->query("INSERT dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time, deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();    
+            
+            }                
    
             
             $lastid =  $database->lastInsertId();
@@ -969,6 +1032,37 @@ $database->bind(':sac',$sac);
 $database->bind(':date',$closer_date);
 $database->bind(':deal_id',$deal_id);
 $database->execute();     
+
+ /*   PART 4 */
+            
+            $database->query("SELECT deal_id FROM dealsheet_prt4 WHERE deal_id=:deal_id");
+            $database->bind(':deal_id',$deal_id);
+            $database->execute(); 
+            
+            if ($database->rowCount()>=1) {
+                
+                $database->query("UPDATE dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time WHERE deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();     
+                
+                
+            }
+            
+            else {
+            
+                $database->query("INSERT dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time, deal_id=:deal_id");    
+                $database->bind(':exist_pol',$MORTGAGE_TYPE);
+                $database->bind(':pol_num_1',$MORTGAGE_REASON);
+                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
+                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':deal_id',$deal_id);
+                $database->execute();    
+            
+            }    
             
             $lastid =  $database->lastInsertId();
             

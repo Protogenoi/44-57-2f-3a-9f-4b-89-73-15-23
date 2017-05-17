@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -97,7 +98,23 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     ?>
 
     <div class="container">
+                <?php 
+        $database = new Database();
+            $database->query("SELECT uploader from financial_statistics_history WHERE insert_date> DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY uploader");
+            $database->execute(); 
+            $FIN_ALERT = $database->single();  
+            
+            if ($database->rowCount()>=1) { ?>
+        <div class='notice notice-warning' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have been uploaded for this week by <?php echo $FIN_ALERT['uploader']; ?>.</center></strong> </div>  
+        <?php    }
+        
+        if ($database->rowCount()<1) { ?>
+        
+         <div class='notice notice-info' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have not yet been uploaded for this week.</center></strong> </div>  
+      
+        
         <?php
+        }
         
         if(isset($dateto)) {
             if($dateto>='2017-04-20' && $datefrom<'2017-04-20') { ?>

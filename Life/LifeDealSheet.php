@@ -1851,7 +1851,7 @@ switch ($hello_name) {
                         </div>
 
         <?php
-        if (in_array($hello_name, $Level_3_Access, true)) {
+        if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $QA_Access, true)) {
             ?>
 
                             <div class="panel panel-danger">
@@ -2956,7 +2956,7 @@ switch ($hello_name) {
                         </div>
 
         <?php
-        if (in_array($hello_name, $Level_3_Access, true)) {
+        if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $QA_Access, true)) {
             ?>
 
                             <div class="panel panel-danger">
@@ -5431,7 +5431,7 @@ switch ($hello_name) {
                 </div>
 
                 <?php
-                if (in_array($hello_name, $Closer_Access, true)) {
+               if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $QA_Access, true)) {
                     ?>
 
                     <div class="panel panel-danger">
@@ -6893,7 +6893,7 @@ switch ($hello_name) {
         </div>
 
     <?php
-    if (in_array($hello_name, $Closer_Access, true)) {
+    if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $QA_Access, true)) {
         ?>
 
             <div class="panel panel-danger">

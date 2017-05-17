@@ -8,6 +8,7 @@ require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');
 require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/php/analyticstracking.php');
@@ -58,6 +59,19 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
     <?php require_once(__DIR__ . '/includes/navbar.php'); ?>
 
     <div class="container">
+        
+        <?php 
+        $database = new Database();
+            $database->query("SELECT uploader from financial_statistics_history WHERE insert_date> DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY uploader");
+            $database->execute(); 
+            $FIN_ALERT = $database->single();  
+            
+            if ($database->rowCount()>=1) { ?>
+        <div class='notice notice-warning' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have already been uploaded for this week by <?php echo $FIN_ALERT['uploader']; ?>.</center></strong> </div>  
+        <?php    }
+        
+        ?>
+        
 
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#menu3">RAW COMM Upload</a>

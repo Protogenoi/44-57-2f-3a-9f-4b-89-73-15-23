@@ -197,6 +197,11 @@ switch ($hello_name) {
                     $database->bind(':deal_id', $deal_id);
                     $database->execute();
                     $data4 = $database->single();
+                    
+                    $database->query("SELECT cb_date, cb_time, type, reason FROM dealsheet_prt4 WHERE deal_id=:deal_id");
+                    $database->bind(':deal_id', $deal_id);
+                    $database->execute();
+                    $data5 = $database->single();                    
                     ?>
 
                     <div class="container">
@@ -749,7 +754,7 @@ switch ($hello_name) {
                         </div>
 
         <?php
-        if (in_array($hello_name, $Closer_Access, true)) {
+if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager, true) || in_array($hello_name, $QA_Access, true)) {
             ?>
 
                             <div class="panel panel-danger">
@@ -1229,8 +1234,61 @@ switch ($hello_name) {
                                         </div>
 
                                     </div>
-                                </div>
-                            </div>
+    </div>
+                    </div>
+        
+                    <div class="panel panel-danger">
+                <div class="panel-heading">Mortgage</div>
+                <div class="panel-body">
+                        
+<div class="row">   
+                    <div class="col-md-12">
+                        <label for="MORTGAGE_TYPE">Mortgage Type</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_TYPE" id="Fixed-0" value="Fixed" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Fixed') { echo "checked"; } } ?> >
+                            Fixed
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_TYPE" id="Variable-1" value="Variable" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Variable') { echo "checked"; } } ?> >
+                            Variable
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2"">
+                            <input name="MORTGAGE_TYPE" id="Tracker-2" value="Tracker" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Tracker') { echo "checked"; } } ?> >
+                            Tracker
+                        </label> 
+                    </div>
+                    
+                                        <div class="col-md-12">
+                        <label for="MORTGAGE_REASON">Review Reason</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_REASON" id="Fixed-0" value="Lower Interest Rate" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Lower Interest Rate') { echo "checked"; } } ?> >
+                            Lower Interest Rate
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_REASON" id="Variable-1" value="Remortgage" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Remortgage') { echo "checked"; } } ?> >
+                            Remortgage
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2">
+                            <input name="MORTGAGE_REASON" id="Tracker-2" value="Save Money" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Save Money') { echo "checked"; } } ?> >
+                            Save Money
+                        </label> 
+                  
+    </div>
+                       <div class="col-md-12">
+                           <div class="col-md-4">
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback date" value="<?php if(isset($data5['cb_date'])) { echo $data5['cb_date']; } ?>" > 
+                           </div>
+    
+                    <div class="col-md-4">  
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback time" value="<?php if(isset($data5['cb_time'])) { echo $data5['cb_time']; } ?>"> 
+                    </div>
+                       </div>
+         
+</div>
+
+                    </div>
+                </div>
+                    </div>
 
         <?php } ?>
 
@@ -4885,6 +4943,11 @@ switch ($hello_name) {
                                 $database->bind(':deal_id', $deal_id);
                                 $database->execute();
                                 $data4 = $database->single();
+                                
+                                $database->query("SELECT cb_date, cb_time, type, reason FROM dealsheet_prt4 WHERE deal_id=:deal_id");
+                                $database->bind(':deal_id', $deal_id);
+                                $database->execute();
+                                $data5 = $database->single();  
                                 ?>
 
             <div class="container">
@@ -5919,6 +5982,58 @@ switch ($hello_name) {
                             </div>
                         </div>
                     </div>
+                
+                    <div class="panel panel-danger">
+                <div class="panel-heading">Mortgage</div>
+                <div class="panel-body">
+                        
+<div class="row">   
+                    <div class="col-md-12">
+                        <label for="MORTGAGE_TYPE">Mortgage Type</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_TYPE" id="Fixed-0" value="Fixed" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Fixed') { echo "checked"; } } ?> >
+                            Fixed
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_TYPE" id="Variable-1" value="Variable" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Variable') { echo "checked"; } } ?> >
+                            Variable
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2"">
+                            <input name="MORTGAGE_TYPE" id="Tracker-2" value="Tracker" type="radio" <?php if(isset($data5['type'])) { if($data5['type']=='Tracker') { echo "checked"; } } ?> >
+                            Tracker
+                        </label> 
+                    </div>
+                    
+                                        <div class="col-md-12">
+                        <label for="MORTGAGE_REASON">Review Reason</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_REASON" id="Fixed-0" value="Lower Interest Rate" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Lower Interest Rate') { echo "checked"; } } ?> >
+                            Lower Interest Rate
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_REASON" id="Variable-1" value="Remortgage" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Remortgage') { echo "checked"; } } ?> >
+                            Remortgage
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2">
+                            <input name="MORTGAGE_REASON" id="Tracker-2" value="Save Money" type="radio" <?php if(isset($data5['reason'])) { if($data5['reason']=='Save Money') { echo "checked"; } } ?> >
+                            Save Money
+                        </label> 
+                  
+    </div>
+                       <div class="col-md-12">
+                           <div class="col-md-4">
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback date" value="<?php if(isset($data5['cb_date'])) { echo $data5['cb_date']; } ?>" > 
+                           </div>
+    
+                    <div class="col-md-4">  
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback time" value="<?php if(isset($data5['cb_time'])) { echo $data5['cb_time']; } ?>"> 
+                    </div>
+                       </div>
+         
+</div>
+
+                    </div>
+                </div>                
 
         <?php } ?>
 
@@ -7215,6 +7330,57 @@ switch ($hello_name) {
                             <label class="col-md-4 control-label" for="closer_date">DATE</label>
                             <input type="text" name="closer_date" class="form-control input-md" placeholder=""> 
                         </div>
+                    </div>
+                    </div></div>
+        
+                    <div class="panel panel-danger">
+                <div class="panel-heading">Mortgage</div>
+                <div class="panel-body">
+                        
+<div class="row">   
+                    <div class="col-md-12">
+                        <label for="MORTGAGE_TYPE">Mortgage Type</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_TYPE" id="Fixed-0" value="Fixed" type="radio">
+                            Fixed
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_TYPE" id="Variable-1" value="Variable" type="radio">
+                            Variable
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2"">
+                            <input name="MORTGAGE_TYPE" id="Tracker-2" value="Tracker" type="radio">
+                            Tracker
+                        </label> 
+                    </div>
+                    
+                                        <div class="col-md-12">
+                        <label for="MORTGAGE_REASON">Review Reason</label>
+                        <label class="radio-inline" for="Fixed-0">
+                            <input name="MORTGAGE_REASON" id="Fixed-0" value="Lower Interest Rate" type="radio">
+                            Lower Interest Rate
+                        </label> 
+                        <label class="radio-inline" for="Variable-1">
+                            <input name="MORTGAGE_REASON" id="Variable-1" value="Remortgage" type="radio">
+                            Remortgage
+                        </label> 
+                        <label class="radio-inline" for="Tracker-2"">
+                            <input name="MORTGAGE_REASON" id="Tracker-2" value="Save Money" type="radio">
+                            Save Money
+                        </label> 
+                  
+    </div>
+                       <div class="col-md-12">
+                           <div class="col-md-4">
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback date"> 
+                           </div>
+    
+                    <div class="col-md-4">  
+                            <input type="text" name="MORTGAGE_CB_DATE" class="form-control input-md" placeholder="Callback time"> 
+                    </div>
+                       </div>
+         
+</div>
 
                     </div>
                 </div>

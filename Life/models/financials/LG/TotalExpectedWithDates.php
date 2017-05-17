@@ -18,7 +18,8 @@ WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
         AND insurer = 'Legal and General'
         AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Clawback' , 'DECLINED','On hold','Awaiting')");
+        AND client_policy.policystatus NOT IN ('Clawback' , 'DECLINED','On hold')
+        AND client_policy.policy_number NOT like '%DU%'");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
         $stmt->execute();

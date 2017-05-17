@@ -142,7 +142,7 @@ if($query=='QADealSheets') { ?>
                         
                                                 <?php
                         
-                $CLOSERDEALS = $pdo->prepare("SELECT deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='QA' ORDER BY date_updated ");
+                $CLOSERDEALS = $pdo->prepare("SELECT date_added, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='QA' ORDER BY date_updated DESC");
                              $CLOSERDEALS->execute();
                             if ($CLOSERDEALS->rowCount()>0) {
                                 while ($CLOSERDEALSresult=$CLOSERDEALS->fetch(PDO::FETCH_ASSOC)){    
@@ -152,10 +152,11 @@ if($query=='QADealSheets') { ?>
                                     $CLO_ID=$CLOSERDEALSresult['deal_id'];
                                     $CLO_AGENT=$CLOSERDEALSresult['agent'];
                                     $CLO_CLO=$CLOSERDEALSresult['closer'];
+                                    $DL_DATE=$CLOSERDEALSresult['date_added'];
                                     
                                     ?>
                         
-                            <a class="list-group-item" href="LifeDealSheet.php?query=ViewQADealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Closer: $CLO_CLO | Lead Gen: $CLO_AGENT <br><i class='fa fa-user fa-fw' aria-hidden='true'></i> $CLO_NAME - $CLO_NAME2"; ?></a>
+                            <a class="list-group-item" href="LifeDealSheet.php?query=ViewQADealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $DL_DATE | Closer: $CLO_CLO | Lead Gen: $CLO_AGENT <br><i class='fa fa-user fa-fw' aria-hidden='true'></i> $CLO_NAME - $CLO_NAME2"; ?></a>
 
                         
                         <?php

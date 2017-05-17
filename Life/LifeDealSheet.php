@@ -1248,15 +1248,18 @@ switch ($hello_name) {
                                                     <?php } else { ?>
                                         <option value="">Closer</option>
                                                     <?php } ?>
-                                    <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James">James</option>
-                                    <option value="Kyle">Kyle</option>  
-                                    <option value="David">David</option> 
-                                    <option value="Richard">Richard</option>
-                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
-                                    <option value="Sarah">Sarah</option>
-                                    <option value="Gavin">Gavin</option> 
-                                    <option value="Assura">Assura</option> 
+                            <option value="James">James Adams</option>
+                            <option value="Kyle">Kyle Barnett</option>  
+                            <option value="David">David Bebee</option> 
+                            <option value="Richard">Richard Michaels</option>
+                            <option value="Hayley">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah Wallace</option>
+                            <option value="Gavin">Gavin Fulford</option> 
+                            <option value="Mike">Michael Lloyd</option> 
+                            <option value="carys">Carys Riley</option>
+                            <option value="abbiek">Abbie Kenyon</option>
+                            <option value="Nicola">Nicola Griffiths</option>
+                            <option value="Keith">Keith Dance</option>
                                 </select>
                             </div>
 
@@ -2350,15 +2353,18 @@ switch ($hello_name) {
         <?php } else { ?>
                                         <option value="">Closer</option>
         <?php } ?>
-                                    <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James">James</option>
-                                    <option value="Kyle">Kyle</option>  
-                                    <option value="David">David</option> 
-                                    <option value="Richard">Richard</option>
-                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
-                                    <option value="Sarah">Sarah</option>
-                                    <option value="Gavin">Gavin</option> 
-                                    <option value="Assura">Assura</option> 
+                            <option value="James">James Adams</option>
+                            <option value="Kyle">Kyle Barnett</option>  
+                            <option value="David">David Bebee</option> 
+                            <option value="Richard">Richard Michaels</option>
+                            <option value="Hayley">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah Wallace</option>
+                            <option value="Gavin">Gavin Fulford</option> 
+                            <option value="Mike">Michael Lloyd</option> 
+                            <option value="carys">Carys Riley</option>
+                            <option value="abbiek">Abbie Kenyon</option>
+                            <option value="Nicola">Nicola Griffiths</option>
+                            <option value="Keith">Keith Dance</option>
                                 </select>
                             </div>
 
@@ -5931,15 +5937,18 @@ switch ($hello_name) {
                                 <option value="">Closer</option>
         <?php } ?>
                             <option value="CLOSER CALLBACK">SET AS CALLBACK</option>            
-                            <option value="Carys Riley">Carys Riley</option>
-                            <option value="James">James</option>
-                            <option value="Kyle">Kyle</option>  
-                            <option value="David">David</option> 
-                            <option value="Richard">Richard</option>
-                            <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
-                            <option value="Sarah">Sarah</option>
-                            <option value="Gavin">Gavin</option> 
-                            <option value="Assura">Assura</option> 
+                            <option value="James">James Adams</option>
+                            <option value="Kyle">Kyle Barnett</option>  
+                            <option value="David">David Bebee</option> 
+                            <option value="Richard">Richard Michaels</option>
+                            <option value="Hayley">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah Wallace</option>
+                            <option value="Gavin">Gavin Fulford</option> 
+                            <option value="Mike">Michael Lloyd</option> 
+                            <option value="carys">Carys Riley</option>
+                            <option value="abbiek">Abbie Kenyon</option>
+                            <option value="Nicola">Nicola Griffiths</option>
+                            <option value="Keith">Keith Dance</option>
                         </select>
                     </div>
 
@@ -5970,7 +5979,7 @@ switch ($hello_name) {
         <script>
             function refresh_div() {
                 jQuery.ajax({
-                    url: 'php/DealSheetRefresh.php?query=CloserDealSheets&name=<?php echo $real_name; ?>',
+                    url: 'php/DealSheetRefresh.php?query=CloserDealSheets&name=<?php echo $hello_name; ?>',
                     type: 'POST',
                     success: function (results) {
                         jQuery(".CloserDealSheetsRefresh").html(results);
@@ -7221,15 +7230,18 @@ switch ($hello_name) {
                 <select class="form-control" name="closer">
                     <option value="">SEND TO CLOSER OR SET AS CALLBACK</option>
                     <option value="CALLBACK">Set as Callback</option>
-                    <option value="Carys Riley">Carys Riley</option>
-                    <option value="James">James</option>
-                    <option value="Kyle">Kyle</option>  
-                    <option value="David">David</option> 
-                    <option value="Richard">Richard</option>
-                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
-                    <option value="Sarah">Sarah</option>
-                    <option value="Gavin">Gavin</option>
-                    <option value="Assura">Assura</option> 
+                            <option value="James">James Adams</option>
+                            <option value="Kyle">Kyle Barnett</option>  
+                            <option value="David">David Bebee</option> 
+                            <option value="Richard">Richard Michaels</option>
+                            <option value="Hayley">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah Wallace</option>
+                            <option value="Gavin">Gavin Fulford</option> 
+                            <option value="Mike">Michael Lloyd</option> 
+                            <option value="carys">Carys Riley</option>
+                            <option value="abbiek">Abbie Kenyon</option>
+                            <option value="Nicola">Nicola Griffiths</option>
+                            <option value="Keith">Keith Dance</option>
                 </select>
             </div>
 

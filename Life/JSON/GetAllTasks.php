@@ -19,15 +19,6 @@ $json=json_encode($results);
 header("content-type:application/json");
 echo $json=json_encode($results);
 
-//$query2 = $pdo->prepare("select subject, count(subject) As Incomplete from client_notes where complete NOT IN ('Y') AND subject IN ('12 Day Call','18 Day Call','24 - 48hr Call','CYD Chase','5 Day Call') group by subject");
-
-//$query2->execute();
-//$results2=$query2->fetchAll(PDO::FETCH_ASSOC);
-//$json2=json_encode($results2);
-
-//header("content-type:application/json");
-//echo $json2=json_encode($results2);
-
 }
 
 else {

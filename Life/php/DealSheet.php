@@ -60,6 +60,11 @@ if(isset($dealsheet)) {
     $home= filter_input(INPUT_POST, 'home', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
+    $MORTGAGE_TYPE= filter_input(INPUT_POST, 'MORTGAGE_TYPE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $MORTGAGE_REASON= filter_input(INPUT_POST, 'MORTGAGE_REASON', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $MORTGAGE_DATE= filter_input(INPUT_POST, 'MORTGAGE_CB_DATE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $MORTGAGE_TIME= filter_input(INPUT_POST, 'MORTGAGE_CB_TIME', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
     $q1a= filter_input(INPUT_POST, 'q1a', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $q1b= filter_input(INPUT_POST, 'q1b', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $q1c= filter_input(INPUT_POST, 'q1c', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -816,10 +821,10 @@ $database->execute();
             if ($database->rowCount()>=1) {
                 
                 $database->query("UPDATE dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time WHERE deal_id=:deal_id");    
-                $database->bind(':exist_pol',$MORTGAGE_TYPE);
-                $database->bind(':pol_num_1',$MORTGAGE_REASON);
-                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
-                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':type',$MORTGAGE_TYPE);
+                $database->bind(':reason',$MORTGAGE_REASON);
+                $database->bind(':date',$MORTGAGE_DATE);
+                $database->bind(':time',$MORTGAGE_TIME);
                 $database->bind(':deal_id',$deal_id);
                 $database->execute();     
                 
@@ -829,10 +834,10 @@ $database->execute();
             else {
             
                 $database->query("INSERT dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time, deal_id=:deal_id");    
-                $database->bind(':exist_pol',$MORTGAGE_TYPE);
-                $database->bind(':pol_num_1',$MORTGAGE_REASON);
-                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
-                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':type',$MORTGAGE_TYPE);
+                $database->bind(':reason',$MORTGAGE_REASON);
+                $database->bind(':date',$MORTGAGE_DATE);
+                $database->bind(':time',$MORTGAGE_TIME);
                 $database->bind(':deal_id',$deal_id);
                 $database->execute();    
             
@@ -1042,10 +1047,10 @@ $database->execute();
             if ($database->rowCount()>=1) {
                 
                 $database->query("UPDATE dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time WHERE deal_id=:deal_id");    
-                $database->bind(':exist_pol',$MORTGAGE_TYPE);
-                $database->bind(':pol_num_1',$MORTGAGE_REASON);
-                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
-                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':type',$MORTGAGE_TYPE);
+                $database->bind(':reason',$MORTGAGE_REASON);
+                $database->bind(':date',$MORTGAGE_DATE);
+                $database->bind(':time',$MORTGAGE_TIME);
                 $database->bind(':deal_id',$deal_id);
                 $database->execute();     
                 
@@ -1055,10 +1060,10 @@ $database->execute();
             else {
             
                 $database->query("INSERT dealsheet_prt4 SET type=:type, reason=:reason, cb_date=:date, cb_time=:time, deal_id=:deal_id");    
-                $database->bind(':exist_pol',$MORTGAGE_TYPE);
-                $database->bind(':pol_num_1',$MORTGAGE_REASON);
-                $database->bind(':pol_num_1_pre',$MORTGAGE_DATE);
-                $database->bind(':pol_num_1_com',$MORTGAGE_TIME);
+                $database->bind(':type',$MORTGAGE_TYPE);
+                $database->bind(':reason',$MORTGAGE_REASON);
+                $database->bind(':date',$MORTGAGE_DATE);
+                $database->bind(':time',$MORTGAGE_TIME);
                 $database->bind(':deal_id',$deal_id);
                 $database->execute();    
             

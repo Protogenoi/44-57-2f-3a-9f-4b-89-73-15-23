@@ -84,19 +84,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 </a>
                             </li>
 
-                        <?php } if ($ffpensions == '1') { ?>
-
-                            <li>
-                                <a href="/AddClient.php?Pension">
-                                    <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Add New<br/> Client</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-
-                        <?php }if ($ffpba == '1') { ?>
+                        <?php } if ($ffpba == '1') { ?>
                             <li>
                                 <a href="SearchClients.php?client=PBA">
                                     <span class="ca-icon"><i class="fa fa-search"></i></span>
@@ -114,34 +102,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
             <?php
-            if ($ffpensions == '1') {
-                ?>  
-
-                <table id="newclients" class="display" width="auto" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Date Added</th>
-                            <th>Client Name</th>
-                            <th>Client Name</th>
-                            <th>Post Code</th>
-                            <th>View</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Date Added</th>
-                            <th>Client Name</th>
-                            <th>Client Name</th>
-                            <th>Post Code</th>
-                            <th>View</th>
-                        </tr>
-                    </tfoot>
-                </table>
-
-                <?php
-            }
 
             if ($fflife == '1') {
                 ?>
@@ -258,63 +218,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     ],
                 });
 
-            });
-        </script>
-        <script type="text/javascript" language="javascript" >
-            function format(d) {
-                // `d` is the original data object for the row
-                return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                        '<tr>' +
-                        '<td>Added By:</td>' +
-                        '<td>' + d.submitted_by + ' </td>' +
-                        '</tr>' +
-                        '</table>';
-            }
-
-            $(document).ready(function () {
-                var table = $('#newclients').DataTable({
-                    "response": true,
-                    "processing": true,
-                    "iDisplayLength": 50,
-                    "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 500], [5, 10, 25, 50, 100, 125, 150, 200, 500]],
-                    "language": {
-                        "processing": "<div></div><div></div><div></div><div></div><div></div>"
-
-                    },
-                    "ajax": "/datatables/ClientSearch.php?ClientSearch=2",
-                    "columns": [
-                        {
-                            "className": 'details-control',
-                            "orderable": false,
-                            "data": null,
-                            "defaultContent": ''
-                        },
-                        {"data": "submitted_date"},
-                        {"data": "Name"},
-                        {"data": "Name2"},
-                        {"data": "post_code"},
-                        {"data": "client_id",
-                            "render": function (data, type, full, meta) {
-                                return '<a href="/Pensions/ViewClient.php?search=' + data + '">View</a>';
-                            }},
-                    ],
-                    "order": [[1, 'DESC']]
-                });
-
-                $('#clients tbody').on('click', 'td.details-control', function () {
-                    var tr = $(this).closest('tr');
-                    var row = table.row(tr);
-
-                    if (row.child.isShown()) {
-                        // This row is already open - close it
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    } else {
-                        // Open this row
-                        row.child(format(row.data())).show();
-                        tr.addClass('shown');
-                    }
-                });
             });
         </script>
         <?php if (isset($HALLOWEEN)) { ?>

@@ -128,18 +128,6 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
                             </div>
 
                             <div class="col-xs-6 col-md-6">
-                                <h3>Upload Policy data</h3>
-                                <form action="/upload/polup.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                    <input name="csv" type="file" id="csv" />
-                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-
-                                <form action="/export/clientpolicytemp.php" method="post"><br>
-                                    <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
-                                </form>
-                            </div>
-
-                            <div class="col-xs-6 col-md-6">
                                 <h3>Upload Client Notes data</h3>
                                 <form action="/upload/clientnotesup.php" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                     <input name="csv" type="file" id="csv" />

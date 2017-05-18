@@ -97,11 +97,6 @@ if ($count = $dupeck->rowCount() >= 1) {
 
     $clientnamedata2 = $client_name;
 
-    $query = $pdo->prepare("UPDATE client_notes set client_name=:clientnameholder WHERE client_id=:clientidholder AND policy_number=:policynumberholder ");
-    $query->bindParam(':clientidholder', $keyfield, PDO::PARAM_INT);
-    $query->bindParam(':policynumberholder', $policy_number, PDO::PARAM_INT);
-    $query->bindParam(':clientnameholder', $clientnamedata2, PDO::PARAM_STR, 500);
-    $query->execute();
 
 
     $queryTRKn = $pdo->prepare("INSERT INTO policy_number_tracking set new_policy_number=:newpolicyholder, policy_id =:origpolicyid, oldpolicy=:oldpolicyholder ");
@@ -121,11 +116,6 @@ if ($count = $dupeck->rowCount() >= 1) {
     $queryNote->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
     $queryNote->execute();
 
-    $queryPOL = $pdo->prepare("UPDATE client_notes set policy_number=:newpolicyholdercn WHERE client_id=:clientidholdercn AND policy_number=:oldpolicynumberholdercn ");
-    $queryPOL->bindParam(':clientidholdercn', $keyfield, PDO::PARAM_INT);
-    $queryPOL->bindParam(':newpolicyholdercn', $policy_number, PDO::PARAM_INT);
-    $queryPOL->bindParam(':oldpolicynumberholdercn', $oname, PDO::PARAM_STR, 500);
-    $queryPOL->execute();
 
     if (isset($fferror)) {
         if ($fferror == '0') {

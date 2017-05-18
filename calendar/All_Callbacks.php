@@ -206,12 +206,6 @@ if ($ffcalendar=='0') {
                     $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_callbacks WHERE complete ='N' ORDER BY ordersort DESC");
                   }
                   }
-                                    if(isset($ffpensions)) { 
-                                        if($ffpensions=='1') {
-                    
-                    $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_pension_callbacks WHERE complete ='N' ORDER BY ordersort DESC");
-                  }
-                                    }
                     ?>
                 
                 <table class="table">
@@ -242,12 +236,7 @@ if ($ffcalendar=='0') {
                             
                             }
                             
-                            if($ffpensions=='1') {
-                            
-                           echo "<td class='text-left'><a href='/Pensions/ViewClient.php?search=$search' target='_blank'>".$calllist['client_name']."</a></td>";
 
-                                
-                            }
                             echo "<td class='text-left'>".$calllist['calltimeid']."</td>"; 
                             echo "<td class='text-left'>".$calllist['notes']."</td>"; 
                             
@@ -258,12 +247,6 @@ if ($ffcalendar=='0') {
                             
                         }
                         
-                        if($ffpensions=='1') {
-                            
-                            echo "<td class='text-left'><a href='/Pensions/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class=\"btn btn-success btn-xs\"><i class='fa fa-check'></i> Complete</a></td>";
-                            echo "<td class='text-left'><a href='/Pensions/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=n' class=\"btn btn-warning btn-xs\"><i class='fa fa-times'></i> In-complete</a></td>";
-                            
-                        }
                             echo "</tr>";
                             
                         }

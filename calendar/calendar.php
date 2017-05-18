@@ -97,13 +97,7 @@ if ($ffcalendar=='0') {
                     $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
                   }
                   }
-                                    if(isset($ffpensions)) { 
-                                        if($ffpensions=='1') {
-                    
-                    $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_pension_callbacks WHERE assign=:hello ORDER BY ordersort DESC");
-                    $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
-                  }
-                                    }
+
 
                     
                     $query->execute();
@@ -140,13 +134,7 @@ if ($ffcalendar=='0') {
                             echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$search'>".$calllist['client_name']."</a></td>";
                             
                             }
-                            
-                            if($ffpensions=='1') {
-                            
-                           echo "<td class='text-left'><a href='/Pensions/ViewClient.php?search=$search'>".$calllist['client_name']."</a></td>";
-
-                                
-                            }
+  
                             
                             echo "<td class='text-left'>".$calllist['calltimeid']."</td>"; 
                                           
@@ -155,12 +143,6 @@ if ($ffcalendar=='0') {
                           echo "<td class='text-left'><a data-toggle='modal' data-target='#myModal$i' class=\"btn btn-info btn-xs\"><i class='fa fa-cogs'></i> Options</a></td>";
                         }
                         
-                        if($ffpensions=='1') {
-                            
-                            echo "<td class='text-left'><a href='/Pensions/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class=\"btn btn-success btn-xs\"><i class='fa fa-check'></i> Complete</a></td>";
-                            echo "<td class='text-left'><a href='/Pensions/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=n' class=\"btn btn-warning btn-xs\"><i class='fa fa-times'></i> In-complete</a></td>";
-                            
-                        }
                             echo "</tr>"; ?>
                 
                 <div id='myModal<?php echo $i;?>' class='modal fade' role='dialog'>

@@ -69,12 +69,6 @@ if(isset($fferror)) {
             
             $clientnamedata2= $client_name;
             
-            $query = $pdo->prepare("UPDATE client_notes set client_name=:clientnameholder WHERE client_id=:clientidholder AND policy_number=:policynumberholder ");
-            $query->bindParam(':clientidholder',$CID, PDO::PARAM_INT);
-            $query->bindParam(':policynumberholder',$policy_number, PDO::PARAM_INT);
-            $query->bindParam(':clientnameholder',$clientnamedata2, PDO::PARAM_STR, 500);
-            $query->execute();  
-            
             $notedata= "Policy Number Updated";
             $messagedata="Policy number updated $dupepol duplicate of $policy_number";
             
@@ -85,12 +79,7 @@ if(isset($fferror)) {
             $queryNote->bindParam(':noteholder',$notedata, PDO::PARAM_STR, 255);
             $queryNote->bindParam(':messageholder',$messagedata, PDO::PARAM_STR, 2500);
             $queryNote->execute();
-            
-            $queryPOL = $pdo->prepare("UPDATE client_notes set policy_number=:newpolicyholdercn WHERE client_id=:clientidholdercn AND policy_number=:oldpolicynumberholdercn ");
-            $queryPOL->bindParam(':clientidholdercn',$CID, PDO::PARAM_INT);
-            $queryPOL->bindParam(':newpolicyholdercn',$policy_number, PDO::PARAM_INT);
-            $queryPOL->bindParam(':oldpolicynumberholdercn',$oname, PDO::PARAM_STR, 500);
-            $queryPOL->execute(); 
+
             
             if(isset($fferror)) {
                 if($fferror=='0') {  
@@ -127,12 +116,7 @@ if(isset($fferror)) {
                 $update->execute();
                 
                 $clientnamedata2= $client_name; 
-                
-                $query = $pdo->prepare("UPDATE client_notes set client_name=:clientnameholder WHERE client_id=:clientidholder AND policy_number=:policynumberholder ");
-                $query->bindParam(':clientidholder',$CID, PDO::PARAM_INT);
-                $query->bindParam(':policynumberholder',$policy_number, PDO::PARAM_INT);
-                $query->bindParam(':clientnameholder',$clientnamedata2, PDO::PARAM_STR, 500);
-                $query->execute();
+
                 
                 if(isset($changereason)){
                     if ($changereason =='Incorrect Policy Number') {

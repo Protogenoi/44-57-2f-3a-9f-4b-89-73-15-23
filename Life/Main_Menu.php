@@ -98,8 +98,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 <a href="<?php
                                 if ($fflife == '1') {
                                     echo "Reports/AllTasks.php";
-                                } elseif ($ffpensions == '1') {
-                                    echo "/Pensions/Reports/PensionStages.php";
                                 } else {
                                     echo "#";
                                 }

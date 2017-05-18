@@ -171,11 +171,7 @@ $update->execute();
 
 $clientnamedata2 = $client_name;
 
-$query = $pdo->prepare("UPDATE client_notes set client_name=:clientnameholder WHERE client_id=:clientidholder AND policy_number=:policynumberholder ");
-$query->bindParam(':clientidholder', $keyfield, PDO::PARAM_INT);
-$query->bindParam(':policynumberholder', $policy_number, PDO::PARAM_INT);
-$query->bindParam(':clientnameholder', $clientnamedata2, PDO::PARAM_STR, 500);
-$query->execute();
+
 
 $changereason = filter_input(INPUT_POST, 'changereason', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -207,11 +203,6 @@ if (isset($changereason)) {
         $query->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
         $query->execute();
 
-        $query = $pdo->prepare("UPDATE client_notes set policy_number=:newpolicyholdercn WHERE client_id=:clientidholdercn AND policy_number=:oldpolicynumberholdercn ");
-        $query->bindParam(':clientidholdercn', $keyfield, PDO::PARAM_INT);
-        $query->bindParam(':newpolicyholdercn', $policy_number, PDO::PARAM_INT);
-        $query->bindParam(':oldpolicynumberholdercn', $oname, PDO::PARAM_STR, 500);
-        $query->execute();
     }
 
 

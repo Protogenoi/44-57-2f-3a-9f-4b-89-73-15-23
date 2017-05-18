@@ -89,7 +89,7 @@ if(isset($query)) {
                         
                         <?php
                         
-                $CLOSERDEALS = $pdo->prepare("SELECT date_updated, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='CLOSER' AND closer=:closer ORDER BY date_updated ");
+                $CLOSERDEALS = $pdo->prepare("SELECT date_updated, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='CLOSER' AND closer=:closer ORDER BY date_added DESC");
                 $CLOSERDEALS->bindParam(':closer',$real_name, PDO::PARAM_STR);
                 $CLOSERDEALS->execute();
                             if ($CLOSERDEALS->rowCount()>0) {

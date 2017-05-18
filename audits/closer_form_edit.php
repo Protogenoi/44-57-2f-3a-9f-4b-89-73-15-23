@@ -131,6 +131,7 @@ if (isset($_GET["auditid"])) {
                                             <option value="Matthew Brace">Matthew Brace</option>  
                                             <option value="Sam Morris">Sam Morris</option> 
                                             <option value="Steve Pattin">Steve Pattin</option> 
+                                            <option value="James Keen">James Keen</option> 
 <?php } ?>
                                     </select>
                                 </div>

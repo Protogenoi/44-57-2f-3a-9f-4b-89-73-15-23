@@ -109,11 +109,6 @@ $oname=$origdetails['orig_policy'];
     $addquery->bindParam(':hello',$hello_name, PDO::PARAM_STR, 100);
     $addquery->execute()or die(print_r($addquery->errorInfo(), true)); 
 
-$query = $pdo->prepare("UPDATE client_notes set client_name=:clientnameholder WHERE client_id=:clientidholder AND policy_number=:policynumberholder ");
-$query->bindParam(':clientidholder',$search, PDO::PARAM_INT);
-$query->bindParam(':policynumberholder',$penpol, PDO::PARAM_INT);
-$query->bindParam(':clientnameholder',$clientnamedata2, PDO::PARAM_STR, 500);
-$query->execute(); 
 
 $changereason= filter_input(INPUT_POST, 'changereason', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -138,11 +133,6 @@ $query->bindParam(':noteholder',$notedata, PDO::PARAM_STR, 255);
 $query->bindParam(':messageholder',$messagedata, PDO::PARAM_STR, 2500);
 $query->execute(); 
 
-$query = $pdo->prepare("UPDATE client_notes set policy_number=:newpolicyholdercn WHERE client_id=:clientidholdercn AND policy_number=:oldpolicynumberholdercn ");
-$query->bindParam(':clientidholdercn',$search, PDO::PARAM_INT);
-$query->bindParam(':newpolicyholdercn',$penpol, PDO::PARAM_INT);
-$query->bindParam(':oldpolicynumberholdercn',$oname, PDO::PARAM_STR, 500);
-$query->execute(); 
 
     }
         

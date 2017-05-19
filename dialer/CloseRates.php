@@ -208,6 +208,14 @@ ORDER BY Sales, Leads");
                             $TRK_sale = "Decline";
                             $TRK_BG = "#FF0000";
                             break;
+                         case "Thought we were an insurer":
+                            $TRK_sale = "Insurer";
+                            $TRK_BG = "#808080";
+                            break;
+                         case "Hangup on XFER":
+                            $TRK_sale = "Hang Up";
+                            $TRK_BG = "#808080";
+                            break;
                         default:
                             $TRK_sale = $TRK_sale;
                             $TRK_BG = "#ffffff";

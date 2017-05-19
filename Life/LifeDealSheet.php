@@ -6377,6 +6377,16 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                         echo "selected";
                     }
                 } ?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Hangup on XFER') {
+                        echo "selected";
+                    }
+                } ?> value="Hangup on XFER">Hangup on XFER</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Thought we were an insurer') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option>                         
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'Other') {
                         echo "selected";
@@ -6426,6 +6436,8 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                     <option value="NoCard">No Card</option>
                                     <option value="DIDNO">Quote Not Beaten</option>
                                     <option value="DETRA">Declined but passed to upsale</option>
+                                    <option value="Hangup on XFER">Hangup on XFER</option>
+                                    <option value="Thought we were an insurer">Thought we were an insurer</option>
                                     <option value="Other">Other</option>
                                 </select></td>
                               <td>
@@ -6548,6 +6560,16 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                         echo "selected";
                     }
                 } ?> value="DETRA">Declined but passed to upsale</option>
+<option <?php if (isset($TRK_sale)) {
+                    if ($TRK_sale == 'Hangup on XFER') {
+                        echo "selected";
+                    }
+                } ?> value="Hangup on XFER">Hangup on XFER</option>
+                                <option <?php if (isset($TRK_sale)) {
+                    if ($TRK_sale == 'Thought we were an insurer') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option>                                                   
                                         <option <?php if (isset($TRK_sale)) {
                     if ($TRK_sale == 'Other') {
                         echo "selected";

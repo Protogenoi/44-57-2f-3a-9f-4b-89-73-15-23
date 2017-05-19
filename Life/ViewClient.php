@@ -2571,6 +2571,8 @@ try {
                                             break;
                                         case "Sent SMS":
                                         case "Callback":
+                                            case stristr($result['note_type'], "Sent SMS"):
+                                                case stristr($result['note_type'], "Already Sent SMS"):
                                             $TMicon = "fa-phone";
                                             break;
                                         default:

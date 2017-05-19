@@ -43,7 +43,7 @@ if(isset($fferror)) {
 $countryCode = "+44";   
 
     $sth = $pdo->prepare("SELECT
-    ews_data.id,
+    ews_data.id AS EWS_ID,
     client_details.client_id,    
     client_details.phone_number,
     CONCAT(client_details.title,
@@ -71,7 +71,7 @@ $result = $sth->fetchAll();
 
 foreach ($result as $number) {
    
-    $EWS_ID=$number['id'];
+    $EWS_ID=$number['EWS_ID'];
     $OLD_NUMBER=$number['phone_number'];
     $newNumber = preg_replace('/^0?/', ''.$countryCode, $OLD_NUMBER);
     $NAME=$number['NAME'];
@@ -85,8 +85,8 @@ if(isset($COLOUR)) {
 
         $database = new Database();
         
-            $database->query("SELECT ews_sms_id_fk FROM ews_sms WHERE ews_sms_id_fk=:EID AND ews_sms_black='1'");
-            $database->bind(':EID',$EWS_ID);
+            $database->query("SELECT ews_sms_client_id FROM ews_sms WHERE ews_sms_client_id=:CID AND ews_sms_black='1'");
+            $database->bind(':CID',$CID);
             $database->execute(); 
     }
             if ($database->rowCount()>=1) {
@@ -110,11 +110,14 @@ $INSERT->execute();
             else {
                 
              if($COLOUR=='Black') {   
-                 
-            $database->query("INSERT INTO ews_sms SET ews_sms_id_fk=:EID, ews_sms_black='1'");
+              
+                 if(isset($EWS_ID)) {
+            $database->query("INSERT INTO ews_sms SET ews_sms_id_fk=:EID, ews_sms_client_id=:CID, ews_sms_black='1'");
+            $database->bind(':CID',$CID);
             $database->bind(':EID',$EWS_ID);
             $database->execute(); 
             
+                 }
              }
              
            
@@ -139,15 +142,13 @@ $INSERT->bindParam(':recipientholder',$NAME, PDO::PARAM_STR, 500);
 $INSERT->bindParam(':messageholder',$SMS_MESSAGE, PDO::PARAM_STR, 2500);
 $INSERT->execute();
 
-
-
 }
                 
             }
- header('Location: /Life/SMS/Bulk.php?RETURN=SENT'); die;   
+  
   } 
  
 } 
-
+header('Location: /Life/SMS/Bulk.php?RETURN=SENT'); die;  
 ?>
 

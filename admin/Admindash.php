@@ -337,7 +337,7 @@ $companynamere = $companydetailsq['company_name'];
                                 }
                             }
                             ?>
-                            <form class="form-horizontal" method="POST" action="../php/AddGoogleDeveloper.php?add=y">
+                            <form class="form-horizontal" method="POST" action="php/AddGoogleDeveloper.php?add=y">
                                 <fieldset>
                                     <legend>Web/Android/iOS Development</legend>   
 

@@ -1,14 +1,11 @@
 <?php
-include ($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-
-$query = $pdo->prepare("SELECT tracking_id FROM google_dev LIMIT 1");
-$query->execute()or die(print_r($query->errorInfo(), true));
-$devtracking=$query->fetch(PDO::FETCH_ASSOC);
+$GOOGLE_AN_QRY = $pdo->prepare("SELECT tracking_id FROM google_dev LIMIT 1");
+$GOOGLE_AN_QRY->execute()or die(print_r($GOOGLE_AN_QRY->errorInfo(), true));
+$devtracking=$GOOGLE_AN_QRY->fetch(PDO::FETCH_ASSOC);
             
             $devtrackingid=$devtracking['tracking_id'];
-
-
 ?>
 
 <script>

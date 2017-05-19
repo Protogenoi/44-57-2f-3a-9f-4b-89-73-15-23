@@ -1,23 +1,26 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../classes/database_class.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-   
-include('../../includes/ADL_PDO_CON.php');
+}
 
 $option= filter_input(INPUT_POST, 'Taskoption', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -53,7 +56,6 @@ if(isset($option)) {
     $ORIGVAR_FIVE=$result['CYDReturned'];
     $ORIGVAR_SIX=$result['DocsArrived'];
     $ORIGVAR_SEVEN=$result['HappyPol'];
-    
     
     if($VAR_ONE != $Upsells) {
         
@@ -185,12 +187,12 @@ if(isset($option)) {
         $notetypedata= "Task CYD";
         $recept="Task Updated";
                 
-        $noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:hello_name, note_type=:noteholder, message=:messageholder ");
-        $noteinsert->bindParam(':clientidholder',$search, PDO::PARAM_INT);
+        $noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:hello_name, note_type=:noteholder, message=:message ");
+        $noteinsert->bindParam(':CID',$search, PDO::PARAM_INT);
         $noteinsert->bindParam(':hello_name',$hello_name, PDO::PARAM_STR, 100);
-        $noteinsert->bindParam(':recipientholder',$recept, PDO::PARAM_STR, 500);
+        $noteinsert->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
         $noteinsert->bindParam(':noteholder',$notetypedata, PDO::PARAM_STR, 255);
-        $noteinsert->bindParam(':messageholder',$CYDnotes, PDO::PARAM_STR, 2500);
+        $noteinsert->bindParam(':message',$CYDnotes, PDO::PARAM_STR, 2500);
         $noteinsert->execute();
         
    }
@@ -198,7 +200,6 @@ if(isset($option)) {
    }
         $notetypedata= "Task $option";
         $recept="Task Updated";
-  
         
             if($ORIGVAR_ONE ==$Upsells && $ORIGVAR_TWO ==$PitchTrust && $ORIGVAR_THREE ==$PitchTPS && $ORIGVAR_FOUR ==$RemindDD && $ORIGVAR_FIVE ==$CYDReturned && $ORIGVAR_SIX ==$DocsArrived && $ORIGVAR_SEVEN ==$HappyPol) {
         
@@ -207,16 +208,58 @@ if(isset($option)) {
     
     else {
         
+        if(empty($VAR_ONE)) {
+            
+            $VAR_ONE="";
+            
+        }
+        
+        if(empty($VAR_TWO)) {
+            
+            $VAR_TWO="";
+            
+        }
+        
+        if(empty($VAR_THREE)) {
+            
+            $VAR_THREE="";
+            
+        }       
+        
+        if(empty($VAR_FOUR)) {
+            
+            $VAR_FOUR="";
+            
+        }             
+
+        if(empty($VAR_FIVE)) {
+            
+            $VAR_FIVE="";
+            
+        }   
+        
+        if(empty($VAR_SIX)) {
+            
+            $VAR_SIX="";
+            
+        }                
+        
+        if(empty($VAR_SEVEN)) {
+            
+            $VAR_SEVEN="";
+            
+        }              
+        
         $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX $VAR_SEVEN";
         
     }
     
-$noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:hello_name, note_type=:noteholder, message=:messageholder ");
-$noteinsert->bindParam(':clientidholder',$search, PDO::PARAM_INT);
+$noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:hello_name, note_type=:noteholder, message=:message ");
+$noteinsert->bindParam(':CID',$search, PDO::PARAM_INT);
 $noteinsert->bindParam(':hello_name',$hello_name, PDO::PARAM_STR, 100);
-$noteinsert->bindParam(':recipientholder',$recept, PDO::PARAM_STR, 500);
+$noteinsert->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
 $noteinsert->bindParam(':noteholder',$notetypedata, PDO::PARAM_STR, 255);
-$noteinsert->bindParam(':messageholder',$notes, PDO::PARAM_STR, 2500);
+$noteinsert->bindParam(':message',$notes, PDO::PARAM_STR, 2500);
 $noteinsert->execute();
 
 if(isset($EXECUTE)) {
@@ -227,10 +270,7 @@ if(isset($EXECUTE)) {
  header('Location: ../ViewClient.php?search='.$search.'&TaskSelect='.$option.'#menu4'); die;   
 }
  
-        
-    
     }
-
 
          header('Location: ../../CRMmain.php'); die; 
          

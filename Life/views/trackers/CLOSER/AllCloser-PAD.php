@@ -47,7 +47,7 @@
                     echo $TRK_EDIT_DATE;
                 } ?></td>    
                                         
-                                                                <td><input size="8" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                <td><input size="8" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_closer;
                 } ?>"></td>     
                                 <td><input size="8" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
@@ -121,6 +121,16 @@
                         echo "selected";
                     }
                 } ?> value="DETRA">Declined but passed to upsale</option>
+                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Hangup on XFER') {
+                        echo "selected";
+                    }
+                } ?> value="Hangup on XFER">Hangup on XFER</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Thought we were an insurer') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option> 
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'Other') {
                         echo "selected";

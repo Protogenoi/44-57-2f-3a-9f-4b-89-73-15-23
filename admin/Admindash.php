@@ -159,7 +159,7 @@ $companynamere = $companydetailsq['company_name'];
 
                                     <br>           
 
-                                    <form class="form-horizontal" method="POST" action="../php/AddCompanyDetails.php?company">
+                                    <form class="form-horizontal" method="POST" action="php/AddCompanyDetails.php?company">
                                         <fieldset>
                                             <legend>Settings</legend>
                                             <div class="form-group">

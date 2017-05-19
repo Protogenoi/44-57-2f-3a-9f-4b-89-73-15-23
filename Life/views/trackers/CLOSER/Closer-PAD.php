@@ -121,6 +121,16 @@
                         echo "selected";
                     }
                 } ?> value="DETRA">Declined but passed to upsale</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Hangup on XFER') {
+                        echo "selected";
+                    }
+                } ?> value="Hangup on XFER">Hangup on XFER</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Thought we were an insurer') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option>                         
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'Other') {
                         echo "selected";

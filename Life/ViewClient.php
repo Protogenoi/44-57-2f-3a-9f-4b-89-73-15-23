@@ -382,7 +382,6 @@ if (isset($Single_Client['callauditid'])) {
                     <div class="col-md-4">
                         <h3><span class="label label-primary">Contact Details</span></h3>
 
-
                         <p>
                         <div class="input-group">
                             <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" readonly >
@@ -698,8 +697,8 @@ if (isset($Single_Client['callauditid'])) {
 
                         try {
 
-                            $hometable = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.insurer, financial_statistics_history.payment_amount, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.soj, client_policy.drip, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.comm_term, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.submitted_date, client_policy.commission FROM client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.Policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID GROUP BY client_policy.policy_number");
-                            $hometable->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $ASSURA_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.insurer, financial_statistics_history.payment_amount, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.soj, client_policy.drip, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.comm_term, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.submitted_date, client_policy.commission FROM client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.Policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID GROUP BY client_policy.policy_number");
+                            $ASSURA_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
                             ?>
 
                             <table id="ClientListTable" class="table table-hover">
@@ -722,9 +721,9 @@ if (isset($Single_Client['callauditid'])) {
                                 </thead>
 
                                 <?php
-                                $hometable->execute();
-                                if ($hometable->rowCount() > 0) {
-                                    while ($result = $hometable->fetch(PDO::FETCH_ASSOC)) {
+                                $ASSURA_POLS->execute();
+                                if ($ASSURA_POLS->rowCount() > 0) {
+                                    while ($result = $ASSURA_POLS->fetch(PDO::FETCH_ASSOC)) {
 
 
                                         if (isset($result['id'])) {
@@ -743,9 +742,6 @@ if (isset($Single_Client['callauditid'])) {
                                         if (isset($result['warning'])) {
                                             $EWSSTATUS = $result['warning'];
                                         }
-
-
-
 
                                         echo '<tr>';
                                         echo "<td>" . $result['client_name'] . "</td>";
@@ -891,8 +887,6 @@ if (isset($Single_Client['callauditid'])) {
 
                     <?php } ?>                        
 
-
-
                 </div>
             </div>
 
@@ -946,8 +940,6 @@ if (isset($Single_Client['callauditid'])) {
                                 }
                                 ?>
                                 <br> 
-
-
 
                                 <?php
                                 $CHECK_NUM = strlen($Single_Client['phone_number']);
@@ -1060,8 +1052,6 @@ if (isset($Single_Client['callauditid'])) {
                 echo "SMS/Send.php?EXECUTE=1";
             } ?>">
 
-
-
                                             <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                             <div class="form-group">
                                                 <label for="message">Custom MSG:</label>
@@ -1120,8 +1110,6 @@ if (isset($Single_Client['callauditid'])) {
                                 ?>
                                 <br> 
 
-
-
                                 <?php
                                 $CHECK_NUM_ALT = strlen($Single_Client['alt_number']);
 
@@ -1149,13 +1137,11 @@ if (isset($Single_Client['callauditid'])) {
                                         </p>
                                     </form>
 
-                                    <form class="AddClient" method="POST" action=""<?php if ($CHK_NUM_ALT == '0') {
+                                    <form class="AddClient" method="POST" action="<?php if ($CHK_NUM_ALT == '0') {
             echo "#";
         } if ($CHK_NUM_ALT == '1') {
             echo "SMS/Send.php";
         } ?>">
-
-
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
@@ -1202,7 +1188,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
-                                                                           <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
+                                        <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
 
                                         <br>
                                         <br>
@@ -1340,7 +1326,6 @@ if (isset($fileuploadedfail)) {
                         ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
         <?php } ?>
 
-
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
                                 <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
@@ -1398,8 +1383,6 @@ if (isset($fileuploadedfail)) {
                             if (isset($VICIDIAL_URL_QRY['url'])) {
                                 $VICIDIAL_URL = $VICIDIAL_URL_QRY['url'];
                             }
-
-
 
                             if (isset($leadid1) && $leadid1 > '0') {
                                 ?>

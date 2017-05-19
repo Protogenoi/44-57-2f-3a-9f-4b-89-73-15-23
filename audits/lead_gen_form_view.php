@@ -1,17 +1,32 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
 
 if ($ffaudits=='0') {
         
         header('Location: /CRMmain.php'); die;
     }
 
-include('../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
@@ -19,29 +34,22 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 }
 
-include('../includes/ADL_PDO_CON.php');
-
-$auditid = '0';
-if(isset($_GET["auditid"])) $auditid = $_GET["auditid"];
- 
-  
-$auditid=$_GET['auditid'];
+$auditid = filter_input(INPUT_GET, 'auditid', FILTER_SANITIZE_NUMBER_INT);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-<title>View Lead Gen Audit</title>
+<title>ADL | View Lead Gen Audit</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="../styles/viewlayout.css" type="text/css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-<script src="../js/jquery-1.4.min.js"></script>
+<script src="/js/jquery-1.4.min.js"></script>
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
@@ -50,20 +58,10 @@ function textAreaAdjust(o) {
 </script>
 </head>
 <body>
-    
-    <?php
-        if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-    ?>
-
-  <div class="container">
+    <div class="container">
       
       <?php
-      
-    
+
     $new= filter_input(INPUT_GET, 'new', FILTER_SANITIZE_SPECIAL_CHARS);
     $viewauditid= filter_input(INPUT_POST, 'newview', FILTER_SANITIZE_NUMBER_INT);
     
@@ -608,21 +606,9 @@ if ($data2[cal_grade] >= "50") {
 <input type="hidden" name="keyfield" value="<?php echo $search?>">
 <input type="hidden" name="edited" value="<?php echo $hello_name ?>">  
 
-<!--<p>
-<label for="policy_id">Policy Number</label>
 
-<input type="text" name="policy_id2" value="<?php echo $data2[policy_id]?>" readonly> 
-
-</p>
--->
-<!--
-<p>
-<label for="grade">Overall compliance grade:</label>
-
-<b><?php echo $data2[grade]?></b>
--->
 <?php 
-$comments1 = str_replace(".", ".<br>", $data2[c1]); ?>
+$comments1 = str_replace(".", ".<br>", $data2['c1']); ?>
 <fieldset>
 
 <div class="phpcomments">
@@ -632,7 +618,7 @@ $comments1 = str_replace(".", ".<br>", $data2[c1]); ?>
 
 <label for="call_opening">Call opening?</label>
 
-<b><?php echo $data2[call_opening]?></b>
+<b><?php echo $data2['call_opening']; ?></b>
 
 
 <div class="phpcomments">
@@ -642,37 +628,34 @@ $comments1 = str_replace(".", ".<br>", $data2[c1]); ?>
 
 <label for="full_info">Did the agents provide full information?</label>
 
-<b><?php echo $data2[full_info]?></b>
+<b><?php echo $data2['full_info']; ?></b>
 
 <div class="phpcomments">
-<?php echo $data2[c3]?>
+<?php echo $data2['c3'];?>
 </div>
 </p>
 
 <label for="obj_handled">Objections handled:</label>
 
-<b><?php echo $data2[obj_handled]?></b> 
+<b><?php echo $data2['obj_handled']; ?></b> 
 
 
 <div class="phpcomments">
-<?php echo $data2[c4]?>
+<?php echo $data2['c4'];?>
 </div>
 </p>
 
 <label for="rapport">Rapport:</label>
 
-<b><?php echo $data2[rapport]?></b>
+<b><?php echo $data2['rapport']; ?></b>
 
 
 <div class="phpcomments">
-<?php echo $data2[c5]?>
+<?php echo $data2['c5']; ?>
 </div>
 </p>
 
 <label for="dealsheet_questions">Did the agent ask all the questions on the dealsheet?</label>
-<!--
-<input type="text" name="field2" value="<?php echo $data2[dealsheet_questions]?>" readonly> 
--->
 
 <input type="radio" name="dealsheet_questions" value="Yes" onclick="return false"onclick="return false"<?php if ($data2['dealsheet_questions']=="Yes") echo "checked"?>>Yes
 <input type="radio" name="dealsheet_questions" value="No" onclick="return false"onclick="return false"<?php if ($data2['dealsheet_questions']=="No") echo "checked"?>><label for="No">No</label>
@@ -684,16 +667,13 @@ $comments1 = str_replace(".", ".<br>", $data2[c1]); ?>
 
 <p>
 <label for="brad_compl">Did the agent stick to branding compliance?</label>
-<!--
-<input type="text" name="field2" value="<?php echo $data2[brad_compl]?>" readonly> 
--->
 
 <input type="radio" name="brad_compl" value="Yes" onclick="return false"onclick="return false"<?php if ($data2['brad_compl']=="Yes") echo "checked"?>>Yes
 <input type="radio" name="brad_compl" value="No" onclick="return false"onclick="return false"<?php if ($data2['brad_compl']=="No") echo "checked"?>><label for="No">No</label>
 </p>
 
 <div class="phpcomments">
-<?php echo $data2[c7]?>
+<?php echo $data2['c7'];?>
     
 <?php } ?>
 </div>

@@ -23,7 +23,7 @@ if(isset($fferror)) {
     
     }
 
-include('../includes/ADL_PDO_CON.php');
+include('../../includes/ADL_PDO_CON.php');
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 

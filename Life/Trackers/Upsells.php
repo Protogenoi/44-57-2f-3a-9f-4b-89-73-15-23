@@ -1,16 +1,16 @@
 <?php
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -21,11 +21,11 @@ if (isset($fferror)) {
     }
 }
 
+
 if ($ffdealsheets == '0') {
-    header('Location: ../CRMmain.php?Feature=NotEnabled');
+    header('Location: /../../../CRMmain.php?Feature=NotEnabled');
     die;
 }
-
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $Today_DATE = date("d-M-Y");
@@ -47,7 +47,7 @@ $Today_TIME = date("h:i:s");
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <body>
 
-        <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
+         <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
         <?php
         if (isset($EXECUTE)) {
@@ -74,9 +74,9 @@ $Today_TIME = date("h:i:s");
                     </div>
 
                     <div class="list-group">
-                        <span class="label label-primary">All Upsell Trackers</span>
+                        <span class="label label-primary"><?php if(isset($SETDATES)) { echo "Results for $SETDATES"; } else { echo date("d-m-y"); } ?> Upsell Trackers</span>
                         <br><br>
-                        <form action="?EXECUTE=DEFAULT&CloserSelected" method="post" name="CloserSelectForm" id="CloserSelectForm">
+                        <form action="Upsells.php?EXECUTE=DEFAULT" method="POST">
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
@@ -84,9 +84,9 @@ $Today_TIME = date("h:i:s");
                                 </div>
 
                                 <div class="col-md-12"></div>
-                                <div class="col-md-2"></div>
+                                <div class="col-md-2"><input type="dob" name="SETDATES" value="<?php if(isset($SETDATES)) { echo "$SETDATES"; } ?>" id="SETDATES"></div>
 
-                                <div class="col-md-2"><button type="submit" class="btn btn-success btn-sm" name="SETDATES"><i class="fa fa-calendar-check-o"></i> Set Dates</button></div>
+                                <div class="col-md-2"><button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search</button></div>
 
                             </div>
 
@@ -94,8 +94,20 @@ $Today_TIME = date("h:i:s");
 
 
         <?php
-        $TRACKER_EDIT = $pdo->prepare("SELECT DATE(date_updated) AS updated_date, upsell_notes, upsell_status, upsell_agent, lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE mtg='Yes' OR lead_up='Yes' AND DATE(date_added) >=CURDATE()");
+        
+        if(isset($SETDATES)) { 
+                   $TRACKER_EDIT = $pdo->prepare("SELECT DATE(date_updated) AS updated_date, upsell_notes, upsell_status, upsell_agent, lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE mtg='Yes' AND DATE(date_added) =:DATES OR lead_up='Yes' AND DATE(date_added)=:DATES2");
+                   $TRACKER_EDIT->bindParam(':DATES', $SETDATES, PDO::PARAM_STR); 
+                   $TRACKER_EDIT->bindParam(':DATES2', $SETDATES, PDO::PARAM_STR); 
+                   $TRACKER_EDIT->execute();
+        }
+        
+        else {
+        $TRACKER_EDIT = $pdo->prepare("SELECT DATE(date_updated) AS updated_date, upsell_notes, upsell_status, upsell_agent, lead_up, mtg, closer, tracker_id, agent, client, phone, current_premium, our_premium, comments, sale FROM closer_trackers WHERE mtg='Yes' AND DATE(date_added) >=CURDATE() OR lead_up='Yes' AND DATE(date_added) >=CURDATE()");
         $TRACKER_EDIT->execute();
+        }
+        
+        
         $i=0;
         if ($TRACKER_EDIT->rowCount() > 0) {
             ?>
@@ -286,7 +298,6 @@ $i++;
 
 <div id="<?php echo $TRK_EDIT_tracker_id; ?>Upsells" class="modal fade" role="dialog">
  <div class='modal-dialog modal-lg'>
-echo date_format($TRK_EDIT_DATE, 'l jS \of F Y');
     <div class="modal-content">
       <div class="modal-header ">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -364,7 +375,7 @@ echo date_format($TRK_EDIT_DATE, 'l jS \of F Y');
   </script>
     <script>
         $(function () {
-            $("#date_search").datepicker({
+            $("#SETDATES").datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,

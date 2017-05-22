@@ -1,6 +1,7 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/includes/ADL_PDO_CON.php");
-include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
+
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
  
     function email_sent_catch() {
     $emailsent= filter_input(INPUT_GET, 'emailsent', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -125,7 +126,7 @@ function adl_version() {
 echo  '<div class="row">
         <div class="col-sm-12">
             <footer>
-            	<p><i><b>ADL</b> (v)2017.03.09(<b>B</b>)Hungry Hippo<b> (R)</b>0.0.2</i></p>
+            	<p><i><b>ADL</b> release v1.0.3-1.7</p>
             </footer>
         </div>
     </div>';
@@ -151,8 +152,6 @@ echo '<br>';
 echo date('m/d/y h:i a', time());
 echo '</p></center>';
 } //End of function definition
-
-
 
 ?>
 

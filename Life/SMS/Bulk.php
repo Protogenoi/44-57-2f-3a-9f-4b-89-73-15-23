@@ -30,6 +30,8 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
 if ($ffsms == '0') {
     header('Location: /../../CRMmain.php?FEATURE=SMS');
 }
+
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -42,13 +44,15 @@ if ($ffsms == '0') {
     <title>ADL | Bulk SMS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
+        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
+        <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4/jquery-ui.css">
+        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+        <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
 
@@ -56,9 +60,11 @@ if ($ffsms == '0') {
 
     <div class="container">
         
+        <div class="row">
+        
         <form method="POST" action="EWS.php?EXECUTE=1">
             <fieldset>
-                <legend>Bulk SMS EWS Clients</legend>
+                <legend>Send options</legend>
                 
             <div class="col-md-12">
             
@@ -88,12 +94,127 @@ if ($ffsms == '0') {
             </fieldset>
         </form>      
         
+    </div>
+        
+        <div class="row">
+            
+            <form action="" method="GET">
+                <fieldset>
+                <div class="col-md-4">
+                    
+                    <select id="EXECUTE" name="EXECUTE" class="form-control" onchange="this.form.submit()" required>
+                        <option value="">Search for sent attempts</option>
+                        <option <?php if(isset($EXECUTE)) { if($EXECUTE=='1') { echo "selected"; } } ?> value="1">Any</option>
+                        <option <?php if(isset($EXECUTE)) { if($EXECUTE=='2') { echo "selected"; } } ?> value="2">Black</option>
+                    </select>
+                </div>
+                </fieldset>
+            </form>
+
+                <table id="datatable_black" class="display" width="auto" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Client Name</th>
+                            <th>Client Name</th>
+                            <th>Clawback</th>
+                            <th>EWS</th>
+                            <th>Policy</th>
+                            <th>Phone</th>
+                            <th>Delivery</th>
+                            <th>View Client</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Client Name</th>
+                            <th>Client Name</th>
+                            <th>Clawback</th>
+                            <th>EWS</th>
+                            <th>Policy</th>
+                            <th>Phone</th>
+                            <th>Delivery</th>
+                            <th>View Client</th>
+                        </tr>
+                    </tfoot>
+                </table>    
+            
+        </div>
         
     </div>
     
-    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
+        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+
+                $('#LOADING').modal('show');
+            })
+
+                    ;
+
+            $(window).load(function () {
+                $('#LOADING').modal('hide');
+            });
+        </script> 
+        <div class="modal modal-static fade" id="LOADING" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
+                            <br>
+                            <h3>Populating client details... </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <script type="text/javascript" language="javascript" >
+
+            $(document).ready(function () {
+                var table = $('#datatable_black').DataTable({
+                    "response": true,
+                    "processing": true,
+                    "iDisplayLength": 25,
+                    "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+                    "language": {
+                        "processing": "<div></div><div></div><div></div><div></div><div></div>"
+                    },
+                    "ajax": "datatables/EWS.php?EXECUTE=<?php if(isset($EXECUTE)) { echo $EXECUTE; } else { echo "1"; } ?>",
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {"data": "date_sent"},
+                        {"data": "Name"},
+                        {"data": "Name2"},
+                        {"data": "clawback_date"},
+                        {"data": "warning"},
+                        {"data": "policy_number"},
+                        {"data": "phone_number"},
+                        {"data": "sms_inbound_type"},
+                        {"data": "client_id",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">View</a>';
+                            }}
+                    ]
+                });
+
+            });
+        </script>
     <script>
         $(function () {
             $("#DATE").datepicker({

@@ -534,9 +534,8 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 <button type='submit' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span> </button>
       </form>
    </td>";
-	echo "<td>
-      <form action='lead_gen_form_view.php?new=y' method='POST' name='formview'>
-	<input type='hidden' name='newview' value='".$result['id']."' >
+	echo "<td> 
+      <form action='LandG/View.php?EXECUTE=1&AID=".$result['id']."' method='POST'>
 <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
       </form>
    </td>";
@@ -745,8 +744,7 @@ switch( $result['grade'] )
       </form>
    </td>";
 	echo "<td>
-      <form action='lead_gen_form_view.php' method='POST' name='formview'>
-	<input type='hidden' name='search' value='".$result['id']."' >
+     <form action='LandG/View.php?EXECUTE=1&AID=".$result['id']."' method='POST'>
 <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
       </form>
    </td>";
@@ -1047,7 +1045,7 @@ $(document).ready(function() {
             } },
  { "data": "id",
             "render": function(data, type, full, meta) {
-                return '<a href="lead_gen_form_view.php?new=y&auditid=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
+                return '<a href="LandG/View.php?EXECUTE=1&AID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
             } },
  
  { "data": "id",
@@ -1140,7 +1138,7 @@ $(document).ready(function() {
             } },
  { "data": "id",
             "render": function(data, type, full, meta) {
-                return '<a href="lead_gen_form_view.php?auditid=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
+                return '<a href="LandG/View.php?EXECUTE=1&AID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
             } },
  
  { "data": "id",

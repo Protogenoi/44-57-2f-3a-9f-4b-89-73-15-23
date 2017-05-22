@@ -126,7 +126,7 @@ function adl_version() {
 echo  '<div class="row">
         <div class="col-sm-12">
             <footer>
-            	<p><i><b>ADL</b> release v1.0.3-1.8</p>
+            	<p><i><b>ADL</b> release v1.0.3-1.7</p>
             </footer>
         </div>
     </div>';
@@ -142,12 +142,18 @@ echo '<div class="loginnote">
 } //End of function definition
 
 function logged_hostnameip() {
-$hostname = gethostbyaddr($_SERVER['REMOTE_ADDR']);
+
+$HTTP_REFERER = filter_input(INPUT_SERVER,'HTTP_REFERER', FILTER_SANITIZE_SPECIAL_CHARS);
+$REMOTE_ADDR = filter_input(INPUT_SERVER,'REMOTE_ADDR', FILTER_SANITIZE_SPECIAL_CHARS);    
+$HOSTNAME=  gethostbyaddr($REMOTE_ADDR);
+
 date_default_timezone_set("Europe/London");
 echo '<center><p>Info logged<br>';
-echo $_SERVER['REMOTE_ADDR'];
+echo $HTTP_REFERER;
+echo "<br>";
+echo $REMOTE_ADDR;
 echo '<br>';
-echo $hostname;
+echo $HOSTNAME;
 echo '<br>';
 echo date('m/d/y h:i a', time());
 echo '</p></center>';

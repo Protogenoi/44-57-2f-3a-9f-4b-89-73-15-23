@@ -98,6 +98,12 @@ if (isset($Single_Client['callauditid'])) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
     <title>ADL | View Client</title>
     <meta charset="UTF-8">

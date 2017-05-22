@@ -126,7 +126,7 @@ function adl_version() {
 echo  '<div class="row">
         <div class="col-sm-12">
             <footer>
-            	<p><i><b>ADL</b> release v1.0.3-1.7</p>
+            	<p><i><b>ADL</b> release v1.0.3-1.8</p>
             </footer>
         </div>
     </div>';

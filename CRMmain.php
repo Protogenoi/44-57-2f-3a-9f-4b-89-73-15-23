@@ -56,6 +56,12 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
     <title>ADL CRM</title>
     <meta charset="UTF-8">

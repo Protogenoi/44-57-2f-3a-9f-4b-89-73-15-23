@@ -150,7 +150,24 @@ $INSERT->execute();
   
   } 
  
-} 
-header('Location: /Life/SMS/Bulk.php?RETURN=SENT'); die;  
+}
+
+    $COUNT_QRY = $pdo->prepare("SELECT
+    count(ews_data.id) AS EWS_ID
+FROM
+    ews_data
+        JOIN
+    client_policy ON ews_data.policy_number = client_policy.policy_number
+        JOIN
+    client_details ON client_policy.client_id = client_details.client_id
+WHERE
+    ews_data.color_status = :COLOUR
+    AND ews_data.clawback_date=:DATE LIMIT 25");
+    $COUNT_QRY->bindParam(':COLOUR',$COLOUR, PDO::PARAM_STR, 100);
+    $COUNT_QRY->bindParam(':DATE',$DATE, PDO::PARAM_STR, 100);
+$COUNT_QRY->execute();
+$REMAINING = $COUNT_QRY->rowCount();
+
+header('Location: /Life/SMS/Bulk.php?RETURN=SENT&REMAINING='.$REMAINING.'&COLOUR='.$COLOUR.'&DATE='.$DATE); die;  
 ?>
 

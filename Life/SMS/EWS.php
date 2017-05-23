@@ -85,7 +85,7 @@ if(isset($COLOUR)) {
 
         $database = new Database();
         
-            $database->query("SELECT ews_sms_client_id FROM ews_sms WHERE ews_sms_client_id=:CID AND ews_sms_black='1' and ews_data.clawback_date=:DATE");
+            $database->query("SELECT ews_sms_client_id FROM ews_sms WHERE ews_sms_client_id=:CID AND ews_sms_black='1' and ews_sms_clawback_date=:DATE");
             $database->bind(':CID',$CID);
             $database->bind(':DATE',$DATE);
             $database->execute(); 
@@ -113,9 +113,10 @@ $INSERT->execute();
              if($COLOUR=='Black') {   
               
                  if(isset($EWS_ID)) {
-            $database->query("INSERT INTO ews_sms SET ews_sms_id_fk=:EID, ews_sms_client_id=:CID, ews_sms_black='1'");
+            $database->query("INSERT INTO ews_sms SET ews_sms_id_fk=:EID, ews_sms_client_id=:CID, ews_sms_black='1', ews_sms_clawback_date=:DATE");
             $database->bind(':CID',$CID);
             $database->bind(':EID',$EWS_ID);
+            $database->bind(':DATE',$DATE);
             $database->execute(); 
             
                  }
@@ -133,7 +134,7 @@ $INSERT->execute();
 
 if(isset($CID)) {
 
-$NOTE_TYPE="Sent SMS (Bulk EWS $COLOUR)";
+$NOTE_TYPE="Sent SMS (Bulk EWS $COLOUR | Clawback Date: $DATE)";
 
 $INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:NOTE_TYPE, message=:messageholder ");
 $INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);

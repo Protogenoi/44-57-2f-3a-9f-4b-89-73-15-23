@@ -53,6 +53,7 @@ if(isset($RETURN)) {
     <title>ADL | Bulk SMS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/Notices.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
@@ -68,7 +69,10 @@ if(isset($RETURN)) {
     <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
     <div class="container">
-        
+        <div class='notice notice-default' role='alert'><strong> <center>Only 25 messages can be sent at a time. ADL will check that clients are not sent a message multiple times.
+                    <br>To send a message select an EWS colour and a clawback date and the message that you wish to send and click send.
+                    </center></strong> </div>    
+
         <?php
         
         if(isset($RETURN) && $RETURN=='SENT') { ?>
@@ -76,12 +80,11 @@ if(isset($RETURN)) {
      <?php   }
         
         ?>
-        
+        <br>
         <div class="row">
         
         <form method="POST" action="EWS.php?EXECUTE=1">
             <fieldset>
-                <legend>Send options</legend>
                 
             <div class="col-md-12">
             
@@ -104,7 +107,7 @@ if(isset($RETURN)) {
                 </div>                
             
                 <div class="col-md-2">
-            <button type="submit" class="btn btn-warning btn-md"><i class="fa fa-save"></i></button>
+            <button type="submit" class="btn btn-success btn-md">Send Bulk SMS <i class="fa fa-send-o"></i></button>
                 </div>
                 
             </div>

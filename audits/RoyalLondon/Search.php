@@ -188,7 +188,7 @@ $(document).ready(function() {
             } },
  { "data": "audit_id",
             "render": function(data, type, full, meta) {
-                return '<a href="Audit.php?EXECUTE=VIEW&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
+                return '<a href="View.php?EXECUTE=VIEW&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
             } },
         ],
         "order": [[1, 'desc']]

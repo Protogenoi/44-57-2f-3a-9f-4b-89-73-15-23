@@ -1,38 +1,31 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../classes/database_class.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-    
-       
+}      
         
 $adduser= filter_input(INPUT_GET, 'adduser', FILTER_SANITIZE_NUMBER_INT);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
-if(empty($adduser)) {
-
-header('Location: ../../CRMmain.php'); die;
-
-}
-
-
-
-if (isset($adduser)) {
-    
-    include('../../includes/ADL_PDO_CON.php');
-    
+if (isset($adduser)) {    
     if($adduser=='1') {
         
 $password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -162,5 +155,60 @@ adduser($pdo,$password,$login,$name,$info,$email);
 
 } 
 }
+
+if(isset($EXECUTE)) {
+    if($EXECUTE=='1') {
+        echo "EXECUTE";
+        
+        $USER_USERNAME= filter_input(INPUT_POST, 'USER_USERNAME', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_LOGIN= filter_input(INPUT_POST, 'USER_LOGIN', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_PW= filter_input(INPUT_POST, 'USER_PW', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_ACCESS_LEVEL= filter_input(INPUT_POST, 'USER_ACCESS_LEVEL', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_ACTIVE= filter_input(INPUT_POST, 'USER_ACTIVE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_ID= filter_input(INPUT_GET, 'USER_ID', FILTER_SANITIZE_NUMBER_INT);
+        
+        function updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE) {
+echo "FUNCTION";
+                        $PASS_CHECK = $pdo->prepare("SELECT id from users WHERE id=:UID AND pw=:PASS");
+                        $PASS_CHECK->bindParam(':UID', $USER_ID, PDO::PARAM_INT);
+                        $PASS_CHECK->bindParam(':PASS', $USER_PW, PDO::PARAM_STR);
+                        $PASS_CHECK->execute();
+                        
+                        if ($PASS_CHECK->rowCount() >= 1) {
+                            echo "TEST";
+                            $NO_PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
+                            $NO_PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
+                            $NO_PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);
+                            $NO_PASS_QRY->bindParam(':ACCESS',$USER_ACCESS_LEVEL, PDO::PARAM_STR);
+                            $NO_PASS_QRY->bindParam(':UID',$USER_ID, PDO::PARAM_INT);
+                            $NO_PASS_QRY->bindParam(':ACTIVE',$USER_ACTIVE, PDO::PARAM_STR);
+                            $NO_PASS_QRY->execute()or die(print_r($NO_PASS_QRY->errorInfo(), true));                             
+                            
+                        }
+                        
+                        else {
+                            echo "ELSE";
+                            $hasspassword=md5($USER_PW);
+                            
+                            $PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, pw=:PASS, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
+                            $PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
+                            $PASS_QRY->bindParam(':PASS',$hasspassword, PDO::PARAM_STR, 255);
+                            $PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);
+                            $PASS_QRY->bindParam(':ACCESS',$USER_ACCESS_LEVEL, PDO::PARAM_STR);
+                            $PASS_QRY->bindParam(':UID',$USER_ID, PDO::PARAM_INT);
+                            $PASS_QRY->bindParam(':ACTIVE',$USER_ACTIVE, PDO::PARAM_STR);
+                            $PASS_QRY->execute()or die(print_r($PASS_QRY->errorInfo(), true)); 
+                            
+                            }
+                            
+                            
+                            
+                            header('Location: /admin/Admindash.php?users=y&adduser=2&user='.$USER_LOGIN); die;
+                            
+                        }
+                        updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE); 
+                        }
+                        
+                        }
 
 ?>

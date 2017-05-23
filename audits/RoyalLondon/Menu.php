@@ -160,7 +160,7 @@ include('../../includes/ADL_PDO_CON.php');
                                 echo "<td>".$result['updated_by']."</td>";
                                 echo "<td>".$result['updated_date']."</td>";
    echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=$AUDIT_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
-   echo "<td><a href='Audit.php?EXECUTE=VIEW&AUDITID=$AUDIT_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
+   echo "<td><a href='View.php?EXECUTE=VIEW&AUDITID=$AUDIT_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
     echo "</tr>";
         ?>
 <script>
@@ -257,7 +257,7 @@ switch( $result['grade'] )
 	echo "<td>".$result['added_by']."</td>";
 	echo "<td>".$result['grade']."</td>";
 	   echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=".$result['audit_id'] ."' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
-   echo "<td><a href='Audit.php?EXECUTE=VIEW&AUDITID=".$result['audit_id']."' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
+   echo "<td><a href='View.php?EXECUTE=VIEW&AUDITID=".$result['audit_id']."' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
    if($hello_name=='Michael'){
 echo "<td>
       <form id='deleteauditconfirm' action='added_by_menu.php?deleteaudit' method='GET' name='deleteaudit'>

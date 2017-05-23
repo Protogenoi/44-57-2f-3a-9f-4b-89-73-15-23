@@ -100,12 +100,13 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     <div class="container">
                 <?php 
         $database = new Database();
-            $database->query("SELECT uploader from financial_statistics_history WHERE insert_date> DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY uploader");
+            $database->query("SELECT uploader, insert_date from financial_statistics_history WHERE insert_date> DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY uploader");
             $database->execute(); 
             $FIN_ALERT = $database->single();  
             
+            
             if ($database->rowCount()>=1) { ?>
-        <div class='notice notice-warning' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have been uploaded for this week by <?php echo $FIN_ALERT['uploader']; ?>.</center></strong> </div>  
+        <div class='notice notice-warning' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have been uploaded by <?php echo "".$FIN_ALERT['uploader']." (".$FIN_ALERT['insert_date'].")"; ?>.</center></strong> </div>  
         <?php    }
         
         if ($database->rowCount()<1) { ?>

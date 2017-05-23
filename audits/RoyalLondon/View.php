@@ -13,7 +13,7 @@ if ($ffanalytics == '1') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '0') {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -1177,6 +1177,148 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 </p>
 
 <div class="phpcomments"><?php if(isset($RL_CEM_PIT5)) { echo $RL_CEM_PIT5; } ?></div>
+
+<h3 class="panel-title">Consolidation Declaration</h3>
+
+<p>
+    <label for="CDE1">Q<?php $i++; echo $i; ?>. Closer confirmed the customers right to cancel the policy at any time and if the customer changes their mind within the first 30 days of starting there will be a refund of premiums?</label><br>
+<input type="radio" name="CDE1" <?php if (isset($RL_QE_CDE1) && $RL_QE_CDE1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="1" id="yesCheckCDET1">Yes
+<input type="radio" name="CDE1" <?php if (isset($RL_QE_CDE1) && $RL_QE_CDE1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="0" id="noCheckCDET1">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET1)) { echo $RL_CEM_CDET1; } ?></div>
+
+
+
+<p>
+<label for="CDE2">Q<?php $i++; echo $i; ?>. Closer confirmed if the policy is cancelled at any other time the cover will end and no refund will be made and that the policy has no cash in value?</label><br>
+<input type="radio" name="CDE2" <?php if (isset($RL_QE_CDE2) && $RL_QE_CDE2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="1" id="yesCheckCDET2">Yes
+<input type="radio" name="CDE2" <?php if (isset($RL_QE_CDE2) && $RL_QE_CDE2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="0" id="noCheckCDET2">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET2)) { echo $RL_CEM_CDET2; } ?></div>
+
+
+<p>
+<label for="CDE3">Q<?php $i++; echo $i; ?>. Like mentioned earlier did the closer make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label><br>
+<input type="radio" name="CDE3" <?php if (isset($RL_QE_CDE3) && $RL_QE_CDE3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="1" id="yesCheckCDET3">Yes
+<input type="radio" name="CDE3" <?php if (isset($RL_QE_CDE3) && $RL_QE_CDE3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="0" id="noCheckCDET3">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET3)) { echo $RL_CEM_CDET3; } ?></div>
+
+
+<p>
+<label for="CDE4">Q<?php $i++; echo $i; ?>. Closer confirmed that the client will be emailed the following: A policy booklet, quote, policy summary, and a keyfact document.</label><br>
+<input type="radio" name="CDE4" <?php if (isset($RL_QE_CDE4) && $RL_QE_CDE4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="1" id="yesCheckCDET4">Yes
+<input type="radio" name="CDE4" <?php if (isset($RL_QE_CDE4) && $RL_QE_CDE4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="0" id="noCheckCDET4">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET4)) { echo $RL_CEM_CDET4; } ?></div>
+
+
+<p>
+<label for="CDE5">Q<?php $i++; echo $i; ?>. Did the closer confirm that the customer will be getting a 'my account' email from Royal London?</label><br>
+<input type="radio" name="CDE5"  <?php if (isset($RL_QE_CDE5) && $RL_QE_CDE5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="1" id="yesCheckCDET5">Yes
+<input type="radio" name="CDE5" <?php if (isset($RL_QE_CDE5) && $RL_QE_CDE5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="0" id="noCheckCDET5">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET5)) { echo $RL_CEM_CDET5; } ?></div>
+
+
+<p>
+<label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label><br>
+<input type="radio" name="CDE6" <?php if (isset($RL_QE_CDE6) && $RL_QE_CDE6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
+<input type="radio" name="CDE6" <?php if (isset($RL_QE_CDE6) && $RL_QE_CDE6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET6)) { echo $RL_CEM_CDET6; } ?></div>
+
+
+
+<p>
+<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Royal London will write to them with a more specific date?</label><br>
+<input type="radio" name="CDE7" <?php if (isset($RL_QE_CDE7) && $RL_QE_CDE7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
+<input type="radio" name="CDE7" <?php if (isset($RL_QE_CDE7) && $RL_QE_CDE7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7">No
+
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET7)) { echo $RL_CEM_CDET7; } ?></div>
+
+
+<p>
+<label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
+<input type="radio" name="CDE8" <?php if (isset($RL_QE_CDE8) && $RL_QE_CDE8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
+<input type="radio" name="CDE8" <?php if (isset($RL_QE_CDE8) && $RL_QE_CDE8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8">No
+<input type="radio" name="CDE8" <?php if (isset($RL_QE_CDE8) && $RL_QE_CDE8=="3") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="3" id="yesCheckCDET8">N/A
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_CDET8)) { echo $RL_CEM_CDET8; } ?></div>
+
+ <h3 class="panel-title">Quality Control</h3>
+ 
+ <p>
+     <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Royal London with client information?</label><br>
+<input type="radio" name="QC1" <?php if (isset($RL_QE_QC1) && $RL_QE_QC1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="1" id="yesCheckQCT1">Yes
+<input type="radio" name="QC1" <?php if (isset($RL_QE_QC1) && $RL_QE_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT1)) { echo $RL_CEM_QCT1; } ?></div>
+
+
+<p>
+<label for="QC2">Q<?php $i++; echo $i; ?>. Closer confirmed length of policy in years with client confirmation?</label><br>
+<input type="radio" name="QC2" <?php if (isset($RL_QE_QC2) && $RL_QE_QC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="1" id="yesCheckQCT2">Yes
+<input type="radio" name="QC2" <?php if (isset($RL_QE_QC2) && $RL_QE_QC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="0" id="noCheckQCT2">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT2)) { echo $RL_CEM_QCT2; } ?></div>
+
+
+<p>
+<label for="QC3">Q<?php $i++; echo $i; ?>. Closer confirmed the amount of cover on the policy with client confirmation?</label><br>
+<input type="radio" name="QC3" <?php if (isset($RL_QE_QC3) && $RL_QE_QC3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="1" id="yesCheckQCT3">Yes
+<input type="radio" name="QC3" <?php if (isset($RL_QE_QC3) && $RL_QE_QC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="0" id="noCheckQCT3">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT3)) { echo $RL_CEM_QCT3; } ?></div>
+
+
+<p>
+<label for="QC4">Q<?php $i++; echo $i; ?>. Closer confirmed with the client that they have understood everything today with client confirmation?</label><br>
+<input type="radio" name="QC4" <?php if (isset($RL_QE_QC4) && $RL_QE_QC4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="1" id="yesCheckQCT4">Yes
+<input type="radio" name="QC4" <?php if (isset($RL_QE_QC4) && $RL_QE_QC4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="0" id="noCheckQCT4">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT4)) { echo $RL_CEM_QCT4; } ?></div>
+
+
+<p>
+<label for="QC5">Q<?php $i++; echo $i; ?>. Did the customer give their explicit consent for the policy to be set up?</label><br>
+<input type="radio" name="QC5" <?php if (isset($RL_QE_QC5) && $RL_QE_QC5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="1" id="yesCheckQCT5">Yes
+<input type="radio" name="QC5" <?php if (isset($RL_QE_QC5) && $RL_QE_QC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="0" id="noCheckQCT5">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT5)) { echo $RL_CEM_QCT5; } ?></div>
+
+
+<p>
+<label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for The Review Bureau?</label><br>
+<input type="radio" name="QC6" <?php if (isset($RL_QE_QC6) && $RL_QE_QC6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="1" id="yesCheckQCT6">Yes
+<input type="radio" name="QC6" <?php if (isset($RL_QE_QC6) && $RL_QE_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT6)) { echo $RL_CEM_QCT6; } ?></div>
+
+
+<p>
+<label for="QC7">Q<?php $i++; echo $i; ?>. Did the closer keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label><br>
+<input type="radio" name="QC7" <?php if (isset($RL_QE_QC7) && $RL_QE_QC7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="1" id="yesCheckQCT7">Yes
+<input type="radio" name="QC7" <?php if (isset($RL_QE_QC7) && $RL_QE_QC7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="0" id="noCheckQCT7">No
+</p>
+
+<div class="phpcomments"><?php if(isset($RL_CEM_QCT7)) { echo $RL_CEM_QCT7; } ?></div>
+
 
 
        </div>

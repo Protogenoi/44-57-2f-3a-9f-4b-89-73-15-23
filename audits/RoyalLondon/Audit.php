@@ -1,7 +1,7 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php'); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -22,19 +22,19 @@ if (isset($fferror)) {
 
 if ($ffaudits=='0') {
         
-        header('Location: /CRMmain.php'); die;
+        header('Location: /../../CRMmain.php'); die;
     }
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
-    header('Location: /CRMmain.php'); die;
+    header('Location: /../../CRMmain.php'); die;
 
 }
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);  
 
 if(isset($EXECUTE)) {
-    if($EXECUTE=='VIEW' || $EXECUTE=='EDIT') {
+    if($EXECUTE=='EDIT') {
         $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
         require_once(__DIR__ . '/../../classes/database_class.php');
         
@@ -536,15 +536,15 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 <title>ADL | Royal London Audit</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../../styles/layout.css" type="text/css" />
-<link rel="stylesheet" href="../../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../../font-awesome/css/font-awesome.min.css">
-<link href="../../../img/favicon.ico" rel="icon" type="image/x-icon" />
-<script type="text/javascript" language="javascript" src="../../../js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../../js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script type="text/javascript" language="javascript" src="../../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+<script type="text/javascript" language="javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";

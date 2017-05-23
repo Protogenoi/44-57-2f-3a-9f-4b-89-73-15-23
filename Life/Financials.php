@@ -106,7 +106,7 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
             
             
             if ($database->rowCount()>=1) { ?>
-        <div class='notice notice-warning' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have been uploaded by <?php echo "".$FIN_ALERT['uploader']." (".$FIN_ALERT['insert_date'].")"; ?>.</center></strong> </div>  
+        <div class='notice notice-info' role='alert'><strong> <center><i class="fa fa-exclamation"></i> Financial's for Legal and General have been uploaded by <?php echo "".$FIN_ALERT['uploader']." (".$FIN_ALERT['insert_date'].")"; ?>.</center></strong> </div>  
         <?php    }
         
         if ($database->rowCount()<1) { ?>

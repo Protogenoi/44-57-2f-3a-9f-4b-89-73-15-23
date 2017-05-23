@@ -1692,20 +1692,20 @@ if ($usersselect == 'y') {
     $adduser = filter_input(INPUT_GET, 'adduser', FILTER_SANITIZE_NUMBER_INT);
 
     if (isset($adduser)) {
-
+$user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ($adduser == '1') {
-
-            $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> User account for $user has been created!</div>";
         }
 
         if ($adduser == '0') {
 
-            $message = filter_input(INPUT_GET, 'message', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
             echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa-exclamation-triangle fa-lg\"></i> Warning:</strong> User account not created. The following was not matched! $message</div>";
         }
+        if ($adduser == '2') {
+
+            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> User account for $user has been updated!</div>";
+        }        
     }
     ?>
 
@@ -1775,7 +1775,26 @@ if ($usersselect == 'y') {
 
                                 </div>
 
-                                <div id="modifyuser" class="tab-pane fade"></div>
+                                <div id="modifyuser" class="tab-pane fade">
+                                    
+<?php
+                            
+                        $USR_CHECK = $pdo->prepare("SELECT id FROM users");
+                        $USR_CHECK->execute();
+                        if ($USR_CHECK->rowCount() > 0) {
+                           
+                            require_once(__DIR__ . '/models/users/UserModel.php');
+                            $User = new UserModal($pdo);
+                            $UserList = $User->getUser();
+                            require_once(__DIR__ . '/views/users/User.php');
+                        }                            
+                            
+                            ?>                                    
+                                    
+                                </div>
+                                
+                                
+                            
 
                             </div>
 

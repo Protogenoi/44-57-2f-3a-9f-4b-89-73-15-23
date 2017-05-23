@@ -183,7 +183,6 @@ if ($companynamere == 'Assura') {
                             <?php if ($hello_name == 'Michael') { ?>
                                 
                              <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
-                            <li><a href='/admin/users.php'>User Accounts</a></li>
                             <?php } ?>
                         </ul>  
                     </li>

@@ -50,7 +50,7 @@ $error = $my_access->the_msg;
                         <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12">
                             
                         </div>
-                        <form id="loginform" class="form-horizontal" role="form" name="form1" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <form id="loginform" class="form-horizontal" role="form" name="form1" method="post" action="<?php echo filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS); ?>">
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input id="login-username" type="text" class="form-control" name="login" value="<?php echo (isset($_POST['login'])) ? $_POST['login'] : $my_access->user; ?>" placeholder="username">                                        

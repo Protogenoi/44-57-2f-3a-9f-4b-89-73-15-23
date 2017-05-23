@@ -32,6 +32,15 @@ if ($ffsms == '0') {
 }
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+
+$RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if(isset($RETURN)) {
+    $REMAINING= filter_input(INPUT_GET, 'REMAINING', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DATE= filter_input(INPUT_GET, 'DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+    $COLOUR= filter_input(INPUT_GET, 'COLOUR', FILTER_SANITIZE_SPECIAL_CHARS);
+}
+
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -59,6 +68,14 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
     <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
     <div class="container">
+        
+        <?php
+        
+        if(isset($RETURN) && $RETURN=='SENT') { ?>
+        <div class='notice notice-info' role='alert'><strong> <center>Messages sent <?php if(isset($DATE) && $COLOUR) { echo "for EWS colour $COLOUR | with clawback date $DATE"; } ?>! <?php if(isset($REMAINING)) { echo "Clients left to message $REMAINING"; } ?></center></strong> </div>    
+     <?php   }
+        
+        ?>
         
         <div class="row">
         
@@ -151,7 +168,6 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
         <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
         <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-
         <script type="text/javascript">
             $(document).ready(function () {
 

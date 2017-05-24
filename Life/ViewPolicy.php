@@ -623,7 +623,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/email/php/SendPolicyNumber.php?search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
+                    <form method="POST" action="/email/php/SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
 
 
                         <select class="form-control" name="email">  
@@ -663,7 +663,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/email/php/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="/email/php/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>
@@ -672,15 +672,15 @@ ews_data.policy_number
                         </select>  
                         <p>Dear <?php echo $data2['client_name']; ?>,</p>
                         <p>           
-                            There is an issue with your Legal and General direct debit <strong><?php echo $data2["policy_number"] ?></strong>. </p>
+                            There is an issue with your <strong>[INSURER]</strong> direct debit <strong><?php echo $data2["policy_number"] ?></strong>. </p>
 
                         <p>
                             We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
                         </p>
-                        <p>Please contact us on [COMPANY_TEL] or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        <p>Please contact us on <strong>[COMPANY_TEL]</strong> or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
                         Many thanks,<br>
 <?php echo $hello_name_full; ?><br>
-                        [COMPANY_NAME]
+                        <strong>[COMPANY_NAME]</strong>
                         </p>
                         </div>
                         <div class="modal-footer">
@@ -699,7 +699,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Awaiting uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/email/php/SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="/email/php/SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>
@@ -708,15 +708,15 @@ ews_data.policy_number
                         </select>  
                         <p>Dear <?php echo $data2['client_name']; ?>,</p>
                         <p>           
-                            There is an issue with your Legal and General life insurance application. </p>
+                            There is an issue with your <strong>[INSURER]</strong> life insurance application. </p>
 
                         <p>
                             We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
                         </p>
-                        <p>Please contact us on [COMPANY_TEL] or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        <p>Please contact us on <strong>[COMPANY_TEL]</strong> or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
                         Many thanks,<br>
 <?php echo $hello_name_full; ?><br>
-                        [COMPANY_NAME]
+        <strong>[COMPANY_NAME]</strong>
                         </p>
                         </div>
                         <div class="modal-footer">

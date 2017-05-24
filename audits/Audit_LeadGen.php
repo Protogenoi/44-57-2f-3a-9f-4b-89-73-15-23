@@ -1,11 +1,24 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/Access_Levels.php');
-include('../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 if ($ffaudits=='0') {
         
@@ -19,18 +32,24 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Lead Gen Audit</title>
+<title>ADL | L&G Lead Audit</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-<script src="../EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+<script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
@@ -41,13 +60,8 @@ function textAreaAdjust(o) {
 <body>
     
     <?php 
-    include('../includes/navbar.php'); 
+   require_once(__DIR__ . '/../includes/navbar.php');
 
-        if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
     ?>
 
     <div class="container">
@@ -1225,6 +1239,5 @@ function yesnoCheckc3() {
 </form>
 
     </div>
-        <?php include('../php/Holidays.php'); ?>
     </body>
 </html>

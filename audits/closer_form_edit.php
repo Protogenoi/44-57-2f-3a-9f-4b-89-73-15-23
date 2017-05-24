@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -39,6 +39,12 @@ if (isset($_GET["auditid"])) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
     <title>ADL | L&G Closer Audit Edit</title>
     <meta charset="UTF-8">

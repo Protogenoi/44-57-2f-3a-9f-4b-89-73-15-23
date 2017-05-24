@@ -1,4 +1,25 @@
 <?php
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 require('../fpdf17/fpdf.php');
 
@@ -7,8 +28,6 @@ $new= filter_input(INPUT_GET, 'new', FILTER_SANITIZE_SPECIAL_CHARS);
 if($new=='y') {
     
     $viewauditid= filter_input(INPUT_GET, 'auditid', FILTER_SANITIZE_NUMBER_INT);
-    
-    include('../includes/ADL_PDO_CON.php');
     
     $query = $pdo->prepare("SELECT an_number, q1s4q1n, q1s4c1n, auditor, submitted_date, id, agent, grade, sq1, sq2, sq3, sq4, sq5, s2aq1, s2aq2, s2aq3, s2aq4, s2aq5, s2aq6, s2aq7, s2aq8, s2aq9, s2aq10, s2aq11, s2bq1, q1s2bc1, q2s2bq2, q1s3q1, q2s2bc2, q1s3c1 from Audit_LeadGen where id =:id");
     $query->bindParam(':id', $viewauditid, PDO::PARAM_INT);

@@ -1,7 +1,27 @@
 <?php
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 require('../fpdf17/fpdf.php');
-include('../includes/PDOcon.php');
 
 $auditid = '0';
 if(isset($_GET["auditid"])) $auditid = $_GET["auditid"];

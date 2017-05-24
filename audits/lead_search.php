@@ -1,17 +1,22 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_MYSQLI_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
 
 if ($ffaudits=='0') {
         
         header('Location: /CRMmain.php'); die;
     }
-
-include('../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
@@ -19,7 +24,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 }
 
-include('../includes/PDOcon.php');
 
 $result = $mysqli->query('select grade, count(grade) As Alert from lead_gen_audit where date_submitted between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) group by grade');
 
@@ -104,8 +108,14 @@ $jsonTable4 = json_encode($table);
 
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Lead Audit Search</title>
+<title>ADL | Lead Audit Search</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../datatables/css/layoutcrm.css" type="text/css" />
@@ -120,12 +130,7 @@ $jsonTable4 = json_encode($table);
 </head>
 <body>
 
-<?php include('../includes/navbar.php'); 
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+<?php require_once(__DIR__ . '/../includes/navbar.php');
 
 ?>
 

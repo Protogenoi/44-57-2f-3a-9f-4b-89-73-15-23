@@ -1,7 +1,7 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
     include('../../includes/Access_Levels.php');
@@ -38,7 +38,7 @@ include('../../includes/ADL_PDO_CON.php');
                             
 if(isset($companynamere))  {      
 
-
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -99,7 +99,10 @@ if(isset($hello_name)) {
              
      }
      
-     }    
+     }
+     
+     if(isset($EXECUTE)) {
+         if($EXECUTE=='1') {
 
 $subject = "The Review Bureau - Direct Debit" ;
 $sig = "<br>-- \n
@@ -119,14 +122,35 @@ We have tried contacting you on numerous occasions but have been unsuccessful, I
           Many thanks,<br>
 $hello_name_full<br>The Review Bureau
           </p>";
+
+         }
+         
+         if($EXECUTE=='2') {
+
+$subject = "The Review Bureau Life Insurance Application" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+$signat";
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+There is an issue with your Legal and General life insurance application. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          Many thanks,<br>
+$hello_name_full<br>The Review Bureau
+          </p>";
+
+         }         
+         
 $body .= $sig;
 
 $mail             = new PHPMailer();
-
-$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-    $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); 
 $mail->CharSet = 'UTF-8';
@@ -168,6 +192,7 @@ $ref= "$recipient";
 
 }
 }
+}
 
 if($companynamere=='ADL_CUS') {
     
@@ -196,6 +221,9 @@ if(isset($hello_name)) {
      
      }
      
+
+     if(isset($EXECUTE)) {
+         if($EXECUTE=='1') {
 $subject = "The Financial Assessment Centre - Direct Debit" ;
 $sig = "<br>-- \n
 <br>
@@ -203,6 +231,7 @@ $sig = "<br>-- \n
 <br>
 
 $signat";
+
 
 $body = "<p>Dear $recipient,</p>
           <p>           
@@ -215,14 +244,37 @@ We have tried contacting you on numerous occasions but have been unsuccessful, I
           Many thanks,<br>
 $hello_name_full<br>The Financial Assessment Centre
           </p>";
+
+         }
+         
+                  if($EXECUTE=='2') {
+$subject = "The Financial Assessment Centre - Life Insurance Application" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+
+$signat";
+
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+There is an issue with your Legal and General life insurance application. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 02036 349 515 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Thursday 10:00 - 18:30, Fridays 10:00 - 16:00.</p>
+          Many thanks,<br>
+$hello_name_full<br>The Financial Assessment Centre
+          </p>";
+
+         }
+
 $body .= $sig;
 
 $mail             = new PHPMailer();
 
-$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-    $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); 
 $mail->CharSet = 'UTF-8';
@@ -269,5 +321,6 @@ $ref= "$recipient";
     
 }
 
+}
 }
     ?>

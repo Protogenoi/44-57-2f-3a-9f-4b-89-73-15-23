@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../classes/database_class.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -30,20 +31,26 @@ if(isset($CID)) {
 
 if(empty($CID)) {
     
-    header('Location: ../CRMmain.php?AccessDenied'); die;
+    header('Location: /../CRMmain.php?AccessDenied'); die;
     
 }
 
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
-    header('Location: /CRMmain.php'); die;
+    header('Location: /../CRMmain.php'); die;
 
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-    <title>AD? | Home Client</title>
+    <title>ADL | Home Client</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -65,9 +72,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <body>
     <?php
     require_once(__DIR__ . '/../includes/navbar.php');
-    
 
-    
     ?>  
     <br>
 

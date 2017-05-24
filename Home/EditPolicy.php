@@ -1,31 +1,57 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-if(isset($fferror)) {
-    if($fferror=='0') {
-        
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-    
-    include('../includes/Access_Levels.php');
+}
+
     if (!in_array($hello_name,$Level_3_Access, true)) { 
         header('Location: ../CRMmain.php'); die;
         
     }
+    
+$CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
+$PID= filter_input(INPUT_GET, 'PID', FILTER_SANITIZE_NUMBER_INT);
+$client_namePOST= filter_input(INPUT_GET, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if(isset($CID)) {
+
+$query = $pdo->prepare("SELECT CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, home_policy.client_id, home_policy.id, home_policy.client_name, home_policy.sale_date, home_policy.policy_number, home_policy.premium, home_policy.type, home_policy.insurer, home_policy.added_date, home_policy.commission, home_policy.status, home_policy.added_by, home_policy.updated_by, home_policy.updated_date, home_policy.closer, home_policy.lead, home_policy.cover FROM home_policy JOIN client_details on client_details.client_id = home_policy.client_id WHERE home_policy.id = :PID AND home_policy.client_id=:CID");
+$query->bindParam(':CID', $CID, PDO::PARAM_INT);
+$query->bindParam(':PID', $PID, PDO::PARAM_INT);
+$query->execute();
+$data2=$query->fetch(PDO::FETCH_ASSOC);
+
+$NAME=$data2['NAME'];
+$NAME2=$data2['NAME2'];    
+
+}
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Edit Policy</title>
+<title>ADL | Edit Home Policy</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -65,32 +91,8 @@ input.currency {
 </head>
 <body>
 
-<?php 
-
-include('../includes/navbar.php');
-include('../includes/ADL_PDO_CON.php'); 
-include('../includes/adlfunctions.php');
-include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
-
-if($ffanalytics=='1') {
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php');
+<?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
     
-}
-
-$CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
-$PID= filter_input(INPUT_GET, 'PID', FILTER_SANITIZE_NUMBER_INT);
-$client_namePOST= filter_input(INPUT_GET, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$query = $pdo->prepare("SELECT CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, home_policy.client_id, home_policy.id, home_policy.client_name, home_policy.sale_date, home_policy.policy_number, home_policy.premium, home_policy.type, home_policy.insurer, home_policy.added_date, home_policy.commission, home_policy.status, home_policy.added_by, home_policy.updated_by, home_policy.updated_date, home_policy.closer, home_policy.lead, home_policy.cover FROM home_policy JOIN client_details on client_details.client_id = home_policy.client_id WHERE home_policy.id = :PID AND home_policy.client_id=:CID");
-$query->bindParam(':CID', $CID, PDO::PARAM_INT);
-$query->bindParam(':PID', $PID, PDO::PARAM_INT);
-$query->execute();
-$data2=$query->fetch(PDO::FETCH_ASSOC);
-
-$NAME=$data2['NAME'];
-$NAME2=$data2['NAME2'];
-
-?>
 <div class="container">
 <div class="editpolicy">
     <div class="notice notice-warning">

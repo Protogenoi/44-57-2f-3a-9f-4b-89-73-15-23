@@ -1,18 +1,25 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-    $Level_2_Access = array("Jade");
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
 
-if (in_array($hello_name,$Level_2_Access, true)) {
-    
-    header('Location: ../Life/Financial_Menu.php'); die;
-
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
- include('../includes/Access_Levels.php');
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
@@ -20,12 +27,17 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 }
 
-include('../includes/adlfunctions.php');
 
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Home Insurance Menu</title>
+<title>ADL | Home Insurance Menu</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -38,13 +50,7 @@ include('../includes/adlfunctions.php');
 <body>
     
     <?php 
-    include('../includes/navbar.php');
-     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+require_once(__DIR__ . '/../includes/navbar.php');
     
 ?> 
     

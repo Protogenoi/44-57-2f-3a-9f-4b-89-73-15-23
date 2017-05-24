@@ -1,30 +1,35 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: /CRMmain.php'); die;
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
+}
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Add Product</title>
+<title>ADL | Add Product</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -78,16 +83,7 @@ input.currency {
 <body>
 
 <?php 
-
-include('../includes/navbar.php'); 
-include('../includes/ADL_PDO_CON.php'); 
-include('../includes/adl_features.php');
-    
-    if($ffanalytics=='1') {
-    
-    include_once('../php/analyticstracking.php'); 
-    
-    }
+require_once(__DIR__ . '/../includes/navbar.php');
 
 $AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
 

@@ -100,7 +100,7 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     <div class="container">
                 <?php 
         $database = new Database();
-            $database->query("SELECT uploader, insert_date from financial_statistics_history WHERE insert_date> DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY uploader");
+            $database->query("SELECT uploader, insert_date from financial_statistics_history ORDER BY insert_date DESC LIMIT 1");
             $database->execute(); 
             $FIN_ALERT = $database->single();  
             

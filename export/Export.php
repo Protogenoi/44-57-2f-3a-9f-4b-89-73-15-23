@@ -414,8 +414,8 @@ WHERE
 
 if($EXECUTE=='ADL_AWAITING') {
     
-                        $output = "Submitted Date, Policy Number, Client Name, ADL Amount, ADL Status\n";
-                    $query = $pdo->prepare("select client_policy.policystatus, client_policy.client_name, client_policy.policy_number, client_policy.commission, DATE(client_policy.submitted_date) AS SALE_DATE
+                        $output = "Submitted Date, Policy Number, AN, Client Name, ADL Amount, ADL Status\n";
+                    $query = $pdo->prepare("select client_policy.policystatus, client_policy.client_name, client_policy.application_number, client_policy.policy_number, client_policy.commission, DATE(client_policy.submitted_date) AS SALE_DATE
 FROM
     client_policy
         LEFT JOIN
@@ -430,7 +430,7 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                        $output .= $rs['SALE_DATE'].",".$rs['policy_number'].",".$rs['client_name'].",".$rs['commission'].",".$rs['policystatus']."\n";
+                        $output .= $rs['SALE_DATE'].",".$rs['policy_number'].",".$rs['application_number'].",".$rs['client_name'].",".$rs['commission'].",".$rs['policystatus']."\n";
                         
                     }
                     echo $output;

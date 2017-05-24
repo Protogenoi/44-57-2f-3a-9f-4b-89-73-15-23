@@ -332,7 +332,7 @@ $q1= filter_input(INPUT_POST, 'q1', FILTER_SANITIZE_NUMBER_INT);
                 $database->bind(':hello', $hello_name);
                 $database->execute();
                 
-                $database->query("UPDATE audit_wol_comments set wol_id=:id, c1=:c1, c2=:c2, c3=:c3, c4=:c4, c5=:c5, c6=:c6, c7=:c7, c8=:c8, c9=:c9, c10=:c10, c11=:c11, c12=:c12, c13=:c13, c14=:c14, c15=:c15, c16=:c16, c17=:c17, c18=:c18, c19=:c19, c20=:c20, c21=:c21, c22=:c22, c23=:c23, c24=:c24, c25=:c25, c26=:c26, c27=:c27, c28=:c28, c29=:c29, c30=:c30, c31=:c31, c32=:c32, c33=:c33, c34=:c34, c35=:c35, c36=:c36");
+                $database->query("UPDATE audit_wol_comments set c1=:c1, c2=:c2, c3=:c3, c4=:c4, c5=:c5, c6=:c6, c7=:c7, c8=:c8, c9=:c9, c10=:c10, c11=:c11, c12=:c12, c13=:c13, c14=:c14, c15=:c15, c16=:c16, c17=:c17, c18=:c18, c19=:c19, c20=:c20, c21=:c21, c22=:c22, c23=:c23, c24=:c24, c25=:c25, c26=:c26, c27=:c27, c28=:c28, c29=:c29, c30=:c30, c31=:c31, c32=:c32, c33=:c33, c34=:c34, c35=:c35, c36=:c36 WHERE wol_id=:id");
                 $database->bind(':id', $WOLID);
                 $database->bind(':c1', $c1);
                 $database->bind(':c2', $c2);
@@ -372,7 +372,7 @@ $q1= filter_input(INPUT_POST, 'q1', FILTER_SANITIZE_NUMBER_INT);
                 $database->bind(':c36', $c36);
                 $database->execute();
                 
-                $database->query("UPDATE audit_wol_questions set wol_id=:id, q1=:q1, q2=:q2, q3=:q3, q4=:q4, q5=:q5, q6=:q6, q7=:q7, q8=:q8, q9=:q9, q10=:q10, q11=:q11, q12=:q12, q13=:q13, q14=:q14, q15=:q15, q16=:q16, q17=:q17, q18=:q18, q19=:q19, q20=:q20, q21=:q21, q22=:q22, q23=:q23, q24=:q34, q25=:q25, q26=:q26, q27=:q27, q28=:q28, q29=:q29, q30=:q30, q31=:q31, q32=:q32, q33=:q33, q34=:q34, q35=:q35, q36=:q36");
+                $database->query("UPDATE audit_wol_questions set q1=:q1, q2=:q2, q3=:q3, q4=:q4, q5=:q5, q6=:q6, q7=:q7, q8=:q8, q9=:q9, q10=:q10, q11=:q11, q12=:q12, q13=:q13, q14=:q14, q15=:q15, q16=:q16, q17=:q17, q18=:q18, q19=:q19, q20=:q20, q21=:q21, q22=:q22, q23=:q23, q24=:q34, q25=:q25, q26=:q26, q27=:q27, q28=:q28, q29=:q29, q30=:q30, q31=:q31, q32=:q32, q33=:q33, q34=:q34, q35=:q35, q36=:q36 WHERE wol_id=:id");
                 $database->bind(':id', $WOLID);
                 $database->bind(':q1', $q1);
                 $database->bind(':q2', $q2);

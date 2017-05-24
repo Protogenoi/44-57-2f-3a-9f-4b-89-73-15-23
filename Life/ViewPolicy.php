@@ -521,7 +521,8 @@ ews_data.policy_number
                                 <div class="list-group">
                                     <span class="label label-primary">Policy Emails</span>
                                     <a class="list-group-item" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Send Policy Number</a>
-                                    <a class="list-group-item" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client</a>
+                                    <a class="list-group-item" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client (With Policy Number)</a>
+                                    <a class="list-group-item" data-toggle="modal" data-target="#myModal3"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client (Awaiting Policy Number)</a>
                                 </div>
 
                             </div>
@@ -662,7 +663,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/email/php/SendUncontactable.php?search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="/email/php/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>
@@ -676,10 +677,10 @@ ews_data.policy_number
                         <p>
                             We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
                         </p>
-                        <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        <p>Please contact us on [COMPANY_TEL] or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
                         Many thanks,<br>
 <?php echo $hello_name_full; ?><br>
-                        The Review Bureau
+                        [COMPANY_NAME]
                         </p>
                         </div>
                         <div class="modal-footer">
@@ -690,6 +691,42 @@ ews_data.policy_number
 
         </div>
     </div>
+    <div id="myModal3" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Email Awaiting uncontactable client</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/email/php/SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                        <select class="form-control" name="email">  
+                            <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
+                            <?php if (!empty($data3['email2'])) { ?>
+                                <option value="<?php echo $data3['email2']; ?>"><?php echo $data3['email2']; ?></option>
+<?php } ?>
+                        </select>  
+                        <p>Dear <?php echo $data2['client_name']; ?>,</p>
+                        <p>           
+                            There is an issue with your Legal and General life insurance application. </p>
+
+                        <p>
+                            We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+                        </p>
+                        <p>Please contact us on [COMPANY_TEL] or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        Many thanks,<br>
+<?php echo $hello_name_full; ?><br>
+                        [COMPANY_NAME]
+                        </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success confirmation"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Awaiting uncontactable email</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>    
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script>var maxLength = 800;
         $('textarea').keyup(function () {

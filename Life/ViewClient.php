@@ -1232,6 +1232,13 @@ if (isset($fileuploadedfail)) {
     $uploadtypeuploaded = filter_input(INPUT_GET, 'fileupname', FILTER_SANITIZE_SPECIAL_CHARS);
     print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> $uploadtypeuploaded <b>upload failed!</b></div>");
 }
+                                                    $UPLOAD= filter_input(INPUT_GET, 'UPLOAD', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                    if(isset($UPLOAD)) {
+                                                        if($UPLOAD=='MAX') {
+                                                    echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> The filesize of the upload is too big!</strong></div>";
+        
+                                                        }
+                                                    }
 ?>
                 <div class="container">
 

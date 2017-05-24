@@ -43,6 +43,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+$INSURER= filter_input(INPUT_GET, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if($companynamere=='The Review Bureau') {
     
@@ -113,7 +114,7 @@ $signat";
 
 $body = "<p>Dear $recipient,</p>
           <p>           
-There is an issue with your Legal and General direct debit <strong>$policy</strong>. </p>
+There is an issue with your $INSURER direct debit <strong>$policy</strong>. </p>
 
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
@@ -136,7 +137,7 @@ $signat";
 
 $body = "<p>Dear $recipient,</p>
           <p>           
-There is an issue with your Legal and General life insurance application. </p>
+There is an issue with your $INSURER life insurance application. </p>
 
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
@@ -235,7 +236,7 @@ $signat";
 
 $body = "<p>Dear $recipient,</p>
           <p>           
-There is an issue with your Legal and General direct debit <strong>$policy</strong>. </p>
+There is an issue with your $INSURER direct debit <strong>$policy</strong>. </p>
 
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
@@ -259,7 +260,7 @@ $signat";
 
 $body = "<p>Dear $recipient,</p>
           <p>           
-There is an issue with your Legal and General life insurance application. </p>
+There is an issue with your $INSURER life insurance application. </p>
 
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.

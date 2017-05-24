@@ -626,32 +626,32 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 
             <p>
                 <label for="q1">Q<?php $i=0; $i++; echo $i; ?>. Was The Customer Made Aware That Calls Are Recorded For Training And Monitoring Purposes?</label><br>
-                <input type="radio" name="q1" value="Yes" onclick="return false"onclick="return false"<?php if ($RL_OD1 == "1") { echo "checked"; }?> >Yes
-                <input type="radio" name="q1" value="No" onclick="return false"onclick="return false"<?php if ($RL_OD1 == "0") { echo "checked"; } ?> ><label for="No">No</label>
+                <input type="radio" name="q1" value="Yes" onclick="return false"onclick="return false"<?php if(isset($RL_OD1)) { if ($RL_OD1 == "1") { echo "checked"; } } ?> >Yes
+                <input type="radio" name="q1" value="No" onclick="return false"onclick="return false"<?php if(isset($RL_OD1)) { if ($RL_OD1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
 
             <div class="phpcomments">
-                <?php echo $RL_CM_ODT1; ?>
+                <?php if(isset($RL_CM_ODT1)) { echo $RL_CM_ODT1; } ?>
             </div>
             </p>
 
             <p>
                 <label for="q2">Q<?php $i++; echo $i; ?>. Was The Customer Informed That General Insurance Is Regulated By The FCA?</label><br>
-                <input type="radio" name="q2" value="Yes" onclick="return false"onclick="return false"<?php if ($RL_OD2 == "1") { echo "checked"; } ?> >Yes
-                <input type="radio" name="q2" value="No" onclick="return false"onclick="return false"<?php if ($RL_OD2 == "0") { echo "checked"; } ?> ><label for="No">No</label>
+                <input type="radio" name="q2" value="Yes" onclick="return false"onclick="return false"<?php if(isset($RL_OD2)) { if ($RL_OD2 == "1") { echo "checked"; } } ?> >Yes
+                <input type="radio" name="q2" value="No" onclick="return false"onclick="return false"<?php if(isset($RL_OD2)) { if ($RL_OD2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php echo $RL_CM_ODT2; ?>
+                <?php if(isset($RL_CM_ODT2)) { echo $RL_CM_ODT2; } ?>
             </div>
             </p>
 
             <p>
                 <label for="q3">Q<?php $i++; echo $i; ?>. Did The Customer Consent To The Abbreviated Script Being Read? (If no, was the full disclosure read?)</label><br>
-                <input type="radio" name="q3" value="Yes" onclick="return false"onclick="return false"<?php if ($RL_OD3 == "1") { echo "checked"; } ?> >Yes
-                <input type="radio" name="q3" value="No" onclick="return false"onclick="return false"<?php if ($RL_OD3 == "0") { echo "checked"; } ?> ><label for="No">No</label>
+                <input type="radio" name="q3" value="Yes" onclick="return false"onclick="return false"<?php if(isset($RL_OD3)) { if ($RL_OD3 == "1") { echo "checked"; } } ?> >Yes
+                <input type="radio" name="q3" value="No" onclick="return false"onclick="return false"<?php if(isset($RL_OD3)) { if ($RL_OD3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php echo $RL_CM_ODT3; ?>
+                <?php if(isset($RL_CM_ODT3)) { echo $RL_CM_ODT3; } ?>
             </div>
             </p>
 
@@ -659,22 +659,22 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
                 <label for="q4">Q<?php $i++; echo $i; ?>. Did The Sales Agent Provide The Name And Details Of The Firm Who Is Regulated With The FCA?</label><br>
 
 
-                <input type="radio" name="q4" value="Yes" onclick="return false"onclick="return false"<?php if ($RL_OD4 == "1") { echo "checked"; } ?> >Yes
-                <input type="radio" name="q4" value="No" onclick="return false"onclick="return false"<?php if ($RL_OD4 == "0") { echo "checked"; } ?> ><label for="No">No</label>
+                <input type="radio" name="q4" value="Yes" onclick="return false"onclick="return false"<?php if(isset($RL_OD4)) {  if ($RL_OD4 == "1") { echo "checked"; } } ?> >Yes
+                <input type="radio" name="q4" value="No" onclick="return false"onclick="return false"<?php if(isset($RL_OD4)) { if ($RL_OD4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php echo $RL_CM_ODT4; ?>
+                <?php if(isset($RL_CM_ODT4)) { echo $RL_CM_ODT4; } ?>
             </div>
             </p>
 
             <p>
                 <label for="q5">Q<?php $i++; echo $i; ?>. Did The Sales Agent Make The Customer Aware That They Are Unable To Offer Advice Or Personal Opinion They Will Only Be Providing Them With An Information Based Service To Make Their Own Informed Decision?</label><br>
 
-                <input type="radio" name="q5" value="Yes" onclick="return false"onclick="return false"<?php if ($RL_OD5 == "1") { echo "checked"; } ?> >Yes
-                <input type="radio" name="q5" value="No" onclick="return false"onclick="return false"<?php if ($RL_OD5 == "0") { echo "checked"; } ?> ><label for="No">No</label>
+                <input type="radio" name="q5" value="Yes" onclick="return false"onclick="return false"<?php if(isset($RL_OD5)) {  if ($RL_OD5 == "1") { echo "checked"; } } ?> >Yes
+                <input type="radio" name="q5" value="No" onclick="return false"onclick="return false"<?php if(isset($RL_OD5)) {  if ($RL_OD5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php echo $RL_CM_ODT5; ?>
+                <?php if(isset($RL_CM_ODT5)) { echo $RL_CM_ODT5; } ?>
             </div>
             </p>   
             

@@ -32,6 +32,10 @@ $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);
 
+   if($_FILES['file']['size'] > 40000000) {
+                header('Location: /Home/ViewClient.php?UPLOAD=MAX&CID='.$CID.'#menu2'); die;
+            }
+
 if(isset($btnupload)) {    
      
  $file = $CID."-".$_FILES['file']['name'];
@@ -84,9 +88,15 @@ $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if(isset($life)) {
         if($life=='y') {
+  $search= filter_input(INPUT_POST, 'search', FILTER_SANITIZE_SPECIAL_CHARS);      
+  
+            if($_FILES['file']['size'] > 40000000) {
+                header('Location: /Life/ViewClient.php?UPLOAD=MAX&search='.$search.'#menu2'); die;
+            }
+            
             require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
             
-$search= filter_input(INPUT_POST, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
+
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
  
@@ -149,7 +159,10 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHARS);
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
- 
+
+   if($_FILES['file']['size'] > 40000000) {
+               header('Location: /Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?fail&REF='.$REF.'#menu3'); die;
+            }
 
 if(isset($btnupload)) {    
      

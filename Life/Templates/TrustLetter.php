@@ -1,11 +1,20 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php'); 
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require('../../fpdf17/fpdf.php');
-include('../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../fpdf17/fpdf.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $clientone =filter_input(INPUT_GET, 'clientone', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -56,12 +65,12 @@ function WriteHTML($html)
             if($i%2==0)
             {
                 //Text
-                if($this->HREF)
-                    $this->PutLink($this->HREF,$e);
-                elseif($this->ALIGN=='right')
-                    $this->Cell(0,5,$e,0,1,'R');
-                else
-                    $this->Write(5,$e);
+                if($this->HREF) {
+                $this->PutLink($this->HREF,$e); }
+                elseif ($this->ALIGN=='right') {
+                $this->Cell(0,5,$e,0,1,'R'); }
+                else {
+                $this->Write(5,$e); }
                 
             }
             

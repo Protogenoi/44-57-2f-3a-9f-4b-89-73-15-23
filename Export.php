@@ -27,6 +27,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
     <title>ADL | Export</title>
     <meta charset="UTF-8">
@@ -208,12 +214,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom2" name="datefrom" value="<?php echo $datefrom ?>" required>
+                    <input type="text" id="datefrom2" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto2" name="dateto" value="<?php echo $dateto ?>" required>
+                    <input type="text" id="dateto2" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
@@ -235,12 +241,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom2" name="datefrom8" value="<?php echo $datefrom ?>" required>
+                    <input type="text" id="datefrom2" name="datefrom8" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto2" name="dateto8" value="<?php echo $dateto ?>" required>
+                    <input type="text" id="dateto2" name="dateto8" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
@@ -258,12 +264,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                         <p>
                             <label for="datefrom">From:</label>
-                            <input type="text" id="datefrom7" name="datefrom" value="<?php echo $datefrom ?>" required>
+                            <input type="text" id="datefrom7" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                         </p>
 
                         <p>
                             <label for="dateto">To:</label>
-                            <input type="text" id="dateto7" name="dateto" value="<?php echo $dateto ?>" required>
+                            <input type="text" id="dateto7" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                         </p>
 
                         <p>
@@ -282,12 +288,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="VITfrom" name="datefrom" value="<?php echo $datefrom ?>" required>
+                    <input type="text" id="VITfrom" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="VITto" name="dateto" value="<?php echo $dateto ?>" required>
+                    <input type="text" id="VITto" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
@@ -317,12 +323,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom3" name="datefrom" value="<?php echo $datefrom ?>" required>
+                    <input type="text" id="datefrom3" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto3" name="dateto" value="<?php echo $dateto ?>" required>
+                    <input type="text" id="dateto3" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
@@ -345,12 +351,12 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom4" name="datefrom" value="<?php echo $datefrom ?>" required>
+                    <input type="text" id="datefrom4" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto4" name="dateto" value="<?php echo $dateto ?>" required>
+                    <input type="text" id="dateto4" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>

@@ -40,7 +40,6 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
     <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

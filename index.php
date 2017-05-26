@@ -1,18 +1,29 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+
+$LOGIN_ACTIVATE = filter_input(INPUT_GET, 'activate', FILTER_SANITIZE_SPECIAL_CHARS);
+$LOGIN_IDENT = filter_input(INPUT_GET, 'ident', FILTER_SANITIZE_SPECIAL_CHARS);
+$LOGIN_VALIDATE = filter_input(INPUT_GET, 'validate', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$LOGIN_ID = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$LOGIN_REMEMBER = filter_input(INPUT_POST, 'remember', FILTER_SANITIZE_SPECIAL_CHARS);
+$LOGIN_LOGIN = filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
+$LOGIN_SUBMIT = filter_input(INPUT_POST, 'Submit', FILTER_SANITIZE_SPECIAL_CHARS);
+$LOGIN_PASSWORD = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $my_access = new Access_user(false);
-if (isset($_GET['activate']) && isset($_GET['ident'])) { 
+if (isset($LOGIN_ACTIVATE) && isset($LOGIN_IDENT)) { 
 	$my_access->auto_activation = true; 
-	$my_access->activate_account($_GET['activate'], $_GET['ident']); 
+	$my_access->activate_account($LOGIN_ACTIVATE, $LOGIN_IDENT); 
 }
-if (isset($_GET['validate']) && isset($_GET['id'])) { 
-	$my_access->validate_email($_GET['validate'], $_GET['id']);
+if (isset($LOGIN_VALIDATE) && isset($LOGIN_ID)) { 
+	$my_access->validate_email($LOGIN_VALIDATE, $LOGIN_ID);
 }
-if (isset($_POST['Submit'])) {
-	$my_access->save_login = (isset($_POST['remember'])) ? $_POST['remember'] : "no"; 
+if (isset($LOGIN_SUBMIT)) {
+	$my_access->save_login = (isset($LOGIN_REMEMBER)) ? $LOGIN_REMEMBER : "no"; 
 	$my_access->count_visit = false; 
-	$my_access->login_user($_POST['login'], $_POST['password']); 
+	$my_access->login_user($LOGIN_LOGIN, $LOGIN_PASSWORD); 
 } 
 $error = $my_access->the_msg; 
 ?>
@@ -35,9 +46,7 @@ $error = $my_access->the_msg;
     </head>
     <body>
         
-    <?php
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php');
-    ?>        
+    <?php require_once(__DIR__ . '/php/analyticstracking.php'); ?>        
         <div class="container">          
             
             <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                
@@ -53,13 +62,13 @@ $error = $my_access->the_msg;
                         <form id="loginform" class="form-horizontal" role="form" name="form1" method="post" action="<?php echo filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS); ?>">
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="login-username" type="text" class="form-control" name="login" value="<?php echo (isset($_POST['login'])) ? $_POST['login'] : $my_access->user; ?>" placeholder="username">                                        
+                                <input id="login-username" type="text" class="form-control" name="login" value="<?php echo (isset($LOGIN_LOGIN)) ? $LOGIN_LOGIN : $my_access->user; ?>" placeholder="username">                                        
                             </div>
                             
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                 <label for="login-password"></label>
-                                <input id="login-password" type="password" class="form-control"  name="password" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>" placeholder="password">
+                                <input id="login-password" type="password" class="form-control"  name="password" value="<?php if (isset($LOGIN_PASSWORD)) echo $LOGIN_PASSWORD; ?>" placeholder="password">
                             </div>
                             
                             <div style="margin-top:10px" class="form-group">

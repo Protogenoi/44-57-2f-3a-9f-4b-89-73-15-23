@@ -54,6 +54,8 @@ $featureerror= filter_input(INPUT_POST, 'featureerror', FILTER_SANITIZE_NUMBER_I
 $featureews= filter_input(INPUT_POST, 'featureews', FILTER_SANITIZE_NUMBER_INT);
 $featurefinancials= filter_input(INPUT_POST, 'featurefinancials', FILTER_SANITIZE_NUMBER_INT);
 
+$featurecompliance= filter_input(INPUT_POST, 'featurecompliance', FILTER_SANITIZE_NUMBER_INT);
+
 $dupcheck = "Select id from adl_features";
 
 $duperaw = $conn->query($dupcheck);
@@ -64,9 +66,10 @@ if ($duperaw->num_rows >= 1) {
     $dupeclientid=$row['id'];  
     }
  
-    $update = $pdo->prepare("UPDATE adl_features set financials=:financials, ews=:ews, trackers=:trackers, dealsheets=:dealsheets, employee=:employee, post_code=:post, pba=:pba, error=:error, gmaps=:gmaps, twitter=:twitter, analytics=:analyticshold, callbacks=:callbackholder, dialler=:diallerholder, intemails=:internalholder, clientemails=:clientemailholder, keyfactsemail=:keyfactsholder, genemail=:genholder, recemail=:recholder, sms=:smsholder, calendar=:calholder, audits=:auditsholder, life=:lifeholder, home=:homeholder, pension=:penholder, added_by=:helloholder where id=:iddupe");
+    $update = $pdo->prepare("UPDATE adl_features set compliance=:compliance, financials=:financials, ews=:ews, trackers=:trackers, dealsheets=:dealsheets, employee=:employee, post_code=:post, pba=:pba, error=:error, gmaps=:gmaps, twitter=:twitter, analytics=:analyticshold, callbacks=:callbackholder, dialler=:diallerholder, intemails=:internalholder, clientemails=:clientemailholder, keyfactsemail=:keyfactsholder, genemail=:genholder, recemail=:recholder, sms=:smsholder, calendar=:calholder, audits=:auditsholder, life=:lifeholder, home=:homeholder, pension=:penholder, added_by=:helloholder where id=:iddupe");
     
     $update->bindParam(':iddupe', $dupeclientid, PDO::PARAM_INT);
+    $update->bindParam(':compliance', $featurecompliance, PDO::PARAM_INT);
     $update->bindParam(':financials', $featurefinancials, PDO::PARAM_INT);
     $update->bindParam(':ews', $featureews, PDO::PARAM_INT);
     $update->bindParam(':trackers', $featuretrackers, PDO::PARAM_INT);
@@ -104,8 +107,9 @@ if ($duperaw->num_rows >= 1) {
 
 if ($duperaw->num_rows <= 0) {
     
-    $insert = $pdo->prepare("INSERT INTO adl_features set ews=:ews, financials=:financials, trackers=:trackers, dealsheets=:dealsheets, employee=:employee, post_code=:post, pba=:pba, error=:error, gmaps=:gmaps, twitter=:twitter, analytics=:analyticshold, callbacks=:callbackholder, dialler=:diallerholder, intemails=:internalholder, clientemails=:clientemailholder, keyfactsemail=:keyfactsholder, genemail=:genholder, recemail=:recholder, sms=:smsholder, calendar=:calholder, audits=:auditsholder, life=:lifeholder, home=:homeholder, pension=:penholder, added_by=:helloholder");
-        $insert->bindParam(':employee', $featureemployee, PDO::PARAM_INT);
+    $insert = $pdo->prepare("INSERT INTO adl_features set compliance=:compliance, ews=:ews, financials=:financials, trackers=:trackers, dealsheets=:dealsheets, employee=:employee, post_code=:post, pba=:pba, error=:error, gmaps=:gmaps, twitter=:twitter, analytics=:analyticshold, callbacks=:callbackholder, dialler=:diallerholder, intemails=:internalholder, clientemails=:clientemailholder, keyfactsemail=:keyfactsholder, genemail=:genholder, recemail=:recholder, sms=:smsholder, calendar=:calholder, audits=:auditsholder, life=:lifeholder, home=:homeholder, pension=:penholder, added_by=:helloholder");
+     $insert->bindParam(':compliance', $featurecompliance, PDO::PARAM_INT);    
+    $insert->bindParam(':employee', $featureemployee, PDO::PARAM_INT);
         $insert->bindParam(':financials', $featurefinancials, PDO::PARAM_INT);
         $insert->bindParam(':ews', $featureews, PDO::PARAM_INT);
         $insert->bindParam(':trackers', $featuretrackers, PDO::PARAM_INT);

@@ -15,7 +15,7 @@ if (in_array($hello_name, $Level_2_Access, true)) {
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -36,8 +36,14 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-    <title>ADL | Life Menu</title>
+    <title>ADL | Compliance Menu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />

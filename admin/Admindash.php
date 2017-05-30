@@ -2287,7 +2287,7 @@ if ($settingsselect == 'y') {
                             <p>Enable or disable CRM features</p>
                             <br> 
                             <?php
-                            $query = $pdo->prepare("SELECT financials, ews, trackers, employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
+                            $query = $pdo->prepare("SELECT compliance, financials, ews, trackers, employee, dealsheets, post_code, pba, error, twitter, gmaps, analytics, callbacks, dialler, intemails, clientemails, keyfactsemail, genemail, recemail, sms, calendar, audits, life, home, pension FROM adl_features LIMIT 1");
                             $query->execute()or die(print_r($query->errorInfo(), true));
                             $queryfeatures = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -2315,6 +2315,7 @@ if ($settingsselect == 'y') {
                             $ftracker = $queryfeatures['trackers'];
                             $fews = $queryfeatures['ews'];
                             $ffinancials = $queryfeatures['financials'];
+                            $fcompliance = $queryfeatures['compliance'];
                             ?>
 
 
@@ -2801,7 +2802,27 @@ if ($settingsselect == 'y') {
                                                 1
                                             </label>
                                         </div>
-                                    </div> 
+                                    </div>
+                                    
+   <div class="form-group">
+                                        <label class="col-md-4 control-label" for="featurecompliance">Enable Compliance</label>
+                                        <div class="col-md-4"> 
+                                            <label class="radio-inline" for="featurecompliance-0">
+                                                <input name="featurecompliance" id="featurecompliance-0" value="0" <?php if (!isset($fcompliance)) {
+                            echo 'checked="checked"';
+                        } elseif ($fcompliance == '0') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                0
+                                            </label> 
+                                            <label class="radio-inline" for="featurecompliance-1">
+                                                <input name="featurecompliance" id="featurecompliance-1" value="1" <?php if ($fcompliance == '1') {
+                            echo 'checked="checked"';
+                        } ?> type="radio">
+                                                1
+                                            </label>
+                                        </div>
+                                    </div>                                  
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label" for="featuressubmit"></label>

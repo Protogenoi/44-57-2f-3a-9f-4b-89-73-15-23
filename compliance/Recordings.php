@@ -214,7 +214,7 @@ ADL
                         {"data": "compliance_recordings_status"},
                         {"data": "compliance_recordings_id",
                             "render": function (data, type, full, meta) {
-                                return '<a href="tests/Recordings.php?EXECUTE=2&RID=' + data + '"><i class="fa fa-search"></i></a>';
+                                return '<a href="recordings/Recordings.php?EXECUTE=1&RID=' + data + '"><i class="fa fa-search"></i></a>';
                             }}
                     ]
                 });

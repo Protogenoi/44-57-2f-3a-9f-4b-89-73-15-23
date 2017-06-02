@@ -30,7 +30,7 @@ if (isset($search)) {
 
 if (empty($search)) {
 
-    header('Location: ../CRMmain.php?AccessDenied');
+    header('Location: ../CRMmain.php?PARAMS');
     die;
 }
 

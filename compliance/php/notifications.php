@@ -39,6 +39,13 @@ if($RETURN=='UPLOAD') { ?>
     </div>
  <?php   
 }
+if($RETURN=='RECUPDATED') { ?>
+    <div class="notice notice-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Updated:</strong> Call audit updated!
+    </div>
+ <?php   
+}
 }
 ?>
 

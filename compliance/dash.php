@@ -22,32 +22,24 @@ if (isset($fferror)) {
     }
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (isset($EXECUTE) && $AGENCY) {
-
-    switch ($AGENCY) {
-        case "TRB":
-            $AGENCY_NAME = "The Review Bureau";
-            break;
-        case "PFP":
-            $AGENCY_NAME = "Protect Family Plans";
-            break;
-        case "PLL":
-            $AGENCY_NAME = "Protected Life Ltd";
-            break;
-        case "WI":
-            $AGENCY_NAME = "We Insure";
-            break;
-        case "TFAC":
-            $AGENCY_NAME = "The Financial Assessment Centre";
-            break;
-        case "APM":
-            $AGENCY_NAME = "Assured Protect and Mortgages";
-            break;
-        default:
-            $AGENCY_NAME = "Not Selected";
-    }
+if (in_array($hello_name, $TRB_ACCESS, true)) {
+  $AGENCY_NAME = "The Review Bureau";  
+}
+if (in_array($hello_name, $PFP_ACCESS, true))  {
+    $AGENCY_NAME = "Protect Family Plans";
+}
+if (in_array($hello_name, $PLL_ACCESS, true))  {
+    $AGENCY_NAME = "Protected Life Ltd";
+}
+if (in_array($hello_name, $WI_ACCESS, true)) {
+  $AGENCY_NAME = "We Insure";  
+}
+if (in_array($hello_name, $TFAC_ACCESS, true)) {
+   $AGENCY_NAME = "The Financial Assessment Centre"; 
+}
+if (in_array($hello_name, $APM_ACCESS, true)) {
+  $AGENCY_NAME = "Assured Protect and Mortgages";  
 }
 ?>
 <!DOCTYPE html>
@@ -112,7 +104,6 @@ if (isset($EXECUTE) && $AGENCY) {
                             <?php } ?>
                         </div> 
 
-
                     </div>				
                 </div><!--/Left Column-->
 
@@ -124,26 +115,25 @@ if (isset($EXECUTE) && $AGENCY) {
                         <!-- Alert -->
                         <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <center><strong><?php if(isset($AGENCY)) { echo $AGENCY_NAME; } ?></strong></center><br> This is your dashboard, it can show you what you have done or what needs to be done for this week!
+                            <center><strong><?php if(isset($AGENCY_NAME)) { echo $AGENCY_NAME; } ?></strong></center><br> This is your dashboard, it can show you what you have done or what needs to be done for this week!
                         </div>		
 
-                        <?php if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
                         <!-- Articles -->
                         <div class="row">
                             <article class="col-12">
                                 <h2>Life Insurance</h2>
                                 <p>Put your knowledge to the test with this Life insurance test!</p>
                                 
-                                    <p><a href="tests/Life.php?AGENCY=<?php echo $AGENCY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
-                                    <a href="Life.php?AGENCY=<?php echo $AGENCY; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
+                                    <p><a href="tests/Life.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
+                                    <a href="Life.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
                                 
                                 <br>
                                
-                                <p><a href="tests/Protection.php?AGENCY=<?php echo $AGENCY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
-                                <a href="Protection.php?AGENCY=<?php echo $AGENCY; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
+                                <p><a href="tests/Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
+                                <a href="Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
                                 
                                 <br>
-                                <p class="pull-right"><a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $AGENCY; ?>" class="btn btn-outline-info"><i class="fa fa-question-circle"></i> Jargon Buster</a></p>
+                                <p class="pull-right"><a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-question-circle"></i> Jargon Buster</a></p>
                               
                             </article>
                         </div>
@@ -206,13 +196,38 @@ if (isset($EXECUTE) && $AGENCY) {
                             </div>
                             <div class="card-block">
                                 <p class="card-text">Recording compliance grades for this month.</p>
-                                 <center><div class="btn-group btn-group" role="group">
+                               
+                             <?php 
+                         $database = new Database();  
+                         
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Audited'");
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $NO_AUDIT_COUNT = $database->single();
+                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+     
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $GREEN_COUNT = $database->single();
+                        $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $AMBER_COUNT = $database->single();
+                        $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $RED_COUNT = $database->single();
+                        $RED_VAR= htmlentities($RED_COUNT['badge']);
                                    
-                                    <button type="button" class="btn btn-secondary bg-success">Green (7)</button>
-                                    <button type="button" class="btn btn-secondary bg-warning">Amber (1)</button>
-                                    <button type="button" class="btn btn-secondary bg-danger">Red (2)</button>
-                                   
-                                </div> </center>
+                        ?><center>
+                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($GREEN_VAR) && $GREEN_VAR>=1) { echo $GREEN_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($AMBER_VAR) && $AMBER_VAR>=1) { echo $AMBER_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($RED_VAR) && $RED_VAR>=1) { echo $RED_VAR; }  else { echo "0"; } ?>)</button></p>
+                        </center><center>
+                            <p> <button type="button" class="btn btn-secondary bg-info">Awaiting (<?php if(isset($NO_AUDIT) && $NO_AUDIT>=1) { echo $NO_AUDIT; }  else { echo "0"; } ?>)</button></p>
+                        </center>
+                         
                                 <br>
                                 <p><a href="Recordings.php" class="btn btn-outline-info">View Recordings</a></p>
                             </div>
@@ -252,7 +267,7 @@ if (isset($EXECUTE) && $AGENCY) {
                         </div>
 
                     </div><!--/Right Column -->
-<?php } } ?>
+<?php } ?>
             </div>
         </div>
         <!--/container-fluid-->

@@ -22,32 +22,24 @@ if (isset($fferror)) {
     }
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (isset($EXECUTE) && $AGENCY) {
-
-    switch ($AGENCY) {
-        case "TRB":
-            $AGENCY_NAME = "The Review Bureau";
-            break;
-        case "PFP":
-            $AGENCY_NAME = "Protect Family Plans";
-            break;
-        case "PLL":
-            $AGENCY_NAME = "Protected Life Ltd";
-            break;
-        case "WI":
-            $AGENCY_NAME = "We Insure";
-            break;
-        case "TFAC":
-            $AGENCY_NAME = "The Financial Assessment Centre";
-            break;
-        case "APM":
-            $AGENCY_NAME = "Assured Protect and Mortgages";
-            break;
-        default:
-            $AGENCY_NAME = "Not Selected";
-    }
+if (in_array($hello_name, $TRB_ACCESS, true)) {
+  $AGENCY_NAME = "The Review Bureau";  
+}
+if (in_array($hello_name, $PFP_ACCESS, true))  {
+    $AGENCY_NAME = "Protect Family Plans";
+}
+if (in_array($hello_name, $PLL_ACCESS, true))  {
+    $AGENCY_NAME = "Protected Life Ltd";
+}
+if (in_array($hello_name, $WI_ACCESS, true)) {
+  $AGENCY_NAME = "We Insure";  
+}
+if (in_array($hello_name, $TFAC_ACCESS, true)) {
+   $AGENCY_NAME = "The Financial Assessment Centre"; 
+}
+if (in_array($hello_name, $APM_ACCESS, true)) {
+  $AGENCY_NAME = "Assured Protect and Mortgages";  
 }
 
 if(isset($EXECUTE)) {

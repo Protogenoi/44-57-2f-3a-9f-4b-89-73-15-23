@@ -42,7 +42,7 @@ if(isset($EXECUTE)) {
     $COMPANY='Assured Protect and Mortgages';
     }
     
-            if (in_array($hello_name, $MASTER_ACCESS, true)) { 
+            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
          $query = $pdo->prepare("SELECT life_test_two_company, life_test_two_advisor, life_test_two_mark, life_test_two_grade, life_test_two_added_date, life_test_two_id FROM life_test_two ORDER BY life_test_two_added_date DESC");
         $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));

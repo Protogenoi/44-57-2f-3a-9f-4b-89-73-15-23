@@ -1242,8 +1242,7 @@ if (isset($fileuploadedfail)) {
 ?>
                 <div class="container">
 
-                    <form action="/uploadsubmit.php?life=y" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="uploadclientid" value="<?php echo $search; ?>">
+                    <form action="/life_upload.php?life=y&CID=<?php echo $search; ?>" method="post" enctype="multipart/form-data">
                         <label for="file">Select file...<input type="file" name="file" /></label> 
 
                         <label for="uploadtype">
@@ -1283,8 +1282,7 @@ if (isset($fileuploadedfail)) {
                                 </select>
                             </div>
                         </label>
-
-                        <input type="hidden" name="search" value="<?php echo $search; ?>">
+                        
                         <button type="submit" class="btn btn-success" name="btn-upload"><span class="glyphicon glyphicon-arrow-up"> </span></button>
                     </form>
                     <br /><br />

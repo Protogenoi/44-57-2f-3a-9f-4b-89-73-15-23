@@ -66,12 +66,16 @@ if(isset($EXECUTE)) {
         if (in_array($hello_name, $APM_ACCESS, true)) { 
     $COMPANY='Assured Protect and Mortgages';
     }
+                if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    $COMPANY='The Review Bureau';
+    $hello_name="Michael Owen";
+    }
 
     
     if($EXECUTE=='1') {
         
-    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_recordings WHERE compliance_agents_company=:COMANY AND compliance_agents_name=:NAME");
-    $query->bindParam(':NANE', $hello_name, PDO::PARAM_INT);
+    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+    $query->bindParam(':NAME', $hello_name, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 

@@ -65,11 +65,24 @@ if(isset($EXECUTE)) {
     $COMPANY='Assured Protect and Mortgages';
     }
     
+    if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+        
+    $query = $pdo->prepare("SELECT compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_id=:RID");
+    $query->bindParam(':RID', $RID, PDO::PARAM_INT);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC);        
+        
+    } 
+    
+    else { 
+        
     $query = $pdo->prepare("SELECT compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_company=:COMPANY AND compliance_recordings_id=:RID");
     $query->bindParam(':RID', $RID, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);
+    
+    }
     
     $RID_AUDITED_BY=$data1['compliance_recordings_audited_by'];
     $TEST_AUDIT_DATE=$data1['compliance_recordings_audited_date'];

@@ -53,7 +53,20 @@ if(isset($EXECUTE)) {
     
     if($EXECUTE=='1') {
 
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+            
+        $UPDATE = $pdo->prepare("UPDATE compliance_recordings SET compliance_recordings_audited_by=:AUDIT, compliance_recordings_audited_date=CURRENT_TIMESTAMP, compliance_recordings_grade=:GRADE, compliance_recordings_comments=:NOTES, compliance_recordings_status=:STATUS WHERE compliance_recordings_id=:RID");
+        $UPDATE->bindParam(':RID', $RID, PDO::PARAM_STR);
+        $UPDATE->bindParam(':AUDIT', $hello_name, PDO::PARAM_STR);
+        $UPDATE->bindParam(':GRADE', $GRADE, PDO::PARAM_STR);
+        $UPDATE->bindParam(':NOTES', $RID_COMMENTS, PDO::PARAM_STR);
+        $UPDATE->bindParam(':STATUS', $STATUS, PDO::PARAM_STR);
+        $UPDATE->execute();            
+            
+        }
 
+        else {
+            
         $UPDATE = $pdo->prepare("UPDATE compliance_recordings SET compliance_recordings_audited_by=:AUDIT, compliance_recordings_audited_date=CURRENT_TIMESTAMP, compliance_recordings_grade=:GRADE, compliance_recordings_comments=:NOTES, compliance_recordings_status=:STATUS WHERE compliance_recordings_id=:RID AND compliance_recordings_company=:COMPANY");
         $UPDATE->bindParam(':RID', $RID, PDO::PARAM_STR);
         $UPDATE->bindParam(':AUDIT', $hello_name, PDO::PARAM_STR);
@@ -62,6 +75,8 @@ if(isset($EXECUTE)) {
         $UPDATE->bindParam(':NOTES', $RID_COMMENTS, PDO::PARAM_STR);
         $UPDATE->bindParam(':STATUS', $STATUS, PDO::PARAM_STR);
         $UPDATE->execute();
+        
+        }
 
         
         header('Location: ../Recordings.php?RETURN=RECUPDATED');

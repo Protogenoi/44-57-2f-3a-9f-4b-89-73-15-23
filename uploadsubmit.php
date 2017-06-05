@@ -87,8 +87,6 @@ if(isset($btnupload)) {
  $LOCATION="uploads/compliance/recordings/$COMPANY/$final_file";
  
  if(move_uploaded_file($file_loc,$folder.$final_file)) {
-
-     echo "NAME $AGENT_NAME $COMPANY_NAME";
      
          $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
     $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
@@ -119,6 +117,91 @@ header('Location: /compliance/Recordings.php?RETURN=UPFAIL'); die;
             }
             
         }
+        
+        if($EXECUTE=='2') {
+            
+            if(isset($_FILES['file'])) {
+            
+            $DOC_TITLE= filter_input(INPUT_POST, 'DOC_TITLE', FILTER_SANITIZE_SPECIAL_CHARS);
+            $DOC_COMPANY= filter_input(INPUT_POST, 'DOC_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
+  
+            if($_FILES['file']['size'] > 40000000) {
+                header('Location: /Compliance.php?RETURN=UPMAX'); die;
+            }
+         
+  if (in_array($hello_name, $TRB_ACCESS, true)) { 
+    $COMPANY='TRB';
+    $COMPANY_NAME='The Review Bureau';
+    }
+        if (in_array($hello_name, $PFP_ACCESS, true)) { 
+    $COMPANY='PFP';
+    $COMPANY_NAME='Protect Family Plans';
+    }
+        if (in_array($hello_name, $PLL_ACCESS, true)) { 
+    $COMPANY='PLL';
+    $COMPANY_NAME='Protected Life Ltd';
+    }
+        if (in_array($hello_name, $WI_ACCESS, true)) { 
+    $COMPANY='WI';
+    $COMPANY_NAME='We Insure';
+    }
+        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
+    $COMPANY='TFAC';
+    $COMPANY_NAME='The Financial Assessment Centre';
+    }
+        if (in_array($hello_name, $APM_ACCESS, true)) { 
+    $COMPANY='APM';
+    $COMPANY_NAME='Assured Protect and Mortgages';
+    }   
+          if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    $COMPANY='TRB';
+    $COMPANY_NAME=$DOC_COMPANY;
+    }    
+
+$btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
+ 
+
+if(isset($btnupload)) {    
+     
+ $file = $COMPANY."-".$_FILES['file']['name'];
+ $file_loc = $_FILES['file']['tmp_name'];
+ $file_size = $_FILES['file']['size'];
+ $file_type = $_FILES['file']['type'];
+ 
+ if (!file_exists("uploads/compliance/docs/$COMPANY")) {
+    mkdir("uploads/compliance/docs/$COMPANY", 0777, true);
+}
+
+ $folder="uploads/compliance/docs/$COMPANY/";
+ 
+ $new_size = $file_size/1024;  
+ $new_file_name = strtolower($file);
+
+ $final_file=str_replace("'","",$new_file_name);
+ $LOCATION="uploads/compliance/docs/$COMPANY/$final_file";
+ 
+ if(move_uploaded_file($file_loc,$folder.$final_file)) {
+     
+$UPLOAD = $pdo->prepare("INSERT INTO compliance_uploads set compliance_uploads_title=:TITLE, compliance_uploads_company=:COMPANY, compliance_uploads_uploaded_by=:HELLO, compliance_uploads_location=:LOCATION");
+$UPLOAD->bindParam(':LOCATION',$LOCATION, PDO::PARAM_STR);
+$UPLOAD->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);
+$UPLOAD->bindParam(':TITLE',$DOC_TITLE, PDO::PARAM_STR);
+$UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
+$UPLOAD->execute();  
+
+ header('Location: /compliance/Compliance.php?RETURN=UPLOAD'); die;
+ }
+
+}
+
+header('Location: /compliance/Compliance.php?RETURN=UPFAIL'); die;
+            }
+            
+            else {
+              header('Location: /compliance/Compliance.php?RETURN=UPNO'); die;  
+            }
+            
+        }        
                 if($EXECUTE=='10') {
             
             

@@ -52,10 +52,19 @@ if(isset($EXECUTE)) {
 
     
     if($EXECUTE=='1') {
+        
+    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_recordings WHERE compliance_agents_company=:COMANY AND compliance_agents_name=:NAME");
+    $query->bindParam(':NANE', $hello_name, PDO::PARAM_INT);
+    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['compliance_agents_id'];
 
         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
             
-        $UPDATE = $pdo->prepare("UPDATE compliance_recordings SET compliance_recordings_audited_by=:AUDIT, compliance_recordings_audited_date=CURRENT_TIMESTAMP, compliance_recordings_grade=:GRADE, compliance_recordings_comments=:NOTES, compliance_recordings_status=:STATUS WHERE compliance_recordings_id=:RID");
+        $UPDATE = $pdo->prepare("UPDATE compliance_recordings SET compliance_recordings_id_fk=:FK, compliance_recordings_audited_by=:AUDIT, compliance_recordings_audited_date=CURRENT_TIMESTAMP, compliance_recordings_grade=:GRADE, compliance_recordings_comments=:NOTES, compliance_recordings_status=:STATUS WHERE compliance_recordings_id=:RID");
+        $UPDATE->bindParam(':FK', $ID_FK, PDO::PARAM_STR);
         $UPDATE->bindParam(':RID', $RID, PDO::PARAM_STR);
         $UPDATE->bindParam(':AUDIT', $hello_name, PDO::PARAM_STR);
         $UPDATE->bindParam(':GRADE', $GRADE, PDO::PARAM_STR);

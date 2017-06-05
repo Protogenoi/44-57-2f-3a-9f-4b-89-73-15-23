@@ -69,8 +69,17 @@ if(isset($EXECUTE)) {
 
     
     if($EXECUTE=='1') {
+        
+    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_recordings WHERE compliance_agents_company=:COMANY AND compliance_agents_name=:NAME");
+    $query->bindParam(':NANE', $hello_name, PDO::PARAM_INT);
+    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['compliance_agents_id'];
 
-        $INSERT = $pdo->prepare("INSERT INTO life_test_two SET life_test_two_company=:COMPANY, life_test_two_advisor=:ADVISOR");
+        $INSERT = $pdo->prepare("INSERT INTO life_test_two SET life_test_two_id_fk=:FK, life_test_two_company=:COMPANY, life_test_two_advisor=:ADVISOR");
+        $INSERT->bindParam(':FK', $ID_FK, PDO::PARAM_STR);
         $INSERT->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
         $INSERT->bindParam(':ADVISOR', $hello_name, PDO::PARAM_STR);
         $INSERT->execute();

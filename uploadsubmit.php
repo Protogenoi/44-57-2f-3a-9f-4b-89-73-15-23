@@ -29,6 +29,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
             if(isset($_FILES['file'])) {
             
             $RECORDING_DATE= filter_input(INPUT_POST, 'RECORDING_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+            $AGENT_NAME= filter_input(INPUT_POST, 'AGENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
   
             if($_FILES['file']['size'] > 40000000) {
                 header('Location: /Recordings.php?RETURN=UPMAX'); die;
@@ -57,7 +58,11 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         if (in_array($hello_name, $APM_ACCESS, true)) { 
     $COMPANY='APM';
     $COMPANY_NAME='Assured Protect and Mortgages';
-    }            
+    }   
+          if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    $COMPANY='TRB';
+    $COMPANY_NAME='The Review Bureau';
+    }    
 
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
  
@@ -83,11 +88,20 @@ if(isset($btnupload)) {
  
  if(move_uploaded_file($file_loc,$folder.$final_file)) {
 
-     echo "$LOCATION, $hello_name, $RECORDING_DATE, $COMPANY_NAME";
+     echo "NAME $AGENT_NAME $COMPANY_NAME";
      
-$UPLOAD = $pdo->prepare("INSERT INTO compliance_recordings set compliance_recordings_company=:COMPANY, compliance_recordings_advisor=:ADVISOR, compliance_recordings_location=:LOCATION, compliance_recordings_recording_date=:DATE");
+         $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+    $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
+    $query->bindParam(':COMPANY', $COMPANY_NAME, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['compliance_agents_id'];
+     
+$UPLOAD = $pdo->prepare("INSERT INTO compliance_recordings set compliance_recordings_id_fk=:FK, compliance_recordings_company=:COMPANY, compliance_recordings_advisor=:ADVISOR, compliance_recordings_location=:LOCATION, compliance_recordings_recording_date=:DATE");
+$UPLOAD->bindParam(':FK',$ID_FK, PDO::PARAM_STR);
 $UPLOAD->bindParam(':LOCATION',$LOCATION, PDO::PARAM_STR);
-$UPLOAD->bindParam(':ADVISOR',$hello_name, PDO::PARAM_STR);
+$UPLOAD->bindParam(':ADVISOR',$AGENT_NAME, PDO::PARAM_STR);
 $UPLOAD->bindParam(':DATE',$RECORDING_DATE, PDO::PARAM_STR);
 $UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
 $UPLOAD->execute();  

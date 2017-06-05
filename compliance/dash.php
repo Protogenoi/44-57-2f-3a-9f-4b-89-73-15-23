@@ -144,6 +144,14 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                         <hr>
                         <div class="row">
                             <article class="col-12">
+                                <h2>Compliance</h2>
+                                <p>Upload or read through Compliance guidelines and documents.</p>
+                                <p><a href="Compliance.php" class="btn btn-outline-primary">Read More</button></a>
+                            </article>
+                        </div>                        
+                        <hr>
+                        <div class="row">
+                            <article class="col-12">
                                 <h2>Data Protection</h2>
                                 <p>Brush up on your knowledge for Data Protection.</p>
                                 <p><button class="btn btn-outline-primary">Read More</button></p>

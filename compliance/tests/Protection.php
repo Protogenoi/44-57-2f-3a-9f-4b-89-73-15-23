@@ -46,12 +46,23 @@ if(isset($EXECUTE)) {
     $COMPANY='Assured Protect and Mortgages';
     }
     
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+       $query = $pdo->prepare("SELECT life_test_two_company, life_test_two_advisor, life_test_two_mark, life_test_two_grade, life_test_two_added_date, life_test_two_id FROM life_test_two WHERE life_test_two_id=:TID");
+    $query->bindParam(':TID', $TID, PDO::PARAM_INT);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC);         
+        }
+    
+        else {
+        
     $query = $pdo->prepare("SELECT life_test_two_company, life_test_two_advisor, life_test_two_mark, life_test_two_grade, life_test_two_added_date, life_test_two_id FROM life_test_two WHERE life_test_two_id=:TID and life_test_two_company=:COMPANY");
     $query->bindParam(':TID', $TID, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);
     
+        }
+    $TEST_COMPANY=$data1['life_test_two_company'];
     $TEST_NAME=$data1['life_test_two_advisor'];
     $TEST_MARK=$data1['life_test_two_mark'];
     $TEST_GRADE=$data1['life_test_two_grade'];
@@ -114,7 +125,7 @@ $q=1;
             <form action="<?php if(!isset($EXCUTE)) { ?>/compliance/php/Protection.php?EXECUTE=1<?php } else { }?> " method="POST"><br>
 
     <div class="card">
-        <h4 class="card-header card-info"> <?php if(isset($EXECUTE)) { if($EXECUTE=='2') { echo "Test results for $TEST_NAME ($TEST_MARK/15) Grade: $TEST_GRADE"; } } else { echo "Answer all questions from 1 - 15, as best as you can."; } ?></h4>
+        <h4 class="card-header card-info"> <?php if(isset($EXECUTE)) { if($EXECUTE=='2') { echo "Test results for $TEST_NAME | Company: $TEST_COMPANY ($TEST_MARK/15) Grade: $TEST_GRADE"; } } else { echo "Answer all questions from 1 - 15, as best as you can."; } ?></h4>
         
     <div class="card card-block">
 <fieldset class="form-group row" <?php if(!isset($EXECUTE)) { } else { echo "disabled"; } ?>>

@@ -1,6 +1,3 @@
-<?php
-$test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
-?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Real Time Report</title>
@@ -35,42 +32,40 @@ $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 </script>
 </head>
 <body>
-<?php 
-
-if(isset($test)){
-    include("../includes/DATA_DIALLER_PDO_CON.php"); 
-} else {
-    include("../includes/DIALLER_PDO_CON.php");                        
-}
-
-?>
+<?php include("../includes/DIALLER_PDO_CON.php"); ?>
 
   <div class="container">
-
-
 <?php
 
-$Closer_query = $TRB_DB_PDO->prepare("select 
-vicidial_users.full_name
-, vicidial_live_agents.uniqueid
-, vicidial_live_agents.status
-, vicidial_live_agents.pause_code
-, vicidial_auto_calls.phone_number
-, vicidial_users.full_name
-, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time
-from vicidial_agent_log
-JOIN vicidial_users ON vicidial_users.user = vicidial_agent_log.user
-JOIN vicidial_live_inbound_agents on vicidial_users.full_name = vicidial_live_inbound_agents.group_id
-JOIN vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
-LEFT JOIN vicidial_list on vicidial_live_agents.lead_id =vicidial_list.lead_id
-LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
-LEFT JOIN vicidial_lists on vicidial_list.list_id = vicidial_lists.list_id
-WHERE vicidial_agent_log.event_time >= CURRENT_DATE()
-AND vicidial_agent_log.campaign_id IN ('15','36')
-GROUP by vicidial_agent_log.user
-order by vicidial_live_agents.status ASC,
-last_state_change
- limit 10
+$Closer_query = $TRB_DB_PDO->prepare("SELECT 
+    vicidial_users.full_name,
+    vicidial_live_agents.uniqueid,
+    vicidial_live_agents.status,
+    vicidial_live_agents.pause_code,
+    vicidial_auto_calls.phone_number,
+    vicidial_users.full_name,
+    TIMEDIFF(CURRENT_TIMESTAMP,
+            vicidial_live_agents.last_state_change) AS Time
+FROM
+    vicidial_agent_log
+        JOIN
+    vicidial_users ON vicidial_users.user = vicidial_agent_log.user
+        JOIN
+    vicidial_live_inbound_agents ON vicidial_users.full_name = vicidial_live_inbound_agents.group_id
+        JOIN
+    vicidial_live_agents ON vicidial_agent_log.user = vicidial_live_agents.user
+        LEFT JOIN
+    vicidial_list ON vicidial_live_agents.lead_id = vicidial_list.lead_id
+        LEFT JOIN
+    vicidial_auto_calls ON vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
+        LEFT JOIN
+    vicidial_lists ON vicidial_list.list_id = vicidial_lists.list_id
+WHERE
+    vicidial_agent_log.event_time >= CURRENT_DATE()
+        AND vicidial_agent_log.campaign_id = '25'
+GROUP BY vicidial_agent_log.user
+ORDER BY vicidial_live_agents.status ASC , last_state_change
+LIMIT 10
 ;");
 
 echo "<table id='main2' border='1' align=\"center\">";
@@ -126,7 +121,26 @@ elseif ($campaign_id =='10' && $lead_id>'1') {$status = 'TRANSFER'; $class2 = 's
 } 
 echo "</table>";
 
-$lead_for_query = $TRB_DB_PDO->prepare("select vicidial_users.full_name, vicidial_auto_calls.status, vicidial_auto_calls.campaign_id from vicidial_auto_calls JOIN vicidial_list on vicidial_auto_calls.lead_id = vicidial_list.lead_id JOIN vicidial_users on vicidial_users.user = vicidial_list.user where vicidial_auto_calls.status = 'live' AND vicidial_auto_calls.call_type = 'IN' AND vicidial_auto_calls.campaign_id IN ('Richard','Kyle','Sarah','Gavin','Ricky','Rhys','James','Carys','Nathan','Mike')");
+$lead_for_query = $TRB_DB_PDO->prepare("SELECT 
+    vicidial_users.full_name,
+    vicidial_auto_calls.status,
+    vicidial_auto_calls.campaign_id
+FROM
+    vicidial_auto_calls
+        JOIN
+    vicidial_list ON vicidial_auto_calls.lead_id = vicidial_list.lead_id
+        JOIN
+    vicidial_users ON vicidial_users.user = vicidial_list.user
+WHERE
+    vicidial_auto_calls.status = 'live'
+        AND vicidial_auto_calls.call_type = 'IN'
+        AND vicidial_auto_calls.campaign_id IN ('Richard' , 'Kyle',
+        'Sarah',
+        'Gavin',
+        'James',
+        'Carys',
+        'Mike',
+        'Hayley')");
 
 echo "<table id='main2' border='1' align=\"center\" cellspacing=\"5\">";
 
@@ -149,27 +163,13 @@ switch( $result['status'] )
 }
 }
 
-include('../includes/ADL_PDO_CON.php');
-$NEWLEAD = $pdo->prepare("select agent from dealsheet_call ");
-$NEWLEAD->execute();
-if ($NEWLEAD->rowCount()>0) {
-while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 
-?>
-      
-                      <div class="row blink_me">
-                <div class="col-sm-12">
-                    <strong><center><h1 style="color:red;"><i class="fa fa-exclamation"></i> NEW LEAD <?php echo $result['agent']; ?></h1></center></strong>
-                </div>
-      </div>
-      
-      
-      <?php
-
-}
-}
-
-$calls_query = $TRB_DB_PDO->prepare("select status from vicidial_auto_calls where status = 'live' AND call_type = 'OUT'");
+$calls_query = $TRB_DB_PDO->prepare("SELECT 
+    status
+FROM
+    vicidial_auto_calls
+WHERE
+    status = 'live' AND call_type = 'OUT'");
 
 echo "<table border='1' align=\"center\" cellspacing=\"5\">";
 
@@ -191,7 +191,25 @@ switch( $result['status'] )
 }
 echo "</table>";
 
-$query = $TRB_DB_PDO->prepare("SELECT vicidial_users.full_name, vicidial_live_agents.comments, vicidial_auto_calls.phone_number, vicidial_live_agents.status, vicidial_live_agents.pause_code, vicidial_live_agents.uniqueid, TIMEDIFF(current_TIMESTAMP, vicidial_live_agents.last_state_change) as Time FROM vicidial_live_agents JOIN vicidial_users on vicidial_live_agents.user = vicidial_users.user LEFT JOIN vicidial_auto_calls on vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id WHERE vicidial_live_agents.campaign_id IN ('10','13','14') GROUP BY vicidial_users.full_name ORDER BY vicidial_live_agents.status, last_state_change");
+$query = $TRB_DB_PDO->prepare("SELECT 
+    vicidial_users.full_name,
+    vicidial_live_agents.comments,
+    vicidial_auto_calls.phone_number,
+    vicidial_live_agents.status,
+    vicidial_live_agents.pause_code,
+    vicidial_live_agents.uniqueid,
+    TIMEDIFF(CURRENT_TIMESTAMP,
+            vicidial_live_agents.last_state_change) AS Time
+FROM
+    vicidial_live_agents
+        JOIN
+    vicidial_users ON vicidial_live_agents.user = vicidial_users.user
+        LEFT JOIN
+    vicidial_auto_calls ON vicidial_live_agents.lead_id = vicidial_auto_calls.lead_id
+WHERE
+    vicidial_live_agents.campaign_id IN ('10' , '51','50')
+GROUP BY vicidial_users.full_name
+ORDER BY vicidial_live_agents.status , last_state_change");
 echo "<table id='users' border='1' align=\"center\" cellspacing=\"5\">";
 
 $query->execute();

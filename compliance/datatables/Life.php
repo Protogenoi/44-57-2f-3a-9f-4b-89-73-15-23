@@ -49,12 +49,16 @@ if(isset($EXECUTE)) {
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
     }
+    
+    else {
 
         $query = $pdo->prepare("SELECT life_test_one_company, life_test_one_advisor, life_test_one_mark, life_test_one_grade, life_test_one_added_date, life_test_one_id FROM life_test_one WHERE life_test_one_company=:COMPANY ORDER BY life_test_one_added_date DESC");
         $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
+        
+    }
         
 }
 

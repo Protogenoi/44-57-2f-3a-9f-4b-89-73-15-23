@@ -189,7 +189,7 @@ $UPLOAD->bindParam(':TITLE',$DOC_TITLE, PDO::PARAM_STR);
 $UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
 $UPLOAD->execute();  
 
- header('Location: /compliance/Compliance.php?RETURN=UPLOAD'); die;
+ header('Location: /compliance/Compliance.php?RETURN=DOCUPLOAD'); die;
  }
 
 }

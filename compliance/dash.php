@@ -216,12 +216,12 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Amber'");
                         $database->bind(':COMPANY', $AGENCY);
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Red'");
                         $database->bind(':COMPANY', $AGENCY);
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']); 
@@ -240,11 +240,11 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Amber'");
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Red'");
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']);                             
                              }

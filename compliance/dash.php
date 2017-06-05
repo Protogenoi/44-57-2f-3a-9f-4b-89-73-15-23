@@ -22,6 +22,7 @@ if (isset($fferror)) {
     }
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (in_array($hello_name, $TRB_ACCESS, true)) {
   $AGENCY_NAME = "The Review Bureau";  
@@ -40,6 +41,9 @@ if (in_array($hello_name, $TFAC_ACCESS, true)) {
 }
 if (in_array($hello_name, $APM_ACCESS, true)) {
   $AGENCY_NAME = "Assured Protect and Mortgages";  
+}
+if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
+  $AGENCY_NAME = "Master Access";  
 }
 ?>
 <!DOCTYPE html>
@@ -85,22 +89,22 @@ if (in_array($hello_name, $APM_ACCESS, true)) {
                         </div>
                          <div class="list-group list-group-flush">
                              <?php if (in_array($hello_name, $TRB_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=TRB&EXECUTE=1" class="list-group-item list-group-item-action">The Review Bureau</a>
+                            <a href="?AGENCY=The Review Bureau&EXECUTE=1" class="list-group-item list-group-item-action">The Review Bureau</a>
                              <?php } 
                             if (in_array($hello_name, $PFP_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=PFP&EXECUTE=1" class="list-group-item list-group-item-action">Protect Family Plans</a>
+                            <a href="?AGENCY=Protect Family Plans&EXECUTE=1" class="list-group-item list-group-item-action">Protect Family Plans</a>
                             <?php } 
                             if (in_array($hello_name, $PLL_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=PLL&EXECUTE=1" class="list-group-item list-group-item-action">Protected Life Ltd</a>
+                            <a href="?AGENCY=Protected Life Ltd&EXECUTE=1" class="list-group-item list-group-item-action">Protected Life Ltd</a>
                             <?php } 
                             if (in_array($hello_name, $WI_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=WI&EXECUTE=1" class="list-group-item list-group-item-action">We Insure</a>
+                            <a href="?AGENCY=We Insure&EXECUTE=1" class="list-group-item list-group-item-action">We Insure</a>
                             <?php } 
                             if (in_array($hello_name, $TFAC_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=TFAC&EXECUTE=1" class="list-group-item list-group-item-action">The Financial Assessment Centre</a>
+                            <a href="?AGENCY=The Financial Assessment CentreC&EXECUTE=1" class="list-group-item list-group-item-action">The Financial Assessment Centre</a>
                             <?php } 
                             if (in_array($hello_name, $APM_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=APM&EXECUTE=1" class="list-group-item list-group-item-action">Assured Protect and Mortgages</a>
+                            <a href="?AGENCY=Assured Protect and Mortgages&EXECUTE=1" class="list-group-item list-group-item-action">Assured Protect and Mortgages</a>
                             <?php } ?>
                         </div> 
 
@@ -198,9 +202,59 @@ if (in_array($hello_name, $APM_ACCESS, true)) {
                                 <p class="card-text">Recording compliance grades for this month.</p>
                                
                              <?php 
+                             
+                         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
+                             if(isset($AGENCY)) {
+                                   $database = new Database();
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Graded'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $NO_AUDIT_COUNT = $database->single();
+                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+     
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $GREEN_COUNT = $database->single();
+                        $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $AMBER_COUNT = $database->single();
+                        $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $RED_COUNT = $database->single();
+                        $RED_VAR= htmlentities($RED_COUNT['badge']); 
+                             }
+                             
+                             if(!isset($AGENCY)) {
+                                 
+                             
+                             $database = new Database();
+                             
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Not Graded'");
+                        $NO_AUDIT_COUNT = $database->single();
+                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+     
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $GREEN_COUNT = $database->single();
+                        $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $AMBER_COUNT = $database->single();
+                        $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $RED_COUNT = $database->single();
+                        $RED_VAR= htmlentities($RED_COUNT['badge']);                             
+                             }
+                         }
+                         
+                         else {
+                             
                          $database = new Database();  
                          
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Audited'");
+                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Graded'");
                         $database->bind(':COMPANY', $AGENCY_NAME);
                         $NO_AUDIT_COUNT = $database->single();
                         $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
@@ -219,6 +273,8 @@ if (in_array($hello_name, $APM_ACCESS, true)) {
                         $database->bind(':COMPANY', $AGENCY_NAME);
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']);
+                        
+                         }
                                    
                         ?><center>
                             <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($GREEN_VAR) && $GREEN_VAR>=1) { echo $GREEN_VAR; }  else { echo "0"; } ?>)</button>

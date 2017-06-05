@@ -29,6 +29,7 @@ if(isset($EXECUTE)) {
     $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
     $STATUS = filter_input(INPUT_POST, 'STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
     $RID_COMMENTS = filter_input(INPUT_POST, 'RID_COMMENTS', FILTER_SANITIZE_SPECIAL_CHARS);
+    $AGENT_NAME = filter_input(INPUT_POST, 'AGENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
     $RID = filter_input(INPUT_GET, 'RID', FILTER_SANITIZE_NUMBER_INT);
     
     if (in_array($hello_name, $TRB_ACCESS, true)) { 
@@ -49,12 +50,15 @@ if(isset($EXECUTE)) {
         if (in_array($hello_name, $APM_ACCESS, true)) { 
     $COMPANY='Assured Protect and Mortgages';
     }
+            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    $COMPANY='The Review Bureau';
+    }
 
     
     if($EXECUTE=='1') {
         
-    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_recordings WHERE compliance_agents_company=:COMANY AND compliance_agents_name=:NAME");
-    $query->bindParam(':NANE', $hello_name, PDO::PARAM_INT);
+    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+    $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 

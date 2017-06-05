@@ -134,12 +134,19 @@ if($password==$confirm) {
 
 
 function adduser($pdo,$password,$login,$name,$info,$email) {
+
+    $options = [
+    'cost' => 9,
+];
+    
+$HASH= password_hash($password, PASSWORD_BCRYPT, $options);    
        
 $hasspassword=md5($password);
 
-$adduser = $pdo->prepare("INSERT INTO users set login=:login, pw=:password, real_name=:name, extra_info=:info, email=:email");
+$adduser = $pdo->prepare("INSERT INTO users set login=:login, pw=:password, real_name=:name, extra_info=:info, email=:email, hash=:HASH");
 $adduser->bindParam(':login',$login, PDO::PARAM_STR, 255);
 $adduser->bindParam(':password',$hasspassword, PDO::PARAM_STR, 255);
+$adduser->bindParam(':HASH',$HASH, PDO::PARAM_STR);
 $adduser->bindParam(':name',$name, PDO::PARAM_STR, 255);
 $adduser->bindParam(':info',$info, PDO::PARAM_STR, 255);
 $adduser->bindParam(':email',$email, PDO::PARAM_STR, 255);
@@ -158,7 +165,6 @@ adduser($pdo,$password,$login,$name,$info,$email);
 
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
-        echo "EXECUTE";
         
         $USER_USERNAME= filter_input(INPUT_POST, 'USER_USERNAME', FILTER_SANITIZE_SPECIAL_CHARS);
         $USER_LOGIN= filter_input(INPUT_POST, 'USER_LOGIN', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -168,11 +174,19 @@ if(isset($EXECUTE)) {
         $USER_ID= filter_input(INPUT_GET, 'USER_ID', FILTER_SANITIZE_NUMBER_INT);
         
         function updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE) {
-echo "FUNCTION";
+
                         $PASS_CHECK = $pdo->prepare("SELECT id from users WHERE id=:UID AND pw=:PASS");
                         $PASS_CHECK->bindParam(':UID', $USER_ID, PDO::PARAM_INT);
                         $PASS_CHECK->bindParam(':PASS', $USER_PW, PDO::PARAM_STR);
                         $PASS_CHECK->execute();
+                        
+                        $hasspassword=md5($USER_PW);
+                        
+                            $options = [
+                                'cost' => 9,
+                                ];
+                            
+                            $HASH= password_hash($USER_PW, PASSWORD_BCRYPT, $options); 
                         
                         if ($PASS_CHECK->rowCount() >= 1) {
                             echo "TEST";
@@ -187,12 +201,11 @@ echo "FUNCTION";
                         }
                         
                         else {
-                            echo "ELSE";
-                            $hasspassword=md5($USER_PW);
                             
-                            $PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, pw=:PASS, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
+                            $PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, hash=:HASH, pw=:PASS, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
                             $PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
                             $PASS_QRY->bindParam(':PASS',$hasspassword, PDO::PARAM_STR, 255);
+                            $PASS_QRY->bindParam(':HASH',$HASH, PDO::PARAM_STR);
                             $PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);
                             $PASS_QRY->bindParam(':ACCESS',$USER_ACCESS_LEVEL, PDO::PARAM_STR);
                             $PASS_QRY->bindParam(':UID',$USER_ID, PDO::PARAM_INT);
@@ -201,8 +214,6 @@ echo "FUNCTION";
                             
                             }
                             
-                            
-                            
                             header('Location: /admin/Admindash.php?users=y&adduser=2&user='.$USER_LOGIN); die;
                             
                         }
@@ -210,5 +221,42 @@ echo "FUNCTION";
                         }
                         
                         }
+                        
+	function access_page($refer = "", $qs = "", $level = DEFAULT_ACCESS_LEVEL) {
+		$refer_qs = $refer;
+		$refer_qs .= ($qs != "") ? "?".$qs : "";
+		if (!$this->check_user()) {
+			$_SESSION['referer'] = $refer_qs;
+			header("Location: ".$this->login_page);
+			exit;
+		}
+		if ($this->get_access_level() < $level) {
+			header("Location: ".$this->deny_access_page);
+			exit;
+		}
+	}                        
 
+	function get_user_info($pdo,$USER_LOGIN,$USER_PW) {
+                        
+                        $hasspassword=md5($USER_PW);
+                        
+                            $options = [
+                                'cost' => 9,
+                                ];
+                            
+                            $HASH= password_hash($USER_PW, PASSWORD_BCRYPT, $options);             
+            
+                            $INFO_QRY = $pdo->prepare("SELECT real_name, extra_info, email, id FROM users WHERE login=:LOGIN, pw=:PASS, hash=:HASH");
+                            $INFO_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
+                            $INFO_QRY->bindParam(':PASS',$hasspassword, PDO::PARAM_STR, 255);
+                            $INFO_QRY->bindParam(':HASH',$HASH, PDO::PARAM_STR);
+                            $INFO_QRY->execute()or die(print_r($INFO_QRY->errorInfo(), true)); 
+                            $INFO_RESULT=$INFO_QRY->fetch(PDO::FETCH_ASSOC);
+                            
+                            $this->id = $INFO_RESULT['id'];
+                            $this->user_full_name = $INFO_RESULT['real_name'];
+                            $this->user_info = $INFO_RESULT['extra_info'];
+                            $this->user_email = $INFO_RESULT['email'];
+ 
+	}                        
 ?>

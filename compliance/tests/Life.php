@@ -65,12 +65,23 @@ if(isset($EXECUTE)) {
     $COMPANY='Assured Protect and Mortgages';
     }
     
-    $query = $pdo->prepare("SELECT life_test_one_company, life_test_one_advisor, life_test_one_mark, life_test_one_grade, life_test_one_added_date, life_test_one_id FROM life_test_one WHERE life_test_one_id=:TID and life_test_one_company=:COMPANY");
+    if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
+        
+           $query = $pdo->prepare("SELECT life_test_one_company, life_test_one_advisor, life_test_one_mark, life_test_one_grade, life_test_one_added_date, life_test_one_id FROM life_test_one WHERE life_test_one_id=:TID");
+    $query->bindParam(':TID', $TID, PDO::PARAM_INT);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    }
+    
+    else {
+            $query = $pdo->prepare("SELECT life_test_one_company, life_test_one_advisor, life_test_one_mark, life_test_one_grade, life_test_one_added_date, life_test_one_id FROM life_test_one WHERE life_test_one_id=:TID and life_test_one_company=:COMPANY");
     $query->bindParam(':TID', $TID, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);
+    }
     
+$TEST_COMPANY=$data1['life_test_one_company'];
     $TEST_NAME=$data1['life_test_one_advisor'];
     $TEST_MARK=$data1['life_test_one_mark'];
     $TEST_GRADE=$data1['life_test_one_grade'];
@@ -142,10 +153,10 @@ $q=1;
         
         <div class="container">
             
-            <form action="<?php if(!isset($EXECUTE)) { } else { ?>/compliance/php/Life.php?EXECUTE=1<?php } ?>" method="POST"><br>
+            <form action="<?php if(isset($EXECUTE)) { } else { ?>/compliance/php/Life.php?EXECUTE=1<?php } ?>" method="POST"><br>
 
     <div class="card">
-        <h4 class="card-header card-info"> <?php if(isset($EXECUTE)) { if($EXECUTE=='2') { echo "Test results for $TEST_NAME ($TEST_MARK/14) Grade: $TEST_GRADE"; } } else { echo "Answer all questions from 1 - 14"; } ?></h4>
+        <h4 class="card-header card-info"> <?php if(isset($EXECUTE)) { if($EXECUTE=='2') { echo "Test results for $TEST_NAME | Company: $TEST_COMPANY  ($TEST_MARK/14) Grade: $TEST_GRADE"; } } else { echo "Answer all questions from 1 - 14"; } ?></h4>
         
     <div class="card card-block">
 <fieldset class="form-group row" <?php if(!isset($EXECUTE)) { } else { echo "disabled"; } ?>>

@@ -67,7 +67,7 @@ if(isset($EXECUTE)) {
     
     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
         
-    $query = $pdo->prepare("SELECT compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_id=:RID");
+    $query = $pdo->prepare("SELECT compliance_recordings_location, compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_id=:RID");
     $query->bindParam(':RID', $RID, PDO::PARAM_INT);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);        
@@ -76,7 +76,7 @@ if(isset($EXECUTE)) {
     
     else { 
         
-    $query = $pdo->prepare("SELECT compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_company=:COMPANY AND compliance_recordings_id=:RID");
+    $query = $pdo->prepare("SELECT compliance_recordings_location, compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_company=:COMPANY AND compliance_recordings_id=:RID");
     $query->bindParam(':RID', $RID, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
@@ -93,6 +93,7 @@ if(isset($EXECUTE)) {
     $RID_DATE=$data1['compliance_recordings_recording_date'];
     $RID_COMPANY=$data1['compliance_recordings_company'];
     $RID_GRADE=$data1['compliance_recordings_grade'];
+    $RID_LOCATION=$data1['compliance_recordings_location'];
 
 }
 ?>
@@ -124,7 +125,9 @@ if(isset($EXECUTE)) {
     <div class="card card-block">
 <fieldset class="form-group row">
 <div class="col-9">
-
+    
+    <a href='<?php if(isset($RID_LOCATION)) { echo "/../$RID_LOCATION"; } ?>'><i class="fa fa-headphones"></i> Listen to Recording</a><br>
+<input type="hidden" name="AGENT_NAME" value="<?php if(isset($RID_ADVISOR)) { echo $RID_ADVISOR; }?>"
   <div class="form-group">
                             <label for='GRADE'>Grade:</label>
                             <select class="form-control" name="GRADE" required>
@@ -171,7 +174,7 @@ if(isset($EXECUTE)) {
 </form> 
           
    </div>
-        
+       
         
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>

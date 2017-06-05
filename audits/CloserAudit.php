@@ -140,8 +140,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     <option value="Joe Rimmell">Joe Rimmell</option>
                                     <option value="Jordan Davies">Jordan Davies</option>
                                     <option value="Matthew Brace">Matthew Brace</option>  
-                                    <option value="Sam Morris">Sam Morris</option> 
-                                    <option value="Steve Pattin">Steve Pattin</option> 
+                                    <option value="Jake Wood">Jake Wood</option> 
                                     <option value="James Keen">James Keen</option> 
                                 <?php } ?>
                             </select>

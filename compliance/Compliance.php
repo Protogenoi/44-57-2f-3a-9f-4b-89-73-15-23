@@ -188,7 +188,7 @@ ADL
                         {"data": "compliance_uploads_company"},
                         {"data": "compliance_uploads_location",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/../' + data + '"><i class="fa fa-search"></i></a>';
+                                return '<a href="/../' + data + '" target="_blank"><i class="fa fa-search"></i></a>';
                             }}
                     ]
                 });

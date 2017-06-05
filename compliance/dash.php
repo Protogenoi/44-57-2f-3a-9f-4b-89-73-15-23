@@ -287,7 +287,90 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                                 <br>
                                 <p><a href="Recordings.php" class="btn btn-outline-info">View Recordings</a></p>
                             </div>
-                        </div>	
+                        </div>
+                        
+                         <div class="card">
+                            <div class="card-header p-b-0">
+                                <h5 class="card-title">
+                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                                    Insurance Test Results
+                                </h5>
+                            </div>
+                            <div class="card-block">
+                                <p class="card-text">Test Results grades for this month.</p>
+                               
+                             <?php 
+                             
+                         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
+                             if(isset($AGENCY)) {
+                                   $database = new Database();
+     
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_GREEN_COUNT = $database->single();
+                        $TEST_GREEN_VAR= htmlentities($TEST_GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Amber'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_AMBER_COUNT = $database->single();
+                        $TEST_AMBER_VAR= htmlentities($TEST_AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Red'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_RED_COUNT = $database->single();
+                        $TEST_RED_VAR= htmlentities($TEST_RED_COUNT['badge']); 
+                             }
+                             
+                             if(!isset($AGENCY)) {
+                                 
+                             
+                             $database = new Database();
+                             
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_grade='Green'");
+                        $TEST_GREEN_COUNT = $database->single();
+                        $TEST_GREEN_VAR= htmlentities($TEST_GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_grade='Amber'");
+                        $TEST_AMBER_COUNT = $database->single();
+                        $TEST_AMBER_VAR= htmlentities($TEST_AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_grade='Red'");
+                        $TEST_RED_COUNT = $database->single();
+                        $TEST_RED_VAR= htmlentities($TEST_RED_COUNT['badge']);                           
+                             }
+                         }
+                         
+                         else {
+                             
+                         $database = new Database();  
+                         
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Green'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_GREEN_COUNT = $database->single();
+                        $TEST_GREEN_VAR= htmlentities($TEST_GREEN_COUNT['badge']);
+                                               
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Amber'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_AMBER_COUNT = $database->single();
+                        $TEST_AMBER_VAR= htmlentities($TEST_AMBER_COUNT['badge']);
+                        
+                        $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Red'");
+                        $database->bind(':COMPANY', $AGENCY);
+                        $TEST_RED_COUNT = $database->single();
+                        $TEST_RED_VAR= htmlentities($TEST_RED_COUNT['badge']); 
+                        
+                         }
+                                   
+                        ?><center>
+                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($TEST_GREEN_VAR) && $TEST_GREEN_VAR>=1) { echo $TEST_GREEN_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($TEST_AMBER_VAR) && $TEST_AMBER_VAR>=1) { echo $TEST_AMBER_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($TEST_RED_VAR) && $TEST_RED_VAR>=1) { echo $TEST_RED_VAR; }  else { echo "0"; } ?>)</button></p>
+                        </center>
+                         
+                                <br>
+                                <p><a href="Recordings.php" class="btn btn-outline-info">View Recordings</a></p>
+                            </div>
+                        </div>	                       
 
                         <!-- Progress Bars -->
                         <div class="card">

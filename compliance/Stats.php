@@ -34,7 +34,8 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     header('Location: /index.php?AccessDenied');
     die;
 }
-
+    $YEAR=date('Y');
+    $MONTH=date('M');
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -106,7 +107,7 @@ Sale stats
                                     </form>
        </table>
 
-<h4 class="card-title">Stats for the month</h4>
+<h4 class="card-title">Stats for the month for <?php echo "$MONTH - $YEAR"; ?></h4>
 <?php
 
 if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
@@ -122,7 +123,13 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
     compliance_sale_stats_cancel_rate,
     compliance_sale_stats_advisor
 FROM
-    compliance_sale_stats");
+    compliance_sale_stats
+    WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+     $QUERY->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
+     $QUERY->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
      $QUERY->execute();
     
 }
@@ -143,8 +150,14 @@ else {
 FROM
     compliance_sale_stats
 WHERE
-    compliance_sale_stats_company =:COMPANY");
+    compliance_sale_stats_company =:COMPANY
+    AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
      $QUERY->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+     $QUERY->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
+     $QUERY->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
      $QUERY->execute();
      
 }

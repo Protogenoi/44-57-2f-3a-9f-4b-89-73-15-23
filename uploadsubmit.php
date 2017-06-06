@@ -124,6 +124,7 @@ header('Location: /compliance/Recordings.php?RETURN=UPFAIL'); die;
             
             $DOC_TITLE= filter_input(INPUT_POST, 'DOC_TITLE', FILTER_SANITIZE_SPECIAL_CHARS);
             $DOC_COMPANY= filter_input(INPUT_POST, 'DOC_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
+            $DOC_CAT= filter_input(INPUT_POST, 'DOC_CAT', FILTER_SANITIZE_SPECIAL_CHARS);
   
             if($_FILES['file']['size'] > 40000000) {
                 header('Location: /Compliance.php?RETURN=UPMAX'); die;
@@ -182,10 +183,11 @@ if(isset($btnupload)) {
  
  if(move_uploaded_file($file_loc,$folder.$final_file)) {
      
-$UPLOAD = $pdo->prepare("INSERT INTO compliance_uploads set compliance_uploads_title=:TITLE, compliance_uploads_company=:COMPANY, compliance_uploads_uploaded_by=:HELLO, compliance_uploads_location=:LOCATION");
+$UPLOAD = $pdo->prepare("INSERT INTO compliance_uploads set compliance_uploads_category=:CAT, compliance_uploads_title=:TITLE, compliance_uploads_company=:COMPANY, compliance_uploads_uploaded_by=:HELLO, compliance_uploads_location=:LOCATION");
 $UPLOAD->bindParam(':LOCATION',$LOCATION, PDO::PARAM_STR);
 $UPLOAD->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);
 $UPLOAD->bindParam(':TITLE',$DOC_TITLE, PDO::PARAM_STR);
+$UPLOAD->bindParam(':CAT',$DOC_CAT, PDO::PARAM_STR);
 $UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
 $UPLOAD->execute();  
 

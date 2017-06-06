@@ -232,7 +232,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             if ($ffcompliance == '1') {
                                 ?>
                                 <li>
-                                    <a href="compliance/main.php">
+                                    <a href="compliance/dash.php?EXECUTE=1">
                                         <span class="ca-icon"><i class="fa fa-support"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Compliance<br/> Support</h2>

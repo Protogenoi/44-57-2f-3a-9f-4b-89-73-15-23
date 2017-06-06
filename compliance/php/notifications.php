@@ -53,6 +53,27 @@ if($RETURN=='RECUPDATED') { ?>
     </div>
  <?php   
 }
+if($RETURN=='STATSUPDATED') { ?>
+    <div class="notice notice-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Update:</strong> Agent stats have been updated!
+    </div>
+ <?php   
+}
+if($RETURN=='STATS') { ?>
+    <div class="notice notice-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Added:</strong> Agent stats have been added!
+    </div>
+ <?php   
+}
+if($RETURN=='STATSDUPE') { ?>
+    <div class="notice notice-warning">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Dupe:</strong> This agent has already been added for this quarter!
+    </div>
+ <?php   
+}
 }
 ?>
 

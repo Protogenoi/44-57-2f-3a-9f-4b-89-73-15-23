@@ -24,6 +24,9 @@ if (isset($fferror)) {
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
+    $YEAR=date('Y');
+    $MONTH=date('M');
+
 if (in_array($hello_name, $TRB_ACCESS, true)) {
   $AGENCY_NAME = "The Review Bureau";  
 }
@@ -78,10 +81,10 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                             <h5 class="card-title"><i class="fa fa-random" aria-hidden="true"></i> Overview</h5>
                         </div> 
                         <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action">Statistics</a>
+                            <a href="Stats.php" class="list-group-item list-group-item-action">Statistics</a>
                             <a href="#" class="list-group-item list-group-item-action">Compliance Rating</a>
-                            <a href="#" class="list-group-item list-group-item-action">Test Results</a>
-                            <a href="#" class="list-group-item list-group-item-action">Uploads</a>
+                            <a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $AGENCY_NAME; ?>" class="list-group-item list-group-item-action">LG Jargon Buster</a>
+                            <a href="Compliance.php" class="list-group-item list-group-item-action">Uploads</a>
                         </div>    
 
                         <div class="card-header p-b-0">
@@ -134,10 +137,11 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                                 <br>
                                
                                 <p><a href="tests/Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
-                                <a href="Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
-                                
+                                    <a href="Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> View Test Results</a></p>
                                 <br>
-                                <p class="pull-right"><a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-question-circle"></i> Jargon Buster</a></p>
+                                <p><a href="#" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> MORE TESTS</a></p>
+
+                                
                               
                             </article>
                         </div>
@@ -389,26 +393,244 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                                 </h5>
                             </div>
                             <div class="card-block">
+                                
+                                 <?php 
+                             
+                         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
+                             if(isset($AGENCY)) {
+                                   $database = new Database();
+                                   
+                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $SALE_COUNT = $database->single();
+                        $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
+     
+                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $STAN_COUNT = $database->single();
+                        $STAT_STAN= htmlentities($STAN_COUNT['badge']);
+                                               
+                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $CIC_COUNT = $database->single();
+                        $STAT_CIC= htmlentities($CIC_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $CFO_COUNT = $database->single();
+                        $STAT_CFO= htmlentities($CFO_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $LAP_COUNT = $database->single();
+                        $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cancel_rate) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY);
+                        $RATE_COUNT = $database->single();
+                        $STAT_CANCEL_RATE= htmlentities($RATE_COUNT['badge']);   
+                        
+                                $STAT_STAN_PERCENT=($STAT_STAN/$STAT_SALES)*100;
+                                $STAT_CIC_PERCENT=($STAT_CIC/$STAT_SALES)*100;
+                                $STAT_CFO_PERCENT=($STAT_CFO/$STAT_SALES)*100;
+                                $STAT_LAPSED_PERCENT=($STAT_LAPSED/$STAT_SALES)*100;
+                                $STAT_CANCEL_RATE_PERCENT=($STAT_CANCEL_RATE/$STAT_SALES)*100;
+                             }
+                             
+                             if(!isset($AGENCY)) {
+                                 
+                             
+                             $database = new Database();
+                             
+                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats   WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $SALE_COUNT = $database->single();
+                        $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
+     
+                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $STAN_COUNT = $database->single();
+                        $STAT_STAN= htmlentities($STAN_COUNT['badge']);
+                                               
+                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $CIC_COUNT = $database->single();
+                        $STAT_CIC= htmlentities($CIC_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $CFO_COUNT = $database->single();
+                        $STAT_CFO= htmlentities($CFO_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $LAP_COUNT = $database->single();
+                        $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cancel_rate) AS badge FROM compliance_sale_stats WHERE
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $RATE_COUNT = $database->single();
+                        $STAT_CANCEL_RATE= htmlentities($RATE_COUNT['badge']);   
+                        
+                                $STAT_STAN_PERCENT=($STAT_STAN/$STAT_SALES)*100;
+                                $STAT_CIC_PERCENT=($STAT_CIC/$STAT_SALES)*100;
+                                $STAT_CFO_PERCENT=($STAT_CFO/$STAT_SALES)*100;
+                                $STAT_LAPSED_PERCENT=($STAT_LAPSED/$STAT_SALES)*100;
+                                $STAT_CANCEL_RATE_PERCENT=($STAT_CANCEL_RATE/$STAT_SALES)*100;
+                             }
+                         }
+                         
+                         else {
+                             
+                         $database = new Database();  
+                         
+                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $SALE_COUNT = $database->single();
+                        $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
+     
+                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $STAN_COUNT = $database->single();
+                        $STAT_STAN= htmlentities($STAN_COUNT['badge']);
+                                               
+                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $CIC_COUNT = $database->single();
+                        $STAT_CIC= htmlentities($CIC_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $CFO_COUNT = $database->single();
+                        $STAT_CFO= htmlentities($CFO_COUNT['badge']);
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $LAP_COUNT = $database->single();
+                        $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
+                        
+                        $database->query("SELECT SUM(compliance_sale_stats_cancel_rate) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
+    compliance_sale_stats_year=:YEAR
+    AND
+    compliance_sale_stats_month=:MONTH");
+                        $database->bind(':YEAR', $YEAR);
+                        $database->bind(':MONTH', $MONTH);                        
+                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $RATE_COUNT = $database->single();
+                        $STAT_CANCEL_RATE= htmlentities($RATE_COUNT['badge']);    
+                        
+                                $STAT_STAN_PERCENT=($STAT_STAN/$STAT_SALES)*100;
+                                $STAT_CIC_PERCENT=($STAT_CIC/$STAT_SALES)*100;
+                                $STAT_CFO_PERCENT=($STAT_CFO/$STAT_SALES)*100;
+                                $STAT_LAPSED_PERCENT=($STAT_LAPSED/$STAT_SALES)*100;
+                                $STAT_CANCEL_RATE_PERCENT=($STAT_CANCEL_RATE/$STAT_SALES)*100;
+                        
+                         }
+                                   
+                        ?>
 
-                                <div class="text-center" id="progress-caption-1">Sales &hellip; 25%</div>
+                                <div class="text-center" id="progress-caption-1">Sales <?php if(isset($STAT_SALES)) { echo $STAT_SALES; } else { echo 0; } ?></div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?php if(isset($STAT_SALES)) { echo $STAT_SALES; } else { echo 0; } ?>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div class="text-center" id="progress-caption-1">Standard Policies &hellip; 50%</div>
+                                <div class="text-center" id="progress-caption-1">Standard Policies &hellip; <?php if(isset($STAT_STAN_PERCENT)) { echo $STAT_STAN_PERCENT; } else { echo 0; } ?>%</div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?php if(isset($STAT_STAN_PERCENT)) { echo $STAT_STAN_PERCENT; } else { echo 0; } ?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div class="text-center" id="progress-caption-1">CIC Policies &hellip; 75%</div>
+                                <div class="text-center" id="progress-caption-1">CIC Policies &hellip; <?php if(isset($STAT_CIC_PERCENT)) { echo $STAT_CIC_PERCENT; } else { echo 0; } ?>%</div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?php if(isset($STAT_CIC_PERCENT)) { echo $STAT_CIC_PERCENT; } else { echo 0; } ?>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <div class="text-center" id="progress-caption-1">CFO/Lapsed &hellip; 100%</div>
+                                 <div class="text-center" id="progress-caption-1">CFO &hellip; <?php if(isset($STAT_CFO_PERCENT)) { echo $STAT_CFO_PERCENT; } else { echo 0; } ?>%</div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php if(isset($STAT_CFO_PERCENT)) { echo $STAT_CFO_PERCENT; } else { echo 0; } ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                                                <div class="text-center" id="progress-caption-1">Cancel Rate &hellip; 75%</div>
+                                <div class="text-center" id="progress-caption-1">Lapsed &hellip; <?php if(isset($STAT_LAPSED_PERCENT)) { echo $STAT_LAPSED_PERCENT; } else { echo 0; } ?>%</div>
                                 <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: <?php if(isset($STAT_LAPSED_PERCENT)) { echo $STAT_LAPSED_PERCENT; } else { echo 0; } ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                                                <div class="text-center" id="progress-caption-1">Cancel Rate &hellip; <?php if(isset($STAT_CANCEL_RATE_PERCENT)) { echo $STAT_CANCEL_RATE_PERCENT; } else { echo 0; } ?>%</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: <?php if(isset($STAT_CANCEL_RATE_PERCENT)) { echo $STAT_CANCEL_RATE_PERCENT; } else { echo 0; } ?>%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>

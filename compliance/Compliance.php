@@ -80,6 +80,7 @@ Uploaded Documents
                             <th></th>
                             <th>Date</th>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Company</th>
                             <th>View</th>
                         </tr>
@@ -89,6 +90,7 @@ Uploaded Documents
                             <th></th>
                             <th>Date</th>
                             <th>Title</th>
+                            <th>Category</th>
                             <th>Company</th>
                             <th>View</th>
                         </tr>
@@ -119,6 +121,11 @@ ADL
     <label for="DOC_TITLE">Title:</label>
     <input type="text" class="form-control" id="DOC_TITLE" name="DOC_TITLE" placeholder="Document Title" required>
   </div>
+        
+  <div class="form-group">
+    <label for="DOC_CAT">Category:</label>
+    <input type="text" class="form-control" id="DOC_CAT" name="DOC_CAT" placeholder="Document Category e.g. IOC, FCA" required>
+  </div>        
  
         <?php
         
@@ -185,6 +192,7 @@ ADL
                         },
                         {"data": "compliance_uploads_date"},
                         {"data": "compliance_uploads_title"},
+                        {"data": "compliance_uploads_category"},
                         {"data": "compliance_uploads_company"},
                         {"data": "compliance_uploads_location",
                             "render": function (data, type, full, meta) {

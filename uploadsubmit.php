@@ -87,14 +87,14 @@ if(isset($btnupload)) {
  $LOCATION="uploads/compliance/recordings/$COMPANY/$final_file";
  
  if(move_uploaded_file($file_loc,$folder.$final_file)) {
-     
-         $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");     
     $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY_NAME, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
-    $ID_FK=$data1['compliance_agents_id'];
+    $ID_FK=$data1['employee_id'];
      
 $UPLOAD = $pdo->prepare("INSERT INTO compliance_recordings set compliance_recordings_id_fk=:FK, compliance_recordings_company=:COMPANY, compliance_recordings_advisor=:ADVISOR, compliance_recordings_location=:LOCATION, compliance_recordings_recording_date=:DATE");
 $UPLOAD->bindParam(':FK',$ID_FK, PDO::PARAM_STR);

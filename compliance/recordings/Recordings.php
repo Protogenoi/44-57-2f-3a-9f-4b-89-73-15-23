@@ -117,7 +117,7 @@ if(isset($EXECUTE)) {
         
         <div class="container">
             
-            <form action="<?php if(!isset($EXECUTE)) { } else { ?>/compliance/php/Recordings.php?EXECUTE=1&RID=<?php echo $RID; } ?>" method="POST"><br>
+            <form action="<?php if(!isset($EXECUTE)) { } else { ?>/compliance/php/Recordings.php?EXECUTE=1&RID=<?php echo $RID; ?>&RDATE=<?php echo $RID_DATE; } ?>" method="POST"><br>
 
     <div class="card">
         <h4 class="card-header card-info"> <?php if(isset($EXECUTE)) { if($EXECUTE=='1') { echo "Call audit for: $RID_ADVISOR ($RID_COMPANY)"; } } else { } ?></h4>

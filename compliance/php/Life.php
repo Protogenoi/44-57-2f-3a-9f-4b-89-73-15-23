@@ -166,6 +166,14 @@ if($GRADE_PERCENT>=90) {
         $INSERT_COM->bindParam(':C14', $C14, PDO::PARAM_STR);
         $INSERT_COM->execute();
         
+        $changereason="Took Insurance Test | Grade: $GRADE | Mark: $MARK/14";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Took Test', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+        
         header('Location: ../Life.php?RETURN=ADDED&TEST=TESTONE&GRADE='.$GRADE.'&MARK='.$MARK);
         
     }

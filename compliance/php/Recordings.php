@@ -32,6 +32,8 @@ if(isset($EXECUTE)) {
     $AGENT_NAME = filter_input(INPUT_POST, 'AGENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
     $RID = filter_input(INPUT_GET, 'RID', FILTER_SANITIZE_NUMBER_INT);
     
+    $RDATE = filter_input(INPUT_GET, 'RDATE', FILTER_SANITIZE_NUMBER_INT);
+    
     if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='The Review Bureau';
     }
@@ -90,6 +92,14 @@ if(isset($EXECUTE)) {
         $UPDATE->execute();
         
         }
+        
+            $changereason="Audit grade: $GRADE | $RID_COMMENTS | Action required: $STATUS | DATE: $RDATE - ID: $RID";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Call Audit', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();         
 
         
         header('Location: ../Recordings.php?RETURN=RECUPDATED');

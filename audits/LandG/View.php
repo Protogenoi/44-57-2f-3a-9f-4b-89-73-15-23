@@ -163,7 +163,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
                                     echo "checked";
                                 } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q1; ?>
+    <?php echo "<h3><strong>$q1</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -175,7 +175,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q2; ?>
+    <?php echo "<h3><strong>$q2</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -187,7 +187,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q3; ?>
+    <?php echo "<h3><strong>$q3</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -199,7 +199,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q4; ?>
+    <?php echo "<h3><strong>$q4</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -211,7 +211,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q5; ?>
+    <?php echo "<h3><strong>$q5</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -237,7 +237,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
                         echo "checked";
                     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q6; ?>
+    <?php echo "<h3><strong>$q6</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -249,7 +249,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q7; ?>
+    <?php echo "<h3><strong>$q7</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -261,7 +261,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q8; ?>
+    <?php echo "<h3><strong>$q8</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -273,7 +273,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q9; ?>
+    <?php echo "<h3><strong>$q9</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -285,7 +285,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q10; ?>
+    <?php echo "<h3><strong>$q10</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -297,7 +297,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q11; ?>
+    <?php echo "<h3><strong>$q11</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -309,7 +309,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q12; ?>
+    <?php echo "<h3><strong>$q12</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -321,7 +321,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-                        <?php echo $q13; ?>
+                        <?php echo "<h3><strong>$q13</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -333,7 +333,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
                     echo "checked";
                 } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q14; ?>
+    <?php echo "<h3><strong>$q14</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -345,7 +345,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $q15; ?>
+    <?php echo "<h3><strong>$q15</strong></h3>"; ?>
                     </div>
                     <br>
 
@@ -361,7 +361,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $data3['q1s2bc1'] ?>
+    <?php echo "<h3><strong>".$data3['q1s2bc1']."</strong></h3> "; ?>
                     </div>
                     <br>
 
@@ -373,7 +373,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $data3['q2s2bc2'] ?>
+    <?php echo "<h3><strong>".$data3['q2s2bc2']."</strong></h3> "; ?>
                     </div>
                     <br>
 
@@ -389,7 +389,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $data3['q1s4c1n'] ?>
+    <?php echo "<h3><strong>".$data3['q1s4c1n']."</strong></h3> "; ?>
                     </div>
 
                     <br>
@@ -404,7 +404,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php echo $data3['q1s3c1'] ?>
+    <?php echo "<h3><strong>".$data3['q1s3c1']."</strong></h3> "; ?>
                     </div>
 
     <?php

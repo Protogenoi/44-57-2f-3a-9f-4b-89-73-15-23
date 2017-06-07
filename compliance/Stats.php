@@ -36,6 +36,25 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 }
     $YEAR=date('Y');
     $MONTH=date('M');
+    
+            if (in_array($hello_name, $TRB_ACCESS, true)) { 
+    $COMPANY='The Review Bureau';
+    }
+        if (in_array($hello_name, $PFP_ACCESS, true)) { 
+    $COMPANY='Protect Family Plans';
+    }
+        if (in_array($hello_name, $PLL_ACCESS, true)) { 
+    $COMPANY='Protected Life Ltd';
+    }
+        if (in_array($hello_name, $WI_ACCESS, true)) { 
+    $COMPANY='We Insure';
+    }
+        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
+    $COMPANY='The Financial Assessment Centre';
+    }
+        if (in_array($hello_name, $APM_ACCESS, true)) { 
+    $COMPANY='Assured Protect and Mortgages';
+    }    
 ?>
 <!DOCTYPE html>
 <!-- 

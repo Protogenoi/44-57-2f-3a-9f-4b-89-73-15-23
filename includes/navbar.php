@@ -26,7 +26,6 @@ if (in_array($hello_name, $Level_2_Access, true)) {
     die;
 }
 
-
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));
 $companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
@@ -36,14 +35,14 @@ $companynamere = $companydetailsq['company_name'];
 if ($companynamere == 'The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton","Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton","Nick","carys");
-    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Chloe", "Audits","Keith","Rhiannon","Ryan");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Chloe", "Audits","Keith","Rhiannon","Ryan");
+    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Chloe", "Audits","Keith","Rhiannon","Ryan","TEST","Gavin");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Mike", "Chloe", "Audits","Keith","Rhiannon","Ryan","TEST","Gavin");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Chloe");
     $Task_Access = array("Michael", "Abbiek");
     
                                 $Agent_Access = array ("111111111");
-                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike","Gavin");
+                                $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike");
                                 $Manager_Access = array("Richard", "Keith","Michael", "Matt", "leighton", "Nick", "carys");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
 }
@@ -110,6 +109,8 @@ if ($companynamere == 'Assura') {
                             <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "/Emails.php"; } else { echo "#"; } ?>">Emails</a></li>
                             <li><a <?php if ($ffkeyfactsemail == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffkeyfactsemail == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/Life/Reports/Keyfacts.php'; } else { echo '/CRMmain.php?FEATURE=KEYFACTSEMAIL'; } ?>">KeyFact Email Report <?php if ($ffkeyfactsemail == '0') { echo '(not enabled)'; } ?></a></li>
                             <li><a href="<?php if ($hello_name == 'Michael') { echo '/email/emailinbox.php'; } else { echo '#'; } ?>"><?php if ($hello_name == 'Michael') { echo 'Email Inbox'; } else { echo 'Email Inbox (not enabled)'; } ?></a></li>
+                           <li class="divider"></li>
+                            <li><a <?php if ($ffcompliance == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffcompliance == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/compliance/dash.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=COMPLIANCE'; } ?>"> Compliance <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>     
                     </ul>
                 </li>
 

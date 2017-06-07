@@ -300,7 +300,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
     </div>
 
-    <div class="footer navbar-fixed-bottom"><center><?php adl_version(); ?> <?php
+    <div class="footer navbar-fixed-bottom"><center><?php adl_version(); ?> <a href="mailto:michael@adl-crm.uk?Subject=ADL"> Email Support </a> <?php
             if ($hello_name == 'Michael') {
 
                 $time_start = microtime(true);

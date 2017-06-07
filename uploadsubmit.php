@@ -104,6 +104,14 @@ $UPLOAD->bindParam(':DATE',$RECORDING_DATE, PDO::PARAM_STR);
 $UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
 $UPLOAD->execute();  
 
+            $changereason="Call recording awaiting to be audited | DATE: $RECORDING_DATE - ID: $ID_FK";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Call Audit', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute(); 
+
  header('Location: /compliance/Recordings.php?RETURN=UPLOAD'); die;
  }
 

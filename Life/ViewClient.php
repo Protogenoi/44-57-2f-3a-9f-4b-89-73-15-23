@@ -1477,6 +1477,8 @@ if (isset($fileuploadedfail)) {
                                         case "LGpolicy":
                                         case "LGkeyfacts":
                                         case "TONIC PDF":
+                                            case "Avivapolicy":
+                                                case "Avivakeyfacts":
                                             $typeimage = "fa-file-pdf-o";
                                             break;
                                         case "Happy Call":
@@ -1507,6 +1509,12 @@ if (isset($fileuploadedfail)) {
                                     }
 
                                     switch ($uploadtype) {
+                                        case "Avivakeyfacts":
+                                            $uploadtype = "Aviva Keyfacts";
+                                            break;
+                                         case "Avivapolicy":
+                                            $uploadtype = "Aviva Policy";
+                                            break;
                                         case "LGkeyfacts":
                                             $uploadtype = "L&G Keyfacts";
                                             break;
@@ -1545,6 +1553,16 @@ if (isset($fileuploadedfail)) {
 
                                         <?php
                                     }
+                                    
+                                     if ($row['uploadtype'] == 'Avivapolicy' || $row['uploadtype'] =='Avivakeyfacts') {
+                                        if (file_exists("../uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    }                                   
 
                                     if ($row['uploadtype'] == 'Other') {
                                         ?>
@@ -1577,8 +1595,7 @@ if (isset($fileuploadedfail)) {
                                             <?php
                                         }
                                     }
-
-
+                                   
                                     if ($row['uploadtype'] == 'Dealsheet') {
                                         if (file_exists("../uploads/$file")) {
                                             ?>

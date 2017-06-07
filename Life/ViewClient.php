@@ -2554,6 +2554,8 @@ try {
                                         case "Dealsheet":
                                         case"LGpolicy";
                                         case"LGkeyfacts";
+                                            case"Avivakeyfacts";
+                                                case"Avivapolicy";
                                         case"Recording";
                                         case"Closer Call Recording";
                                         case"Agent Call Recording";

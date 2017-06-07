@@ -83,6 +83,10 @@ Employee's
 <div class="card-block">
 
 <p class="card-text">
+    <div class="btn-group">
+                                    <p><a data-toggle="modal" data-target="#mymodal" class="btn btn-outline-success"><i class="fa fa-cloud-upload"></i> Add Agents</a></p>                                
+                                </div>
+    
 <h4 class="card-title">Search Agents</h4>
   <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
@@ -116,6 +120,58 @@ ADL
         
                
     </div>
+    
+<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="modalLabel">Add new agent.</h4>
+</div>
+<div class="modal-body">
+
+    <form action="php/Agents.php?EXECUTE=1" method="POST" enctype="multipart/form-data">
+
+  <div class="form-group">
+    <label for="AGENT_NAME">Name:</label>
+    <input type="text" class="form-control" id="AGENT_NAME" name="AGENT_NAME" placeholder="Agent Fullname" required>
+  </div>
+
+  <div class="form-group">
+    <label for="AGENT_ROLE">Role:</label>
+    <input type="text" class="form-control" id="AGENT_ROLE" name="AGENT_ROLE" placeholder="Advisor/Lead Gen/Closer" required>
+  </div>
+ 
+        <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+          <div class="form-group">
+    <label for="AGENT_COMPANY">Company:</label>
+    <select class="form-control" name='AGENT_COMPANY'>
+        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Protect Family Plans'>Protect Family Plans</option>
+        <option value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option value='We Insure'>We Insure</option>
+        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+  </div>
+ 
+            
+      <?php  }
+        
+        ?>
+ 
+  <button type="submit" class="btn btn-primary" >Add</button>
+</form>
+    
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div> 
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>
                     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
@@ -156,7 +212,7 @@ ADL
                             "data": null,
                             "defaultContent": ''
                         },
-                        {"data": "compliance_agents_name_added_date"},
+                        {"data": "compliance_agents_added_date"},
                         {"data": "compliance_agents_name"},
                         {"data": "compliance_agents_role"},
                         {"data": "compliance_agents_company"},

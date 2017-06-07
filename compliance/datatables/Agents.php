@@ -43,8 +43,7 @@ if(isset($EXECUTE)) {
     }
     
             if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-         $query = $pdo->prepare("SELECT compliance_agents_id, compliance_agents_name, compliance_agents_role, compliance_agents_company FROM compliance_agents ORDER BY compliance_agents_added_date DESC");
-        $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+         $query = $pdo->prepare("SELECT added_date, compliance_agents_id, CONCAT(firstname, ' ', lastname) AS FULL_NAME, role, company, employee_id FROM employee_details ORDER BY added_date DESC");
         $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
@@ -52,7 +51,7 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
     
     else {
 
-        $query = $pdo->prepare("SELECT compliance_agents_id, compliance_agents_name, compliance_agents_role, compliance_agents_company  FROM compliance_agents WHERE compliance_agents_company=:COMPANY ORDER BY compliance_agents_added_date DESC");
+        $query = $pdo->prepare("SELECT added_date, compliance_agents_id, CONCAT(firstname, ' ', lastname) AS FULL_NAME, role, company, employee_id  FROM employee_details WHERE company=:COMPANY ORDER BY added_date DESC");
         $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));

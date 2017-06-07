@@ -111,14 +111,14 @@ if($GRADE_PERCENT>=90) {
         if($GRADE_PERCENT<70) {
             $GRADE='Red';
             }
-            
-    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+      
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");           
     $query->bindParam(':NAME', $hello_name, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
-    $ID_FK=$data1['compliance_agents_id'];           
+    $ID_FK=$data1['employee_id'];           
 
         $INSERT = $pdo->prepare("INSERT INTO life_test_one SET life_test_one_id_fk=:FK, life_test_one_company=:COMPANY, life_test_one_advisor=:ADVISOR, life_test_one_grade=:GRADE, life_test_one_mark=:MARK");
         $INSERT->bindParam(':FK', $ID_FK, PDO::PARAM_STR);

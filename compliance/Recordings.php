@@ -138,14 +138,19 @@ ADL
     <label for="RECORDING_DATE">Date:</label>
     <input type="text" class="form-control" id="RECORDING_DATE" name="RECORDING_DATE" placeholder="Date of the recording" required>
   </div>
+        
+   <div class="form-group">
+ <select class="form-control" name="AGENT_NAME" id="AGENT_NAME">
+     <option value="">Select Agent...</option>
+ </select>
+   </div>        
 
   <div class="form-group">
     <label for="RECORDING_FILE">File:</label>
     <input type="file" class="form-control-file" id="file" name="file" aria-describedby="fileHelp" required>
     <small id="fileHelp" class="form-text text-muted">Max filesize 40MB. Use a Audacity to convert big files to mp3's.</small>
   </div>
- 
- 
+
   <button type="submit" class="btn btn-primary" name="btn-upload">UPLOAD</button>
 </form>
     
@@ -221,5 +226,14 @@ ADL
 
             });
         </script>
+          <script type="text/JavaScript">
+                                    var $select = $('#AGENT_NAME');
+                                    $.getJSON('/compliance/JSON/Agents.php?EXECUTE=1', function(data){
+                                    $select.html('agent_name');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
+                                    })
+                                    });
+                                </script>
 </body>
 </html>

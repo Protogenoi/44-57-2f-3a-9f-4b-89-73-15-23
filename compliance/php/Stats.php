@@ -63,13 +63,13 @@ if(isset($EXECUTE)) {
     
     if($EXECUTE=='1') {
             
-    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_name=:NAME");
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
     $query->bindParam(':NAME', $STAT_ADVISOR, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
-    $ID_FK=$data1['compliance_agents_id'];          
+    $ID_FK=$data1['employee_id'];          
     
     $DUPE = $pdo->prepare("SELECT compliance_sale_stats_id_fk
         FROM compliance_sale_stats
@@ -127,13 +127,13 @@ if(isset($EXECUTE)) {
     
     if($EXECUTE=='2') {
             
-    $query = $pdo->prepare("SELECT compliance_agents_id FROM compliance_agents WHERE compliance_agents_company=:COMPANY AND compliance_agents_id=:ID");
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND employee_id=:ID");
     $query->bindParam(':ID', $STAT_ID, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
-    $ID_FK=$data1['compliance_agents_id'];           
+    $ID_FK=$data1['employee_id'];           
 
         $INSERT = $pdo->prepare("UPDATE compliance_sale_stats
             SET 

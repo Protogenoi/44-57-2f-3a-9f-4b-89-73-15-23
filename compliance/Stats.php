@@ -281,7 +281,7 @@ ADL
                                     $.getJSON('/compliance/JSON/Agents.php?EXECUTE=1', function(data){
                                     $select.html('agent_name');
                                     $.each(data, function(key, val){ 
-                                    $select.append('<option value="' + val.compliance_agents_name + '">' + val.compliance_agents_name + '</option>');
+                                    $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
                                     })
                                     });
                                 </script>

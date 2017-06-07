@@ -32,12 +32,12 @@ if(isset($EXECUTE)) {
         
         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
-        $query = $pdo->prepare("SELECT compliance_agents_name from compliance_agents ORDER BY compliance_agents_name");
+        $query = $pdo->prepare("SELECT CONCAT(firstname, ' ', lastname) AS FULL_NAME from employee_details ORDER BY lastname");
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results= $query->fetchAll(PDO::FETCH_ASSOC));
         
         } else {
-                    $query = $pdo->prepare("SELECT compliance_agents_name from compliance_agents WHERE compliance_agents_company=:COMPANY ORDER BY compliance_agents_name");
+                    $query = $pdo->prepare("SELECT CONCAT(firstname, ' ', lastname) AS FULL_NAME from employee_details WHERE company=:COMPANY ORDER BY lastname");
         $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results= $query->fetchAll(PDO::FETCH_ASSOC));

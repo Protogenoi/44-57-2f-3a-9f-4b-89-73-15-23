@@ -1,23 +1,52 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../classes/database_class.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-include('../classes/database_class.php');
-include('../includes/Access_Levels.php');
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
 
-
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 if (!in_array($hello_name,$Level_10_Access, true)) {
     
     header('Location: /index.php?AccessDenied'); die;
 
 }
 
-include('../includes/adlfunctions.php');
+            if (in_array($hello_name, $TRB_ACCESS, true)) { 
+    $COMPANY='The Review Bureau';
+    }
+        if (in_array($hello_name, $PFP_ACCESS, true)) { 
+    $COMPANY='Protect Family Plans';
+    }
+        if (in_array($hello_name, $PLL_ACCESS, true)) { 
+    $COMPANY='Protected Life Ltd';
+    }
+        if (in_array($hello_name, $WI_ACCESS, true)) { 
+    $COMPANY='We Insure';
+    }
+        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
+    $COMPANY='The Financial Assessment Centre';
+    }
+        if (in_array($hello_name, $APM_ACCESS, true)) { 
+    $COMPANY='Assured Protect and Mortgages';
+    }   
 
+    $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
@@ -33,7 +62,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/styles/Notices.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
 <style>
     .label {
    display: block; width: 100px; 
@@ -81,8 +109,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 color: green;
             }
         </style>
-
-
 <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
@@ -92,15 +118,11 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
     <?php 
     include('../includes/navbar.php');
      
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+
     
      $database = new Database(); 
  
-                $database->query("SELECT employed, ni_num, id_provided, id_details, dob, title, firstname, end_date, lastname, CONCAT(title, ' ', firstname, ' ', lastname) AS NAME, position, start_date, added_date, added_by, updated_date, updated_by FROM employee_details WHERE employee_id=:REF");
+                $database->query("SELECT company, employed, ni_num, id_provided, id_details, dob, title, firstname, end_date, lastname, CONCAT(title, ' ', firstname, ' ', lastname) AS NAME, position, start_date, added_date, added_by, updated_date, updated_by FROM employee_details WHERE employee_id=:REF");
                 $database->bind(':REF', $REF);
                 $database->execute();
                 $data2=$database->single();
@@ -148,6 +170,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 $LASTNAME=$data2['lastname'];
                 $TITLE=$data2['title'];
                 $ORIGDOB=$data2['dob'];
+                $EMP_COMPANY=$data2['company'];
 
                 
                 $DOB=date("l jS \of F Y",strtotime($ORIGDOB));
@@ -186,7 +209,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 <?php include('php/Notifications.php'); ?>
                 </div>
                 <div class="row">
-                    <h1><?php echo $NAME;?><?php if(isset($POSITION)) { echo " - $POSITION </h1>"; } if(isset($EMPLOYED)) { if($EMPLOYED=='0') { echo "<h3><strong> No longer an employee</strong></h3>"; } } ?>
+                    <h1><?php echo $NAME;?><?php if(isset($POSITION)) { echo " - $POSITION - $EMP_COMPANY </h1>"; } if(isset($EMPLOYED)) { if($EMPLOYED=='0') { echo "<h3><strong> No longer an employee</strong></h3>"; } } ?>
                                         <ul class="nav nav-pills nav-justified">
                         <li class="active"><a data-toggle="pill" href="#Menu1">Summary</a></li>
                         <li><a data-toggle="pill" href="#Menu2">Emergency Details</a></li>
@@ -261,8 +284,13 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                         $CON_QRY_COUNT_SALES=$CON_QRY_result['sales'];
                                         $CON_QRY_COUNT_LEADS=$CON_QRY_result['leads'];
                                         
+                                        if($CON_QRY_COUNT_SALES>0) {
+                                        
                                         $Conversionrate = $CON_QRY_COUNT_LEADS /$CON_QRY_COUNT_SALES;
                                         $Formattedrate = number_format($Conversionrate,1);
+                                        } else {
+                                            $Formattedrate=0;
+                                        }
                      
                                         
                                         ?>                                        

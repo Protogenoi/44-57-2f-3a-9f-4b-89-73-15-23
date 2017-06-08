@@ -174,6 +174,25 @@ include('../includes/adlfunctions.php');
                                                 </select>
                                             </div>
                                         </div>
+                                        
+                                        <?php 
+                                        
+                                        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                                                                 <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Company</label>
+                                                <select name="company" class="form-control" required>
+                                                    <option value=""></option>
+                                                    <option value="The Review Bureau">The Review Bureau</option>
+                                                    <option value="Protect Family Plans">Protect Family Plans</option>
+                                                    <option value="Protected Life Ltd">Protected Life Ltd</option>
+                                                    <option value="The Financial Assessment Centre">The Financial Assessment Centre</option>
+                                                    <option value="Assured Protect and Mortgages">Assured Protect and Mortgages</option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                      <?php  }
+                                        ?>
                                     
                                     </div>
                                     

@@ -3,9 +3,7 @@ include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php");
 $page_protect = new Access_user;
 $page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+
 include('../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_10_Access, true)) {
@@ -13,6 +11,28 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
     header('Location: ../../CRMmain'); die;
 
 }
+
+            if (in_array($hello_name, $TRB_ACCESS, true)) { 
+    $COMPANY='The Review Bureau';
+    }
+        if (in_array($hello_name, $PFP_ACCESS, true)) { 
+    $COMPANY='Protect Family Plans';
+    }
+        if (in_array($hello_name, $PLL_ACCESS, true)) { 
+    $COMPANY='Protected Life Ltd';
+    }
+        if (in_array($hello_name, $WI_ACCESS, true)) { 
+    $COMPANY='We Insure';
+    }
+        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
+    $COMPANY='The Financial Assessment Centre';
+    }
+        if (in_array($hello_name, $APM_ACCESS, true)) { 
+    $COMPANY='Assured Protect and Mortgages';
+    }  
+     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+         $COMPANY=filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
+     }
         
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
@@ -39,7 +59,8 @@ if(isset($EXECUTE)) {
     $database = new Database();
     $database->beginTransaction();
     
-    $database->query("UPDATE employee_details set updated_by=:hello,  ni_num=:ni, id_provided=:pro, id_details=:details, position=:position, start_date=:start, title=:title, firstname=:firstname, lastname=:lastname, dob=:dob WHERE employee_id=:REF");
+    $database->query("UPDATE employee_details set company=:COMPANY, updated_by=:hello,  ni_num=:ni, id_provided=:pro, id_details=:details, position=:position, start_date=:start, title=:title, firstname=:firstname, lastname=:lastname, dob=:dob WHERE employee_id=:REF");
+    $database->bind(':COMPANY',$COMPANY);
     $database->bind(':title',$title);
     $database->bind(':REF',$REF);
     $database->bind(':firstname',$firstname);
@@ -123,8 +144,9 @@ if(isset($EXECUTE)) {
 
     $database = new Database();
     $database->beginTransaction();
-    
-    $database->query("INSERT INTO employee_details set added_by=:hello, added_date= CURDATE(), ni_num=:ni, id_provided=:pro, id_details=:details, position=:position, start_date=:start, title=:title, firstname=:firstname, lastname=:lastname, dob=:dob");
+     
+    $database->query("INSERT INTO employee_details set company=:COMPANY, added_by=:hello, added_date= CURDATE(), ni_num=:ni, id_provided=:pro, id_details=:details, position=:position, start_date=:start, title=:title, firstname=:firstname, lastname=:lastname, dob=:dob");
+    $database->bind(':COMPANY',$COMPANY);
     $database->bind(':title',$title);
     $database->bind(':firstname',$firstname);
     $database->bind(':hello',$hello_name);
@@ -137,7 +159,7 @@ if(isset($EXECUTE)) {
     $database->bind(':details',$id_details);
     $database->execute(); 
     $lastid =  $database->lastInsertId();
- 
+
     
     $mob= filter_input(INPUT_POST, 'mob', FILTER_SANITIZE_SPECIAL_CHARS);
     $tel= filter_input(INPUT_POST, 'tel', FILTER_SANITIZE_SPECIAL_CHARS);

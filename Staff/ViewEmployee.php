@@ -842,7 +842,26 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                     <option <?php if(isset($POSITION)) { if($POSITION=='Director') { echo "selected"; } } ?> value="Director">Director</option>
                                                 </select>
                                             </div>
-                                        </div>                                                
+                                        </div>  
+                                                        
+                                         <?php 
+                                        
+                                        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                                                                 <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Company</label>
+                                                <select name="company" class="form-control" required>
+                                                    <option value=""></option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">The Review Bureau</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protect Family Plans') { echo "selected"; } } ?> value="Protect Family Plans">Protect Family Plans</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protected Life Ltd') { echo "selected"; } } ?> value="Protected Life Ltd">Protected Life Ltd</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Financial Assessment Centre') { echo "selected"; } } ?> value="The Financial Assessment Centre">The Financial Assessment Centre</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } } ?> value="Assured Protect and Mortgages">Assured Protect and Mortgages</option>
+                                                </select>
+                                            </div>
+                                        </div>  
+                                      <?php  }
+                                        ?>                                                       
                                     
                                     </div>
                 

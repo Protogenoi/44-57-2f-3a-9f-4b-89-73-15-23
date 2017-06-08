@@ -68,6 +68,20 @@ WHERE
     
     
 }
+
+    $MSG_stmt = $pdo->prepare("SELECT 
+    count(messenger_id) AS badge 
+FROM
+    messenger
+WHERE
+    messenger_to=:HELLO
+    AND
+    messenger_company='The Review Bureau'
+    AND
+    messenger_status='Unread'");
+    $MSG_stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+    $MSG_stmt->execute();
+    $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <ul class="nav navbar-nav navbar-right">
@@ -105,6 +119,15 @@ if ($ACT_CBS['badge'] > 0) { ?>
                 <?php
             }
         }
+               
+            if ($MSG_stmtresult['badge'] >= '1') {
+                ?>
+                <li><a href="/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo $MSG_stmtresult['badge']; ?> </span></a></li>
+
+                <?php
+            }
+
+        
     } ?>
 
 </ul>

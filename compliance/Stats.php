@@ -99,6 +99,9 @@ Sale stats
                                 <thead>
                                     <tr>
                                         <th>Agent</th>
+                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                        <th>Company</th>
+                                        <?php } ?>
                                         <th>Sales</th>
                                         <th>Standard</th>
                                         <th>CIC</th>
@@ -116,7 +119,25 @@ Sale stats
      <option value="">Select Agent...</option>
  </select>
    </div>  </td>
-                                    <td><input class='form-control' type='text' name='STAT_SALES' value="0"></td>
+                                                                     <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+                                    <td><div class="form-group">
+    <select class="form-control" name='AGENT_COMPANY'>
+        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Protect Family Plans'>Protect Family Plans</option>
+        <option value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option value='We Insure'>We Insure</option>
+        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+                                        </div></td>
+ 
+            
+      <?php  }       ?>
+                                        <td><input class='form-control' type='text' name='STAT_SALES' value="0"></td>
+
                                     <td><input class='form-control' type='text' name='STAT_STANDARD' value="0"></td>
                                     <td><input class='form-control' type='text' name='STAT_CIC' value="0"></td>
                                     <td><input class='form-control' type='text' name='STAT_CFO' value="0"></td>

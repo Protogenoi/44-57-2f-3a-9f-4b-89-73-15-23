@@ -57,7 +57,7 @@ if(isset($EXECUTE)) {
     $COMPANY='Assured Protect and Mortgages';
     }
             if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
+     $COMPANY= filter_input(INPUT_POST, 'AGENT_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
     $hello_name="Michael Owen";
     }
     
@@ -85,7 +85,6 @@ if(isset($EXECUTE)) {
     $DUPE->execute();
 
            if ($DUPE->rowCount()>=1) {
-           echo "TEST";
       header('Location: ../Stats.php?RETURN=STATSDUPE');    
            
        } else {

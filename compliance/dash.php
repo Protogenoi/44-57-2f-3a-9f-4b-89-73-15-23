@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../classes/database_class.php');
-require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -598,7 +598,6 @@ WHERE
                                 $STAT_CIC_PERCENT=($STAT_CIC/$STAT_SALES)*100;
                                 $STAT_CFO_PERCENT=($STAT_CFO/$STAT_SALES)*100;
                                 $STAT_LAPSED_PERCENT=($STAT_LAPSED/$STAT_SALES)*100;
-                           
                                 
                                  $STAT_CANCEL_RATE_PERCENT=($STAT_CFO/$STAT_SALES)*100;
                                 

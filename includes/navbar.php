@@ -45,7 +45,6 @@ if ($companynamere == 'The Review Bureau') {
                                 $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike");
                                 $Manager_Access = array("Richard", "Keith","Michael", "Matt", "leighton", "Nick", "carys");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
-}
 
 if ($companynamere == 'ADL_CUS') {
     $Level_10_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
@@ -122,6 +121,7 @@ if ($companynamere == 'Assura') {
                             <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/audits/lead_gen_reports.php?step=New'; } else { echo '#'; } ?>">Lead Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
                             <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/auditor_menu.php'; } else { echo '#'; } ?>">Legal and General Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
                             <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/RoyalLondon/Menu.php'; } else { echo '#'; } ?>">Royal London Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
+                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/Aviva/Menu.php'; } else { echo '#'; } ?>">Aviva Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
                             <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/WOL/Menu.php'; } else { echo '#'; } ?>">One Family Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
                             <li class="divider"></li>
                             <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/reports_main.php'; } else { echo '#'; } ?>">Reports <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
@@ -326,4 +326,4 @@ if ($companynamere == 'Assura') {
 ?>
     
     
-    <?php } ?>
+<?php }} ?>

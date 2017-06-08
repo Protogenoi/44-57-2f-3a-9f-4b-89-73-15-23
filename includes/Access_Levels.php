@@ -11,17 +11,18 @@ $companynamere = $companydetailsq['company_name'];
 if ($companynamere == 'The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith","Rhiannon","Ryan","TEST");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST");
+    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith","Rhiannon","Ryan","TEST","Assured","Gavin");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST","Assured","Gavin");
     $Task_Access = array("Michael", "Abbiek");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Chloe");
     $Agent_Access = array("111111111");
-    $Closer_Access = array("James", "Hayley", "David", "Mike", "Kyle", "Sarah", "Richard", "Mike", "Gavin");
+    $Closer_Access = array("James", "Hayley", "David", "Mike", "Kyle", "Sarah", "Richard", "Mike");
     $Manager_Access = array("Richard", "Keith","Michael", "Matt", "leighton", "Nick", "carys");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
     
-    $TRB_ACCESS=array("Michael","Matt");
+    $TRB_ACCESS = array("Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","Gavin");
+
     $COM_LVL_10_ACCESS=array("Michael","Hayden");
     $COM_MANAGER_ACCESS=array("Michael","Matt","Hayden");
     
@@ -30,7 +31,7 @@ if ($companynamere == 'The Review Bureau') {
     $PLL_ACCESS=array("bbb");
     $WI_ACCESS=array("Michewael");
     $TFAC_ACCESS=array("Micerhael");
-    $APM_ACCESS=array("Micrehael");
+    $APM_ACCESS=array("Assured");
 }
 
 if ($companynamere == 'ADL_CUS') {
@@ -75,4 +76,14 @@ if ($companynamere == 'ADL') {
     
     $COM_MANAGER_ACCESS=array("Michael","Hayden","Ben Sears","Carys Riley","carys","Dawiez Kift","Grant Fulcher","Lisa Hall","Andrew Collier");
 }
+
+
+    
+      
+    $PFP_ACCESS=array("BOB");
+    $PLL_ACCESS=array("bbb");
+    $WI_ACCESS=array("Michewael");
+    $TFAC_ACCESS=array("Micerhael");
+    $APM_ACCESS=array("Assured");
+
 ?>

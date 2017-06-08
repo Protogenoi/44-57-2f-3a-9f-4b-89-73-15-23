@@ -45,6 +45,8 @@ if ($companynamere == 'The Review Bureau') {
                                 $Closer_Access = array ("James","Hayley","David","Mike","Kyle","Sarah","Richard","Mike");
                                 $Manager_Access = array("Richard", "Keith","Michael", "Matt", "leighton", "Nick", "carys");
                                 $QA_Access = array ("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys","Jakob","Nicola","Tina","Amy");
+                                
+}
 
 if ($companynamere == 'ADL_CUS') {
     $Level_10_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
@@ -110,6 +112,9 @@ if ($companynamere == 'Assura') {
                             <li><a href="<?php if ($hello_name == 'Michael') { echo '/email/emailinbox.php'; } else { echo '#'; } ?>"><?php if ($hello_name == 'Michael') { echo 'Email Inbox'; } else { echo 'Email Inbox (not enabled)'; } ?></a></li>
                            <li class="divider"></li>
                             <li><a <?php if ($ffcompliance == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffcompliance == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/compliance/dash.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=COMPLIANCE'; } ?>"> Compliance <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>     
+                    <li class="divider"></li>
+                    <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo '/messenger/Main.php'; } else { echo '/CRMmain.php?FEATURE=MESSENGER'; } ?>"> Internal Messages</a></li>     
+
                     </ul>
                 </li>
 
@@ -326,4 +331,4 @@ if ($companynamere == 'Assura') {
 ?>
     
     
-<?php }} ?>
+<?php } ?>

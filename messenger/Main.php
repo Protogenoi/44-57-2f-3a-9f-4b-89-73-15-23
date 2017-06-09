@@ -36,6 +36,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     header('Location: /index.php?AccessDenied');
     die;
 }
+$RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -60,6 +61,19 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     <?php require_once(__DIR__ . '/../includes/navbar.php'); ?> 
 
     <div class="container">
+        <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> Send private messages to your colleagues! Click send message, select the recipient(s) and enter your message (Emoji support) and send!</div>
+                <?php
+        if(isset($RETURN)) {
+            if($RETURN=='MSGADDED'){
+                echo "<div class='notice notice-success' role='alert'><strong><i class='fa fa-edit fa-send'></i> Success:</strong> Message sent!</div>";
+                
+            }
+            if($RETURN=='MSGUPDATED') {
+                echo "<div class='notice notice-success' role='alert'><strong><i class='fa fa-check-circle-o'></i> Success:</strong> Message marked as read!</div>";
+                
+            }
+        }
+        ?>
         
         <div class="col-xs-12 .col-md-8">
 
@@ -98,7 +112,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
     <form action="php/msg.php?EXECUTE=1" method="POST">
 <div class="form-group">
- <select class="form-control" name="MSG_TO" id="MSG_TO">
+    <select class="form-control" name="MSG_TO[]" id="MSG_TO" multiple="yes">
      <option value="">Select Agent...</option>
  </select>
 </div>
@@ -148,7 +162,8 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
             messenger_sent_by,
             messenger_msg,
             messenger_date,
-            messenger_id
+            messenger_id,
+            messenger_company
             FROM
     messenger
     WHERE
@@ -158,11 +173,14 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
         $query->execute();
                 if ($query->rowCount() > 0) { ?> 
                     
-                            <table class="table table-hover">
+                            <table class="table table-condensed">
                                 <thead>
                                     <tr>
                                         <th>Date</th>
                                         <th>Sender</th>
+                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                        <th>Company</th>
+                                        <?php } ?>
                                         <th>Message</th>
                                         <th>Dismiss</th>
                                     </tr>
@@ -171,6 +189,9 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     <tr>
                                         <th>Date</th>
                                         <th>Sender</th>
+                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                        <th>Company</th>
+                                        <?php } ?>
                                         <th>Message</th>
                                         <th>Dismiss</th>
                                     </tr>
@@ -182,10 +203,29 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         $NOTE=html_entity_decode($result['messenger_msg']);
 
 
-                        echo "<tr><td>" . $result['messenger_date'] . "</td>";
-                        echo "<td>" . $result['messenger_sent_by'] . "</td>";
+                        echo "<form method='POST' action='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."''><tr>
+                           <td>" . $result['messenger_date'] . "</td>";
+                        echo "<td>" . $result['messenger_sent_by'] . "</td>"; ?>
+                                <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+                                <td>
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Protect Family Plans'>Protect Family Plans</option>
+        <option value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option value='We Insure'>We Insure</option>
+        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+                                </td>
+ 
+            
+      <?php  }
+    
                         echo "<td>$NOTE</td>";
-                        echo "<td><a href='php\msg.php?EXECUTE=2&MID=".$result['messenger_id']."'><i class='fa fa-check-circle-o'></i></a></td>";
+                        echo "<td><button type='submit' class='btn btn-success'><i class='fa fa-check-circle-o'></i></button></td>";
                         echo "</tr>";
                     }
             ?> </table>  <?php  } 

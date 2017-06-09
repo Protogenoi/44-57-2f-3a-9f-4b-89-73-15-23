@@ -20,33 +20,6 @@ if (isset($fferror)) {
     }
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
-
-if (isset($EXECUTE) && $AGENCY) {
-
-    switch ($AGENCY) {
-        case "TRB":
-            $AGENCY_NAME = "The Review Bureau";
-            break;
-        case "PFP":
-            $AGENCY_NAME = "Protect Family Plans";
-            break;
-        case "PLL":
-            $AGENCY_NAME = "Protected Life Ltd";
-            break;
-        case "WI":
-            $AGENCY_NAME = "We Insure";
-            break;
-        case "TFAC":
-            $AGENCY_NAME = "The Financial Assessment Centre";
-            break;
-        case "APM":
-            $AGENCY_NAME = "Assured Protect and Mortgages";
-            break;
-        default:
-            $AGENCY_NAME = "Not Selected";
-    }
-}
 
 $q=1;
 ?>

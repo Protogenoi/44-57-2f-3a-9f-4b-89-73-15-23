@@ -49,7 +49,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
     die;
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
+if (!in_array($hello_name, $Level_1_Access, true)) {
 
     header('Location: index.php?AccessDenied');
     die;
@@ -123,7 +123,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     </div>
                                 </a>
                             </li>
-                        <?php } ?>
+                      
 
                         <li>
                             <a href="/SearchClients.php">
@@ -135,7 +135,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </a>
                         </li>
 
-                        <?php
+                        <?php }
                         if ($fflife == '1') {
                             if (in_array($hello_name, $Level_3_Access, true)) {
                                 ?>
@@ -186,7 +186,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php }  ?>
+                        <?php }  if (in_array($hello_name, $Level_3_Access, true)) {?>
                             <li>
                                 <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
@@ -197,7 +197,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </a>
                             </li>
                       
-                        <?php  if ($fftwitter == '1') { ?>
+                        <?php  } if ($fftwitter == '1') { ?>
 
                             <li>
                                 <a href="#twitter" role="button" data-toggle="modal" data-target="#twitter">
@@ -229,7 +229,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         ?>
 
                         <?php
-                        if (in_array($hello_name, $Level_10_Access, true)) {
+                        if (in_array($hello_name, $Level_1_Access, true)) {
                             if ($ffcompliance == '1') {
                                 ?>
                                 <li>

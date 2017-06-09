@@ -853,6 +853,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">The Review Bureau</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='We Insure') { echo "selected"; } } ?> value="We Insure">We Insure</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protect Family Plans') { echo "selected"; } } ?> value="Protect Family Plans">Protect Family Plans</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protected Life Ltd') { echo "selected"; } } ?> value="Protected Life Ltd">Protected Life Ltd</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Financial Assessment Centre') { echo "selected"; } } ?> value="The Financial Assessment Centre">The Financial Assessment Centre</option>

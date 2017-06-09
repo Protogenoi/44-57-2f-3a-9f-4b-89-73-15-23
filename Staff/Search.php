@@ -184,6 +184,7 @@ include('../includes/adlfunctions.php');
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
                                                     <option value="The Review Bureau">The Review Bureau</option>
+                                                    <option value="We Insure">We Insure</option>
                                                     <option value="Protect Family Plans">Protect Family Plans</option>
                                                     <option value="Protected Life Ltd">Protected Life Ltd</option>
                                                     <option value="The Financial Assessment Centre">The Financial Assessment Centre</option>

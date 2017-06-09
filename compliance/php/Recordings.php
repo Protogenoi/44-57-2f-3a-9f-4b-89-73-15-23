@@ -34,34 +34,11 @@ if(isset($EXECUTE)) {
     
     $RDATE = filter_input(INPUT_GET, 'RDATE', FILTER_SANITIZE_NUMBER_INT);
     
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
-            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-
-    
     if($EXECUTE=='1') {
     
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
     $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
@@ -86,7 +63,7 @@ if(isset($EXECUTE)) {
         $UPDATE->bindParam(':RID', $RID, PDO::PARAM_STR);
         $UPDATE->bindParam(':AUDIT', $hello_name, PDO::PARAM_STR);
         $UPDATE->bindParam(':GRADE', $GRADE, PDO::PARAM_STR);
-        $UPDATE->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+        $UPDATE->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $UPDATE->bindParam(':NOTES', $RID_COMMENTS, PDO::PARAM_STR);
         $UPDATE->bindParam(':STATUS', $STATUS, PDO::PARAM_STR);
         $UPDATE->execute();

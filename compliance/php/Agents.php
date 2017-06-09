@@ -28,35 +28,12 @@ if(isset($EXECUTE)) {
     
     $AGENT_NAME = filter_input(INPUT_POST, 'AGENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
     $AGENT_ROLE = filter_input(INPUT_POST, 'AGENT_ROLE', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    $COMPANY= filter_input(INPUT_POST, 'AGENT_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
-    }
 
     if($EXECUTE=='1') {
         
         $INSERT = $pdo->prepare("INSERT INTO compliance_agents SET compliance_agents_name=:NAME, compliance_agents_role=:ROLE, compliance_agents_company=:COMPANY");
         $INSERT->bindParam(':ROLE', $AGENT_ROLE, PDO::PARAM_STR);
-        $INSERT->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+        $INSERT->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $INSERT->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_STR);
         $INSERT->execute();
         

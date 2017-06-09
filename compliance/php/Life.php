@@ -23,7 +23,6 @@ if (isset($fferror)) {
 }
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($EXECUTE)) {
     
@@ -56,30 +55,6 @@ if(isset($EXECUTE)) {
     $C12 = filter_input(INPUT_POST, 'c12', FILTER_SANITIZE_SPECIAL_CHARS);
     $C13 = filter_input(INPUT_POST, 'c13', FILTER_SANITIZE_SPECIAL_CHARS);
     $C14 = filter_input(INPUT_POST, 'c14', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
-            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    $hello_name="Michael Owen";
-    }
     
     if($EXECUTE=='1') {
         
@@ -114,7 +89,7 @@ if($GRADE_PERCENT>=90) {
       
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");           
     $query->bindParam(':NAME', $hello_name, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
@@ -123,7 +98,7 @@ if($GRADE_PERCENT>=90) {
         $INSERT = $pdo->prepare("INSERT INTO life_test_one SET life_test_one_id_fk=:FK, life_test_one_company=:COMPANY, life_test_one_advisor=:ADVISOR, life_test_one_grade=:GRADE, life_test_one_mark=:MARK");
         $INSERT->bindParam(':FK', $ID_FK, PDO::PARAM_STR);
         $INSERT->bindParam(':MARK', $MARK, PDO::PARAM_STR);
-        $INSERT->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+        $INSERT->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $INSERT->bindParam(':GRADE', $GRADE, PDO::PARAM_STR);
         $INSERT->bindParam(':ADVISOR', $hello_name, PDO::PARAM_STR);
         $INSERT->execute();

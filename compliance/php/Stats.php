@@ -38,34 +38,11 @@ if(isset($EXECUTE)) {
     $YEAR=date('Y');
     $MONTH=date('M');
     
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
-            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-     $COMPANY= filter_input(INPUT_POST, 'AGENT_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
-    $hello_name="Michael Owen";
-    }
-    
     if($EXECUTE=='1') {
             
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
     $query->bindParam(':NAME', $STAT_ADVISOR, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
@@ -113,7 +90,7 @@ if(isset($EXECUTE)) {
         $INSERT->bindParam(':RATE', $STAT_CR, PDO::PARAM_STR);
         $INSERT->bindParam(':ADVISOR', $STAT_ADVISOR, PDO::PARAM_STR);
         $INSERT->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
-        $INSERT->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+        $INSERT->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $INSERT->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
         $INSERT->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
         $INSERT->execute();
@@ -128,7 +105,7 @@ if(isset($EXECUTE)) {
             
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND employee_id=:ID");
     $query->bindParam(':ID', $STAT_ID, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
@@ -157,7 +134,7 @@ if(isset($EXECUTE)) {
         $INSERT->bindParam(':LAPSED', $STAT_LAP, PDO::PARAM_STR);
         $INSERT->bindParam(':RATE', $STAT_CR, PDO::PARAM_STR);
         $INSERT->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
-        $INSERT->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+        $INSERT->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $INSERT->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
         $INSERT->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
         $INSERT->execute();

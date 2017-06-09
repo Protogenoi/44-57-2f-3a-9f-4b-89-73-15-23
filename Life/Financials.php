@@ -55,7 +55,7 @@ $companynamere = $companydetailsq['company_name'];
 
 
 if ($companynamere == 'The Review Bureau') {
-    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
+    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade","Nick");
     if (!in_array($hello_name, $Level_2_Access, true)) {
 
         header('Location: ../CRMmain.php?AccessDenied');

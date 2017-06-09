@@ -186,17 +186,18 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php } if ($ffdialler == '1') { ?>
+                        <?php }  ?>
                             <li>
-                                <a href="/dialer/Recordings.php">
+                                <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">Call<br/>Recordings</h2>
+                                        <h2 class="ca-main">Bluetelecoms<br/>Call Recordings</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>
                             </li>
-                        <?php } if ($fftwitter == '1') { ?>
+                      
+                        <?php  if ($fftwitter == '1') { ?>
 
                             <li>
                                 <a href="#twitter" role="button" data-toggle="modal" data-target="#twitter">

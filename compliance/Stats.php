@@ -232,9 +232,28 @@ WHERE
                                     $STAT_ID=$result['compliance_sale_stats_id'];
                                     }
                                     
-                                    echo "<form method='POST' action='php/Stats.php?EXECUTE=2&STAT_ID=$STAT_ID'><tr><td>$STAT_ADVISOR</td>
-                                        <td>$STAT_COMPANY</td>
-                                    <td><input class='form-control' type='text' name='STAT_SALES' value='$STAT_SALES'></td>
+                                    echo "<form method='POST' action='php/Stats.php?EXECUTE=2&STAT_ID=$STAT_ID'><tr><td>$STAT_ADVISOR</td>"; 
+                                    
+                                            if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+                                <td> <div class="form-group">
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='The Financial Assessment Centre') { echo "selected"; } ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+                                    </div></td>
+ 
+            
+      <?php  } else {
+        
+    
+                                
+      echo "<td>$STAT_COMPANY</td>"; }
+                                   echo " <td><input class='form-control' type='text' name='STAT_SALES' value='$STAT_SALES'></td>
                                     <td><input class='form-control' type='text' name='STAT_STANDARD' value='$STAT_STANDARD'></td>
                                     <td><input class='form-control' type='text' name='STAT_CIC' value='$STAT_CIC'></td>
                                     <td><input class='form-control' type='text' name='STAT_CFO' value='$STAT_CFO'></td>

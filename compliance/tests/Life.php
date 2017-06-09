@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -23,47 +23,8 @@ if (isset($fferror)) {
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
-if (in_array($hello_name, $TRB_ACCESS, true)) {
-  $AGENCY_NAME = "The Review Bureau";  
-}
-if (in_array($hello_name, $PFP_ACCESS, true))  {
-    $AGENCY_NAME = "Protect Family Plans";
-}
-if (in_array($hello_name, $PLL_ACCESS, true))  {
-    $AGENCY_NAME = "Protected Life Ltd";
-}
-if (in_array($hello_name, $WI_ACCESS, true)) {
-  $AGENCY_NAME = "We Insure";  
-}
-if (in_array($hello_name, $TFAC_ACCESS, true)) {
-   $AGENCY_NAME = "The Financial Assessment Centre"; 
-}
-if (in_array($hello_name, $APM_ACCESS, true)) {
-  $AGENCY_NAME = "Assured Protect and Mortgages";  
-}
-
 if(isset($EXECUTE)) {
     $TID = filter_input(INPUT_GET, 'TID', FILTER_SANITIZE_NUMBER_INT);
-    
-            
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
     
     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
         
@@ -76,7 +37,7 @@ if(isset($EXECUTE)) {
     else {
             $query = $pdo->prepare("SELECT life_test_one_company, life_test_one_advisor, life_test_one_mark, life_test_one_grade, life_test_one_added_date, life_test_one_id FROM life_test_one WHERE life_test_one_id=:TID and life_test_one_company=:COMPANY");
     $query->bindParam(':TID', $TID, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);
     }

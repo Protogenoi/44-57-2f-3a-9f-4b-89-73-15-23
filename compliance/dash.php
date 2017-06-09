@@ -26,28 +26,6 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $YEAR=date('Y');
     $MONTH=date('M');
-
-if (in_array($hello_name, $TRB_ACCESS, true)) {
-  $AGENCY_NAME = "The Review Bureau";  
-}
-if (in_array($hello_name, $PFP_ACCESS, true))  {
-    $AGENCY_NAME = "Protect Family Plans";
-}
-if (in_array($hello_name, $PLL_ACCESS, true))  {
-    $AGENCY_NAME = "Protected Life Ltd";
-}
-if (in_array($hello_name, $WI_ACCESS, true)) {
-  $AGENCY_NAME = "We Insure";  
-}
-if (in_array($hello_name, $TFAC_ACCESS, true)) {
-   $AGENCY_NAME = "The Financial Assessment Centre"; 
-}
-if (in_array($hello_name, $APM_ACCESS, true)) {
-  $AGENCY_NAME = "Assured Protect and Mortgages";  
-}
-if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
-  $AGENCY_NAME = "Master Access";  
-}
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -86,7 +64,7 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                             <a href="dash.php?EXECUTE=3" class="list-group-item list-group-item-action">Statistics</a>
                             <?php } ?>
                             <a href="#" class="list-group-item list-group-item-action">Compliance Rating</a>
-                            <a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $AGENCY_NAME; ?>" class="list-group-item list-group-item-action">LG Jargon Buster</a>
+                            <a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="list-group-item list-group-item-action">LG Jargon Buster</a>
                             <a href="Stats.php" class="list-group-item list-group-item-action">Add Statistics</a>
                             <a href="Compliance.php" class="list-group-item list-group-item-action">Add Documents</a>
                             <a href="Message.php" class="list-group-item list-group-item-action">Message</a>
@@ -311,9 +289,9 @@ WHERE
                                 <h2>Life Insurance</h2>
                                 <p>Put your knowledge to the test with this Life insurance test!</p>
                                 
-                                    <p><a href="tests/Life.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
+                                    <p><a href="tests/Life.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
                                 
-                               <a href="tests/Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
+                               <a href="tests/Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
                                <a href="#" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> MORE TESTS</a></p>
 
                             </article>
@@ -538,7 +516,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $SALE_COUNT = $database->single();
                         $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
      
@@ -548,7 +526,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $STAN_COUNT = $database->single();
                         $STAT_STAN= htmlentities($STAN_COUNT['badge']);
                                                
@@ -558,7 +536,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $CIC_COUNT = $database->single();
                         $STAT_CIC= htmlentities($CIC_COUNT['badge']);
                         
@@ -568,7 +546,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $CFO_COUNT = $database->single();
                         $STAT_CFO= htmlentities($CFO_COUNT['badge']);
                         
@@ -578,7 +556,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $LAP_COUNT = $database->single();
                         $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
                         
@@ -588,7 +566,7 @@ WHERE
     compliance_sale_stats_month=:MONTH");
                         $database->bind(':YEAR', $YEAR);
                         $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $RATE_COUNT = $database->single();
                         $STAT_CANCEL_RATE= htmlentities($RATE_COUNT['badge']);   
                         
@@ -698,22 +676,22 @@ WHERE
                          $database = new Database();  
                          
                         $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Graded'");
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $NO_AUDIT_COUNT = $database->single();
                         $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
      
                         $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
                         $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Amber'");
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
                         $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Red'");
-                        $database->bind(':COMPANY', $AGENCY_NAME);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']);
                         
@@ -811,8 +789,8 @@ WHERE
                         </center>
                          
                                 <br>
-                                <p> <a href="Life.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> Insurance Results</a>
-                                 <a href="Protection.php?AGENCY=<?php echo $AGENCY_NAME; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> Protection Results</a></p>
+                                <p> <a href="Life.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> Insurance Results</a>
+                                 <a href="Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-info"><i class="fa fa-search"></i> Protection Results</a></p>
 
                             </div>
                         </div>	   

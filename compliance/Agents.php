@@ -146,7 +146,7 @@ ADL
         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
         
           <div class="form-group">
-    <label for="AGENT_COMPANY">Company:</label>
+    <label for="COMPANY_ENTITY">Company:</label>
     <select class="form-control" name='AGENT_COMPANY'>
         <option value='The Review Bureau'>The Review Bureau</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>

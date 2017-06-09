@@ -35,7 +35,7 @@ if(isset($EXECUTE)) {
     $RDATE = filter_input(INPUT_GET, 'RDATE', FILTER_SANITIZE_NUMBER_INT);
     
     if($EXECUTE=='1') {
-    
+    echo "$AGENT_NAME $COMPANY_ENTITY";
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
     $query->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_INT);
     $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);

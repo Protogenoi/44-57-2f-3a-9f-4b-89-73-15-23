@@ -98,6 +98,27 @@ if(isset($EXECUTE)) {
                                 <option <?php if(isset($RID_GRADE) && $RID_GRADE=='Red') { echo "selected"; } ?> value="Red">Red</option>
                             </select>
                         </div>
+       
+        <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+          <div class="form-group">
+    <label for="COMPANY_ENTITY">Company:</label>
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='The Financial Assessment Centre') { echo "selected"; } ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+  </div>
+ 
+            
+      <?php  }
+        
+        ?>          
     
     <div class="form-group">
                             <label for='STATUS'>Action required:</label>

@@ -121,6 +121,7 @@ $q=1;
         
     <div class="card card-block">
 <fieldset class="form-group row" <?php if(!isset($EXECUTE)) { } else { echo "disabled"; } ?>>
+        
 <legend class="col-form-legend col-8"><?php echo $q++; ?>. The shortfall in the amount of cover necessary to maintain the current living standards of dependants can also be referred to as the:</legend>
 <div class="col-9">
 <div class="form-check">
@@ -569,7 +570,31 @@ $q=1;
 
     <div class="form-check">
         <textarea class="form-check" name="c14" rows="5" cols="100"><?php if(isset($C14)) { echo $C14; } ?></textarea>
+
     </div>
+
+        <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+         <div class="col-9"> <div class="form-group">
+    <label for="COMPANY_ENTITY">Company:</label>
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='The Financial Assessment Centre') { echo "selected"; } ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+  </div>
+         </div>
+            
+      <?php  }
+        
+        ?>  
+
+
 <?php if(!isset($EXECUTE)) { ?>
 <button type="submit" class="btn btn-primary">Finish</button>
 <?php } ?>

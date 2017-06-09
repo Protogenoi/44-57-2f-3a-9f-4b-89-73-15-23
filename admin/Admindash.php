@@ -1611,31 +1611,7 @@ $companynamere = $companydetailsq['company_name'];
                                         <div class="form-group">
                                             <label class="control-label" for="taskuser">Assign To</label>
                                             <select id="taskuser" name="taskuser" class="form-control">
-
-                                            <?php if ($companynamere == 'The Review Bureau') { ?>
-
-                                                    <option value="Abbiek">Abbie</option>
-                                                    <option value="Jakob">Jakob</option>
-                                                    <option value="carys">Carys</option>
-                                                    <option value="Nicola">Nicola</option>
-                                                    <option value="Victoria">Victoria</option>
-
-    <?php } if ($companynamere == 'Assura') { ?>
-
-                                                    <option value="Tina">Tina</option>
-                                                    <option value="Nathan">Nathan</option>
-    <?php }
-
-    if ($companynamere == 'ADL_CUS') {
-        ?>
-
-                                                    <option value="Helen">Helen</option>
-                                                    <option value="Dean">Dean</option>
-                                                    <option value="Andrew">Andrew</option>
-                                                    <option value="David">David</option>
-
-                                                <?php } ?>
-
+<option value="">Select Agent...</option>
                                             </select>
                                         </div>
 
@@ -2869,6 +2845,15 @@ if ($settingsselect == 'y') {
 
                                     });
     </script>
+     <script type="text/JavaScript">
+                                    var $select = $('#taskuser');
+                                    $.getJSON('../JSON/ADL_USERS.php?EXECUTE=1', function(data){
+                                    $select.html('agent_name');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
+                                    })
+                                    });
+                                </script>
 </body>
 
 </html>

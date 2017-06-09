@@ -34,6 +34,7 @@ $confirm= filter_input(INPUT_POST, 'confirm', FILTER_SANITIZE_SPECIAL_CHARS);
 $login= filter_input(INPUT_POST, 'login', FILTER_SANITIZE_SPECIAL_CHARS);
 $name= filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 $info= filter_input(INPUT_POST, 'info', FILTER_SANITIZE_SPECIAL_CHARS);
+$company= filter_input(INPUT_POST, 'COMPANY_ENTITY', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
 $msg=array("Passwords dont match","Email address already exists","Login already exists","Password too short","Password must include at least one number","Password must include at least one letter");
@@ -133,7 +134,7 @@ if($password==$confirm) {
 }
 
 
-function adduser($pdo,$password,$login,$name,$info,$email) {
+function adduser($pdo,$password,$login,$name,$info,$email,$company) {
 
     $options = [
     'cost' => 9,
@@ -143,10 +144,11 @@ $HASH= password_hash($password, PASSWORD_BCRYPT, $options);
        
 $hasspassword=md5($password);
 
-$adduser = $pdo->prepare("INSERT INTO users set login=:login, pw=:password, real_name=:name, extra_info=:info, email=:email, hash=:HASH");
+$adduser = $pdo->prepare("INSERT INTO users set company=:company, login=:login, pw=:password, real_name=:name, extra_info=:info, email=:email, hash=:HASH");
 $adduser->bindParam(':login',$login, PDO::PARAM_STR, 255);
 $adduser->bindParam(':password',$hasspassword, PDO::PARAM_STR, 255);
 $adduser->bindParam(':HASH',$HASH, PDO::PARAM_STR);
+$adduser->bindParam(':company',$company, PDO::PARAM_STR);
 $adduser->bindParam(':name',$name, PDO::PARAM_STR, 255);
 $adduser->bindParam(':info',$info, PDO::PARAM_STR, 255);
 $adduser->bindParam(':email',$email, PDO::PARAM_STR, 255);
@@ -158,7 +160,7 @@ $adduser->execute()or die(print_r($adduser->errorInfo(), true));
     
     
 validationcheck($password,$confirm,$email,$msg,$pdo,$login);
-adduser($pdo,$password,$login,$name,$info,$email);
+adduser($pdo,$password,$login,$name,$info,$email,$company);
 
 } 
 }
@@ -171,9 +173,10 @@ if(isset($EXECUTE)) {
         $USER_PW= filter_input(INPUT_POST, 'USER_PW', FILTER_SANITIZE_SPECIAL_CHARS);
         $USER_ACCESS_LEVEL= filter_input(INPUT_POST, 'USER_ACCESS_LEVEL', FILTER_SANITIZE_SPECIAL_CHARS);
         $USER_ACTIVE= filter_input(INPUT_POST, 'USER_ACTIVE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $USER_COMPANY= filter_input(INPUT_POST, 'USER_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
         $USER_ID= filter_input(INPUT_GET, 'USER_ID', FILTER_SANITIZE_NUMBER_INT);
         
-        function updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE) {
+        function updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE,$USER_COMPANY) {
 
                         $PASS_CHECK = $pdo->prepare("SELECT id from users WHERE id=:UID AND pw=:PASS");
                         $PASS_CHECK->bindParam(':UID', $USER_ID, PDO::PARAM_INT);
@@ -190,9 +193,10 @@ if(isset($EXECUTE)) {
                         
                         if ($PASS_CHECK->rowCount() >= 1) {
                             echo "TEST";
-                            $NO_PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
+                            $NO_PASS_QRY = $pdo->prepare("UPDATE users set company=:COMPANY, login=:LOGIN, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
                             $NO_PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
                             $NO_PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);
+                            $NO_PASS_QRY->bindParam(':COMPANY',$USER_COMPANY, PDO::PARAM_STR);
                             $NO_PASS_QRY->bindParam(':ACCESS',$USER_ACCESS_LEVEL, PDO::PARAM_STR);
                             $NO_PASS_QRY->bindParam(':UID',$USER_ID, PDO::PARAM_INT);
                             $NO_PASS_QRY->bindParam(':ACTIVE',$USER_ACTIVE, PDO::PARAM_STR);
@@ -202,10 +206,11 @@ if(isset($EXECUTE)) {
                         
                         else {
                             
-                            $PASS_QRY = $pdo->prepare("UPDATE users set login=:LOGIN, hash=:HASH, pw=:PASS, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
+                            $PASS_QRY = $pdo->prepare("UPDATE users set company=:COMPANY, login=:LOGIN, hash=:HASH, pw=:PASS, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
                             $PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
                             $PASS_QRY->bindParam(':PASS',$hasspassword, PDO::PARAM_STR, 255);
                             $PASS_QRY->bindParam(':HASH',$HASH, PDO::PARAM_STR);
+                            $PASS_QRY->bindParam(':COMPANY',$USER_COMPANY, PDO::PARAM_STR);
                             $PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);
                             $PASS_QRY->bindParam(':ACCESS',$USER_ACCESS_LEVEL, PDO::PARAM_STR);
                             $PASS_QRY->bindParam(':UID',$USER_ID, PDO::PARAM_INT);
@@ -217,7 +222,7 @@ if(isset($EXECUTE)) {
                             header('Location: /admin/Admindash.php?users=y&adduser=2&user='.$USER_LOGIN); die;
                             
                         }
-                        updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE); 
+                        updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE,$USER_COMPANY); 
                         }
                         
                         }

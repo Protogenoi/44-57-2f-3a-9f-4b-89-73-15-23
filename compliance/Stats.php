@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $Level_2_Access = array("Jade");
@@ -29,7 +29,7 @@ if (isset($fferror)) {
     }
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
+if (!in_array($hello_name, $Level_1_Access, true)) {
 
     header('Location: /index.php?AccessDenied');
     die;

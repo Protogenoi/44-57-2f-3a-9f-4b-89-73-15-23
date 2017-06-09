@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -12,6 +12,12 @@ require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (!in_array($hello_name, $Level_1_Access, true)) {
+
+    header('Location: /../index.php?AccessDenied');
+    die;
 }
 
 if (isset($fferror)) {
@@ -99,7 +105,7 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 <div class="col-6">
                             <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <center><strong><?php if(isset($AGENCY)) { echo $AGENCY; } else { echo "Main Dashboard"; }  ?></strong></center><br>
+                            <center><strong><?php if(isset($AGENCY)) { echo $AGENCY; } else { echo "$COMPANY_ENTITY Main Dashboard"; }  ?></strong></center><br>
                         </div>	
 <?php if (isset($EXECUTE)) {
     if($EXECUTE=='2') { ?>
@@ -766,17 +772,17 @@ WHERE
                          $database = new Database();  
                          
                         $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Green'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $TEST_GREEN_COUNT = $database->single();
                         $TEST_GREEN_VAR= htmlentities($TEST_GREEN_COUNT['badge']);
                                                
                         $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Amber'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $TEST_AMBER_COUNT = $database->single();
                         $TEST_AMBER_VAR= htmlentities($TEST_AMBER_COUNT['badge']);
                         
                         $database->query("SELECT count(life_test_one_id) AS badge FROM life_test_one where life_test_one_company=:COMPANY and life_test_one_grade='Red'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->bind(':COMPANY', $COMPANY_ENTITY);
                         $TEST_RED_COUNT = $database->single();
                         $TEST_RED_VAR= htmlentities($TEST_RED_COUNT['badge']); 
                         

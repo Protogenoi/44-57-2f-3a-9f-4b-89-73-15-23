@@ -23,48 +23,9 @@ if (isset($fferror)) {
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
-if (in_array($hello_name, $TRB_ACCESS, true)) {
-  $AGENCY_NAME = "The Review Bureau";  
-}
-if (in_array($hello_name, $PFP_ACCESS, true))  {
-    $AGENCY_NAME = "Protect Family Plans";
-}
-if (in_array($hello_name, $PLL_ACCESS, true))  {
-    $AGENCY_NAME = "Protected Life Ltd";
-}
-if (in_array($hello_name, $WI_ACCESS, true)) {
-  $AGENCY_NAME = "We Insure";  
-}
-if (in_array($hello_name, $TFAC_ACCESS, true)) {
-   $AGENCY_NAME = "The Financial Assessment Centre"; 
-}
-if (in_array($hello_name, $APM_ACCESS, true)) {
-  $AGENCY_NAME = "Assured Protect and Mortgages";  
-}
-
 if(isset($EXECUTE)) {
     $RID = filter_input(INPUT_GET, 'RID', FILTER_SANITIZE_NUMBER_INT);
-    
-            
-    if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }
-    
+
     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
         
     $query = $pdo->prepare("SELECT compliance_recordings_location, compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_id=:RID");
@@ -78,7 +39,7 @@ if(isset($EXECUTE)) {
         
     $query = $pdo->prepare("SELECT compliance_recordings_location, compliance_recordings_audited_by, compliance_recordings_audited_date, compliance_recordings_comments, compliance_recordings_status, compliance_recordings_advisor, compliance_recordings_grade, compliance_recordings_recording_date, compliance_recordings_company FROM compliance_recordings WHERE compliance_recordings_company=:COMPANY AND compliance_recordings_id=:RID");
     $query->bindParam(':RID', $RID, PDO::PARAM_INT);
-    $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC);
     

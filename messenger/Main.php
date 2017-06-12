@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $Level_2_Access = array("Jade");
@@ -31,12 +31,13 @@ if (isset($fferror)) {
     }
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
+if (!in_array($hello_name, $Level_1_Access, true)) {
 
     header('Location: /index.php?AccessDenied');
     die;
 }
 $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
+$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -81,7 +82,7 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
                 <div class="twelve columns">
                     <ul class="ca-menu">
 
-                        <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
+                        <?php if (in_array($hello_name, $Level_1_Access, true)) { ?>
                             <li>
                                 <a data-toggle="modal" data-target="#myModal">
                                     <span class="ca-icon"><i class="fa fa-send-o"></i></span>
@@ -91,6 +92,26 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </div>
                                 </a>
                             </li>
+                            
+                            <li>
+                                <a href="Main.php?EXECUTE=2">
+                                    <span class="ca-icon"><i class="fa fa-inbox"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Check<br/> Inbox</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>                              
+                            
+                            <li>
+                                <a href="Main.php?EXECUTE=1">
+                                    <span class="ca-icon"><i class="fa fa-send"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Check<br/> Sent</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>                            
                         <?php } ?>
                             
                 </div>
@@ -121,27 +142,7 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
     <label for="MSG">Message:</label>
     <textarea id="notes" name="MSG" id="message" class="summernote" id="contents" title="Contents" maxlength="2000" required></textarea>
 </div>
- 
-        <?php
-        
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-        
-          <div class="form-group">
-    <label for="COMPANY_ENTITY">Company:</label>
-    <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='The Review Bureau'>The Review Bureau</option>
-        <option value='Protect Family Plans'>Protect Family Plans</option>
-        <option value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option value='We Insure'>We Insure</option>
-        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
-    </select>
-  </div>
- 
-            
-      <?php  }
-        
-        ?>
+
  
         <button type="submit" class="btn btn-success"><i class="fa fa-send-o"></i> Send</button>
 </form>              
@@ -158,6 +159,61 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
         
         <?php
         
+        if(isset($EXECUTE)) {
+        if($EXECUTE=='1') {
+            
+ $query = $pdo->prepare("SELECT
+            messenger_sent_by,
+            messenger_msg,
+            messenger_date,
+            messenger_status,
+            messenger_company
+            FROM
+    messenger
+    WHERE messenger_sent_by=:HELLO");
+        $query->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+        $query->execute();
+                if ($query->rowCount() > 0) { ?> 
+                    
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Sender</th>
+                                        <th>Company</th>
+                                        <th>Message</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Sender</th>
+                                        <th>Company</th>
+                                        <th>Message</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </tfoot>                    
+        
+                    <?php
+                    while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+                        
+                        $NOTE=html_entity_decode($result['messenger_msg']);
+
+
+                        echo "<tr>
+                           <td>" . $result['messenger_date'] . "</td>";
+                        echo "<td>" . $result['messenger_sent_by'] . "</td>";
+                        echo "<td>" . $result['messenger_company'] . "</td>";
+                        echo "<td>$NOTE</td>";
+                        echo "<td>" . $result['messenger_status'] . "</td>";
+                        echo "</tr>";
+                    }
+            ?> </table>  <?php  }             
+            
+            
+        } if($EXECUTE=='2') {
+            
         $query = $pdo->prepare("SELECT
             messenger_sent_by,
             messenger_msg,
@@ -229,7 +285,81 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
                         echo "</tr>";
                     }
             ?> </table>  <?php  } 
-         ?>
+        }         
+        
+                    } else {
+        $query = $pdo->prepare("SELECT
+            messenger_sent_by,
+            messenger_msg,
+            messenger_date,
+            messenger_id,
+            messenger_company
+            FROM
+    messenger
+    WHERE
+    messenger_status='Unread'
+    AND messenger_to=:HELLO");
+        $query->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+        $query->execute();
+                if ($query->rowCount() > 0) { ?> 
+                    
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Sender</th>
+                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                        <th>Company</th>
+                                        <?php } ?>
+                                        <th>Message</th>
+                                        <th>Dismiss</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Sender</th>
+                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                        <th>Company</th>
+                                        <?php } ?>
+                                        <th>Message</th>
+                                        <th>Dismiss</th>
+                                    </tr>
+                                </tfoot>                    
+        
+                    <?php
+                    while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+                        
+                        $NOTE=html_entity_decode($result['messenger_msg']);
+
+
+                        echo "<form method='POST' action='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."''><tr>
+                           <td>" . $result['messenger_date'] . "</td>";
+                        echo "<td>" . $result['messenger_sent_by'] . "</td>"; ?>
+                                <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+                                <td>
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Protect Family Plans'>Protect Family Plans</option>
+        <option value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option value='We Insure'>We Insure</option>
+        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+                                </td>
+ 
+            
+      <?php  }
+    
+                        echo "<td>$NOTE</td>";
+                        echo "<td><button type='submit' class='btn btn-success'><i class='fa fa-check-circle-o'></i></button></td>";
+                        echo "</tr>";
+                    }
+            ?> </table>  <?php  } 
+        } ?>
                                
 
      
@@ -241,7 +371,7 @@ $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
                       <script type="text/JavaScript">
                                     var $select = $('#MSG_TO');
                                     $.getJSON('/messenger/JSON/Agents.php?EXECUTE=1', function(data){
-                                    $select.html('agent_name');
+                                    $select.html('MSG_TO');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
                                     })

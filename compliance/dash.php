@@ -73,7 +73,7 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
                             <a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="list-group-item list-group-item-action">LG Jargon Buster</a>
                             <a href="Stats.php" class="list-group-item list-group-item-action">Add Statistics</a>
                             <a href="Compliance.php" class="list-group-item list-group-item-action">Add Documents</a>
-                            <a href="Message.php" class="list-group-item list-group-item-action">Message</a>
+                            <a href="/messenger/Main.php" class="list-group-item list-group-item-action">Message</a>
                         </div>    
 
                         <div class="card-header p-b-0">

@@ -27,7 +27,7 @@ $companynamere = $companydetailsq['company_name'];
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin");
     $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith","Rhiannon","Ryan","TEST","Assured","Gavin");
-    $Level_1_Access = array("Tom Owen","Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST","Assured","Gavin");
+    $Level_1_Access = array("Tom Owen","Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST","Assured","Gavin", "Keith");
     $Task_Access = array("Michael", "Abbiek");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Chloe");
     $Agent_Access = array("111111111");
@@ -53,6 +53,31 @@ $companynamere = $companydetailsq['company_name'];
     }
         if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
     $COMPANY_ENTITY= filter_input(INPUT_POST, 'COMPANY_ENTITY', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    if(empty($COMPANY_ENTITY)) {
+        
+            if (in_array($hello_name, $TRB_ACCESS, true)) { 
+    $COMPANY_ENTITY='The Review Bureau';
+            }
+        
+                if (in_array($hello_name, $PFP_ACCESS, true)) { 
+    $COMPANY_ENTITY='Protect Family Plans';
+    }
+        if (in_array($hello_name, $PLL_ACCESS, true)) { 
+    $COMPANY_ENTITY='Protected Life Ltd';
+    }
+        if (in_array($hello_name, $WI_ACCESS, true)) { 
+    $COMPANY_ENTITY='We Insure';
+    }
+        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
+    $COMPANY_ENTITY='The Financial Assessment Centre';
+    }
+        if (in_array($hello_name, $APM_ACCESS, true)) { 
+    $COMPANY_ENTITY='Assured Protect and Mortgages';
+    }
+        
+    }
+    
     }     
     
 
@@ -61,7 +86,7 @@ if ($companynamere == 'The Review Bureau') {
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin");
     $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith","Rhiannon","Ryan","TEST","Assured","Gavin");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST","Assured","Gavin");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits","Rhiannon","Ryan","TEST","Assured","Gavin", "Keith");
     $Task_Access = array("Michael", "Abbiek");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Chloe");
     $Agent_Access = array("111111111");

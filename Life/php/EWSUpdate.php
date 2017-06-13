@@ -51,8 +51,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $qnotes->bindParam(':messageholder',$status_update, PDO::PARAM_STR, 2500);
         $qnotes->execute()or die(print_r($qnotes->errorInfo(), true));
 
-        $qews = $pdo->prepare("UPDATE ews_data set ews_status_status=:warning, warning=:status, ournotes=:notes, color_status=:color WHERE policy_number=:policy");
-        $qews->bindParam(':warning',$warning, PDO::PARAM_STR);
+        $qews = $pdo->prepare("UPDATE ews_data set warning=:status, ournotes=:notes, color_status=:color WHERE policy_number=:policy");
         $qews->bindParam(':status',$status, PDO::PARAM_STR);
         $qews->bindParam(':notes',$notes, PDO::PARAM_STR);
         $qews->bindParam(':color',$newcolour, PDO::PARAM_STR);

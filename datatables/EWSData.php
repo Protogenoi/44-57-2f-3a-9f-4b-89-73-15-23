@@ -63,7 +63,6 @@ print json_encode($rows);
             $sql = "SELECT 
 ews_data.policy_number
 , ews_data.id
-, ews_data.dob
 , ews_data.address1
 , ews_data.address2
 , ews_data.address3
@@ -89,10 +88,10 @@ ews_data.policy_number
 , client_policy.closer
 , client_policy.lead
 , ews_data.color_status
+, ews_data.updated_date
 	FROM ews_data
 	LEFT JOIN client_policy 
-	ON ews_data.policy_number=client_policy.policy_number
-	WHERE color_status IN ('black', 'blue', ' ')";
+	ON ews_data.policy_number=client_policy.policy_number";
     $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 
 

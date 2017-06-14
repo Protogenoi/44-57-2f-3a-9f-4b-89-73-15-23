@@ -1,18 +1,26 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 9);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
- include('../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
 
-if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: /index.php?AccessDenied'); die;
-
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
-include('../includes/adlfunctions.php');
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
 
 ?>
 <!DOCTYPE html>
@@ -31,23 +39,14 @@ include('../includes/adlfunctions.php');
 </head>
 <body>
     
-    <?php 
-    include('../includes/navbar.php');
-     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-    
-?> 
+<?php require_once(__DIR__ . '/../includes/navbar.php'); ?> 
     
 <div class="container">
     <div class="col-xs-12 .col-md-8">
         <div class="row">
             <div class="twelve columns">
                 <ul class="ca-menu">
-                    <?php if (in_array($hello_name,$Level_3_Access, true)) { ?>
+                    <?php if (in_array($hello_name,$Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { ?>
                                       <li>
                         <a data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
 			<span class="ca-icon"><i class="fa fa-user-plus"></i></span>
@@ -630,3 +629,9 @@ $(document).ready(function() {
 </script> 
 </body>
 </html>
+<?php } else {
+        
+    header('Location: /index.php?AccessDenied'); die;
+
+}
+?>

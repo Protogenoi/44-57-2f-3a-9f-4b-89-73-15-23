@@ -1,16 +1,12 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 9);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/Access_Levels.php');
 
-if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: ../../CRMmain'); die;
-
-}
+if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
 
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='The Review Bureau';
@@ -475,6 +471,8 @@ else {
 }
 
 
-
+} else {
+ header('Location: ../../CRMmain'); die;
+}
 
 ?>

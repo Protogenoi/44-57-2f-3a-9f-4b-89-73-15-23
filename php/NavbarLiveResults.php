@@ -1,11 +1,16 @@
 <?php
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
 
 if ($fflife == '1') {
 
     $NAVdate = date("Y-m-d");
-    $hello_name = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $navbar = $pdo->prepare("select count(deadline) AS badge from Client_Tasks where deadline=:date AND assigned =:navbarname and complete ='0'");
     $navbar->bindParam(':navbarname', $hello_name, PDO::PARAM_STR, 25);
@@ -68,6 +73,22 @@ WHERE
     
     
 }
+if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    
+    $MSG_stmt = $pdo->prepare("SELECT 
+    count(messenger_id) AS badge 
+FROM
+    messenger
+WHERE
+    messenger_to=:HELLO
+    AND
+    messenger_status='Unread'");
+    $MSG_stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+    $MSG_stmt->execute();
+    $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);    
+    
+} else {
+
 
     $MSG_stmt = $pdo->prepare("SELECT 
     count(messenger_id) AS badge 
@@ -82,6 +103,7 @@ WHERE
     $MSG_stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
     $MSG_stmt->execute();
     $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <ul class="nav navbar-nav navbar-right">
@@ -119,15 +141,15 @@ if ($ACT_CBS['badge'] > 0) { ?>
                 <?php
             }
         }
-               
-            if ($MSG_stmtresult['badge'] >= '1') {
+        }    
+            if ($MSG_stmtresult['badge'] >= '0') {
                 ?>
-                <li><a href="/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo $MSG_stmtresult['badge']; ?> </span></a></li>
+                <li><a href="/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo "$hello_name $MSG_stmtresult[badge]"; ?> </span></a></li>
 
                 <?php
             }
 
         
-    } ?>
+ ?>
 
 </ul>

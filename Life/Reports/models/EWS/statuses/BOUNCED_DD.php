@@ -16,7 +16,7 @@ FROM
     ews_data
 WHERE
     DATE(date_added) BETWEEN :datefrom AND :dateto
-        AND ews_status_status = "BOUNCED DD"');
+        AND ews_status_status = "BOUNCED DD" AND warning ="BOUNCED DD NEW"');
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
         $stmt->execute();

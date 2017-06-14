@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
@@ -17,10 +17,11 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     header('Location: ../../CRMmain.php'); die;
 }
 
-if(isset($_GET["datefrom2"])) $datefrom2 = $_GET["datefrom2"];
-if(isset($_GET["dateto2"])) $dateto2 = $_GET["dateto2"];
-
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,7 +35,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css"> 
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">    
-    <link rel="stylesheet" type="text/css" href="//datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
     <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">  
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />   
         <style>
@@ -46,13 +46,8 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     </style>
 </head>
 <body>
-<?php include('../../includes/navbar.php'); 
+<?php require_once(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS). '/includes/navbar.php'); 
     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
 ?>
     <div class="container">
         
@@ -72,201 +67,301 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
         ?>
         
         <ul class="nav nav-pills">
-            <li class="active"><a data-toggle="pill" href="#menu7">Master</a></li>
-            <li><a data-toggle="pill" href="#menu1">Cases Worked</a></li>
-            <li><a data-toggle="pill" href="#menu2">Cases to Work</a></li>
+            <li class="active"><a data-toggle="pill" href="#OVERVIEW">Overview</a></li>
+            <li><a data-toggle="pill" href="#menu7">Master</a></li>
+            <li><a data-toggle="pill" href="#menu2">EWS</a></li>
             <li><a data-toggle="pill" href="#menu5">Upload Data</a></li>
         </ul>
     </div>
     
     <div class="tab-content">
-        <div id="menu7" class="tab-pane fade in active ">  
-           <?php 
-                    
-                $menu7filter= filter_input(INPUT_GET, 'menu7filter', FILTER_SANITIZE_NUMBER_INT);
-                $menu1filter= filter_input(INPUT_GET, 'menu1filter', FILTER_SANITIZE_NUMBER_INT);
-                
-                if(isset($menu7filter)) {                    
-                    if($menu7filter=='1') {
-                        
-                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check fa-check\"></i> Info:</strong> Filter settings set!</div>");
-
-                    }
-                        
-                }
-                    
-                ?>
-            <div class="smallcontainer"> 
-                
-                <?php 
-
-                    
-                if(isset($menu7filter)) {                    
-                    if($menu7filter=='1') {
-                        
-                        $menu7date= filter_input(INPUT_POST, 'menu7date', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                        $clawcolour= filter_input(INPUT_POST, 'clawcolour', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                        
-                        $newmenu7date ="$menu7date-%";
-                        
-                            $query = $pdo->prepare("select sum(clawback_due) AS due, color_status from ews_data WHERE clawback_date like :date group by color_status");
-                            $query->bindParam(':date', $newmenu7date, PDO::PARAM_STR, 12);
-                            
-                                     echo "<table id='filtertable' class='table table-hover'>
-                                     <thead>
-                                     <tr>
-                                     <th>Colour</th>
-                                     <th>Clawback Risk Total</th>                                      
-                                     </tr>
-                                     </thead>";
-                            
-                            $query->execute();
-                            if ($query->rowCount()>0) {
-                                while ($result=$query->fetch(PDO::FETCH_ASSOC)){
-                                    switch( $result['color_status'] ) {
-                                                                         
-                                                case("Black"):
-                                                    $colorclass = 'black';
-                                                    break;
-                                                case("red"):
-                                                    $colorclass = 'red';
-                                                    break;
-                                                case("purple"):
-                                                    $colorclass = 'purple';
-                                                    break;
-                                                case("amber"):
-                                                    $colorclass = 'amber';
-                                                    break;
-                                                case("orange"):
-                                                    $colorclass = 'orange';
-                                                    break;
-                                                case("green"):
-                                                    $colorclass = 'green';
-                                                    break;
-                                                    case("yellow"):
-                                                    $colorclass = 'yellow';
-                                                    break;
-                                                        
-                                     }
-                                     
-                                     echo '<tr>';
-                                     echo "<td style='color: #fff; background: $colorclass;'>".$result['color_status']."</td>";
-                                     echo "<td>".$result['due']."</td>";
-                                     echo "</tr>";
-                                
-                            }
-                                
-                            }
-                            
-                            else {
-                                
-                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> Info:</strong> No data found!</div>";
-                                
-                            }
-                            echo "</table>";   
-                            
-                            $query2 = $pdo->prepare("SELECT ews_data.policy_number, ews_data.id, ews_data.address1, ews_data.address2, ews_data.address3, ews_data.address4, ews_data.post_code, ews_data.policy_type, ews_data.warning, ews_data.last_full_premium_paid, ews_data.net_premium, ews_data.premium_os, ews_data.clawback_due, DATE_FORMAT(ews_data.clawback_date, '%y-%M') AS clawback_date, ews_data.policy_start_date, ews_data.off_risk_date, ews_data.reqs, ews_data.date_added, ews_data.Processor, ews_data.ews_status_status, ews_data.client_name, client_details.client_id, ews_data.color_status, ews_data.ournotes
-	FROM ews_data LEFT JOIN client_policy ON ews_data.policy_number=client_policy.policy_number LEFT JOIN client_details ON client_policy.client_id=client_details.client_id
-	LEFT JOIN financial_statisics ON financial_statisics.policy_number=ews_data.policy_number WHERE clawback_date = :date ORDER BY ews_data.color_status");
-                            $query2->bindParam(':date', $newmenu7date, PDO::PARAM_STR, 12);
-                            
-                                     echo "<table id='filtertable'>
-                                     <thead>
-                                     <tr>
-                            <th>Date Added</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ID</th>
-                            <th>Address 1</th>
-                            <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
-                            <th>Post Code</th>
-                            <th>Policy Type</th>
-                            <th>Warning</th>
-                            <th>Last Full Premium Paid</th>
-                            <th>Net Premium</th>
-                            <th>Premium OS</th>
-                            <th>Clawback Risk</th>
-                            <th>Clawback Date</th>
-                            <th>Policy Start Date</th>
-                            <th>Off Risk Date</th>
-                            <th>Reqs</th>
-                            <th>Orig Status</th>
-                            <th>Our Notes</th>
-                            <th>Color</th>                                      
-                                     </tr>
-                                     </thead>";
-                            
-                            $query2->execute();
-                            if ($query2->rowCount()>0) {
-                                while ($result2=$query2->fetch(PDO::FETCH_ASSOC)){
-                                     
-                                     switch( $result2['color_status'] ) {
-                                                                          
-                                                case("Black"):
-                                                    $colorclass = 'black';
-                                                    break;
-                                                case("red"):
-                                                    $colorclass = 'red';
-                                                    break;
-                                                case("purple"):
-                                                    $colorclass = 'purple';
-                                                    break;
-                                                case("amber"):
-                                                    $colorclass = 'amber';
-                                                    break;
-                                                case("orange"):
-                                                    $colorclass = 'orange';
-                                                    break;
-                                                case("green"):
-                                                    $colorclass = 'green';
-                                                    break;
-                                                  case("yellow"):
-                                                    $colorclass = 'yellow';
-                                                    break;
-                                                
-                                     }
-                
-                                     echo "<tr style='color:$colorclass;'>
-                                     <td>".$result2['date_added']."</td>
-                                     <td>".$result2['policy_number']."</td>
-                                     <td>".$result2['client_name']."</td>
-                                     <td>".$result2['client_id']."</td>
-                                     <td>".$result2['address1']."</td>
-                                     <td>".$result2['address2']."</td>
-                                     <td>".$result2['address3']."</td>
-                                     <td>".$result2['address4']."</td>
-                                     <td>".$result2['post_code']."</td>
-                                     <td>".$result2['policy_type']."</td>
-                                     <td>".$result2['warning']."</td> 
-                                     <td>".$result2['last_full_premium_paid']."</td>
-                                     <td>".$result2['net_premium']."</td>
-                                     <td>".$result2['premium_os']."</td>
-                                     <td>".$result2['clawback_due']."</td>
-                                     <td>".$result2['clawback_date']."</td>
-                                     <td>".$result2['policy_start_date']."</td>
-                                     <td>".$result2['off_risk_date']."</td>
-                                     <td>".$result2['reqs']."</td>
-                                     <td>".$result2['ews_status_status']."</td>
-                                     <td>".$result2['our_notes']."</td>
-                                     <td>".$result2['color_status']."</td> 
-                                     </tr>";
-                                
-                            }
-                                
-                            }
-                                               else {
-                                
-                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> Info:</strong> No data found!</div>";
-                                
-                            }
-                            echo "</table>";
         
-                    }
+        <div class="tab-pane fade in active" id="OVERVIEW">
+            
+            <div class="container"> 
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">EWS Statistics</h3>
+                    </div>
+                    <div class="panel-body">
+
+
+
+                        <form action=" " method="get">
+
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($datefrom)) {
+                                        echo $datefrom;
+                                    }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($dateto)) {
+                                        echo $dateto;
+                                    }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <select class="form-control" name="EWS_DATE">
+                                        <?php
+                                        $EWS_DATE_QRY = $pdo->prepare("SELECT DATE(date_added) AS date_added FROM ews_data group by DATE(date_added) ORDER BY date_added DESC");
+                                        $EWS_DATE_QRY->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($EWS_DATE_QRY->rowCount() > 0) {
+                                            while ($row = $EWS_DATE_QRY->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['date_added'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['date_added']; ?>"><?php echo $row['date_added']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>       
+
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                            </div>
+
+                            </fieldset>
+                        </form>        
+                        <?php
+
+                        if (isset($datefrom)) {
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/CFO.php');
+    $TotalCFO = new TotalCFOModal($pdo);
+    $TotalCFOList = $TotalCFO->getTotalCFO($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/CFO.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/LAPSED.php');
+    $TotalLapsed = new TotalLapsedModal($pdo);
+    $TotalLapsedList = $TotalLapsed->getTotalLapsed($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/Lapsed.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/BOUNCED_DD.php');
+    $TotalBOUNCED_DD = new TotalBOUNCED_DDModal($pdo);
+    $TotalBOUNCED_DDList = $TotalBOUNCED_DD->getTotalBOUNCED_DD($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/BOUNCED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/CANCELLED_DD.php');
+    $TotalCANCELLED_DD = new TotalCANCELLED_DDModal($pdo);
+    $TotalCANCELLED_DDList = $TotalCANCELLED_DD->getTotalCANCELLED_DD($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/CANCELLED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/CANCELLED.php');
+    $TotalCANCELLED = new TotalCANCELLEDModal($pdo);
+    $TotalCANCELLEDList = $TotalCANCELLED->getTotalCANCELLED($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/CANCELLED.php');                            
+    //END OF CALCULATION      
+                        ?>       
+
+                        <table  class="table table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "EWS Statistics for $datefrom - $dateto";?>
+                                    </th>
+                                </tr>
+                               
+                                <th>Total CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CFO&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Total Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked." ></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=LAPSED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=BOUNCED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CANCELLED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+
+                            </tr>
+                            </thead>
+
+                            <?php
+                            
+                            echo "<tr>
+                                    <td>$CFO</td>
+                                    <td>$Lapsed</td>
+                                    <td>$BOUNCED_DD</td>
+                                    <td>$CANCELLED_DD</td>
+                                    <td>$CANCELLED</td>
+                                    </tr>
+                                    \n";
+                         ?>
+ 
+
+                        </table>
+    <?php                    
+    ////ADL EWS STATS
+
+    //CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/REINSTATED.php');
+    $TotalREINSTATED = new TotalREINSTATEDModal($pdo);
+    $TotalREINSTATEDList = $TotalREINSTATED->getTotalREINSTATED($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/REINSTATED.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/WILL_CANCEL.php');
+    $TotalWILL_CANCEL = new TotalWILL_CANCELModal($pdo);
+    $TotalWILL_CANCELList = $TotalWILL_CANCEL->getTotalWILL_CANCEL($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/WILL_CANCEL.php');                            
+    //END OF CALCULATION   
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/WILL_REDRAW.php');
+    $TotalWILL_REDRAW = new TotalWILL_REDRAWModal($pdo);
+    $TotalWILL_REDRAWList = $TotalWILL_REDRAW->getTotalWILL_REDRAW($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/WILL_REDRAW.php');                            
+    //END OF CALCULATION    
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/REDRAWN.php');
+    $TotalREDRAWN = new TotalREDRAWNModal($pdo);
+    $TotalREDRAWNList = $TotalREDRAWN->getTotalREDRAWN($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/REDRAWN.php');                            
+    //END OF CALCULATION   
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/ADL_CANCELLED.php');
+    $TotalADL_CANCELLED = new TotalADL_CANCELLEDModal($pdo);
+    $TotalADL_CANCELLEDList = $TotalADL_CANCELLED->getTotalADL_CANCELLED($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/ADL_CANCELLED.php');                            
+    //END OF CALCULATION    
+    
+    ?>
+                        <table  class="table table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "ADL EWS Statistics for $datefrom - $dateto";?>
+                                    </th>
+                                </tr>
+                               
+                                <th>Total RE-INSTATED <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as RE-INSTATED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=RE-INSTATED&&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Total WILL CANCEL <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL CANCEL within the date range of <?php echo "$datefrom - $dateto"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL CANCEL&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total WILL REDRAW <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL REDRAW within the date range of <?php echo "$datefrom - $dateto"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL REDRAW&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total REDRAWN <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as REDRAWN within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=REDRAWN&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CANCELLED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+
+                            </tr>
+                            </thead>
+
+                            <?php
+                            
+                            echo "<tr>
+                                    <td>$REINSTATED</td>
+                                    <td>$WILL_CANCEL</td>
+                                    <td>$WILL_REDRAW</td>
+                                    <td>$REDRAWN</td>
+                                    <td>$ADL_CANCELLED</td>
+                                    </tr>
+                                    \n";
+                         ?>
+ 
+
+                        </table>                          
                         
-                }
-                 if(!isset($menu7filter)) { ?>
+                        <?php } 
+                        
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CFO.php');
+    $RawCFO = new RawCFOModal($pdo);
+    $RawCFOList = $RawCFO->getRawCFO($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CFO.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/LAPSED.php');
+    $RawLapsed = new RawLapsedModal($pdo);
+    $RawLapsedList = $RawLapsed->getRawLapsed($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/Lapsed.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/BOUNCED_DD.php');
+    $RawBOUNCED_DD = new RawBOUNCED_DDModal($pdo);
+    $RawBOUNCED_DDList = $RawBOUNCED_DD->getRawBOUNCED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/BOUNCED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CANCELLED_DD.php');
+    $RawCANCELLED_DD = new RawCANCELLED_DDModal($pdo);
+    $RawCANCELLED_DDList = $RawCANCELLED_DD->getRawCANCELLED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CANCELLED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CANCELLED.php');
+    $RawCANCELLED = new RawCANCELLEDModal($pdo);
+    $RawCANCELLEDList = $RawCANCELLED->getRawCANCELLED($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CANCELLED.php');                            
+    //END OF CALCULATION      
+                        ?>       
+
+                        <table  class="table table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?> 
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download complete RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> RAW</a>
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download RAW EWS for Assigned user <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ASSIGNED_RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Assigned RAW</a>
+                                    </th>
+                                </tr>
+                               
+                                <th>Total CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CFO&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Total Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=LAPSED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=BOUNCED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+
+                            </tr>
+                            </thead>
+
+                            <?php
+                            
+                            echo "<tr>
+                                    <td>$RAW_CFO</td>
+                                    <td>$RAW_Lapsed</td>
+                                    <td>$RAW_BOUNCED_DD</td>
+                                    <td>$RAW_CANCELLED_DD</td>
+                                    <td>$RAW_CANCELLED</td>
+                                    </tr>
+                                    \n";
+                         ?>
+ 
+
+                        </table>                        
+                        
+                    </div>
+                </div>
+            </div>            
+            
+            
+        </div>
+        
+        <div id="menu7" class="tab-pane fade">  
+         
+            <div class="smallcontainer"> 
                 
                 <table id="master" class="display compact" width="auto" cellspacing="0">
                     <thead>
@@ -330,337 +425,16 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                 <br>
                 <br>
                 <br>
-                  <?php } ?> 
-            </div>
-        </div>
-            
-        <div id="menu1" class="tab-pane fade <?php if(isset($hello_name)) {  if(!in_array($hello_name,array("Michael","carys","Matt"))){echo "in active";} } ?>">   
-            <?php if(isset($menu1filter)) {
-                    
-                    if($menu1filter=='1') {
-                        
-                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check fa-check\"></i> Info:</strong> Filter settings set for Cases Worked!</div>");
-                        
-                    }
-                        
-                } ?>
-            <div class="smallcontainer">
-                <form class="form-vertical" method="POST" action="EWS.php?menu1filter=1">
-                    <fieldset>
-                        <legend>Filter (Cases Worked)</legend>
-                        <div class="col-xs-2">
-                                <input id="menu1date" name="menu1date" class="form-control" placeholder="Clawback date" type="text">
-                            </div>                        
-                            
-                        <div class="col-xs-2">
-                            <select id="clawcolour" name="clawcolour" class="form-control">
-                                    <option value="">Sort by colour</option>
-                                    <option value="Red">Red</option>
-                                    <option value="Green">Green</option>
-                                </select>                        
-                        </div>
-                            
-                        <div class="col-xs-2">
-                                <button id="submit" name="submit" class="btn btn-success btn-sm">Search</button>
-                                <a href="EWS.php" class="btn btn-danger btn-sm"><i class="fa fa-refresh"></i> Reset</a>
-                        </div>
-                            
-                    </fieldset>
-                </form>
-                    
-                <?php 
 
-                    
-                if(isset($menu1filter)) {
-                    
-                    if($menu1filter=='1') {
-                        
-                        $menu1date= filter_input(INPUT_POST, 'menu1date', FILTER_SANITIZE_FULL_SPECIAL_CHARS);                         
-                                               
-                            $query = $pdo->prepare("select sum(clawback_due) AS due, color_status from ews_data WHERE clawback_date = :date group by color_status");
-                            $query->bindParam(':date', $menu1date, PDO::PARAM_STR, 12);
-                            
-                                     echo "<table id='filtertable' class='table table-hover'>
-                                     <thead>
-                                     <tr>
-                                     <th>Colour</th>
-                                     <th>Clawback Risk Total</th>                                      
-                                     </tr>
-                                     </thead>";
-                            
-                            $query->execute();
-                            if ($query->rowCount()>0) {
-                                while ($result=$query->fetch(PDO::FETCH_ASSOC)){
-                                     
-                                     switch( $result['color_status'] ) {
-                                                                            
-                                                case("Black"):
-                                                    $colorclass = 'black';
-                                                    break;
-                                                case("red"):
-                                                    $colorclass = 'red';
-                                                    break;
-                                                case("purple"):
-                                                    $colorclass = 'purple';
-                                                    break;
-                                                case("amber"):
-                                                    $colorclass = 'amber';
-                                                    break;
-                                                case("green"):
-                                                    $colorclass = 'green';
-                                                    break;
-                                                  case("yellow"):
-                                                    $colorclass = 'yellow';
-                                                    break;
-                                                        
-                                     }
-                                
-                                     echo "<tr>
-                                     <td style='color: #fff; background: $colorclass;'>".$result['color_status']."</td>
-                                     <td>".$result['due']."</td>
-                                     </tr>";
-                                
-                            }
-                                
-                            }
-                            
-                            else {
-                                
-                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> Info:</strong> No data found!</div>";
-                                
-                            }
-                            
-                            echo "</table>";   
-                            
-                            $query2 = $pdo->prepare("SELECT 
-ews_data.policy_number
-, ews_data.id
-, ews_data.address1
-, ews_data.address2
-, ews_data.address3
-, ews_data.address4
-, ews_data.post_code
-, ews_data.policy_type
-, ews_data.warning
-, ews_data.last_full_premium_paid
-, ews_data.net_premium
-, ews_data.premium_os
-, ews_data.clawback_due
-, ews_data.clawback_date
-, ews_data.policy_start_date
-, ews_data.off_risk_date
-, ews_data.reqs
-, ews_data.date_added
-, ews_data.Processor
-, ews_data.ews_status_status
-, ews_data.client_name
-, client_details.client_id
-, ews_data.color_status
-, ews_data.ournotes
-	FROM ews_data 
-	LEFT JOIN client_policy 
-	ON ews_data.policy_number=client_policy.policy_number 
-	LEFT JOIN client_details 
-	ON client_policy.client_id=client_details.client_id
-	LEFT JOIN financial_statisics
-	ON financial_statisics.policy_number=ews_data.policy_number
-	WHERE clawback_date = :date
-        ORDER BY ews_data.color_status");
-                            $query2->bindParam(':date', $menu1date, PDO::PARAM_STR, 12);
-                            
-                                     echo "<table id='filtertable'>
-                                     <thead>
-                                     <tr>
-                            <th>Date Added</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ID</th>
-                            <th>Address 1</th>
-                            <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
-                            <th>Post Code</th>
-                            <th>Policy Type</th>
-                            <th>Warning</th>
-                            <th>Last Full Premium Paid</th>
-                            <th>Net Premium</th>
-                            <th>Premium OS</th>
-                            <th>Clawback Risk</th>
-                            <th>Clawback Date</th>
-                            <th>Policy Start Date</th>
-                            <th>Off Risk Date</th>
-                            <th>Reqs</th>
-                            <th>Orig Status</th>
-                            <th>Our Notes</th>
-                            <th>Color</th>                                      
-                                     </tr>
-                                     </thead>";
-                            
-                            $query2->execute();
-                            if ($query2->rowCount()>0) {
-                                while ($result2=$query2->fetch(PDO::FETCH_ASSOC)){
-                                     
-                                     switch( $result2['color_status'] ) {
-                                                                            
-                                                case("Black"):
-                                                    $colorclass = 'black';
-                                                    break;
-                                                case("red"):
-                                                    $colorclass = 'red';
-                                                    break;
-                                                case("purple"):
-                                                    $colorclass = 'purple';
-                                                    break;
-                                                case("orange"):
-                                                    $colorclass = 'orange';
-                                                    break;
-                                                case("green"):
-                                                    $colorclass = 'green';
-                                                    break;
-                                                  case("yellow"):
-                                                    $colorclass = 'yellow';
-                                                    break;
-                                                default:
-                                                    $colorclass='black';
-                                                        
-                                     }
-                                
-                                     echo "<tr style='color:$colorclass;'>
-                                     <td>".$result2['date_added']."</td>
-                                     <td>".$result2['policy_number']."</td>
-                                     <td>".$result2['client_name']."</td>
-                                     <td>".$result2['client_id']."</td>
-                                     <td>".$result2['address1']."</td>
-                                     <td>".$result2['address2']."</td>
-                                     <td>".$result2['address3']."</td>
-                                     <td>".$result2['address4']."</td>
-                                     <td>".$result2['post_code']."</td>
-                                     <td>".$result2['policy_type']."</td>
-                                     <td>".$result2['warning']."</td> 
-                                     <td>".$result2['last_full_premium_paid']."</td>
-                                     <td>".$result2['net_premium']."</td>
-                                     <td>".$result2['premium_os']."</td>
-                                     <td>".$result2['clawback_due']."</td>
-                                     <td>".$result2['clawback_date']."</td>
-                                     <td>".$result2['policy_start_date']."</td>
-                                     <td>".$result2['off_risk_date']."</td>
-                                     <td>".$result2['reqs']."</td>
-                                     <td>".$result2['ews_status_status']."</td>
-                                     <td>".$result2['our_notes']."</td>
-                                     <td>".$result2['color_status']."</td> 
-                                     </tr>";
-                                
-                            }
-                                
-                            }
-                                               else {
-                                
-                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> Info:</strong> No data found!</div>";
-                                
-                            }
-                            echo "</table>";
-        
-        
-        
-                    }
-                        
-                }
-                  if(!isset($menu1filter)) { ?>
-                <table id="cases-worked" class="display compact" width="auto" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Date Added</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ID</th>
-                            <th>DOB</th>
-                            <th>Post Code</th>
-                            <th>Policy Type</th>
-                            <th>Warning</th>
-                            <th>Last Full Premium Paid</th>
-                            <th>Net Premium</th>
-                            <th>Premium OS</th>
-                            <th>Clawback Risk</th>
-                            <th>Clawback Date</th>
-                            <th>Policy Start Date</th>
-                            <th>Off Risk Date</th>
-                            <th>Reqs</th>
-                            <th>Orig Status</th>
-                            <th>Our Notes</th>
-                            <th>Color</th>
-                        </tr>
-                    </thead>
-                        
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th>Date Added</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ID</th>
-                            <th>DOB</th>
-                            <th>Post Code</th>
-                            <th>Policy Type</th>
-                            <th>Warning</th>
-                            <th>Last Full Premium Paid</th>
-                            <th>Net Premium</th>
-                            <th>Premium OS</th>
-                            <th>Clawback Risk</th>
-                            <th>Clawback Date</th>
-                            <th>Policy Start Date</th>
-                            <th>Off Risk Date</th>
-                            <th>Reqs</th>
-                            <th>Orig Status</th>
-                            <th>Our Notes</th>
-                            <th>Color</th>
-                        </tr>
-                    </tfoot>
-                </table>
-                  <?php } ?>
             </div>
         </div>
+ 
             
 
             
         <div id="menu2" class="tab-pane fade">   
             
             <div class="smallcontainer">
-                <?php 
-                if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
-                if (in_array($hello_name,$Level_8_Access, true)) { ?>
-                  <div class="row">
-  <form class="form-vertical">
-<fieldset>
-
-<legend>Select EWS to work</legend>
-
-  <div class="col-xs-2">
-    <select id="agent" name="who" class="form-control" required>
-        <?php if(isset($who)) { ?>
-        <option value="<?php echo $who;?>"><?php echo $who;?></option>
-        <?php } ?>
-        <option value="Carys">Carys</option>
-        <option value="Abbie">Abbie</option>
-          </select>
-  </div>
-
-<div class="col-xs-2">
-    <input type="text" name="clwdate" class="form-control" placeholder="Search by Off Risk Date" value="<?php if(empty($clwdate)) { echo date("M-y"); } else { echo $clwdate; }?>">
-</div>
-    
-<div class="col-xs-2">
-    <div class="btn-group" role="group" aria-label="Basic example">
-    <button name="submit" class="btn btn-success">Submit</button>
-    <a href="EWS.php" class="btn btn-danger "><span class="glyphicon glyphicon-repeat"></span> Reset</a>
-    </div>
-  </div>
-
-
-</fieldset>
-</form>
-                  </div>
-                <?php } } ?>
                 
                 <div class="row">
                 <table id="white" class="display compact" width="auto" cellspacing="0">
@@ -668,13 +442,12 @@ ews_data.policy_number
                         <tr>
                             <th></th>
                             <th>Date Added</th>
+                            <th>Updated Date</th>
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
-                            <th>Warning</th>
                             <th>Last Full Premium Paid</th>
                             <th>Net Premium</th>
                             <th>Premium OS</th>
@@ -684,6 +457,7 @@ ews_data.policy_number
                             <th>Off Risk Date</th>
                             <th>Reqs</th>
                             <th>Orig Status</th>
+                            <th>Warning</th>
                             <th>Our Notes</th>
                             <th>Color</th>
                         </tr>
@@ -693,13 +467,12 @@ ews_data.policy_number
                         <tr>
                             <th></th>
                             <th>Date Added</th>
+                            <th>Updated Date</th>
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
-                            <th>Warning</th>
                             <th>Last Full Premium Paid</th>
                             <th>Net Premium</th>
                             <th>Premium OS</th>
@@ -709,6 +482,7 @@ ews_data.policy_number
                             <th>Off Risk Date</th>
                             <th>Reqs</th>
                             <th>Orig Status</th>
+                            <th>Warning</th>
                             <th>Our Notes</th>
                             <th>Color</th>
                         </tr>
@@ -762,16 +536,13 @@ ews_data.policy_number
         </div>
     </div>
     
-    
-    
-     <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-1.11.1.min.js"></script>    
     <script type="text/javascript" language="javascript" src="/datatables/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
     <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<?php if(isset($hello_name)) { if(in_array($hello_name,array("Michael","AaronT","Matt","carys"))){ ?>
+
      <script type="text/javascript" language="javascript" >
                 function format ( d ) {
 
@@ -839,7 +610,7 @@ ews_data.policy_number
                         $('td', nRow).css("color", aData["color_status"]);
                     }
                     
-                     if ( aData["ews_status_status"] == "NEW" )  {
+                     if ( aData["color_status"] == "Black" )  {
                         $('td', nRow).addClass( 'black' );
                     }
                 
@@ -852,7 +623,7 @@ ews_data.policy_number
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?EWS=4",
+                "ajax": "/datatables/EWSData.php?EWS=1",
 
                 "columns": [
                     {
@@ -947,384 +718,7 @@ ews_data.policy_number
             } );
         } );
     </script>
-    <?php } }
-    
-    $who= filter_input(INPUT_GET, 'who', FILTER_SANITIZE_SPECIAL_CHARS);
-    $clwdate= filter_input(INPUT_GET, 'clwdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if(isset($who)) {
-        if($who=='Abbie'){
-        ?>
-    <script type="text/javascript" language="javascript" >
-                function format ( d ) {
-
-            return '<form action="../php/EWSNoteSubmit.php?EWS=1&REDIRECT=EWS" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-
-                     '<tr>'+
-'<td><label>EWS ID</label><input type="text" name="ewsididididi" value="'+d.id+'" readonly></td>'+
-'</tr>'+
-'<tr>'+
-                    '<td>Our EWS Status:'+
-                    '<select class="hook_to_change_colour" name="status" onchange="" required>'+
-                    '<option value="'+d.ews_status_status+'">'+d.ews_status_status+'</option>'+
-                    '<option value="RE-INSTATED">RE-INSTATED</option>'+
-                    '<option value="WILL CANCEL">WILL CANCEL</option>'+
-                    '<option value="REDRAWN">REDRAWN</option>'+
-                    '<option value="WILL REDRAW">WILL REDRAW</option>'+
-                    '<option value="CANCELLED">CANCELLED</option>'+
-                    '</select>'+
-                    '<select class="colour_hook" name="colour" required>' +
-
-                    '<option value="green" style="background-color:green;color:white;">Green</option>' +
-                    '<option value="orange" style="background-color:orange;color:white;">Orange</option>' +
-                    '<option value="purple" style="background-color:purple;color:white;">Purple</option>' +
-                    '<option value="red" style="background-color:red;color:white;">Red</option>' +
-                    '<option value="black" style="background-color:black;color:white;">Black</option>' +
-                    '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
-                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
-                    '</select></td>'+
-
-                    '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
-                    '<td><label>Lead Gen</label><input type="text" name="policy_number" value="'+d.lead+'" disabled></td>'+
-
-                    '</tr>'+
- 
-            '<tr>'+
-
-                    '<td><input type="hidden" name="client_id" value="'+d.client_id+'"></td>'+
-                    '<td><input type="hidden" name="policy_number" value="'+d.policy_number+'"></td>'+
-
-            '<td><input type="hidden" name="warning" value="'+d.warning+'"></td>'+
-                    '<td><input type="hidden" name="client_name" value="'+d.client_name+'"></td>'+
-                    '<td><input type="hidden" name="edited" value="<?php echo $hello_name?>"></td>'+
-                    '</tr>'+
-
-                    '<tr>'+
-                    '<td><div name="BLANK_ZOVOS"> </div></td>'+
-                    '</tr>'+
-                    '<tr>'+
-                    '<td><textarea name="notes" id="notes" rows="15" cols="85" placeholder="Add Notes Here" required></textarea></td>'+
-                    '</tr>'+
-                    '<tr>'+
-                    '<td><button type="submit" class="btn btn-primary "><span class="glyphicon glyphicon-plus"></span> Add Notes</button></td>'+
-
-                    '</tr>'+
-
-                    '</form>';
-            '</table>';
-        }
- 
-        $(document).ready(function() {
-            var table = $('#white').DataTable( {
-                dom: 'C<"clear">lfrtip',
-                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                    if ( aData["color_status"] != '' )  {
-                        $('td', nRow).css("color", aData["color_status"]);
-                    }
-                    
-                     if ( aData["ews_status_status"] == "NEW" )  {
-                        $('td', nRow).addClass( 'black' );
-                    }
-                
-    },
-                "response":true,
-                "processing": true,
-                "iDisplayLength": 25,
-                "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000], [5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000]],
-                "language": {
-                    "processing": "<div></div><div></div><div></div><div></div><div></div>"
-
-                },
-                "ajax": "/datatables/EWSData.php?EWS=5&clwdate=<?php echo $clwdate;?>",
-
-                "columns": [
-                    {
-                        "className":      'details-control',
-                        "orderable":      false,
-                        "data":           null,
-                        "deferRender": true,                        
-                        "defaultContent": ''
-                    },
-                    { "data": "date_added"},
-                    { "data": "policy_number"},
-                    { "data": "client_name"},
-                    { "data": "client_id",
-                        "render": function(data, type, full, meta) {
-                            return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
-                        } },
-                    { "data": "dob" },
-                    { "data": "post_code" },
-                    { "data": "policy_type" },
-                    { "data": "warning" },
-                    { "data": "last_full_premium_paid" },
-                    { "data": "net_premium" },
-                    { "data": "premium_os" },
-                    { "data": "clawback_due" },
-                    { "data": "clawback_date" },
-                    { "data": "policy_start_date" },
-                    { "data": "off_risk_date" },
-                    { "data": "reqs" },
-                    { "data": "ews_status_status" },
-                    { "data": "ournotes" },
-                    { "data": "color_status" }
-
-                ],
-                "order": [[1, 'DESC']]
-            } );
-
-            $('#white tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
- 
-                if ( row.child.isShown() ) {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
-                    
-                    row.child( format(row.data()) ).show();
-                    var me = $(this);
-
-                    $.ajax({ url: '../php/EWSNoteGet.php?query=EWS',
-                        data: {
-                            cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
-                            pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()
-                        },
-                        type: 'post',
-                        success: function(data) {
-                            me.closest('tr').next('tr').find("div[name='BLANK_ZOVOS']").html(data);
-                        }
-                    });
-
-                    
-                    tr.addClass('shown');
-            
-                    $('.hook_to_change_colour').change(function(){
-                
-                        switch ($(this).val()) {
-                    
-                            case "RE-INSTATED":
-                                $(this).next().val('green');
-                                break;
-            
-                            case "WILL CANCEL":
-                                $(this).next().val('orange');
-                                break;
-                
-                            case "REDRAWN":
-                            case "WILL REDRAW":
-                                $(this).next().val('purple');
-                                break;
-            
-                            case "CANCELLED":
-                                $(this).next().val('red');
-                                break;
-                      
-                
-                        }
-                    });
-            
-                }
-            } );
-        } );
-        
-        
-    </script>
-    
-    <?php
-    }
-    if($who=='Carys'){
-        
-        ?>
-    
-    <script type="text/javascript" language="javascript" >
-                function format ( d ) {
-
-            return '<form action="../php/EWSNoteSubmit.php?EWS=1&REDIRECT=EWS" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-
-                    '<tr>'+
-'<td><label>EWS ID</label><input type="text" name="ewsididididi" value="'+d.id+'" readonly></td>'+
-'</tr>'+
-'<tr>'+
-                    '<td>Our EWS Status:'+
-                    '<select class="hook_to_change_colour" name="status" onchange="" required>'+
-                    '<option value="'+d.ews_status_status+'">'+d.ews_status_status+'</option>'+
-                    '<option value="RE-INSTATED">RE-INSTATED</option>'+
-                    '<option value="WILL CANCEL">WILL CANCEL</option>'+
-                    '<option value="REDRAWN">REDRAWN</option>'+
-                    '<option value="WILL REDRAW">WILL REDRAW</option>'+
-                    '<option value="CANCELLED">CANCELLED</option>'+
-                    '</select>'+
-                    '<select class="colour_hook" name="colour" required>' +
-
-                    '<option value="green" style="background-color:green;color:white;">Green</option>' +
-                    '<option value="orange" style="background-color:orange;color:white;">Orange</option>' +
-                    '<option value="purple" style="background-color:purple;color:white;">Purple</option>' +
-                    '<option value="red" style="background-color:red;color:white;">Red</option>' +
-                    '<option value="black" style="background-color:black;color:white;">Black</option>' +
-                    '<option value="blue" style="background-color:blue;color:white;">Blue</option>' +
-                    '<option value="grey" style="background-color:grey;color:white;">Grey</option>' +
-                    '<option value="yellow" style="background-color:yellow;color:black;">Yellow</option>' +
-                    '</select></td>'+
-
-                    '<td><label>Closer</label><input type="text" name="policy_number" value="'+d.closer+'" disabled></td>'+
-                    '<td><label>Lead Gen</label><input type="text" name="policy_number" value="'+d.lead+'" disabled></td>'+
-
-                    '</tr>'+
- 
-            '<tr>'+
-
-                    '<td><input type="hidden" name="client_id" value="'+d.client_id+'"></td>'+
-                    '<td><input type="hidden" name="policy_number" value="'+d.policy_number+'"></td>'+
-
-            '<td><input type="hidden" name="warning" value="'+d.warning+'"></td>'+
-                    '<td><input type="hidden" name="client_name" value="'+d.client_name+'"></td>'+
-                    '<td><input type="hidden" name="edited" value="<?php echo $hello_name?>"></td>'+
-                    '</tr>'+
-
-                    '<tr>'+
-                    '<td><div name="BLANK_ZOVOS"> </div></td>'+
-                    '</tr>'+
-                    '<tr>'+
-                    '<td><textarea name="notes" id="notes" rows="15" cols="85" placeholder="Add Notes Here" required></textarea></td>'+
-                    '</tr>'+
-                    '<tr>'+
-                    '<td><button type="submit" class="btn btn-primary "><span class="glyphicon glyphicon-plus"></span> Add Notes</button></td>'+
-
-                    '</tr>'+
-
-                    '</form>';
-            '</table>';
-        }
- 
-        $(document).ready(function() {
-            var table = $('#white').DataTable( {
-                dom: 'C<"clear">lfrtip',
-                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                    if ( aData["color_status"] != '' )  {
-                        $('td', nRow).css("color", aData["color_status"]);
-                    }
-                    
-                     if ( aData["ews_status_status"] == "NEW" )  {
-                        $('td', nRow).addClass( 'black' );
-                    }
-                
-    },
-                "response":true,
-                "processing": true,
-                "iDisplayLength": 25,
-                "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000], [5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000]],
-                "language": {
-                    "processing": "<div></div><div></div><div></div><div></div><div></div>"
-
-                },
-                "ajax": "/datatables/EWSData.php?EWS=6&clwdate=<?php echo $clwdate;?>",
- 
-                "columns": [
-                    {
-                        "className":      'details-control',
-                        "orderable":      false,
-                        "data":           null,
-                        "deferRender": true,                        
-                        "defaultContent": ''
-                    },
-                    { "data": "date_added"},
-                    { "data": "policy_number"},
-                    { "data": "client_name"},
-                    { "data": "client_id",
-                        "render": function(data, type, full, meta) {
-                            return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
-                        } },
-                    { "data": "dob" },
-                    { "data": "post_code" },
-                    { "data": "policy_type" },
-                    { "data": "warning" },
-                    { "data": "last_full_premium_paid" },
-                    { "data": "net_premium" },
-                    { "data": "premium_os" },
-                    { "data": "clawback_due" },
-                    { "data": "clawback_date" },
-                    { "data": "policy_start_date" },
-                    { "data": "off_risk_date" },
-                    { "data": "reqs" },
-                    { "data": "ews_status_status" },
-                    { "data": "ournotes" },
-                    { "data": "color_status" }
-
-                ],
-                "order": [[1, 'DESC']]
-            } );
-
-            $('#white tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
- 
-                if ( row.child.isShown() ) {
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
-                    
-                    row.child( format(row.data()) ).show();
-                    var me = $(this);
-
-                    $.ajax({ url: '../php/EWSNoteGet.php?query=EWS',
-                        data: {
-                            cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
-                            pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()
-                        },
-                        type: 'post',
-                        success: function(data) {
-                            me.closest('tr').next('tr').find("div[name='BLANK_ZOVOS']").html(data);
-                        }
-                    });
-
-                    
-                    tr.addClass('shown');
-            
-                    $('.hook_to_change_colour').change(function(){
-                
-                        switch ($(this).val()) {
-                    
-                            case "RE-INSTATED":
-                                $(this).next().val('green');
-                                break;
-            
-                            case "WILL CANCEL":
-                                $(this).next().val('orange');
-                                break;
-                
-                            case "REDRAWN":
-                            case "WILL REDRAW":
-                                $(this).next().val('purple');
-                                break;
-            
-                            case "CANCELLED":
-                                $(this).next().val('red');
-                                break;
-                      
-                
-                        }
-                    });
-            
-                }
-            } );
-        } );
-        
-        
-    </script>
-    
-    <?php
-       
-        
-    }
-    
-    }
-    
-    if(empty($who)){
-    ?>
-    
     <script type="text/javascript" language="javascript" >
                 function format ( d ) {
 
@@ -1393,7 +787,7 @@ ews_data.policy_number
                         $('td', nRow).css("color", aData["color_status"]);
                     }
                     
-                     if ( aData["ews_status_status"] == "NEW" )  {
+                     if ( aData["color_status"] == "Black" )  {
                         $('td', nRow).addClass( 'black' );
                     }
                 
@@ -1417,16 +811,15 @@ ews_data.policy_number
                         "defaultContent": ''
                     },
                     { "data": "date_added"},
+                    { "data": "updated_date"},
                     { "data": "policy_number"},
                     { "data": "client_name"},
                     { "data": "client_id",
                         "render": function(data, type, full, meta) {
                             return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
                         } },
-                    { "data": "dob" },
                     { "data": "post_code" },
                     { "data": "policy_type" },
-                    { "data": "warning" },
                     { "data": "last_full_premium_paid" },
                     { "data": "net_premium" },
                     { "data": "premium_os" },
@@ -1436,6 +829,7 @@ ews_data.policy_number
                     { "data": "off_risk_date" },
                     { "data": "reqs" },
                     { "data": "ews_status_status" },
+                    { "data": "warning" },
                     { "data": "ournotes" },
                     { "data": "color_status" }
 
@@ -1497,7 +891,7 @@ ews_data.policy_number
             } );
         } );      
 </script>
- <?php } ?>
+
     <script type="text/javascript" language="javascript" >
         function format ( d ) {
 
@@ -1556,161 +950,7 @@ ews_data.policy_number
                     '</form>';
             '</table>';
         }
- 
-        $(document).ready(function() {
-            var table = $('#cases-worked').DataTable( {
-                dom: 'C<"clear">lfrtip',
-                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                    if ( aData["color_status"] != '' )  {
-                        $('td', nRow).css("color", aData["color_status"]);
-                    }
-                    
-                     if ( aData["ews_status_status"] == "NEW" )  {
-                        $('td', nRow).addClass( 'black' );
-                    }
-                
-    },
-                "response":true,
-                "processing": true,
-                "iDisplayLength": 25,
-                "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000, 2500, 3000], [5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000, 2500, 3000]],
-                "language": {
-                    "processing": "<div></div><div></div><div></div><div></div><div></div>"
-
-                },
-                "ajax": "/datatables/EWSData.php?EWS=3",
-
-                "deferRender": true,
-                "columns": [
-                    {
-                        "className":      'details-control',
-                        "orderable":      false,
-                        "data":           null,
-                        "defaultContent": ''
-                    },
-                    { "data": "date_added"},
-                    { "data": "policy_number"},
-                    { "data": "client_name"},
-                    { "data": "client_id",
-                        "render": function(data, type, full, meta) {
-                            return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
-                        } },
-                    { "data": "dob" },
-                    { "data": "post_code" },
-                    { "data": "policy_type" },
-                    { "data": "warning" },
-                    { "data": "last_full_premium_paid" },
-                    { "data": "net_premium" },
-                    { "data": "premium_os" },
-                    { "data": "clawback_due" },
-                    { "data": "clawback_date" },
-                    { "data": "policy_start_date" },
-                    { "data": "off_risk_date" },
-                    { "data": "reqs" },
-                    { "data": "ews_status_status" },
-                    { "data": "ournotes" },
-                    { "data": "color_status" }
-
-                ],
-                "order": [[1, 'DESC']]
-            } );
-
-            $('#cases-worked tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
-                var row = table.row( tr );
- 
-                if ( row.child.isShown() ) {
-                    row.child.hide();
-                    tr.removeClass('shown');
-            
-            
-            
-                }
-                else 
-                {
-                    row.child( format(row.data()) ).show();
-                    console.log($(this).closest('tr').next('tr').find("input[name='client_id']").val());
- var me = $(this);
-
-                    $.ajax({ url: '../php/EWSNoteGet.php?query=EWS',
-                        data: {
-                            cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
-                            pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()
-                        },
-                        type: 'post',
-                        success: function(data) {
-                            me.closest('tr').next('tr').find("div[name='BLANK_ZOVOS']").html(data);
-                        }
-                    });
-  tr.addClass('shown');
-    
-                     $('.hook_to_change_colour').change(function(){
-        
-                         switch ($(this).val()) {
-            
-                             case "RE-INSTATED":
-                                 $(this).next().val('green');
-                                 break;
-            
-                             case "WILL CANCEL":
-                                 $(this).next().val('orange');
-                                 break;
-            
-                             case "REDRAWN":
-                             case "WILL REDRAW":
-                                 $(this).next().val('purple');
-                                 break;
-            
-                             case "CANCELLED":
-                                 $(this).next().val('red');
-                                 break;
-            
-            
-                         }
-                     });
-            
-                 }
-             } );
-         } );
-    </script>
-    <script>
-        $(function() {
-            $( "#datefrom2" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+1"
-            });
-        });
-    </script>
-    <script>
-        $(function() {
-            $( "#dateto2" ).datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+1"
-            });
-        });
-
-  $(function() {
-    $( "#menu7date" ).datepicker({
-        dateFormat: 'yy-mm',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:-0"
-        });
-  });
-  
-   $(function() {
-    $( "#menu1date" ).datepicker({
-        dateFormat: 'M-y',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:-0"
-        });
-  });
-  </script>    
+    </script>  
     
 
    <div class="modal modal-static fade" id="processing-modal" role="dialog" aria-hidden="true">
@@ -1740,6 +980,24 @@ ews_data.policy_number
         $('#LOADINGEWS').modal('hide');
     });
 </script> 
+    <script>
+        $(function () {
+            $("#datefrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+        $(function () {
+            $("#dateto").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+    </script>  
 <div class="modal modal-static fade" id="LOADINGEWS" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">

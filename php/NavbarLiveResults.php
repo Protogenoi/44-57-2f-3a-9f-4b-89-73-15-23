@@ -97,10 +97,11 @@ FROM
 WHERE
     messenger_to=:HELLO
     AND
-    messenger_company='The Review Bureau'
+    messenger_company=:COMPANY
     AND
     messenger_status='Unread'");
     $MSG_stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+    $MSG_stmt->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $MSG_stmt->execute();
     $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
 }

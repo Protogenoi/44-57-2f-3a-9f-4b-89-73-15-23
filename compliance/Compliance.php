@@ -72,11 +72,12 @@ Uploaded Documents
 <div class="card-block">
 
 <p class="card-text">
-    <div class="btn-group">
-                                    <p><a data-toggle="modal" data-target="#mymodal" class="btn btn-outline-success"><i class="fa fa-cloud-upload"></i> Upload</a></p>                                
+    <div class="btn-group"><?php if (in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+                                    <p><a data-toggle="modal" data-target="#mymodal" class="btn btn-outline-success"><i class="fa fa-cloud-upload"></i> Upload</a></p>      
+    <?php } ?>
                                 </div>
     
-<h4 class="card-title">Search</h4>
+<h4 class="card-title">Documents</h4>
   <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>

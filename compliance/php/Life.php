@@ -77,13 +77,13 @@ if ($Q14 =="D") { $MARK++; }
 
 $GRADE_PERCENT = $MARK/12 * 100;
 
-if($GRADE_PERCENT>=90) {
+if($GRADE_PERCENT>=60) {
     $GRADE='Green';
     }
-    if($GRADE_PERCENT>=70 && $GRADE_PERCENT<90) {
+    if($GRADE_PERCENT>=30 && $GRADE_PERCENT<60) {
         $GRADE='Amber';
         }
-        if($GRADE_PERCENT<70) {
+        if($GRADE_PERCENT<30) {
             $GRADE='Red';
             }
       

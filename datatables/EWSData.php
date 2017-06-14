@@ -10,9 +10,7 @@ if(isset($EWS)) {
     if($EWS=='1') {   
         
         $sql = "SELECT 
-ews_data_history.master_agent_no
-, ews_data_history.agent_no
-, ews_data_history.policy_number
+ ews_data_history.policy_number
 , ews_data_history.id
 , ews_data_history.dob
 , ews_data_history.address1
@@ -29,10 +27,8 @@ ews_data_history.master_agent_no
 , DATE_FORMAT(ews_data_history.clawback_date, '%y-%M') AS clawback_date
 , ews_data_history.policy_start_date
 , ews_data_history.off_risk_date
-, ews_data_history.seller_name
 , ews_data_history.reqs
 , ews_data_history.date_added
-, ews_data_history.Processor
 , ews_data_history.ews_status_status
 , ews_data_history.client_name
 , client_policy.policy_number AS cppol

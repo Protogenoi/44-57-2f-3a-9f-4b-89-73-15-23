@@ -1,88 +1,163 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
-$test_access_level = new Access_user;
-$test_access_level->access_page($_SERVER['PHP_SELF'], "", 7);
-$hello_name = ($test_access_level->user_full_name != "") ? $test_access_level->user_full_name : $test_access_level->user;
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", 7);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if($companynamere=='The Review Bureau') {
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../classes/database_class.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-if (!in_array($hello_name,$Level_8_Access, true)) {
-    
-    header('Location: /CRMmain.php'); die;
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
 }
-$REDIRECT= filter_input(INPUT_GET, 'REDIRECT', FILTER_SANITIZE_SPECIAL_CHARS);
-include('../includes/ADL_PDO_CON.php');
+
+$REDIRECT= filter_input(INPUT_GET, 'REDIRECT', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if ($_FILES["csv"]["size"] > 0) {
 
+    
     $file = $_FILES["csv"]["tmp_name"];
     $handle = fopen($file,"r");
 
     do {
         
-            $master= filter_var($data[0], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $agent= filter_var($data[1], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $policy_number= filter_var($data[2], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $name= filter_var($data[3], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $dob= filter_var($data[4], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $add1= filter_var($data[5], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $add2= filter_var($data[6], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $add3= filter_var($data[7], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $add4= filter_var($data[8], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $post= filter_var($data[9], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $policy_type= filter_var($data[10], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $warning= filter_var($data[11], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $last_full_premium_paid= filter_var($data[12], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $net_premium= filter_var($data[13], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $premium_os= filter_var($data[14], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $clawback_due= filter_var($data[15], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $clawback_date= filter_var($data[16], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $policy_start_date= filter_var($data[17], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $off_risk_date= filter_var($data[18], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $seller_name= filter_var($data[19], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $frn= filter_var($data[20], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $reqs= filter_var($data[21], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $ews_status_status=filter_var($data[11], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $ournotes= filter_var($data[23], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            #$color_status= filter_var($data[24], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $color_status='Black';
-            
-            $removechars = array("'", "\"","/", "&quot;");
-            
-        $new_policy=str_replace("'"," ",$policy_number); //remove quote
-        $new_name=str_replace(","," ",$name); // remove comma
-        $new_add1=str_replace($removechars,"",$add1); // remove comma
-        $new_add2=str_replace($removechars,"",$add2); // remove comma
-        $new_add3=str_replace($removechars,"",$add3); // remove comma
-        $new_add4=str_replace($removechars,"",$add4); // remove comma
-        $new_reqs=str_replace(","," ",$reqs); // remove comma
-            
-$correct_dob = date("Y-m-d" , strtotime($dob)); 
-$correct_paid = date("Y-m-d" , strtotime($last_full_premium_paid)); 
-$correct_start = date("Y-m-d" , strtotime($policy_start_date)); 
-
+        if(isset($data[0])){
+            $master=filter_var($data[0],FILTER_SANITIZE_NUMBER_INT); 
+        }
         
-        if ($data[0]) {
-            if ($master != 'Master Agent No.' && $data[0] != 'Master_Agent_No.' ) {
-                
-            $warningcheck = $pdo->prepare("SELECT ournotes, warning, policy_number from ews_data where policy_number=:policy AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN','FUTURE CALLBACK')");
-            $warningcheck->bindParam(':policy',$new_policy, PDO::PARAM_STR);
-            $warningcheck->execute()or die(print_r($ewsdata->errorInfo(), true)); 
-            $resultCHK=$warningcheck->fetch(PDO::FETCH_ASSOC);
+        if(isset($data[1])){
+            $agent=filter_var($data[1],FILTER_SANITIZE_NUMBER_INT); 
+        }
+        
+        if(isset($data[2])){
+            $policy_number=filter_var($data[2],FILTER_SANITIZE_NUMBER_INT); 
+        }
+        
+        if(isset($data[3])){
+            $name=filter_var($data[3],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+        }
+        
+        if(isset($data[4])){
+            $dob=filter_var($data[4],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+        }
             
-            if ($warningcheck->rowCount() >= 1) {
+            if(isset($data[5])){
+            $add1=filter_var($data[5],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[6])){
+            $add2=filter_var($data[6],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            if(isset($data[7])){
+            $add3=filter_var($data[7],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            if(isset($data[8])){
+            $add4=filter_var($data[8],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            if(isset($data[9])){
+            $post=filter_var($data[9],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            }
+            
+            if(isset($data[10])){
+            $policy_type=filter_var($data[10],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            
+            }
+            
+            if(isset($data[11])){
+            $warning=filter_var($data[11],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            $NEW_EWS="$warning NEW";
+            }
+            
+            if(isset($data[12])){
+            $last_full_premium_paid=filter_var($data[12],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[13])){
+            $net_premium=filter_var($data[13],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[14])){
+            $premium_os=filter_var($data[14],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[15])){
+            $clawback_due=filter_var($data[15],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[16])){
+            $clawback_date=filter_var($data[16],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[17])){
+            $policy_start_date=filter_var($data[17],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[18])){
+            $off_risk_date=filter_var($data[18],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[19])){
+            $seller_name=filter_var($data[19],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[20])){
+            $frn=filter_var($data[20],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[21])){
+            $reqs=filter_var($data[21],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            if(isset($data[22])){
+            $ASSIGNED=filter_var($data[22],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            }
+            
+            $color_status='Black';
+
+            
+            if(isset($dob)) {          
+                $correct_dob = date("Y-m-d" , strtotime($dob)); 
                 
-               $newwarning=$resultCHK['warning'];
-               $newnotes=$resultCHK['ournotes'];
-               $newpolicy_number=$resultCHK['policy_number'];
+            }
+            
+            if(isset($last_full_premium_paid)) {
+                $correct_paid = date("Y-m-d" , strtotime($last_full_premium_paid));          
+            }
+            
+            if(isset($policy_start_date)) {
+                $correct_start = date("Y-m-d" , strtotime($policy_start_date)); 
                 
-                switch($newwarning) {
+            }
+// CHECK THERE IS DATA            
+            if(isset($data[0])) {
+                if(is_numeric($data[1]) ) {  //IGNORE FIRST ROW
+
+//CHECK IF POL ALREADY EXISTS AND CHECK ADL STATUS TO SET COLOURS WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN','FUTURE CALLBACK
+
+                    $CHK_ADL_WARNINGS = $pdo->prepare("SELECT warning, policy_number from ews_data where policy_number=:POLICY AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN')");
+                    $CHK_ADL_WARNINGS->bindParam(':POLICY',$policy_number, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->execute()or die(print_r($ewsdata->errorInfo(), true)); 
+                    $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);
+                    
+                    if($CHK_ADL_WARNINGS->rowCount() >= 1) {
+                        
+                        $ORIG_WARNING=$row['warning'];
+                        $ORIG_POL_NUM=$row['policy_number'];
+                
+                switch($ORIG_WARNING) {
                     case "WILL CANCEL";
                         $color='orange';
-                        break;
-                        case "Future Callback";
-                        $color='yellow';
                         break;
                     case "CANCELLED";
                         $color="red";
@@ -95,196 +170,277 @@ $correct_start = date("Y-m-d" , strtotime($policy_start_date));
                                 $color="black"; 
                                 
                 }
-                
-                $ewsdata = $pdo->prepare("UPDATE ews_data set color_status=:color_status1, ournotes=:ournotes1, processor=:processor1 WHERE policy_number=:policy1");     
-                $ewsdata->bindParam(':policy1',$newpolicy_number, PDO::PARAM_STR);
-                $ewsdata->bindParam(':ournotes1',$newnotes, PDO::PARAM_STR);
-                $ewsdata->bindParam(':color_status1',$color, PDO::PARAM_STR);
-                $ewsdata->bindParam(':processor1',$hello_name, PDO::PARAM_STR);          
-                $ewsdata->execute()or die(print_r($ewsdata->errorInfo(), true));
-        
-        $ewsmaster = $pdo->prepare("INSERT INTO ews_data_history SET warning=:warning, master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, ournotes=:ournotes, color_status=:color_status");
-        $ewsmaster->bindParam(':master',$master, PDO::PARAM_INT);
-        $ewsmaster->bindParam(':agent',$agent, PDO::PARAM_INT);
-        $ewsmaster->bindParam(':warning',$newwarning, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':policy_number',$newpolicy_number, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':name',$new_name, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add1',$new_add1, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add2',$new_add2, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add3',$new_add3, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add4',$new_add4, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':post',$post, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':net_premium',$net_premium, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':premium_os',$premium_os, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':clawback_due',$clawback_due, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':frn',$frn, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':reqs',$new_reqs, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':ews_status_status',$ews_status_status, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':ournotes',$newnotes, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':color_status',$color, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':processor',$hello_name, PDO::PARAM_STR);               
-        $ewsmaster->execute()or die(print_r($ewsmaster->errorInfo(), true)); 
-        
-    $query = $pdo->prepare("SELECT id, client_id, policy_number FROM client_policy where policy_number=:polhold");
-    $query->bindParam(':polhold', $new_policy, PDO::PARAM_STR);
-    $query->execute();
-    $result=$query->fetch(PDO::FETCH_ASSOC); 
-    if ($query->rowCount() >= 1) {
 
-    $clientid=$result['client_id'];
-    $polid=$result['id'];
-    $policynumber=$result['policy_number'];
+//UPDATE EWS AND KEEP OLD WARNINGS
+                
+                $UPDATE_EWS = $pdo->prepare('UPDATE ews_data set color_status=:COLOUR, processor=:HELLO, ews_status_status=:UP_WARNING WHERE policy_number=:POLICY');     
+                $UPDATE_EWS->bindParam(':POLICY',$ORIG_POL_NUM, PDO::PARAM_STR);
+                $UPDATE_EWS->bindParam(':COLOUR',$color, PDO::PARAM_STR);
+                $UPDATE_EWS->bindParam(':UP_WARNING',$warning, PDO::PARAM_STR);
+                $UPDATE_EWS->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);          
+                $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));
+                
+// ALLWAYS INSERT INTO MASTER
+                
+        $INSERT_MASTER = $pdo->prepare('INSERT INTO
+                ews_data_history 
+                SET
+                assigned=:ASSIGNED,
+                warning=:warning, 
+                master_agent_no=:master, 
+                agent_no=:agent, 
+                policy_number=:policy_number, 
+                client_name=:name, 
+                dob=:dob, 
+                address1=:add1, 
+                address2=:add2, 
+                address3=:add3, 
+                address4=:add4, 
+                post_code=:post, 
+                policy_type=:policy_type, 
+                last_full_premium_paid=:last_full_premium_paid, 
+                net_premium=:net_premium,
+                premium_os=:premium_os, 
+                clawback_due=:clawback_due, 
+                clawback_date=:clawback_date, 
+                policy_start_date=:policy_start_date, 
+                off_risk_date=:off_risk_date, 
+                seller_name=:seller_name, 
+                frn=:frn, 
+                reqs=:reqs, 
+                processor=:processor, 
+                ews_status_status=:ews_status_status, 
+                color_status=:color_status');
+        $INSERT_MASTER->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':master',$master, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':agent',$agent, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':warning',$ORIG_WARNING, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_number',$ORIG_POL_NUM, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':name',$name, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add1',$add1, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add2',$add2, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add3',$add3, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add4',$add4, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':post',$post, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':frn',$frn, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':reqs',$reqs, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':ews_status_status',$warning, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':color_status',$color, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':processor',$hello_name, PDO::PARAM_STR);               
+        $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true)); 
+        
+//MATCH POLICY TO ADL TO GET CLIENT ID        
+        
+    $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
+    $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
+    $SELECT_CID->execute();
+    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC); 
+    if ($SELECT_CID->rowCount() >= 1) {
+
+    $CID=$result['client_id'];
+    $PID=$result['id'];
+    $POL_NUMBER=$result['policy_number'];
     
     $note="EWS Uploaded";
-    $ref= "$policynumber ($polid)";
-    $messageEWS="$warning already on as $newwarning";
+    $ref= "$POL_NUMBER ($PID)";
+    $messageEWS="$warning already on as $ORIG_WARNING";
     
-    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
-    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
-    $insert->bindParam(':message', $messageEWS, PDO::PARAM_STR, 250);
-    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
-    $insert->execute();
+//INSERT NOTE INTO CLIENT TIMELINE    
+    
+    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
+    $INSERT_TIMELINE->bindParam(':clientid', $CID, PDO::PARAM_INT);
+    $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR);
+    $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR);
+    $INSERT_TIMELINE->bindParam(':message', $messageEWS, PDO::PARAM_STR);
+    $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR);
+    $INSERT_TIMELINE->execute();
 }
 
-    }
+    } //END OF UPDATES
     
-    if ($warningcheck->rowCount() <= 0) {
+    if ($CHK_ADL_WARNINGS->rowCount() <= 0) { // INSERT THE REST
         
-        $ewsdata = $pdo->prepare("INSERT INTO ews_data SET master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, warning=:warning, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, ournotes=:ournotes, color_status=:color_status
-ON DUPLICATE KEY UPDATE date_added=CURRENT_TIMESTAMP, policy_number=:policy_number1, client_name=:name1, dob=:dob1, address1=:add11, address2=:add21, address3=:add3, address4=:add41, post_code=:post1, policy_type=:policy_type1, warning=:warning1, last_full_premium_paid=:last_full_premium_paid1, net_premium=:net_premium1,premium_os=:premium_os1, clawback_due=:clawback_due1, clawback_date=:clawback_date1, policy_start_date=:policy_start_date1, off_risk_date=:off_risk_date1, seller_name=:seller_name1, frn=:frn1, reqs=:reqs1, processor=:processor1, ews_status_status=:ews_status_status1, ournotes=:ournotes1, color_status=:color_status1");     
+        $INSERT_EWS = $pdo->prepare('INSERT INTO ews_data 
+            SET 
+            assigned=:ASSIGNED,
+            master_agent_no=:master, 
+            agent_no=:agent, 
+            policy_number=:policy_number, 
+            client_name=:name, 
+            dob=:dob, 
+            address1=:add1, 
+            address2=:add2, 
+            address3=:add3, 
+            address4=:add4, 
+            post_code=:post, 
+            policy_type=:policy_type, 
+            warning=:warning, 
+            last_full_premium_paid=:last_full_premium_paid, 
+            net_premium=:net_premium,
+            premium_os=:premium_os, 
+            clawback_due=:clawback_due, 
+            clawback_date=:clawback_date, 
+            policy_start_date=:policy_start_date, 
+            off_risk_date=:off_risk_date, 
+            seller_name=:seller_name, 
+            frn=:frn, 
+            reqs=:reqs, 
+            processor=:processor, 
+            ews_status_status=:ews_status_status, 
+            color_status=:color_status
+                ON DUPLICATE KEY UPDATE
+                assigned=:ASSIGNED2,
+                date_added=CURRENT_TIMESTAMP, 
+                policy_number=:policy_number1, 
+                client_name=:name1, 
+                dob=:dob1, 
+                address1=:add11, 
+                address2=:add21, 
+                address3=:add3, 
+                address4=:add41, 
+                post_code=:post1, 
+                policy_type=:policy_type1, 
+                warning=:warning1, 
+                last_full_premium_paid=:last_full_premium_paid1, 
+                net_premium=:net_premium1,
+                premium_os=:premium_os1, 
+                clawback_due=:clawback_due1, 
+                clawback_date=:clawback_date1, 
+                policy_start_date=:policy_start_date1, 
+                off_risk_date=:off_risk_date1, 
+                seller_name=:seller_name1, 
+                frn=:frn1, 
+                reqs=:reqs1, 
+                processor=:HELLO, 
+                ews_status_status=:ews_status_status1, 
+                color_status=:COLOUR');     
 
-        $ewsdata->bindParam(':master',$master, PDO::PARAM_INT);
-        $ewsdata->bindParam(':agent',$agent, PDO::PARAM_INT);
-        $ewsdata->bindParam(':policy_number',$new_policy, PDO::PARAM_STR);
-        $ewsdata->bindParam(':name',$new_name, PDO::PARAM_STR);
-        $ewsdata->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add1',$new_add1, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add2',$new_add2, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add3',$new_add3, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add4',$new_add4, PDO::PARAM_STR);
-        $ewsdata->bindParam(':post',$post, PDO::PARAM_STR);
-        $ewsdata->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
-        $ewsdata->bindParam(':warning',$warning, PDO::PARAM_STR);
-        $ewsdata->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
-        $ewsdata->bindParam(':net_premium',$net_premium, PDO::PARAM_STR);
-        $ewsdata->bindParam(':premium_os',$premium_os, PDO::PARAM_STR);
-        $ewsdata->bindParam(':clawback_due',$clawback_due, PDO::PARAM_STR);
-        $ewsdata->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $ewsdata->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
-        $ewsdata->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
-        $ewsdata->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
-        $ewsdata->bindParam(':frn',$frn, PDO::PARAM_STR);
-        $ewsdata->bindParam(':reqs',$new_reqs, PDO::PARAM_STR);
-        $ewsdata->bindParam(':ews_status_status',$ews_status_status, PDO::PARAM_STR);
-        $ewsdata->bindParam(':ournotes',$ournotes, PDO::PARAM_STR);
-        $ewsdata->bindParam(':color_status',$color_status, PDO::PARAM_STR);
-        $ewsdata->bindParam(':processor',$hello_name, PDO::PARAM_STR);    
+        $INSERT_EWS->bindParam(':master',$master, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':agent',$agent, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':policy_number',$policy_number, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':name',$name, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add1',$add1, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add2',$add2, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add3',$add3, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add4',$add4, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':post',$post, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':warning',$NEW_EWS, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':frn',$frn, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':reqs',$reqs, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':ews_status_status',$warning, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':color_status',$color_status, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':processor',$hello_name, PDO::PARAM_STR);    
         
         //DUPE CHECK
-        $ewsdata->bindParam(':policy_number1',$new_policy, PDO::PARAM_STR);
-        $ewsdata->bindParam(':name1',$new_name, PDO::PARAM_STR);
-        $ewsdata->bindParam(':dob1',$correct_dob, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add11',$new_add1, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add21',$new_add2, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add31',$new_add3, PDO::PARAM_STR);
-        $ewsdata->bindParam(':add41',$new_add4, PDO::PARAM_STR);
-        $ewsdata->bindParam(':post1',$post, PDO::PARAM_STR);
-        $ewsdata->bindParam(':policy_type1',$policy_type, PDO::PARAM_STR);
-        $ewsdata->bindParam(':warning1',$warning, PDO::PARAM_STR);
-        $ewsdata->bindParam(':last_full_premium_paid1',$correct_paid, PDO::PARAM_STR);
-        $ewsdata->bindParam(':net_premium1',$net_premium, PDO::PARAM_STR);
-        $ewsdata->bindParam(':premium_os1',$premium_os, PDO::PARAM_STR);
-        $ewsdata->bindParam(':clawback_due1',$clawback_due, PDO::PARAM_STR);
-        $ewsdata->bindParam(':clawback_date1',$clawback_date, PDO::PARAM_STR);
-        $ewsdata->bindParam(':policy_start_date1',$correct_start, PDO::PARAM_STR);
-        $ewsdata->bindParam(':off_risk_date1',$off_risk_date, PDO::PARAM_STR);
-        $ewsdata->bindParam(':seller_name1',$seller_name, PDO::PARAM_STR);
-        $ewsdata->bindParam(':frn1',$frn, PDO::PARAM_STR);
-        $ewsdata->bindParam(':reqs1',$new_reqs, PDO::PARAM_STR);
-        $ewsdata->bindParam(':ews_status_status1',$ews_status_status, PDO::PARAM_STR);
-        $ewsdata->bindParam(':ournotes1',$ournotes, PDO::PARAM_STR);
-        $ewsdata->bindParam(':color_status1',$color_status, PDO::PARAM_STR);
-        $ewsdata->bindParam(':processor1',$hello_name, PDO::PARAM_STR);        
-        $ewsdata->execute()or die(print_r($ewsdata->errorInfo(), true));
+        $INSERT_EWS->bindParam(':policy_number1',$policy_number, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':name1',$name, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':ASSIGNED2',$ASSIGNED, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':dob1',$correct_dob, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add11',$add1, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add21',$add2, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add31',$add3, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':add41',$add4, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':post1',$post, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_type1',$policy_type, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':warning1',$warning, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':last_full_premium_paid1',$correct_paid, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':net_premium1',$net_premium, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':premium_os1',$premium_os, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':clawback_due1',$clawback_due, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':clawback_date1',$clawback_date, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_start_date1',$correct_start, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':off_risk_date1',$off_risk_date, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':seller_name1',$seller_name, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':frn1',$frn, PDO::PARAM_INT);
+        $INSERT_EWS->bindParam(':reqs1',$reqs, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':ews_status_status1',$warning, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':COLOUR',$color_status, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);        
+        $INSERT_EWS->execute()or die(print_r($INSERT_EWS->errorInfo(), true));
         
-        $ewsmaster = $pdo->prepare("INSERT INTO ews_data_history SET master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, warning=:warning, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, ournotes=:ournotes, color_status=:color_status");     
-        $ewsmaster->bindParam(':master',$master, PDO::PARAM_INT);
-        $ewsmaster->bindParam(':agent',$agent, PDO::PARAM_INT);
-        $ewsmaster->bindParam(':policy_number',$new_policy, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':name',$new_name, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add1',$new_add1, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add2',$new_add2, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add3',$new_add3, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':add4',$new_add4, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':post',$post, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':warning',$warning, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':net_premium',$net_premium, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':premium_os',$premium_os, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':clawback_due',$clawback_due, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':frn',$frn, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':reqs',$new_reqs, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':ews_status_status',$ews_status_status, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':ournotes',$ournotes, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':color_status',$color_status, PDO::PARAM_STR);
-        $ewsmaster->bindParam(':processor',$hello_name, PDO::PARAM_STR, 100);              
-        $ewsmaster->execute()or die(print_r($ewsmaster->errorInfo(), true)); 
+        $INSERT_MASTER = $pdo->prepare('INSERT INTO ews_data_history SET assigned=:ASSIGNED, master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, warning=:warning, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, color_status=:color_status');     
+        $INSERT_MASTER->bindParam(':master',$master, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':agent',$agent, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_number',$policy_number, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':name',$name, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add1',$add1, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add2',$add2, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add3',$add3, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':add4',$add4, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':post',$post, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':warning',$NEW_EWS, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':frn',$frn, PDO::PARAM_INT);
+        $INSERT_MASTER->bindParam(':reqs',$reqs, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':ews_status_status',$warning, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':color_status',$color_status, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':processor',$hello_name, PDO::PARAM_STR);              
+        $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true)); 
+             
+    //INSERT INTO CLIENT TIMELINE 
         
-    $query = $pdo->prepare("SELECT id, client_id, policy_number FROM client_policy where policy_number=:polhold");
-    $query->bindParam(':polhold', $new_policy, PDO::PARAM_STR);
-    $query->execute();
-    $result=$query->fetch(PDO::FETCH_ASSOC);
-    if ($query->rowCount() >= 1) {
+    $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
+    $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
+    $SELECT_CID->execute();
+    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC);
+    if ($SELECT_CID->rowCount() >= 1) {
 
-    $clientid=$result['client_id'];
-    $polid=$result['id'];
-    $policynumber=$result['policy_number'];
+    $CID=$result['client_id'];
+    $PID=$result['id'];
+    $POL_NUMBER=$result['policy_number'];
     
     $note="EWS Uploaded";
-    $ref= "$policynumber ($polid)";
+    $ref= "$POL_NUMBER ($PID)";
     
-    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
-    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
-    $insert->bindParam(':message', $warning, PDO::PARAM_STR, 250);
-    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
-    $insert->execute();
+    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
+    $INSERT_TIMELINE->bindParam(':clientid', $CID, PDO::PARAM_STR, 12);
+    $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+    $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR, 250);
+    $INSERT_TIMELINE->bindParam(':message', $warning, PDO::PARAM_STR, 250);
+    $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+    $INSERT_TIMELINE->execute();
 }
 
-    }
-    
-    else {
-        
-        $fail = $pdo->prepare("INSERT INTO ews_error set error_dump=:dump, sqlsql='INSERT INTO ews_data (date_added, master_agent_no, agent_no, policy_number, client_name, dob, address1, address2, address3, address4, post_code, policy_type, warning, last_full_premium_paid,net_premium,premium_os, clawback_due, clawback_date, policy_start_date, off_risk_date, seller_name, frn, reqs, processor, ews_status_status, ournotes, color_status) VALUES (CURRENT_TIMESTAMP,$master,$agent,$policy_number,$name,$correct_dob,$add1,$add2,$add3,$add4,$post,$policy_type,$warning,$correct_paid,$net_premium,$premium_os,$clawback_due,$clawback_date,$policy_start_date,$off_risk_date,$seller_name,$frn,$reqs,$ews_status_status,$ournotes,$color_status)'");
-        $fail->bindParam(':dump', $new_policy, PDO::PARAM_STR, 100);
-        $fail->execute();
-    
-}    
+    }  
             
         }
         
+        } // END CHECK IF THERES DATA
         
-        }
-        
-        
-    } while ($data = fgetcsv($handle,1000,",","'"));
+    } 
     
+    while ($data = fgetcsv($handle,1000,",",'"'));
     
     if(isset($REDIRECT)) {
     if($REDIRECT=='EWS') {
@@ -293,7 +449,6 @@ ON DUPLICATE KEY UPDATE date_added=CURRENT_TIMESTAMP, policy_number=:policy_numb
 }
     
     
-    header('Location: ../EWSfiles.php?EWSupload=1'); die;
 }
 
 ?>

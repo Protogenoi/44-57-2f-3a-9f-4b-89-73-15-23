@@ -143,9 +143,9 @@ if ($ACT_CBS['badge'] > 0) { ?>
             }
         }
         }    
-            if ($MSG_stmtresult['badge'] >= '0') {
+            if ($MSG_stmtresult['badge'] >= '1') {
                 ?>
-                <li><a href="/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo "$hello_name $MSG_stmtresult[badge]"; ?> </span></a></li>
+                <li><a href="/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo $MSG_stmtresult['badge']; ?> </span></a></li>
 
                 <?php
             }

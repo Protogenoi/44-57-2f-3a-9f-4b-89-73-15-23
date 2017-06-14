@@ -15,6 +15,7 @@ if (in_array($hello_name, $Level_2_Access, true)) {
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -34,6 +35,8 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     die;
 }
 
+        
+        $COMID = filter_input(INPUT_GET, 'COMID', FILTER_SANITIZE_NUMBER_INT);
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -83,6 +86,7 @@ Uploaded Documents
                             <th>Category</th>
                             <th>Company</th>
                             <th>View</th>
+                            <th>Review</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -93,6 +97,7 @@ Uploaded Documents
                             <th>Category</th>
                             <th>Company</th>
                             <th>View</th>
+                            <th>Review</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -166,6 +171,89 @@ ADL
 </div> 
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>
                     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+                    
+        <?php
+
+        
+        if(isset($COMID)) { 
+       
+        $database = new Database();
+        $database->query("SELECT 
+            compliance_uploads_title,
+            compliance_uploads_company
+                FROM
+                compliance_uploads
+                WHERE
+                compliance_uploads_id=:COMID");
+                        $database->bind(':COMID', $COMID);
+                        $RESULT = $database->single();        
+            
+            ?>
+        
+<div class="modal fade" id="MYMODAL" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h4 class="modal-title" id="modalLabel"><?php echo $RESULT['compliance_uploads_title']; ?></h4>
+</div>
+<div class="modal-body">
+    <p>If you have read and understood this document click "Mark as Read".</p>
+    <p>If you have a question about the document click "Question"</p>
+    <form action="php/Compliance.php?EXECUTE=1&COMID=<?php echo $COMID; ?>&TITLE=<?php echo $RESULT['compliance_uploads_title']; ?>" method="POST">
+
+   <?php
+        
+        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+        
+          <div class="form-group">
+    <label for="COMPANY_ENTITY">Company:</label>
+    <select class="form-control" name='COMPANY_ENTITY'>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='N/A') { echo "selected"; }  ?> value='N/A'>For all</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='The Review Bureau') { echo "selected"; }  ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protect Family Plans') { echo "selected"; }  ?> value='Protect Family Plans'>Protect Family Plans</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protected Life Ltd') { echo "selected"; }  ?> value='Protected Life Ltd'>Protected Life Ltd</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='We Insure') { echo "selected"; }  ?> value='We Insure'>We Insure</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='The Financial Assessment Centre') { echo "selected"; }  ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Assured Protect and Mortgages') { echo "selected"; }  ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+    </select>
+  </div>
+ 
+          
+      <?php  }
+        
+        ?>
+
+  <button type="submit" class="btn btn-primary form-control" name="btn-upload">Mark as Read</button>
+    </form>  <br>
+    
+  <form action="php/Compliance.php?EXECUTE=2&COMID=<?php echo $COMID; ?>&TITLE=<?php echo $RESULT['compliance_uploads_title']; ?>" method="POST">
+      
+     <div class="form-group">
+        <textarea class="form-control" name="MSG" rows="5" cols="100" placeholder="Any Questions about the document?"></textarea>
+    </div>
+      
+ 
+  
+  <button type="submit" class="btn btn-primary form-control">Question</button>
+</form>
+    
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>         
+        
+ <script type="text/javascript">
+    $(window).on('load',function(){
+        $('#MYMODAL').modal('show');
+    });
+</script> 
+     <?php   }
+        
+        ?>                    
+                    
         <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
@@ -197,7 +285,11 @@ ADL
                         {"data": "compliance_uploads_location",
                             "render": function (data, type, full, meta) {
                                 return '<a href="/../' + data + '" target="_blank"><i class="fa fa-search"></i></a>';
-                            }}
+                            }},
+                        {"data": "compliance_uploads_id",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="Compliance.php?COMID=' + data + '"><i class="fa fa-check-circle-o"></i></a>';
+                            }}    
                     ]
                 });
 

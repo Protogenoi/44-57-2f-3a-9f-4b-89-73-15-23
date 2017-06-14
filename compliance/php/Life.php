@@ -88,7 +88,7 @@ if($GRADE_PERCENT>=90) {
             }
       
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");           
-    $query->bindParam(':NAME', $hello_name, PDO::PARAM_INT);
+    $query->bindParam(':NAME', $hello_name, PDO::PARAM_STR);
     $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 

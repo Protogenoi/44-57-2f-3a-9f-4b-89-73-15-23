@@ -147,7 +147,7 @@ $companynamere = $companydetailsq['company_name'];
                         <ul role='menu' class='dropdown-menu'>
                                 <li><a <?php if ($fffinancials == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($fffinancials == '1' && in_array($hello_name, $Level_10_Access, true)) { echo '/Life/Financials.php'; } else { echo '/CRMmain.php?FEATURE=FINANCIALS'; } ?>">Financials <?php if ($fffinancials == '0') { echo "(not enabled)"; } ?></a></li> 
                                 <li><a <?php if ($ffews == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffews == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/EWS.php'; } else { echo '/CRMmain.php?FEATURE=EWS'; } ?>">EWS <?php if ($ffews == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Main_Menu.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Staff Database <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
+                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { echo '/Staff/Main_Menu.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Staff Database <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
                                 <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Holidays/Calendar.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Holidays <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
                                 <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Reports/RAG.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Register <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
                                 <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Assets/Assets.php'; } else { echo '/CRMmain.php?FEATURE=ASSETS'; } ?>">Asset Management <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
@@ -165,7 +165,7 @@ $companynamere = $companydetailsq['company_name'];
                 <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
 
-<?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
+<?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
                 <div class="LIVERESULTS">
 
                 </div>
@@ -173,7 +173,7 @@ $companynamere = $companydetailsq['company_name'];
         </div>
     </nav>
 </div>
-<?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
+<?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
     <script>
         function refresh_div() {
             jQuery.ajax({

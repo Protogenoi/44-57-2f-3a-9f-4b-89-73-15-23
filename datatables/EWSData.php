@@ -15,8 +15,6 @@ if(isset($EWS)) {
 , ews_data_history.dob
 , ews_data_history.address1
 , ews_data_history.address2
-, ews_data_history.address3
-, ews_data_history.address4
 , ews_data_history.post_code
 , ews_data_history.policy_type
 , ews_data_history.warning
@@ -34,15 +32,13 @@ if(isset($EWS)) {
 , client_policy.policy_number AS cppol
 , client_policy.client_id
 , ews_data_history.color_status
-, ews_data_history.ournotes
 , client_policy.closer
 , client_policy.lead
 	FROM ews_data_history 
 	LEFT JOIN client_policy 
 	ON ews_data_history.policy_number=client_policy.policy_number 
 	LEFT JOIN financial_statisics
-	ON financial_statisics.policy_number=ews_data_history.policy_number
-	WHERE financial_statisics.trans_type = 'COMM' or financial_statisics.trans_type is null";
+	ON financial_statisics.policy_number=ews_data_history.policy_number";
     $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 
     $rows = array();

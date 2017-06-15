@@ -480,6 +480,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             break;
         case "CRM Alert":
             case "Policy Added":
+        case "Doc Read";
             $TMicon="fa-check";
             break;
             case "File Upload":
@@ -503,6 +504,16 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
             case "Employee Edited":
                 $TMicon="fa-edit";
                 break;
+                        case "Doc Question":
+                $TMicon="fa-question";
+                break;
+        case "Call Audit";
+            $TMicon="fa-headphones";
+            break;
+                case "Test Marked";
+                    case "Took Test";
+            $TMicon="fa-university";
+            break;
             case "Sent SMS":
                 $TMicon="fa-phone";
                 break;
@@ -788,7 +799,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
     </div>
 
         <?php 
-    if (in_array($hello_name,$Level_10_Access, true)) { ?>
+    if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { ?>
  
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">

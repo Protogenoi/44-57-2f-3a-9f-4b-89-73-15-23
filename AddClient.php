@@ -21,11 +21,8 @@ if ($ffpost_code == '1') {
     $PostCodeKey = $PDre['api_key'];
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
-    header('Location: /CRMmain.php');
-    die;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +101,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                     $DISPLAY_CUS = "Archive";
                                                     break;
                                                 case "The Review Bureau":
+                                                    case "ADL Legal and General":
                                                 case "ADL_CUS":
                                                     $DISPLAY_CUS = "Legal & General";
                                                     break;
@@ -299,3 +297,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     </div>
 </body>
 </html>
+<?php } else {
+     header('Location: /CRMmain.php?NOACCESS');
+    die;
+}

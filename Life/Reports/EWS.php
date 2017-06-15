@@ -373,8 +373,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>ID</th>
                             <th>Address 1</th>
                             <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
                             <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
@@ -388,7 +386,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Off Risk Date</th>
                             <th>Reqs</th>
                             <th>Orig Status</th>
-                            <th>Our Notes</th>
                             <th>Color</th>
                         </tr>
                     </thead>
@@ -402,8 +399,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>ID</th>
                             <th>Address 1</th>
                             <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
                             <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
@@ -417,7 +412,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Off Risk Date</th>
                             <th>Reqs</th>
                             <th>Orig Status</th>
-                            <th>Our Notes</th>
                             <th>Color</th>
                         </tr>
                     </tfoot>
@@ -642,8 +636,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                         } },
                     { "data": "address1"},
                     { "data": "address2"},
-                    { "data": "address3"},
-                    { "data": "address4"},
                     { "data": "dob" },
                     { "data": "post_code" },
                     { "data": "policy_type" },
@@ -657,7 +649,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     { "data": "off_risk_date" },
                     { "data": "reqs" },
                     { "data": "ews_status_status" },
-                    { "data": "ournotes" },
                     { "data": "color_status" }
 
 

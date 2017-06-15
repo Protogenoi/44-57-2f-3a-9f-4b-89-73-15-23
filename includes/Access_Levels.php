@@ -161,6 +161,7 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
 }
 
 if ($companynamere == 'The Review Bureau') {
+    $COMPANY_ENTITY = 'The Review Bureau';
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike", "Gavin");

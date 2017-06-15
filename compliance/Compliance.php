@@ -61,9 +61,14 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 
     <?php require_once(__DIR__ . '/../includes/NAV.php'); ?> 
 
-    <div class="container"><br>
+    <div class="container-fluid"><br>
         
         <?php require_once(__DIR__ . '/../compliance/php/notifications.php'); ?> 
+        
+                <div class="row">
+            <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
+            
+            <div class="col-9">
         
 <div class="card"">
 <h3 class="card-header">
@@ -111,6 +116,8 @@ ADL
 </div>        
         
                
+    </div>
+                </div>
     </div>
     
 <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

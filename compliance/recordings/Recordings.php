@@ -154,8 +154,7 @@ if(isset($EXECUTE)) {
         <div class="card-footer"></div>
 </div>
 </form> 
-          
-   </div>
+
        
         
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>

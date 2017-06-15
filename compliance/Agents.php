@@ -76,6 +76,11 @@ tr.Red td {
         
         <?php require_once(__DIR__ . '/../compliance/php/notifications.php'); ?> 
         
+        <div class="row">
+            <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
+            
+            <div class="col-8">
+        
 <div class="card"">
 <h3 class="card-header">
 Employee's
@@ -117,8 +122,9 @@ Employee's
 ADL
 </div>
 </div>        
-        
+            </div> 
                
+    </div>
     </div>
     
 <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">

@@ -72,9 +72,14 @@ tr.Red td {
 
     <?php require_once(__DIR__ . '/../includes/NAV.php'); ?> 
 
-    <div class="container"><br>
+    <div class="container-fluid"><br>
         
         <?php require_once(__DIR__ . '/../compliance/php/notifications.php'); ?> 
+        
+                        <div class="row">
+            <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
+            
+            <div class="col-9">
         
 <div class="card"">
 <h3 class="card-header">
@@ -119,7 +124,8 @@ The Protection Test
 ADL
 </div>
 </div>        
-        
+            </div>
+                        </div>
                
     </div>
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>

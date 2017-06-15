@@ -55,54 +55,9 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
         <br>
         <div class="container-fluid">
 
-
             <div class="row">
-                <!-- Left Column -->
-                <div class="col-3">
-
-                    <div id="faq" role="tablist" aria-multiselectable="true">
-                        <div class="card-header p-b-0">
-                            <h5 class="card-title"><i class="fa fa-random" aria-hidden="true"></i> Overview</h5>
-                        </div> 
-                        <div class="list-group list-group-flush">
-                            <a href="dash.php?EXECUTE=1" class="list-group-item list-group-item-action">Dashboard</a>
-                            <?php if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="dash.php?EXECUTE=3" class="list-group-item list-group-item-action">Statistics</a>
-                            <?php } ?>
-                            <a href="guides/LifeJargon.php?EXECUTE=1&AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="list-group-item list-group-item-action">LG Jargon Buster</a>
-                            <?php if(in_array($hello_name, $COM_MANAGER_ACCESS, true)) { ?>
-                            <a href="Stats.php" class="list-group-item list-group-item-action">Add Statistics</a>
-                            <a href="Compliance.php" class="list-group-item list-group-item-action">Add Documents</a>
-                            <?php } ?>
-                            <a href="/messenger/Main.php" class="list-group-item list-group-item-action">Message</a>
-                        </div>    
-
-                        <div class="card-header p-b-0">
-                            <h5 class="card-title"><i class="fa fa-random" aria-hidden="true"></i> Agencies</h5>
-                        </div>
-                         <div class="list-group list-group-flush">
-                             <?php if (in_array($hello_name, $TRB_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=The Review Bureau&EXECUTE=2" class="list-group-item list-group-item-action">The Review Bureau</a>
-                             <?php } 
-                            if (in_array($hello_name, $PFP_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=Protect Family Plans&EXECUTE=2" class="list-group-item list-group-item-action">Protect Family Plans</a>
-                            <?php } 
-                            if (in_array($hello_name, $PLL_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=Protected Life Ltd&EXECUTE=2" class="list-group-item list-group-item-action">Protected Life Ltd</a>
-                            <?php } 
-                            if (in_array($hello_name, $WI_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=We Insure&EXECUTE=2" class="list-group-item list-group-item-action">We Insure</a>
-                            <?php } 
-                            if (in_array($hello_name, $TFAC_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=The Financial Assessment Centre&EXECUTE=2" class="list-group-item list-group-item-action">The Financial Assessment Centre</a>
-                            <?php } 
-                            if (in_array($hello_name, $APM_ACCESS, true) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                            <a href="?AGENCY=Assured Protect and Mortgages&EXECUTE=2" class="list-group-item list-group-item-action">Assured Protect and Mortgages</a>
-                            <?php } ?>
-                        </div> 
-
-                    </div>				
-                </div><!--/Left Column-->
+               <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
+               
 <div class="col-6">
                             <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -713,7 +668,7 @@ WHERE
                         </center>
                          
                                 <br>
-                                <p><a href="Recordings.php" class="btn btn-outline-info">View Recordings</a></p>
+                                <p><a href="Recordings.php" class="btn btn-outline-info form-control"><i class="fa fa-headphones"></i> Call Recordings Audit</a></p>
                             </div>
                         </div>
                         

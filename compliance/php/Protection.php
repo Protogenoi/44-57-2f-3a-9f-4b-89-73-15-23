@@ -49,7 +49,7 @@ if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
         
     $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
-    $query->bindParam(':NAME', $hello_name, PDO::PARAM_INT);
+    $query->bindParam(':NAME', $hello_name, PDO::PARAM_STR);
     $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
@@ -99,6 +99,65 @@ if(isset($EXECUTE)) {
         
     }
     if($EXECUTE=='2') {
+        
+        $TID = filter_input(INPUT_GET, 'TID', FILTER_SANITIZE_NUMBER_INT);
+        $PROTECTION_MARK = filter_input(INPUT_POST, 'PROTECTION_MARK', FILTER_SANITIZE_NUMBER_INT);
+        $NAME = filter_input(INPUT_GET, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
+    $query->bindParam(':NAME', $NAME, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['employee_id'];        
+    
+    $AUD_ID = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");
+    $AUD_ID->bindParam(':NAME', $hello_name, PDO::PARAM_STR);
+    $AUD_ID->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+    $AUD_ID->execute();
+    $data2 = $AUD_ID->fetch(PDO::FETCH_ASSOC); 
+    
+    $AUDI_ID_FK=$data2['employee_id'];   
+
+        $GRADE_PERCENT = $PROTECTION_MARK/15 * 100;
+        
+if($GRADE_PERCENT>=60) {
+    $GRADE='Green';
+    }
+    if($GRADE_PERCENT>=30 && $GRADE_PERCENT<60) {
+        $GRADE='Amber';
+        }
+        if($GRADE_PERCENT<30) {
+            $GRADE='Red';
+            }        
+        
+        
+        $INSERT = $pdo->prepare("UPDATE life_test_two SET life_test_two_mark=:MARK, life_test_two_grade=:GRADE, life_test_two_auditor=:AUDITOR WHERE life_test_two_id=:FK AND life_test_two_company=:COMPANY");
+        $INSERT->bindParam(':FK', $TID, PDO::PARAM_STR);
+        $INSERT->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+        $INSERT->bindParam(':AUDITOR', $hello_name, PDO::PARAM_STR);
+        $INSERT->bindParam(':MARK', $PROTECTION_MARK, PDO::PARAM_STR);
+        $INSERT->bindParam(':GRADE', $GRADE, PDO::PARAM_STR);
+        $INSERT->execute();        
+        
+            $changereason="Protection Test | Marked $PROTECTION_MARK/15 | GRADE: $GRADE";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Test Marked', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();
+            
+            $NOTE="Protection Test | Marked $PROTECTION_MARK/15 | GRADE: $GRADE for $NAME";
+
+            $database->query("INSERT INTO employee_timeline set note_type='Test Marked', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$AUDI_ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$NOTE); 
+            $database->execute();                
+        
+       header('Location: ../Protection.php?RETURN=ADDED&TEST=TESTTWOMARKED');     
         
     }
 }

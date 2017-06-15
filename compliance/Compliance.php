@@ -82,12 +82,11 @@ Uploaded Documents
     <?php } ?>
                                 </div>
     
-<h4 class="card-title">Documents</h4>
+<h4 class="card-title"></h4>
   <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Date</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Company</th>
@@ -98,7 +97,6 @@ Uploaded Documents
                     <tfoot>
                         <tr>
                             <th></th>
-                            <th>Date</th>
                             <th>Title</th>
                             <th>Category</th>
                             <th>Company</th>
@@ -286,7 +284,6 @@ ADL
                             "data": null,
                             "defaultContent": ''
                         },
-                        {"data": "compliance_uploads_date"},
                         {"data": "compliance_uploads_title"},
                         {"data": "compliance_uploads_category"},
                         {"data": "compliance_uploads_company"},

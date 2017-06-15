@@ -1,15 +1,15 @@
 <?php
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../php/analyticstracking.php');
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -39,9 +39,14 @@ $q=1;
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
-<?php require_once(__DIR__ . '/../../includes/NAV.php'); ?> 
+<?php require_once(__DIR__ . '/../includes/NAV.php'); ?> 
         
-        <div class="container"><br>
+        <div class="container-fluid"><br>
+            
+                            <div class="row">
+            <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
+            
+            <div class="col-9">
             
   <div class="card">
 
@@ -75,7 +80,8 @@ In the table below we've listed a number of life insurance related terms and an 
 </div>        
           
    </div>
-        
+                            </div>
+        </div>        
         
             <script src="/js/jquery/jquery-3.0.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>

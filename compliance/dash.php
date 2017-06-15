@@ -298,7 +298,7 @@ WHERE
  <div class="row">
                             <article class="col-12">
                                 <h2>Money Laundering</h2>
-                                <p>Make cash quick and easy!</p>
+                                <p>How to spot money laundering!</p>
                                 <p><button class="btn btn-outline-danger">Read More</button></p>                               
                             </article>
                         </div>     

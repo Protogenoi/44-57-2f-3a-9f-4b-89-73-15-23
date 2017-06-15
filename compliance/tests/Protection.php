@@ -101,7 +101,7 @@ $q=1;
 <?php require_once(__DIR__ . '/../../includes/NAV.php'); ?> 
         
         <div class="container">
-            
+
             <form action="<?php if(!isset($EXCUTE)) { ?>/compliance/php/Protection.php?EXECUTE=1<?php } else { }?> " method="POST"><br>
 
     <div class="card">
@@ -294,11 +294,23 @@ No
 <?php } ?>
 
 </fieldset>
+</form> 
+            
+                        <?php if(isset($EXECUTE) && isset($TID) && in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+            <form method="POST" action="/compliance/php/Protection.php?EXECUTE=2&TID=<?php echo $TID;?>&NAME=<?php echo $TEST_NAME; ?>">
+                
+                 <div class="form-check">
+                <input  class="form-control" type="number" placeholder="Questions answered correctly out of 15" name="PROTECTION_MARK">
+                 </div>
 
+                <button class="btn btn-primary" type="submit">Mark Test</button>
+            </form>    
+        <?php } ?>
+            
     </div>
         <div class="card-footer">End of questions.</div>
 </div>
-</form> 
+
           
    </div>
         

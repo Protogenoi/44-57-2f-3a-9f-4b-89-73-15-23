@@ -1,18 +1,13 @@
 <?php
-
 include($_SERVER['DOCUMENT_ROOT'] . "/classes/access_user/access_user_class.php");
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
-
-    header('Location: ../../CRMmain.php?AccessDenied');
-    die;
-}
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
 if (isset($fferror)) {
     if ($fferror == '1') {
@@ -194,5 +189,10 @@ if (isset($fferror)) {
         header('Location: ../../Life/ViewClient.php?policyadded=y&search=' . $CID . '&policy_number=' . $policy_number);
         die;
     }
+}
+
+} else {
+     header('Location: ../../CRMmain.php?AccessDenied');
+    die;
 }
 ?>

@@ -34,21 +34,27 @@ if (empty($search)) {
     die;
 }
 
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
+if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    require_once(__DIR__ . '/models/AllClientModel.php');
+    $ClientModel = new AllClientModel($pdo);
+    $ClientList = $ClientModel->getAllSingleClient($search);
+    require_once(__DIR__ . '/views/Single-Client.php');
+    
+} else {
+    
+    require_once(__DIR__ . '/models/ClientModel.php');
+    $ClientModel = new ClientModel($pdo);
+    $ClientList = $ClientModel->getSingleClient($search,$COMPANY_ENTITY);
+    require_once(__DIR__ . '/views/Single-Client.php');
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
-
-    header('Location: /CRMmain.php?AccessDenied');
-    die;
 }
 
-require_once(__DIR__ . '/models/ClientModel.php');
 
-$ClientModel = new ClientModel($pdo);
-
-$ClientList = $ClientModel->getSingleClient($search);
-
-require_once(__DIR__ . '/views/Single-Client.php');
+if(empty($ClientList)) {
+    header('Location: ../CRMmain.php?NO_COMPANY');
+}
 
 if (isset($Single_Client['company'])) {
     $WHICH_COMPANY = $Single_Client['company'];
@@ -163,7 +169,7 @@ if (isset($Single_Client['callauditid'])) {
 
         <?php
         if (isset($WHICH_COMPANY)) {
-            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
                 $WHICH_INSURER = "Legal and General";
             }
@@ -549,7 +555,7 @@ if (isset($Single_Client['callauditid'])) {
                                 }
                             }
 
-                            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
 
                                 try {
 
@@ -641,7 +647,7 @@ if (isset($Single_Client['callauditid'])) {
                     <br>
 
                     <?php
-                    if ($WHICH_COMPANY == 'The Review Bureau' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
+                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
 
                         $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -853,7 +859,7 @@ if (isset($Single_Client['callauditid'])) {
                                                                                             </form>
                                                                                             </td>";
 
-                                        if ($companynamere == 'The Review Bureau' || $companyname == 'ADL_CUS') {
+                                        if ($companynamere == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $companyname == 'ADL_CUS') {
                                             if (in_array($hello_name, $Level_10_Access, true)) {
 
 
@@ -866,7 +872,7 @@ if (isset($Single_Client['callauditid'])) {
                                             }
                                         }
 
-                                        if ($companynamere != 'The Review Bureau' || $companyname != 'ADL_CUS') {
+                                        if ($companynamere != 'The Review Bureau' || $custype!='ADL Legal and General' || $companyname != 'ADL_CUS') {
 
                                             echo "<td>
                                                                                         <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
@@ -993,7 +999,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
@@ -1157,7 +1163,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
@@ -2075,7 +2081,7 @@ try {
                     }
                 }
 
-                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') {
+                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
 
                     $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
@@ -2500,7 +2506,7 @@ try {
 
                 <h3><span class="label label-info">Client Timeline</span></h3>             
                     <?php
-                    if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+                    if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
                         try {
 
                             $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
@@ -3138,3 +3144,7 @@ try {
 <?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
 </body>
 </html>
+<?php } else {
+        header('Location: /CRMmain.php?AccessDenied');
+    die;
+}

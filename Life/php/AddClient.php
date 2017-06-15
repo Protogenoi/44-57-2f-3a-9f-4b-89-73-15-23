@@ -1,16 +1,14 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: ../../CRMmain.php?AccessDenied'); die;
-}
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+
 
 if(isset($fferror)) {
     if($fferror=='1') {
@@ -30,7 +28,7 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='TRB Archive' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
+    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='TRB Archive' || $custype=='ADL Legal and General' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
             
     ?>
 
@@ -38,17 +36,17 @@ if(isset($fferror)) {
 <html lang="en">
 <title>ADL | Add Client Submit</title>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
-<link rel="stylesheet" href="../../style/jquery-ui.css">
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
-<link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
+<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/style/jquery-ui.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="../../EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+<link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
 <script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script>
   $(function() {
@@ -121,7 +119,8 @@ input.currency {
         $database = new Database(); 
         $database->beginTransaction();
         
-        $database->query("Select client_id, first_name, last_name FROM client_details WHERE post_code=:post AND address1 =:add1 AND company=:company");
+        $database->query("Select client_id, first_name, last_name FROM client_details WHERE post_code=:post AND address1 =:add1 AND company=:company AND owner=:OWNER");
+        $database->bind(':OWNER', $COMPANY_ENTITY);
         $database->bind(':company', $custype);
         $database->bind(':post', $post);
         $database->bind(':add1',$add1);
@@ -138,7 +137,8 @@ input.currency {
         
         else {
             
-            $database->query("INSERT into client_details set company=:company, title=:title, first_name=:first, last_name=:last, dob=:dob, email=:email, phone_number=:phone, alt_number=:alt, title2=:title2, first_name2=:first2, last_name2=:last2, dob2=:dob2, email2=:email2, address1=:add1, address2=:add2, address3=:add3, town=:town, post_code=:post, submitted_by=:hello, recent_edit=:hello2");
+            $database->query("INSERT into client_details set owner=:OWNER, company=:company, title=:title, first_name=:first, last_name=:last, dob=:dob, email=:email, phone_number=:phone, alt_number=:alt, title2=:title2, first_name2=:first2, last_name2=:last2, dob2=:dob2, email2=:email2, address1=:add1, address2=:add2, address3=:add3, town=:town, post_code=:post, submitted_by=:hello, recent_edit=:hello2");
+            $database->bind(':OWNER', $COMPANY_ENTITY);
             $database->bind(':company', $custype);
             $database->bind(':title', $title);
             $database->bind(':first',$first);
@@ -176,7 +176,7 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {               
+                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
@@ -308,7 +308,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
 
 } 
 
-if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {
+if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='ADL Legal and General') {
 
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assignCYD, PDO::PARAM_STR);
@@ -320,7 +320,7 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {
         
         }
         
-        if($custype=='The Review Bureau') {
+        if($custype=='The Review Bureau' || $custype=='ADL Legal and General') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign24, PDO::PARAM_STR);
@@ -332,7 +332,7 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS') {
         
         }
 
-if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
+if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);
@@ -375,7 +375,7 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $
 
 <div class="col-md-4">
 
-<?php if($custype=='The Review Bureau' || 'Assura' || 'TRB WOL' || 'TRB Archive') { ?>
+<?php if($custype=='The Review Bureau' || $custype=='ADL Legal and General' || 'Assura' || 'TRB WOL' || 'TRB Archive') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life">
 <?php }
 if($custype=='TRB Vitality') { ?>
@@ -426,7 +426,7 @@ if($custype=='CUS Home Insurance') { ?>
 <br>
 
 <label for="policy_number">Policy Number:</label>
-<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' <?php if($custype=='The Review Bureau' || $custype=='ADL_CUS') { echo "maxlength='10'"; } ?> style="width: 140px" placeholder="TBC">
+<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' <?php if($custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='ADL Legal and General') { echo "maxlength='10'"; } ?> style="width: 140px" placeholder="TBC">
 <br>
 
 <div class="form-row">
@@ -457,7 +457,7 @@ if($custype=='CUS Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='TRB Archive') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Archive') { echo "selected"; } } ?>>Legal & General</option>
   <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { echo "selected"; } } ?>>Vitality</option>
   <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
@@ -929,5 +929,9 @@ $("#lead").easyAutocomplete(options);</script>
 
 else {
 header('Location: ../../CRMmain.php?Clientadded=failed'); die;
+}
+
+} else {
+    header('Location: ../../CRMmain.php?AccessDenied'); die;
 }
 ?>

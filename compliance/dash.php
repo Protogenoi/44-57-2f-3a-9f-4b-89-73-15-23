@@ -282,7 +282,7 @@ WHERE
                             <article class="col-12">
                                 <h2>Complaints</h2>
                                 <p>Log complaints to a client profile.</p>
-                                <p><a href="/AddClient.php" class="btn btn-outline-danger"><i class="fa fa-user-plus"></i> Add Client</a>
+                                <p><a href="/AddClient.php" class="btn btn-outline-danger"><i class="fa fa-user-plus"></i> Add Compliant</a>
                                 <a href="/SearchClients.php" class="btn btn-outline-danger"><i class="fa fa-search"></i> Search Client</a></p>  
                             </article>
                         </div>

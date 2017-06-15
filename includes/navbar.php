@@ -42,7 +42,6 @@ $companynamere = $companydetailsq['company_name'];
     }
 </style>
 
-<div class="bs-example">
     <nav role="navigation" class="navbar navbar-default">
         <div class="navbar-header">
             <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
@@ -172,7 +171,7 @@ $companynamere = $companydetailsq['company_name'];
 <?php } ?>
         </div>
     </nav>
-</div>
+
 <?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
     <script>
         function refresh_div() {

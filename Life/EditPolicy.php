@@ -90,7 +90,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
 
-    $SUB_DATE = $data2['client_policy.submitted_date'];
     $NAME = $data2['NAME'];
     $NAME2 = $data2['NAME2'];
     $NAME3 = "$data2[NAME] and $data2[NAME2]";

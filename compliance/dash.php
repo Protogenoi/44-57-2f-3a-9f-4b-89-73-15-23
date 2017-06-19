@@ -61,8 +61,8 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 <div class="col-6">
                             <div class="alert alert-success alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <center><strong><?php if(isset($AGENCY)) { echo $AGENCY; } else { echo "$COMPANY_ENTITY Main Dashboard"; }  ?></strong></center><br>
-                        </div>	
+                            <center><strong><?php if(isset($AGENCY)) { echo $AGENCY; } else { echo "$COMPANY_ENTITY Main Dashboard"; }  ?><br>
+                        <?php if(isset($hello_name)) { echo $hello_name; } ?> </strong></center></div>	
 <?php if (isset($EXECUTE)) {
     if($EXECUTE=='2') { ?>
     
@@ -266,17 +266,14 @@ WHERE
                                 <p><a href="Compliance.php" class="btn btn-outline-primary">Read More</a>
                                 <a href="Compliance.php?EXECUTE=FCA" class="btn btn-outline-primary">FCA</a>
                                 <a href="Compliance.php?EXECUTE=ICO" class="btn btn-outline-primary">ICO</a>
-                                <a href="Compliance.php?EXECUTE=LANDG" class="btn btn-outline-primary">Legal and General</a></p>
+                                <a href="Compliance.php?EXECUTE=LANDG" class="btn btn-outline-primary">Legal and General</a>
+                                <a href="Compliance.php?EXECUTE=Vulnerable Clients" class="btn btn-outline-primary">Vulnerable Clients</a>
+                                <a href="Compliance.php?EXECUTE=Money Laundering" class="btn btn-outline-primary">Money Laundering</a>
+                                <a href="Compliance.php?EXECUTE=Data Protection" class="btn btn-outline-primary">Data Protection</a></p>
                             </article>
                         </div>                        
                         <hr>
-                        <div class="row">
-                            <article class="col-12">
-                                <h2>Data Protection</h2>
-                                <p>Brush up on your knowledge for Data Protection.</p>
-                                <p><button class="btn btn-outline-primary">Read More</button></p>                              
-                            </article>
-                        </div>
+
                         <hr>      
                         <div class="row">
                             <article class="col-12">
@@ -286,25 +283,7 @@ WHERE
                                 <a href="/SearchClients.php" class="btn btn-outline-danger"><i class="fa fa-search"></i> Search Client</a></p>  
                             </article>
                         </div>
-                        
-                        <div class="row">
-                            <article class="col-12">
-                                <h2>Vulnerable Clients</h2>
-                                <p>Learn how to deal with vulnerable clients needs/requirements.</p>
-                                <p><button class="btn btn-outline-danger">Read More</button></p>                              
-                            </article>
-                        </div>                        
-
- <div class="row">
-                            <article class="col-12">
-                                <h2>Money Laundering</h2>
-                                <p>How to spot money laundering!</p>
-                                <p><button class="btn btn-outline-danger">Read More</button></p>                               
-                            </article>
-                        </div>     
-
-                        
-                        <hr>
+                     
                    
                 
     <?php } ?>

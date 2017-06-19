@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -26,11 +26,9 @@ if ($ffaudits == '0') {
     die;
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
-    header('Location: /CRMmain.php');
-    die;
-}
+
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -126,14 +124,11 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="Mike">Mike</option> 
-                                    <option value="Nathan">Nathan</option> 
                                     <option value="Richard">Richard</option>
                                     <option value="Ricky">Ricky</option> 
                                     <option value="Sarah">Sarah</option> 
-                                    <option value="Stavros">Stavros</option>
                                     <option value="Nicola">Nicola</option> 
                                     <option value="Gavin">Gavin</option> 
-                                    <option value="Rhys">Rhys</option> 
                                     <option value="David">David</option> 
                                 <?php } if ($companynamere == 'ADL_CUS') { ?>
                                     <option value="Dan Matthews">Dan Matthews</option>
@@ -2668,3 +2663,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     </div>
 </body>
 </html>
+<?php } else {    header('Location: /CRMmain.php');
+    die;
+} ?>

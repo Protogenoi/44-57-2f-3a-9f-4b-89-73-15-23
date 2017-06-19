@@ -186,7 +186,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php }  if (in_array($hello_name, $Level_3_Access, true)) {?>
+                        <?php }  if (in_array($hello_name, $Level_3_Access, true) && in_array($hello_name, $TRB_ACCESS, true)) {?>
                             <li>
                                 <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
@@ -211,8 +211,9 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                         <?php } ?>
 
                         <?php
-                        if (in_array($hello_name, $Level_10_Access, true)) {
+                        
                             if ($ffemployee == '1') {
+                                if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
                                 ?>
                                 <li>
                                     <a href="Staff/Main_Menu.php">

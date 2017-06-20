@@ -588,6 +588,7 @@ function textAreaAdjust(o) {
     <option value="">Select...</option>
     <?php if($companynamere=='The Review Bureau') { ?>
     <option value="Carys" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Carys') { echo "selected"; } } ?> >Carys</option>
+    <option value="David" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='David') { echo "selected"; } } ?> >David</option>
     <option value="Hayley" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Hayley') { echo "selected"; } } ?> >Hayley</option>
     <option value="James" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='James') { echo "selected"; } } ?> >James</option>
     <option value="Kyle" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Kyle') { echo "selected"; } } ?> >Kyle</option>  

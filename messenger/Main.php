@@ -55,6 +55,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
      <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -132,8 +133,11 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
               
 
     <form action="php/msg.php?EXECUTE=1" method="POST">
+        
+  <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> Select who to send your message to or hold 'ctrl/command and click' to send to a group of people.</div>      
+        
 <div class="form-group">
-    <select class="form-control" name="MSG_TO[]" id="MSG_TO" multiple="yes">
+    <select class="form-control" name="MSG_TO[]" id="MSG_TO" multiple="yes" required="yes">
      <option value="">Select Agent...</option>
  </select>
 </div>
@@ -328,12 +332,14 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 </tfoot>                    
         
                     <?php
+                    
+                    $i=0;
                     while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                        
+                        $i++;
                         $NOTE=html_entity_decode($result['messenger_msg']);
 
 
-                        echo "<form method='POST' action='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."''><tr>
+                        echo "<form method='POST' id='MSG_FORM$i' name='MSG_FORM$i' action='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."&SENDER=" . $result['messenger_date'] . "'><tr>
                            <td>" . $result['messenger_date'] . "</td>";
                         echo "<td>" . $result['messenger_sent_by'] . "</td>"; ?>
                                 <?php
@@ -357,7 +363,42 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         echo "<td>$NOTE</td>";
                         echo "<td><button type='submit' class='btn btn-success'><i class='fa fa-check-circle-o'></i></button></td>";
                         echo "</tr>";
-                    }
+                 ?>  
+                     
+        <script>
+            document.querySelector('#MSG_FORM<?php echo $i; ?>').addEventListener('submit', function (e) {
+                var form = this;
+                e.preventDefault();
+                swal({
+                    title: "Update message?",
+                    text: "Confirm to mark as read!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: 'Yes, I am sure!',
+                    cancelButtonText: "No, cancel it!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                swal({
+                                    title: 'Updated!',
+                                    text: 'Message read!!',
+                                    type: 'success'
+                                }, function () {
+                                    form.submit();
+                                });
+
+                            } else {
+                                swal("Cancelled", "No changes were made", "error");
+                            }
+                        });
+            });
+
+        </script>                     
+                     
+                     <?php   }
             ?> </table>  <?php  } 
         } ?>
                                
@@ -367,6 +408,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="/js/sweet-alert.min.js"></script>
     <script type="text/javascript" language="javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
                       <script type="text/JavaScript">
                                     var $select = $('#MSG_TO');

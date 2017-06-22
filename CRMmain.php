@@ -1,4 +1,10 @@
 <?php
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+if($hello_name!='Michael') {
 $TIMELOCK = date('H');
 
 if($TIMELOCK>='20' || $TIMELOCK<'08') {
@@ -7,11 +13,7 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
     die;
     
 }
-
-require_once(__DIR__ . '/classes/access_user/access_user_class.php');
-$page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+}
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
@@ -186,7 +188,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php }  if (in_array($hello_name, $Level_3_Access, true) && in_array($hello_name, $TRB_ACCESS, true)) {?>
+                        <?php }  if (in_array($hello_name, $Level_3_Access, true)) { ?>
                             <li>
                                 <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>

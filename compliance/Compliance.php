@@ -35,8 +35,9 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     die;
 }
 
-        
         $COMID = filter_input(INPUT_GET, 'COMID', FILTER_SANITIZE_NUMBER_INT);
+        $SCID = filter_input(INPUT_GET, 'SCID', FILTER_SANITIZE_SPECIAL_CHARS);
+        
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -69,12 +70,20 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
             <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 
             
             <div class="col-9">
-        
 <div class="card"">
 <h3 class="card-header">
 Uploaded Documents
 </h3>
 <div class="card-block">
+    
+                    <?php if(isset($SCID)) { 
+                    if($SCID=='1') { ?>
+                                   <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> All uploaded documents are show below.</div>      
+       
+                <?php    } else {
+                    ?>
+                  <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> All documents found for <?php echo $SCID; ?>.</div>      
+                <?php } } ?>
 
 <p class="card-text">
     <div class="btn-group"><?php if (in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
@@ -133,9 +142,18 @@ ADL
     <input type="text" class="form-control" id="DOC_TITLE" name="DOC_TITLE" placeholder="Document Title" required>
   </div>
         
-  <div class="form-group">
+          <div class="form-group">
     <label for="DOC_CAT">Category:</label>
-    <input type="text" class="form-control" id="DOC_CAT" name="DOC_CAT" placeholder="Document Category e.g. IOC, FCA" required>
+    <select class="form-control" name='DOC_CAT' required>
+        <option value="">Select a category...</option>
+        <option value='FCA'>FCA</option>
+        <option value='ICO'>ICO</option>
+        <option value='LANDG'>Legal and General</option>
+        <option value='Vulnerable Clients'>Vulnerable Clients</option>
+        <option value='Money Laundering'>Money Laundering</option>
+        <option value='Data Protection'>Data Protection</option>
+        <option value='Other'>Other</option>
+    </select>
   </div>        
  
         <?php
@@ -276,7 +294,7 @@ ADL
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "datatables/Compliance.php?EXECUTE=1",
+                    "ajax": "datatables/Compliance.php?SCID=<?php echo $SCID; ?>",
                     "columns": [
                         {
                             "className": 'details-control',

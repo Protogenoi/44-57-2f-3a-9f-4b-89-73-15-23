@@ -18,10 +18,10 @@ if (isset($fferror)) {
     }
 }
 
-$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$SCID = filter_input(INPUT_GET, 'SCID', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if(isset($EXECUTE)) {
-    if($EXECUTE=='1') {
+if(isset($SCID)) {
+    if($SCID=='1') {
     
             if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
          $query = $pdo->prepare("SELECT compliance_uploads_id, compliance_uploads_category, compliance_uploads_company, compliance_uploads_location, compliance_uploads_title, compliance_uploads_uploaded_by FROM compliance_uploads ORDER BY compliance_uploads_date DESC");
@@ -40,6 +40,17 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         
     }
         
+}
+if($SCID!='1') {
+    
+            $query = $pdo->prepare("SELECT compliance_uploads_id, compliance_uploads_category, compliance_uploads_company, compliance_uploads_location, compliance_uploads_title, compliance_uploads_uploaded_by FROM compliance_uploads WHERE compliance_uploads_company=:COMPANY AND compliance_uploads_category=:CAT OR compliance_uploads_company='N/A' AND compliance_uploads_category=:CAT2 ORDER BY compliance_uploads_date DESC");
+        $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+        $query->bindParam(':CAT', $SCID, PDO::PARAM_STR);
+        $query->bindParam(':CAT2', $SCID, PDO::PARAM_STR);
+        $query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode($results);
+    
 }
 
 }

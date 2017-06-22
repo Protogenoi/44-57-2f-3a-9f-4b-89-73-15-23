@@ -264,12 +264,12 @@ WHERE
                                 <h2>Compliance</h2>
                                 <p>Upload or read through Compliance guidelines and documents.</p>
                                 <p><a href="Compliance.php" class="btn btn-outline-primary">Read More</a>
-                                <a href="Compliance.php?EXECUTE=FCA" class="btn btn-outline-primary">FCA</a>
-                                <a href="Compliance.php?EXECUTE=ICO" class="btn btn-outline-primary">ICO</a>
-                                <a href="Compliance.php?EXECUTE=LANDG" class="btn btn-outline-primary">Legal and General</a>
-                                <a href="Compliance.php?EXECUTE=Vulnerable Clients" class="btn btn-outline-primary">Vulnerable Clients</a>
-                                <a href="Compliance.php?EXECUTE=Money Laundering" class="btn btn-outline-primary">Money Laundering</a>
-                                <a href="Compliance.php?EXECUTE=Data Protection" class="btn btn-outline-primary">Data Protection</a></p>
+                                <a href="Compliance.php?SCID=FCA" class="btn btn-outline-primary">FCA</a>
+                                <a href="Compliance.php?SCID=ICO" class="btn btn-outline-primary">ICO</a>
+                                <a href="Compliance.php?SCID=LANDG" class="btn btn-outline-primary">Legal and General</a>
+                                <a href="Compliance.php?SCID=Vulnerable Clients" class="btn btn-outline-primary">Vulnerable Clients</a>
+                                <a href="Compliance.php?SCID=Money Laundering" class="btn btn-outline-primary">Money Laundering</a>
+                                <a href="Compliance.php?SCID=Data Protection" class="btn btn-outline-primary">Data Protection</a></p>
                             </article>
                         </div>                        
                         <hr>

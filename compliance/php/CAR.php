@@ -25,6 +25,15 @@ if (isset($fferror)) {
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($EXECUTE)) {
+    
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE CONCAT(firstname, ' ', lastname)=:NAME AND company=:COMPANY");
+    $query->bindParam(':NAME', $hello_name, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+    $query->execute();
+    $data2 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $EID_FK=$data2['employee_id'];  
+    
     if($EXECUTE=='1') {
              
     $LEGAL_ENTITY_NAME = filter_input(INPUT_POST, 'LEGAL_ENTITY_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -81,7 +90,16 @@ SET
         $UPDATE->bindParam(':TC', $TRN_COM_OVERVIEW, PDO::PARAM_STR);
         $UPDATE->bindParam(':DPA', $DATA_PRO_ARR_OVERVIEW, PDO::PARAM_STR);
         $UPDATE->bindParam(':CH', $COMP_HAN_OVERVIEW, PDO::PARAM_STR);
-        $UPDATE->execute();  
+        $UPDATE->execute(); 
+
+                    $changereason="Updated Business Overview";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Compliance Doc', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$EID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();  
+     
         
         header('Location: ../CAR.php?RETURN=UPDATED'); die;
          
@@ -120,6 +138,15 @@ SET
         $INSERT->bindParam(':DPA', $DATA_PRO_ARR_OVERVIEW, PDO::PARAM_STR);
         $INSERT->bindParam(':CH', $COMP_HAN_OVERVIEW, PDO::PARAM_STR);
         $INSERT->execute();
+        
+            $changereason="Updated Business Overview";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Compliance Doc', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$EID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();        
+        
         
         header('Location: ../CAR.php?RETURN=INSERT'); die;
         
@@ -552,6 +579,14 @@ compliance_risk_overview_3_id_fk=:FK");
         $INSERT3->execute();    
         
      }
+     
+            $changereason="Updated Risk Overview";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Compliance Doc', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$EID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();     
         
     header('Location: ../CAR.php?RETURN=UPDATED'); die;
     
@@ -1083,6 +1118,15 @@ car_remedial_action_3_id_fk=:FK");
                 
             
         }
+
+            $changereason="Updated Remedial Action";
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Compliance Doc', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$EID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$changereason); 
+            $database->execute();        
+        
       header('Location: ../CAR.php?RETURN=UPDATED'); die;  
     }
 

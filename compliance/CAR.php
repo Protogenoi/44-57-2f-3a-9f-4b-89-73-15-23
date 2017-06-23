@@ -99,10 +99,17 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 <div class="card-block">
     
     <?php if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+    
+<div class="alert alert-info alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <center><strong><?php if(isset($AGENCY)) { echo "$AGENCY audit progress"; } else { echo "Select a company from the drop down to view thier audit document"; }  ?><br>
+                       </strong></center></div>	    
+    
     <form method="GET" action="CAR.php">
               <div class="form-group">
     <label for="AGENCY">Company:</label>
-    <select class="form-control" name='AGENCY' onchange="this.form.submit()">
+    <select class="form-control" name='AGENCY' onchange="this.form.submit()" required>
+        <option value="">Select...</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>

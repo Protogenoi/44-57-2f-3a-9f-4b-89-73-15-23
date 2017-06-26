@@ -1067,7 +1067,7 @@ if (isset($Single_Client['callauditid'])) {
                                             <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                             <div class="form-group">
                                                 <label for="message">Custom MSG:</label>
-                                                <textarea class="form-control" name="message"></textarea>
+                                                <textarea class="form-control" name="message" required></textarea>
                                             </div>
 
                                             <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">

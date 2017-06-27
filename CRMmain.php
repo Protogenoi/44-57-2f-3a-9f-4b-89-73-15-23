@@ -53,7 +53,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
 if (!in_array($hello_name, $Level_1_Access, true)) {
 
-    header('Location: index.php?AccessDenied');
+    header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
     die;
 }
 ?>

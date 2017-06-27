@@ -126,9 +126,6 @@ $body .= $sig;
 
 $mail             = new PHPMailer();
 
-$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
     $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); // telling the class to use SMTP
@@ -230,9 +227,6 @@ $body .= $sig;
 
 $mail             = new PHPMailer();
 
-$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
     $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); 

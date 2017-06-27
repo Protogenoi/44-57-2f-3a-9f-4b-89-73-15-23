@@ -1,38 +1,38 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../classes/database_class.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
-include('../../includes/adl_features.php');
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
+}
 
 if ($ffaudits=='0') {
         
-        header('Location: ../../CRMmain.php'); die;
+        header('Location: /../../CRMmain.php'); die;
     }
     
-    include('../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
-    header('Location: ../../CRMmain.php'); die;
+    header('Location: /../../CRMmain.php'); die;
 
 }
-
-include('../../includes/ADL_PDO_CON.php');
 
 ?>
 <!DOCTYPE html>
@@ -40,24 +40,20 @@ include('../../includes/ADL_PDO_CON.php');
 <title>ADL | Royal London Menu</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../../styles/sweet-alert.min.css" />
-<link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/styles/sweet-alert.min.css" />
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<?php include('../../includes/navbar.php');
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+<?php require_once(__DIR__ . '/../../includes/navbar.php');
+
     $QRY= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
     $return= filter_input(INPUT_GET, 'return', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
@@ -82,11 +78,9 @@ include('../../includes/ADL_PDO_CON.php');
         <br>
         <center>
             <div class="btn-group">
+                <a href="/audits/main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
                 <a href="Audit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Royal London Audit</a>
-                <a href="../WOL/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> WOL Audit</a>
-                <a href="../auditor_menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Life Audits</a>
-                <a href="../lead_gen_reports.php?step=New" class="btn btn-info"><i class="fa fa-folder-open"></i> Lead Gen Audits</a>
-                <a href="Search.php" class="btn btn-default "><i class="fa fa-search"></i> Search Audits</a>
+                <a href="Search.php" class="btn btn-info "><i class="fa fa-search"></i> Search Audits</a>
             </div>
         </center>
 <br>

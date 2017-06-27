@@ -36,13 +36,13 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../datatables/css/layoutcrm.css" type="text/css" />
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/datatables/css/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -70,11 +70,41 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 			<a href="auditor_menu.php">
 			<span class="ca-icon"><i class="fa fa-folder"></i></span>
 			<div class="ca-content">
-				<h2 class="ca-main">Closer<br/> Audits</h2>
+				<h2 class="ca-main">Legal and General<br/> Audits</h2>
 				<h3 class="ca-sub"></h3>
 			</div>
 			</a>
 			</li>
+
+			<li>
+                            <a href="/audits/RoyalLondon/Menu.php">
+			<span class="ca-icon"><i class="fa fa-folder"></i></span>
+			<div class="ca-content">
+				<h2 class="ca-main">Royal London<br/> Audits</h2>
+				<h3 class="ca-sub"></h3>
+			</div>
+			</a>
+			</li>     
+                        
+			<li>
+                            <a href="/audits/WOL/Menu.php">
+			<span class="ca-icon"><i class="fa fa-folder"></i></span>
+			<div class="ca-content">
+				<h2 class="ca-main">One Family<br/> Audits</h2>
+				<h3 class="ca-sub"></h3>
+			</div>
+			</a>
+			</li>  
+                        
+			<li>
+                            <a href="/audits/Aviva/Menu.php">
+			<span class="ca-icon"><i class="fa fa-folder"></i></span>
+			<div class="ca-content">
+				<h2 class="ca-main">Aviva<br/> Audits</h2>
+				<h3 class="ca-sub"></h3>
+			</div>
+			</a>
+			</li>                        
 
 			<li>
 			<a href="reports_main.php">

@@ -93,12 +93,9 @@ $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
         <br>
         <center>
             <div class="btn-group">
+                <a href="/audits/main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
                 <a href="Audit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Aviva Audit</a>
-                <a href="../Aviva/Audit.php" class="btn btn-info"><i class="fa fa-plus"></i> Royal London Audit</a>
-                <a href="../WOL/Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> WOL Audit</a>
-                <a href="../auditor_menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Life Audits</a>
-                <a href="../lead_gen_reports.php?step=New" class="btn btn-info"><i class="fa fa-folder-open"></i> Lead Gen Audits</a>
-                <a href="Search.php" class="btn btn-default "><i class="fa fa-search"></i> Search Audits</a>
+                <a href="Search.php" class="btn btn-info "><i class="fa fa-search"></i> Search Audits</a>
             </div>
         </center>
 <br>

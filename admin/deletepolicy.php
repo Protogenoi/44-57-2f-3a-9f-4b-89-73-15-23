@@ -14,7 +14,7 @@ if ($ffanalytics == '0') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '0') {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -25,7 +25,10 @@ if (isset($fferror)) {
     
     header('Location: /CRMmain.php?AccessDenied'); die;
 
-}
+} 
+
+$DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLifePolicy', FILTER_SANITIZE_SPECIAL_CHARS);
+$home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,14 +41,9 @@ if (isset($fferror)) {
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
 <script src="/ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<style type="text/css">
-	.warningalert{
-		margin: 20px;
-	}
-</style>
 <link  rel="stylesheet" href="../styles/sweet-alert.min.css" />
-<script src="../js/jquery-2.1.4.min.js"></script>
-<script src="../js/sweet-alert.min.js"></script>
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/sweet-alert.min.js"></script>
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 
@@ -53,9 +51,6 @@ if (isset($fferror)) {
 
 <?php require_once(__DIR__ . '/../includes/navbar.php');
 
-
- $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLGPolicy', FILTER_SANITIZE_SPECIAL_CHARS);
- $home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
  
  if(isset($home)){
      $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
@@ -206,8 +201,8 @@ if(isset($DeleteLifePolicy)) {
 
         $policyID= filter_input(INPUT_POST, 'policyID', FILTER_SANITIZE_NUMBER_INT);
         
-        $query = $pdo->prepare("SELECT client_id, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id = :searchplaceholder");
-        $query->bindParam(':searchplaceholder', $policyID, PDO::PARAM_STR, 12);
+        $query = $pdo->prepare("SELECT client_id, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id = :SEARCH");
+        $query->bindParam(':SEARCH', $policyID, PDO::PARAM_INT);
         $query->execute();
         $data2=$query->fetch(PDO::FETCH_ASSOC);
         
@@ -279,7 +274,7 @@ if(isset($DeleteLifePolicy)) {
         <label for="premium">Premium:</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" type="number" value="<?php echo $data2[premium]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" disabled/>
+        <input style="width: 140px" type="number" value="<?php echo $data2['premium'];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" disabled/>
     </div> 
 </p>
 
@@ -288,7 +283,7 @@ if(isset($DeleteLifePolicy)) {
         <label for="commission">Commission</label>
     <div class="input-group"> 
         <span class="input-group-addon">£</span>
-        <input style="width: 140px" type="number" value="<?php echo $data2[commission]?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" disabled/>
+        <input style="width: 140px" type="number" value="<?php echo $data2['commission'];?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" disabled/>
     </div> 
 </p>
 

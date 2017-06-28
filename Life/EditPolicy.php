@@ -295,7 +295,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                 </div>
                                 </p>
 
-<?php if (in_array($hello_name, $Level_10_Access, true) || $hello_name == "Tina") { ?>
+<?php if (in_array($hello_name, $Level_10_Access, true) || $hello_name == "Tina" || $hello_name="carys") { ?>
                                     <p>
                                     <div class="form-row">
                                         <label for="covera">Commission</label>

@@ -183,6 +183,7 @@ if ($companynamere == 'The Review Bureau') {
 }
 
 if ($companynamere == 'ADL_CUS') {
+    $COMPANY_ENTITY="The Financial Assessment Centre";
     $Level_10_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
     $Level_8_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
     $Level_3_Access = array("Michael", "Dean", "Helen", "Andrew", "David", "James");

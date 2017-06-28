@@ -120,8 +120,8 @@ if (isset($Single_Client['callauditid'])) {
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
-    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
+    <link rel="stylesheet" type="text/css" href="/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
@@ -3108,7 +3108,7 @@ try {
         </script>
         <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
         <script src="/js/sweet-alert.min.js"></script>
-        <script type="text/javascript" src="../summernote-master/dist/summernote.js"></script>
+        <script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
 
         <script type="text/javascript">
             $(function () {
@@ -3145,6 +3145,6 @@ try {
 </body>
 </html>
 <?php } else {
-        header('Location: /CRMmain.php?AccessDenied');
+        header('Location: /..//CRMmain.php?AccessDenied');
     die;
 }

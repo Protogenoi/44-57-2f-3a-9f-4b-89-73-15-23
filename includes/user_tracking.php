@@ -4,7 +4,6 @@ $USER_TRACKING_GRAB_URL = $HTTP_PROTOCOL_CHK . filter_input(INPUT_SERVER,'HTTP_H
      
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
-
                 $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
                     SET
                     user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url=:URL, user_tracking_user=:USER
@@ -16,7 +15,7 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
                 $USER_TRACKING_QRY->bindParam(':URL2', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->execute();
 
-                
+    if($USER_TRACKING=='1') {            
                 $USER_TRACKING_CHK = $pdo->prepare("SELECT user_tracking_user, user_tracking_url
                     FROM
                     user_tracking
@@ -32,6 +31,7 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 <div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa fa-user-secret"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
                         
                <?php } }
+    }
                 
                 ?>
 

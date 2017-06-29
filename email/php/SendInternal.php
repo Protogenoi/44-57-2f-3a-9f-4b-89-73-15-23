@@ -23,7 +23,7 @@ include('../../includes/ADL_PDO_CON.php');
                             
                             $companynamere=$companydetailsq['company_name'];  
                             
-if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {                               
+if($companynamere=='Bluestone Protect' || $companynamere=='ADL_CUS') {                               
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

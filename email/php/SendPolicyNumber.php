@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
     include('../../includes/Access_Levels.php');
@@ -44,7 +44,7 @@ $policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
 
 if(isset($hello_name)) {
     
@@ -101,7 +101,7 @@ if(isset($hello_name)) {
      
      }
 
-$subject = "The Review Bureau - Policy Number" ;
+$subject = "Bluestone Protect - Policy Number" ;
 $sig = "<br>-- \n
 <br>
 <br>
@@ -117,7 +117,7 @@ In order to do this you'll need the policy number which is: <strong>$policy</str
 Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
 Please could you complete this section at your earliest convenience.
           </p>
-          <p>If you require any further information please call our customer care team on 0845 095 0041. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          <p>If you require any further information please call our customer care team on 0330 010 0707. Office hours are between Monday to Friday 10:00 - 18:30.</p>
 
           Kind regards,<br>
 $hello_name_full
@@ -152,7 +152,7 @@ $mail->Body    = $body;
 
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
-  header('Location: ../../Life/ViewClient.php?emailfailed&search='.$keyfielddata); die;
+  header('Location: ../../Life/ViewClient.php?emailfailed&search='.$search); die;
 } else {
     
     $notetype="Email Sent";

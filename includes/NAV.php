@@ -37,15 +37,25 @@ $companynamere = $companydetailsq['company_name'];
           <a class="nav-link" href="/CRMmain.php"><i class="fa fa-home">  Home</i> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="/SearchClients.php"><i class="fa fa-user-plus">  Add Complaint</i></a>
+          <a class="nav-link" href="/SearchClients.php"><i class="fa fa-user-plus">  Add Client</i></a>
       </li>
       <li class="nav-item">
           <a class="nav-link" href="/Staff/Search.php"><i class="fa fa-user-plus">  Employee's</i></a>
       </li>
-      <?php if($ffaudits=='1') { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="/audits/main_menu.php"><i class="fa fa-folder">  Audits</i></a>
+      <?php if($ffaudits=='1') { ?>      
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="/audits/main_menu.php" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Audits
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/audits/lead_gen_reports.php?step=New">Legal and General Lead Audits</a>
+              <a class="dropdown-item" href="/audits/CloserAudit.php">Legal and General Audits</a>
+              <a class="dropdown-item" href="/audits/RoyalLondon/Menu.php">Royal London Audits</a>
+              <a class="dropdown-item" href="/audits/Aviva/Menu.php">Aviva Audits</a>
+              <a class="dropdown-item" href="/audits/WOL/Menu.php">One Family Audits</a>
+          </div>
       </li>
+      
       <?php } ?>
             <li class="nav-item">
         <a class="nav-link" href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a>

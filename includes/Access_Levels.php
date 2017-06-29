@@ -22,7 +22,7 @@ $COM_MANAGER_ACCESS = array("Ben Sears", "Carys Riley", "Dawiez Kift", "Grant Fu
 $TRB_ACCESS = array("Tom Owen","Carys Riley");
 if (in_array($hello_name, $TRB_ACCESS, true)) {
     $COMPANY_ENTITY_ID="1";
-    $COMPANY_ENTITY = 'The Review Bureau';
+    $COMPANY_ENTITY = 'Bluestone Protect';
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike", "Gavin");
@@ -129,7 +129,7 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
     if (empty($COMPANY_ENTITY)) {
 
         if (in_array($hello_name, $TRB_ACCESS, true)) {
-            $COMPANY_ENTITY = 'The Review Bureau';
+            $COMPANY_ENTITY = 'Bluestone Protect';
 
             $Level_10_Access = array("Tom Owen");
             $Level_9_Access = array("Tom Owen");
@@ -175,9 +175,9 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
     $QA_Access = array("Michael", "Hayden Williams");
 }
 
-if ($companynamere == 'The Review Bureau') {
+if ($companynamere == 'Bluestone Protect') {
     $COMPANY_ENTITY_ID="1";
-    $COMPANY_ENTITY = 'The Review Bureau';
+    $COMPANY_ENTITY = 'Bluestone Protect';
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike", "Gavin");

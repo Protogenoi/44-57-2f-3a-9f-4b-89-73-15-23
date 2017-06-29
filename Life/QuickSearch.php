@@ -56,7 +56,7 @@ if (isset($fferror)) {
     
     <div class="container">
 
-                    <?php if($companynamere ='The Review Bureau' || $companynamere ='ADL_CUS') {
+                    <?php if($companynamere ='Bluestone Protect' || $companynamere ='ADL_CUS') {
                         if($fflife=='1') { 
 ?>
         

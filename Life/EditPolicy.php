@@ -29,7 +29,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>Edit Policy</title>
+    <title>ADL | Edit Policy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
@@ -254,11 +254,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                 echo "selected";
                                             }
                                             ?> value="Royal London">Royal London</option>
-                                        <option <?php
-                                            if ($data2["insurer"] == 'Assura') {
-                                                echo "selected";
-                                            }
-                                            ?> value="Assura">Assura</option>
                                         <option <?php
                                             if ($data2["insurer"] == 'Legal and General') {
                                                 echo "selected";
@@ -588,7 +583,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                     <script>var options = {
                                             url: "/JSON/<?php
-                                                if ($companynamere == 'The Review Bureau') {
+                                                if ($companynamere == 'Bluestone Protect') {
                                                     echo "CloserNames";
                                                 } else {
                                                     echo "CUS_CLOSERS";
@@ -608,7 +603,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                     <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                     <script>var options = {
                                             url: "/JSON/<?php
-                                                if ($companynamere == 'The Review Bureau') {
+                                                if ($companynamere == 'Bluestone Protect') {
                                                     echo "LeadGenNames";
                                                 } else {
                                                     echo "CUS_LEAD";
@@ -658,20 +653,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                             <option value="Redrawn">Redrawn</option>
                                             <option value="Cancelled">Cancelled</option>
                                             <option value="On Hold">On Hold</option>
-                                            <?php
-                                            if (isset($companynamere)) {
-                                                if ($companynamere == 'Assura') {
-                                                    echo "<option value='Underwritten'>Underwritten</option>";
-                                                }
-                                            }
-                                            ?>
-<?php
-if (isset($companynamere)) {
-    if ($companynamere == 'Assura') {
-        echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
-    }
-}
-?>
                                         </select>
                                     </div>
 

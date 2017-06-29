@@ -155,7 +155,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                                 case "TRB Archive":
                                                                     $DISPLAY_CUS = "Archive";
                                                                     break;
-                                                                case "The Review Bureau":
+                                                                case "Bluestone Protect":
                                                                 case "ADL_CUS":
                                                                     $DISPLAY_CUS = "Legal & General";
                                                                     break;
@@ -172,9 +172,6 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                                     break;
                                                                 case "TRB Home Insurance":
                                                                     $DISPLAY_CUS = "Home Insurance";
-                                                                    break;
-                                                                case "Assura":
-                                                                    $DISPLAY_CUS = "Assura";
                                                                     break;
                                                                 case "TRB Aviva":
                                                                     $DISPLAY_CUS = "Aviva";

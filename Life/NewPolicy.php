@@ -409,7 +409,7 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-                                                        if ($companynamere == 'The Review Bureau') {
+                                                        if ($companynamere == 'Bluestone Protect') {
                                                             echo "CloserNames";
                                                         } else {
                                                             echo "CUS_CLOSERS";
@@ -432,7 +432,7 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-                                                        if ($companynamere == 'The Review Bureau') {
+                                                        if ($companynamere == 'Bluestone Protect') {
                                                             echo "LeadGenNames";
                                                         } else {
                                                             echo "CUS_LEAD";
@@ -495,21 +495,6 @@ if (isset($EXECUTE)) {
                                         <option value="NTU">NTU</option>
                                         <option value="Declined">Declined</option>
                                         <option value="Redrawn">Redrawn</option>
-                                        <?php
-                                        if (isset($companynamere)) {
-                                            if ($companynamere == 'Assura') {
-                                                echo "<option value='Underwritten'>Underwritten</option>";
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        if (isset($companynamere)) {
-                                            if ($companynamere == 'Assura') {
-                                                echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
-                                            }
-                                        }
-                                        ?>
-
                                     </select>
                                 </div>
 

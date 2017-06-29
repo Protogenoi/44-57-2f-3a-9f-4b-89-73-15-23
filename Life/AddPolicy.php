@@ -35,7 +35,7 @@ if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
 
         $query = $pdo->prepare("SELECT submitted_date, company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
-        $query->bindParam(':CID', $search, PDO::PARAM_STR);
+        $query->bindParam(':CID', $search, PDO::PARAM_INT);
         $query->execute();
         $data2 = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -155,7 +155,7 @@ if (isset($EXECUTE)) {
 
                             <div class="alert alert-info"><strong>Policy Number:</strong> 
                                 For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
-                                        if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'ADL_CUS') {
+                                        if ($data2['company'] == 'Bluestone Protect' || $data2['company'] == 'ADL_CUS') {
                                             echo "maxlength='10'";
                                         }
                                         ?> value="TBC">
@@ -217,7 +217,7 @@ if (isset($EXECUTE)) {
                                             <option value="">Select...</option>
                                             <option value="Legal and General" <?php
                                             if (isset($data2['company'])) {
-                                                if ($data2['company'] == 'The Review Bureau' || $data2['company'] == 'TRB Archive' || $data2['company'] == 'ADL_CUS') {
+                                                if ($data2['company'] == 'Bluestone Protect' || $data2['company'] == 'TRB Archive' || $data2['company'] == 'ADL_CUS') {
                                                     echo "selected";
                                                 }
                                             }
@@ -229,13 +229,6 @@ if (isset($EXECUTE)) {
                                                 }
                                             }
                                             ?>>Vitality</option>
-                                            <option value="Assura" <?php
-                                            if (isset($data2['company'])) {
-                                                if ($data2['company'] == 'Assura') {
-                                                    echo "selected";
-                                                }
-                                            }
-                                            ?>>Assura</option>
                                             <option value="Bright Grey">Bright Grey</option>
                                             <option value="Royal London" <?php
                                             if (isset($data2['company'])) {
@@ -429,7 +422,7 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-                                                        if ($companynamere == 'The Review Bureau') {
+                                                        if ($companynamere == 'Bluestone Protect') {
                                                             echo "CloserNames";
                                                         } else {
                                                             echo "CUS_CLOSERS";
@@ -452,7 +445,7 @@ if (isset($EXECUTE)) {
                                                     </p>
                                                     <script>var options = {
                                                             url: "../JSON/<?php
-                                                        if ($companynamere == 'The Review Bureau') {
+                                                        if ($companynamere == 'Bluestone Protect') {
                                                             echo "LeadGenNames";
                                                         } else {
                                                             echo "CUS_LEAD";
@@ -515,21 +508,6 @@ if (isset($EXECUTE)) {
                                         <option value="NTU">NTU</option>
                                         <option value="Declined">Declined</option>
                                         <option value="Redrawn">Redrawn</option>
-                                        <?php
-                                        if (isset($companynamere)) {
-                                            if ($companynamere == 'Assura') {
-                                                echo "<option value='Underwritten'>Underwritten</option>";
-                                            }
-                                        }
-                                        ?>
-                                        <?php
-                                        if (isset($companynamere)) {
-                                            if ($companynamere == 'Assura') {
-                                                echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";
-                                            }
-                                        }
-                                        ?>
-
                                     </select>
                                 </div>
 

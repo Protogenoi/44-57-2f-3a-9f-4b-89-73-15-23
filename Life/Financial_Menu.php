@@ -30,7 +30,7 @@ $cnquery->execute()or die(print_r($query->errorInfo(), true));
 $companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
 $companynamere = $companydetailsq['company_name'];
 
-if ($companynamere == 'The Review Bureau') {
+if ($companynamere == 'Bluestone Protect') {
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
     if (!in_array($hello_name, $Level_2_Access, true)) {
 
@@ -71,7 +71,6 @@ if ($companynamere == 'ADL_CUS') {
             <div class="twelve columns">
                 <ul class="ca-menu">
 
-
                     <li>
                         <a href="Financials.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
@@ -91,10 +90,6 @@ if ($companynamere == 'ADL_CUS') {
                             </div>
                         </a>
                     </li>
-
-
-
-
 
                 </ul>
             </div>

@@ -170,40 +170,7 @@ if (isset($Single_Client['callauditid'])) {
     <br>
     <div class="container">
 
-        <?php
-   
-        
-        require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
-
-<?php        
-        if (isset($WHICH_COMPANY)) {
-            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";
-                $WHICH_INSURER = "Legal and General";
-            }
-            if ($WHICH_COMPANY == 'TRB Archive') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>Archive Client</center></strong> </div>";
-                $WHICH_INSURER = "Archive";
-            }
-            if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>One Family Client</center></strong> </div>";
-                $WHICH_INSURER = "One Family ";
-            }
-            if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'CUS Aviva') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>Aviva Client</center></strong> </div>";
-                $WHICH_INSURER = "Aviva";
-            }
-            if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>Vitality Client</center></strong> </div>";
-                $WHICH_INSURER = "Vitality";
-            }
-
-            if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
-                echo "<div class='notice notice-default' role='alert'><strong> <center>Royal London Client</center></strong> </div>";
-                $WHICH_INSURER = "Royal London";
-            }
-        }
-        ?>  
+        <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
 
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#home">Client</a></li>
@@ -239,7 +206,6 @@ if (isset($Single_Client['callauditid'])) {
                         <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
                         <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
                         <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ASSURA">Assura Policy</a></li>
                     <?php } ?>
 
                 </ul>
@@ -278,7 +244,7 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="input-group">
                             <input type="text" class="form-control" id="FullName" name="FullName" value="<?php echo $Single_Client['title'] ?> <?php echo $Single_Client['first_name'] ?> <?php echo $Single_Client['last_name'] ?>" readonly >
                             <span class="input-group-btn">
-                                <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                     <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
 
                                         <input type='hidden' name='searchCriteria.surname' id='searchCriteria.surname' value='<?php echo $Single_Client['last_name']; ?>'>
@@ -344,7 +310,7 @@ if (isset($Single_Client['callauditid'])) {
                                 <input type="text" class="form-control" id="FullName2" name="FullName2" value="<?php echo $Single_Client['title2'] ?> <?php echo $Single_Client['first_name2'] ?> <?php echo $Single_Client['last_name2'] ?>"  readonly >
                                 <span class="input-group-btn">
 
-                                    <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                                    <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                         <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
 
                                             <input type='hidden' name='searchCriteria.surname' id='searchCriteria.surname' value='<?php echo $Single_Client['last_name2']; ?>'>
@@ -478,7 +444,7 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="input-group">
                             <input class="form-control" type="text" id="post_code" name="post_code" value="<?php echo $Single_Client['post_code'] ?>" readonly >
                             <span class="input-group-btn">
-                                <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                     <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
                                         <input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='NULL'>
                                         <input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value=''>
@@ -543,27 +509,8 @@ if (isset($Single_Client['callauditid'])) {
 
                                 <?php
                             }
-                            if ($WHICH_COMPANY == 'Assura') {
 
-                                try {
-
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :file and uploadtype ='AssuraPol'");
-                                    $LGquery->bindParam(':file', $search_file_var, PDO::PARAM_STR, 12);
-                                    $LGquery->execute();
-
-                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
-                                        ?>
-
-                                        <a href="../uploads/<?php echo $result['file'] ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Assura Policy</a>
-
-                                        <?php
-                                    }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-                            }
-
-                            if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
+                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
 
                                 try {
 
@@ -655,7 +602,7 @@ if (isset($Single_Client['callauditid'])) {
                     <br>
 
                     <?php
-                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
+                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
 
                         $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -711,201 +658,7 @@ if (isset($Single_Client['callauditid'])) {
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
                             require_once(__DIR__ . '/views/Aviva-Policies.php');
                         }
-                    }
-
-                    if ($WHICH_COMPANY == 'Assura') {
-
-                        try {
-
-                            $ASSURA_POLS = $pdo->prepare("SELECT DISTINCT client_policy.policy_number, client_policy.insurer, financial_statistics_history.payment_amount, ews_data.ews_status_status AS ADLSTATUS, client_policy.id, client_policy.polterm, ews_data.warning, client_policy.closer, client_policy.covera, client_policy.lead, client_policy.client_id, client_policy.soj, client_policy.drip, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.comm_term, client_policy.CommissionType, client_policy.PolicyStatus, client_policy.submitted_date, client_policy.commission FROM client_policy LEFT JOIN financial_statistics_history ON client_policy.policy_number = financial_statistics_history.Policy LEFT JOIN ews_data ON client_policy.policy_number = ews_data.policy_number WHERE client_policy.client_id =:CID GROUP BY client_policy.policy_number");
-                            $ASSURA_POLS->bindParam(':CID', $search, PDO::PARAM_INT);
-                            ?>
-
-                            <table id="ClientListTable" class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Client</th>
-                                        <th>Policy</th>
-                                        <th>AN</th>
-                                        <th>Insurer</th>
-                                        <th>Type</th>
-                                        <th>Comm Type</th>
-                                        <th>Term</th>
-                                        <th>Premium</th>
-                                        <th>Cover</th>
-                                        <th>Policy Status</th>
-                                        <th>EWS</th>
-                                        <th>Financial</th>
-                                        <th colspan="4">Options</th>
-                                    </tr>
-                                </thead>
-
-                                <?php
-                                $ASSURA_POLS->execute();
-                                if ($ASSURA_POLS->rowCount() > 0) {
-                                    while ($result = $ASSURA_POLS->fetch(PDO::FETCH_ASSOC)) {
-
-
-                                        if (isset($result['id'])) {
-                                            $PID = $result['id'];
-                                        }
-                                        if (isset($result['application_number'])) {
-                                            $anref = $result['application_number'];
-                                        }
-                                        if (isset($result['policy_number'])) {
-                                            $polref = $result['policy_number'];
-                                        }
-
-                                        if (isset($result['ADLSTATUS'])) {
-                                            $ADLSTATUS = $result['ADLSTATUS'];
-                                        }
-                                        if (isset($result['warning'])) {
-                                            $EWSSTATUS = $result['warning'];
-                                        }
-
-                                        echo '<tr>';
-                                        echo "<td>" . $result['client_name'] . "</td>";
-                                        if (empty($polref)) {
-                                            echo "<td>TBC</td>";
-                                        } else {
-                                            echo "
-<td>
-<form target='_blank' action='https://assuraprotectlifeaffinity.instanda.com/Public/UserDefinedSearch?searchId=16&packageId=3215' method='post'>
-
-<input id='345' type='hidden' name='SearchParams[2].ParameterValue' value='$polref'>
-<input id='SearchParams_2__ParameterName' name='SearchParams[2].ParameterName' value='PolicyNumber' type='hidden'>    
-
-<button type='submit' value='Search' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button>
-</form>
-</td>";
-                                        }
-                                        echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$anref' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $anref</a></td>";
-
-                                        echo "<td>" . $result['insurer'] . "</td>";
-                                        echo "<td>" . $result['type'] . "</td>";
-                                        echo "<td>" . $result['CommissionType'] . "</td>";
-                                        echo "<td>" . $result['polterm'] . "</td>";
-                                        echo "<td>£" . $result['premium'] . "</td>";
-                                        echo "<td>£" . $result['covera'] . "</td>";
-
-                                        if ($result['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $result['PolicyStatus'] == 'Declined') {
-                                            echo "<td><span class=\"label label-danger\">" . $result['PolicyStatus'] . "</span></td>";
-                                        } elseif ($result['PolicyStatus'] == 'PENDING' || $result['PolicyStatus'] == 'Live Awaiting Policy Number') {
-                                            echo "<td><span class=\"label label-warning\">" . $result['PolicyStatus'] . "</span></td>";
-                                        } elseif ($result['PolicyStatus'] == 'SUBMITTED-LIVE' || $result['PolicyStatus'] == 'Live') {
-                                            echo "<td><span class=\"label label-success\">" . $result['PolicyStatus'] . "</span></td>";
-                                        } else {
-                                            echo "<td><span class=\"label label-default\">" . $result['PolicyStatus'] . "</span></td>";
-                                        }
-
-                                        if ($ADLSTATUS != $EWSSTATUS) {
-                                            switch ($EWSSTATUS) {
-                                                case "RE-INSTATED":
-                                                    echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
-                                                    break;
-                                                case "WILL CANCEL":
-                                                    echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
-                                                    break;
-                                                case "REDRAWN":
-                                                case "WILL REDRAW":
-                                                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
-                                                    break;
-                                                case "CANCELLED":
-                                                case "CFO":
-                                                case "LAPSED":
-                                                case "CANCELLED DD":
-                                                case "BOUNCED DD":
-                                                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
-                                                    break;
-                                                default:
-                                                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
-                                            }
-                                        } else {
-
-                                            switch ($ADLSTATUS) {
-                                                case "RE-INSTATED":
-                                                    echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
-                                                    break;
-                                                case "WILL CANCEL":
-                                                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
-                                                    break;
-                                                case "REDRAWN":
-                                                case "WILL REDRAW":
-                                                    echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
-                                                    break;
-                                                case "CANCELLED":
-                                                case "CFO":
-                                                case "LAPSED":
-                                                case "CANCELLED DD":
-                                                case "BOUNCED DD":
-                                                    echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
-                                                    break;
-                                                default:
-                                                    echo "<td><span class='label label-info'>$ADLSTATUS</td>";
-                                            }
-                                        }
-
-                                        if (($result['payment_amount'])) {
-                                            echo "<td><span class='label label-warning'>On Financial</span> </td>";
-                                        } else {
-
-                                            echo "<td> </td>";
-                                        }
-
-                                        echo "<td>
-                                                                                        <form method='GET' action='ViewPolicy.php'>
-                                                                                        <input type='hidden' id='policyID' name='policyID' value='$result[id]' >
-                                                                                            <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
-                                                                                            </form>
-                                                                                            </td>";
-
-                                        echo "<td>
-                                                                                        <form method='POST' action='EditPolicy.php'>    
-                                                                                        <button type='submit' name='search' value='" . $search . "'  class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span> </button>
-<input type='hidden' id='client_name' name='client_name' value='" . $result['client_name'] . "' >                                                                                        
-<input type='hidden' id='id' name='id' value='" . $result['id'] . "' >
-                                                                                            </form>
-                                                                                            </td>";
-
-                                        if ($companynamere == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $companyname == 'ADL_CUS') {
-                                            if (in_array($hello_name, $Level_10_Access, true)) {
-
-
-                                                echo "<td>
-                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
-                                                                                        <input type='hidden' id='policyID' name='policyID' value='$result[id]'>
-                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
-                                                                                            </form>
-                                                                                            </td>";
-                                            }
-                                        }
-
-                                        if ($companynamere != 'The Review Bureau' || $custype!='ADL Legal and General' || $companyname != 'ADL_CUS') {
-
-                                            echo "<td>
-                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
-                                                                                        <input type='hidden' id='policyID' name='policyID' value='$result[id]'>
-                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
-                                                                                            </form>
-                                                                                            </td>";
-                                        }
-
-
-                                        if (!empty($EWSSTATUS)) {
-                                            echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
-                                        }
-                                        echo "</tr>";
-                                    }
-                                } else {
-                                    echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No data/information found (Policy)</div>";
-                                }
-                            } catch (PDOException $e) {
-                                echo 'Connection failed: ' . $e->getMessage();
-                            }
-                            ?>
-                        </table>   
-
-                    <?php } ?>                        
+                    } ?>
 
                 </div>
             </div>
@@ -1007,7 +760,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
@@ -1171,7 +924,7 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
@@ -1288,8 +1041,6 @@ if (isset($fileuploadedfail)) {
                                     <option value="Avivapolicy">Aviva App</option>
                                     <option value="Avivakeyfacts">Aviva Keyfacts</option>
                                     <option disabled>──────────</option>
-                                    <option value="AssuraPol">Assura Policy</option>
-                                    <option disabled>──────────</option>
                                     <option value="lifenotes">Notes</option>
                                     <option value="Other">Other</option>
                                     <option disabled>──────────</option>
@@ -1303,11 +1054,11 @@ if (isset($fileuploadedfail)) {
 
                     <div class="list-group">
 
-                        <?php if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') { ?>
+                        <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') { ?>
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
-                            <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                            <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                 <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                             <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
                                 <a class="list-group-item" href="Templates/TrustGuide.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
@@ -1321,7 +1072,7 @@ if (isset($fileuploadedfail)) {
                             <?php if (!empty($Single_Client['first_name2'])) { ?>
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
                                 <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
-                                <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                     <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                                    <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
                                     <a class="list-group-item" href="Templates/TrustGuide.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
@@ -1353,7 +1104,7 @@ if (isset($fileuploadedfail)) {
 
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
-                                <?php if ($WHICH_COMPANY == 'The Review Bureau') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
                                     <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                                 <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
                                     <a class="list-group-item" href="Templates/TrustGuide.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
@@ -1486,7 +1237,6 @@ if (isset($fileuploadedfail)) {
                                     $uploadtype = $row['uploadtype'];
 
                                     switch ($uploadtype) {
-                                        case "AssuraPol":
                                         case "Dealsheet":
                                         case "LGpolicy":
                                         case "LGkeyfacts":
@@ -1543,9 +1293,6 @@ if (isset($fileuploadedfail)) {
                                             break;
                                         case "LifeLeadAudit":
                                             $uploadtype = "Life Audit";
-                                            break;
-                                        case "AssuraPol":
-                                            $uploadtype = "Assura Policy";
                                             break;
                                         default:
                                             $uploadtype;
@@ -1645,16 +1392,6 @@ if (isset($fileuploadedfail)) {
                                             <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
-                                            <?php
-                                        }
-                                    }
-
-                                    if ($row['uploadtype'] == 'AssuraPol') {
-                                        if (file_exists("../uploads/$file")) {
-                                            ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
-                                        <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -2089,7 +1826,7 @@ try {
                     }
                 }
 
-                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
 
                     $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
@@ -2514,7 +2251,7 @@ try {
 
                 <h3><span class="label label-info">Client Timeline</span></h3>             
                     <?php
-                    if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
+                    if ($companynamere == 'Bluestone Protect' || $companynamere == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
                         try {
 
                             $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");

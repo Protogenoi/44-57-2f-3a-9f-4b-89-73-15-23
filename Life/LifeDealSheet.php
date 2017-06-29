@@ -3584,7 +3584,6 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                     <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
                                     <option value="Sarah">Sarah</option>
                                     <option value="Gavin">Gavin</option> 
-                                    <option value="Assura">Assura</option> 
                                 </select>
                             </div>
 
@@ -3649,11 +3648,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                 <div class="form-group">
                                                     <label for="custtype">Product:</label>
                                                     <select class="form-control" name="custype" id="custype" style="width: 170px" required>
-                                                        <option value="The Review Bureau">TRB Life Insurance</option>
+                                                        <option value="Bluestone Protect">TRB Life Insurance</option>
                                                         <option value="TRB Vitality">TRB Vitality</option>
                                                         <option value="TRB Home Insurance">TRB Home Insurance</option>
-                                                        <option value="Assura">Assura Life Insurance</option>
-
                                                     </select>
                                                 </div>
                                                 </p>
@@ -3992,7 +3989,6 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                         <option value="">Select...</option>
                                                         <option value="Legal and General">Legal & General</option>
                                                         <option value="Vitality">Vitality</option>
-                                                        <option value="Assura">Assura</option>
                                                         <option value="Bright Grey">Bright Grey</option>
                                                         <option value="One Family">One Family</option>
                                                     </select>

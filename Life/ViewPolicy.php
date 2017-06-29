@@ -29,7 +29,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 if (isset($hello_name)) {
 
-    if ($companynamere == 'The Review Bureau') {
+    if ($companynamere == 'Bluestone Protect') {
 
         switch ($hello_name) {
             case "Michael":
@@ -171,7 +171,7 @@ if (isset($hello_name)) {
 
 
                         <?php
-                        if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+                        if ($companynamere == 'Bluestone Protect' || $companynamere == 'ADL_CUS') {
                             if (in_array($hello_name, $Level_8_Access, true)) {
 
 
@@ -327,7 +327,7 @@ ews_data.policy_number
                             }
                         }
 
-                        if ($companynamere != 'The Review Bureau') {
+                        if ($companynamere != 'Bluestone Protect') {
                             if ($companynamere != 'ADL_CUS') {
 
                                 $polid = $data2['id'];
@@ -642,7 +642,7 @@ ews_data.policy_number
                             Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
                             Please could you complete this section at your earliest convenience.
                         </p>
-                        <p>If you require any further information please call our customer care team on 0845 095 0041 Monday - Friday between the hours of 10am- 6:30pm.</p>
+                        <p>If you require any further information please call our customer care team on 03300 100 707 Monday - Friday between the hours of 10am- 6:30pm.</p>
 
                         Kind regards,<br>
 <?php echo $hello_name_full; ?>

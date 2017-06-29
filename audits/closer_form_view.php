@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -749,7 +749,7 @@ if (!isset($auditid)) {
             </p>
 
             <p>
-                <label for="q51">Q53. Did The Agent Provide Contact Details For The Review Bureau?</label><br>
+                <label for="q51">Q53. Did The Agent Provide Contact Details For Bluestone Protect?</label><br>
 
                 <input type="radio" name="q51" value="Yes" onclick="return false"onclick="return false"<?php if ($result['q51'] == "Yes") echo "checked" ?> >Yes
                 <input type="radio" name="q51" value="No" onclick="return false"onclick="return false"<?php if ($result['q51'] == "No") echo "checked" ?> ><label for="No">No</label>

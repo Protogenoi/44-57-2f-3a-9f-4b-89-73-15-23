@@ -1,7 +1,7 @@
 <?php 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adlfunctions.php'); 
@@ -66,7 +66,7 @@ function textAreaAdjust(o) {
                             <label for='closer'>Closer:</label>
                             <select class='form-control' name='closer' id='closer' required> 
                                 <option value="">Select...</option>
-<?php if($companynamere=='The Review Bureau') { ?>
+<?php if($companynamere=='Bluestone Protect') { ?>
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -93,7 +93,7 @@ function textAreaAdjust(o) {
                             <label for='closer2'>Closer (optional):</label>
                             <select class='form-control' name='closer2' id='closer2' > 
                                 <option value="None">None</option> 
-<?php if($companynamere=='The Review Bureau') { ?>
+<?php if($companynamere=='Bluestone Protect') { ?>
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
@@ -1445,7 +1445,7 @@ function yesnoCheckc34() {
 }
                         </script>
                         
-                        <label for="q35">Q35. Closer provided contact details for The Review Bureau?</label>
+                        <label for="q35">Q35. Closer provided contact details for Bluestone Protect?</label>
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="1" id="yesCheckc35">Yes
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="0" id="noCheckc35">No
                         

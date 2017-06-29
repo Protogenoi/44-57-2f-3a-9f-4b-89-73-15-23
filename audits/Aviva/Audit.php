@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -511,7 +511,7 @@ WHERE
                         <select class="form-control" <?php if(isset($EXECUTE) && $EXECUTE=='EDIT' && isset($AUDITID)) { } else { ?>id="CLOSER" <?php } ?> name="CLOSER" required>
                             <?php if(isset($EXECUTE) && $EXECUTE=='EDIT' && isset($AUDITID)) { ?>
                              <option value='<?php echo $CLOSER; ?>'><?php echo $CLOSER; ?></option>
-<?php if ($companynamere == 'The Review Bureau') { ?>
+<?php if ($companynamere == 'Bluestone Protect') { ?>
 
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
@@ -1785,7 +1785,7 @@ function showTCD8(select_item) {
                                 </div>                                  
                                 
                 <div class="form-group">
-                    <label for="QC6"><?php echo $QC_NUM++; ?>. Closer provided contact details for The Review Bureau?</label>
+                    <label for="QC6"><?php echo $QC_NUM++; ?>. Closer provided contact details for Bluestone Protect?</label>
                     <div class="col-2">    
                     <select class="form-control" id="QC6" name="QC6" onchange="java_script_:showTQC6(this.options[this.selectedIndex].value)">
                             <option value=""></option>

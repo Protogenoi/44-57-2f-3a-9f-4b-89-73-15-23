@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -175,7 +175,7 @@ $tableHeaderLeftTextColour = array( 99, 42, 57 );
 $tableHeaderLeftFillColour = array( 184, 207, 229 );
 $tableBorderColour = array( 50, 50, 50 );
 $tableRowFillColour = array( 213, 170, 170 );
-$reportName = "The Review Bureau Call Audit";
+$reportName = "Bluestone Protect Call Audit";
 $reportNameYPos = 60;
 $columnLabels = array( " ");
 $resultLabels = array( "Auditor", "Closer(s)", "Date Submitted", "Policy Number" );
@@ -206,7 +206,7 @@ function Header()
     // Move to the right
     $this->Cell(1);
     // Title
-    $this->Cell(0,5,'The Review Bureau - Call Audit',0,0,'C');
+    $this->Cell(0,5,'Bluestone Protect - Call Audit',0,0,'C');
     // Line break
     $this->Ln(10);
 }

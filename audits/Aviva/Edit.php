@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
@@ -114,7 +114,7 @@ if (isset($_GET["auditid"])) {
                                 <div class='col-md-4'>
                                     <select class='form-control' name='closer' id='full_name' required>
                                         <?php echo "<option value='" . $result['closer'] . "'>" . $result['closer'] . "</option>"; ?>
-<?php if ($companynamere == 'The Review Bureau') { ?>
+<?php if ($companynamere == 'Bluestone Protect') { ?>
 
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
@@ -149,7 +149,7 @@ if (isset($_GET["auditid"])) {
                                 <div class='col-md-4'>
                                     <select class='form-control' name='closer2' id='closer2' > 
                                         <?php echo "<option value='" . $result['closer2'] . "'>" . $result['closer2'] . "</option>"; ?>
-<?php if ($companynamere == 'The Review Bureau') { ?>
+<?php if ($companynamere == 'Bluestone Protect') { ?>
 
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
@@ -2214,7 +2214,7 @@ if (isset($_GET["auditid"])) {
                             </p>
 
                             <p>
-                                <label for="q51">Q53. Did The Agent Provide Contact Details For The Review Bureau?</label>
+                                <label for="q51">Q53. Did The Agent Provide Contact Details For Bluestone Protect?</label>
 
                                 <input type="radio" name="q51" value="Yes"  <?php if ($result['q51'] == "Yes") {
     echo "checked";

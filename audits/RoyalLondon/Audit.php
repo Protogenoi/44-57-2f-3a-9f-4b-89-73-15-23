@@ -1,7 +1,7 @@
 <?php 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -586,7 +586,7 @@ function textAreaAdjust(o) {
 <label for='CLOSER'>Closer:</label>
 <select class='form-control' name='CLOSER' id='CLOSER' required> 
     <option value="">Select...</option>
-    <?php if($companynamere=='The Review Bureau') { ?>
+    <?php if($companynamere=='Bluestone Protect') { ?>
     <option value="Carys" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Carys') { echo "selected"; } } ?> >Carys</option>
     <option value="David" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='David') { echo "selected"; } } ?> >David</option>
     <option value="Hayley" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Hayley') { echo "selected"; } } ?> >Hayley</option>
@@ -611,7 +611,7 @@ function textAreaAdjust(o) {
 <label for='CLOSER2'>Closer (optional):</label>
 <select class='form-control' name='CLOSER2' id='CLOSER2' >    
 <option value="None">None</option>    
-    <?php if($companynamere=='The Review Bureau') { ?>
+    <?php if($companynamere=='Bluestone Protect') { ?>
     <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Carys') { echo "selected"; } } ?> >Carys</option>
     <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Hayley') { echo "selected"; } } ?> >Hayley</option>
     <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='James') { echo "selected"; } } ?> >James</option>
@@ -3671,7 +3671,7 @@ function yesnoCheckQCT5() {
 </script>
 
 <p>
-<label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for The Review Bureau?</label>
+<label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for Bluestone Protect?</label>
 <input type="radio" name="QC6" <?php if (isset($RL_QE_QC6) && $RL_QE_QC6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="1" id="yesCheckQCT6">Yes
 <input type="radio" name="QC6" <?php if (isset($RL_QE_QC6) && $RL_QE_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6">No
 </p>

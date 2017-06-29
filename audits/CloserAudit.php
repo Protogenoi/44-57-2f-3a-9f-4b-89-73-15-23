@@ -96,7 +96,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                 <script type="text/JavaScript">
                                     var $select = $('#full_name');
                                     $.getJSON('<?php
-                                    if ($companynamere == 'The Review Bureau') {
+                                    if ($companynamere == 'Bluestone Protect') {
                                         echo "../JSON/CloserNames.json";
                                     } if ($companynamere == 'ADL_CUS') {
                                         echo "../JSON/CUS_CLOSERS.json";
@@ -118,7 +118,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                             <label for='full_name2'>Closer (optional):</label>
                             <select class='form-control' name='full_name2' id='full_name2' >    
                                 <option value="None">None</option>    
-                                <?php if ($companynamere == 'The Review Bureau') { ?>
+                                <?php if ($companynamere == 'Bluestone Protect') { ?>
                                     <option value="Carys">Carys</option>
                                     <option value="Hayley">Hayley</option>
                                     <option value="James">James</option>
@@ -2558,7 +2558,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                         </script>
 
                         <p>
-                            <label for="q51">Q53. Closer provided contact details for The Review Bureau?</label>
+                            <label for="q51">Q53. Closer provided contact details for Bluestone Protect?</label>
                             <input type="radio" name="q51" 
                                    <?php if (isset($q51) && $q51 == "Yes") echo "checked"; ?> onclick="javascript:yesnoCheckc51();"
                                    value="Yes" id="yesCheckc51">Yes

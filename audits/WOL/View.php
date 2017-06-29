@@ -624,7 +624,7 @@ if(isset($QRY)) {
                         <div class="phpcomments"><?php if(isset($c34)) { echo $c34; } ?></div>
                       
                         
-                        <label for="q35">Q35. Closer provided contact details for The Review Bureau?</label><br>
+                        <label for="q35">Q35. Closer provided contact details for Bluestone Protect?</label><br>
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="1" id="yesCheckc35" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>Yes
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="0" id="noCheckc35" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>No
 

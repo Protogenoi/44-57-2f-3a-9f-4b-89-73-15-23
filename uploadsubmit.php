@@ -37,7 +37,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
          
   if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='TRB';
-    $COMPANY_NAME='The Review Bureau';
+    $COMPANY_NAME='Bluestone Protect';
     }
         if (in_array($hello_name, $PFP_ACCESS, true)) { 
     $COMPANY='PFP';
@@ -61,7 +61,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     }   
           if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
     $COMPANY='TRB';
-    $COMPANY_NAME='The Review Bureau';
+    $COMPANY_NAME='Bluestone Protect';
     }    
 
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
@@ -140,7 +140,7 @@ header('Location: /compliance/Recordings.php?RETURN=UPFAIL'); die;
          
   if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='TRB';
-    $COMPANY_NAME='The Review Bureau';
+    $COMPANY_NAME='Bluestone Protect';
     }
         if (in_array($hello_name, $PFP_ACCESS, true)) { 
     $COMPANY='PFP';

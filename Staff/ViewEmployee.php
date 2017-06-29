@@ -24,7 +24,7 @@ if (isset($fferror)) {
 if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
 
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
+    $COMPANY='Bluestone Protect';
     }
         if (in_array($hello_name, $PFP_ACCESS, true)) { 
     $COMPANY='Protect Family Plans';
@@ -859,7 +859,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                 <label class="control-label">Company</label>
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
-                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">The Review Bureau</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Bluestone Protect') { echo "selected"; } } ?> value="Bluestone Protect">Bluestone Protect</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='We Insure') { echo "selected"; } } ?> value="We Insure">We Insure</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protect Family Plans') { echo "selected"; } } ?> value="Protect Family Plans">Protect Family Plans</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protected Life Ltd') { echo "selected"; } } ?> value="Protected Life Ltd">Protected Life Ltd</option>

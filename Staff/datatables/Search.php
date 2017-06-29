@@ -24,7 +24,7 @@ if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
         
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
+    $COMPANY='Bluestone Protect';
     }
         if (in_array($hello_name, $PFP_ACCESS, true)) { 
     $COMPANY='Protect Family Plans';

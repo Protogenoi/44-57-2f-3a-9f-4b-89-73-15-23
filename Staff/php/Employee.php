@@ -9,7 +9,7 @@ include('../../includes/Access_Levels.php');
 if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
 
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
-    $COMPANY='The Review Bureau';
+    $COMPANY='Bluestone Protect';
     }
         if (in_array($hello_name, $PFP_ACCESS, true)) { 
     $COMPANY='Protect Family Plans';

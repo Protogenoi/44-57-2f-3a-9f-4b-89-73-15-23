@@ -137,6 +137,7 @@ if (isset($Single_Client['callauditid'])) {
 <body>
     <?php
     require_once(__DIR__ . '/../includes/navbar.php');
+    
 
     try {
         $anquery = $pdo->prepare("select application_number from client_policy where client_id=:search");
@@ -168,6 +169,13 @@ if (isset($Single_Client['callauditid'])) {
     <div class="container">
 
         <?php
+$HTTP_PROTOCOL_CHK = ((!empty(filter_input(INPUT_SERVER,'HTTPS', FILTER_SANITIZE_SPECIAL_CHARS)) && filter_input(INPUT_SERVER,'HTTPS', FILTER_SANITIZE_SPECIAL_CHARS) != 'off') ||filter_input(INPUT_SERVER,'SERVER_PORT', FILTER_SANITIZE_NUMBER_INT) == 443) ? "https://" : "http://";
+$USER_TRACKING_GRAB_URL = $HTTP_PROTOCOL_CHK . filter_input(INPUT_SERVER,'HTTP_HOST', FILTER_SANITIZE_SPECIAL_CHARS) . filter_input(INPUT_SERVER,'REQUEST_URI', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        
+        require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+
+<?php        
         if (isset($WHICH_COMPANY)) {
             if ($WHICH_COMPANY == 'The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
                 echo "<div class='notice notice-default' role='alert'><strong> <center>Legal & General Client</center></strong> </div>";

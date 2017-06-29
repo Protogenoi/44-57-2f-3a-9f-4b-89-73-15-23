@@ -272,7 +272,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
                                 <td>
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Bluestone Protect'>Bluestone Protect</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>
         <option value='Protected Life Ltd'>Protected Life Ltd</option>
         <option value='We Insure'>We Insure</option>
@@ -348,7 +348,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
                                 <td>
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Bluestone Protect'>Bluestone Protect</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>
         <option value='Protected Life Ltd'>Protected Life Ltd</option>
         <option value='We Insure'>We Insure</option>

@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -33,10 +33,30 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
             
             $MSG = filter_input(INPUT_POST, 'MSG', FILTER_SANITIZE_SPECIAL_CHARS);
             $TO = filter_input(INPUT_POST, 'MSG_TO', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_REQUIRE_ARRAY);
-        
-               
 
         foreach ($TO as $SELECTED_TO) {
+            
+    $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");           
+    $query->bindParam(':NAME', $TO, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['employee_id']; 
+    
+    if(isset($ID_FK)) {
+        
+        $MESSAGE="$MSG | From $hello_name";
+        
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='ADL Message', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$MESSAGE); 
+            $database->execute();         
+        
+    }
+            
 $database = new Database(); 
         $database->query("INSERT INTO messenger SET messenger_to=:TO, messenger_msg=:MSG, messenger_sent_by=:HELLO, messenger_company=:COMPANY");
         $database->bind(':COMPANY', $COMPANY_ENTITY);
@@ -51,7 +71,29 @@ $database = new Database();
 
         
         }
-        if($EXECUTE=='2') {         
+        if($EXECUTE=='2') {    
+            
+            
+   $query = $pdo->prepare("SELECT employee_id FROM employee_details WHERE company=:COMPANY AND CONCAT(firstname, ' ', lastname)=:NAME");           
+    $query->bindParam(':NAME', $TO, PDO::PARAM_STR);
+    $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+    $query->execute();
+    $data1 = $query->fetch(PDO::FETCH_ASSOC); 
+    
+    $ID_FK=$data1['employee_id']; 
+    
+    if(isset($ID_FK)) {
+        
+        $MESSAGE="$MSG | From $hello_name";
+        
+            $database = new Database();
+            $database->query("INSERT INTO employee_timeline set note_type='Read Receipt for ADL Message', message=:change, added_by=:hello, employee_id=:REF");
+            $database->bind(':REF',$ID_FK);
+            $database->bind(':hello',$hello_name);    
+            $database->bind(':change',$MESSAGE); 
+            $database->execute();         
+        
+    }            
           
             $MID = filter_input(INPUT_GET, 'MID', FILTER_SANITIZE_SPECIAL_CHARS);
          $database = new Database();   

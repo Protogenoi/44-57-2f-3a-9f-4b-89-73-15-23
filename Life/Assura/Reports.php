@@ -54,7 +54,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
                     
                     <?php
 
-                    if($companynamere=='The Review Bureau') { 
+                    if($companynamere=='Bluestone Protect') { 
                         if (in_array($hello_name,$Level_8_Access, true)) {
                             if($fflife=='1') {  
                         

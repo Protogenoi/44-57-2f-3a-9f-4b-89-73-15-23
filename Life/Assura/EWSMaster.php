@@ -257,7 +257,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
         
         <ul class="nav nav-pills">
             
-            <?php if($companynamere=='The Review Bureau') {
+            <?php if($companynamere=='Bluestone Protect') {
                 if (in_array($hello_name,$Level_10_Access, true)) { ?>
             <li class="active"><a data-toggle="pill" href="#home">Archive Master</a></li>
             <?php } } ?>

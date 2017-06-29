@@ -12,7 +12,7 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
 if (!in_array($hello_name,$Level_8_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;

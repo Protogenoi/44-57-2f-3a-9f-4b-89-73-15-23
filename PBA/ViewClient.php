@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -19,7 +19,7 @@ include('../classes/database_class.php');
         
     }
 
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
 
 if (!in_array($hello_name,$Level_3_Access, true)) {
     
@@ -99,13 +99,13 @@ if(isset($fferror)) {
                     <div class="list-group">
                         <?php 
                         
-                        if($companynamere=='The Review Bureau') {
+                        if($companynamere=='Bluestone Protect') {
                         if (in_array($hello_name,$Level_10_Access, true)) { ?>
                         <li><a class="list-group-item" href="/EditClient.php?search=<?php echo $search?>&pba"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>
                         <?php } } ?>
                         
                                                 <?php 
-                        if($companynamere!=='The Review Bureau') {
+                        if($companynamere!=='Bluestone Protect') {
                          ?>
                         <li><a class="list-group-item" href="/EditClient.php?search=<?php echo $search?>&pba"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>                  
                         <?php }  ?>

@@ -20,7 +20,7 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
                     FROM
                     user_tracking
                     WHERE
-                    user_tracking_url=:URL AND user_tracking_user!=:HELLO");
+                    user_tracking_url=:URL AND user_tracking_user!=:HELLO AND DATE(user_tracking_date)=CURDATE()");
                 $USER_TRACKING_CHK->bindParam(':URL', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
                 $USER_TRACKING_CHK->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
                 $USER_TRACKING_CHK->execute();

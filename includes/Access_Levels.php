@@ -1,5 +1,14 @@
 <?php
+if($hello_name!='Michael') {
+$TIMELOCK = date('H');
 
+if($TIMELOCK>='20' || $TIMELOCK<'08') {
+   
+    header('Location: ../../CRMmain.php?action=log_out');
+    die;
+    
+}
+}
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
@@ -172,8 +181,8 @@ if ($companynamere == 'The Review Bureau') {
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike", "Gavin");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin", "Keith","David");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Chloe", "Audits", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin", "Keith","David");
     $Task_Access = array("Michael", "Abbiek");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy', "Chloe");
     $Agent_Access = array("111111111");

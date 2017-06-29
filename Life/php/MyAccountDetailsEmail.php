@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
@@ -25,11 +25,8 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
         $emailbccdb=$queryr['emailbcc'];
         $emailreplydb=$queryr['emailreply'];
         
- if($companynamere=='The Review Bureau') {       
-        $emailsubjectdb="The Review Bureau - My Account Details";
- }
-  elseif($companynamere=='Assura') {       
-        $emailsubjectdb="Assura - My Account Details";
+ if($companynamere=='Bluestone Protect') {       
+        $emailsubjectdb="Bluestone Protect - My Account Details";
  }
   elseif($companynamere=='ADL_CUS') {       
         $emailsubjectdb="The Financial Assessment Centre - My Account Details";
@@ -52,7 +49,7 @@ $emailsubjectdb="My Account Details";
 
 $CLOSER_NAME=$closer_name['closer'];   
         
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
     
     if(isset($hello_name)) {
     
@@ -252,7 +249,7 @@ p, ul, ol {
                 <tr>
                     <td align='center' class='masthead'>
 <img src='cid:logo' >
-                        <h1>The Review Bureau</h1>
+                        <h1>Bluestone Protect</h1>
 
                     </td>
                 </tr>
@@ -326,11 +323,11 @@ p, ul, ol {
 <p>Now that you have registered it is important you let us know if the answers given are correct.</p>
                         <p>This will open a document containing the information you gave us when you applied, once you have viewed the document you will have an option to either click “My answers are correct” or click “Change my answers” and complete the form provided to let us know the changes required.</p>
                         <p>If any changes made affect the policy you will be notified by www.legalandgeneral.com.</p>
-                        <p>Thank you for choosing to set your policy up through The Review Bureau.</p>
+                        <p>Thank you for choosing to set your policy up through Bluestone Protect.</p>
                         <p>If you have any issues or queries please don’t hesitate to contact us.</p>
                         <p><em>– $hello_name_full</em></p>
 <img src='cid:logo' >
-                        <center><strong>The Review Bureau</strong><center>
+                        <center><strong>Bluestone Protect</strong><center>
                     </td>
                 </tr>
             </table>
@@ -343,7 +340,7 @@ p, ul, ol {
             <table>
                 <tr>
                     <td class='content footer' align='center'>
-                        <p>Sent by <a href='#'>The Review Bureau</a>. The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+                        <p>Sent by <a href='#'>Bluestone Protect</a>. Bluestone Protect Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  Bluestone Protect Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
 </p>
                         <p><a href='mailto:'>info@thereviewbureau.com</a> </p>
                     </td>
@@ -378,7 +375,7 @@ $mail->Username   = "$emaildb";
 $mail->Password   = "$passworddb";  
 
 
-$mail->AddEmbeddedImage('../../img/MyAccountDetailsLogo.jpg', 'logo');
+$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
@@ -731,353 +728,6 @@ if(!$mail->Send()) {
   
 } 
 
-}
-
-if($companynamere=='Assura') {
-    
-    $target_dir = "../../uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-if ($_FILES["fileToUpload"]["size"] > 700000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" && $imageFileType != "pdf" ) {
-    echo "<div class=\"notice notice-info fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Success!</strong> Sorry, only JPG, JPEG, PNG, PDF & GIF files are allowed.
-    </div>";
-    $uploadOk = 0;
-}
-
-$message ="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
-<html xmlns='http://www.w3.org/1999/xhtml'>
-<head>
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-    <meta name='viewport' content='width=device-width'/>
-
-
-    <style type='text/css'>
-    {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-  line-height: 1.65; }
-
-img {
-  max-width: 100%;
-  margin: 0 auto;
-  display: block; }
-
-body,
-.body-wrap {
-  width: 100% !important;
-  height: 100%;
-  background: #efefef;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: none; }
-
-a {
-  color: #3399ff;
-  text-decoration: none; }
-
-.text-center {
-  text-align: center; }
-
-.text-right {
-  text-align: right; }
-
-.text-left {
-  text-align: left; }
-
-.button {
-  display: inline-block;
-  color: black;
-  background: #f0f0f5;
-  border: solid #f0f0f5;
-  border-width: 10px 20px 8px;
-  font-weight: bold;
-  border-radius: 4px; }
-
-h1, h2, h3, h4, h5, h6 {
-  margin-bottom: 20px;
-  line-height: 1.25; }
-
-h1 {
-  font-size: 32px; }
-
-h2 {
-  font-size: 28px; }
-
-h3 {
-  font-size: 24px; }
-
-h4 {
-  font-size: 20px; }
-
-h5 {
-  font-size: 16px; }
-
-p, ul, ol {
-  font-size: 16px;
-  font-weight: normal;
-  margin-bottom: 20px; }
-
-.container {
-  display: block !important;
-  clear: both !important;
-  margin: 0 auto !important;
-  max-width: 580px !important; }
-  .container table {
-    width: 100% !important;
-    border-collapse: collapse; }
-  .container .masthead {
-    padding: 80px 0;
-    background: #ffffff;
-    color: black; }
-    .container .masthead h1 {
-      margin: 0 auto !important;
-      max-width: 90%;
-      text-transform: uppercase; }
-  .container .content {
-    background: white;
-    padding: 30px 35px; }
-    .container .content.footer {
-      background: none; }
-      .container .content.footer p {
-        margin-bottom: 0;
-        color: #888;
-        text-align: center;
-        font-size: 14px; }
-      .container .content.footer a {
-        color: #888;
-        text-decoration: none;
-        font-weight: bold; }
-.bs-wizard {margin-top: 40px;}
-
-.bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
-.bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
-.bs-wizard > .bs-wizard-step + .bs-wizard-step {}
-.bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 16px; margin-bottom: 5px;}
-.bs-wizard > .bs-wizard-step .bs-wizard-info {color: #999; font-size: 14px;}
-.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;} 
-.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
-.bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
-.bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #fbe8aa;}
-.bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;}
-.bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:50%;}
-.bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;}
-.bs-wizard > .bs-wizard-step:last-child.active > .progress > .progress-bar {width: 100%;}
-.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #f5f5f5;}
-.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;}
-.bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
-.bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
-.bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
-    </style>
-</head>
-<body>
-<table class='body-wrap'>
-    <tr>
-        <td class='container'>
-
-            <!-- Message start -->
-            <table>
-                <tr>
-                    <td align='center' class='masthead'>
-<img src='cid:logo' >
-                       
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class='content'>
-
-                        <h2>Hi $recipient,</h2>
-
-                        <p>As you discussed with my colleague you will now be able to access your policy information using Legal and Generals online system, we need you to check that the information you provided is correct as it could affect any claims. </p>
-<p>You can do this by following the instructions below:</p>
-
- 
-
-<p>
-
-
-                        
-          <div class='row bs-wizard' style='border-bottom:0;'>              
-<div class='col-xs-3 bs-wizard-step complete'>
-                  <div class='text-center bs-wizard-stepnum'>Step 1</div>
-                  <div class='progress'><div class='progress-bar'></div></div>
-                  <a href='#' class='bs-wizard-dot'></a>
-                  <div class='bs-wizard-info text-center'>Follow the link <br><a href='http://www.legalandgeneral.com'>www.legalandgeneral.com</a></div>
-                </div>
-</div>
-          <div class='row bs-wizard' style='border-bottom:0;'>              
-<div class='col-xs-3 bs-wizard-step complete'>
-                  <div class='text-center bs-wizard-stepnum'>Step 2</div>
-                  <div class='progress'><div class='progress-bar'></div></div>
-                  <a href='#' class='bs-wizard-dot'></a>
-                  <div class='bs-wizard-info text-center'>Top right corner \"Existing customers\".</div>
-                </div>
-                <br>
-                <div class='col-xs-3 bs-wizard-step complete'><!-- complete -->
-                  <div class='text-center bs-wizard-stepnum'>Step 3</div>
-                  <div class='progress'><div class='progress-bar'></div></div>
-                  <a href='#' class='bs-wizard-dot'></a>
-                  <div class='bs-wizard-info text-center'>Register or log in \"My Account\".</div>
-                </div>
-</div>
-
-
-                        <p>Your user ID is normally your email address unless you chose something else. If you have joint or separate policies you will need separate emails to create a “My Account”.</p>
-                        
-
-          <div class='row bs-wizard' style='border-bottom:0;'>              
-<div class='col-xs-3 bs-wizard-step complete'>
-                  <div class='text-center bs-wizard-stepnum'>Step 4</div>
-                  <div class='progress'><div class='progress-bar'></div></div>
-                  <a href='#' class='bs-wizard-dot'></a>
-                  <div class='bs-wizard-info text-center'>Click on \"Mailbox\" icon at the top of the screen.</div>
-                </div>
-                <br>
-                <div class='col-xs-3 bs-wizard-step complete'>
-                  <div class='text-center bs-wizard-stepnum'>Step 5</div>
-                  <div class='progress'><div class='progress-bar'></div></div>
-                  <a href='#' class='bs-wizard-dot'></a>
-                  <div class='bs-wizard-info text-center'>Click on \"Review your application\".</div>
-                </div>
-</div>
-
-
-
-
-
-
-
-<p>Now that you have registered it is important you let us know if the answers given are correct.</p>
-                        <p>This will open a document containing the information you gave us when you applied, once you have viewed the document you will have an option to either click “My answers are correct” or click “Change my answers” and complete the form provided to let us know the changes required.</p>
-                        <p>If any changes made affect the policy you will be notified by www.legalandgeneral.com.</p>
-                        <p>Thank you for choosing to set your policy up through The Review Bureau.</p>
-                        <p>If you have any issues or queries please don’t hesitate to contact us.</p>
-                        <p><em>– $hello_name_full</em></p>
-<img src='cid:logo'>
-                       
-                    </td>
-                </tr>
-            </table>
-
-        </td>
-    </tr>
-    <tr>
-        <td class='container'>
-
-            <table>
-                <tr>
-                    <td class='content footer' align='center'>
-                        <p>Sent by <a href='#'>Assura</a>. Assura is a trading name of CJTD Limited investments. CJTD Investments Limited registered in England and Wales with registered number 08403633. Registered office: Churchill house, 120 Bunns Lane, London, NW7 2AS.
-CJTD Investments Limited may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
-</p>
-                        <p><a href='mailto:'>info@assura-uk.com</a> </p>
-                    </td>
-                </tr>
-            </table>
-
-        </td>
-    </tr>
-</table>
-</body>
-</html>";
-$sig = "<br>-- \n
-<br>
-<br>
-<br>
-
-$signat";
-
-$body = $message;
-$body .= $sig;
-
-$mail             = new PHPMailer();
-
-
-$mail->IsSMTP(); 
-$mail->CharSet = 'UTF-8';
-$mail->Host       = "$emailsmtpdb";                      
-$mail->SMTPAuth   = true;                
-$mail->SMTPSecure = "ssl"; 
-$mail->Port       = $emailsmtpportdb;                    
-$mail->Username   = "$emaildb";
-$mail->Password   = "$passworddb";        
-
-$mail->AddEmbeddedImage('../../img/assuralogo.png', 'logo');
-
-if (isset($_FILES["fileToUpload"]) &&
-    $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload"]["tmp_name"],
-                         $_FILES["fileToUpload"]["name"]);
-}
-
-if (isset($_FILES["fileToUpload2"]) &&
-    $_FILES["fileToUpload2"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload2"]["tmp_name"],
-                         $_FILES["fileToUpload2"]["name"]);
-}
-
-if (isset($_FILES["fileToUpload3"]) &&
-    $_FILES["fileToUpload3"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload3"]["tmp_name"],
-                         $_FILES["fileToUpload3"]["name"]);
-}
-
-if (isset($_FILES["fileToUpload4"]) &&
-    $_FILES["fileToUpload4"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload4"]["tmp_name"],
-                         $_FILES["fileToUpload4"]["name"]);
-}
-
-if (isset($_FILES["fileToUpload5"]) &&
-    $_FILES["fileToUpload5"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload5"]["tmp_name"],
-                         $_FILES["fileToUpload5"]["name"]);
-}
-
-if (isset($_FILES["fileToUpload6"]) &&
-    $_FILES["fileToUpload6"]["error"] == UPLOAD_ERR_OK) {
-    $mail->AddAttachment($_FILES["fileToUpload6"]["tmp_name"],
-                         $_FILES["fileToUpload6"]["name"]);
-}
-
-
-
-$mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
-
-$mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
-$mail->AddBCC("$emailbccdb", "$emaildisplaynamedb");
-$mail->Subject    = "$emailsubjectdb";
-$mail->IsHTML(true); 
-
-$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-
-
-$address = $email;
-$mail->AddAddress($address, $recipient);
-
-$mail->Body    = $body;
-
-if(!$mail->Send()) {
-  echo "Mailer Error: " . $mail->ErrorInfo;
-  
-  header('Location: ../ViewClient.php?search='.$search.'&EmailMAD=0'); die;
-  
-} 
-
-
-    
-    
 }
 
 $notetype="Email Sent";

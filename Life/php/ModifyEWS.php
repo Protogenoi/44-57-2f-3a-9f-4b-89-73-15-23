@@ -1,18 +1,15 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 8);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 
-if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
-
 if (!in_array($hello_name,$Level_10_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;
-}
 }
 
 if(isset($fferror)) {

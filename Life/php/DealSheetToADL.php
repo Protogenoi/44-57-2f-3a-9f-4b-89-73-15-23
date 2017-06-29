@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
@@ -167,7 +167,7 @@ if(isset($QRY)) {
             $database->bind(':dealid',$deal_id);
             $database->execute();
             
-            if($custtype=='Life' || $custtype=='The Review Bureau' || $custtype=='Assura' || $custtype=='TRB Vitality') {
+            if($custtype=='Life' || $custtype=='Bluestone Protect' || $custtype=='TRB Vitality') {
                 
                 $notedata= "Client Added";
                 $custtypenamedata= $title ." ". $forename ." ". $surname;

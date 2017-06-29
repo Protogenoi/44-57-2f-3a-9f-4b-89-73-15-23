@@ -28,7 +28,24 @@ if(isset($fferror)) {
     include('../../classes/database_class.php');
     include('../../includes/adlfunctions.php');
     
-    if($custype=='Life' || $custype=='ADL_CUS' || $custype=='TRB Archive' || $custype=='ADL Legal and General' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Vitality' || $custype=='CUS WOL' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
+    if($custype=='Life' || 
+            $custype=='ADL_CUS' || 
+            $custype=='TRB Archive' || 
+            $custype=='ADL Legal and General' || 
+            $custype=='Bluestone Protect' || 
+            $custype=='ADL Legal and General' || 
+            $custype=='TRB Vitality' || 
+            $custype=='TRB WOL' || 
+            $custype=='TRB Royal London' || 
+            $custype=='TRB Aviva' || 
+            $custype=='CUS Vitality' || 
+            $custype=='CUS WOL' || 
+            $custype=='CUS Royal London' || 
+            $custype=='CUS Aviva' || 
+            $custype=='Vitality' || 
+            $custype=='WOL' || 
+            $custype=='Royal London' || 
+            $custype=='Aviva') {
             
     ?>
 
@@ -176,7 +193,18 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {               
+                if($custype=='Life' ||
+                        $custype=='Bluestone Protect' ||
+                        $custype=='ADL Legal and General' ||
+                        $custype=='ADL_CUS' ||
+                        $custype=='TRB Royal London' ||
+                        $custype=='TRB Aviva' ||
+                        $custype=='CUS Royal London' ||
+                        $custype=='CUS Aviva' ||
+                        $custype=='Vitality' ||
+                        $custype=='WOL' ||
+                        $custype=='Royal London' ||
+                        $custype=='Aviva') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
@@ -306,9 +334,13 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
 
     $deadline18=$WeekDay18;
 
-} 
+}
 
-if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='ADL Legal and General') {
+if($custype=='Life' ||
+        $custype=='Bluestone Protect' ||
+        $custype=='ADL_CUS' ||
+        $custype=='ADL Legal and General'  ||
+        $custype=='Legal and General') {
 
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assignCYD, PDO::PARAM_STR);
@@ -320,7 +352,9 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $
         
         }
         
-        if($custype=='The Review Bureau' || $custype=='ADL Legal and General') {
+        if($custype=='Bluestone Protect' ||
+                $custype=='ADL Legal and General'  ||
+                $custype=='Legal and General') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign24, PDO::PARAM_STR);
@@ -332,7 +366,18 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL_CUS' || $
         
         }
 
-if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Royal London' || $custype=='TRB Aviva' || $custype=='CUS Royal London' || $custype=='CUS Aviva') {
+if($custype=='Life' ||
+        $custype=='Bluestone Protect' ||
+        $custype=='ADL Legal and General' ||
+        $custype=='ADL_CUS' ||
+        $custype=='TRB Royal London' ||
+        $custype=='TRB Aviva' ||
+        $custype=='CUS Royal London' ||
+        $custype=='CUS Aviva' ||
+        $custype=='Vitality' ||
+        $custype=='WOL' ||
+        $custype=='Royal London' ||
+        $custype=='Aviva') {
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);
@@ -351,12 +396,11 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and
         $database->execute();
         
 }
-        
- 
+
         } 
                 
                 $database->endTransaction();
-         
+
      }
      
      else {
@@ -374,31 +418,66 @@ if($custype=='Life' || $custype=='The Review Bureau' || $custype=='ADL Legal and
 <form class="AddClient" action="AddPolicy.php?EXECUTE=1&CID=<?php echo $lastid;?>" method="POST">
 
 <div class="col-md-4">
-
-<?php if($custype=='The Review Bureau' || $custype=='ADL Legal and General' || 'Assura' || 'TRB WOL' || 'TRB Archive') { ?>
+   
+<?php 
+//TRB
+if($custype=='Bluestone Protect' ||
+        $custype=='ADL Legal and General' ||
+        $custype=='TRB WOL' ||
+        $custype=='TRB Archive') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life">
 <?php }
+
 if($custype=='TRB Vitality') { ?>
 <input type="hidden" id="custtype" name="custtype" value="TRB Vitality">
 <?php }
+
+if($custype=='TRB Royal London') { ?>
+<input type="hidden" id="custtype" name="custtype" value="TRB Royal London">
+<?php } 
+
+if($custype=='TRB Aviva') { ?>
+<input type="hidden" id="custtype" name="custtype" value="TRB Aviva">
+<?php }
 if($custype=='TRB Home Insurance') { ?>
 <input type="hidden" id="custtype" name="custtype" value="TRB Home Insurance">
-<?php } if($custype=='TRB Royal London') { ?>
-<input type="hidden" id="custtype" name="custtype" value="TRB Royal London">
-<?php } if($custype=='TRB Aviva') { ?>
-<input type="hidden" id="custtype" name="custtype" value="TRB Aviva">
-<?php } ?>
-<?php if($custype=='ADL_CUS' || 'CUS WOL') { ?>
+<?php }
+
+///CUS
+if($custype=='ADL_CUS' ||
+        $custype=='CUS WOL') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life">
 <?php }
+
 if($custype=='CUS Vitality') { ?>
 <input type="hidden" id="custtype" name="custtype" value="CUS Vitality">
 <?php }
+
 if($custype=='CUS Home Insurance') { ?>
 <input type="hidden" id="custtype" name="custtype" value="CUS Home Insurance">
-<?php } if($custype=='CUS Royal London') { ?>
+<?php }
+
+if($custype=='CUS Royal London') { ?>
 <input type="hidden" id="custtype" name="custtype" value="CUS Royal London">
-<?php } ?>
+<?php }
+
+
+//NORMAL
+if($custype=='Vitality') { ?>
+<input type="hidden" id="custtype" name="custtype" value="Vitality">
+<?php }
+if($custype=='Royal London') { ?>
+<input type="hidden" id="custtype" name="custtype" value="Royal London">
+<?php } 
+if($custype=='Aviva') { ?>
+<input type="hidden" id="custtype" name="custtype" value="Aviva">
+<?php }
+if($custype=='One Family') { ?>
+<input type="hidden" id="custtype" name="custtype" value="One Family">
+<?php }
+
+ ?>
+
 
 <label for="client_name">Client Name</label>
 <select class="form-control"  style="width: 140px"  name="client_name" required>
@@ -421,12 +500,18 @@ if($custype=='CUS Home Insurance') { ?>
 <br>
 
 <label for="application_number">Application Number:</label>
-<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "Value='WOL'"; } if($custype=='TRB Royal London') { echo "Value='Royal London'"; }  } ?> required>
+<input class="form-control" autocomplete="off" type="text" id="application_number" name="application_number"  style="width: 140px" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='One Family') { echo "Value='WOL'"; } if($custype=='TRB Royal London' || $custype=='Royal London') { echo "Value='Royal London'"; }  } ?> required>
 <label for="application_number"></label>
 <br>
 
 <label for="policy_number">Policy Number:</label>
-<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' <?php if($custype=='The Review Bureau' || $custype=='ADL_CUS' || $custype=='ADL Legal and General') { echo "maxlength='10'"; } ?> style="width: 140px" placeholder="TBC">
+<input class="form-control" autocomplete="off" type='text' id='policy_number' name='policy_number' 
+    <?php if($custype=='Bluestone Protect' ||
+        $custype=='ADL_CUS'||
+        $custype=='ADL Legal and General' ||
+        $custype=='Legal and General') 
+    
+    { echo "maxlength='10'"; } ?> style="width: 140px" placeholder="TBC">
 <br>
 
 <div class="form-row">
@@ -437,16 +522,25 @@ if($custype=='CUS Home Insurance') { ?>
       <?php if(isset($custype)) { if($custype=='TRB Archive') { ?>
   <option value="TRB Archive" <?php if($custype=='TRB Archive') { echo "selected"; } ?> >TRB Archive</option>
   <?php } } ?>
-  <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { ?>
+  
+  <?php if(isset($custype)) { if($custype=='TRB Vitality' ||
+          $custype=='CUS Vitality' ||
+          $custype=='Vitality') { ?>
   <option value="LTA SIC">LTA SIC (Vitality)</option>
   <?php } } ?>
+  
   <option value="LTA CIC">LTA + CIC</option>
   <option value="DTA">DTA</option>
   <option value="DTA CIC">DTA + CIC</option>
   <option value="CIC">CIC</option>
   <option value="FPIP">FPIP</option>
-  <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { ?>
-  <option value="WOL" <?php if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } ?> >WOL</option>
+  
+  <?php if(isset($custype)) { if($custype=='TRB WOL' ||
+          $custype=='CUS WOL' ||
+          $custype=='One Family') { ?>
+  
+  <option value="WOL" <?php if($custype=='TRB WOL' ||
+          $custype=='CUS WOL') { echo "selected"; } ?> >WOL</option>
   <?php } } ?>
   </select>
 </div>
@@ -457,13 +551,29 @@ if($custype=='CUS Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau' || $custype=='ADL Legal and General' || $custype=='ADL_CUS' || $custype=='TRB Archive') { echo "selected"; } } ?>>Legal & General</option>
-  <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality' || $custype=='CUS Vitality') { echo "selected"; } } ?>>Vitality</option>
-  <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='Bluestone Protect' ||
+          $custype=='ADL Legal and General' ||
+          $custype=='ADL_CUS' ||
+          $custype=='TRB Archive' ||
+          $custype=='Legal and General') { echo "selected"; } } ?>>Legal & General</option>
+  
+  <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB Vitality' ||
+          $custype=='CUS Vitality' ||
+          $custype=='Vitality') { echo "selected"; } } ?>>Vitality</option>
+  
   <option value="Bright Grey">Bright Grey</option>
-  <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London' || $custype=='CUS Royal London') { echo "selected"; } } ?>>Royal London</option>
-  <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>>One Family</option>
-  <option value="Aviva" <?php if(isset($custype)) { if($custype=='TRB Aviva' || $custype=='CUS Aviva') { echo "selected"; } } ?>>Aviva</option>
+  
+  <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London' ||
+          $custype=='CUS Royal London' ||
+          $custype=='Royal London') { echo "selected"; } } ?>>Royal London</option>
+  
+  <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL' ||
+          $custype=='CUS WOL' ||
+          $custype=="One Family") { echo "selected"; } } ?>>One Family</option>
+  
+  <option value="Aviva" <?php if(isset($custype)) { if($custype=='TRB Aviva' ||
+          $custype=='CUS Aviva' ||
+          $custype=='Aviva') { echo "selected"; } } ?>>Aviva</option>
   </select>
 </div>
 
@@ -501,7 +611,11 @@ if($custype=='CUS Home Insurance') { ?>
         <label for="commission">Policy Term</label>
     <div class="input-group"> 
         <span class="input-group-addon">yrs</span>
-        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "value='WOL'"; } if($custype=='TRB Archive') { echo "value='0'"; } } ?> required/>
+        <input autocomplete="off" style="width: 140px" type="text" class="form-control" id="polterm" name="polterm" 
+            <?php if(isset($custype)) { 
+                if($custype=='TRB WOL' ||
+                    $custype=='One Family') { echo "value='WOL'"; } 
+                    if($custype=='TRB Archive') { echo "value='0'"; } } ?> required/>
     </div> 
         <br>
 
@@ -511,7 +625,10 @@ if($custype=='CUS Home Insurance') { ?>
   <option value="">Select...</option>
   <option value="Indemnity">Indemnity</option>
   <option value="Non Idenmity">Non-Idemnity</option>
-  <option value="NA <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL') { echo "selected"; } } ?>">N/A</option>
+  <option value="NA <?php if(isset($custype)) { 
+      if($custype=='TRB WOL' ||
+          $custype=='CUS WOL' ||
+          $custype=='One Family') { echo "selected"; } } ?>">N/A</option>
   </select>
 </div>
 
@@ -558,7 +675,10 @@ if($custype=='CUS Home Insurance') { ?>
 <option value="3 year">3 year</option>
 <option value="4 year">4 year</option>
 <option value="5 year">5 year</option>
-<option value="0" <?php if(isset($custype)) { if($custype=='TRB WOL' || $custype=='CUS WOL' || $custype=='TRB Archive') { echo "selected"; } } ?>>0</option>
+<option value="0" <?php if(isset($custype)) { if($custype=='TRB WOL' ||
+        $custype=='CUS WOL' ||
+        $custype=='TRB Archive' ||
+        $custype=='One Family') { echo "selected"; } } ?>>0</option>
   </select>
 </div>
 
@@ -583,9 +703,7 @@ if($custype=='CUS Home Insurance') { ?>
   <option value="NTU">NTU</option>
   <option value="Declined">Declined</option>
     <option value="Redrawn">Redrawn</option>
-    <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Underwritten'>Underwritten</option>";} } ?>
-    <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";} } ?>
-  </select>
+</select>
 </div>
 
 <br>

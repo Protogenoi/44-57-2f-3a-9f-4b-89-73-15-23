@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
@@ -23,17 +23,13 @@ $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $emailbccdb=$queryr['emailbcc'];
         $emailreplydb=$queryr['emailreply'];
         
- if($companynamere=='The Review Bureau') {       
-        $emailsubjectdb="The Review Bureau - Any queries?";
+ if($companynamere=='Bluestone Protect') {       
+        $emailsubjectdb="Bluestone Protect - Any queries?";
  }
   elseif($companynamere=='ADL_CUS') {       
         $emailsubjectdb="The Financial Assessment Centre - Any queries?";
  }
-  elseif($companynamere=='Assura') {       
-        $emailsubjectdb="Assura - My Account Details";
- }
- 
- else {
+  else {
 $emailsubjectdb="Any queries?";
  }
         
@@ -51,7 +47,7 @@ $emailsubjectdb="Any queries?";
 
 $CLOSER_NAME=$closer_name['closer'];
         
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
 
 if(isset($hello_name)) {  
      switch ($hello_name) {
@@ -252,7 +248,7 @@ p, ul, ol {
                 <tr>
                     <td align='center' class='masthead'>
 <img src='cid:logo' >
-                        <h1>The Review Bureau</h1>
+                        <h1>Bluestone Protect</h1>
 
                     </td>
                 </tr>
@@ -261,10 +257,10 @@ p, ul, ol {
 
                         <h2>Hi $recipient,</h2>
 
-                        <p>Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on 08450 950 041 or via email info@thereviewbureau.com.</p>
+                        <p>Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on 03300 100 707 or via email info@thereviewbureau.com.</p>
                         <p><em>– $hello_name_full</em></p>
 
-                        <center><strong>The Review Bureau</strong><center>
+                        <center><strong>Bluestone Protect</strong><center>
                     </td>
                 </tr>
             </table>
@@ -277,7 +273,7 @@ p, ul, ol {
             <table>
                 <tr>
                     <td class='content footer' align='center'>
-                        <p>Sent by <a href='#'>The Review Bureau</a>. The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+                        <p>Sent by <a href='#'>Bluestone Protect</a>. Bluestone Protect Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  Bluestone Protect Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
 </p>
                         <p><a href='mailto:'>info@thereviewbureau.com</a> </p>
                     </td>
@@ -312,7 +308,7 @@ $mail->Username   = "$emaildb";
 $mail->Password   = "$passworddb";  
 
 
-$mail->AddEmbeddedImage('../../img/MyAccountDetailsLogo.jpg', 'logo');
+$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
@@ -517,7 +513,7 @@ p, ul, ol {
             <table>
                 <tr>
                     <td align='center' class='masthead'>
-<img src='cid:logo' >
+<img src='cid:logo height='42'  >
                         <h1>The Financial Assessment Centre</h1>
 
                     </td>

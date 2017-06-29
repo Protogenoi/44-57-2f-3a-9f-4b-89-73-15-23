@@ -81,53 +81,9 @@ foreach ($result as $value) {
      
 }
 //END CUS 
-//ASSURA
-if($companynamere=='Assura') {
-    
- if(!empty($closeraudit)) {
-     
-     switch ($CGRADE) {
-         case "Red":
-             echo "<div class='notice notice-danger' role='alert' id='HIDEGCLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Closer Audit Grade Red!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGCLOSER'>&times;</a></div>";
-             break;
-         case "Amber":
-             echo "<div class='notice notice-warning' role='alert' id='HIDEGCLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Closer Audit Grade Amber!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGCLOSER'>&times;</a></div>";
-             break;
-         case "Green":
-             echo "<div class='notice notice-success' role='alert' id='HIDEGCLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Closer Audit Grade Green!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGCLOSER'>&times;</a></div>";
-             break;
-         default:
-             echo "<div class='notice notice-info' role='alert' id='HIDEGCLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Info:</strong> Closer Audit Grade not found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGCLOSER'>&times;</a></div>";
-             
-     }     
- }
- 
-  if(!empty($leadaudit)) {
-     
-     switch ($LGRADE) {
-         case "Red":
-             echo "<div class='notice notice-danger' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-headphones fa-lg'></i> Lead Gen Audit Grade Red!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGLEAD'>&times;</a></div>";
-             break;
-         case "Amber":
-             echo "<div class='notice notice-warning' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-headphones fa-lg'></i> Lead Gen Audit Grade Amber!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGLEAD'>&times;</a></div>";
-             break;
-         case "Green":
-             echo "<div class='notice notice-success' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-headphones fa-lg'></i> Lead Gen Audit Grade Green!</strong> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGLEAD'>&times;</a></div>";
-             break;
-         default:
-             echo "<div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-headphones fa-lg'></i> Info:</strong> Lead Gen Audit Grade not found!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEGLEAD'>&times;</a></div>";
-             
-     }     
- }
-
-
-}
-//END ASSURA
 
 if(isset($WHICH_COMPANY)){     
-
-
-if($WHICH_COMPANY=='TRB WOL') {
+    if($WHICH_COMPANY=='TRB WOL') {
 
  if(empty($WOL_CLOSER_AUDIT)) {
      echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No WOL Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
@@ -140,7 +96,7 @@ if($WHICH_COMPANY=='TRB WOL') {
     }
 
 //TRB    
-    if($WHICH_COMPANY=='The Review Bureau') {
+    if($WHICH_COMPANY=='Bluestone Protect') {
         if (in_array($hello_name,$Level_8_Access, true)) {
         $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");
         $database->bind(':CID', $search);
@@ -244,32 +200,8 @@ foreach ($result as $value) {
 //END TRB
 
 
-if($WHICH_COMPANY=='Assura') {
-    
- if(empty($closeraudit)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
-
- if(empty($leadaudit)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
-     
- }   
-
-            $database->query("select uploadtype from tbl_uploads where uploadtype='AssuraPol' and file like :search");
-            $database->bind(':search', $likesearch);
-            $database->execute();
-            $database->single();
-                
-     if ($database->rowCount()<=0) {  
-         
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Assura Policy not uploaded!"
-            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
-         
-     }
-     
 }
-
-}
-if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Assura' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
+if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
 
     
      if($client_date_added <= "2017-03-07 16:25:00") {

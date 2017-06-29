@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
@@ -23,7 +23,7 @@ if(isset($fferror)) {
     
     }
 
-    if($companynamere=='The Review Bureau') {
+    if($companynamere=='Bluestone Protect') {
 $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
 
 if (!in_array($hello_name,$Level_2_Access, true)) {

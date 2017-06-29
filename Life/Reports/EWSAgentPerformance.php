@@ -97,7 +97,7 @@ $newdateto="$dateto 23:00:00";
 <input type='text' id='agent' name='agent' style="width: 140px" value="<?php if(isset($agent)) { echo "$agent";}?>">      
 </div>
 <script>var options = {
-	url: "../../JSON/<?php if($companynamere=='The Review Bureau') { echo "AllNames" ; } else { echo "CUS_AllNames"; } ?>.json",
+	url: "../../JSON/<?php if($companynamere=='Bluestone Protect') { echo "AllNames" ; } else { echo "CUS_AllNames"; } ?>.json",
                 getValue: "full_name",
 
 	list: {

@@ -24,7 +24,7 @@ if($fffinancials=='0') {
     header('Location: /../../CRMmain.php?FEATURE=FINANCIALS');
 }
 
-if ($companynamere == 'The Review Bureau') {
+if ($companynamere == 'Bluestone Protect') {
 
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
     if (!in_array($hello_name, $Level_2_Access, true)) {

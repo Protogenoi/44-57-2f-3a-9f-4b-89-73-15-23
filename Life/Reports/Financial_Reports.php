@@ -17,7 +17,7 @@ $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
 $companynamere=$companydetailsq['company_name'];
 
 
-if($companynamere=='The Review Bureau') {
+if($companynamere=='Bluestone Protect') {
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
     if (!in_array($hello_name,$Level_2_Access, true)) {
         header('Location: ../../CRMmain.php'); die;

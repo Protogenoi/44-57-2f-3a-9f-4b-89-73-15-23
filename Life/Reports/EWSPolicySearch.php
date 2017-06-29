@@ -64,7 +64,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
         
         if($EWSView=='1') {
             
-            if($companynamere=='The Review Bureau' || $companynamere=='ADL_CUS') {
+            if($companynamere=='Bluestone Protect' || $companynamere=='ADL_CUS') {
                          if (in_array($hello_name,$Level_8_Access, true)) {
                              
                         $query = $pdo->prepare("SELECT policy_number, policy_type, warning AS EWSSTATUS, last_full_premium_paid, net_premium, premium_os, clawback_due, clawback_date, policy_start_date, off_risk_date, reqs, ournotes, date_added, ews_status_status AS ADLSTATUS, client_name FROM ews_data WHERE policy_number=:policy");
@@ -193,7 +193,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
                                                                                 
                                                                                 }  
                                                                                 
-                                     if($companynamere!='The Review Bureau') {
+                                     if($companynamere!='Bluestone Protect') {
                                                       
                         $query = $pdo->prepare("SELECT policy_number, policy_type, warning AS EWSSTATUS, last_full_premium_paid, net_premium, premium_os, clawback_due, clawback_date, policy_start_date, off_risk_date, reqs, ournotes, date_added, ews_status_status AS ADLSTATUS, client_name FROM ews_data WHERE policy_number=:policy");
                         

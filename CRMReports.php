@@ -65,7 +65,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                                 <a href="Life/Reports_Menu.php">
                                     <span class="ca-icon"><i class="fa fa-warning"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">The Review Bureau<br/>EWS/Financials</h2>
+                                        <h2 class="ca-main">Bluestone Protect<br/>EWS/Financials</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>
@@ -94,42 +94,6 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                             <?php
                         }
 
-                        if ($companynamere == 'Assura') {
-                            ?>
-                            <li>
-                                <a href="Life/Assura/Reports.php">
-                                    <span class="ca-icon"><i class="fa fa-umbrella"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Assura<br/> EWS/Financials</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li> 
-
-                            <li>
-                                <a href="/Legacy/EWSLegfiles.php">
-                                    <span class="ca-icon"><i class="fa fa-history"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Legacy<br/> Re-broker</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/Legacy/LegacyStats.php">
-                                    <span class="ca-icon"><i class="fa fa-bar-chart"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Legacy EWS<br/> Statistics</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-
-
-                            <?php
-                        }
-
                         if (in_array($hello_name, $Level_10_Access, true)) {
                             if ($fffinancials == '1') {
                                 ?>
@@ -154,7 +118,7 @@ if (!in_array($hello_name, $Level_8_Access, true)) {
                                     </a>
                                 </li>
 
-                            <?php } if ($companynamere == 'The Review Bureau') { ?>
+                            <?php } if($companynamere == 'Bluestone Protect') { ?>
 
                                 <li>
                                     <a href="Export.php">

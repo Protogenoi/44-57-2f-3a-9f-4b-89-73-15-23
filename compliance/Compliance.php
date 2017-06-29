@@ -164,7 +164,7 @@ ADL
     <label for="DOC_COMPANY">Company:</label>
     <select class="form-control" name='DOC_COMPANY'>
         <option value='N/A'>For all</option>
-        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Bluestone Protect'>Bluestone Protect</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>
         <option value='Protected Life Ltd'>Protected Life Ltd</option>
         <option value='We Insure'>We Insure</option>
@@ -233,7 +233,7 @@ ADL
     <label for="COMPANY_ENTITY">Company:</label>
     <select class="form-control" name='COMPANY_ENTITY'>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='N/A') { echo "selected"; }  ?> value='N/A'>For all</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='The Review Bureau') { echo "selected"; }  ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Bluestone Protect') { echo "selected"; }  ?> value='Bluestone Protect'>Bluestone Protect</option>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protect Family Plans') { echo "selected"; }  ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protected Life Ltd') { echo "selected"; }  ?> value='Protected Life Ltd'>Protected Life Ltd</option>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='We Insure') { echo "selected"; }  ?> value='We Insure'>We Insure</option>

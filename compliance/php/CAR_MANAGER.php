@@ -26,7 +26,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
 
       switch ($AGENCY) {
-          case "The Review Bureau":
+          case "Bluestone Protect":
               $AGENCY_ENTITY_ID='1';
               break;
           case "Protect Family Plans":

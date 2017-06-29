@@ -40,7 +40,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
         $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
         
       switch ($AGENCY) {
-          case "The Review Bureau":
+          case "Bluestone Protect":
               $AGENCY_ENTITY_ID='1';
               break;
           case "Protect Family Plans":
@@ -110,7 +110,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <label for="AGENCY">Company:</label>
     <select class="form-control" name='AGENCY' onchange="this.form.submit()" required>
         <option value="">Select...</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($AGENCY) && $AGENCY=='Bluestone Protect') { echo "selected"; } ?> value='Bluestone Protect'>Bluestone Protect</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>

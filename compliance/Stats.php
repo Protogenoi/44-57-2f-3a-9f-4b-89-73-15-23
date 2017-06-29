@@ -111,7 +111,7 @@ Sale stats
         
                                     <td><div class="form-group">
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Bluestone Protect'>Bluestone Protect</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>
         <option value='Protected Life Ltd'>Protected Life Ltd</option>
         <option value='We Insure'>We Insure</option>
@@ -243,7 +243,7 @@ WHERE
         
                                 <td> <div class="form-group">
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Bluestone Protect') { echo "selected"; } ?> value='Bluestone Protect'>Bluestone Protect</option>
         <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
         <option <?php if(isset($STAT_COMPANY) && $STAT_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>

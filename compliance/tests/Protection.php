@@ -275,7 +275,7 @@ No
          <div class="col-9"> <div class="form-group">
     <label for="COMPANY_ENTITY">Company:</label>
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option <?php if(isset($TEST_COMPANY) && $TEST_COMPANY=='The Review Bureau') { echo "selected"; } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($TEST_COMPANY) && $TEST_COMPANY=='Bluestone Protect') { echo "selected"; } ?> value='Bluestone Protect'>Bluestone Protect</option>
         <option <?php if(isset($TEST_COMPANY) && $TEST_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($TEST_COMPANY) && $TEST_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
         <option <?php if(isset($TEST_COMPANY) && $TEST_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>

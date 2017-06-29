@@ -115,21 +115,17 @@ if (isset($_GET["auditid"])) {
                                     <select class='form-control' name='closer' id='full_name' required>
                                         <?php echo "<option value='" . $result['closer'] . "'>" . $result['closer'] . "</option>"; ?>
 <?php if ($companynamere == 'Bluestone Protect') { ?>
-
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Nathan">Nathan</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Stavros">Stavros</option>
                                             <option value="Nicola">Nicola</option>  
                                             <option value="Gavin">Gavin</option>
-                                            <option value="Rhys">Rhys</option> 
                                             <option value="David">David</option> 
+                                            <option value="Keith">Keith</option> 
 <?php } if ($companynamere == 'ADL_CUS') { ?>
                                             <option value="Dan Matthews">Dan Matthews</option>
                                             <option value="Joe Rimmell">Joe Rimmell</option>
@@ -150,21 +146,17 @@ if (isset($_GET["auditid"])) {
                                     <select class='form-control' name='closer2' id='closer2' > 
                                         <?php echo "<option value='" . $result['closer2'] . "'>" . $result['closer2'] . "</option>"; ?>
 <?php if ($companynamere == 'Bluestone Protect') { ?>
-
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Nathan">Nathan</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Stavros">Stavros</option>
                                             <option value="Nicola">Nicola</option>  
                                             <option value="Gavin">Gavin</option>
-                                            <option value="Rhys">Rhys</option> 
                                             <option value="David">David</option> 
+                                            <option value="Keith">Keith</option> 
 <?php } if ($companynamere == 'ADL_CUS') { ?>
                                             <option value="Dan Matthews">Dan Matthews</option>
                                             <option value="Joe Rimmell">Joe Rimmell</option>

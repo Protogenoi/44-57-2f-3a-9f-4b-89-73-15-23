@@ -109,7 +109,7 @@
         echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
         echo "<td><a href='EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
 
-        if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+        if ($companynamere == 'Bluestone Protect') {
             if (in_array($hello_name, $Level_10_Access, true)) {
 
 

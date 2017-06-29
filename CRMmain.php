@@ -4,17 +4,6 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-if($hello_name!='Michael') {
-$TIMELOCK = date('H');
-
-if($TIMELOCK>='20' || $TIMELOCK<'08') {
-   
-    header('Location: /index.php');
-    die;
-    
-}
-}
-
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');
@@ -56,6 +45,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
     die;
 }
+
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -73,7 +63,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <link href="img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         html { height: 100% }
         body { height: 100% }
@@ -85,7 +75,9 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <?php require_once(__DIR__ . '/includes/navbar.php'); ?> 
+    <?php require_once(__DIR__ . '/includes/navbar.php');
+           
+    ?> 
     <div class="col-md-4">
 
     </div>

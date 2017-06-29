@@ -50,7 +50,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
         <div class="container">
 
 <?php
-if ($companynamere == 'The Review Bureau' || $companynamere == 'ADL_CUS') {
+if ($companynamere == 'Bluestone Protect' || $companynamere == 'ADL_CUS') {
     if ($ffsms == '1') {
         ?>
 

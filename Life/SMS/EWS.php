@@ -77,7 +77,7 @@ foreach ($result as $number) {
     $NAME=$number['NAME'];
     $CID=$number['client_id'];
 
-$SMS_MESSAGE="$NAME it very important that we speak to you regarding your life insurnace policy. Please contact The Review Bureau on 0845 095 0041.";
+$SMS_MESSAGE="$NAME it very important that we speak to you regarding your life insurnace policy. Please contact Bluestone Protect on 0845 095 0041.";
 
 if(isset($COLOUR)) {
     

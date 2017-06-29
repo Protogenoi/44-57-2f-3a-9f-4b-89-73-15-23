@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>The Review Bureau | BLANK</title>
+<title>Bluestone Protect | BLANK</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles/layout3.css" type="text/css" />
-
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -43,19 +43,19 @@
 <table class="tg">
   <tr>
     <th class="tg-s6z2" colspan="2" rowspan="2"><img src="img/Keyfacts.jpg" style="width:200px;height:100px"></th>
-    <th class="tg-0ord"><img src="img/RBlogo.png" style="float:right;"width:200px;height:100px"></th>
+    <th class="tg-0ord"><img src="img/bluestone_protect_logo.png" style="float:right; width:200px;height:150px"></th>
   </tr>
   <tr>
     <td class="tg-x0v7">about our services and costs</td>
   </tr>
   <tr>
-    <td class="tg-k3mp" colspan="2"><br>The Review Bureau</td>
+    <td class="tg-k3mp" colspan="2"><br>Bluestone Protect</td>
     <td class="tg-fo4m"> The Post House, Adelaide Street<br>Swansea, SA1 1SB</td>
   </tr>
   <tr>
     <td class="tg-a1hm"></td>
     <td class="tg-oopb"></td>
-    <td class="tg-qtja"> 0845 095 0041</td>
+    <td class="tg-qtja"> 0330 010 0707</td>
   </tr>
   <tr>
     <td class="tg-698h" colspan="3"></td>
@@ -146,7 +146,7 @@
     <td class="tg-698h" colspan="3"></td>
   </tr>
   <tr>
-    <td class="tg-e3zv" colspan="3">The Review Bureau is a appointed Representative of Hayden Williams Independent Financial Services Ltd., Hayden Williams,,24A College Street, Ammanford, SA18 3AF<br>01269528082</td>
+    <td class="tg-e3zv" colspan="3">Bluestone Protect is a appointed Representative of Hayden Williams Independent Financial Services Ltd., Hayden Williams,,24A College Street, Ammanford, SA18 3AF<br>01269528082</td>
   </tr>
   <tr>
     <td class="tg-031e" colspan="3">Hayden Williams Independent Financial Services Ltd is authorised and regulated by the Financial Conduct Authority. FCA Register number is 486350.,You can check this on the FCA?s Register by visiting the FCA?s Website www.fca.gov.uk/register or by contacting the FCA on 0845 606 1234.</td>

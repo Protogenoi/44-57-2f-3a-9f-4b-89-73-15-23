@@ -54,7 +54,7 @@ if($companynamere=='Assura') {
 
 }
 
-if($WHICH_COMPANY=='The Review Bureau') {
+if($WHICH_COMPANY=='Bluestone Protect') {
 
 
      if($client_date_added >= "2016-06-17 16:00:00") {

@@ -824,7 +824,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                     
                     <div class="list-group">
                         
-                        <?php if($WHICH_COMPANY=='The Review Bureau') { ?>
+                        <?php if($WHICH_COMPANY=='Bluestone Protect') { ?>
                         
                         <span class="label label-primary"><?php echo $data2['title'];?> <?php echo $data2['last_name'];?> Letters/Emails</span>
                         <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&CID=<?php echo $CID;?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i>&nbsp; Trust Letter</a>

@@ -139,7 +139,7 @@ if (isset($CID)) {
                                     <div class="col-md-2">
                                         <select class="form-control" name="company" id="company" style="width: 170px" required="yes">
                                             <option value="<?php echo $data2['company'] ?>"><?php echo $data2['company'] ?></option>
-                                            <option value="The Review Bureau">TRB Life Insurance</option>
+                                            <option value="Bluestone Protect">TRB Life Insurance</option>
                                             <option value="TRB Vitality">TRB Vitality</option>
                                             <option value="TRB Home Insurance">TRB Home Insurance</option>
                                             <option value="Assura">Assura Life Insurance</option>

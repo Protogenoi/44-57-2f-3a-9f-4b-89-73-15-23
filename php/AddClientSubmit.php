@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../includes/adl_features.php');
@@ -88,7 +88,7 @@ if(isset($fferror)) {
             
         }
         
-        if($custype=='Life' || $custype=='The Review Bureau' || $custype=='Assura' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London') {
+        if($custype=='Life' || $custype=='Bluestone Protect' || $custype=='TRB Vitality' || $custype=='TRB WOL' || $custype=='TRB Royal London') {
             
             ?>
 
@@ -234,7 +234,7 @@ input.currency {
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();
                 
-                if($custype=='Life' || $custype=='The Review Bureau') {               
+                if($custype=='Life' || $custype=='Bluestone Protect') {               
                 
                 $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
@@ -422,7 +422,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
 
 <input type="hidden" name="client_id" value="<?php echo $lastid;?>">
 
-<?php if($custype=='The Review Bureau' || 'Assura' || 'TRB WOL') { ?>
+<?php if($custype=='Bluestone Protect' || 'TRB WOL') { ?>
 <input type="hidden" id="custtype" name="custtype" value="Life" required>
 <?php }
 if($custype=='TRB Vitality') { ?>
@@ -491,9 +491,8 @@ if($custype=='TRB Home Insurance') { ?>
   <label for="insurer">Insurer:</label>
   <select class="form-control" name="insurer" id="insurer" style="width: 140px" required>
   <option value="">Select...</option>
-  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='The Review Bureau') { echo "selected"; } } ?>>Legal & General</option>
+  <option value="Legal and General" <?php if(isset($custype)) { if($custype=='Bluestone Protect') { echo "selected"; } } ?>>Legal & General</option>
   <option value="Vitality" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>Vitality</option>
-  <option value="Assura" <?php if(isset($custype)) { if($custype=='Assura') { echo "selected"; } } ?>>Assura</option>
   <option value="Bright Grey">Bright Grey</option>
   <option value="Royal London" <?php if(isset($custype)) { if($custype=='TRB Royal London') { echo "selected"; } } ?>>Royal London</option>
   <option value="One Family" <?php if(isset($custype)) { if($custype=='TRB WOL') { echo "selected"; } } ?>>One Family</option>
@@ -619,9 +618,7 @@ if($custype=='TRB Home Insurance') { ?>
   <option value="NTU">NTU</option>
   <option value="Declined">Declined</option>
     <option value="Redrawn">Redrawn</option>
-    <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Underwritten'>Underwritten</option>";} } ?>
-    <?php if(isset($companynamere)) { if($companynamere=='Assura') { echo "<option value='Awaiting Policy Cancellation Authority'>Awaiting Policy Cancellation Authority</option>";} } ?>
-  </select>
+ </select>
 </div>
 
 <br>

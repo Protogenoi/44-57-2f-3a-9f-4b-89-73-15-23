@@ -30,7 +30,7 @@
         <td><input class="form-control" type="text" name="USER_LOGIN" value="<?php if(isset($USER_LOGIN)) { echo $USER_LOGIN; } ?>" ></td>
                <td>
     <select class="form-control" name='USER_COMPANY'>
-        <option <?php if(isset($USER_COMPANY)) { if($USER_COMPANY=='The Review Bureau') { echo "selected"; } } ?> value='The Review Bureau'>The Review Bureau</option>
+        <option <?php if(isset($USER_COMPANY)) { if($USER_COMPANY=='Bluestone Protect') { echo "selected"; } } ?> value='Bluestone Protect'>Bluestone Protect</option>
         <option <?php if(isset($USER_COMPANY)) { if($USER_COMPANY=='Protect Family Plans') { echo "selected"; } } ?> value='Protect Family Plans'>Protect Family Plans</option>
         <option <?php if(isset($USER_COMPANY)) { if($USER_COMPANY=='Protected Life Ltd') { echo "selected"; } } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
         <option <?php if(isset($USER_COMPANY)) { if($USER_COMPANY=='We Insure') { echo "selected"; } } ?> value='We Insure'>We Insure</option>

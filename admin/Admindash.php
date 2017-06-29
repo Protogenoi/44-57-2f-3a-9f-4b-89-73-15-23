@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/classes/access_user/access_user_class.php");
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include ($_SERVER['DOCUMENT_ROOT'] . "/includes/ADL_PDO_CON.php");
@@ -1709,7 +1709,7 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                    <label class="col-md-4 control-label" for="password">Company:</label>
                                    <div class="col-md-4">
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='The Review Bureau'>The Review Bureau</option>
+        <option value='Bluestone Protect'>Bluestone Protect</option>
         <option value='Protect Family Plans'>Protect Family Plans</option>
         <option value='Protected Life Ltd'>Protected Life Ltd</option>
         <option value='We Insure'>We Insure</option>

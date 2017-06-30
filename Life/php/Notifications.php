@@ -1,5 +1,27 @@
 <?php
 
+if(isset($ffsms) && $ffsms=='1') {
+    
+                $database->query("SELECT 
+    sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_date, sms_inbound_type
+FROM
+    sms_inbound
+WHERE
+        sms_inbound_type = 'SMS Failed' AND sms_inbound_phone=:PHONE");
+            $database->bind(':PHONE', $Single_Client['phone_number']);
+            $database->execute();
+            $database->single();
+            
+                 if ($database->rowCount()>0) {  ?>
+         
+    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-exclamation"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
+          <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
+         
+   <?php  }
+    
+    
+}
+
     if($WHICH_COMPANY=='ADL_CUS') {
         if (in_array($hello_name,$Level_8_Access, true)) {
         $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");

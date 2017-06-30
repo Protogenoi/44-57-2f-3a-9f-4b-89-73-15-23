@@ -4,6 +4,8 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
+$USER_TRACKING=1;
+
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
@@ -95,6 +97,21 @@ if (isset($hello_name)) {
         }
     }
 }
+
+    $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
+    $policyID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
+    $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+
+    $query = $pdo->prepare("SELECT id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
+    $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
+    $query->bindParam(':CID', $search, PDO::PARAM_INT);
+    $query->execute();
+    $data2 = $query->fetch(PDO::FETCH_ASSOC);
+
+    $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
+    $query2->bindParam(':CID', $search, PDO::PARAM_INT);
+    $query2->execute();
+    $data3 = $query2->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,27 +131,12 @@ if (isset($hello_name)) {
 </head>
 <body>
 
-
-    <?php
-    require_once(__DIR__ . '/../includes/navbar.php');
-
+    <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
     
-    $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
-    $policyID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
-    $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-
-    $query = $pdo->prepare("SELECT id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
-    $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
-    $query->bindParam(':CID', $search, PDO::PARAM_INT);
-    $query->execute();
-    $data2 = $query->fetch(PDO::FETCH_ASSOC);
-
-    $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
-    $query2->bindParam(':CID', $search, PDO::PARAM_INT);
-    $query2->execute();
-    $data3 = $query2->fetch(PDO::FETCH_ASSOC);
-    ?>
     <div class="container">
+        
+         <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+        
         <div class="policyview">
             <div class="notice notice-info fade in">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>

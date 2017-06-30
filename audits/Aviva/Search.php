@@ -59,13 +59,12 @@ require_once(__DIR__ . '/../../includes/navbar.php');
 ?>
     
     <div class="container">
-        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search Whole of Life Audits</center></strong></div>
+        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search Aviva Audits</center></strong></div>
         
         <br>
         <center>
             <div class="btn-group">
                 <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Aviva Audits</a>
-                <a href="../Search.php" class="btn btn-info"><i class="fa fa-search"></i> Search Aviva Audits</a>
             </div>
         </center>
 <br>        

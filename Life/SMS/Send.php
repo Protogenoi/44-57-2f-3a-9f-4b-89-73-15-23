@@ -1,7 +1,7 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
@@ -18,6 +18,7 @@ if(isset($fferror)) {
     }
     
 $selectopt= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
+$WHICH_COMPANY= filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $search= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_NUMBER_INT);
 
@@ -27,6 +28,7 @@ $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS)
 
 $SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
+
 if(!isset($MESSAGE_OPTION)) {
     $MESSAGE_OPTION=$SMS_MESSAGE;
 }
@@ -44,17 +46,19 @@ include('../../includes/ADL_PDO_CON.php');
     $TOKEN=$SMS_RESULT['twilio_account_token'];
     
     if($selectopt=='General_Contact' || $selectopt=='For_any_queries_call_us') {
-        $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer='NA'");
+    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer='NA' AND company=:COMPANY");
     $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
+    $MES_QRY->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR, 100);
     $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
     $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);        
     }
     
     else {
 
-    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer=:SMS_INSURER");
+    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer=:SMS_INSURER AND company=:COMPANY");
     $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
     $MES_QRY->bindParam(':SMS_INSURER', $SMS_INSURER, PDO::PARAM_STR, 100);
+    $MES_QRY->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR, 100);
     $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
     $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);    
 

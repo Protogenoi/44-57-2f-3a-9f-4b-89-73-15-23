@@ -1,15 +1,25 @@
 <?php
+require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+
 if($hello_name!='Michael') {
 $TIMELOCK = date('H');
 
 if($TIMELOCK>='20' || $TIMELOCK<'08') {
+    
+                $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
+                    SET
+                    user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url='Access_Level_Logout', user_tracking_user=:USER
+                    ON DUPLICATE KEY UPDATE
+                    user_tracking_url='Access_Level_Logout'");
+                $USER_TRACKING_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->bindParam(':USER', $hello_name, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->execute();      
    
     header('Location: ../../CRMmain.php?action=log_out');
     die;
     
 }
 }
-require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));

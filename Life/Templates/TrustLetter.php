@@ -29,8 +29,8 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             if(isset($companynamere)) {
                                 if($companynamere=='Bluestone Protect') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
-    $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
+    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
     
@@ -159,7 +159,7 @@ function WriteHTML($html)
 {
     $this->SetY(-15);
     $this->SetFont('Arial','I',8);
-    $this->Cell(0,10,'Bluestone Protect LTD. Registered in England and Wales with registered number 08519932..',0,0,'C');
+    $this->Cell(0,10,'The Review Bureau LTD. Registered in England and Wales with registered number 08519932..',0,0,'C');
     $this->Ln( 5 );
     $this->Cell(0,10,'Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB.',0,0,'C');
     
@@ -173,7 +173,7 @@ $html = '
 <br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
 <br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
 <br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the envelope provided will require a stamp.</p>
-<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 03300 100 707.</p>
+<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0845 095 0041.</p>
 
 <br /><br>
 <br /><br>';
@@ -185,15 +185,15 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
-if(file_exists("../../img/bluestone_protect_logo.png")){ 
-$pdf->Image('../../img/bluestone_protect_logo.png',80,6,40);
+if(file_exists("../../img/rblogonew.png")){ 
+$pdf->Image('../../img/rblogonew.png',140,6,40);
 }
 else{
  $pdf->Cell("COMPANY LOGO",140,6,40);   
 }
 $pdf->Ln( 5 );
 
-$pdf->Cell(0,12,"Bluestone Protect", 0, 0,'R');
+$pdf->Cell(0,12,"The Review Bureau", 0, 0,'R');
 $pdf->Ln( 5 );
 $pdf->Cell(0,12,"4th Floor The Post House", 0, 0,'R');
 $pdf->Ln( 5 );
@@ -330,8 +330,8 @@ $pdf->Output();
         
         if($companynamere=='ADL_CUS') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
-    $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
+    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
     

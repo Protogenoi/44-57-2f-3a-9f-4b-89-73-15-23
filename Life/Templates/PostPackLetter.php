@@ -161,7 +161,7 @@ function WriteHTML($html)
 {
     $this->SetY(-15);
     $this->SetFont('Arial','I',8);
-    $this->Cell(0,10,'Bluestone Protect LTD. Registered in England and Wales with registered number 08519932..',0,0,'C');
+    $this->Cell(0,10,'The Review Bureau LTD. Registered in England and Wales with registered number 08519932..',0,0,'C');
     $this->Ln( 5 );
     $this->Cell(0,10,'Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB.',0,0,'C');
     
@@ -175,7 +175,7 @@ $html = '
 <br /><br><p>As per our conversation please find enclosed the documents relating to your Legal & General life insurance, for your records I have enclosed the Personal Quotation, Policy Terms and Conditions and Policy Summary.</p>
 <br /><br><p>As discussed, you will now be able to create an online account with Legal & General so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online Legal & General will send you a "Checking Your Details" form by post.</p>
 <br /><br><p>Please ensure that you do complete your "Check your details" form as quickly as possible either online or by post as this will help to avoid any delays in the future if you should need to claim on the policy.</p>
-<br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Friday 10:00 - 18:30 on 0330 010 0707.</p>
+<br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Friday 10:00 - 18:30 on 0845 095 0041.</p>
 
 <br /><br>
 <br /><br>';
@@ -187,15 +187,15 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
-if(file_exists("../../img/bluestone_protect_logo.png")){ 
-$pdf->Image('../../img/bluestone_protect_logo.png',80,6,40);
+if(file_exists("../../img//rblogonew.png")){ 
+$pdf->Image('../../img/rblogonew.png',140,6,40);
 }
 else{
  $pdf->Cell("COMPANY LOGO",140,6,40);   
 }
 $pdf->Ln( 5 );
 
-$pdf->Cell(0,12,"Bluestone Protect", 0, 0,'R');
+$pdf->Cell(0,12,"The Review Bureau", 0, 0,'R');
 $pdf->Ln( 5 );
 $pdf->Cell(0,12,"4th Floor The Post House", 0, 0,'R');
 $pdf->Ln( 5 );

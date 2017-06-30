@@ -157,7 +157,7 @@ function WriteHTML($html)
 {
     $this->SetY(-15);
     $this->SetFont('Arial','I',8);
-    $this->Cell(0,10,'Bluestone Protect LTD. Registered in England and Wales with registered number 08519932.',0,0,'C');
+    $this->Cell(0,10,'The Review Bureau LTD. Registered in England and Wales with registered number 08519932.',0,0,'C');
     $this->Ln( 5 );
     $this->Cell(0,10,'Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB.',0,0,'C');
     
@@ -172,7 +172,7 @@ $html = '
 <br /><br><p>The first document is a Declaration of Reinstatement form; this must be completed to let Legal & General know if you have developed any health conditions or lifestyle changes that may affect the terms of your cover.</p>
 <br /><br><p>I have also enclosed a direct debit mandate for you to complete so your direct debit can be reinstated. Once received Legal and General will reinstate the direct debit and usually attempt a payment for any arrears in about 10-14 working days.</p>
 <br /><br><p>Please fill in these forms using block capitals and in blue or black ink and once fully completed please sign and return using the envelope enclosed.</p>
-<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0330 010 0707.</p>
+<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0845 095 0041.</p>
 
 <br /><br>
 <br /><br>';
@@ -184,15 +184,15 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
-if(file_exists("../../img/bluestone_protect_logo.png")){ 
-$pdf->Image('../../img/bluestone_protect_logo.png',80,6,40);
+if(file_exists("../../img/rblogonew.png")){ 
+$pdf->Image('../../img/rblogonew.png',140,6,40);
 }
 else{
  $pdf->Cell("COMPANY LOGO",140,6,40);   
 }
 $pdf->Ln( 5 );
 
-$pdf->Cell(0,12,"Bluestone Protect", 0, 0,'R');
+$pdf->Cell(0,12,"The Review Bureau", 0, 0,'R');
 $pdf->Ln( 5 );
 $pdf->Cell(0,12,"4th Floor The Post House", 0, 0,'R');
 $pdf->Ln( 5 );

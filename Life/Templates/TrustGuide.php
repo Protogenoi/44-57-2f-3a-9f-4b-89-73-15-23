@@ -32,8 +32,8 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             if(isset($companynamere)) {
                                 if($companynamere=='Bluestone Protect') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
-    $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
+    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
     
@@ -132,8 +132,8 @@ font-size: 95%;
 
 
      <div align="right">
-     <img src="../../img/bluestone_protect_logo.png" alt="COMPANY LOGO" width="150"><br/>
-            Bluestone Protect<br/>
+     <img src="../../img/rblogonew.png" alt="COMPANY LOGO" width="150"><br/>
+            The Review Bureau<br/>
             4th Floor The Post House<br/>
             Adelaide Street<br/>  
                 Swansea<br/> 
@@ -238,7 +238,7 @@ which need be filled in, are in bold text.</b></font></p>
 </ul></p>
 </div>
 <p><br></p>
-<div id="footer"><center><i><font size="1">Bluestone Protect LTD. Registered in England and Wales with registered number 08519932.<br> Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB </font></i></center></div>
+<div id="footer"><center><i><font size="1">The Review Bureau LTD. Registered in England and Wales with registered number 08519932.<br> Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB </font></i></center></div>
 
 <style type="text/css">
 		@page { margin: 2cm }
@@ -251,8 +251,8 @@ which need be filled in, are in bold text.</b></font></p>
 
                                 if($companynamere=='ADL_CUS') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :searchplaceholder");
-    $main->bindParam(':searchplaceholder', $search, PDO::PARAM_STR, 12);
+    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
     

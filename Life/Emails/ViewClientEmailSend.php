@@ -20,13 +20,11 @@ if(isset($fferror)) {
     include('../../includes/ADL_PDO_CON.php'); 
 
     $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
-    $legacy= filter_input(INPUT_GET, 'legacy', FILTER_SANITIZE_SPECIAL_CHARS);
     
 $message= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_POST, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);               
 $subject= filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);                     
-
     
     $cnquery = $pdo->prepare("select company_name from company_details limit 1");
     $cnquery->execute()or die(print_r($query->errorInfo(), true));
@@ -156,14 +154,15 @@ $mail->Body    = $body;
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
-  
-}
 
 if(isset($fferror)) {
     if($fferror=='0') {
 header('Location: ../../Life/ViewClient.php?EMAIL=GENERIC&emailsent&emailto='.$email.'&search='.$SEARCH); die;
     }
 }
+
+}
+
     } 
 
 }

@@ -28,6 +28,9 @@ if (isset($fferror)) {
 } 
 
 $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLifePolicy', FILTER_SANITIZE_SPECIAL_CHARS);
+if(empty($DeleteLifePolicy)) {
+   $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLGPolicy', FILTER_SANITIZE_SPECIAL_CHARS); 
+}
 $home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>

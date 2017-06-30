@@ -26,7 +26,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
         $emailreplydb=$queryr['emailreply'];
         
  if($companynamere=='Bluestone Protect') {       
-        $emailsubjectdb="Bluestone Protect - My Account Details";
+        $emailsubjectdb="The Review Bureau - My Account Details";
  }
   elseif($companynamere=='ADL_CUS') {       
         $emailsubjectdb="The Financial Assessment Centre - My Account Details";
@@ -249,7 +249,7 @@ p, ul, ol {
                 <tr>
                     <td align='center' class='masthead'>
 <img src='cid:logo' >
-                        <h1>Bluestone Protect</h1>
+                        <h1>The Review Bureau</h1>
 
                     </td>
                 </tr>
@@ -323,11 +323,11 @@ p, ul, ol {
 <p>Now that you have registered it is important you let us know if the answers given are correct.</p>
                         <p>This will open a document containing the information you gave us when you applied, once you have viewed the document you will have an option to either click “My answers are correct” or click “Change my answers” and complete the form provided to let us know the changes required.</p>
                         <p>If any changes made affect the policy you will be notified by www.legalandgeneral.com.</p>
-                        <p>Thank you for choosing to set your policy up through Bluestone Protect.</p>
+                        <p>Thank you for choosing to set your policy up through the Review Bureau.</p>
                         <p>If you have any issues or queries please don’t hesitate to contact us.</p>
                         <p><em>– $hello_name_full</em></p>
 <img src='cid:logo' >
-                        <center><strong>Bluestone Protect</strong><center>
+                        <center><strong>The Review Bureau</strong><center>
                     </td>
                 </tr>
             </table>
@@ -340,7 +340,7 @@ p, ul, ol {
             <table>
                 <tr>
                     <td class='content footer' align='center'>
-                        <p>Sent by <a href='#'>Bluestone Protect</a>. Bluestone Protect Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  Bluestone Protect Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+                        <p>Sent by <a href='#'>The Review Bureau</a>. The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
 </p>
                         <p><a href='mailto:'>info@thereviewbureau.com</a> </p>
                     </td>
@@ -375,7 +375,7 @@ $mail->Username   = "$emaildb";
 $mail->Password   = "$passworddb";  
 
 
-$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
+$mail->AddEmbeddedImage('../../img/MyAccountDetailsLogo.jpg', 'logo');
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");

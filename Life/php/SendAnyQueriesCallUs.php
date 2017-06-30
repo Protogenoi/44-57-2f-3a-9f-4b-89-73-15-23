@@ -24,7 +24,7 @@ $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $emailreplydb=$queryr['emailreply'];
         
  if($companynamere=='Bluestone Protect') {       
-        $emailsubjectdb="Bluestone Protect - Any queries?";
+        $emailsubjectdb="The Review Bureau - Any queries?";
  }
   elseif($companynamere=='ADL_CUS') {       
         $emailsubjectdb="The Financial Assessment Centre - Any queries?";
@@ -248,7 +248,7 @@ p, ul, ol {
                 <tr>
                     <td align='center' class='masthead'>
 <img src='cid:logo' >
-                        <h1>Bluestone Protect</h1>
+                        <h1>The Review Bureau</h1>
 
                     </td>
                 </tr>
@@ -260,7 +260,7 @@ p, ul, ol {
                         <p>Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on 03300 100 707 or via email info@thereviewbureau.com.</p>
                         <p><em>– $hello_name_full</em></p>
 
-                        <center><strong>Bluestone Protect</strong><center>
+                        <center><strong>The Review Bureau</strong><center>
                     </td>
                 </tr>
             </table>
@@ -273,7 +273,7 @@ p, ul, ol {
             <table>
                 <tr>
                     <td class='content footer' align='center'>
-                        <p>Sent by <a href='#'>Bluestone Protect</a>. Bluestone Protect Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  Bluestone Protect Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+                        <p>Sent by <a href='#'>The Review Bureau</a>. The Review Bureau Ltd. Registered in England and Wales with registered number 08519932.  Registered Office: The Post House, Adelaide Street, Swansea, SA1 1SB.  The Review Bureau Ltd may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
 </p>
                         <p><a href='mailto:'>info@thereviewbureau.com</a> </p>
                     </td>
@@ -308,7 +308,7 @@ $mail->Username   = "$emaildb";
 $mail->Password   = "$passworddb";  
 
 
-$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
+$mail->AddEmbeddedImage('../../img/MyAccountDetailsLogo.jpg', 'logo');
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");

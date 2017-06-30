@@ -80,10 +80,12 @@ if(isset($newsmsmessagevar)) {
 $smsmessagevar= filter_input(INPUT_POST, 'smsmessage', FILTER_SANITIZE_SPECIAL_CHARS);
 $smstitle= filter_input(INPUT_POST, 'smstitle', FILTER_SANITIZE_SPECIAL_CHARS);
 $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
+$COMPANY= filter_input(INPUT_POST, 'COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $query = $pdo->prepare("INSERT INTO sms_templates set title=:title, insurer=:insurer, message=:message");
+    $query = $pdo->prepare("INSERT INTO sms_templates set title=:title, insurer=:insurer, message=:message, company=:COMPANY");
     $query->bindParam(':insurer', $insurer, PDO::PARAM_STR, 500);
         $query->bindParam(':title', $smstitle, PDO::PARAM_STR, 500);
+        $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR, 500);
         $query->bindParam(':message', $smsmessagevar, PDO::PARAM_STR, 500);
         
         $query->execute()or die(print_r($query->errorInfo(), true));

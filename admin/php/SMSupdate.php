@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
@@ -28,13 +28,15 @@ include('../../includes/ADL_PDO_CON.php');
 $message= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 $title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
 $insurer= filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
+$COMPANY= filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-$query = $pdo->prepare("UPDATE sms_templates SET title=:titleholder, message=:messageholder, insurer=:insurer WHERE id =:idholder ");
+$query = $pdo->prepare("UPDATE sms_templates SET title=:titleholder, message=:messageholder, insurer=:insurer, company=:COMPANY WHERE id =:idholder ");
 
 $query->bindParam(':idholder',$id, PDO::PARAM_INT);
 $query->bindParam(':messageholder',$message, PDO::PARAM_STR, 2500);
 $query->bindParam(':titleholder',$title, PDO::PARAM_STR, 2500);
+$query->bindParam(':COMPANY',$COMPANY, PDO::PARAM_STR, 2500);
 $query->bindParam(':insurer',$insurer, PDO::PARAM_STR, 100);
 $query->execute()or die(print_r($query->errorInfo(), true));
                         if(isset($fferror)) {

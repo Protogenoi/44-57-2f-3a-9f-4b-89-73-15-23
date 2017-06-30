@@ -506,7 +506,7 @@ $companynamere = $companydetailsq['company_name'];
                                 <div id="SMSTemplates" class="tab-pane fade">
 
                                     <?php
-                                    $query = $pdo->prepare("SELECT id, title, message, insurer from sms_templates");
+                                    $query = $pdo->prepare("SELECT id, title, message, insurer, company from sms_templates");
 
                                     echo "<table class=\"table table-hover\">";
 
@@ -519,6 +519,7 @@ $companynamere = $companydetailsq['company_name'];
 	<th>Title</th>
 	<th>Message</th>
         <th>Insurer</th>
+        <th>Company</th>
 	<th></th>
 	</tr>
 	</thead>";
@@ -533,6 +534,7 @@ $companynamere = $companydetailsq['company_name'];
                                             echo "<td>" . $result['title'] . "</td>";
                                             echo "<td>" . $result['message'] . "</td>";
                                             echo "<td>" . $result['insurer'] . "</td>";
+                                            echo "<td>" . $result['company'] . "</td>";
                                             echo "<td>
 <button data-toggle='modal' data-target='#editsms$i' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </button>
 
@@ -578,7 +580,12 @@ $companynamere = $companydetailsq['company_name'];
   </div>
 </div>
 
-
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='Company'></label>
+  <div class='col-sm-10'>                     
+    <textarea class='form-control' style='min-width: 100%' id='company' name='company'>" . $result['company'] . "</textarea>
+  </div>
+</div>
 
 <div class='form-group'>
   <label class='col-sm-2 control-label' for='singlebutton'></label>
@@ -639,6 +646,14 @@ $companynamere = $companydetailsq['company_name'];
 
                                                 </div>
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="COMPANY">Company</label>  
+                                                <div class="col-md-4">
+                                                    <input id="insurer" name="COMPANY" placeholder="" class="form-control input-md" type="text">
+
+                                                </div>
+                                            </div>                                            
 
                                             <div class="form-group">
                                                 <label class="col-md-4 control-label" for="message">Message</label>

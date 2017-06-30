@@ -66,8 +66,6 @@ function WriteHTML($html)
                 //Text
                 if($this->HREF) {
                 $this->PutLink($this->HREF,$e); }
-                elseif ($this->ALIGN=='right') {
-                $this->Cell(0,5,$e,0,1,'R'); }
                 else {
                 $this->Write(5,$e); }
                 
@@ -105,8 +103,6 @@ function WriteHTML($html)
             $this->HREF=$prop['HREF'];
         if($tag=='BR')
             $this->Ln(5);
-        if($tag=='P')
-            $this->ALIGN=$prop['ALIGN'];
         if($tag=='HR')
         {
             if( !empty($prop['WIDTH']) )
@@ -130,8 +126,6 @@ function WriteHTML($html)
             $this->SetStyle($tag,false);
         if($tag=='A')
             $this->HREF='';
-        if($tag=='P')
-            $this->ALIGN='';
     }
 
     function SetStyle($tag,$enable)
@@ -367,8 +361,6 @@ function WriteHTML($html)
                 //Text
                 if($this->HREF)
                     $this->PutLink($this->HREF,$e);
-                elseif($this->ALIGN=='right')
-                    $this->Cell(0,5,$e,0,1,'R');
                 else
                     $this->Write(5,$e);
                 
@@ -406,8 +398,6 @@ function WriteHTML($html)
             $this->HREF=$prop['HREF'];
         if($tag=='BR')
             $this->Ln(5);
-        if($tag=='P')
-            $this->ALIGN=$prop['ALIGN'];
         if($tag=='HR')
         {
             if( !empty($prop['WIDTH']) )
@@ -431,8 +421,6 @@ function WriteHTML($html)
             $this->SetStyle($tag,false);
         if($tag=='A')
             $this->HREF='';
-        if($tag=='P')
-            $this->ALIGN='';
     }
 
     function SetStyle($tag,$enable)

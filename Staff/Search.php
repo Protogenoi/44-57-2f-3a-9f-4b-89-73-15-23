@@ -183,6 +183,7 @@ if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_M
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
                                                     <option value="Bluestone Protect">Bluestone Protect</option>
+                                                    <option value="The Review Bureau">The Review Bureau</option>
                                                     <option value="We Insure">We Insure</option>
                                                     <option value="Protect Family Plans">Protect Family Plans</option>
                                                     <option value="Protected Life Ltd">Protected Life Ltd</option>

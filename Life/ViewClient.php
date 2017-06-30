@@ -750,7 +750,7 @@ if (isset($Single_Client['callauditid'])) {
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
                                     } if ($CHK_NUM == '1') {
-                                        echo "SMS/Send.php";
+                                        echo "SMS/Send.php?WHICH_COMPANY=$WHICH_COMPANY";
                                     } ?>">
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
@@ -778,8 +778,10 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 try {
 
-                                                    $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer OR insurer='NA'");
+                                                    $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
                                                     $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_INT);
+                                                    $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
+                                                    $SMSquery->bindParam(':COMPANY2', $WHICH_COMPANY, PDO::PARAM_STR);
                                                     $SMSquery->execute();
                                                     if ($SMSquery->rowCount() > 0) {
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {

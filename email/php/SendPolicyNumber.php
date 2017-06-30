@@ -101,7 +101,7 @@ if(isset($hello_name)) {
      
      }
 
-$subject = "Bluestone Protect - Policy Number" ;
+$subject = "The Review Bureau - Policy Number" ;
 $sig = "<br>-- \n
 <br>
 <br>

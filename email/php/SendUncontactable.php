@@ -105,7 +105,7 @@ if(isset($hello_name)) {
      if(isset($EXECUTE)) {
          if($EXECUTE=='1') {
 
-$subject = "Bluestone Protect - Direct Debit" ;
+$subject = "The Review Bureau - Direct Debit" ;
 $sig = "<br>-- \n
 <br>
 <br>
@@ -119,16 +119,16 @@ There is an issue with your $INSURER direct debit <strong>$policy</strong>. </p>
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
           </p>
-          <p>Please contact us on 0330 010 0707 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
           Many thanks,<br>
-$hello_name_full<br>Bluestone Protect
+$hello_name_full<br>The Review Bureau
           </p>";
 
          }
          
          if($EXECUTE=='2') {
 
-$subject = "Bluestone Protect Life Insurance Application" ;
+$subject = "The Review Bureau Life Insurance Application" ;
 $sig = "<br>-- \n
 <br>
 <br>
@@ -142,9 +142,9 @@ There is an issue with your $INSURER life insurance application. </p>
           <p>
 We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
           </p>
-          <p>Please contact us on 0330 010 0707 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          <p>Please contact us on 0845 095 0041 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
           Many thanks,<br>
-$hello_name_full<br>Bluestone Protect
+$hello_name_full<br>The Review Bureau
           </p>";
 
          }         

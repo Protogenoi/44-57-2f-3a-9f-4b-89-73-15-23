@@ -84,8 +84,8 @@ $mail->Port       = $SMTP_PORT;
 $mail->Username   = "$SMTP_USER"; 
 $mail->Password   = "$SMTP_PASS";
 
-$mail->AddEmbeddedImage('../../img/Key Facts - Bluestone Protect.png', 'KeyFacts');
-$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
+$mail->AddEmbeddedImage('../../img/Key Facts - The Review Bureau.png', 'KeyFacts');
+$mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
 
 if (isset($_FILES["fileToUpload"]) &&
     $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {

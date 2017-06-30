@@ -9,7 +9,6 @@
         }
 
         public function getSTATSPad($datefrom, $CLOSER) {
-if (isset($datefrom)) {
             $stmt = $this->pdo->prepare("SELECT 
     count(mtg) AS mtg
 FROM
@@ -23,20 +22,7 @@ WHERE
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-if (!isset($datefrom)) {
-
-        $stmt = $this->pdo->prepare("SELECT 
-    COUNT(mtg) AS mtg
-FROM
-    closer_trackers
-WHERE
-    mtg = 'Yes'
-        AND DATE(date_added) = CURDATE()");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
 }
-    }
 
 ?>

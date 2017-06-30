@@ -155,7 +155,7 @@ if (isset($EXECUTE)) {
 
                             <div class="alert alert-info"><strong>Policy Number:</strong> 
                                 For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
-                                        if ($data2['company'] == 'Bluestone Protect' || $data2['company'] == 'ADL_CUS') {
+                                        if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau' ||  $data2['company'] == 'ADL_CUS') {
                                             echo "maxlength='10'";
                                         }
                                         ?> value="TBC">
@@ -217,7 +217,7 @@ if (isset($EXECUTE)) {
                                             <option value="">Select...</option>
                                             <option value="Legal and General" <?php
                                             if (isset($data2['company'])) {
-                                                if ($data2['company'] == 'Bluestone Protect' || $data2['company'] == 'TRB Archive' || $data2['company'] == 'ADL_CUS') {
+                                                if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau' ||   $data2['company'] == 'TRB Archive' || $data2['company'] == 'ADL_CUS') {
                                                     echo "selected";
                                                 }
                                             }

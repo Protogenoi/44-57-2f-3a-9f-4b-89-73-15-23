@@ -41,17 +41,11 @@ if (isset($hello_name)) {
             case "leighton":
                 $hello_name_full = "Leighton Morris";
                 break;
-            case "Roxy":
-                $hello_name_full = "Roxanne Studholme";
-                break;
             case "Nicola":
                 $hello_name_full = "Nicola Griffiths";
                 break;
             case "Rhibayliss":
                 $hello_name_full = "Rhiannon Bayliss";
-                break;
-            case "Amelia":
-                $hello_name_full = "Amelia Pike";
                 break;
             case "Abbiek":
                 $hello_name_full = "Abbie Kenyon";
@@ -70,9 +64,6 @@ if (isset($hello_name)) {
                 break;
             case "Amy":
                 $hello_name_full = "Amy Clayfield";
-                break;
-            case "Georgia":
-                $hello_name_full = "Georgia Davies";
                 break;
             case "Mike":
                 $hello_name_full = "Michael Lloyd";
@@ -107,10 +98,9 @@ if (isset($hello_name)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>View Policy</title>
+    <title>ADL | View Policy</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
-    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
@@ -128,6 +118,8 @@ if (isset($hello_name)) {
     <?php
     require_once(__DIR__ . '/../includes/navbar.php');
 
+    
+    $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
     $policyID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
     $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 
@@ -623,7 +615,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="/email/php/SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
+                    <form method="POST" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "/email/php"; } ?>/SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
 
 
                         <select class="form-control" name="email">  
@@ -663,7 +655,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/email/php/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "/email/php"; } ?>/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>
@@ -699,7 +691,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Awaiting uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="/email/php/SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "/email/php"; } ?>/SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>

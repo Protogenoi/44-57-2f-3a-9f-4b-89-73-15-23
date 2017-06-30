@@ -91,6 +91,7 @@ $Today_TIME = date("h:i:s");
                                 <div class="col-md-4">
                              <select class="form-control" name="CLOSER" id="CLOSER">
                                 <option value="All">All</option>
+                                <option value="Corey">Corey</option>
                                 <option value="Mike">Mike</option>
                                 <option value="David">David</option>
                                 <option value="Sarah">Sarah</option>
@@ -150,10 +151,9 @@ if($CLOSER=='All') {
         
        require_once(__DIR__ . '/../models/trackers/CLOSER/AllStatsPAD.php');
         $AllStatsPad = new AllSTATSPadModal($pdo);
-        $AllStatsPadList = $AllStatsPad->AllgetSTATSPad();
+        $AllStatsPadList = $AllStatsPad->AllgetSTATSPad($datefrom);
         require_once(__DIR__ . '/../views/trackers/CLOSER/AllStats-PAD.php');
        
-
         require_once(__DIR__ . '/../models/trackers/CLOSER/AllCloserPAD.php');
         $CloserPad = new AllCLOSERPadModal($pdo);
         $CloserPadList = $CloserPad->AllgetCLOSERPad($datefrom);
@@ -169,14 +169,14 @@ if (!isset($datefrom)) {
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
         
-        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsPAD.php');
-        $StatsPad = new STATSPadModal($pdo);
-        $StatsPadList = $StatsPad->getSTATSPad();
+        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsALLPAD.php');
+        $StatsPad = new STATSALLPadModal($pdo);
+        $StatsPadList = $StatsPad->getSTATSALLPad();
         require_once(__DIR__ . '/../views/trackers/CLOSER/Stats-PAD.php');
 
-        require_once(__DIR__ . '/../models/trackers/CLOSER/CloserPAD.php');
-        $CloserPad = new CLOSERPadModal($pdo);
-        $CloserPadList = $CloserPad->getCLOSERPad();
+        require_once(__DIR__ . '/../models/trackers/CLOSER/CloserALLPAD.php');
+        $CloserPad = new CLOSERAllPadModal($pdo);
+        $CloserPadList = $CloserPad->getCLOSERALLPad();
         require_once(__DIR__ . '/../views/trackers/CLOSER/Closer-PAD.php');
     }
 }

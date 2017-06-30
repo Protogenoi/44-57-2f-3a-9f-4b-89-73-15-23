@@ -23,14 +23,14 @@ if (isset($fferror)) {
     }
 }
 
-$policyID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
-$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$PID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
+$CID = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 
-if (isset($search)) {
-    $likesearch = "$search-%";
+if (isset($CID)) {
+    $likesearch = "$CID-%";
 }
 
-if (empty($search)) {
+if (empty($CID)) {
 
     header('Location: ../CRMmain.php?PARAMS');
     die;
@@ -41,14 +41,14 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
 if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
     require_once(__DIR__ . '/models/AllClientModel.php');
     $ClientModel = new AllClientModel($pdo);
-    $ClientList = $ClientModel->getAllSingleClient($search);
+    $ClientList = $ClientModel->getAllSingleClient($CID);
     require_once(__DIR__ . '/views/Single-Client.php');
     
 } else {
     
     require_once(__DIR__ . '/models/ClientModel.php');
     $ClientModel = new ClientModel($pdo);
-    $ClientList = $ClientModel->getSingleClient($search,$COMPANY_ENTITY);
+    $ClientList = $ClientModel->getSingleClient($CID,$COMPANY_ENTITY);
     require_once(__DIR__ . '/views/Single-Client.php');
 
 }
@@ -62,7 +62,7 @@ if (isset($Single_Client['company'])) {
     $WHICH_COMPANY = $Single_Client['company'];
 
     if ($WHICH_COMPANY == 'TRB Home Insurance') {
-        header('Location: /Home/ViewClient.php?CID=' . $search);
+        header('Location: /Home/ViewClient.php?CID=' . $CID);
         die;
     }
 }
@@ -147,7 +147,7 @@ if (isset($Single_Client['callauditid'])) {
 
     try {
         $anquery = $pdo->prepare("select application_number from client_policy where client_id=:search");
-        $anquery->bindParam(':search', $search, PDO::PARAM_INT);
+        $anquery->bindParam(':search', $CID, PDO::PARAM_INT);
         $anquery->execute();
         $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
 
@@ -182,7 +182,7 @@ if (isset($Single_Client['callauditid'])) {
 
                         <?php
                         $database = new Database();
-                        $database->query("select count(note_id) AS badge from client_note where client_id ='$search'");
+                        $database->query("select count(note_id) AS badge from client_note where client_id ='$CID'");
                         $row = $database->single();
                         echo htmlentities($row['badge']);
                         ?>
@@ -192,7 +192,7 @@ if (isset($Single_Client['callauditid'])) {
             <li><a data-toggle="pill" href="#menu2">Files & Uploads <span class="badge alert-warning">
 
                         <?php
-                        $database->query("select count(id) AS badge from tbl_uploads where file like '$search%'");
+                        $database->query("select count(id) AS badge from tbl_uploads where file like '$CID%'");
                         $filesuploaded = $database->single();
                         echo htmlentities($filesuploaded['badge']);
                         ?>
@@ -205,11 +205,11 @@ if (isset($Single_Client['callauditid'])) {
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add Policy <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LANDG">Legal and General Policy</a></li>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
-                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
+                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $CID; ?>&INSURER=LANDG">Legal and General Policy</a></li>
+                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $CID; ?>&INSURER=AVIVA">Aviva Policy</a></li>
+                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $CID; ?>&INSURER=VITALITY">Vitality Policy</a></li>
+                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $CID; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
+                        <li><a class="list-group-item" href="NewPolicy.php?EXECUTE=1&search=<?php echo $CID; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
                     <?php } ?>
 
                 </ul>
@@ -220,11 +220,11 @@ if (isset($Single_Client['callauditid'])) {
                 <ul class="dropdown-menu">
                     <div class="list-group">
                         <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                            <li><a class="list-group-item" href="EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
-                            <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
+                            <li><a class="list-group-item" href="EditClient.php?search=<?php echo $CID ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
+                            <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $CID ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                         <?php } ?>
                         <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                            <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
+                            <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $CID ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
                         <?php } ?>
 
                     </div>
@@ -484,14 +484,14 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="btn-group">
 
                             <?php
-                            $search_file_var = "$search-%";
+                            $CID_file_var = "$CID-%";
 
                             if (empty($dealsheet_id)) {
 
                                 try {
 
                                     $Dealquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Dealsheet'");
-                                    $Dealquery->bindParam(':search', $search_file_var, PDO::PARAM_INT);
+                                    $Dealquery->bindParam(':search', $CID_file_var, PDO::PARAM_INT);
                                     $Dealquery->execute();
 
                                     while ($result = $Dealquery->fetch(PDO::FETCH_ASSOC)) {
@@ -499,8 +499,8 @@ if (isset($Single_Client['callauditid'])) {
                                         if (file_exists("../uploads/$DSFILE")) {
                                             ?>
                                             <a href="../uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
-                                        <?php } if (file_exists("../uploads/life/$search/$DSFILE")) { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
+                                        <?php } if (file_exists("../uploads/life/$CID/$DSFILE")) { ?>
+                                            <a href="../uploads/life/<?php echo $CID; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
                                             <?php
                                         }
                                     }
@@ -519,7 +519,7 @@ if (isset($Single_Client['callauditid'])) {
                                 try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGpolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery->bindParam(':search', $CID_file_var, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
@@ -528,7 +528,7 @@ if (isset($Single_Client['callauditid'])) {
                                             ?>
                                             <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
+                                            <a href="../uploads/life/<?php echo $CID; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
                                             <?php
                                         }
                                     }
@@ -539,7 +539,7 @@ if (isset($Single_Client['callauditid'])) {
                                 try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery->bindParam(':search', $CID_file_var, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
@@ -548,7 +548,7 @@ if (isset($Single_Client['callauditid'])) {
                                             ?>
                                             <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
+                                            <a href="../uploads/life/<?php echo $CID; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -562,7 +562,7 @@ if (isset($Single_Client['callauditid'])) {
                                 try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitypolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery->bindParam(':search', $CID_file_var, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
@@ -571,7 +571,7 @@ if (isset($Single_Client['callauditid'])) {
                                             ?>
                                             <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
+                                            <a href="../uploads/life/<?php echo $CID; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
                                             <?php
                                         }
                                     }
@@ -582,7 +582,7 @@ if (isset($Single_Client['callauditid'])) {
                                 try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitykeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery->bindParam(':search', $CID_file_var, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
@@ -591,7 +591,7 @@ if (isset($Single_Client['callauditid'])) {
                                             ?>
                                             <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
+                                            <a href="../uploads/life/<?php echo $CID; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -609,57 +609,57 @@ if (isset($Single_Client['callauditid'])) {
                     if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
 
                         $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
-                        $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $LG_CHECK->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $LG_CHECK->execute();
                         if ($LG_CHECK->rowCount() > 0) {
                             $LANG_POL = "1";
                             require_once(__DIR__ . '/models/LGPoliciesModel.php');
                             $LGPolicies = new LGPoliciesModal($pdo);
-                            $LGPoliciesList = $LGPolicies->getLGPolicies($search);
+                            $LGPoliciesList = $LGPolicies->getLGPolicies($CID);
                             require_once(__DIR__ . '/views/LG-Policies.php');
                         }
 
                         $VIT_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
-                        $VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $VIT_CHECK->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $VIT_CHECK->execute();
                         if ($VIT_CHECK->rowCount() > 0) {
                             $VITALITY_POL = "1";
                             require_once(__DIR__ . '/models/VITALITYPoliciesModal.php');
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
-                            $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
+                            $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($CID);
                             require_once(__DIR__ . '/views/VITALITY-Policies.php');
                         }
 
                         $WOL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='One Family' AND client_id=:CID");
-                        $WOL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $WOL_CHECK->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $WOL_CHECK->execute();
                         if ($WOL_CHECK->rowCount() > 0) {
                             $WOL_POL = "1";
                             require_once(__DIR__ . '/models/WOLPoliciesModal.php');
                             $WOLPolicies = new WOLPoliciesModal($pdo);
-                            $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
+                            $WOLPoliciesList = $WOLPolicies->getWOLPolicies($CID);
                             require_once(__DIR__ . '/views/WOL-Policies.php');
                         }
 
                         $RL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Royal London' AND client_id=:CID");
-                        $RL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $RL_CHECK->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $RL_CHECK->execute();
                         if ($RL_CHECK->rowCount() > 0) {
                             $RL_POL = "1";
                             require_once(__DIR__ . '/models/RLPoliciesModel.php');
                             $RLPolicies = new RLPoliciesModal($pdo);
-                            $RLPoliciesList = $RLPolicies->getRLPolicies($search);
+                            $RLPoliciesList = $RLPolicies->getRLPolicies($CID);
                             require_once(__DIR__ . '/views/RL-Policies.php');
                         }
 
                         $Aviva_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Aviva' AND client_id=:CID");
-                        $Aviva_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $Aviva_CHECK->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $Aviva_CHECK->execute();
                         if ($Aviva_CHECK->rowCount() > 0) {
                             $AVIVA_POL = "1";
                             require_once(__DIR__ . '/models/AvivaPoliciesModal.php');
                             $AvivaPolicies = new AvivaPoliciesModal($pdo);
-                            $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
+                            $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($CID);
                             require_once(__DIR__ . '/views/Aviva-Policies.php');
                         }
                     } ?>
@@ -676,7 +676,7 @@ if (isset($Single_Client['callauditid'])) {
                     try {
 
                         $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid from scheduled_callbacks WHERE client_id =:CID");
-                        $query->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
                         $query->execute();
                         $pullcall = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -753,7 +753,7 @@ if (isset($Single_Client['callauditid'])) {
                                         echo "SMS/Send.php?WHICH_COMPANY=$WHICH_COMPANY";
                                     } ?>">
 
-                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                        <input type="hidden" name="keyfield" value="<?php echo $CID; ?>">
                                         <div class="form-group">
 
                                             <label for="selectsms">Select SMS:</label>
@@ -829,7 +829,7 @@ if (isset($Single_Client['callauditid'])) {
                 echo "SMS/Send.php?EXECUTE=1";
             } ?>">
 
-                                            <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                            <input type="hidden" name="keyfield" value="<?php echo $CID; ?>">
                                             <div class="form-group">
                                                 <label for="message">Custom MSG:</label>
                                                 <textarea class="form-control" name="message" required></textarea>
@@ -920,7 +920,7 @@ if (isset($Single_Client['callauditid'])) {
             echo "SMS/Send.php";
         } ?>">
 
-                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                        <input type="hidden" name="keyfield" value="<?php echo $CID; ?>">
                                         <div class="form-group">
                                             <label for="selectsms">Select SMS:</label>
                                             <select class="form-control" name="selectopt">
@@ -1013,7 +1013,7 @@ if (isset($fileuploadedfail)) {
 ?>
                 <div class="container">
 
-                    <form action="/life_upload.php?life=y&CID=<?php echo $search; ?>" method="post" enctype="multipart/form-data">
+                    <form action="/life_upload.php?life=y&CID=<?php echo $CID; ?>" method="post" enctype="multipart/form-data">
                         <label for="file">Select file...<input type="file" name="file" /></label> 
 
                         <label for="uploadtype">
@@ -1061,37 +1061,37 @@ if (isset($fileuploadedfail)) {
                         <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') { ?>
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
-                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                             <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                             
                                     <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clientone=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                             <?php } ?>
                                 
-                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
-                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
-                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $CID; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
+                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $CID; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                <?php if ($ffkeyfactsemail == '1') { ?>
-                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $CID; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
                             <?php } ?>
                             <?php if (!empty($Single_Client['first_name2'])) { ?>
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                                 <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                                    <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clienttwo=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                                 <?php } ?>
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
-                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $CID; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
                                     echo $clientonemail;
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
-                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $CID; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
@@ -1099,7 +1099,7 @@ if (isset($fileuploadedfail)) {
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                 <?php if ($ffkeyfactsemail == '1') { ?>
-                                    <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                                    <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $CID; ?>&email=<?php
                         if (!empty($clienttwomail)) {
                             echo $clienttwomail;
                         } else {
@@ -1109,13 +1109,13 @@ if (isset($fileuploadedfail)) {
         <?php } ?>
 
                                 <span class="label label-primary">Joint Letters/Emails</span>
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
                                 <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                                 <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?joint=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
                                 <?php } ?>
-                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $CID; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
                             <?php } ?>
 
                             <script type="text/javascript">
@@ -1304,19 +1304,19 @@ if (isset($fileuploadedfail)) {
                                             $uploadtype;
                                     }
                                     if ($uploadtype == 'TONIC RECORDING') {
-                                        $newfileholder = str_replace("$search-", "", "$file"); //remove quote
+                                        $newfileholder = str_replace("$CID-", "", "$file"); //remove quote
                                         ?>
 
-                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$CID/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                         <?php
                                     }
 
                                     if ($uploadtype == 'TONIC PDF') {
-                                        $newfileholderPDF = str_replace("$search-", "", "$file"); //remove quote
+                                        $newfileholderPDF = str_replace("$CID-", "", "$file"); //remove quote
                                         ?>
 
-                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$CID/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                         <?php
                                     }
@@ -1326,14 +1326,14 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }                                   
 
                                     if ($row['uploadtype'] == 'Other') {
                                         ?>
-                                        <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php
                                     }
 
@@ -1348,7 +1348,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1358,7 +1358,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1368,7 +1368,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1378,14 +1378,14 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
                                     if ($row['uploadtype'] == 'LGpolicy') {
                                         if (!file_exists("../uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
@@ -1395,7 +1395,7 @@ if (isset($fileuploadedfail)) {
                                     if ($row['uploadtype'] == 'L&G APP') {
                                         if (!file_exists("../uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
@@ -1407,7 +1407,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1417,7 +1417,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1427,7 +1427,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
@@ -1437,7 +1437,7 @@ if (isset($fileuploadedfail)) {
                                             ?>
                                             <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                 <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $CID; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                     <?php
                 }
             }
@@ -1484,7 +1484,7 @@ if (isset($fileuploadedfail)) {
                                     if (file_exists("../uploads/$FILElocation")) {
                                         echo "../uploads/$FILElocation";
                                     } else {
-                                        echo "../uploads/life/$search/$FILElocation";
+                                        echo "../uploads/life/$CID/$FILElocation";
                                     }
                                     ?>" target="_blank"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search"></span> </button></a></td>
                                                 <td>
@@ -1492,7 +1492,7 @@ if (isset($fileuploadedfail)) {
                                                     <form name="deletefileconfirm" id="deletefileconfirm<?php echo $i ?>" action="../php/DeleteUpload.php?deletefile=1" method="POST">
                                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                                         <input type="hidden" name="file" value="<?php echo $FILElocation; ?>">
-                                                        <input type="hidden" name="search" value="<?php echo $search; ?>">
+                                                        <input type="hidden" name="search" value="<?php echo $CID; ?>">
                                                         <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> </button>
                                                     </form>
 
@@ -1549,7 +1549,7 @@ if (isset($fileuploadedfail)) {
                     try {
 
                         $query55 = $pdo->prepare("SELECT leadauditid, client_id, title, first_name, last_name, email, title2, first_name2, last_name2, dob2, email2 FROM client_details WHERE client_id =:data2searchholder");
-                        $query55->bindParam(':data2searchholder', $search, PDO::PARAM_INT);
+                        $query55->bindParam(':data2searchholder', $CID, PDO::PARAM_INT);
                         $query55->execute();
                         $Single_Client = $query55->fetch(PDO::FETCH_ASSOC);
                     } catch (PDOException $e) {
@@ -1564,7 +1564,7 @@ if (isset($fileuploadedfail)) {
 try {
 
     $LG_FIN = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE client_id=:id GROUP BY financial_statistics_history.id");
-    $LG_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+    $LG_FIN->bindParam(':id', $CID, PDO::PARAM_INT);
     $LG_FIN->execute()or die(print_r($LG_FIN->errorInfo(), true));
     if ($LG_FIN->rowCount() > 0) {
         ?>
@@ -1608,7 +1608,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['Policy'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$CID&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['Policy'] . "</a></td>";
                                     echo "<td>" . $row['CommissionType'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1633,7 +1633,7 @@ try {
 try {
 
     $VIT_FIN = $pdo->prepare("SELECT vitality_financials.vitality_insert_date, vitality_financials.vitality_comm, vitality_financials.vitality_comm_status, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM vitality_financials join client_policy on vitality_financials.vitality_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY vitality_financials.vitality_id");
-    $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+    $VIT_FIN->bindParam(':id', $CID, PDO::PARAM_INT);
     $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
     if ($VIT_FIN->rowCount() > 0) {
         ?>
@@ -1662,7 +1662,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['vitality_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$CID&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['vitality_comm_status'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1689,7 +1689,7 @@ try {
 try {
 
     $RL_FIN = $pdo->prepare("SELECT royal_london_financials.royal_london_insert_date, royal_london_financials.royal_london_comm, royal_london_financials.royal_london_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM royal_london_financials join client_policy on royal_london_financials.royal_london_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY royal_london_financials.royal_london_id");
-    $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+    $RL_FIN->bindParam(':id', $CID, PDO::PARAM_INT);
     $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
     if ($RL_FIN->rowCount() > 0) {
         ?>
@@ -1718,7 +1718,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['royal_london_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$CID&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['royal_london_type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1745,7 +1745,7 @@ try {
 try {
 
     $WOL_FIN = $pdo->prepare("SELECT wol_financials.wol_insert_date, wol_financials.wol_comm, wol_financials.wol_comm_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM wol_financials join client_policy on wol_financials.wol_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY wol_financials.wol_id");
-    $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+    $WOL_FIN->bindParam(':id', $CID, PDO::PARAM_INT);
     $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
     if ($WOL_FIN->rowCount() > 0) {
         ?>
@@ -1774,7 +1774,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['wol_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$CID&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['wol_comm_type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1835,7 +1835,7 @@ try {
                 if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
 
                     $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
-                    $database->bind(':cid', $search);
+                    $database->bind(':cid', $CID);
                     $database->execute();
                     $result = $database->single();
 
@@ -1906,7 +1906,7 @@ try {
                         <br><br>
 
 
-                        <form name="ClientTaskForm" id="ClientTaskForm" class="form-horizontal" method="POST" action="php/ClientTaskPull.php?search=<?php echo "$search"; ?>">
+                        <form name="ClientTaskForm" id="ClientTaskForm" class="form-horizontal" method="POST" action="php/ClientTaskPull.php?search=<?php echo "$CID"; ?>">
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton"></label>
@@ -2222,7 +2222,7 @@ try {
                     <div class="row">
                         <form method="post" id="clientnotessubtab" action="../php/AddNotes.php?ViewClientNotes=1" class="form-horizontal">
                             <legend><h3><span class="label label-info">Add notes</span></h3></legend>
-                            <input type="hidden" name="client_id" value="<?php echo $search ?>">
+                            <input type="hidden" name="client_id" value="<?php echo $CID ?>">
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="client_name"></label>
@@ -2261,7 +2261,7 @@ try {
                         try {
 
                             $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
-                            $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
+                            $clientnote->bindParam(':search', $CID, PDO::PARAM_INT);
                             ?><br><br>	
 
                         <table class="table table-hover">
@@ -2407,7 +2407,7 @@ try {
 
                             <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
 
-                                <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                <input type="hidden" name="keyfield" value="<?php echo $CID; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?>" readonly>
                                 <input type="hidden" name="email" value="<?php echo $Single_Client['email2']; ?>" readonly>
                                 <input type="hidden" name="note_type" value="Email Sent">
@@ -2456,7 +2456,7 @@ try {
 
                             <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
 
-                                <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                <input type="hidden" name="keyfield" value="<?php echo $CID; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?>" readonly>
                                 <input type="hidden" name="email" value="<?php echo $Single_Client['email']; ?>" readonly>
                                 <input type="hidden" name="note_type" value="Email Sent">
@@ -2515,7 +2515,7 @@ try {
                                     <div id="CB_ONE" class="tab-pane fade in active">
                                         <div class="col-lg-12 col-md-12">
 
-                                            <form class="form-horizontal" action='../php/AddCallback.php?setcall=y&search=<?php echo $search; ?>' method='POST'>                
+                                            <form class="form-horizontal" action='../php/AddCallback.php?setcall=y&search=<?php echo $CID; ?>' method='POST'>                
                                                 <fieldset>
 
                                                     <div class='container'>
@@ -2634,7 +2634,7 @@ try {
 
                                                 <?php
                                                 $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid, callback_date, callback_time, reminder, CONCAT(callback_date, ' - ',callback_time)AS ordersort, client_id, id, client_name, notes, complete from scheduled_callbacks WHERE client_id=:CID AND complete='n' ORDER BY ordersort ASC");
-                                                $query->bindParam(':CID', $search, PDO::PARAM_INT);
+                                                $query->bindParam(':CID', $CID, PDO::PARAM_INT);
                                                 $query->execute();
                                                 if ($query->rowCount() > 0) {
                                                     ?>
@@ -2650,7 +2650,7 @@ try {
                                                     while ($calllist = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                                         $callbackid = $calllist['id'];
-                                                        $search = $calllist['client_id'];
+                                                        $CID = $calllist['client_id'];
                                                         $NAME = $calllist['client_name'];
                                                         $TIME = $calllist['calltimeid'];
                                                         $NOTES = $calllist['notes'];
@@ -2659,9 +2659,9 @@ try {
                                                         $CB_TIME = $calllist['callback_time'];
 
                                                         echo "<tr>";
-                                                        echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$search'>" . $calllist['client_name'] . "</a></td>";
+                                                        echo "<td class='text-left'><a href='/Life/ViewClient.php?search=$CID'>" . $calllist['client_name'] . "</a></td>";
                                                         echo "<td class='text-left'>" . $calllist['calltimeid'] . "</td>";
-                                                        echo "<td><a href='/php/AddCallback.php?search=$search&callbackid=$callbackid&cb=y' class='btn btn-success btn-sm'><i class='fa fa-check'></i> Complete</a></td>";
+                                                        echo "<td><a href='/php/AddCallback.php?search=$CID&callbackid=$callbackid&cb=y' class='btn btn-success btn-sm'><i class='fa fa-check'></i> Complete</a></td>";
                                                         echo "</tr>";
                                                         ?>    
 

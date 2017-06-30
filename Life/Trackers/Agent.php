@@ -127,9 +127,9 @@ if (isset($datefrom)) {
     $AGT_CHK->execute();
     if ($AGT_CHK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/trackers/AGENT/AgentPAD.php');
-        $AgentPad = new AgentPadModal($pdo);
-        $AgentPadList = $AgentPad->getAgentPad();
+        require_once(__DIR__ . '/../models/trackers/AGENT/AgentALLPAD.php');
+        $AgentPad = new AgentALLPadModal($pdo);
+        $AgentPadList = $AgentPad->getAgentALLPad();
         require_once(__DIR__ . '/../views/trackers/AGENT/Agent-PAD.php');
     }
 }

@@ -67,6 +67,10 @@ if (isset($Single_Client['company'])) {
     }
 }
 
+if (isset($Single_Client['owner'])) {
+    $WHICH_OWNER = $Single_Client['owner'];
+}
+
 if (isset($Single_Client['date_added'])) {
     $client_date_added = $Single_Client['date_added'];
 }
@@ -244,7 +248,7 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="input-group">
                             <input type="text" class="form-control" id="FullName" name="FullName" value="<?php echo $Single_Client['title'] ?> <?php echo $Single_Client['first_name'] ?> <?php echo $Single_Client['last_name'] ?>" readonly >
                             <span class="input-group-btn">
-                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
                                     <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
 
                                         <input type='hidden' name='searchCriteria.surname' id='searchCriteria.surname' value='<?php echo $Single_Client['last_name']; ?>'>
@@ -310,7 +314,7 @@ if (isset($Single_Client['callauditid'])) {
                                 <input type="text" class="form-control" id="FullName2" name="FullName2" value="<?php echo $Single_Client['title2'] ?> <?php echo $Single_Client['first_name2'] ?> <?php echo $Single_Client['last_name2'] ?>"  readonly >
                                 <span class="input-group-btn">
 
-                                    <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
+                                    <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
                                         <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
 
                                             <input type='hidden' name='searchCriteria.surname' id='searchCriteria.surname' value='<?php echo $Single_Client['last_name2']; ?>'>
@@ -444,7 +448,7 @@ if (isset($Single_Client['callauditid'])) {
                         <div class="input-group">
                             <input class="form-control" type="text" id="post_code" name="post_code" value="<?php echo $Single_Client['post_code'] ?>" readonly >
                             <span class="input-group-btn">
-                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
                                     <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
                                         <input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='NULL'>
                                         <input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value=''>
@@ -742,8 +746,6 @@ if (isset($Single_Client['callauditid'])) {
                                             <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" readonly>
                                         </p>
                                     </form>
-
-
 
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
@@ -1057,35 +1059,37 @@ if (isset($fileuploadedfail)) {
                         <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS') { ?>
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
-                            <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
-                            <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
-                                <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
-                            <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                <a class="list-group-item" href="Templates/TrustGuide.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
+                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                            <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                            
+                                    <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                             <?php } ?>
-                            <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
-                            <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
-                            <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                                
+                            <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
+                            <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                <?php if ($ffkeyfactsemail == '1') { ?>
-                                <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
                             <?php } ?>
                             <?php if (!empty($Single_Client['first_name2'])) { ?>
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
-                                <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
-                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
-                                    <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                                    <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                    <a class="list-group-item" href="Templates/TrustGuide.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Guide</a>
                                 <?php } ?>
-                                <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
-                                <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
                                     echo $clientonemail;
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
-                                <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
@@ -1093,7 +1097,7 @@ if (isset($fileuploadedfail)) {
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                 <?php if ($ffkeyfactsemail == '1') { ?>
-                                    <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                                    <a class="list-group-item confirmation" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
                         if (!empty($clienttwomail)) {
                             echo $clienttwomail;
                         } else {
@@ -1103,13 +1107,13 @@ if (isset($fileuploadedfail)) {
         <?php } ?>
 
                                 <span class="label label-primary">Joint Letters/Emails</span>
-                                <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
-                                <?php if ($WHICH_COMPANY == 'Bluestone Protect') { ?>
-                                    <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
+                                <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                                 <?php } if ($WHICH_COMPANY == 'ADL_CUS') { ?>
-                                    <a class="list-group-item" href="Templates/TrustGuide.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
+                                    <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/TrustGuide.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Guide Letter</a>
                                 <?php } ?>
-                                <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
+                                <a class="list-group-item" href="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Letters"; } else { echo "Templates"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank"><i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
                             <?php } ?>
 
                             <script type="text/javascript">
@@ -1602,7 +1606,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['Policy'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['Policy'] . "</a></td>";
                                     echo "<td>" . $row['CommissionType'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1656,7 +1660,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['vitality_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['vitality_comm_status'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1712,7 +1716,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['royal_london_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['royal_london_type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -1768,7 +1772,7 @@ try {
 
                                     echo '<tr>';
                                     echo "<td>" . $row['wol_insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
                                     echo "<td>" . $row['wol_comm_type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
@@ -2399,7 +2403,7 @@ try {
                     <div class="modal-body">
 <?php if ($ffclientemails == '1') { ?>
 
-                            <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
+                            <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
 
                                 <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?>" readonly>
@@ -2412,17 +2416,17 @@ try {
                                 </p>
                                 <p>
                                     <textarea name="message" id="message" class="summernote" id="contents" title="Contents" placeholder="Message"></textarea><br />
-                                    <label for="attachment1">Add attachment:</label>
+                                    <label for="attachment1">Attachment:</label>
                                     <input type="file" name="fileToUpload" id="fileToUpload"><br>
-                                    <label for="attachment2">Add attachment 2:</label>
+                                    <label for="attachment2">Attachment 2:</label>
                                     <input type="file" name="fileToUpload2" id="fileToUpload2"><br>
-                                    <label for="attachment3">Add attachment 3:</label>
+                                    <label for="attachment3">Attachment 3:</label>
                                     <input type="file" name="fileToUpload3" id="fileToUpload3"><br>
-                                    <label for="attachment4">Add attachment 4:</label>
+                                    <label for="attachment4">Attachment 4:</label>
                                     <input type="file" name="fileToUpload4" id="fileToUpload4"><br>
-                                    <label for="attachment5">Add attachment 5:</label>
+                                    <label for="attachment5">Attachment 5:</label>
                                     <input type="file" name="fileToUpload5" id="fileToUpload5"><br>
-                                    <label for="attachment6">Add attachment 6:</label>
+                                    <label for="attachment6">Attachment 6:</label>
                                     <input type="file" name="fileToUpload6" id="fileToUpload6">
                                 </p>
                                 <br>
@@ -2448,7 +2452,7 @@ try {
                     <div class="modal-body">
 <?php if ($ffclientemails == '1') { ?>
 
-                            <form class="AddClient" method="post" action="../email/php/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
+                            <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
 
                                 <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?>" readonly>
@@ -2463,17 +2467,17 @@ try {
                                 <p>
 
                                     <textarea name="message" id="message" class="summernote" id="contents" title="Contents" placeholder="Message"></textarea><br />
-                                    <label for="attachment1">Add attachment:</label>
+                                    <label for="attachment1">Attachment:</label>
                                     <input type="file" name="fileToUpload" id="fileToUpload"><br>
-                                    <label for="attachment2">Add attachment 2:</label>
+                                    <label for="attachment2">Attachment 2:</label>
                                     <input type="file" name="fileToUpload2" id="fileToUpload2"><br>
-                                    <label for="attachment3">Add attachment 3:</label>
+                                    <label for="attachment3">Attachment 3:</label>
                                     <input type="file" name="fileToUpload3" id="fileToUpload3"><br>
-                                    <label for="attachment4">Add attachment 4:</label>
+                                    <label for="attachment4">Attachment 4:</label>
                                     <input type="file" name="fileToUpload4" id="fileToUpload4"><br>
-                                    <label for="attachment5">Add attachment 5:</label>
+                                    <label for="attachment5">Attachment 5:</label>
                                     <input type="file" name="fileToUpload5" id="fileToUpload5"><br>
-                                    <label for="attachment6">Add attachment 6:</label>
+                                    <label for="attachment6">Attachment 6:</label>
                                     <input type="file" name="fileToUpload6" id="fileToUpload6">
                                 </p>
                                 <br>

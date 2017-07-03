@@ -22,7 +22,7 @@ if (isset($fferror)) {
     }
 }
         
-        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account1'");
+        $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account3'");
         $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         $queryr=$query->fetch(PDO::FETCH_ASSOC);
@@ -84,8 +84,8 @@ $mail->Port       = $SMTP_PORT;
 $mail->Username   = "$SMTP_USER"; 
 $mail->Password   = "$SMTP_PASS";
 
-$mail->AddEmbeddedImage('../../img/Key Facts - The Review Bureau.png', 'KeyFacts');
-$mail->AddEmbeddedImage('../../img/RBlogo.png', 'logo');
+$mail->AddEmbeddedImage('../../img/Key Facts - Bluestone Protect.png', 'KeyFacts');
+$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
 
 if (isset($_FILES["fileToUpload"]) &&
     $_FILES["fileToUpload"]["error"] == UPLOAD_ERR_OK) {

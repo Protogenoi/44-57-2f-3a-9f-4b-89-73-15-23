@@ -2,6 +2,7 @@
 
         <?php
                 $RAW_CANCELLED = $RawCANCELLEDList_Resuts['EWS_STATUS_CANCELLED'];
+                $RAW_CFO_LAPSED_SUM= $RawCANCELLEDList_Resuts['EWS_CFO_LAPSED_SUM'];
     
                         ?>
 

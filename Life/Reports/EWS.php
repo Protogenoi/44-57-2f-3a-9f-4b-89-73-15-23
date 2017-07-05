@@ -145,7 +145,167 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                         <?php
 
                         if (isset($datefrom)) {
+                            
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CFO.php');
+    $RawCFO = new RawCFOModal($pdo);
+    $RawCFOList = $RawCFO->getRawCFO($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CFO.php');                            
+    //END OF CALCULATION
     
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/LAPSED.php');
+    $RawLapsed = new RawLapsedModal($pdo);
+    $RawLapsedList = $RawLapsed->getRawLapsed($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/Lapsed.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/BOUNCED_DD.php');
+    $RawBOUNCED_DD = new RawBOUNCED_DDModal($pdo);
+    $RawBOUNCED_DDList = $RawBOUNCED_DD->getRawBOUNCED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/BOUNCED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CANCELLED_DD.php');
+    $RawCANCELLED_DD = new RawCANCELLED_DDModal($pdo);
+    $RawCANCELLED_DDList = $RawCANCELLED_DD->getRawCANCELLED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CANCELLED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/CANCELLED.php');
+    $RawCANCELLED = new RawCANCELLEDModal($pdo);
+    $RawCANCELLEDList = $RawCANCELLED->getRawCANCELLED($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/CANCELLED.php');                            
+    //END OF CALCULATION   
+    
+//CALCULATE TOTAL WITH DATES
+    require_once(__DIR__ . '/models/EWS/raw/TOTAL.php');
+    $RawTOTAL = new RawTOTALModal($pdo);
+    $RawTOTALList = $RawTOTAL->getRawTOTAL($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/raw/TOTAL.php');                            
+    //END OF CALCULATION       
+                        ?>       
+
+                        <table  class="table table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?> 
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download complete RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> RAW</a>
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download RAW EWS for Assigned user <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ASSIGNED_RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Assigned RAW</a>
+                                    </th>
+                                </tr>
+                               
+                                <th>CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CFO&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=LAPSED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=BOUNCED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO and Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW_CANCELLED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Uploaded</th>
+                            </tr>
+                            </thead>
+
+                            <?php
+                            
+                            echo "<tr>
+                                    <td>$RAW_CFO</td>
+                                    <td>$RAW_Lapsed</td>
+                                    <td>$RAW_BOUNCED_DD</td>
+                                    <td>$RAW_CANCELLED_DD</td>
+                                    <td>$RAW_CANCELLED (£$RAW_CFO_LAPSED_SUM)</td>
+                                    <td>$TOTAL_RAW</td>
+                                    </tr>
+                                    \n";
+                         ?>
+ 
+
+                        </table>  
+                            
+                            <?php  
+//DATE SEARCH AND RAW DATE
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/CFO.php');
+    $COMPARECFO = new COMPARECFOModal($pdo);
+    $COMPARECFOList = $COMPARECFO->getCOMPARECFO($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/compare/CFO.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/LAPSED.php');
+    $COMPARELapsed = new COMPARELapsedModal($pdo);
+    $COMPARELapsedList = $COMPARELapsed->getCOMPARELapsed($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/compare/Lapsed.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/BOUNCED_DD.php');
+    $COMPAREBOUNCED_DD = new COMPAREBOUNCED_DDModal($pdo);
+    $COMPAREBOUNCED_DDList = $COMPAREBOUNCED_DD->getCOMPAREBOUNCED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/compare/BOUNCED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/CANCELLED_DD.php');
+    $COMPARECANCELLED_DD = new COMPARECANCELLED_DDModal($pdo);
+    $COMPARECANCELLED_DDList = $COMPARECANCELLED_DD->getCOMPARECANCELLED_DD($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/compare/CANCELLED_DD.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/CANCELLED.php');
+    $COMPARECANCELLED = new COMPARECANCELLEDModal($pdo);
+    $COMPARECANCELLEDList = $COMPARECANCELLED->getCOMPARECANCELLED($EWS_DATE);
+    require_once(__DIR__ . '/views/EWS/compare/CANCELLED.php');                            
+    //END OF CALCULATION                              
+    
+//CALCULATE TOTAL WITH DATES
+    require_once(__DIR__ . '/models/EWS/compare/TOTAL.php');
+    $COMPARETOTAL = new COMPARETOTALModal($pdo);
+    $COMPARETOTALList = $COMPARETOTAL->getCOMPARETOTAL($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/compare/TOTAL.php');                            
+    //END OF CALCULATION          
+?>
+                        
+                        <table  class="table table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "Updated RAW Statistics for $EWS_DATE";?> 
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download Updated RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=UPDATED_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Updated</a>
+                                    </th>
+                                </tr>
+                               
+                                <th>CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CFO&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=LAPSED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=BOUNCED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO and Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW_CANCELLED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Updated</th>
+                            </tr>
+                            </thead>
+
+                            <?php
+                            
+                            echo "<tr>
+                                    <td>$COM_CFO</td>
+                                    <td>$COM_Lapsed</td>
+                                    <td>$COM_BOUNCED_DD</td>
+                                    <td>$COM_CANCELLED_DD</td>
+                                    <td>$COM_CANCELLED (£$COM_CFO_LAPSED_SUM)</td>
+                                    <td>$TOTAL_COMPARE</th>
+                                    </tr>
+                                    \n";
+                         ?>
+ 
+
+                        </table>                          
+                        
+<?php
+    
+//EWS STATS    
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/EWS/statuses/CFO.php');
     $TotalCFO = new TotalCFOModal($pdo);
@@ -179,6 +339,12 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     $TotalCANCELLED = new TotalCANCELLEDModal($pdo);
     $TotalCANCELLEDList = $TotalCANCELLED->getTotalCANCELLED($datefrom, $dateto);
     require_once(__DIR__ . '/views/EWS/statuses/CANCELLED.php');                            
+    //END OF CALCULATION    
+//CALCULATE TOTAL WITH DATES
+    require_once(__DIR__ . '/models/EWS/statuses/TOTAL.php');
+    $TotalTOTAL = new TotalTOTALModal($pdo);
+    $TotalTOTALList = $TotalTOTAL->getTotalTOTAL($datefrom, $dateto);
+    require_once(__DIR__ . '/views/EWS/statuses/TOTAL.php');                            
     //END OF CALCULATION      
                         ?>       
 
@@ -190,12 +356,12 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </th>
                                 </tr>
                                
-                                <th>Total CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CFO&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Total Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked." ></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=LAPSED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=BOUNCED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CANCELLED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-
+                                <th>CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CFO&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked." ></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=LAPSED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."></i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=BOUNCED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS&WARNING=CANCELLED DD&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO and Lapsed within the date range of <?php echo "$datefrom - $dateto"; ?> and need to be worked."</i> <a href="../Export/EWS.php?EXECUTE=EWS_CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>New</th>
                             </tr>
                             </thead>
 
@@ -206,7 +372,8 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     <td>$Lapsed</td>
                                     <td>$BOUNCED_DD</td>
                                     <td>$CANCELLED_DD</td>
-                                    <td>$CANCELLED</td>
+                                    <td>$CANCELLED (£$NEW_CFO_LAPSED_SUM)</td>
+                                    <td>$TOTAL_EWS</td>
                                     </tr>
                                     \n";
                          ?>
@@ -260,12 +427,11 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </th>
                                 </tr>
                                
-                                <th>Total RE-INSTATED <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as RE-INSTATED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=RE-INSTATED&&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Total WILL CANCEL <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL CANCEL within the date range of <?php echo "$datefrom - $dateto"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL CANCEL&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total WILL REDRAW <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL REDRAW within the date range of <?php echo "$datefrom - $dateto"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL REDRAW&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total REDRAWN <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as REDRAWN within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=REDRAWN&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CANCELLED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-
+                                <th>RE-INSTATED <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as RE-INSTATED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=RE-INSTATED&&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>WILL CANCEL <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL CANCEL within the date range of <?php echo "$datefrom - $dateto"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL CANCEL&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>WILL REDRAW <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as WILL REDRAW within the date range of <?php echo "$datefrom - $dateto"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=WILL REDRAW&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>REDRAWN <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as REDRAWN within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=REDRAWN&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CANCELLED within the date range of <?php echo "$datefrom - $dateto"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=ADL&WARNING=CANCELLED&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             </tr>
                             </thead>
 
@@ -276,7 +442,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     <td>$WILL_CANCEL</td>
                                     <td>$WILL_REDRAW</td>
                                     <td>$REDRAWN</td>
-                                    <td>$ADL_CANCELLED</td>
+                                    <td>$ADL_CANCELLED</td>                                      
                                     </tr>
                                     \n";
                          ?>
@@ -284,77 +450,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
                         </table>                          
                         
-                        <?php } 
-                        
-//CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/EWS/raw/CFO.php');
-    $RawCFO = new RawCFOModal($pdo);
-    $RawCFOList = $RawCFO->getRawCFO($EWS_DATE);
-    require_once(__DIR__ . '/views/EWS/raw/CFO.php');                            
-    //END OF CALCULATION
-    
-//CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/EWS/raw/LAPSED.php');
-    $RawLapsed = new RawLapsedModal($pdo);
-    $RawLapsedList = $RawLapsed->getRawLapsed($EWS_DATE);
-    require_once(__DIR__ . '/views/EWS/raw/Lapsed.php');                            
-    //END OF CALCULATION
-    
-//CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/EWS/raw/BOUNCED_DD.php');
-    $RawBOUNCED_DD = new RawBOUNCED_DDModal($pdo);
-    $RawBOUNCED_DDList = $RawBOUNCED_DD->getRawBOUNCED_DD($EWS_DATE);
-    require_once(__DIR__ . '/views/EWS/raw/BOUNCED_DD.php');                            
-    //END OF CALCULATION
-    
-//CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/EWS/raw/CANCELLED_DD.php');
-    $RawCANCELLED_DD = new RawCANCELLED_DDModal($pdo);
-    $RawCANCELLED_DDList = $RawCANCELLED_DD->getRawCANCELLED_DD($EWS_DATE);
-    require_once(__DIR__ . '/views/EWS/raw/CANCELLED_DD.php');                            
-    //END OF CALCULATION
-    
-//CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/EWS/raw/CANCELLED.php');
-    $RawCANCELLED = new RawCANCELLEDModal($pdo);
-    $RawCANCELLEDList = $RawCANCELLED->getRawCANCELLED($EWS_DATE);
-    require_once(__DIR__ . '/views/EWS/raw/CANCELLED.php');                            
-    //END OF CALCULATION      
-                        ?>       
-
-                        <table  class="table table-hover">
-                            <thead>
-
-                                <tr>
-                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?> 
-                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download complete RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> RAW</a>
-                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download RAW EWS for Assigned user <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ASSIGNED_RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Assigned RAW</a>
-                                    </th>
-                                </tr>
-                               
-                                <th>Total CFO <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as CFO for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CFO&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Total Lapsed <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Lapsed for EWS uploaded on the <?php echo "$EWS_DATE"; ?>." ></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=LAPSED&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Bounced DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Bounced DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=BOUNCED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Cancelled DD <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled DD for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED DD&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Total Cancelled <i class="fa fa-question-circle-o" style="color:skyblue" title="Total policies classed as Cancelled for EWS uploaded on the <?php echo "$EWS_DATE"; ?>."</i> <a href="../Export/EWS.php?EXECUTE=RAW&WARNING=CANCELLED=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-
-                            </tr>
-                            </thead>
-
-                            <?php
-                            
-                            echo "<tr>
-                                    <td>$RAW_CFO</td>
-                                    <td>$RAW_Lapsed</td>
-                                    <td>$RAW_BOUNCED_DD</td>
-                                    <td>$RAW_CANCELLED_DD</td>
-                                    <td>$RAW_CANCELLED</td>
-                                    </tr>
-                                    \n";
-                         ?>
- 
-
-                        </table>                        
+                        <?php } ?> 
                         
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 <?php
 
-class TotalBOUNCED_DDModal {
+class TotalTOTALModal {
 
     protected $pdo;
 
@@ -8,15 +8,15 @@ class TotalBOUNCED_DDModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalBOUNCED_DD($datefrom, $dateto) {
+    public function getTotalTOTAL($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare('SELECT 
-    COUNT(ews_status_status) AS EWS_STATUS_BOUNCED_DD
+    COUNT(ews_status_status) AS EWS_STATUS_TOTAL
 FROM
     ews_data
 WHERE
     DATE(date_added) BETWEEN :datefrom AND :dateto
-        AND warning ="BOUNCED DD NEW"');
+        AND warning like "% NEW"');
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
         $stmt->execute();

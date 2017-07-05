@@ -1,6 +1,6 @@
 <?php
 
-class TotalCFOModal {
+class COMPARECFOModal {
 
     protected $pdo;
 
@@ -8,17 +8,16 @@ class TotalCFOModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalCFO($datefrom, $dateto) {
+    public function getCOMPARECFO($EWS_DATE) {
 
         $stmt = $this->pdo->prepare('SELECT 
     COUNT(ews_status_status) AS EWS_STATUS_CFO
 FROM
     ews_data
 WHERE
-    DATE(date_added) BETWEEN :datefrom AND :dateto
-        AND warning ="CFO NEW"');
-        $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+    DATE(date_added) =:EWS_DATE
+        AND warning ="CFO"');
+        $stmt->bindParam(':EWS_DATE', $EWS_DATE, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

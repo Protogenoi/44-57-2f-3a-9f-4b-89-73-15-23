@@ -1,6 +1,6 @@
 <?php
 
-class RawCANCELLEDModal {
+class RAWTOTALModal {
 
     protected $pdo;
 
@@ -8,16 +8,14 @@ class RawCANCELLEDModal {
         $this->pdo = $pdo;
     }
 
-    public function getRawCANCELLED($EWS_DATE) {
+    public function getRAWTOTAL($EWS_DATE) {
 
         $stmt = $this->pdo->prepare('SELECT 
-    COUNT(ews_status_status) AS EWS_STATUS_CANCELLED,
-    SUM(clawback_due) AS EWS_CFO_LAPSED_SUM
+    COUNT(ews_status_status) AS EWS_STATUS_TOTAL
 FROM
     ews_data
 WHERE
-    DATE(date_added) =:EWS_DATE
-        AND ews_status_status IN ("CFO","Lapsed")');
+    DATE(date_added) =:EWS_DATE');
         $stmt->bindParam(':EWS_DATE', $EWS_DATE, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

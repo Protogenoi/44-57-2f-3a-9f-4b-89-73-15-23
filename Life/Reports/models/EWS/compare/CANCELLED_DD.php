@@ -1,6 +1,6 @@
 <?php
 
-class TotalCANCELLED_DDModal {
+class COMPARECANCELLED_DDModal {
 
     protected $pdo;
 
@@ -8,17 +8,16 @@ class TotalCANCELLED_DDModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalCANCELLED_DD($datefrom, $dateto) {
+    public function getCOMPARECANCELLED_DD($EWS_DATE) {
 
         $stmt = $this->pdo->prepare('SELECT 
     COUNT(ews_status_status) AS EWS_STATUS_CANCELLED_DD
 FROM
     ews_data
 WHERE
-    DATE(date_added) BETWEEN :datefrom AND :dateto
-        AND warning ="CANCELLED DD NEW"');
-        $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+    DATE(date_added) =:EWS_DATE
+        AND warning ="CANCELLED DD"');
+        $stmt->bindParam(':EWS_DATE', $EWS_DATE, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

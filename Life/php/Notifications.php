@@ -118,7 +118,7 @@ if(isset($WHICH_COMPANY)){
     }
 
 //TRB    
-    if($WHICH_COMPANY=='Bluestone Protect') {
+    if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') {
         if (in_array($hello_name,$Level_8_Access, true)) {
         $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");
         $database->bind(':CID', $search);
@@ -223,7 +223,7 @@ foreach ($result as $value) {
 
 
 }
-if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
+if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
 
     
      if($client_date_added <= "2017-03-07 16:25:00") {

@@ -163,7 +163,21 @@ $companynamere = $companydetailsq['company_name'];
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
+            
+            <div class="timelock"></div>           
+    <script>
+        function refresh_div() {
+            jQuery.ajax({
+                url: '/AJAX/time.php?EXECUTE=1',
+                type: 'POST',
+                success: function (results) {
+                    jQuery(".timelock").html(results);
+                }
+            });
+        }
 
+        t = setInterval(refresh_div, 1000);
+    </script>
 <?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
                 <div class="LIVERESULTS">
 

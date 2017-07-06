@@ -65,7 +65,9 @@
                                 <td><input size="5" class="form-control" type="text" name="our_premium" value="<?php if (isset($TRK_EDIT_our_premium)) {
                     echo $TRK_EDIT_our_premium;
                 } ?>"></td>
-                                <td><textarea class="form-control" name="comments" cols="70"><?php if (isset($TRK_EDIT_comments)) {
+                                <td><textarea class="form-control" name="comments" data-toggle="tooltip" title="<?php if (isset($TRK_EDIT_comments)) {
+                    echo $TRK_EDIT_comments;
+                } ?>"><?php if (isset($TRK_EDIT_comments)) {
                     echo $TRK_EDIT_comments;
                 } ?></textarea></td>
                                 <td>

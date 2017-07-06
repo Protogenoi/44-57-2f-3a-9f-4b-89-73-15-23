@@ -119,15 +119,22 @@ $Today_TIME = date("h:i:s");
 
                         </form>
                     </div>
+      <div class="STATREFRESH"></div>
       
- <?php
- //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/CLOSERS/WARNING.php');
-    $TRACKER_WARNING = new TRACKER_WARNINGModal($pdo);
-    $TRACKER_WARNINGList = $TRACKER_WARNING->getTRACKER_WARNING();
-    require_once(__DIR__ . '/views/CLOSERS/WARNING.php');                            
-    //END OF CALCULATION
- ?>
+    <script>
+        function refresh_div() {
+            jQuery.ajax({
+                url: 'AJAX/Stats.php',
+                type: 'POST',
+                success: function (results) {
+                    jQuery(".STATREFRESH").html(results);
+                }
+            });
+        }
+
+        t = setInterval(refresh_div, 1000);
+    </script>
+    
       
   </div>
 <div class="container-fluid">

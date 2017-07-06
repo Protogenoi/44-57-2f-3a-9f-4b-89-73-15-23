@@ -124,7 +124,7 @@ $Today_TIME = date("h:i:s");
     <script>
         function refresh_div() {
             jQuery.ajax({
-                url: 'AJAX/Stats.php',
+                url: 'AJAX/Stats.php?EXECUTE=1',
                 type: 'POST',
                 success: function (results) {
                     jQuery(".STATREFRESH").html(results);

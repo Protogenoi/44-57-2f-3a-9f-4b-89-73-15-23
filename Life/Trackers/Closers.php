@@ -119,6 +119,16 @@ $Today_TIME = date("h:i:s");
 
                         </form>
                     </div>
+      
+ <?php
+ //CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/CLOSERS/WARNING.php');
+    $TRACKER_WARNING = new TRACKER_WARNINGModal($pdo);
+    $TRACKER_WARNINGList = $TRACKER_WARNING->getTRACKER_WARNING();
+    require_once(__DIR__ . '/views/CLOSERS/WARNING.php');                            
+    //END OF CALCULATION
+ ?>
+      
   </div>
 <div class="container-fluid">
                         <?php

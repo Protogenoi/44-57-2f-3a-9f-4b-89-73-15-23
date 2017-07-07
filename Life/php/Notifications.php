@@ -232,7 +232,7 @@ if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' ||
         
      } } else {
 
-    if(!isset($leadid1)) {
+
     $database->query("select uploadtype from tbl_uploads where uploadtype='Closer Call Recording' and file like :search");
     $database->bind(':search', $likesearch);
     $database->execute();
@@ -253,7 +253,7 @@ if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' ||
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
-}
+
      
      }
      

@@ -779,7 +779,7 @@ if (isset($Single_Client['callauditid'])) {
                                                 try {
 
                                                     $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
-                                                    $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_INT);
+                                                    $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY2', $WHICH_COMPANY, PDO::PARAM_STR);
                                                     $SMSquery->execute();
@@ -914,11 +914,11 @@ if (isset($Single_Client['callauditid'])) {
                                         </p>
                                     </form>
 
-                                    <form class="AddClient" method="POST" action="<?php if ($CHK_NUM_ALT == '0') {
-            echo "#";
-        } if ($CHK_NUM_ALT == '1') {
-            echo "SMS/Send.php";
-        } ?>">
+                                    <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
+                                        echo "#";
+                                    } if ($CHK_NUM == '1') {
+                                        echo "SMS/Send.php?WHICH_COMPANY=$WHICH_COMPANY";
+                                    } ?>">
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
@@ -943,9 +943,10 @@ if (isset($Single_Client['callauditid'])) {
                                                 }
 
                                                 try {
-
-                                                    $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer OR insurer='NA'");
-                                                    $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_INT);
+  $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
+                                                    $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_STR);
+                                                    $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
+                                                    $SMSquery->bindParam(':COMPANY2', $WHICH_COMPANY, PDO::PARAM_STR);
                                                     $SMSquery->execute();
                                                     if ($SMSquery->rowCount() > 0) {
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
@@ -962,8 +963,8 @@ if (isset($Single_Client['callauditid'])) {
 
                                             </select>
                                         </div>
-
-                                        <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                        
+                                        <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
                                         <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
 

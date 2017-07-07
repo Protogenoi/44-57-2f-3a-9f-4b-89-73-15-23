@@ -109,7 +109,9 @@ $Today_TIME = date("h:i:s");
                                 
                              <div class="col-md-4">
                                  <div class="btn-group">
-                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Set Dates</button>
+                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Set Dates</button> 
+                                 </form>
+                                 <a class="btn btn-default btn-sm" href="Export/Closers.php?EXECUTE=1"><i class="fa fa-file-excel-o"></i> Export</a>
                                  <a class="btn btn-danger btn-sm" href="?EXECUTE=1"><i class="fa fa-recycle"></i> RESET</a>
                                  </div>
                           </div>
@@ -117,7 +119,7 @@ $Today_TIME = date("h:i:s");
                               
                             </div>
 
-                        </form>
+                       
                     </div>
       <div class="STATREFRESH"></div>
       

@@ -636,7 +636,7 @@ ews_data.policy_number
                             Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
                             Please could you complete this section at your earliest convenience.
                         </p>
-                        <p>If you require any further information please call our customer care team on 03300 100 707 Monday - Friday between the hours of 10am- 6:30pm.</p>
+                        <p>If you require any further information please call our customer care team on <strong>[COMPANY TEL]</strong> Monday - Friday between the hours of 10am- 6:30pm.</p>
 
                         Kind regards,<br>
 <?php echo $hello_name_full; ?>

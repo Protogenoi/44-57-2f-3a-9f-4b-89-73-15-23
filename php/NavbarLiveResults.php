@@ -8,6 +8,26 @@ require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 
+if($hello_name!='Michael') {
+$TIMELOCK = date('H');
+
+if($TIMELOCK>='20' || $TIMELOCK<'08') {
+    
+                $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
+                    SET
+                    user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url='NAV_Logout', user_tracking_user=:USER
+                    ON DUPLICATE KEY UPDATE
+                    user_tracking_url='Access_Level_Logout'");
+                $USER_TRACKING_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->bindParam(':USER', $hello_name, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->execute();    
+   
+    header('Location: /../CRMmain.php?action=log_out');
+    die;
+    
+}
+}
+
 if ($fflife == '1') {
 
     $NAVdate = date("Y-m-d");

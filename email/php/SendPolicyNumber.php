@@ -117,7 +117,7 @@ In order to do this you'll need the policy number which is: <strong>$policy</str
 Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
 Please could you complete this section at your earliest convenience.
           </p>
-          <p>If you require any further information please call our customer care team on 0330 010 0707. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          <p>If you require any further information please call our customer care team on 0845 095 0041. Office hours are between Monday to Friday 10:00 - 18:30.</p>
 
           Kind regards,<br>
 $hello_name_full

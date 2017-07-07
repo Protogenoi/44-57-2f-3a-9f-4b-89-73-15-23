@@ -2257,7 +2257,6 @@ try {
 
                 <h3><span class="label label-info">Client Timeline</span></h3>             
                     <?php
-                    if ($companynamere == 'Bluestone Protect' || $companynamere == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
                         try {
 
                             $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
@@ -2298,6 +2297,9 @@ try {
                                         case"EWS Uploaded";
                                         case"SMS Failed";
                                             $TMicon = "fa-exclamation-triangle";
+                                            break;
+                                        case "Deleted File Upload";
+                                            $TMicon="fa-trash";
                                             break;
                                         case "Financial Uploaded":
                                         case "Legal and General Financial Uploaded":
@@ -2389,7 +2391,6 @@ try {
                         } catch (PDOException $e) {
                             echo 'Connection failed: ' . $e->getMessage();
                         }
-                    }
                     ?>
             </div>
 

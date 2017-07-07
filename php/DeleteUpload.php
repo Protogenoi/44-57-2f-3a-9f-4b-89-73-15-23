@@ -25,28 +25,37 @@ if(isset($fferror)) {
     
     }
 
-$deletesubmit= filter_input(INPUT_GET, 'deletefile', FILTER_SANITIZE_SPECIAL_CHARS);
-if(isset($deletesubmit)){
+$EXECUTE= filter_input(INPUT_GET, 'deletefile', FILTER_SANITIZE_NUMBER_INT);
+if(isset($EXECUTE)){
     
-    if($deletesubmit=='1') {
+    if($EXECUTE=='1') {
     
         include('../includes/ADL_PDO_CON.php');
         
-    $locationvarplaceholder= filter_input(INPUT_POST, 'file', FILTER_SANITIZE_SPECIAL_CHARS);
+    $FILE_NAME= filter_input(INPUT_POST, 'file', FILTER_SANITIZE_SPECIAL_CHARS);
     $idvarplaceholder= filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
     $search= filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
     
     $query = $pdo->prepare("DELETE FROM tbl_uploads where id = :id");
-    unlink("../uploads/$locationvarplaceholder");
+    
+    
+    unlink("../uploads/$FILE_NAME");
     $query->bindParam(':id', $idvarplaceholder, PDO::PARAM_INT);
     $query->execute();
     
-    if ($count = $query->rowCount()>0) {      
+    if($query->rowCount()>0) {
+        
+ if (file_exists("../uploads/life/$FILE_NAME")) {
+    unlink("../uploads/$FILE_NAME");
+} else { 
+ unlink("../uploads/life/$FILE_NAME");
+ 
+}
         
                 if(isset($fferror)) {
     if($fferror=='0') {
         
-          header('Location: ../Life/ViewClient.php?DeleteUpload=1&search='.$search. '&count='.$count.'&file='.$locationvarplaceholder.'#menu2'); die;
+          header('Location: ../Life/ViewClient.php?DeleteUpload=1&search='.$search. '&count='.$count.'&file='.$FILE_NAME.'#menu2'); die;
     }
                 }
 

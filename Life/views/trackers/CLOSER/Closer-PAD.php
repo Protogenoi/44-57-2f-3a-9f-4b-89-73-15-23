@@ -37,7 +37,7 @@
 
                                         $TRK_EDIT_DATE = $TRACKER_EDIT_result['updated_date'];
 ?>
-                                    <form method="POST" <?php if(in_array($hello_name, $Level_10_Access, true)) { ?>action="/Life/Trackers/php/Trackers.php?EXECUTE=2&TYPE=CLOSER" <?php } ?> >
+                                    <form method="POST" <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>action="/Life/Trackers/php/Trackers.php?EXECUTE=2&TYPE=CLOSER" <?php } ?> >
                <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                     <tr>
                                                                                                          <td><?php if (isset($i)) {

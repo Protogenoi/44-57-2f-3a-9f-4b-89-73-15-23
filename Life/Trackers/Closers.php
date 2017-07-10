@@ -59,9 +59,9 @@ $Today_TIME = date("h:i:s");
         <?php
         if (isset($EXECUTE)) {
         if($EXECUTE=='1') { ?>
-<?php if(in_array($hello_name, $Level_10_Access, true)) { ?>                    
+                   
   <div class="container">
-
+<?php if(in_array($hello_name, $Level_3_Access, true)) { ?> 
                     <div class="col-md-12">
 
                         <div class="col-md-4">
@@ -121,6 +121,8 @@ $Today_TIME = date("h:i:s");
 
                        
                     </div>
+                        
+                        <?php } ?>
       <div class="STATREFRESH"></div>
       
     <script>
@@ -139,7 +141,7 @@ $Today_TIME = date("h:i:s");
     
       
   </div>
-<?php } ?>
+
 <div class="container-fluid">
                         <?php
 if (isset($datefrom)) {

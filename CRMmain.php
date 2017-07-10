@@ -133,9 +133,8 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                             </a>
                         </li>
 
-                        <?php }
+                        <?php
                         if ($fflife == '1') {
-                            if (in_array($hello_name, $Level_3_Access, true)) {
                                 ?>
                                 <li>
                                     <a href="Life/Main_Menu.php">
@@ -149,12 +148,11 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 
                                 <?php
                             }
-                        } if ($ffhome == '1') {
+                        if ($ffhome == '1') {
                             ?>
 
                             <li>
                                 <a href="<?php
-                                if (in_array($hello_name, $Level_3_Access, true)) {
                                     echo "/Home/Main_Menu.php";
                                 } else {
                                     echo "#";
@@ -167,7 +165,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                     </div>
                                 </a>
                             </li>
-                        <?php } if ($ffpba == '1') { ?>
+                        <?php if ($ffpba == '1') { ?>
                             <li>
                                 <a href="<?php
                                 if ($ffpba == '1' && in_array($hello_name, $Level_10_Access, true) || $hello_name == 'Jakob') {
@@ -184,7 +182,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php }  if (in_array($hello_name, $Level_3_Access, true)) { ?>
+                        <?php } ?>
                             <li>
                                 <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>

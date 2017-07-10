@@ -59,7 +59,7 @@ $Today_TIME = date("h:i:s");
         <?php
         if (isset($EXECUTE)) {
         if($EXECUTE=='1') { ?>
-                    
+<?php if(in_array($hello_name, $Level_10_Access, true)) { ?>                    
   <div class="container">
 
                     <div class="col-md-12">
@@ -139,6 +139,7 @@ $Today_TIME = date("h:i:s");
     
       
   </div>
+<?php } ?>
 <div class="container-fluid">
                         <?php
 if (isset($datefrom)) {

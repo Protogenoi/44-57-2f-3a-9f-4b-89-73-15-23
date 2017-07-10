@@ -243,8 +243,26 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 <?php
                             }
                         }
-                        ?>                                
-
+                        ?>
+                                
+ <?php
+                        if (in_array($hello_name, $Manager_Access, true)) {
+                            if ($fftrackers == '1') {
+                                ?>
+                                <li>
+                                    <a href="/Life/Trackers/Closers.php?EXECUTE=1">
+                                        <span class="ca-icon"><i class="fa fa-bullseye"></i></span>
+                                        <div class="ca-content">
+                                            <h2 class="ca-main">Trackers<br/></h2>
+                                            <h3 class="ca-sub"></h3>
+                                        </div>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                        }
+                        ?>    
+                                
                     </ul>
                 </div>
             </div>

@@ -1243,7 +1243,7 @@ if (isset($fileuploadedfail)) {
                                     $file = $row['file'];
                                     $uploadtype = $row['uploadtype'];
 
-                                    switch ($uploadtype) {
+                                    switch ($uploadtype):
                                         case "Dealsheet":
                                         case "LGpolicy":
                                         case "LGkeyfacts":
@@ -1277,9 +1277,9 @@ if (isset($fileuploadedfail)) {
                                             break;
                                         default:
                                             $typeimage = $uploadtype;
-                                    }
+                                    endswitch;
 
-                                    switch ($uploadtype) {
+                                    switch ($uploadtype):
                                         case "Avivakeyfacts":
                                             $uploadtype = "Aviva Keyfacts";
                                             break;
@@ -1303,7 +1303,8 @@ if (isset($fileuploadedfail)) {
                                             break;
                                         default:
                                             $uploadtype;
-                                    }
+                                    endswitch;
+                                    
                                     if ($uploadtype == 'TONIC RECORDING') {
                                         $newfileholder = str_replace("$search-", "", "$file"); //remove quote
                                         ?>
@@ -2279,7 +2280,7 @@ try {
                             if ($clientnote->rowCount() > 0) {
                                 while ($result = $clientnote->fetch(PDO::FETCH_ASSOC)) {
 
-                                    switch ($result['note_type']) {
+                                    switch ($result['note_type']):
 
                                         case "Client Added":
                                             $TMicon = "fa-user-plus";
@@ -2367,7 +2368,7 @@ try {
                                             break;
                                         default:
                                             $TMicon = "fa-bomb";
-                                    }
+                                    endswitch;
 
                                     $TIMELINE_MESSAGE = html_entity_decode($result['message']);
                                     echo '<tr>';

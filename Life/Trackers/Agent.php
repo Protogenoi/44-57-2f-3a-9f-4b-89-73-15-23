@@ -107,6 +107,21 @@ $Today_TIME = date("h:i:s");
 
                         </form>
                     </div>
+            <div class="STATREFRESH"></div>
+      
+    <script>
+        function refresh_div() {
+            jQuery.ajax({
+                url: 'AJAX/Stats.php?EXECUTE=1',
+                type: 'POST',
+                success: function (results) {
+                    jQuery(".STATREFRESH").html(results);
+                }
+            });
+        }
+
+        t = setInterval(refresh_div, 1000);
+    </script>
   </div>
 <div class="container-fluid">
                         <?php

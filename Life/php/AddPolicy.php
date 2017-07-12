@@ -51,7 +51,7 @@ if (isset($EXECUTE)) {
         $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
-        if ($PolicyStatus == "Awaiting") {
+        if ($PolicyStatus == "Awaiting" || $policy_number=="TBC") {
             $sale_date = "TBC";
             $DATE = date("Y/m/d h:i:s");
             $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $DATE);

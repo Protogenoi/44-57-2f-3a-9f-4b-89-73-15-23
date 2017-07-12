@@ -127,15 +127,16 @@ if (isset($EXECUTE)) {
                                 <div class="col-md-4">
 
                                        <div class="alert alert-info"><strong>Client Name:</strong> 
-                                    Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>                                         <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
+                                    Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>
+                                    <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
                                             <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
                                             <?php if (isset($NAME2)) { ?>
                                             <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
                                             <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
                                             <?php } ?>    
                                     </select>
-
-                                </div>   
+                                       </div>   
+                                    
                                     <p>
                                         <label for="application_number">Application Number:</label>
                                         <?php if (isset($INSURER)) { ?>
@@ -154,7 +155,6 @@ if (isset($EXECUTE)) {
 
                             <div class="alert alert-info"><strong>Policy Number:</strong> 
                                 For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" value="TBC">
-
                             </div>   
                                    
                                     <br>
@@ -344,38 +344,13 @@ if (isset($EXECUTE)) {
                                                     <label for="comm_term">Clawback Term:</label>
                                                     <select class="form-control" name="comm_term" id="comm_term" style="width: 170px" required>
                                                         <option value="">Select...</option>
-                                                        <option value="52">52</option>
-                                                        <option value="51">51</option>
-                                                        <option value="50">50</option>
-                                                        <option value="49">49</option>
-                                                        <option value="48">48</option>
-                                                        <option value="47">47</option>
-                                                        <option value="46">46</option>
-                                                        <option value="45">45</option>
-                                                        <option value="44">44</option>
-                                                        <option value="43">43</option>
-                                                        <option value="42">42</option>
-                                                        <option value="41">41</option>
-                                                        <option value="40">40</option>
-                                                        <option value="39">39</option>
-                                                        <option value="38">38</option>
-                                                        <option value="37">37</option>
-                                                        <option value="36">36</option>
-                                                        <option value="35">35</option>
-                                                        <option value="34">34</option>
-                                                        <option value="33">33</option>
-                                                        <option value="32">32</option>
-                                                        <option value="31">31</option>
-                                                        <option value="30">30</option>
-                                                        <option value="29">29</option>
-                                                        <option value="28">28</option>
-                                                        <option value="27">27</option>
-                                                        <option value="26">26</option>
-                                                        <option value="25">25</option>
-                                                        <option value="24">24</option>
-                                                        <option value="23">23</option>
-                                                        <option value="22">22</option>
-                                                        <option value="12">12</option>
+                                                    <?php for ($CB_TERM = 52; $CB_TERM > 11; $CB_TERM = $CB_TERM - 1) {
+                                                            if($CB_TERM< 12) {
+                                                               break; 
+                                                    } 
+                                                            ?>
+                                                        <option value="<?php echo $CB_TERM;?>"><?php echo $CB_TERM; ?></option>
+                                                        <?php } ?>
                                                         <option value="1 year">1 year</option>
                                                         <option value="2 year">2 year</option>
                                                         <option value="3 year">3 year</option>

@@ -4,9 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '/../includes/user_tracking.php'); 
+$USER_TRACKING=1;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
@@ -105,6 +103,11 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
         require_once(__DIR__ . '/../includes/navbar.php');
 
         $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+        
+        if (isset($search)) {
+    $tracking_search= "%search=$search%";
+}
+        
         $life = filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
         $pension = filter_input(INPUT_GET, 'pension', FILTER_SANITIZE_SPECIAL_CHARS);
         $legacy = filter_input(INPUT_GET, 'legacy', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -120,7 +123,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
             <div class="container">
-
+<?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
                 <div class="editclient">
                     <div class="notice notice-warning">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>

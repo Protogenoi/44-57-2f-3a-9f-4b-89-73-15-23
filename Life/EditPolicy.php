@@ -4,9 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '/../includes/user_tracking.php'); 
+$USER_TRACKING=1;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
@@ -77,17 +75,15 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     <?php
     require_once(__DIR__ . '/../includes/navbar.php');
 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
-        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $client_namePOST = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-    } else {
         $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         $client_namePOST = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
-    }
 
+
+    if (isset($search)) {
+
+    $tracking_search= "%search=$search%";
+}
 
     $query = $pdo->prepare("SELECT CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
     $query->bindParam(':search', $id, PDO::PARAM_INT);
@@ -99,6 +95,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     $NAME3 = "$data2[NAME] and $data2[NAME2]";
     ?>
     <div class="container">
+        <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
         <div class="editpolicy">
             <div class="notice notice-warning">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>

@@ -15,18 +15,19 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
                 $USER_TRACKING_QRY->bindParam(':URL2', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->execute();
 
-    if($USER_TRACKING=='1') {            
+    if($USER_TRACKING=='1') {       
+        
                 $USER_TRACKING_CHK = $pdo->prepare("SELECT user_tracking_user, user_tracking_url
                     FROM
                     user_tracking
                     WHERE
-                    user_tracking_url=:URL AND user_tracking_user!=:HELLO AND DATE(user_tracking_date)=CURDATE()");
-                $USER_TRACKING_CHK->bindParam(':URL', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
+                    user_tracking_url like :URL AND user_tracking_user!=:HELLO AND DATE(user_tracking_date)=CURDATE()");
+                $USER_TRACKING_CHK->bindParam(':URL', $tracking_search, PDO::PARAM_STR);
                 $USER_TRACKING_CHK->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
                 $USER_TRACKING_CHK->execute();
                 while($USER_TRACKING_RESULT=$USER_TRACKING_CHK->fetch(PDO::FETCH_ASSOC)) {
                     
-                if($USER_TRACKING_RESULT['user_tracking_user'] != $hello_name && $USER_TRACKING_GRAB_URL == $USER_TRACKING_RESULT['user_tracking_url']) {    
+                if($USER_TRACKING_RESULT['user_tracking_user'] != $hello_name) {    
                 ?>
 <div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa fa-user-secret"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
                         

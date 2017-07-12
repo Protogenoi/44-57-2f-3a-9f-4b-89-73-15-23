@@ -49,7 +49,7 @@ if (isset($EXECUTE)) {
         ?>
         <!DOCTYPE html>
         <html lang="en">
-            <title>ADL | Add Life Policy</title>
+            <title>ADL | Add Policy</title>
             <meta charset="UTF-8">
             <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
             <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

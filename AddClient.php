@@ -96,7 +96,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
 
                                             $CUSTYPE = $result['insurance_company_name'];
 
-                                            switch ($CUSTYPE) {
+                                            switch ($CUSTYPE):
                                                 case "The Review Bureau":
                                                     $CUSTYPE="Bluestone Protect";
                                                     $DISPLAY_CUS="The Review Bureau";
@@ -124,17 +124,17 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                     $DISPLAY_CUS = "Home Insurance";
                                                     break;
                                                 case "TRB Aviva":
-                                                    $DISPLAY_CUS = "Aviva";
+                                                    $DISPLAY_CUS = "TRB Aviva";
                                                     break;
                                                 default:
                                                     $DISPLAY_CUS = $CUSTYPE;
-                                            }
+                                            endswitch;
                                             ?>
                                             <option value="<?php
                                             if (isset($CUSTYPE)) {
                                                 echo $CUSTYPE;
                                             }
-                                            ?>"><?php
+                                            ?>" <?php if(isset($DISPLAY_CUS) && $DISPLAY_CUS=="Legal and General") { echo "selected"; }?>><?php
                                                         if (isset($CUSTYPE)) {
                                                             echo $DISPLAY_CUS;
                                                         }

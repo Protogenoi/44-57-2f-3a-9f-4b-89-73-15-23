@@ -101,6 +101,11 @@ if (isset($hello_name)) {
     $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
     $policyID = filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
     $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+    
+        if (isset($search)) {
+
+    $tracking_search= "%search=$search%";
+}
 
     $query = $pdo->prepare("SELECT id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
     $query->bindParam(':PID', $policyID, PDO::PARAM_INT);

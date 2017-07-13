@@ -109,6 +109,9 @@ if (isset($Single_Client['leadauditid2'])) {
 if (isset($Single_Client['callauditid'])) {
     $auditid = $Single_Client['callauditid'];
 }
+
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva");
+$OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva");                     
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -515,7 +518,7 @@ if (isset($Single_Client['callauditid'])) {
                                 <?php
                             }
 
-                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY=='ADL Legal and General') {
+                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
 
                                 try {
 
@@ -558,7 +561,7 @@ if (isset($Single_Client['callauditid'])) {
                                 }
                             }
 
-                            if ($WHICH_COMPANY == 'TRB Vitality') {
+                            if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY=='Vitality') {
 
                                 try {
 
@@ -607,7 +610,8 @@ if (isset($Single_Client['callauditid'])) {
                     <br>
 
                     <?php
-                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
+                    
+                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
 
                         $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -763,16 +767,16 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
+                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
+                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }
@@ -929,16 +933,16 @@ if (isset($Single_Client['callauditid'])) {
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
+                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One `family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
+                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }
@@ -1059,13 +1063,6 @@ if (isset($fileuploadedfail)) {
                     <br /><br />
 
                     <div class="list-group">
-                        
-                        <?php
-                        
-                        $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva");
-                        $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva");
-                        
-                        ?>
 
                         <?php 
                         
@@ -1903,7 +1900,7 @@ try {
                     }
                 }
 
-                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || $WHICH_COMPANY == 'ADL_CUS') {
+                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
 
                     $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
@@ -2477,7 +2474,9 @@ try {
                     <div class="modal-body">
 <?php if ($ffclientemails == '1') { ?>
 
-                            <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
+                            <form class="AddClient" method="post" action="<?php 
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
+                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
 
                                 <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?>" readonly>
@@ -2526,7 +2525,9 @@ try {
                     <div class="modal-body">
 <?php if ($ffclientemails == '1') { ?>
 
-                            <form class="AddClient" method="post" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
+                            <form class="AddClient" method="post" action="<?php 
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
+                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) {  echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
 
                                 <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?>" readonly>

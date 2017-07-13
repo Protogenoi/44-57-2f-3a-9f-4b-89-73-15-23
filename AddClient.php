@@ -180,8 +180,6 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                 <input type="email" id="email" class="form-control" style="width: 170px" name="email">
                             </p>
 
-                            <input type="hidden" name="submitted_by" value="<?php echo $hello_name; ?>" readonly>
-
                             <br>
 
                         </div>

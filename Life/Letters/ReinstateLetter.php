@@ -30,7 +30,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             if(isset($companynamere)) {
                                 if($companynamere=='Bluestone Protect') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main = $pdo->prepare("SELECT company, CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
     $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
@@ -42,6 +42,11 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
     $ADD3=$data2['address3'];
     $TOWN=$data2['town'];
     $POSTCODE=$data2['post_code'];
+    $COMPANY=$data2['company'];
+    
+    if($COMPANY=='The Review Bureau' || $COMPANY=='Bluestone Protect') {
+        $COMPANY='Legal and General';
+    }
     
     $TODAY = date("Y-m-d");
     
@@ -162,9 +167,9 @@ function WriteHTML($html)
 
 
 $html = '
-<br /><br><p>As you may be aware there has been an issue with the direct debit for your Legal & General life insurance. I have enclosed two forms that need to be completed in order for your policy to continue.</p>
-<br /><br><p>The first document is a Declaration of Reinstatement form; this must be completed to let Legal & General know if you have developed any health conditions or lifestyle changes that may affect the terms of your cover.</p>
-<br /><br><p>I have also enclosed a direct debit mandate for you to complete so your direct debit can be reinstated. Once received Legal and General will reinstate the direct debit and usually attempt a payment for any arrears in about 10-14 working days.</p>
+<br /><br><p>As you may be aware there has been an issue with the direct debit for your '.$COMPANY.' life insurance. I have enclosed two forms that need to be completed in order for your policy to continue.</p>
+<br /><br><p>The first document is a Declaration of Reinstatement form; this must be completed to let '.$COMPANY.' know if you have developed any health conditions or lifestyle changes that may affect the terms of your cover.</p>
+<br /><br><p>I have also enclosed a direct debit mandate for you to complete so your direct debit can be reinstated. Once received '.$COMPANY.' will reinstate the direct debit and usually attempt a payment for any arrears in about 10-14 working days.</p>
 <br /><br><p>Please fill in these forms using block capitals and in blue or black ink and once fully completed please sign and return using the envelope enclosed.</p>
 <br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0330 010 0707.</p>
 

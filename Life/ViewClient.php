@@ -773,6 +773,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
+                                                    if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'Aviva') {
+                                                        $SMS_INSURER = 'Aviva';
+                                                    }
                                                     if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
@@ -941,6 +944,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
+                                                    }
+                                                    if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'Aviva') {
+                                                        $SMS_INSURER = 'Aviva';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';

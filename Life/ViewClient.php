@@ -607,7 +607,7 @@ if (isset($Single_Client['callauditid'])) {
                     <br>
 
                     <?php
-                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'CUS Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
+                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='ADL Legal and General' || 'TRB Archive' || $WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'ADL_CUS' || $WHICH_COMPANY == 'Vitality' || $WHICH_COMPANY == 'CUS WOL' || $WHICH_COMPANY == 'CUS Royal London' || $WHICH_COMPANY == 'CUS Aviva') {
 
                         $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -769,7 +769,7 @@ if (isset($Single_Client['callauditid'])) {
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') {
+                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {
@@ -935,7 +935,7 @@ if (isset($Single_Client['callauditid'])) {
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'CUS WOL') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'CUS Vitality') {
+                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'CUS Royal London') {

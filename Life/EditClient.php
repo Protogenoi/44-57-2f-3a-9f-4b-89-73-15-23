@@ -157,21 +157,22 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                         while ($result = $COMP_QRY->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $CUSTYPE = $result['insurance_company_name'];
-
                                             switch ($CUSTYPE):
                                                 
-                                                case "The Review Bureau":
+                                                    case "The Review Bureau":
+                                                    $CUSTYPE="The Review Bureau";
+                                                    $DISPLAY_CUS="Legal and General";
+                                                    break;
+                                                
+                                                case "Bluestone Protect":
                                                     $CUSTYPE="Bluestone Protect";
-                                                    $DISPLAY_CUS="TRB Legal and General";
+                                                    $DISPLAY_CUS="Legal and General";
                                                     break;
                                                 case "TRB Archive":
                                                     $DISPLAY_CUS = "TRB Archive";
                                                     break;
                                                 case "Bluestone Protect":
                                                     case "ADL Legal and General":
-                                                case "ADL_CUS":
-                                                    $DISPLAY_CUS = "Legal and General";
-                                                    break;
                                                 case "TRB Royal London":
                                                     $DISPLAY_CUS = "TRB Royal London";
                                                     break;

@@ -44,16 +44,7 @@ include('../../includes/ADL_PDO_CON.php');
     
     $SID=$SMS_RESULT['twilio_account_sid'];
     $TOKEN=$SMS_RESULT['twilio_account_token'];
-    
-    if($selectopt=='General_Contact' || $selectopt=='For_any_queries_call_us') {
-    $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer='NA' AND company=:COMPANY");
-    $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
-    $MES_QRY->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR, 100);
-    $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
-    $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);        
-    }
-    
-    else {
+
 
     $MES_QRY = $pdo->prepare("SELECT message FROM sms_templates WHERE title=:title and insurer=:SMS_INSURER AND company=:COMPANY");
     $MES_QRY->bindParam(':title', $selectopt, PDO::PARAM_STR, 100);
@@ -62,7 +53,6 @@ include('../../includes/ADL_PDO_CON.php');
     $MES_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
     $result=$MES_QRY->fetch(PDO::FETCH_ASSOC);    
 
-    }
     
     $SMS_MESSAGE=$result['message'];
     $countryCode = "+44";

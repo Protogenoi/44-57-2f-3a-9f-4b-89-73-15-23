@@ -89,7 +89,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                 <select class="form-control" name="custype" id="custype" style="width: 170px" required>
                                     <option value="">Select...</option>
                                     <?php
-                                    $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_name ASC");
+                                    $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_id DESC");
                                     $COMP_QRY->execute();
                                     if ($COMP_QRY->rowCount() > 0) {
                                         while ($result = $COMP_QRY->fetch(PDO::FETCH_ASSOC)) {
@@ -100,10 +100,10 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                 
                                                 case "The Review Bureau":
                                                     $CUSTYPE="Bluestone Protect";
-                                                    $DISPLAY_CUS="The Review Bureau";
+                                                    $DISPLAY_CUS="TRB Legal and General";
                                                     break;
                                                 case "TRB Archive":
-                                                    $DISPLAY_CUS = "Archive";
+                                                    $DISPLAY_CUS = "TRB Archive";
                                                     break;
                                                 case "Bluestone Protect":
                                                     case "ADL Legal and General":
@@ -111,7 +111,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                     $DISPLAY_CUS = "Legal and General";
                                                     break;
                                                 case "TRB Royal London":
-                                                    $DISPLAY_CUS = "Royal London";
+                                                    $DISPLAY_CUS = "TRB Royal London";
                                                     break;
                                                 case "TRB WOL":
                                                 case "TRB One Family":
@@ -122,7 +122,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                     $DISPLAY_CUS = "TRB Vitality";
                                                     break;
                                                 case "TRB Home Insurance":
-                                                    $DISPLAY_CUS = "Home Insurance";
+                                                    $DISPLAY_CUS = "TRB Home Insurance";
                                                     break;
                                                 case "TRB Aviva":
                                                     $DISPLAY_CUS = "TRB Aviva";

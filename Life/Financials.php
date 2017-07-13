@@ -323,17 +323,9 @@ WHERE
         'DECLINED',
         'On hold')
         AND client_policy.policy_number NOT LIKE '%DU%'
-        OR DATE(sale_date) BETWEEN :datefrom2 AND :dateto2
-        AND insurer = 'Legal and General'
-        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Clawback' , 'SUBMITTED-NOT-LIVE',
-        'DECLINED',
-        'On hold')
-        AND client_policy.policy_number NOT LIKE '%DU%'");
+        ");
                             $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $EXPECTED_SUM_QRY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR, 100);
-                            $EXPECTED_SUM_QRY->bindParam(':dateto2', $dateto, PDO::PARAM_STR, 100);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];

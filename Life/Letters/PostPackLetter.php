@@ -31,7 +31,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             if(isset($companynamere)) {
                                 if($companynamere=='Bluestone Protect') {
 
-    $main = $pdo->prepare("SELECT CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
+    $main = $pdo->prepare("SELECT company, CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
     $main->bindParam(':SEARCH', $search, PDO::PARAM_INT);
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
@@ -43,6 +43,11 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
     $ADD3=$data2['address3'];
     $TOWN=$data2['town'];
     $POSTCODE=$data2['post_code'];
+        $COMPANY=$data2['company'];
+    
+    if($COMPANY=='The Review Bureau' || $COMPANY=='Bluestone Protect') {
+        $COMPANY='Legal and General';
+    }
     
     $TODAY = date("Y-m-d");
     
@@ -168,8 +173,8 @@ function WriteHTML($html)
 
 
 $html = '
-<br /><br><p>As per our conversation please find enclosed the documents relating to your Legal & General life insurance, for your records I have enclosed the Personal Quotation, Policy Terms and Conditions and Policy Summary.</p>
-<br /><br><p>As discussed, you will now be able to create an online account with Legal & General so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online Legal & General will send you a "Checking Your Details" form by post.</p>
+<br /><br><p>As per our conversation please find enclosed the documents relating to your '.$COMPANY.' life insurance, for your records I have enclosed the Personal Quotation, Policy Terms and Conditions and Policy Summary.</p>
+<br /><br><p>As discussed, you will now be able to create an online account with '.$COMPANY.' so you can access a copy of your documents and your "Check your details" form. Please ensure you take some time to complete the form and ensure your information is accurate and either make any changes where needed or return the form stating your details are correct. If you do not complete the "Checking your details" form online '.$COMPANY.' will send you a "Checking Your Details" form by post.</p>
 <br /><br><p>Please ensure that you do complete your "Check your details" form as quickly as possible either online or by post as this will help to avoid any delays in the future if you should need to claim on the policy.</p>
 <br /><br><p>If you have any queries or need any help, please do not hesitate to contact our customer care team Monday to Friday 10:00 - 18:30 on 0330 010 0707.</p>
 

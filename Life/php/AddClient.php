@@ -433,7 +433,8 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                     <option value="Income Protection">Income Protection</option>
                                                 <?php }
                                             }
-                                            ?>
+                                            if(isset($INSURER) && $INSURER =='TRB WOL' || $INSURER=='One Family') { ?>
+                                                    
                                             <option value="WOL" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB WOL' || $INSURER=="One Family"){
@@ -441,6 +442,7 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                 }
                                             }
                                             ?> >WOL</option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     </p>

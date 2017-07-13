@@ -97,6 +97,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                             $CUSTYPE = $result['insurance_company_name'];
 
                                             switch ($CUSTYPE):
+                                                
                                                 case "The Review Bureau":
                                                     $CUSTYPE="Bluestone Protect";
                                                     $DISPLAY_CUS="The Review Bureau";
@@ -115,10 +116,10 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                 case "TRB WOL":
                                                 case "TRB One Family":
                                                     $CUSTYPE = "TRB WOL";
-                                                    $DISPLAY_CUS = "One Family";
+                                                    $DISPLAY_CUS = "TRB One Family";
                                                     break;
                                                 case "TRB Vitality":
-                                                    $DISPLAY_CUS = "Vitality";
+                                                    $DISPLAY_CUS = "TRB Vitality";
                                                     break;
                                                 case "TRB Home Insurance":
                                                     $DISPLAY_CUS = "Home Insurance";
@@ -128,7 +129,9 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                                     break;
                                                 default:
                                                     $DISPLAY_CUS = $CUSTYPE;
+                                                    
                                             endswitch;
+                                            
                                             ?>
                                             <option value="<?php
                                             if (isset($CUSTYPE)) {

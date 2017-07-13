@@ -193,14 +193,17 @@ if (isset($EXECUTE)) {
                                                     <option value="Income Protection">Income Protection</option>
                                                 <?php }
                                             }
-                                            ?>
+                                           
+                                       if(isset($INSURER) && $INSURER =='TRB WOL' || $INSURER=='One Family' || $INSURER=='ONEFAMILY') { ?>
+                                                    
                                             <option value="WOL" <?php
                                             if (isset($INSURER)) {
-                                                if ($INSURER == 'ONEFAMILY'){
+                                                if ($INSURER == 'TRB WOL' || $INSURER=="One Family" || $INSURER=="ONEFAMILY"){
                                                     echo "selected";
                                                 }
                                             }
                                             ?> >WOL</option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     </p>

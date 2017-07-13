@@ -151,42 +151,48 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                                                 if (isset($data2['company'])) {
 
 
-                                                    $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_name DESC");
+                                                    $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_id DESC");
                                                     $COMP_QRY->execute();
                                                     if ($COMP_QRY->rowCount() > 0) {
                                                         while ($result = $COMP_QRY->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $CUSTYPE = $result['insurance_company_name'];
 
-                                                            switch ($CUSTYPE) {
-                                                                case "TRB Archive":
-                                                                    $DISPLAY_CUS = "Archive";
-                                                                    break;
-                                                                case "Bluestone Protect":
-          
-                                                                case "ADL_CUS":
-                                                                    $DISPLAY_CUS = "Legal & General";
-                                                                    break;
-                                                                case "TRB Royal London":
-                                                                    $DISPLAY_CUS = "Royal London";
-                                                                    break;
-                                                                case "TRB WOL":
-                                                                case "TRB One Family":
-                                                                    $CUSTYPE = "TRB WOL";
-                                                                    $DISPLAY_CUS = "One Family";
-                                                                    break;
-                                                                case "TRB Vitality":
-                                                                    $DISPLAY_CUS = "Vitality";
-                                                                    break;
-                                                                case "TRB Home Insurance":
-                                                                    $DISPLAY_CUS = "Home Insurance";
-                                                                    break;
-                                                                case "TRB Aviva":
-                                                                    $DISPLAY_CUS = "Aviva";
-                                                                    break;
-                                                                default:
-                                                                    $DISPLAY_CUS = $CUSTYPE;
-                                                            }
+                                            switch ($CUSTYPE):
+                                                
+                                                case "The Review Bureau":
+                                                    $CUSTYPE="Bluestone Protect";
+                                                    $DISPLAY_CUS="TRB Legal and General";
+                                                    break;
+                                                case "TRB Archive":
+                                                    $DISPLAY_CUS = "TRB Archive";
+                                                    break;
+                                                case "Bluestone Protect":
+                                                    case "ADL Legal and General":
+                                                case "ADL_CUS":
+                                                    $DISPLAY_CUS = "Legal and General";
+                                                    break;
+                                                case "TRB Royal London":
+                                                    $DISPLAY_CUS = "TRB Royal London";
+                                                    break;
+                                                case "TRB WOL":
+                                                case "TRB One Family":
+                                                    $CUSTYPE = "TRB WOL";
+                                                    $DISPLAY_CUS = "TRB One Family";
+                                                    break;
+                                                case "TRB Vitality":
+                                                    $DISPLAY_CUS = "TRB Vitality";
+                                                    break;
+                                                case "TRB Home Insurance":
+                                                    $DISPLAY_CUS = "TRB Home Insurance";
+                                                    break;
+                                                case "TRB Aviva":
+                                                    $DISPLAY_CUS = "TRB Aviva";
+                                                    break;
+                                                default:
+                                                    $DISPLAY_CUS = $CUSTYPE;
+                                                    
+                                            endswitch;
                                                             ?>
                                                             <option value="<?php if (isset($CUSTYPE)) {
                                                                 echo $CUSTYPE;

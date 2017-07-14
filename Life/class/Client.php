@@ -586,7 +586,7 @@ class NewClient {
             
             $database->endTransaction();
             
-            
+     header('Location: /Life/Policy.php?EXECUTE=1&CID='.$this->LAST_ID.'&INSURER='.$this->insurer); die;       
             
     }
 

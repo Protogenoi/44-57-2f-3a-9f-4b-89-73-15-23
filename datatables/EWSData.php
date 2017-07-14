@@ -22,7 +22,7 @@ if(isset($EWS)) {
 , ews_data_history.net_premium
 , ews_data_history.premium_os
 , ews_data_history.clawback_due
-, DATE_FORMAT(ews_data_history.clawback_date, '%y-%M') AS clawback_date
+, ews_data_history.clawback_date
 , ews_data_history.policy_start_date
 , ews_data_history.off_risk_date
 , ews_data_history.reqs

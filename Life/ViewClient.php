@@ -37,6 +37,11 @@ if (empty($search)) {
     die;
 }
 
+$ACCESS_ALLOW=array("Michael","Matt");
+if($search=='138583' && !(in_array($hello_name,$ACCESS_ALLOW))) {
+    header('Location: ../SearchClients.php?ClientDeleted');
+}
+
 if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
 if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 

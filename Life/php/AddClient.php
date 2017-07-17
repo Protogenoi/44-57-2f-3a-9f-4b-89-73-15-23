@@ -641,7 +641,7 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                         <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/LeadGenNames.json",
+                                                            url: "../JSON/Agents.php?EXECUTE=1",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

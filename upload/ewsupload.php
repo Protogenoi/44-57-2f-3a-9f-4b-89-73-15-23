@@ -29,6 +29,30 @@ if ($_FILES["csv"]["size"] > 0) {
     
     $file = $_FILES["csv"]["tmp_name"];
     $handle = fopen($file,"r");
+    
+            $date=date("y-m-d-G:i:s");
+            
+            $fileup = $date."-".$hello_name."-".EWS;
+            $file_loc = $_FILES["csv"]["tmp_name"];
+            $file_size = $_FILES["csv"]["size"];
+            $file_type = $_FILES["csv"]["type"];
+            $folder="../Life/EWS/uploads/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($fileup);
+            $final_file=str_replace("'","",$new_file_name);
+            
+            if(move_uploaded_file($file_loc,$folder.$final_file)) {
+
+                
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype='EWS Upload'");
+                $query->bindParam(':file',$final_file, PDO::PARAM_STR);
+                $query->bindParam(':type',$file_type, PDO::PARAM_STR);
+                $query->bindParam(':size',$new_size, PDO::PARAM_STR);
+                $query->execute(); 
+                
+            }
+ 
 
     do {
         

@@ -125,20 +125,6 @@ if ($_FILES["csv"]["size"] > 0) {
             
             $color_status='Black';
 
-            
-            if(isset($dob)) {          
-                $correct_dob = date("Y-m-d" , strtotime($dob)); 
-                
-            }
-            
-            if(isset($last_full_premium_paid)) {
-                $correct_paid = date("Y-m-d" , strtotime($last_full_premium_paid));          
-            }
-            
-            if(isset($policy_start_date)) {
-                $correct_start = date("Y-m-d" , strtotime($policy_start_date)); 
-                
-            }
 // CHECK THERE IS DATA            
             if(isset($data[0])) {
                 if(is_numeric($data[1]) ) {  //IGNORE FIRST ROW
@@ -217,19 +203,19 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_MASTER->bindParam(':warning',$ORIG_WARNING, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':policy_number',$ORIG_POL_NUM, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':name',$name, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':dob',$dob, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add1',$add1, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add2',$add2, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add3',$add3, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add4',$add4, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':post',$post, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':last_full_premium_paid',$last_full_premium_paid, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_start_date',$policy_start_date, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':frn',$frn, PDO::PARAM_INT);
@@ -329,7 +315,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_EWS->bindParam(':agent',$agent, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':policy_number',$policy_number, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':name',$name, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':dob',$dob, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':add1',$add1, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':add2',$add2, PDO::PARAM_STR);
@@ -338,12 +324,12 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_EWS->bindParam(':post',$post, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':warning',$NEW_EWS, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':last_full_premium_paid',$last_full_premium_paid, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_start_date',$policy_start_date, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':frn',$frn, PDO::PARAM_INT);
@@ -356,7 +342,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_EWS->bindParam(':policy_number1',$policy_number, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':name1',$name, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':ASSIGNED2',$ASSIGNED, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':dob1',$correct_dob, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':dob1',$dob, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':add11',$add1, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':add21',$add2, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':add31',$add3, PDO::PARAM_STR);
@@ -364,12 +350,12 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_EWS->bindParam(':post1',$post, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':policy_type1',$policy_type, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':warning1',$warning, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':last_full_premium_paid1',$correct_paid, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':last_full_premium_paid1',$last_full_premium_paid, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':net_premium1',$net_premium, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':premium_os1',$premium_os, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':clawback_due1',$clawback_due, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':clawback_date1',$clawback_date, PDO::PARAM_STR);
-        $INSERT_EWS->bindParam(':policy_start_date1',$correct_start, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':policy_start_date1',$policy_start_date, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':off_risk_date1',$off_risk_date, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':seller_name1',$seller_name, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':frn1',$frn, PDO::PARAM_INT);
@@ -385,7 +371,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_MASTER->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':policy_number',$policy_number, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':name',$name, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':dob',$correct_dob, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':dob',$dob, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add1',$add1, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add2',$add2, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':add3',$add3, PDO::PARAM_STR);
@@ -393,12 +379,12 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_MASTER->bindParam(':post',$post, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':policy_type',$policy_type, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':warning',$NEW_EWS, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':last_full_premium_paid',$correct_paid, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':last_full_premium_paid',$last_full_premium_paid, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':net_premium',$net_premium, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':premium_os',$premium_os, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':clawback_due',$clawback_due, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':clawback_date',$clawback_date, PDO::PARAM_STR);
-        $INSERT_MASTER->bindParam(':policy_start_date',$correct_start, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':policy_start_date',$policy_start_date, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':off_risk_date',$off_risk_date, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':seller_name',$seller_name, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':frn',$frn, PDO::PARAM_INT);

@@ -235,7 +235,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="TRADING_NAMES" class="col-sm-3 col-form-label">Trading Names:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="TRADING_NAMES" name="TRADING_NAMES"><?php if(isset($TRADING_NAMES)) { echo $TRADING_NAMES; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TRADING_NAMES" name="TRADING_NAMES"><?php if(isset($TRADING_NAMES)) { echo $TRADING_NAMES; } ?></textarea>
                     </div>
                 </div>
             </div> 
@@ -253,7 +253,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="AUTH_NUMBERS" class="col-sm-3 col-form-label">Authorisation Numbers (FCA/ICO):</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="AUTH_NUMBERS" name="AUTH_NUMBERS"><?php if(isset($AUTH_NUMBERS)) { echo $AUTH_NUMBERS; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AUTH_NUMBERS" name="AUTH_NUMBERS"><?php if(isset($AUTH_NUMBERS)) { echo $AUTH_NUMBERS; } ?></textarea>
                     </div>
                 </div>
             </div>           
@@ -271,7 +271,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="DIRECTOR_INFO" class="col-sm-3 col-form-label">Principal, Shareholder and Director Information:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="DIRECTOR_INFO" name="DIRECTOR_INFO"><?php if(isset($DIRECTOR_INFO)) { echo $DIRECTOR_INFO; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DIRECTOR_INFO" name="DIRECTOR_INFO"><?php if(isset($DIRECTOR_INFO)) { echo $DIRECTOR_INFO; } ?></textarea>
                     </div>
                 </div>
             </div>        
@@ -280,16 +280,16 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="BUSINESS_OVERVIEW" class="col-sm-3 col-form-label">Overview of Business Model:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="BUSINESS_OVERVIEW" name="BUSINESS_OVERVIEW"><?php if(isset($BUSINESS_OVERVIEW)) { echo $BUSINESS_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="BUSINESS_OVERVIEW" name="BUSINESS_OVERVIEW"><?php if(isset($BUSINESS_OVERVIEW)) { echo $BUSINESS_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
-            </div>
+            </div>     
           
            <div class="form-group form-group-sm col-sm-6">
                 <div class="row">
                     <label for="GOV_STRAT_OVERVIEW" class="col-sm-3 col-form-label">Overview of Governance and Strategy:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="GOV_STRAT_OVERVIEW" name="GOV_STRAT_OVERVIEW"><?php if(isset($GOV_STRAT_OVERVIEW)) { echo $GOV_STRAT_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="GOV_STRAT_OVERVIEW" name="GOV_STRAT_OVERVIEW"><?php if(isset($GOV_STRAT_OVERVIEW)) { echo $GOV_STRAT_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>
@@ -298,7 +298,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="CLIENT_ACQ_OVERVIEW" class="col-sm-3 col-form-label">Overview of Client Acquisition:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="CLIENT_ACQ_OVERVIEW" name="CLIENT_ACQ_OVERVIEW"><?php if(isset($CLIENT_ACQ_OVERVIEW)) { echo $CLIENT_ACQ_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CLIENT_ACQ_OVERVIEW" name="CLIENT_ACQ_OVERVIEW"><?php if(isset($CLIENT_ACQ_OVERVIEW)) { echo $CLIENT_ACQ_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>
@@ -307,7 +307,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="CLIENT_ENG_OVERVIEW" class="col-sm-3 col-form-label">Overview of Client Engagement:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="CLIENT_ENG_OVERVIEW" name="CLIENT_ENG_OVERVIEW"><?php if(isset($CLIENT_ENG_OVERVIEW)) { echo $CLIENT_ENG_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CLIENT_ENG_OVERVIEW" name="CLIENT_ENG_OVERVIEW"><?php if(isset($CLIENT_ENG_OVERVIEW)) { echo $CLIENT_ENG_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>
@@ -316,7 +316,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="SER_DEL_OVERVIEW" class="col-sm-3 col-form-label">Overview of Service Delivery:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="SER_DEL_OVERVIEW" name="SER_DEL_OVERVIEW"><?php if(isset($SER_DEL_OVERVIEW)) { echo $SER_DEL_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SER_DEL_OVERVIEW" name="SER_DEL_OVERVIEW"><?php if(isset($SER_DEL_OVERVIEW)) { echo $SER_DEL_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>
@@ -325,16 +325,16 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="TRN_COM_OVERVIEW" class="col-sm-3 col-form-label">Overview of Training and Competence:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="TRN_COM_OVERVIEW" name="TRN_COM_OVERVIEW"><?php if(isset($TRN_COM_OVERVIEW)) { echo $TRN_COM_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TRN_COM_OVERVIEW" name="TRN_COM_OVERVIEW"><?php if(isset($TRN_COM_OVERVIEW)) { echo $TRN_COM_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div> 
-
+ 
            <div class="form-group form-group-sm col-sm-6">
                 <div class="row">
                     <label for="DATA_PRO_ARR_OVERVIEW" class="col-sm-3 col-form-label">Overview of Data Protection Arrangements:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="DATA_PRO_ARR_OVERVIEW" name="DATA_PRO_ARR_OVERVIEW"><?php if(isset($DATA_PRO_ARR_OVERVIEW)) { echo $DATA_PRO_ARR_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DATA_PRO_ARR_OVERVIEW" name="DATA_PRO_ARR_OVERVIEW"><?php if(isset($DATA_PRO_ARR_OVERVIEW)) { echo $DATA_PRO_ARR_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>
@@ -343,11 +343,11 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="COMP_HAN_OVERVIEW" class="col-sm-3 col-form-label">Overview of Complaints Handling:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="COMP_HAN_OVERVIEW" name="COMP_HAN_OVERVIEW"><?php if(isset($COMP_HAN_OVERVIEW)) { echo $COMP_HAN_OVERVIEW; } ?></textarea>
+                       <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="COMP_HAN_OVERVIEW" name="COMP_HAN_OVERVIEW"><?php if(isset($COMP_HAN_OVERVIEW)) { echo $COMP_HAN_OVERVIEW; } ?></textarea>
                     </div>
                 </div>
             </div>    
-          
+
              <div class="form-group">
 <button type="submit" class="btn btn-primary form-control">Save Business Overview</button>
     </div>
@@ -495,7 +495,7 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
     <tr>
       <th scope="row">TPS screening</th>
       <td>
-          <textarea class="form-control" id="TPS_SUM_RISK" name="TPS_SUM_RISK"><?php if(isset($TPS_SUM_RISK)) { echo $TPS_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_SUM_RISK" name="TPS_SUM_RISK"><?php if(isset($TPS_SUM_RISK)) { echo $TPS_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="TPS_COM_RISK">
@@ -505,19 +505,19 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
           </select>
       </td>
       <td>
-          <textarea class="form-control" id="TPS_IMPACT_RISK" name="TPS_IMPACT_RISK"><?php if(isset($TPS_IMPACT_RISK)) { echo $TPS_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_IMPACT_RISK" name="TPS_IMPACT_RISK"><?php if(isset($TPS_IMPACT_RISK)) { echo $TPS_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TPS_SCORE_RISK" name="TPS_SCORE_RISK"><?php if(isset($TPS_SCORE_RISK)) { echo $TPS_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_SCORE_RISK" name="TPS_SCORE_RISK"><?php if(isset($TPS_SCORE_RISK)) { echo $TPS_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="TPS_PRO_RISK" name="TPS_PRO_RISK"><?php if(isset($TPS_PRO_RISK)) { echo $TPS_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_PRO_RISK" name="TPS_PRO_RISK"><?php if(isset($TPS_PRO_RISK)) { echo $TPS_PRO_RISK; } ?></textarea>
       </td>      
     </tr>
     <tr>
       <th scope="row">Due diligence</th>
       <td>
-          <textarea class="form-control" id="DU_SUM_RISK" name="DU_SUM_RISK"><?php if(isset($DU_SUM_RISK)) { echo $DU_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_SUM_RISK" name="DU_SUM_RISK"><?php if(isset($DU_SUM_RISK)) { echo $DU_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="DU_COM_RISK">
@@ -527,19 +527,19 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
           </select>      
       </td>
       <td>
-          <textarea class="form-control" id="DU_IMPACT_RISK" name="DU_IMPACT_RISK"><?php if(isset($DU_IMPACT_RISK)) { echo $DU_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_IMPACT_RISK" name="DU_IMPACT_RISK"><?php if(isset($DU_IMPACT_RISK)) { echo $DU_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DU_SCORE_RISK" name="DU_SCORE_RISK"><?php if(isset($DU_SCORE_RISK)) { echo $DU_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_SCORE_RISK" name="DU_SCORE_RISK"><?php if(isset($DU_SCORE_RISK)) { echo $DU_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="DU_PRO_RISK" name="DU_PRO_RISK"><?php if(isset($DU_PRO_RISK)) { echo $DU_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_PRO_RISK" name="DU_PRO_RISK"><?php if(isset($DU_PRO_RISK)) { echo $DU_PRO_RISK; } ?></textarea>
       </td>  
     </tr>
     <tr>
       <th scope="row">Data protection and recording keeping</th>
       <td>
-          <textarea class="form-control" id="DPRK_SUM_RISK" name="DPRK_SUM_RISK"><?php if(isset($DPRK_SUM_RISK)) { echo $DPRK_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_SUM_RISK" name="DPRK_SUM_RISK"><?php if(isset($DPRK_SUM_RISK)) { echo $DPRK_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="DPRK_COM_RISK">
@@ -549,19 +549,19 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="DPRK_IMPACT_RISK" name="DPRK_IMPACT_RISK"><?php if(isset($DPRK_IMPACT_RISK)) { echo $DPRK_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_IMPACT_RISK" name="DPRK_IMPACT_RISK"><?php if(isset($DPRK_IMPACT_RISK)) { echo $DPRK_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DPRK_SCORE_RISK" name="DPRK_SCORE_RISK"><?php if(isset($DPRK_SCORE_RISK)) { echo $DPRK_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_SCORE_RISK" name="DPRK_SCORE_RISK"><?php if(isset($DPRK_SCORE_RISK)) { echo $DPRK_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="DPRK_PRO_RISK" name="DPRK_PRO_RISK"><?php if(isset($DPRK_PRO_RISK)) { echo $DPRK_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_PRO_RISK" name="DPRK_PRO_RISK"><?php if(isset($DPRK_PRO_RISK)) { echo $DPRK_PRO_RISK; } ?></textarea>
       </td>  
     </tr>
     <tr>
       <th scope="row">Systems and controls</th>
       <td>
-          <textarea class="form-control" id="SAC_SUM_RISK" name="SAC_SUM_RISK"><?php if(isset($SAC_SUM_RISK)) { echo $SAC_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_SUM_RISK" name="SAC_SUM_RISK"><?php if(isset($SAC_SUM_RISK)) { echo $SAC_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="SAC_COM_RISK">
@@ -571,19 +571,19 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="SAC_IMPACT_RISK" name="SAC_IMPACT_RISK"><?php if(isset($SAC_IMPACT_RISK)) { echo $SAC_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_IMPACT_RISK" name="SAC_IMPACT_RISK"><?php if(isset($SAC_IMPACT_RISK)) { echo $SAC_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="SAC_SCORE_RISK" name="SAC_SCORE_RISK"><?php if(isset($SAC_SCORE_RISK)) { echo $SAC_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_SCORE_RISK" name="SAC_SCORE_RISK"><?php if(isset($SAC_SCORE_RISK)) { echo $SAC_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="SAC_PRO_RISK" name="SAC_PRO_RISK"><?php if(isset($SAC_PRO_RISK)) { echo $SAC_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_PRO_RISK" name="SAC_PRO_RISK"><?php if(isset($SAC_PRO_RISK)) { echo $SAC_PRO_RISK; } ?></textarea>
       </td>  
     </tr>       
     <tr>
       <th scope="row">Complaints handling</th>
       <td>
-          <textarea class="form-control" id="COMP_HAN_OVERVIEW" name="CH_SUM_RISK"><?php if(isset($CH_SUM_RISK)) { echo $CH_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="COMP_HAN_OVERVIEW" name="CH_SUM_RISK"><?php if(isset($CH_SUM_RISK)) { echo $CH_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="CH_COM_RISK">
@@ -593,13 +593,13 @@ if(isset($data2['car_risk_overview_ch_rp'])) {
           </select>             
       </td>
       <td>
-          <textarea class="form-control" id="CH_IMPACT_RISK" name="CH_IMPACT_RISK"><?php if(isset($CH_IMPACT_RISK)) { echo $CH_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_IMPACT_RISK" name="CH_IMPACT_RISK"><?php if(isset($CH_IMPACT_RISK)) { echo $CH_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CH_SCORE_RISK" name="CH_SCORE_RISK"><?php if(isset($CH_SCORE_RISK)) { echo $CH_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_SCORE_RISK" name="CH_SCORE_RISK"><?php if(isset($CH_SCORE_RISK)) { echo $CH_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="CH_PRO_RISK" name="CH_PRO_RISK"><?php if(isset($CH_PRO_RISK)) { echo $CH_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_PRO_RISK" name="CH_PRO_RISK"><?php if(isset($CH_PRO_RISK)) { echo $CH_PRO_RISK; } ?></textarea>
       </td>  
     </tr> 
     
@@ -727,7 +727,7 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
     <tr>
       <th scope="row">Vulnerable customers</th>
       <td>
-          <textarea class="form-control" id="VC_SUM_RISK" name="VC_SUM_RISK"><?php if(isset($VC_SUM_RISK)) { echo $VC_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_SUM_RISK" name="VC_SUM_RISK"><?php if(isset($VC_SUM_RISK)) { echo $VC_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="VC_COM_RISK">
@@ -737,19 +737,19 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
           </select>           
       </td>
       <td>
-          <textarea class="form-control" id="VC_IMPACT_RISK" name="VC_IMPACT_RISK"><?php if(isset($VC_IMPACT_RISK)) { echo $VC_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_IMPACT_RISK" name="VC_IMPACT_RISK"><?php if(isset($VC_IMPACT_RISK)) { echo $VC_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="VC_SCORE_RISK" name="VC_SCORE_RISK"><?php if(isset($VC_SCORE_RISK)) { echo $VC_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_SCORE_RISK" name="VC_SCORE_RISK"><?php if(isset($VC_SCORE_RISK)) { echo $VC_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="VC_PRO_RISK" name="VC_PRO_RISK"><?php if(isset($VC_PRO_RISK)) { echo $VC_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_PRO_RISK" name="VC_PRO_RISK"><?php if(isset($VC_PRO_RISK)) { echo $VC_PRO_RISK; } ?></textarea>
       </td>  
     </tr>
     <tr>
       <th scope="row">Consent relied upon</th>
       <td>
-          <textarea class="form-control" id="CRU_SUM_RISK" name="CRU_SUM_RISK"><?php if(isset($CRU_SUM_RISK)) { echo $CRU_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_SUM_RISK" name="CRU_SUM_RISK"><?php if(isset($CRU_SUM_RISK)) { echo $CRU_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="CRU_COM_RISK">
@@ -759,19 +759,19 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="CRU_IMPACT_RISK" name="CRU_IMPACT_RISK"><?php if(isset($CRU_IMPACT_RISK)) { echo $CRU_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_IMPACT_RISK" name="CRU_IMPACT_RISK"><?php if(isset($CRU_IMPACT_RISK)) { echo $CRU_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CRU_SCORE_RISK" name="CRU_SCORE_RISK"><?php if(isset($CRU_SCORE_RISK)) { echo $CRU_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_SCORE_RISK" name="CRU_SCORE_RISK"><?php if(isset($CRU_SCORE_RISK)) { echo $CRU_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="CRU_PRO_RISK" name="CRU_PRO_RISK"><?php if(isset($CRU_PRO_RISK)) { echo $CRU_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_PRO_RISK" name="CRU_PRO_RISK"><?php if(isset($CRU_PRO_RISK)) { echo $CRU_PRO_RISK; } ?></textarea>
       </td>  
     </tr>      
     <tr>
       <th scope="row">PCI Compliance</th>
       <td>
-          <textarea class="form-control" id="PCI_SUM_RISK" name="PCI_SUM_RISK"><?php if(isset($PCI_SUM_RISK)) { echo $PCI_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_SUM_RISK" name="PCI_SUM_RISK"><?php if(isset($PCI_SUM_RISK)) { echo $PCI_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="PCI_COM_RISK">
@@ -781,19 +781,19 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
           </select>           
       </td>
       <td>
-          <textarea class="form-control" id="PCI_IMPACT_RISK" name="PCI_IMPACT_RISK"><?php if(isset($PCI_IMPACT_RISK)) { echo $PCI_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_IMPACT_RISK" name="PCI_IMPACT_RISK"><?php if(isset($PCI_IMPACT_RISK)) { echo $PCI_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="PCI_SCORE_RISK" name="PCI_SCORE_RISK"><?php if(isset($PCI_SCORE_RISK)) { echo $PCI_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_SCORE_RISK" name="PCI_SCORE_RISK"><?php if(isset($PCI_SCORE_RISK)) { echo $PCI_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="PCI_PRO_RISK" name="PCI_PRO_RISK"><?php if(isset($PCI_PRO_RISK)) { echo $PCI_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_PRO_RISK" name="PCI_PRO_RISK"><?php if(isset($PCI_PRO_RISK)) { echo $PCI_PRO_RISK; } ?></textarea>
       </td>  
     </tr>
     <tr>
       <th scope="row">Advised sales</th>
       <td>
-          <textarea class="form-control" id="AS_SUM_RISK" name="AS_SUM_RISK"><?php if(isset($AS_SUM_RISK)) { echo $AS_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_SUM_RISK" name="AS_SUM_RISK"><?php if(isset($AS_SUM_RISK)) { echo $AS_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="AS_COM_RISK">
@@ -803,19 +803,19 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="AS_IMPACT_RISK" name="AS_IMPACT_RISK"><?php if(isset($AS_IMPACT_RISK)) { echo $AS_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_IMPACT_RISK" name="AS_IMPACT_RISK"><?php if(isset($AS_IMPACT_RISK)) { echo $AS_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AS_SCORE_RISK" name="AS_SCORE_RISK"><?php if(isset($AS_SCORE_RISK)) { echo $AS_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_SCORE_RISK" name="AS_SCORE_RISK"><?php if(isset($AS_SCORE_RISK)) { echo $AS_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="AS_PRO_RISK" name="AS_PRO_RISK"><?php if(isset($AS_PRO_RISK)) { echo $AS_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_PRO_RISK" name="AS_PRO_RISK"><?php if(isset($AS_PRO_RISK)) { echo $AS_PRO_RISK; } ?></textarea>
       </td>  
     </tr>      
     <tr>
       <th scope="row">Referrals to a Financial Advisor</th>
       <td>
-          <textarea class="form-control" id="RFA_SUM_RISK" name="RFA_SUM_RISK"><?php if(isset($RFA_SUM_RISK)) { echo $RFA_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_SUM_RISK" name="RFA_SUM_RISK"><?php if(isset($RFA_SUM_RISK)) { echo $RFA_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="RFA_COM_RISK">
@@ -825,13 +825,13 @@ if(isset($data3['car_risk_overview_rfa_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="RFA_IMPACT_RISK" name="RFA_IMPACT_RISK"><?php if(isset($RFA_IMPACT_RISK)) { echo $RFA_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_IMPACT_RISK" name="RFA_IMPACT_RISK"><?php if(isset($RFA_IMPACT_RISK)) { echo $RFA_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="RFA_SCORE_RISK" name="RFA_SCORE_RISK"><?php if(isset($RFA_SCORE_RISK)) { echo $RFA_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_SCORE_RISK" name="RFA_SCORE_RISK"><?php if(isset($RFA_SCORE_RISK)) { echo $RFA_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="RFA_PRO_RISK" name="RFA_PRO_RISK"><?php if(isset($RFA_PRO_RISK)) { echo $RFA_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_PRO_RISK" name="RFA_PRO_RISK"><?php if(isset($RFA_PRO_RISK)) { echo $RFA_PRO_RISK; } ?></textarea>
       </td>  
     </tr>     
     
@@ -918,7 +918,7 @@ if(isset($data4['car_risk_overview_tc_rp'])) {
     <tr>
       <th scope="row">Misleading marketing content</th>
       <td>
-          <textarea class="form-control" id="MMC_SUM_RISK" name="MMC_SUM_RISK"><?php if(isset($MMC_SUM_RISK)) { echo $MMC_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_SUM_RISK" name="MMC_SUM_RISK"><?php if(isset($MMC_SUM_RISK)) { echo $MMC_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="MMC_COM_RISK">
@@ -928,19 +928,19 @@ if(isset($data4['car_risk_overview_tc_rp'])) {
           </select>            
       </td>
       <td>
-          <textarea class="form-control" id="MMC_IMPACT_RISK" name="MMC_IMPACT_RISK"><?php if(isset($MMC_IMPACT_RISK)) { echo $MMC_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_IMPACT_RISK" name="MMC_IMPACT_RISK"><?php if(isset($MMC_IMPACT_RISK)) { echo $MMC_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="MMC_SCORE_RISK" name="MMC_SCORE_RISK"><?php if(isset($MMC_SCORE_RISK)) { echo $MMC_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_SCORE_RISK" name="MMC_SCORE_RISK"><?php if(isset($MMC_SCORE_RISK)) { echo $MMC_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="MMC_PRO_RISK" name="MMC_PRO_RISK"><?php if(isset($MMC_PRO_RISK)) { echo $MMC_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_PRO_RISK" name="MMC_PRO_RISK"><?php if(isset($MMC_PRO_RISK)) { echo $MMC_PRO_RISK; } ?></textarea>
       </td>  
     </tr>   
     <tr>
       <th scope="row">Adequate Resources</th>
       <td>
-          <textarea class="form-control" id="AR_SUM_RISK" name="AR_SUM_RISK"><?php if(isset($AR_SUM_RISK)) { echo $AR_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_SUM_RISK" name="AR_SUM_RISK"><?php if(isset($AR_SUM_RISK)) { echo $AR_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="AR_COM_RISK">
@@ -950,19 +950,19 @@ if(isset($data4['car_risk_overview_tc_rp'])) {
           </select>               
       </td>
       <td>
-          <textarea class="form-control" id="AR_IMPACT_RISK" name="AR_IMPACT_RISK"><?php if(isset($AR_IMPACT_RISK)) { echo $AR_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_IMPACT_RISK" name="AR_IMPACT_RISK"><?php if(isset($AR_IMPACT_RISK)) { echo $AR_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AR_SCORE_RISK" name="AR_SCORE_RISK"><?php if(isset($AR_SCORE_RISK)) { echo $AR_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_SCORE_RISK" name="AR_SCORE_RISK"><?php if(isset($AR_SCORE_RISK)) { echo $AR_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="AR_PRO_RISK" name="AR_PRO_RISK"><?php if(isset($AR_PRO_RISK)) { echo $AR_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_PRO_RISK" name="AR_PRO_RISK"><?php if(isset($AR_PRO_RISK)) { echo $AR_PRO_RISK; } ?></textarea>
       </td>  
     </tr>
         <tr>
       <th scope="row">Training and competency</th>
       <td>
-          <textarea class="form-control" id="TAC_SUM_RISK" name="TAC_SUM_RISK"><?php if(isset($TAC_SUM_RISK)) { echo $TAC_SUM_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_SUM_RISK" name="TAC_SUM_RISK"><?php if(isset($TAC_SUM_RISK)) { echo $TAC_SUM_RISK; } ?></textarea>
       </td>
       <td>
           <select class="form-control" name="TAC_COM_RISK">
@@ -972,13 +972,13 @@ if(isset($data4['car_risk_overview_tc_rp'])) {
           </select>           
       </td>
       <td>
-          <textarea class="form-control" id="TAC_COM_RISK" name="TAC_IMPACT_RISK"><?php if(isset($TAC_IMPACT_RISK)) { echo $TAC_IMPACT_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_COM_RISK" name="TAC_IMPACT_RISK"><?php if(isset($TAC_IMPACT_RISK)) { echo $TAC_IMPACT_RISK; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TAC_COM_RISK" name="TAC_SCORE_RISK"><?php if(isset($TAC_SCORE_RISK)) { echo $TAC_SCORE_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_COM_RISK" name="TAC_SCORE_RISK"><?php if(isset($TAC_SCORE_RISK)) { echo $TAC_SCORE_RISK; } ?></textarea>
       </td> 
       <td>
-          <textarea class="form-control" id="TAC_COM_RISK" name="TAC_PRO_RISK"><?php if(isset($TAC_PRO_RISK)) { echo $TAC_PRO_RISK; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_COM_RISK" name="TAC_PRO_RISK"><?php if(isset($TAC_PRO_RISK)) { echo $TAC_PRO_RISK; } ?></textarea>
       </td>  
     </tr>  
   </tbody>
@@ -1169,13 +1169,13 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
     <tr>
       <th scope="row">TPS screening</th>
       <td>
-          <textarea class="form-control" id="TPS_SUM_ACTION" name="TPS_SUM_ACTION"><?php if(isset($TPS_SUM_ACTION)) { echo $TPS_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_SUM_ACTION" name="TPS_SUM_ACTION"><?php if(isset($TPS_SUM_ACTION)) { echo $TPS_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TPS_TYPE_ACTION" name="TPS_TYPE_ACTION"><?php if(isset($TPS_TYPE_ACTION)) { echo $TPS_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_TYPE_ACTION" name="TPS_TYPE_ACTION"><?php if(isset($TPS_TYPE_ACTION)) { echo $TPS_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TPS_ON_ACTION" name="TPS_ON_ACTION"><?php if(isset($TPS_ON_ACTION)) { echo $TPS_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_ON_ACTION" name="TPS_ON_ACTION"><?php if(isset($TPS_ON_ACTION)) { echo $TPS_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="TPS_DUE_DATE" name="TPS_DUE_DATE" value="<?php if(isset($TPS_DUE_DATE)) { echo $TPS_DUE_DATE; } ?>">
@@ -1187,19 +1187,19 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
           <input type="text" class="form-control" id="TPS_REVIEW" name="TPS_REVIEW" value="<?php if(isset($TPS_REVIEW)) { echo $TPS_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="TPS_OWNER" name="TPS_OWNER"><?php if(isset($TPS_OWNER)) { echo $TPS_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TPS_OWNER" name="TPS_OWNER"><?php if(isset($TPS_OWNER)) { echo $TPS_OWNER; } ?></textarea>
       </td>        
     </tr>
     <tr>
       <th scope="row">Due diligence</th>
       <td>
-          <textarea class="form-control" id="DU_SUM_ACTION" name="DU_SUM_ACTION"><?php if(isset($DU_SUM_ACTION)) { echo $DU_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_SUM_ACTION" name="DU_SUM_ACTION"><?php if(isset($DU_SUM_ACTION)) { echo $DU_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DU_TYPE_ACTION" name="DU_TYPE_ACTION"><?php if(isset($DU_TYPE_ACTION)) { echo $DU_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_TYPE_ACTION" name="DU_TYPE_ACTION"><?php if(isset($DU_TYPE_ACTION)) { echo $DU_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DU_ON_ACTION" name="DU_ON_ACTION"><?php if(isset($DU_ON_ACTION)) { echo $DU_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_ON_ACTION" name="DU_ON_ACTION"><?php if(isset($DU_ON_ACTION)) { echo $DU_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="DU_DUE_DATE" name="DU_DUE_DATE" value="<?php if(isset($DU_DUE_DATE)) { echo $DU_DUE_DATE; } ?>">
@@ -1211,19 +1211,19 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
           <input type="text" class="form-control" id="DU_REVIEW" name="DU_REVIEW" value="<?php if(isset($DU_REVIEW)) { echo $DU_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="DU_OWNER" name="DU_OWNER"><?php if(isset($DU_OWNER)) { echo $DU_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DU_OWNER" name="DU_OWNER"><?php if(isset($DU_OWNER)) { echo $DU_OWNER; } ?></textarea>
       </td>       
     </tr>
     <tr>
       <th scope="row">Data protection and recording keeping</th>
       <td>
-          <textarea class="form-control" id="DPRK_SUM_ACTION" name="DPRK_SUM_ACTION"><?php if(isset($DPRK_SUM_ACTION)) { echo $DPRK_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_SUM_ACTION" name="DPRK_SUM_ACTION"><?php if(isset($DPRK_SUM_ACTION)) { echo $DPRK_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DPRK_TYPE_ACTION" name="DPRK_TYPE_ACTION"><?php if(isset($DPRK_TYPE_ACTION)) { echo $DPRK_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_TYPE_ACTION" name="DPRK_TYPE_ACTION"><?php if(isset($DPRK_TYPE_ACTION)) { echo $DPRK_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="DPRK_ON_ACTION" name="DPRK_ON_ACTION"><?php if(isset($DPRK_ON_ACTION)) { echo $DPRK_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_ON_ACTION" name="DPRK_ON_ACTION"><?php if(isset($DPRK_ON_ACTION)) { echo $DPRK_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="DPRK_DUE_DATE" name="DPRK_DUE_DATE" value="<?php if(isset($DPRK_DUE_DATE)) { echo $DPRK_DUE_DATE; } ?>">
@@ -1235,19 +1235,19 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
           <input type="text" class="form-control" id="DPRK_REVIEW" name="DPRK_REVIEW" value="<?php if(isset($DPRK_REVIEW)) { echo $DPRK_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="DPRK_OWNER" name="DPRK_OWNER"><?php if(isset($DPRK_OWNER)) { echo $DPRK_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="DPRK_OWNER" name="DPRK_OWNER"><?php if(isset($DPRK_OWNER)) { echo $DPRK_OWNER; } ?></textarea>
       </td>     
     </tr>
     <tr>
       <th scope="row">Systems and controls</th>
       <td>
-          <textarea class="form-control" id="SAC_SUM_ACTION" name="SAC_SUM_ACTION"><?php if(isset($SAC_SUM_ACTION)) { echo $SAC_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_SUM_ACTION" name="SAC_SUM_ACTION"><?php if(isset($SAC_SUM_ACTION)) { echo $SAC_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="SAC_TYPE_ACTION" name="SAC_TYPE_ACTION"><?php if(isset($SAC_TYPE_ACTION)) { echo $SAC_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_TYPE_ACTION" name="SAC_TYPE_ACTION"><?php if(isset($SAC_TYPE_ACTION)) { echo $SAC_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="SAC_ON_ACTION" name="SAC_ON_ACTION"><?php if(isset($SAC_ON_ACTION)) { echo $SAC_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_ON_ACTION" name="SAC_ON_ACTION"><?php if(isset($SAC_ON_ACTION)) { echo $SAC_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="SAC_DUE_DATE" name="SAC_DUE_DATE" value="<?php if(isset($SAC_DUE_DATE)) { echo $SAC_DUE_DATE; } ?>">
@@ -1259,19 +1259,19 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
           <input type="text" class="form-control" id="SAC_REVIEW" name="SAC_REVIEW" value="<?php if(isset($SAC_REVIEW)) { echo $SAC_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="SAC_OWNER" name="SAC_OWNER"><?php if(isset($SAC_OWNER)) { echo $SAC_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="SAC_OWNER" name="SAC_OWNER"><?php if(isset($SAC_OWNER)) { echo $SAC_OWNER; } ?></textarea>
       </td>  
     </tr>       
     <tr>
       <th scope="row">Complaints handling</th>
       <td>
-          <textarea class="form-control" id="CH_SUM_ACTION" name="CH_SUM_ACTION"><?php if(isset($CH_SUM_ACTION)) { echo $CH_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_SUM_ACTION" name="CH_SUM_ACTION"><?php if(isset($CH_SUM_ACTION)) { echo $CH_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CH_TYPE_ACTION" name="CH_TYPE_ACTION"><?php if(isset($CH_TYPE_ACTION)) { echo $CH_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_TYPE_ACTION" name="CH_TYPE_ACTION"><?php if(isset($CH_TYPE_ACTION)) { echo $CH_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CH_ON_ACTION" name="CH_ON_ACTION"><?php if(isset($CH_ON_ACTION)) { echo $CH_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_ON_ACTION" name="CH_ON_ACTION"><?php if(isset($CH_ON_ACTION)) { echo $CH_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="CH_DUE_DATE" name="CH_DUE_DATE" value="<?php if(isset($CH_DUE_DATE)) { echo $CH_DUE_DATE; } ?>">
@@ -1283,7 +1283,7 @@ if(isset($data5['car_remedial_action_1_ch_owner'])) {
           <input type="text" class="form-control" id="CH_REVIEW" name="CH_REVIEW" value="<?php if(isset($CH_REVIEW)) { echo $CH_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="CH_OWNER" name="CH_OWNER"><?php if(isset($CH_OWNER)) { echo $CH_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CH_OWNER" name="CH_OWNER"><?php if(isset($CH_OWNER)) { echo $CH_OWNER; } ?></textarea>
       </td>   
     </tr>   
  
@@ -1451,13 +1451,13 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
     <tr>
       <th scope="row">Vulnerable customers</th>
       <td>
-          <textarea class="form-control" id="VC_SUM_ACTION" name="VC_SUM_ACTION"><?php if(isset($VC_SUM_ACTION)) { echo $VC_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_SUM_ACTION" name="VC_SUM_ACTION"><?php if(isset($VC_SUM_ACTION)) { echo $VC_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="VC_TYPE_ACTION" name="VC_TYPE_ACTION"><?php if(isset($VC_TYPE_ACTION)) { echo $VC_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_TYPE_ACTION" name="VC_TYPE_ACTION"><?php if(isset($VC_TYPE_ACTION)) { echo $VC_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="VC_ON_ACTION" name="VC_ON_ACTION"><?php if(isset($VC_ON_ACTION)) { echo $VC_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_ON_ACTION" name="VC_ON_ACTION"><?php if(isset($VC_ON_ACTION)) { echo $VC_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="VC_DUE_DATE" name="VC_DUE_DATE" value="<?php if(isset($VC_DUE_DATE)) { echo $VC_DUE_DATE; } ?>">
@@ -1469,19 +1469,19 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
           <input type="text" class="form-control" id="VC_REVIEW" name="VC_REVIEW" value="<?php if(isset($VC_REVIEW)) { echo $VC_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="VC_OWNER" name="VC_OWNER"><?php if(isset($VC_OWNER)) { echo $VC_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="VC_OWNER" name="VC_OWNER"><?php if(isset($VC_OWNER)) { echo $VC_OWNER; } ?></textarea>
       </td>    
     </tr>
     <tr>
       <th scope="row">Consent relied upon</th>
       <td>
-          <textarea class="form-control" id="CRU_SUM_ACTION" name="CRU_SUM_ACTION"><?php if(isset($CRU_SUM_ACTION)) { echo $CRU_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_SUM_ACTION" name="CRU_SUM_ACTION"><?php if(isset($CRU_SUM_ACTION)) { echo $CRU_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CRU_TYPE_ACTION" name="CRU_TYPE_ACTION"><?php if(isset($CRU_TYPE_ACTION)) { echo $CRU_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_TYPE_ACTION" name="CRU_TYPE_ACTION"><?php if(isset($CRU_TYPE_ACTION)) { echo $CRU_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="CRU_ON_ACTION" name="CRU_ON_ACTION"><?php if(isset($CRU_ON_ACTION)) { echo $CRU_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_ON_ACTION" name="CRU_ON_ACTION"><?php if(isset($CRU_ON_ACTION)) { echo $CRU_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="CRU_DUE_DATE" name="CRU_DUE_DATE" value="<?php if(isset($CRU_DUE_DATE)) { echo $CRU_DUE_DATE; } ?>">
@@ -1493,19 +1493,19 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
           <input type="text" class="form-control" id="CRU_REVIEW" name="CRU_REVIEW" value="<?php if(isset($CRU_REVIEW)) { echo $CRU_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="CRU_OWNER" name="CRU_OWNER"><?php if(isset($CRU_OWNER)) { echo $CRU_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="CRU_OWNER" name="CRU_OWNER"><?php if(isset($CRU_OWNER)) { echo $CRU_OWNER; } ?></textarea>
       </td>    
     </tr>      
     <tr>
       <th scope="row">PCI Compliance</th>
       <td>
-          <textarea class="form-control" id="PCI_SUM_ACTION" name="PCI_SUM_ACTION"><?php if(isset($PCI_SUM_ACTION)) { echo $PCI_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_SUM_ACTION" name="PCI_SUM_ACTION"><?php if(isset($PCI_SUM_ACTION)) { echo $PCI_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="PCI_TYPE_ACTION" name="PCI_TYPE_ACTION"><?php if(isset($PCI_TYPE_ACTION)) { echo $PCI_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_TYPE_ACTION" name="PCI_TYPE_ACTION"><?php if(isset($PCI_TYPE_ACTION)) { echo $PCI_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="PCI_ON_ACTION" name="PCI_ON_ACTION"><?php if(isset($PCI_ON_ACTION)) { echo $PCI_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_ON_ACTION" name="PCI_ON_ACTION"><?php if(isset($PCI_ON_ACTION)) { echo $PCI_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="PCI_DUE_DATE" name="PCI_DUE_DATE" value="<?php if(isset($PCI_DUE_DATE)) { echo $PCI_DUE_DATE; } ?>">
@@ -1517,19 +1517,19 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
           <input type="text" class="form-control" id="PCI_REVIEW" name="PCI_REVIEW" value="<?php if(isset($PCI_REVIEW)) { echo $PCI_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="PCI_OWNER" name="PCI_OWNER"><?php if(isset($PCI_OWNER)) { echo $PCI_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="PCI_OWNER" name="PCI_OWNER"><?php if(isset($PCI_OWNER)) { echo $PCI_OWNER; } ?></textarea>
       </td>   
     </tr>
     <tr>
       <th scope="row">Advised sales</th>
       <td>
-          <textarea class="form-control" id="AS_SUM_ACTION" name="AS_SUM_ACTION"><?php if(isset($AS_SUM_ACTION)) { echo $AS_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_SUM_ACTION" name="AS_SUM_ACTION"><?php if(isset($AS_SUM_ACTION)) { echo $AS_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AS_TYPE_ACTION" name="AS_TYPE_ACTION"><?php if(isset($AS_TYPE_ACTION)) { echo $AS_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_TYPE_ACTION" name="AS_TYPE_ACTION"><?php if(isset($AS_TYPE_ACTION)) { echo $AS_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AS_ON_ACTION" name="AS_ON_ACTION"><?php if(isset($AS_ON_ACTION)) { echo $AS_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_ON_ACTION" name="AS_ON_ACTION"><?php if(isset($AS_ON_ACTION)) { echo $AS_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="AS_DUE_DATE" name="AS_DUE_DATE" value="<?php if(isset($AS_DUE_DATE)) { echo $AS_DUE_DATE; } ?>">
@@ -1541,19 +1541,19 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
           <input type="text" class="form-control" id="AS_REVIEW" name="AS_REVIEW" value="<?php if(isset($AS_REVIEW)) { echo $AS_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="AS_OWNER" name="AS_OWNER"><?php if(isset($AS_OWNER)) { echo $AS_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AS_OWNER" name="AS_OWNER"><?php if(isset($AS_OWNER)) { echo $AS_OWNER; } ?></textarea>
       </td>    
     </tr>      
     <tr>
       <th scope="row">Referrals to a Financial Advisor</th>
       <td>
-          <textarea class="form-control" id="RFA_SUM_ACTION" name="RFA_SUM_ACTION"><?php if(isset($RFA_SUM_ACTION)) { echo $RFA_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_SUM_ACTION" name="RFA_SUM_ACTION"><?php if(isset($RFA_SUM_ACTION)) { echo $RFA_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="RFA_TYPE_ACTION" name="RFA_TYPE_ACTION"><?php if(isset($RFA_TYPE_ACTION)) { echo $RFA_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_TYPE_ACTION" name="RFA_TYPE_ACTION"><?php if(isset($RFA_TYPE_ACTION)) { echo $RFA_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="RFA_ON_ACTION" name="RFA_ON_ACTION"><?php if(isset($RFA_ON_ACTION)) { echo $RFA_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_ON_ACTION" name="RFA_ON_ACTION"><?php if(isset($RFA_ON_ACTION)) { echo $RFA_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="RFA_DUE_DATE" name="RFA_DUE_DATE" value="<?php if(isset($RFA_DUE_DATE)) { echo $RFA_DUE_DATE; } ?>">
@@ -1565,7 +1565,7 @@ if(isset($data6['car_remedial_action_2_rfa_owner'])) {
           <input type="text" class="form-control" id="RFA_REVIEW" name="RFA_REVIEW" value="<?php if(isset($RFA_REVIEW)) { echo $RFA_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="RFA_OWNER" name="RFA_OWNER"><?php if(isset($RFA_OWNER)) { echo $RFA_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="RFA_OWNER" name="RFA_OWNER"><?php if(isset($RFA_OWNER)) { echo $RFA_OWNER; } ?></textarea>
       </td>   
     </tr>
     
@@ -1676,13 +1676,13 @@ if(isset($data7['car_remedial_action_3_tc_owner'])) {
     <tr>
       <th scope="row">Misleading marketing content</th>
       <td>
-          <textarea class="form-control" id="MMC_SUM_ACTION" name="MMC_SUM_ACTION"><?php if(isset($MMC_SUM_ACTION)) { echo $MMC_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_SUM_ACTION" name="MMC_SUM_ACTION"><?php if(isset($MMC_SUM_ACTION)) { echo $MMC_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="MMC_TYPE_ACTION" name="MMC_TYPE_ACTION"><?php if(isset($MMC_TYPE_ACTION)) { echo $MMC_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_TYPE_ACTION" name="MMC_TYPE_ACTION"><?php if(isset($MMC_TYPE_ACTION)) { echo $MMC_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="MMC_ON_ACTION" name="MMC_ON_ACTION"><?php if(isset($MMC_ON_ACTION)) { echo $MMC_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_ON_ACTION" name="MMC_ON_ACTION"><?php if(isset($MMC_ON_ACTION)) { echo $MMC_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="MMC_DUE_DATE" name="MMC_DUE_DATE" value="<?php if(isset($MMC_DUE_DATE)) { echo $MMC_DUE_DATE; } ?>">
@@ -1694,19 +1694,19 @@ if(isset($data7['car_remedial_action_3_tc_owner'])) {
           <input type="text" class="form-control" id="MMC_REVIEW" name="MMC_REVIEW" value="<?php if(isset($MMC_REVIEW)) { echo $MMC_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="MMC_OWNER" name="MMC_OWNER"><?php if(isset($MMC_OWNER)) { echo $MMC_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="MMC_OWNER" name="MMC_OWNER"><?php if(isset($MMC_OWNER)) { echo $MMC_OWNER; } ?></textarea>
       </td>     
     </tr>   
     <tr>
       <th scope="row">Adequate Resources</th>
       <td>
-          <textarea class="form-control" id="AR_SUM_ACTION" name="AR_SUM_ACTION"><?php if(isset($AR_SUM_ACTION)) { echo $AR_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_SUM_ACTION" name="AR_SUM_ACTION"><?php if(isset($AR_SUM_ACTION)) { echo $AR_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AR_TYPE_ACTION" name="AR_TYPE_ACTION"><?php if(isset($AR_TYPE_ACTION)) { echo $AR_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_TYPE_ACTION" name="AR_TYPE_ACTION"><?php if(isset($AR_TYPE_ACTION)) { echo $AR_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="AR_ON_ACTION" name="AR_ON_ACTION"><?php if(isset($AR_ON_ACTION)) { echo $AR_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_ON_ACTION" name="AR_ON_ACTION"><?php if(isset($AR_ON_ACTION)) { echo $AR_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="AR_DUE_DATE" name="AR_DUE_DATE" value="<?php if(isset($AR_DUE_DATE)) { echo $AR_DUE_DATE; } ?>">
@@ -1718,19 +1718,19 @@ if(isset($data7['car_remedial_action_3_tc_owner'])) {
           <input type="text" class="form-control" id="AR_REVIEW" name="AR_REVIEW" value="<?php if(isset($AR_REVIEW)) { echo $AR_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="AR_OWNER" name="AR_OWNER"><?php if(isset($AR_OWNER)) { echo $AR_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="AR_OWNER" name="AR_OWNER"><?php if(isset($AR_OWNER)) { echo $AR_OWNER; } ?></textarea>
       </td>     
     </tr>
         <tr>
       <th scope="row">Training and competency</th>
       <td>
-          <textarea class="form-control" id="TAC_SUM_ACTION" name="TAC_SUM_ACTION"><?php if(isset($TAC_SUM_ACTION)) { echo $TAC_SUM_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_SUM_ACTION" name="TAC_SUM_ACTION"><?php if(isset($TAC_SUM_ACTION)) { echo $TAC_SUM_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TAC_TYPE_ACTION" name="TAC_TYPE_ACTION"><?php if(isset($TAC_TYPE_ACTION)) { echo $TAC_TYPE_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_TYPE_ACTION" name="TAC_TYPE_ACTION"><?php if(isset($TAC_TYPE_ACTION)) { echo $TAC_TYPE_ACTION; } ?></textarea>
       </td>
       <td>
-          <textarea class="form-control" id="TAC_ON_ACTION" name="TAC_ON_ACTION"><?php if(isset($TAC_ON_ACTION)) { echo $TAC_ON_ACTION; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_ON_ACTION" name="TAC_ON_ACTION"><?php if(isset($TAC_ON_ACTION)) { echo $TAC_ON_ACTION; } ?></textarea>
       </td>
       <td>
           <input type="text" class="form-control" id="TAC_DUE_DATE" name="TAC_DUE_DATE" value="<?php if(isset($TAC_DUE_DATE)) { echo $TAC_DUE_DATE; } ?>">
@@ -1742,7 +1742,7 @@ if(isset($data7['car_remedial_action_3_tc_owner'])) {
           <input type="text" class="form-control" id="TAC_REVIEW" name="TAC_REVIEW" value="<?php if(isset($TAC_REVIEW)) { echo $TAC_REVIEW; } ?>">
       </td>
       <td>
-          <textarea class="form-control" id="TAC_OWNER" name="TAC_OWNER"><?php if(isset($TAC_OWNER)) { echo $TAC_OWNER; } ?></textarea>
+         <textarea onkeyup="textAreaAdjust(this)" class="form-control" id="TAC_OWNER" name="TAC_OWNER"><?php if(isset($TAC_OWNER)) { echo $TAC_OWNER; } ?></textarea>
       </td>     
     </tr>  
   </tbody>
@@ -2224,7 +2224,23 @@ ADL
         });
     });
 </script>
-
+    <script>
+        function textAreaAdjust(o) {
+            o.style.height = "1px";
+            o.style.height = (25 + o.scrollHeight) + "px";
+        }
+    </script>
+              <script type="text/javascript">
+                                textAreaAdjust(document.getElementById("DIRECTOR_INFO"));
+                                textAreaAdjust(document.getElementById("BUSINESS_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("GOV_STRAT_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("CLIENT_ACQ_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("CLIENT_ENG_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("SER_DEL_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("TRN_COM_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("DATA_PRO_ARR_OVERVIEW"));
+                                textAreaAdjust(document.getElementById("COMP_HAN_OVERVIEW"));
+                            </script> 
         <script>$('#myTab a[href="#profile"]').tab('show') // Select tab by name
 $('#myTab a:first').tab('show') // Select first tab
 $('#myTab a:last').tab('show') // Select last tab

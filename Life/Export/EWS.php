@@ -36,8 +36,10 @@ $ALT_WARNING="$WARNING NEW";
 
     if($EXECUTE=='EWS') {
         
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -66,7 +68,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -82,7 +86,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -94,8 +98,10 @@ WHERE
 
 if($EXECUTE=='ADL') {
     
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -122,7 +128,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -138,7 +146,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -149,8 +157,10 @@ WHERE
 
     if($EXECUTE=='RAW_EWS') {
 
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -174,7 +184,10 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -190,7 +203,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -200,8 +213,10 @@ WHERE
     
     if($EXECUTE=='UPDATED_EWS') {
 
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -225,7 +240,10 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -241,7 +259,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -259,8 +277,10 @@ WHERE
                    $ASSIGNED=$hello_name;
            }
 
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
-                    $query = $pdo->prepare('SELECT 
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
+                    $query = $pdo->prepare('SELECT
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -285,7 +305,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -301,7 +323,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -311,8 +333,10 @@ WHERE
 
 if($EXECUTE=='RAW') {
     
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
-                    $query = $pdo->prepare('SELECT 
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
+                    $query = $pdo->prepare('SELECT
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -337,7 +361,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -353,7 +379,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -363,8 +389,10 @@ WHERE
 
 if($EXECUTE=='EWS_CANCELLED') {
     
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -389,7 +417,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -405,7 +435,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;
@@ -415,8 +445,10 @@ WHERE
     
 if($EXECUTE=='RAW_CANCELLED') {
     
-                        $output = "Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Colour Code, Assigned\n";
+                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
                     $query = $pdo->prepare('SELECT 
+                        date_added,
+                        ournotes,
     policy_number,
     client_name,
     dob,
@@ -440,7 +472,9 @@ WHERE
                     
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {
-                    
+                        
+                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
@@ -456,7 +490,7 @@ WHERE
                         $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$color_status.",".$ASSIGNED."\n";
+                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
                         
                     }
                     echo $output;

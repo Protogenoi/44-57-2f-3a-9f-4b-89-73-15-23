@@ -290,5 +290,52 @@ print json_encode($rows);
         
     }
     
+    if($EWS=='7') {
+        
+         include('../includes/ADL_PDO_CON.php');
+
+        $query = $pdo->prepare("SELECT 
+    ews_data.master_agent_no,
+    ews_data.agent_no,
+    ews_data.policy_number,
+    ews_data.client_name,
+    ews_data.dob,
+    ews_data.address1,
+    ews_data.address2,
+    ews_data.address3,
+    ews_data.address4,
+    ews_data.post_code,
+    ews_data.policy_type,
+    ews_data.warning,
+    ews_data.last_full_premium_paid,
+    ews_data.net_premium,
+    ews_data.premium_os,
+    ews_data.clawback_due,
+    ews_data.clawback_date,
+    ews_data.policy_start_date,
+    ews_data.off_risk_date,
+    ews_data.seller_name,
+    ews_data.frn,
+    ews_data.reqs,
+    ews_data.ews_status_status,
+    ews_data.date_added,
+    ews_data.processor,
+    ews_data.ournotes,
+    ews_data.color_status,
+    ews_data.updated_date,
+    ews_data.assigned,
+    client_policy.client_id
+FROM
+    ews_data
+LEFT JOIN
+    client_policy
+ON
+client_policy.policy_number = ews_data.policy_number");
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode($results);
+        
+    }
+    
     
     }

@@ -42,7 +42,7 @@ if (in_array($hello_name, $TRB_ACCESS, true)) {
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy');
     $Agent_Access = array("111111111");
     $Closer_Access = array("James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike", "Corey","David");
-    $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola");
+    $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","Amy","Ryan","abbiek","Rhiannon");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
 }
 
@@ -190,14 +190,14 @@ if ($companynamere == 'Bluestone Protect') {
     $COMPANY_ENTITY = 'Bluestone Protect';
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike", "Gavin");
-    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David");
-    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin", "Keith","David","Darryl");
-    $Task_Access = array("Michael", "Abbiek");
+    $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin","James Adams");
+    $Level_3_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David","Richard","James Adams");
+    $Level_1_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured","Keith","David","Darryl","Gavin","James Adams");
+    $Task_Access = array("Abbiek","Jakob");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy');
     $Agent_Access = array("111111111");
     $Closer_Access = array("James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey");
-    $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl");
+    $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Gavin","Ryan","Amy","Rhiannon","Jakob","James Adams");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
 }
 

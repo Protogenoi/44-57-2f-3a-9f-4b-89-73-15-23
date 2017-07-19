@@ -29,9 +29,9 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
 }
 
 if ($fflife == '1') {
-
+if(in_array($hello_name,$Task_Access,true)) {
     $NAVdate = date("Y-m-d");
-
+echo "YES";
     $navbar = $pdo->prepare("select count(deadline) AS badge from Client_Tasks where deadline=:date AND assigned =:navbarname and complete ='0'");
     $navbar->bindParam(':navbarname', $hello_name, PDO::PARAM_STR, 25);
     $navbar->bindParam(':date', $NAVdate, PDO::PARAM_STR, 25);
@@ -43,6 +43,8 @@ if ($fflife == '1') {
     $navbar2->bindParam(':date', $NAVdate, PDO::PARAM_STR, 25);
     $navbar2->execute();
     $navbarresult2 = $navbar2->fetch(PDO::FETCH_ASSOC);
+    
+}
 
     $set_timea = date("G:i", strtotime('-30 minutes'));
     $set_time_toa = date("G:i", strtotime('+20 minutes'));
@@ -54,6 +56,7 @@ if ($fflife == '1') {
     $query->execute();
     $ACT_CBS = $query->fetch(PDO::FETCH_ASSOC);
 }
+
 
 if ($ffsms == '1') {
 
@@ -133,13 +136,15 @@ if ($ACT_CBS['badge'] > 0) { ?>
         <li><a href="/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 
         } if ($fflife == '1') {
+            if(in_array($hello_name,$Task_Access,true)) {
 
         if ($navbarresult['badge'] > 0) {
             ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i>  Today <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
     if ($navbarresult2['badge'] > 0) {
             ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i>  Expired <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
         }
-        
+            }
+            
         if($ffkeyfactsemail=='1') {
             if ($KFS_stmtresult['badge'] >= '1') {
                 ?>

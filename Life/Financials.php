@@ -712,10 +712,14 @@ FROM
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
         AND insurer = 'Legal and General'
-        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Clawback' , 'DECLINED','On hold','Awaiting')");
-                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+        AND policystatus = 'Live'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
+        AND client_policy.insurer = 'Legal and General'
+        AND policystatus = 'Awaiting'");
+                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();

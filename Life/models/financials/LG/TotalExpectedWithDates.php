@@ -15,16 +15,17 @@ class TotalExpectedWithDatesModal {
 FROM
     client_policy
 WHERE
-DATE(submitted_date) BETWEEN :datefrom AND :dateto
+    DATE(sale_date) BETWEEN :datefrom AND :dateto
         AND insurer = 'Legal and General'
-        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Clawback' , 'SUBMITTED-NOT-LIVE',
-        'DECLINED',
-        'On hold')
-        AND client_policy.policy_number NOT LIKE '%DU%'
+        AND policystatus = 'Live'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
+        AND client_policy.insurer = 'Legal and General'
+        AND policystatus = 'Awaiting'
         ");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+        $stmt->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
+        $stmt->bindParam(':dateto2', $dateto, PDO::PARAM_STR);       
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

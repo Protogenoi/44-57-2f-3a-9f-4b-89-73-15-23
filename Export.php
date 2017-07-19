@@ -226,9 +226,8 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
                 </p>
             </form>
 
-            <form class="AddClient" action="/export/Export.php?query=LIFECOMM" method="post">
-                <h3>Export Business Register (TEST)</h3>
-
+                      <form class="AddClient" action="/export/Export.php?query=JUSTLIFE" method="post">
+                <h3>Legal and General Business Register</h3>
                 <p>
                     <label for="Select" required>Select Policies that</label>
                     <select name="Select">
@@ -240,18 +239,18 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom2" name="datefrom8" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
+                    <input type="text" id="datefrom2" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto2" name="dateto8" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
+                    <input type="text" id="dateto2" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
                 </p>
-            </form>    
+            </form>
 
             <?php
             if (isset($ffhome)) {

@@ -79,7 +79,7 @@ if ($companynamere == 'ADL_CUS') {
 $FILTER = filter_input(INPUT_POST, 'FILTER', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 $datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
-$commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+$COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html>
@@ -225,9 +225,7 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                         <h3 class="panel-title">Financial Statistics</h3>
                     </div>
                     <div class="panel-body">
-
-
-
+                        
                         <form action=" " method="get">
 
                             <div class="form-group">
@@ -278,14 +276,13 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>
 
                             </fieldset>
-                        </form>        
+                        </form>   
+                        
                         <?php
                         $simply_biz = "2.5";
-
-
+                        
                         if (isset($datefrom)) {
-                            
-                            
+                                                     
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/LG/TotalMissingWithDates.php');
     $TotalMissingWithDates = new TotalMissingWithDatesModal($pdo);
@@ -309,7 +306,7 @@ $commdate = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
 //CALCULATE NET| GROSS
 $TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_FOR = number_format($TOTAL_NET_GROSS, 2);                                       
+$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -339,7 +336,7 @@ WHERE
     SUM(CASE WHEN financial_statistics_history.payment_amount < 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalloss,
     SUM(CASE WHEN financial_statistics_history.payment_amount >= 0 THEN financial_statistics_history.payment_amount ELSE 0 END) as totalgross
     FROM financial_statistics_history WHERE DATE(insert_date)=:commdate");
-                            $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
 
 
 
@@ -349,7 +346,7 @@ WHERE
     FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
-                            $POL_ON_TM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
@@ -363,7 +360,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto)");
-                            $POL_NOT_TM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
@@ -371,86 +368,17 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             $POL_NOT_TM_SUM = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_PLUS'];
                             $POL_NOT_TM_SUM_LS = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_LOSS'];
 
-                            $MISSING_SUM_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
-                            $MISSING_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
-                            $MISSING_SUM_QRY_RS = $MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
+                            $MISSING_SUM_DISPLAY_QRY = $pdo->prepare("select SUM(commission) AS commission FROM client_policy WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED') AND policy_number NOT like '%DU%'");
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                            $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
+                            $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
+                            $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_PENDING;
-                            $MISSING_SUM = number_format($MISSING_SUM_UNFORMATTED, 2);
+                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
-                        } else {
-
-                            $MISSING_SUM_QRY = $pdo->prepare("SELECT 
-    SUM(client_policy.commission) AS commission
-FROM
-    client_policy
-WHERE
-    client_policy.policy_number NOT IN (SELECT 
-            financial_statistics_history.policy
-        FROM
-            financial_statistics_history)
-        AND client_policy.insurer = 'Legal and General'
-        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Awaiting' , 'Clawback',
-        'SUBMITTED-NOT-LIVE',
-        'DECLINED')");
-                            $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
-                            $MISSING_SUM_QRY_RS = $MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
-
-                            $simply_MISSING_SUM = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM = $ORIG_MISSING_SUM - $simply_MISSING_SUM;
-
-                            $Awaiting_SUM_QRY = $pdo->prepare("SELECT 
-    SUM(client_policy.commission) AS commission
-FROM
-    client_policy
-        LEFT JOIN
-    financial_statistics_history ON financial_statistics_history.policy = client_policy.policy_number
-WHERE
-    client_policy.policy_number NOT IN (SELECT 
-            financial_statistics_history.policy
-        FROM
-            financial_statistics_history)
-        AND client_policy.insurer = 'Legal and General'
-        AND client_policy.policystatus = 'Awaiting'");
-
-                            $Awaiting_SUM_QRY->execute()or die(print_r($Awaiting_SUM_QRY->errorInfo(), true));
-                            $Awaiting_SUM_QRY_RS = $Awaiting_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            $ORIG_Awaiting_SUM = $Awaiting_SUM_QRY_RS['commission'];
-
-                            $simply_EXP_Awaiting = ($simply_biz / 100) * $ORIG_Awaiting_SUM;
-                            $Awaiting_SUM_UNFORMATTED = $ORIG_Awaiting_SUM - $simply_EXP_Awaiting;
-                            $Awaiting_SUM = number_format($Awaiting_SUM_UNFORMATTED, 2);
-
-                            $MISSING_SUM_QRY = $pdo->prepare("SELECT 
-    SUM(commission) AS commission
-FROM
-    client_policy
-WHERE
-    DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE()
-        AND policy_number NOT IN (SELECT 
-            policy
-        FROM
-            financial_statistics_history)
-        AND insurer = 'Legal and General'
-        AND policystatus NOT LIKE '%CANCELLED%'
-        AND policystatus NOT IN ('Awaiting' , 'Clawback',
-        'SUBMITTED-NOT-LIVE',
-        'DECLINED')");
-                            $MISSING_SUM_QRY->execute()or die(print_r($MISSING_SUM_QRY->errorInfo(), true));
-                            $MISSING_SUM_QRY_RS = $MISSING_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                            
-                            $ORIG_MISSING_SUM = $MISSING_SUM_QRY_RS['commission'];
-
-                            $simply_EXP_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_PENDING;
-                            $MISSING_SUM = number_format($MISSING_SUM_UNFORMATTED, 2);
-                            $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
-                        }
+                       
                         ?>       
 
                         <table  class="table table-hover">
@@ -458,13 +386,8 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php
-                                        if (isset($datefrom)) {
-                                            echo "ADL Projections for $commdate";
-                                        }
-                                        ?></th>
+                                    <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <?php if (isset($datefrom)) { ?>
                                 <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
@@ -472,8 +395,7 @@ ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="../export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_FOR"; ?>." ></i> <a href="../export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <?php } ?>
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="../export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="../export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
 
@@ -482,9 +404,7 @@ ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="../export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <?php if (isset($datefrom)) { ?>
 
-                            <?php } ?>
                             </tr>
                             </thead>
 
@@ -495,11 +415,6 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="../export/Export.ph
 
                                     $totalgross = $result['totalgross'];
                                     $totalloss = abs($result['totalloss']);
-                                    
-                                    if(!isset($datefrom)) {
-                                    $totalrate = "25.00";
-                                    
-                                    }
 
                                     if (isset($datefrom)) {
                                         if($datefrom>='2017-04-20') {
@@ -516,122 +431,108 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="../export/Export.ph
                                     $hwifsd = ($totalrate / 100) * $totalnet;
                                     $netcom = $totalnet - $hwifsd;
 
-                                    if (isset($datefrom)) {
-                                        $formattedtotmis = number_format($totaldifference, 2);
-                                        $totalONTIME = number_format($POL_ON_TM_SUM, 2);
-                                        $totalNOTTIME = number_format($POL_NOT_TM_SUM, 2);
-                                        $totalONTIME_LS = number_format($POL_ON_TM_SUM_LS, 2);
-                                        $totalNOTTIME_LS = number_format($POL_NOT_TM_SUM_LS, 2);
-                                    }
-                                    $formattedtotalgross = number_format($totalgross, 2);
-                                    $formattedtotalloss = number_format($totalloss, 2);
-                                    $formattedtotalnet = number_format($totalnet, 2);
-                                    $formattedhwifsd = number_format($hwifsd, 2);
-                                    $formattednetcom = number_format($netcom, 2);
-                                    if (isset($datefrom)) {
-                                        $formattedexpected = number_format($EXPECTED_SUM, 2);
-
-                                        $Awaiting_MIN_GROSS = $ORIG_EXPECTED_SUM - $ORIG_Awaiting_SUM;
-                                        $Awaiting_MIN = number_format($Awaiting_MIN_GROSS, 2);
-
-                                        $simply_EXPECTED_SUM = ($simply_biz / 100) * $Awaiting_MIN_GROSS;
-  
-                                    }
-                                
-                                    echo '<tr>';
-                                    if (isset($datefrom)) {
-                                        echo "<td>£$formattedexpected</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_FOR</td>";
-                                        echo "<td>£$MISSING_SUM</td>";
-                                    } else {
-                                        echo "<td>£$MISSING_SUM</td>";
-                                    }
-                                    echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
-                                    echo "</tr>";
-                                    echo "\n";
+                                   
+                                        $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
+                                        
+                                        echo '<tr>';
+                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$MISSING_SUM_DISPLAY</td>";    
+                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "</tr>";
+                                        echo "\n";
                                 }
-                            } else {
-                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-                            }
-                            if (isset($datefrom)) {
+                            } 
                                 ?>
-
+                        </table>
+                        
+                        <!-- RAW COMM TABLE  -->
                                 <table  class="table table-hover">
-
                                     <thead>
-
                                         <tr>
-                                            <th colspan="8"><?php
-                                                if (isset($datefrom)) {
-                                                    echo "RAW COMMS statistics for $commdate";
-                                                }
-                                                ?></th>
+                                            <th colspan="8"><?php echo "RAW COMMS statistics for $COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$commdate"; ?>."></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$commdate"; ?>."></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$commdate"; ?>."></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
                                     <th>HWIFS <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - HWIFS for COMM date <?php echo "$commdate"; ?>."></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$commdate"; ?>."></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$commdate"; ?>.
+                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - HWIFS for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_MISSING_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_MISSING_SUM_FORMAT; ?>"
-></i> <a href="?commdate=<?php echo $commdate; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
                                     </tr>
                                     </thead>
+                                    
+                                    <?php
+                                    
+                                    $TOTAL_GROSS_RAW = number_format($totalgross, 2);
+                                    $TOTAL_LOSS_RAW = number_format($totalloss, 2);
+                                    $TOTAL_NET_RAW = number_format($totalnet, 2);
+                                    $HWIFS_RAW = number_format($hwifsd, 2);
+                                    $NET_COMM_RAW = number_format($netcom, 2); 
+                                    $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
+                                    
+                                    ?>
 
                                     <tr>
-                                        <td><?php echo "£$formattedtotalgross"; ?></td>
-                                        <td><?php echo "£$formattedtotalloss"; ?></td>
-                                        <td><?php echo "£$formattedtotalnet"; ?></td>
-                                        <td><?php echo "£$formattedhwifsd"; ?></td>
-                                        <td><?php echo "£$formattednetcom"; ?></td>
-                                        <td><?php echo "£$formattedtotmis"; ?></td>
+                                        <td><?php echo "£$TOTAL_GROSS_RAW"; ?></td>
+                                        <td><?php echo "£$TOTAL_LOSS_RAW"; ?></td>
+                                        <td><?php echo "£$TOTAL_NET_RAW"; ?></td>
+                                        <td><?php echo "£$HWIFS_RAW"; ?></td>
+                                        <td><?php echo "£$NET_COMM_RAW"; ?></td>
+                                        <td><?php echo "£$ADL_vs_RAW_RAW"; ?></td>
                                         <td><?php echo "£$ADL_MISSING_SUM_FORMAT"; ?></td>
                                     </tr>
 
-                                </table>    
+                                </table> 
+                        
+                        <!-- END RAW COMM TABLE -->
+                        
+<?php 
 
-                                <table  class="table table-hover">
+$PAY_ON_TIME = number_format($POL_ON_TM_SUM, 2);
+$PAY_LATE = number_format($POL_NOT_TM_SUM, 2);
+$PAY_ON_TIME_LS = number_format($POL_ON_TM_SUM_LS, 2);
+$PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
 
-                                    <thead>
-
-                                        <tr>
-                                            <th colspan="8"><?php
-                                                if (isset($datefrom)) {
-                                                    echo "RAW COMMS breakdown $commdate";
-                                                }
-                                                ?></th>
-                                        </tr>
+?>
+                        <!-- COMPARISON TABLE -->
+                        
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><?php echo "RAW COMMS breakdown $COMM_DATE"; ?></th>
+                                </tr>
+                                <tr>
                                     <th>Payments on Time</th> 
                                     <th>Deductions on Time</th>
                                     <th>Late Payments</th>   
                                     <th>Late Deductions</th> 
-                                    </tr>
-                                    </thead>
-
-                                    <tr>
-                                        <td><?php echo "£$totalONTIME"; ?></td>
-                                        <td><?php echo "£$totalONTIME_LS"; ?></td>
-                                        <td><?php echo "£$totalNOTTIME"; ?></td>
-                                        <td><?php echo "£$totalNOTTIME_LS"; ?></td>
-                                    </tr>
-
-                                </table>
-
-                            <?php }
-                            ?>
-
-                        </table>    
-
+                                </tr>
+                            </thead>
+                            
+                            <tr>
+                                <td><?php echo "£$PAY_ON_TIME"; ?></td>
+                                <td><?php echo "£$PAY_ON_TIME_LS"; ?></td>
+                                <td><?php echo "£$PAY_LATE"; ?></td>
+                                <td><?php echo "£$PAY_LATE_LS"; ?></td>
+                            </tr>
+                        </table>
+                        
+                        <!-- END OF COMPARISON TABLE -->
+  
+    <?php }  ?>
                     </div>
                 </div>
             </div>
         </div>
+        
         <div id="RAW" class="tab-pane fade">
             <div class="container">
 
@@ -642,7 +543,7 @@ Total: <?php echo $ADL_MISSING_SUM_FORMAT; ?>"
 FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financial_statistics_history.payment_amount DESC");
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -653,7 +554,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>RAW COMMS for <?php echo "$commdate ($count records)"; ?></th>
+                                    <th colspan='3'>RAW COMMS for <?php echo "$COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -729,7 +630,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$commdate ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -768,7 +669,6 @@ WHERE
                     } else {
                         echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
                     }
-                }
                 ?>
             </div>
         </div>
@@ -777,7 +677,6 @@ WHERE
             <div class="container">
 
                 <?php
-                if (isset($datefrom)) {
 
                     $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
 FROM client_policy
@@ -793,7 +692,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -833,63 +732,9 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
                     } else {
                         echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Unpaid Policies Found!</div>";
                     }
-                } else {
-
-                    $query = $pdo->prepare("select DATE(sale_date) AS SALE_DATE, policystatus, client_name, id AS PID, client_id AS CID, policy_number, commission 
-FROM client_policy
-WHERE DATE(sale_date) BETWEEN '2017-01-01' AND CURDATE() AND policy_number NOT IN(select policy from financial_statistics_history) AND insurer='Legal and General' AND policystatus NOT like '%CANCELLED%' AND policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') AND policy_number NOT like '%DU%' ORDER BY commission DESC");
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
-                        ?>
-
-                        <table  class="table table-hover table-condensed">
-
-                            <thead>
-
-                                <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to"; ?> <?php echo date('Y-m-d'); ?> <?php echo " ($count records) | Total £$MISSING_SUM | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
-                                </tr>
-                            <th>Sale Date</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ADL Amount</th>
-                            <th>ADL Status</th>
-                            </tr>
-                            </thead>
-                            <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-
-                                $ORIG_EXP_COMMISSION = $row['commission'];
-
-                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
-                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
-
-                                echo '<tr>';
-                                echo "<td>" . $row['SALE_DATE'] . "</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($EXP_COMMISSION) > 0) {
-                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
-                                } else if (intval($EXP_COMMISSION) < 0) {
-                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
-                                } else {
-                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
-                                }
-                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                                echo "</tr>";
-                                echo "\n";
-                            }
-                            ?>
-                        </table>
-
-                        <?php
-                    } else {
-                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
-                    }
+                    
                 }
-                ?>
+?>
             </div>                
 
         </div>        
@@ -917,7 +762,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Missing for <?php echo "$commdate ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Missing for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -986,7 +831,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$commdate ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -1030,60 +875,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
                     } else {
                         echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Awaiting Policies found</div>";
                     }
-                } else {
-
-                    $query = $pdo->prepare("select client_policy.policystatus, DATE(client_policy.submitted_date) AS submitted_date, client_policy.client_name, client_policy.id AS PID, client_policy.client_id AS CID, client_policy.policy_number, client_policy.commission, DATE(client_policy.sale_date) AS SALE_DATE 
-FROM client_policy
-LEFT JOIN financial_statistics_history ON financial_statistics_history.policy=client_policy.policy_number 
-WHERE client_policy.policy_number NOT IN(select financial_statistics_history.policy from financial_statistics_history) AND client_policy.insurer='Legal and General' AND client_policy.policystatus ='Awaiting' AND client_policy.insurer='Legal and General' ORDER BY client_policy.commission DESC");
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
-                        ?>
-
-                        <table  class="table table-hover table-condensed">
-
-                            <thead>
-
-                                <tr>
-                                    <th colspan='3'>Awaiting <?php echo "($count records) | Total £$Awaiting_SUM | ADL £$ORIG_Awaiting_SUM"; ?></th>
-                                </tr>
-                            <th>Sale Date</th>
-                            <th>Policy</th>
-                            <th>Client</th>
-                            <th>ADL Amount</th>
-                            <th>ADL Status</th>
-                            </tr>
-                            </thead>
-                            <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-
-                                $AWAITING_SUB_DATE = $row['submitted_date'];
-
-                                echo '<tr>';
-                                echo "<td>$AWAITING_SUB_DATE</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['commission']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
-                                } else if (intval($row["commission"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['commission'] . "</span></td>";
-                                } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['commission'] . "</span></td>";
-                                }
-                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
-
-                                echo "</tr>";
-                                echo "\n";
-                            }
-                            ?>
-                        </table>
-
-                        <?php
-                    } else {
-                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Awaiting policies found!</div>";
-                    }
-                }
+                } 
                 ?>
             </div>                
 
@@ -1097,7 +889,7 @@ WHERE client_policy.policy_number NOT IN(select financial_statistics_history.pol
                     $POLIN_SUM_QRY = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS payment_amount FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
-                    $POLIN_SUM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
@@ -1108,7 +900,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -1121,7 +913,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $commdate ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1163,7 +955,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 
             <div class="container">
                 <?php if (isset($datefrom)) { ?>
-                    <form action="?datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>&commdate=<?php echo $commdate; ?>#POLOUTDATE" method="POST">
+                    <form action="?datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>&commdate=<?php echo $COMM_DATE; ?>#POLOUTDATE" method="POST">
                         <div class="form-group col-xs-3">
                             <label class="col-md-4 control-label" for="query"></label>
                             <select id="FILTER" name="FILTER" class="form-control" onchange="this.form.submit()" required>
@@ -1206,7 +998,7 @@ LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.pol
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto) AND financial_statistics_history.Payment_Amount <'0'");
                     }
 
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -1219,7 +1011,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $commdate ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1259,7 +1051,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 FROM financial_statistics_history 
 LEFT JOIN client_policy ON financial_statistics_history.policy=client_policy.policy_number 
 WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto)");
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -1272,7 +1064,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $commdate ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1318,14 +1110,14 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                 if (isset($datefrom)) {
 
                     $COMMIN_SUM_QRY = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS payment_amount from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.insurer ='Legal and General'");
-                    $COMMIN_SUM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['payment_amount'];
                     $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
                     $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount >= 0 AND DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.insurer ='Legal and General'");
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1336,7 +1128,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $commdate ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
@@ -1384,14 +1176,14 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                 if (isset($datefrom)) {
 
                     $COMMOUT_SUM_QRY = $pdo->prepare("select sum(financial_statistics_history.payment_amount) AS payment_amount from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.insurer ='Legal and General'");
-                    $COMMOUT_SUM_QRY->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['payment_amount'];
                     $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
 
                     $query = $pdo->prepare("select financial_statistics_history.payment_amount, client_policy.CommissionType, DATE(client_policy.sale_date) AS sale_date, client_policy.policy_number, financial_statistics_history.policy, financial_statistics_history.payment_due_date , client_policy.client_name, client_policy.client_id from financial_statistics_history LEFT JOIN client_policy on financial_statistics_history.policy=client_policy.policy_number where financial_statistics_history.payment_amount < 0 AND DATE(financial_statistics_history.insert_date) =:commdate AND client_policy.insurer ='Legal and General'");
-                    $query->bindParam(':commdate', $commdate, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1402,7 +1194,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $commdate ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
@@ -1481,7 +1273,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             }
 
                             if (isset($datefrom)) {
-                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd&datefrom=$datefrom&dateto=$dateto&commdate=$commdate' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             } else {
                                 echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             }
@@ -1516,12 +1308,12 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='../export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$commdate"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='../export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='../export/Export.php?EXECUTE=2<?php echo "&commdate=$commdate"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
+                                            <a href='../export/Export.php?EXECUTE=2<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
                                         </div>
 
 
@@ -1535,12 +1327,12 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='../export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$commdate"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='../export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='../export/Export.php?EXECUTE=5<?php echo "&commdate=$commdate"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
+                                            <a href='../export/Export.php?EXECUTE=5<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
                                         </div>
 
 

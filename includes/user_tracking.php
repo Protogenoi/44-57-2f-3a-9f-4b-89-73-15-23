@@ -4,15 +4,38 @@ $USER_TRACKING_GRAB_URL = $HTTP_PROTOCOL_CHK . filter_input(INPUT_SERVER,'HTTP_H
      
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
+function getRealIpAddr()
+{
+    if (!empty(filter_input(INPUT_SERVER,'HTTP_CLIENT_IP', FILTER_SANITIZE_SPECIAL_CHARS)))   
+    {
+      $ip=filter_input(INPUT_SERVER,'HTTP_CLIENT_IP', FILTER_SANITIZE_SPECIAL_CHARS);
+    } 
+    elseif (!empty(filter_input(INPUT_SERVER,'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_SPECIAL_CHARS)))
+    {
+      $ip=filter_input(INPUT_SERVER,'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    else
+    { 
+      $ip=filter_input(INPUT_SERVER,'REMOTE_ADDR', FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    return $ip;
+}
+
+getRealIpAddr();
+$TRACKED_IP= getRealIpAddr();
+
                 $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
                     SET
-                    user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url=:URL, user_tracking_user=:USER
+                    user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url=:URL, user_tracking_user=:USER, user_tracking_ip=INET6_ATON(:IP)
                     ON DUPLICATE KEY UPDATE
-                    user_tracking_url=:URL2");
+                    user_tracking_url=:URL2,
+                    user_tracking_ip=INET6_ATON(:IP2)");
                 $USER_TRACKING_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->bindParam(':USER', $hello_name, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->bindParam(':URL', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->bindParam(':URL2', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->bindParam(':IP', $TRACKED_IP, PDO::PARAM_STR);
+                $USER_TRACKING_QRY->bindParam(':IP2', $TRACKED_IP, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->execute();
 
     if($USER_TRACKING=='1') {       

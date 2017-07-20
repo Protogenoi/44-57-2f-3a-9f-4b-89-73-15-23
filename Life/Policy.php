@@ -35,7 +35,7 @@ $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
 
-$NewPolicy = new newPolicy("Michael Owen","Bluestone Protect","131803","","","LTvvdvdA","Legal and Genevvvral","12.00a","150.00b","200.000b","5b","In7demnity","42b","0.1b","","","2017-07-17 mnmnm","2017-13-19","Livejjj");
+$NewPolicy = new newPolicy("Michael Owen","Bluestone Protect","131803","Dr Michael Owen","AN34234234","003453454","LTA","Legal and General","12.00","150.00","200.000","5","Indemnity","42","0.1","Bob","Lee","2017-07-17","2017-12-19","Live");
 
 $NewPolicy->selectPolicy();
 $NewPolicy->checkVARS();
@@ -50,6 +50,13 @@ if(isset($DATA_RETURN) && $DATA_RETURN['VALIDATION']=="VALID") {
     
 }
 
+$DATA_DUPE=$NewPolicy->DupeCheck();
+
+if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
+    
+   $NewPolicy->AddPolicy();
+    
+}
 
         ?>
         <!DOCTYPE html>
@@ -124,6 +131,13 @@ if(isset($DATA_RETURN) && $DATA_RETURN['VALIDATION']=="VALID") {
 <?php if(isset($DATA_RETURN['VALIDATION']) && $DATA_RETURN['VALIDATION']=='INVALID') { ?>
         <div class="notice notice-warning fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Warning!</strong> Please check over the details that you have inputted.</div>
 <?php } ?> 
+        
+<?php if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='YES') { ?>
+        <div class="notice notice-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>DUPE Policy!</strong> There is already a policy on this system with policy number <?php if(isset($DATA_RETURN['POLICY'])) { echo $DATA_RETURN['POLICY']; } ?>.
+            <br><br>
+             <a class="btn btn-md btn-default" href="ViewPolicy.php?policyID=<?php echo $DATA_DUPE['PID']; ?>&search=<?php echo $DATA_DUPE['CID']; ?>" target="_blank" ><i class="fa fa-search"></i> View dupe policy</a>
+        </div>
+<?php } ?>         
         
                 <div class="panel-group">
                     <div class="panel panel-primary">
@@ -473,7 +487,6 @@ if(isset($DATA_RETURN) && $DATA_RETURN['VALIDATION']=="VALID") {
                                              
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
-                                <a href="ViewClient.php?search=<?php echo $CID; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
                             </div>                                                                              
                                     
                                     </div>

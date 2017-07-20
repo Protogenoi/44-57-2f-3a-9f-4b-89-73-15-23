@@ -43,7 +43,7 @@ $companynamere = $companydetailsq['company_name'];
 
                 <a class="list-group-item" href="?provider=y"><i class="fa fa-bank fa-fw"></i>&nbsp; Provider List</a>
 
-                <a class="list-group-item" href="?users=y"><i class="fa fa-user fa-fw"></i>&nbsp; User configuration</a>
+                <a class="list-group-item" href="?users=y"><i class="fa fa-user fa-fw"></i>&nbsp; Users</a>
 
                 <a class="list-group-item" href="?Emails=y"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Emails</a>
 
@@ -1701,13 +1701,35 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     ?>
 
                             <ul class="nav nav-pills">
-                                <li class="active"><a data-toggle="pill" href="#adduser">Add user</a></li>
+                                <li class="active"><a data-toggle="pill" href="#usertracking">User activity</a></li>
+                                <li><a data-toggle="pill" href="#adduser">Add user</a></li>
                                 <li><a data-toggle="pill" href="#modifyuser">Modify Users</a></li>
                             </ul>
                             <br>
 
                             <div class="tab-content">
-                                <div id="adduser" class="tab-pane fade in active">
+                                
+                                <div id="usertracking" class="tab-pane fade in active">
+                                    
+                            <?php
+                            
+                        $USR_TRKN = $pdo->prepare("SELECT user_tracking_id FROM user_tracking");
+                        $USR_TRKN->execute();
+                        if ($USR_TRKN->rowCount() > 0) {
+                           
+                            require_once(__DIR__ . '/models/users/UserTrackingModel.php');
+                            $UserTracking = new UserTrackingModal($pdo);
+                            $UserTrackingList = $UserTracking->getUserTracking();
+                            require_once(__DIR__ . '/views/users/UserTracking.php');
+                        }                             
+                            
+                            ?>
+                                    
+                                    
+                                </div>
+                                
+                                
+                                <div id="adduser" class="tab-pane fade in">
                                     <form class="form-horizontal" name="form1" method="post" action="php/AddNewUser.php?adduser=1" autocomplete="off">
                                         <fieldset>
                                             <legend>Add new user</legend>

@@ -41,6 +41,7 @@ class NewPolicy {
     public $CID;
     public $OWNER;
     
+    public $NAME;
     public $APP;
     public $POLICY;
     public $TYPE;
@@ -59,13 +60,14 @@ class NewPolicy {
     public $STATUS;
 
 
-    function __construct($hello_name, $OWNER, $CID, $APP, $POLICY, $TYPE, $INSURER, $PREMIUM, $COMMISSION, $COVER, $TERM, $COMM, $CB_TERM, $DRIP, $CLOSER, $AGENT, $SALE, $SUB, $STATUS) {
+    function __construct($hello_name, $OWNER, $CID, $NAME, $APP, $POLICY, $TYPE, $INSURER, $PREMIUM, $COMMISSION, $COVER, $TERM, $COMM, $CB_TERM, $DRIP, $CLOSER, $AGENT, $SALE, $SUB, $STATUS) {
 
         $this->HELLO = $hello_name;
         
         $this->CID = $CID;
         $this->OWNER = $OWNER;
         
+        $this->NAME = $NAME;
         $this->APP = $APP;
         $this->POLICY = $POLICY;
         $this->TYPE= $TYPE;
@@ -341,9 +343,145 @@ AND
         
     }
         
+    } //VALIDATION CHECK
+    
+    function DupeCheck() {
+        
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("SELECT 
+                    client_policy.policy_number,
+                    client_policy.client_id AS CID,
+                    client_policy.id AS PID
+                FROM 
+                    client_policy
+                JOIN
+                    client_details 
+                ON
+                    client_policy.client_id = client_details.client_id
+                WHERE
+                    client_policy.policy_number=:POL
+                AND    
+                    client_details.owner=:OWNER");
+        $database->bind(':OWNER', $this->OWNER);
+        $database->bind(':POL', $this->POLICY);
+        $database->execute();
+        $row = $database->single();
+
+        $database->endTransaction();
+
+        if ($database->rowCount() >= 1) {
+            
+            $check['CID'] = $row['CID'];
+            $check['PID'] = $row['PID'];
+            $check['DUPE'] = "YES";
+            
+            return $check;
+            
+        } else {
+            
+            $check['DUPE'] = "NO";
+            return $check;
+            
+        }
+        
+        $database->endTransaction();
+        
+        
+    } // DUPE CHECK
+    
+    function AddPolicy() {
+        
+            if ($this->POLICY == "Awaiting" || $this->POLICY=="TBC") {
+            $this->SALE = "TBC";
+            $DATE = date("Y/m/d h:i:s");
+            $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $DATE);
+            $this->POLICY="Awaiting";
+
+            $this->POLICY = "TBC $DATE_FOR_TBC_POL";
+        }
+
+        if (strpos($this->NAME, ' and ') !== false) {
+            $this->SOJ = "Joint";
+        } else {
+            $this->SOJ = "Single";
+        }    
+        
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("INSERT INTO 
+                client_policy
+            SET
+                client_id=:CID,
+                client_name=:NAME,
+                sale_date=:SALE,
+                application_number=:AN,
+                policy_number=:POLICY,
+                premium=:PREMIUM,
+                type=:TYPE,
+                insurer=:INSURER,
+                submitted_by=:HELLO,
+                commission=:COMMISSION,
+                CommissionType=:COMM_TYPE,
+                PolicyStatus=:STATUS,
+                comm_term=:CB_TERM,
+                drip=:DRIP,
+                submitted_date=:SUB,
+                soj=:SOJ,
+                closer=:CLOSER,
+                lead=:LEAD,
+                covera=:COVER,
+                polterm=:TERM");
+        $database->bind(':CID', $this->CID);
+        $database->bind(':NAME', $this->NAME);
+        $database->bind(':SALE', $this->SALE);
+        $database->bind(':AN', $this->APP);
+        $database->bind(':POLICY', $this->POLICY);
+        $database->bind(':PREMIUM', $this->PREMIUM);
+        $database->bind(':TYPE', $this->TYPE);
+        $database->bind(':INSURER', $this->INSURER);
+        $database->bind(':HELLO', $this->HELLO);
+        $database->bind(':COMMISSION', $this->COMMISSION);
+        $database->bind(':COMM_TYPE', $this->COMM);
+        $database->bind(':STATUS', $this->STATUS);
+        $database->bind(':CB_TERM', $this->CB_TERM);
+        $database->bind(':DRIP', $this->DRIP);
+        $database->bind(':SUB', $this->SUB);
+        $database->bind(':SOJ', $this->SOJ);
+        $database->bind(':CLOSER', $this->CLOSER);
+        $database->bind(':LEAD', $this->AGENT);
+        $database->bind(':COVER', $this->COVER);
+        $database->bind(':TERM', $this->TERM);
+        $database->execute();
+
+            $POL_MESS = "Policy $this->POLICY added";
+            
+            $database->query("INSERT INTO
+                        client_note 
+                    SET 
+                        client_id=:CID, 
+                        client_name=:NAME, 
+                        sent_by=:HELLO, 
+                        note_type='Policy Added', 
+                        message=:MSG");
+        $database->bind(':CID', $this->CID);
+        $database->bind(':NAME', $this->NAME);
+        $database->bind(':HELLO', $this->HELLO);
+        $database->bind(':MSG', $POL_MESS);
+        $database->execute();     
+        
+        $database->endTransaction();
+        
+        header('Location: /Life/ViewClient.php?policyadded=y&search=' . $this->CID . '&policy_number=' . $this->POLICY);
+            
+        
+        }
+        
     }
        
-}
+
 
 //END CLASS
 

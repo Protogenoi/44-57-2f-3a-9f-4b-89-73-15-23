@@ -115,7 +115,7 @@ if (isset($Single_Client['callauditid'])) {
     $auditid = $Single_Client['callauditid'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva");
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva");                     
 ?>
 <!DOCTYPE html>

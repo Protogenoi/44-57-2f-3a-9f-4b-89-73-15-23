@@ -6,6 +6,18 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 include('../../includes/adl_features.php');
 include('../../includes/ADL_PDO_CON.php');
+
+    $SMS_QRY = $pdo->prepare("SELECT twilio_account_sid, AES_DECRYPT(twilio_account_token, UNHEX(:key)) AS twilio_account_token FROM twilio_account");
+    $SMS_QRY->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
+    $SMS_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
+    $SMS_RESULT=$SMS_QRY->fetch(PDO::FETCH_ASSOC);
+    
+    $SID=$SMS_RESULT['twilio_account_sid'];
+    $TOKEN=$SMS_RESULT['twilio_account_token'];
+
+use Twilio\Rest\Client;                
+require('../../twilio-php-master/Twilio/autoload.php');
+
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
                             $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
@@ -179,6 +191,24 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     echo 'Connection failed: ' . $e->getMessage();
                     
                 }
+
+
+$client = new Client($SID, $TOKEN);
+
+$MOB_ARRAY=array("07401434619","07917886451","07890567225");
+$MOB_MSG="ADL Legal and General Raw COMMS Uploaded by $hello_name. Ready for upload!";
+
+foreach($MOB_ARRAY as $MESS_TO) {
+
+$client->messages->create(
+    "$MESS_TO",
+    array(
+        'from' => '+441792720471',
+        'body' => "$MOB_MSG"
+    )
+);                
+                
+}                
                 
                 header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Life'); die;
                 

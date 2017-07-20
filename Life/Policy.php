@@ -11,7 +11,8 @@ require_once(__DIR__ . '/../includes/user_tracking.php');
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../classes/database_class.php');
+require_once(__DIR__ . '/class/Policy.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -25,11 +26,7 @@ if (isset($fferror)) {
     }
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
-
-    header('Location: ../CRMmain.php?AccessDenied');
-    die;
-}
+if (in_array($hello_name, $Level_3_Access, true)) {
 
 $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
@@ -38,14 +35,22 @@ $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
 
-        $query = $pdo->prepare("SELECT submitted_date, company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
-        $query->bindParam(':CID', $CID, PDO::PARAM_STR);
-        $query->execute();
-        $data2 = $query->fetch(PDO::FETCH_ASSOC);
+$NewPolicy = new newPolicy("Michael Owen","Bluestone Protect","131803","","","LTvvdvdA","Legal and Genevvvral","12.00a","150.00b","200.000b","5b","In7demnity","42b","0.1b","","","2017-07-17 mnmnm","2017-13-19","Livejjj");
 
-        if(isset($data2['Name2'])) {
-            $NAME2=$data2['Name2'];
-        }
+$NewPolicy->selectPolicy();
+$NewPolicy->checkVARS();
+$data=$NewPolicy->selectPolicy();
+
+
+$NewPolicy->addPolicyValidation();
+$DATA_RETURN=$NewPolicy->addPolicyValidation();
+
+if(isset($DATA_RETURN) && $DATA_RETURN['VALIDATION']=="VALID") {
+    $NewPolicy->DupeCheck();
+    
+}
+
+
         ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -115,88 +120,96 @@ if (isset($EXECUTE)) {
             <br>
 
             <div class="container">
+                
+<?php if(isset($DATA_RETURN['VALIDATION']) && $DATA_RETURN['VALIDATION']=='INVALID') { ?>
+        <div class="notice notice-warning fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Warning!</strong> Please check over the details that you have inputted.</div>
+<?php } ?> 
+        
                 <div class="panel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">Add <?php echo $INSURER; ?> Policy</div>
                         <div class="panel-body">
-
-
-
-                            <form class="AddClient" action="php/AddPolicy.php?EXECUTE=1&CID=<?php echo $CID; ?>" method="POST">
-
-                                <div class="col-md-4">
-
-                                       <div class="alert alert-info"><strong>Client Name:</strong> 
+                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <form class="form-horizontal">
+                                        
+                                        <div class="col-sm-4">
+                                            
+                                            
+                                            <div class="alert alert-info"><strong>Client Name:</strong> 
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>
-                                    <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
-                                            <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
+                                    <div class="form-group has-<?php if(isset($DATA_RETURN['NAME_STATUS'])) { echo $DATA_RETURN['NAME_STATUS']; } ?> has-feedback">
+                                        <div class="col-sm-10">
+                                            <select class='form-control' name='client_name' id='client_name' required>
+                                                <option value="<?php echo $data['NAME']; ?>"><?php echo $data['NAME']; ?></option>
                                             <?php if (isset($NAME2)) { ?>
-                                            <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
-                                            <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
-                                            <?php } ?>    
-                                    </select>
-                                       </div>   
+                                                <option value="<?php echo $data['NAME2']; ?>"><?php echo $data['NAME2']; ?></option>
+                                                <option value="<?php echo "$data[NAME] and  $data[NAME2]"; ?>"><?php echo "$data[NAME] and  $data[NAME2]"; ?></option>
+                                            <?php } ?> 
+                                            </select> 
+                                        </div>
+                                    </div>
+                                            </div>
                                     
-                                    <p>
-                                        <label for="application_number">Application Number:</label>
-                                        <?php if (isset($INSURER)) { ?>
-
-                                            <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php
-                                            if ($INSURER == 'TRB WOL' || $INSURER == 'One Family') {
-                                                echo "WOL";
-                                            } if ($INSURER == 'TRB Royal London' || $INSURER == 'Royal London') {
-                                                echo "Royal London";
-                                            }
-                                            ?>" required>
-                                               <?php } ?>
-                                        <label for="application_number"></label>
-                                    </p>
-                                    <br>
-
-                            <div class="alert alert-info"><strong>Policy Number:</strong> 
-                                For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" value="TBC">
-                            </div>   
-                                   
-                                    <br>
-
-                                    <p>
-                                    <div class="form-group">
-                                        <label for="type">Type:</label>
-                                        <select class="form-control" name="type" id="type" style="width: 170px" required>
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['APP_STATUS'])) { echo $DATA_RETURN['APP_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="APP">APP Number:</label>
+                                    <div class="col-sm-6">
+                                    <input value="<?php if(isset($DATA_RETURN['APP'])) { echo $DATA_RETURN['APP']; } ?>" name="APP" type="text" class="form-control" id="APP" aria-describedby="input<?php if(isset($DATA_RETURN['APP_STATUS'])) { echo $DATA_RETURN['APP_STATUS']; } ?>4Status">
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['APP_ICON'])) { echo $DATA_RETURN['APP_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="APP" class="sr-only"><?php if(isset($DATA_RETURN['APP_STATUS'])) { echo $DATA_RETURN['APP_STATUS']; } ?></span>
+                                </div> 
+                                </div>
+                                            
+                                            <div class="alert alert-info"><strong>Policy Number:</strong> 
+                                    For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br>
+                                    <div class="form-group has-<?php if(isset($DATA_RETURN['POLICY_STATUS'])) { echo $DATA_RETURN['POLICY_STATUS']; } ?> has-feedback">
+                                        <div class="col-sm-10">
+                                             <input value="<?php if(isset($DATA_RETURN['POLICY'])) { echo $DATA_RETURN['POLICY']; } ?>" name="POLICY" type="text" class="form-control" id="POLICY" aria-describedby="input<?php if(isset($DATA_RETURN['POLICY_STATUS'])) { echo $DATA_RETURN['POLICY_STATUS']; } ?>4Status"> 
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['POLICY_ICON'])) { echo $DATA_RETURN['POLICY_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="POLICY" class="sr-only"><?php if(isset($DATA_RETURN['POLICY_STATUS'])) { echo $DATA_RETURN['POLICY_STATUS']; } ?></span>
+                                        </div>
+                                    </div>
+                                            </div>     
+                                            
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['TYPE_STATUS'])) { echo $DATA_RETURN['TYPE_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="TYPE">Type:</label>
+                                    <div class="col-sm-6">
+                                    <select class="form-control" name="TYPE" id="TYPE" required>
                                             <option value="">Select...</option>
-                                            <option value="LTA">LTA</option>
-                                            <option value="ARCHIVE" <?php
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='LTA') { echo "selected"; } ?> value="LTA">LTA</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='ARCHIVE') { echo "selected"; } ?> value="ARCHIVE" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'ARCHIVE') {
                                                     echo "selected";
                                                 }
-                                            }
+                                            } 
                                             ?> >ARCHIVE</option>
                                                     <?php
                                                     if (isset($INSURER)) {
                                                         if ($INSURER == 'TRB Vitality' || $INSURER == 'Vitality') {
                                                             ?>
-                                                    <option value="LTA SIC">LTA SIC (Vitality)</option>
+                                                    <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='LTA SIC') { echo "selected"; } ?> value="LTA SIC">LTA SIC (Vitality)</option>
                                                     <?php
                                                 }
                                             }
                                             ?>
-                                            <option value="LTA CIC">LTA + CIC</option>
-                                            <option value="DTA">DTA</option>
-                                            <option value="DTA CIC">DTA + CIC</option>
-                                            <option value="CIC">CIC</option>
-                                            <option value="FPIP">FPIP</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='LTA CIC') { echo "selected"; } ?> value="LTA CIC">LTA + CIC</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='DTA') { echo "selected"; } ?> value="DTA">DTA</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='DTA CIC') { echo "selected"; } ?> value="DTA CIC">DTA + CIC</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='CIC') { echo "selected"; } ?> value="CIC">CIC</option>
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='FPIP') { echo "selected"; } ?> value="FPIP">FPIP</option>
                                             <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB Aviva' || $INSURER == 'Aviva') {
                                                     ?> 
-                                                    <option value="Income Protection">Income Protection</option>
+                                                    <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='Income Protection') { echo "selected"; } ?> value="Income Protection">Income Protection</option>
                                                 <?php }
                                             }
                                            
                                        if(isset($INSURER) && $INSURER =='TRB WOL' || $INSURER=='One Family') { ?>
                                                     
-                                            <option value="WOL" <?php
+                                            <option <?php if(isset($DATA_RETURN['TYPE']) && $DATA_RETURN['TYPE']=='WOL') { echo "selected"; } ?> value="WOL" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB WOL' || $INSURER=="One Family"){
                                                     echo "selected";
@@ -205,15 +218,15 @@ if (isset($EXECUTE)) {
                                             ?> >WOL</option>
                                             <?php } ?>
                                         </select>
-                                    </div>
-                                    </p>
-
-                                    <p>
-                                    <div class="form-group">
-                                        <label for="insurer">Insurer:</label>
-                                        <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
+                                </div> 
+                                </div>                                            
+                                    
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['INSURER_STATUS'])) { echo $DATA_RETURN['INSURER_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="INSURER">Insurer:</label>
+                                    <div class="col-sm-6">
+ <select class="form-control" name="INSURER" id="INSURER" equired>
                                             <option value="">Select...</option>
-                                            <option value="Legal and General" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Legal and General') { echo "selected"; } ?> value="Legal and General" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'Legal and General') {
                                                     echo "selected";
@@ -221,36 +234,36 @@ if (isset($EXECUTE)) {
                                             }
                                             ?>>Legal & General</option>
                                             
-                                            <option value="Vitality" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Vitality') { echo "selected"; } ?>  value="Vitality" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB Vitality' || $INSURER == 'Vitality') {
                                                     echo "selected";
                                                 }
                                             }
                                             ?>>Vitality</option>
-                                            <option value="Assura" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Assura') { echo "selected"; } ?> value="Assura" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'ASSURA') {
                                                     echo "selected";
                                                 }
                                             }
                                             ?>>Assura</option>
-                                            <option value="Bright Grey">Bright Grey</option>
-                                            <option value="Royal London" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Bright Grey') { echo "selected"; } ?> value="Bright Grey">Bright Grey</option>
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Royal London') { echo "selected"; } ?> value="Royal London" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB Royal London' || $INSURER == 'Royal London') {
                                                     echo "selected";
                                                 }
                                             }
                                             ?>>Royal London</option>
-                                            <option value="One Family" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Legal and General') { echo "One Family"; } ?> value="One Family" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB WOL' || $INSURER == 'One Family') {
                                                     echo "selected";
                                                 }
                                             }
                                             ?>>One Family</option>
-                                            <option value="Aviva" <?php
+                                            <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Aviva') { echo "selected"; } ?> value="Aviva" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'TRB Aviva' || $INSURER == 'Aviva') {
                                                     echo "selected";
@@ -258,239 +271,235 @@ if (isset($EXECUTE)) {
                                             }
                                             ?>>Aviva</option>
                                         </select>
-                                    </div>
-                                    </p>
+                                </div> 
+                                </div>                                            
+                                            
+                                            </div>
+                                        
+                                        <div class="col-sm-4">
+                                            
+                                            <div class="form-group has-<?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="premium">Premium:</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group"> 
+                                        <span class="input-group-addon">£</span>
+                                    <input value="<?php if(isset($DATA_RETURN['PREMIUM'])) { echo $DATA_RETURN['PREMIUM']; } ?>" name="premium" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" aria-describedby="input<?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?>4Status">
+                                        </div>
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['PREMIUM_ICON'])) { echo $DATA_RETURN['PREMIUM_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="premium" class="sr-only"><?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?></span>
+                                </div> 
+                                </div>
+                                            
+                                            <div class="form-group has-<?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="commission">Commission:</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group"> 
+                                        <span class="input-group-addon">£</span>
+                                    <input value="<?php if(isset($DATA_RETURN['COMMISSION'])) { echo $DATA_RETURN['COMMISSION']; } ?>" name="commission" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency commission value1" id="commission" aria-describedby="input<?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?>4Status">
+                                        </div>
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['COMMISSION_ICON'])) { echo $DATA_RETURN['COMMISSION_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="commission" class="sr-only"><?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?></span>
+                                </div> 
                                 </div>
 
-                                <div class="col-md-4">
-
-
-                                    <p>
-                                    <div class="form-row">
-                                        <label for="premium">Premium:</label>
+                                            <div class="form-group has-<?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="cover">Cover:</label>
+                                    <div class="col-sm-6">
                                         <div class="input-group"> 
-                                            <span class="input-group-addon">£</span>
-                                            <input <?php
-                                            if ($INSURER == 'ARCHIVE') {
-                                                echo "value='0'";
-                                            }
-                                            ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
-                                        </div> 
-                                        </p>
-
-
-                                        <p>
-
-                                            <label for="commission">Commission</label>
+                                        <span class="input-group-addon">£</span>
+                                    <input value="<?php if(isset($DATA_RETURN['COVER'])) { echo $DATA_RETURN['COVER']; } ?>" name="cover" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency cover value1" id="cover" aria-describedby="input<?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?>4Status">
+                                        </div>
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['COVER_ICON'])) { echo $DATA_RETURN['COVER_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="cover" class="sr-only"><?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?></span>
+                                </div> 
+                                </div>
+                                            
+                                            <div class="form-group has-<?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="term">Term:</label>
+                                    <div class="col-sm-6">
                                         <div class="input-group"> 
-                                            <span class="input-group-addon">£</span>
-                                            <input <?php
-                                            if ($INSURER == 'ARCHIVE') {
-                                                echo "value='0'";
-                                            }
-                                            ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
-                                        </div> 
-                                        </p>
-
-                                        <p>
-                                        <div class="form-row">
-                                            <label for="commission">Cover Amount</label>
-                                            <div class="input-group"> 
-                                                <span class="input-group-addon">£</span>
-                                                <input <?php
-                                                if ($INSURER == 'ARCHIVE') {
-                                                    echo "value='0'";
-                                                }
-                                                ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
-                                            </div> 
-                                            </p>
-
-                                            <p>
-                                            <div class="form-row">
-                                                <label for="commission">Policy Term</label>
-                                                <div class="input-group"> 
-                                                    <span class="input-group-addon">yrs</span>
-                                                    <input <?php
-                                                    if ($INSURER == 'ARCHIVE') {
-                                                        echo "value='0'";
-                                                    }
-                                                    ?> style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php
-                                                        if (isset($INSURER)) {
-                                                            if ($INSURER == 'TRB WOL' || $INSURER == 'One Family') {
-                                                                echo "value='WOL'";
-                                                            }
-                                                        }
-                                                        ?> required/>
-                                                </div> 
-                                                </p>
-
-                                                <p>
-                                                <div class="form-group">
-                                                    <label for="CommissionType">Comms:</label>
-                                                    <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
+                                        <span class="input-group-addon">yrs</span>
+                                    <input value="<?php if(isset($DATA_RETURN['TERM'])) { echo $DATA_RETURN['TERM']; } ?>" name="term" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency term value1" id="term" aria-describedby="input<?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?>4Status">
+                                        </div>
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['TERM_ICON'])) { echo $DATA_RETURN['TERM_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="term" class="sr-only"><?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?></span>
+                                </div> 
+                                </div> 
+                                            
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['COMM_STATUS'])) { echo $DATA_RETURN['COMM_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="type">COMM:</label>
+                                    <div class="col-sm-6">
+<select class="form-control" name="CommissionType" id="CommissionType" required>
                                                         <option value="">Select...</option>
-                                                        <option value="Indemnity">Indemnity</option>
-                                                        <option value="Non Idenmity">Non-Idemnity</option>
-                                                        <option value="NA" <?php
-                                                        if (isset($INSURER)) {
-                                                            if ($INSURER == 'TRB WOL' || $INSURER == 'One Family') {
+                                                        <option <?php if(isset($DATA_RETURN['COMM']) && $DATA_RETURN['COMM']=='Indemnity') { echo "selected"; } ?> value="Indemnity">Indemnity</option>
+                                                        <option <?php if(isset($DATA_RETURN['COMM']) && $DATA_RETURN['COMM']=='Non Indemnity') { echo "selected"; } ?> value="Non Indemnity">Non-Idemnity</option>
+                                                        <option <?php if(isset($DATA_RETURN['COMM']) && $DATA_RETURN['COMM']=='NA') { echo "selected"; } ?> value="NA" <?php
+                                                        if (isset($COMM_TYPE)) {
+                                                            if ($COMM_TYPE == 'TRB WOL' || $COMM_TYPE == 'One Family') {
                                                                 echo "selected";
                                                             }
                                                         }
                                                         ?>>N/A</option>
                                                     </select>
-                                                </div>
-                                                </p>
-
-                                                <p>
-                                                <div class="form-group">
-                                                    <label for="comm_term">Clawback Term:</label>
-                                                    <select class="form-control" name="comm_term" id="comm_term" style="width: 170px" required>
+                                </div> 
+                                </div>    
+                                            
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['CB_TERM_STATUS'])) { echo $DATA_RETURN['CB_TERM_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="type">CB Term:</label>
+                                    <div class="col-sm-6">
+                                                    <select class="form-control" name="CB_TERM" id="CB_TERM" required>
                                                         <option value="">Select...</option>
-                                                    <?php for ($CB_TERM = 52; $CB_TERM > 11; $CB_TERM = $CB_TERM - 1) {
-                                                            if($CB_TERM< 12) {
+                                                    <?php for ($CB_GEN_TERM = 52; $CB_GEN_TERM > 11; $CB_GEN_TERM = $CB_GEN_TERM - 1) {
+                                                            if($CB_GEN_TERM< 12) {
                                                                break; 
                                                     } 
                                                             ?>
-                                                        <option value="<?php echo $CB_TERM;?>"><?php echo $CB_TERM; ?></option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']==$CB_GEN_TERM) { echo "selected"; } ?> value="<?php echo $CB_GEN_TERM;?>"><?php echo $CB_GEN_TERM; ?></option>
                                                         <?php } ?>
-                                                        <option value="1 year">1 year</option>
-                                                        <option value="2 year">2 year</option>
-                                                        <option value="3 year">3 year</option>
-                                                        <option value="4 year">4 year</option>
-                                                        <option value="5 year">5 year</option>
-                                                        <option <?php
-                                                        if (isset($INSURER)) {
-                                                            if ($INSURER == 'TRB WOL' || $INSURER == 'One Family' || $INSURER == 'ARCHIVE') {
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='1 year') { echo "selected"; } ?> value="1 year">1 year</option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='2 year') { echo "selected"; } ?> value="2 year">2 year</option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='3 year') { echo "selected"; } ?> value="3 year">3 year</option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='4 year') { echo "selected"; } ?> value="4 year">4 year</option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='5 year') { echo "selected"; } ?> value="5 year">5 year</option>
+                                                        <option <?php if(isset($DATA_RETURN['CB_TERM']) && $DATA_RETURN['CB_TERM']=='One Family') { echo "selected"; }
+                                                        if (isset($CB_TERM)) {
+                                                            if ($CB_TERM == 'TRB WOL' || $CB_TERM == 'One Family' || $CB_TERM == 'ARCHIVE') {
                                                                 echo "selected";
                                                             }
                                                         }
                                                         ?> value="0">0</option>
                                                     </select>
-                                                </div>
-                                                </p>
-
-                                                <p>
-                                                <div class="form-row">
-                                                    <label for="commission">Drip</label>
-                                                    <div class="input-group"> 
-                                                        <span class="input-group-addon">£</span>
-                                                        <input <?php
-                                                        if ($INSURER == 'ARCHIVE') {
-                                                            echo "value='0'";
-                                                        }
-                                                        ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="drip" name="drip" required/>
-                                                    </div> 
-                                                    </p>
-
-
-
-                                                    <p>
-                                                        <label for="closer">Closer:</label>
-                                                        <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
-                                                    </p>
-                                                    <script>var options = {
-                                                            url: "../JSON/<?php
-                                                        if ($companynamere == 'Bluestone Protect') {
-                                                            echo "CloserNames";
-                                                        } else {
-                                                            echo "CUS_CLOSERS";
-                                                        }
-                                                        ?>.json",
-                                                            getValue: "full_name",
-                                                            list: {
-                                                                match: {
-                                                                    enabled: true
-                                                                }
-                                                            }
-                                                        };
-
-                                                        $("#closer").easyAutocomplete(options);</script>
-                                                    <br>
-
-                                                    <p>
-                                                        <label for="lead">Lead Gen:</label>
-                                                        <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
-                                                    </p>
-                                                    <script>var options = {
-                                                            url: "../JSON/<?php
-                                                        if ($companynamere == 'Bluestone Protect') {
-                                                            echo "LeadGenNames";
-                                                        } else {
-                                                            echo "CUS_LEAD";
-                                                        }
-                                                        ?>.json",
-                                                            getValue: "full_name",
-                                                            list: {
-                                                                match: {
-                                                                    enabled: true
-                                                                }
-                                                            }
-                                                        };
-
-                                                        $("#lead").easyAutocomplete(options);</script>
-
-                                                </div>
-
-
-                                            </div>
-
-
-
-                                            <?php
-                                        }
-                                    }
-                                    ?>
+                                </div> 
+                                </div>     
+                                            
+                                            <div class="form-group has-<?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="drip">Drip:</label>
+                                    <div class="col-sm-6">
+                                        <div class="input-group"> 
+                                        <span class="input-group-addon">£</span>
+                                    <input value="<?php if(isset($DATA_RETURN['DRIP'])) { echo $DATA_RETURN['DRIP']; } ?>" name="drip" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency drip value1" id="drip" aria-describedby="input<?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?>4Status">
+                                        </div>
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['DRIP_ICON'])) { echo $DATA_RETURN['DRIP_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="drip" class="sr-only"><?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?></span>
+                                </div> 
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
 
-                            <div class="alert alert-info"><strong>Sale Date:</strong> 
-                                This is the sale date on the dealsheet. <br><br> <input type="text" id="submitted_date" name="submitted_date" value="<?php
-                                if ($INSURER == 'ARCHIVE') {
-                                    echo "2013";
-                                } else {
-                                    echo date('Y-m-d H:i:s');
-                                }
-                                ?>" placeholder="<?php echo date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
+                                <div class="form-group has-<?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="closer">Closer:</label>
+                                    <div class="col-sm-6">
+                                    <input value="<?php if(isset($DATA_RETURN['CLOSER'])) { echo $DATA_RETURN['CLOSER']; } ?>" name="closer" type="text" class="form-control" id="closer" aria-describedby="input<?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?>4Status">
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['CLOSER_ICON'])) { echo $DATA_RETURN['CLOSER_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="closer" class="sr-only"><?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?></span>
+                                </div> 
+                                </div>  
+                                            <script>var options = {
+                                                            url: "../JSON/Closers.php",
+                                                            getValue: "full_name",
+                                                            list: {
+                                                                match: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        };
 
-                            </div>   
+                                                        $("#closer").easyAutocomplete(options);</script>                                           
+                                        
+                                            
+                               <div class="form-group has-<?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?> has-feedback">
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="agent">Agent:</label>
+                                    <div class="col-sm-6">
+                                    <input value="<?php if(isset($DATA_RETURN['AGENT'])) { echo $DATA_RETURN['AGENT']; } ?>" name="agent" type="text" class="form-control" id="agent" aria-describedby="input<?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?>4Status">
+                                    <span class="glyphicon <?php if(isset($DATA_RETURN['AGENT_ICON'])) { echo $DATA_RETURN['AGENT_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="agent" class="sr-only"><?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?></span>
+                                </div> 
+                                </div>  
+                                            <script>var options = {
+                                                            url: "../JSON/Agents.php",
+                                                            getValue: "full_name",
+                                                            list: {
+                                                                match: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        };
 
-
-                            <div class="alert alert-info"><strong>Submitted Date:</strong> 
-                                This is the policy live date on the insurers portal. <br> <br><input type="text" id="sale_date" name="sale_date" value="<?php
-                                if ($INSURER == 'ARCHIVE') {
-                                    echo "2013";
-                                } else {
-                                    echo date('Y-m-d H:i:s');
-                                }
-                                ?>" placeholder="<?php echo date('Y-m-d H:i:s'); ?>"class="form-control" style="width: 170px" required>
-                            </div>                              
-                            <div class="alert alert-info"><strong>Policy Status:</strong> 
-                                For any policy where the submitted date is unknown. The policy status should be Awaiting. <br><br>     <div class="form-group">
-                                    <select class="form-control" name="PolicyStatus" id="PolicyStatus" style="width: 170px" required>
+                                                        $("#agent").easyAutocomplete(options);</script>                                               
+                                    
+                                    </div>
+                                        
+                                        
+                                        
+                                    <div class="col-sm-4"> 
+                                    
+                                    
+                                            <div class="alert alert-info"><strong>Sale Date:</strong> 
+                                    This is the sale date on the dealsheet. <br><br>
+                                    <div class="form-group has-<?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?> has-feedback">
+                                        <div class="col-sm-10">
+                                             <input value="<?php if(isset($DATA_RETURN['SUB'])) { echo $DATA_RETURN['SUB']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SUBmitted_date" type="text" class="form-control" id="SUBmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?>4Status"> 
+                                        <span class="glyphicon <?php if(isset($DATA_RETURN['SUB_ICON'])) { echo $DATA_RETURN['SUB_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="SUB" class="sr-only"><?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?></span>
+                                        </div>
+                                    </div>
+                                            </div>    
+                                        
+                                            <div class="alert alert-info"><strong>Submitted Date:</strong> 
+                                    This is the policy live date on the insurers portal. <br><br>
+                                    <div class="form-group has-<?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?> has-feedback">
+                                        <div class="col-sm-10">
+                                             <input value="<?php if(isset($DATA_RETURN['SALE'])) { echo $DATA_RETURN['SALE']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SALEmitted_date" type="text" class="form-control" id="SALEmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?>4Status"> 
+                                        <span class="glyphicon <?php if(isset($DATA_RETURN['SALE_ICON'])) { echo $DATA_RETURN['SALE_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
+                                    <span id="SALE" class="sr-only"><?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?></span>
+                                        </div>
+                                    </div>
+                                            </div> 
+                                        
+                                             <div class="alert alert-info"><strong>Policy Status:</strong> 
+                                    For any policy where the submitted date is unknown. The policy status should be Awaiting. <br><br>
+                                    <div class="form-group has-<?php if(isset($DATA_RETURN['POLICY_STATUS'])) { echo $DATA_RETURN['POLICY_STATUS']; } ?> has-feedback">
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="PolicyStatus" id="PolicyStatus" required>
                                         <option value="">Select...</option>
-                                        <option value="Live">Live</option>
-                                        <option value="Awaiting">Awaiting</option>
-                                        <option value="Not Live">Not Live</option>
-                                        <option value="NTU">NTU</option>
-                                        <option value="Declined">Declined</option>
-                                        <option value="Redrawn">Redrawn</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Live') { echo "selected"; } ?> value="Live">Live</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Awaiting') { echo "selected"; } ?> value="Awaiting">Awaiting</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Not Live') { echo "selected"; } ?> value="Not Live">Not Live</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='NTU') { echo "selected"; } ?> value="NTU">NTU</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Decline') { echo "selected"; } ?> value="Declined">Declined</option>
+                                        <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Redrawn') { echo "selected"; } ?> value="Redrawn">Redrawn</option>
                                     </select>
-                                </div>
-
-                            </div>                                    
- 
+                                        </div>
+                                    </div>
+                                            </div>                                       
+                                             
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
                                 <a href="ViewClient.php?search=<?php echo $CID; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
-                            </div>                             
-                        </div>
-                    </form>
+                            </div>                                                                              
+                                    
+                                    </div>
+                                
+                            </form>
+                                
+                            </div>
+                            </div>
+
+                     
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+    
+    <?php
+    
+                                }
+                                
+                                }
+                                
+                                } else {
+                                    header('Location: ../CRMmain.php?AccessDenied');
+                                    die;
+                                    
+                                }
+                                    ?>

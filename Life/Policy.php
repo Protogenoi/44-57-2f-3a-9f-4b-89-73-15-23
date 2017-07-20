@@ -34,8 +34,30 @@ $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
+        
+        $custtype = filter_input(INPUT_POST, 'custtype', FILTER_SANITIZE_SPECIAL_CHARS);
+        
 
-$NewPolicy = new newPolicy("Michael Owen","Bluestone Protect","131803","Dr Michael Owen","AN34234234","003453454","LTA","Legal and General","12.00","150.00","200.000","5","Indemnity","42","0.1","Bob","Lee","2017-07-17","2017-12-19","Live");
+        $NAME = filter_input(INPUT_POST, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
+        $APP = filter_input(INPUT_POST, 'APP', FILTER_SANITIZE_SPECIAL_CHARS);
+        $POLICY = filter_input(INPUT_POST, 'POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TYPE = filter_input(INPUT_POST, 'TYPE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $INSURER = filter_input(INPUT_POST, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
+        $PREMIUM = filter_input(INPUT_POST, 'PREMIUM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COMMISSION = filter_input(INPUT_POST, 'COMMISSION', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COVER = filter_input(INPUT_POST, 'COVER', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TERM = filter_input(INPUT_POST, 'TERM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COMM = filter_input(INPUT_POST, 'COMM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $CB_TERM = filter_input(INPUT_POST, 'CB_TERM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $DRIP = filter_input(INPUT_POST, 'DRIP', FILTER_SANITIZE_SPECIAL_CHARS);
+        $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+        $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
+        $SALE = filter_input(INPUT_POST, 'SALE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $SUB = filter_input(INPUT_POST, 'SUB', FILTER_SANITIZE_SPECIAL_CHARS); 
+        $STATUS = filter_input(INPUT_POST, 'STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+
+$NewPolicy = new newPolicy($hello_name,"Bluestone Protect",$CID,$NAME,$APP,$POLICY,$TYPE,$INSURER,$PREMIUM,$COMMISSION,$COVER,$TERM,$COMM,$CB_TERM,$DRIP,$CLOSER,$AGENT,$SALE,$SUB,$STATUS);
 
 $NewPolicy->selectPolicy();
 $NewPolicy->checkVARS();
@@ -57,9 +79,8 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
    $NewPolicy->AddPolicy();
     
 }
-
-        ?>
-        <!DOCTYPE html>
+?>
+<!DOCTYPE html>
         <html lang="en">
             <title>ADL | Add Policy</title>
             <meta charset="UTF-8">
@@ -155,7 +176,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>
                                     <div class="form-group has-<?php if(isset($DATA_RETURN['NAME_STATUS'])) { echo $DATA_RETURN['NAME_STATUS']; } ?> has-feedback">
                                         <div class="col-sm-10">
-                                            <select class='form-control' name='client_name' id='client_name' required>
+                                            <select class='form-control' name='NAME' id='NAME' required>
                                                 <option value="<?php echo $data['NAME']; ?>"><?php echo $data['NAME']; ?></option>
                                             <?php if (isset($NAME2)) { ?>
                                                 <option value="<?php echo $data['NAME2']; ?>"><?php echo $data['NAME2']; ?></option>
@@ -238,7 +259,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                 <div class="form-group has-<?php if(isset($DATA_RETURN['INSURER_STATUS'])) { echo $DATA_RETURN['INSURER_STATUS']; } ?> has-feedback">
                                     <label class="col-sm-4 control-label" style="text-align:left;" for="INSURER">Insurer:</label>
                                     <div class="col-sm-6">
- <select class="form-control" name="INSURER" id="INSURER" equired>
+ <select class="form-control" name="INSURER" id="INSURER" required>
                                             <option value="">Select...</option>
                                             <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Legal and General') { echo "selected"; } ?> value="Legal and General" <?php
                                             if (isset($INSURER)) {
@@ -297,7 +318,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     <div class="col-sm-6">
                                         <div class="input-group"> 
                                         <span class="input-group-addon">£</span>
-                                    <input value="<?php if(isset($DATA_RETURN['PREMIUM'])) { echo $DATA_RETURN['PREMIUM']; } ?>" name="premium" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" aria-describedby="input<?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['PREMIUM'])) { echo $DATA_RETURN['PREMIUM']; } ?>" name="PREMIUM" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" aria-describedby="input<?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?>4Status">
                                         </div>
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['PREMIUM_ICON'])) { echo $DATA_RETURN['PREMIUM_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="premium" class="sr-only"><?php if(isset($DATA_RETURN['PREMIUM_STATUS'])) { echo $DATA_RETURN['PREMIUM_STATUS']; } ?></span>
@@ -309,7 +330,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     <div class="col-sm-6">
                                         <div class="input-group"> 
                                         <span class="input-group-addon">£</span>
-                                    <input value="<?php if(isset($DATA_RETURN['COMMISSION'])) { echo $DATA_RETURN['COMMISSION']; } ?>" name="commission" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency commission value1" id="commission" aria-describedby="input<?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['COMMISSION'])) { echo $DATA_RETURN['COMMISSION']; } ?>" name="COMMISSION" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency commission value1" id="commission" aria-describedby="input<?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?>4Status">
                                         </div>
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['COMMISSION_ICON'])) { echo $DATA_RETURN['COMMISSION_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="commission" class="sr-only"><?php if(isset($DATA_RETURN['COMMISSION_STATUS'])) { echo $DATA_RETURN['COMMISSION_STATUS']; } ?></span>
@@ -321,7 +342,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     <div class="col-sm-6">
                                         <div class="input-group"> 
                                         <span class="input-group-addon">£</span>
-                                    <input value="<?php if(isset($DATA_RETURN['COVER'])) { echo $DATA_RETURN['COVER']; } ?>" name="cover" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency cover value1" id="cover" aria-describedby="input<?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['COVER'])) { echo $DATA_RETURN['COVER']; } ?>" name="COVER" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency cover value1" id="cover" aria-describedby="input<?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?>4Status">
                                         </div>
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['COVER_ICON'])) { echo $DATA_RETURN['COVER_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="cover" class="sr-only"><?php if(isset($DATA_RETURN['COVER_STATUS'])) { echo $DATA_RETURN['COVER_STATUS']; } ?></span>
@@ -333,7 +354,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     <div class="col-sm-6">
                                         <div class="input-group"> 
                                         <span class="input-group-addon">yrs</span>
-                                    <input value="<?php if(isset($DATA_RETURN['TERM'])) { echo $DATA_RETURN['TERM']; } ?>" name="term" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency term value1" id="term" aria-describedby="input<?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['TERM'])) { echo $DATA_RETURN['TERM']; } ?>" name="TERM" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency term value1" id="term" aria-describedby="input<?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?>4Status">
                                         </div>
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['TERM_ICON'])) { echo $DATA_RETURN['TERM_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="term" class="sr-only"><?php if(isset($DATA_RETURN['TERM_STATUS'])) { echo $DATA_RETURN['TERM_STATUS']; } ?></span>
@@ -343,7 +364,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                 <div class="form-group has-<?php if(isset($DATA_RETURN['COMM_STATUS'])) { echo $DATA_RETURN['COMM_STATUS']; } ?> has-feedback">
                                     <label class="col-sm-4 control-label" style="text-align:left;" for="type">COMM:</label>
                                     <div class="col-sm-6">
-<select class="form-control" name="CommissionType" id="CommissionType" required>
+<select class="form-control" name="COMM" id="CommissionType" required>
                                                         <option value="">Select...</option>
                                                         <option <?php if(isset($DATA_RETURN['COMM']) && $DATA_RETURN['COMM']=='Indemnity') { echo "selected"; } ?> value="Indemnity">Indemnity</option>
                                                         <option <?php if(isset($DATA_RETURN['COMM']) && $DATA_RETURN['COMM']=='Non Indemnity') { echo "selected"; } ?> value="Non Indemnity">Non-Idemnity</option>
@@ -391,7 +412,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     <div class="col-sm-6">
                                         <div class="input-group"> 
                                         <span class="input-group-addon">£</span>
-                                    <input value="<?php if(isset($DATA_RETURN['DRIP'])) { echo $DATA_RETURN['DRIP']; } ?>" name="drip" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency drip value1" id="drip" aria-describedby="input<?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['DRIP'])) { echo $DATA_RETURN['DRIP']; } ?>" name="DRIP" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency drip value1" id="drip" aria-describedby="input<?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?>4Status">
                                         </div>
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['DRIP_ICON'])) { echo $DATA_RETURN['DRIP_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="drip" class="sr-only"><?php if(isset($DATA_RETURN['DRIP_STATUS'])) { echo $DATA_RETURN['DRIP_STATUS']; } ?></span>
@@ -401,7 +422,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                 <div class="form-group has-<?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?> has-feedback">
                                     <label class="col-sm-4 control-label" style="text-align:left;" for="closer">Closer:</label>
                                     <div class="col-sm-6">
-                                    <input value="<?php if(isset($DATA_RETURN['CLOSER'])) { echo $DATA_RETURN['CLOSER']; } ?>" name="closer" type="text" class="form-control" id="closer" aria-describedby="input<?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['CLOSER'])) { echo $DATA_RETURN['CLOSER']; } ?>" name="CLOSER" type="text" class="form-control" id="closer" aria-describedby="input<?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?>4Status">
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['CLOSER_ICON'])) { echo $DATA_RETURN['CLOSER_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="closer" class="sr-only"><?php if(isset($DATA_RETURN['CLOSER_STATUS'])) { echo $DATA_RETURN['CLOSER_STATUS']; } ?></span>
                                 </div> 
@@ -420,9 +441,9 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                         
                                             
                                <div class="form-group has-<?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?> has-feedback">
-                                    <label class="col-sm-4 control-label" style="text-align:left;" for="agent">Agent:</label>
+                                    <label class="col-sm-4 control-label" style="text-align:left;" for="AGENT">Agent:</label>
                                     <div class="col-sm-6">
-                                    <input value="<?php if(isset($DATA_RETURN['AGENT'])) { echo $DATA_RETURN['AGENT']; } ?>" name="agent" type="text" class="form-control" id="agent" aria-describedby="input<?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?>4Status">
+                                    <input value="<?php if(isset($DATA_RETURN['AGENT'])) { echo $DATA_RETURN['AGENT']; } ?>" name="AGENT" type="text" class="form-control" id="agent" aria-describedby="input<?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?>4Status">
                                     <span class="glyphicon <?php if(isset($DATA_RETURN['AGENT_ICON'])) { echo $DATA_RETURN['AGENT_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="agent" class="sr-only"><?php if(isset($DATA_RETURN['AGENT_STATUS'])) { echo $DATA_RETURN['AGENT_STATUS']; } ?></span>
                                 </div> 
@@ -450,7 +471,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     This is the sale date on the dealsheet. <br><br>
                                     <div class="form-group has-<?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?> has-feedback">
                                         <div class="col-sm-10">
-                                             <input value="<?php if(isset($DATA_RETURN['SUB'])) { echo $DATA_RETURN['SUB']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SUBmitted_date" type="text" class="form-control" id="SUBmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?>4Status"> 
+                                             <input value="<?php if(isset($DATA_RETURN['SUB'])) { echo $DATA_RETURN['SUB']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SUB" type="text" class="form-control" id="SUBmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?>4Status"> 
                                         <span class="glyphicon <?php if(isset($DATA_RETURN['SUB_ICON'])) { echo $DATA_RETURN['SUB_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="SUB" class="sr-only"><?php if(isset($DATA_RETURN['SUB_STATUS'])) { echo $DATA_RETURN['SUB_STATUS']; } ?></span>
                                         </div>
@@ -461,7 +482,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     This is the policy live date on the insurers portal. <br><br>
                                     <div class="form-group has-<?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?> has-feedback">
                                         <div class="col-sm-10">
-                                             <input value="<?php if(isset($DATA_RETURN['SALE'])) { echo $DATA_RETURN['SALE']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SALEmitted_date" type="text" class="form-control" id="SALEmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?>4Status"> 
+                                             <input value="<?php if(isset($DATA_RETURN['SALE'])) { echo $DATA_RETURN['SALE']; } else { echo date('Y-m-d H:i:s'); } ?>" name="SALE" type="text" class="form-control" id="SALEmitted_date" aria-describedby="input<?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?>4Status"> 
                                         <span class="glyphicon <?php if(isset($DATA_RETURN['SALE_ICON'])) { echo $DATA_RETURN['SALE_ICON']; } ?> form-control-feedback" aria-hidden="true"></span>
                                     <span id="SALE" class="sr-only"><?php if(isset($DATA_RETURN['SALE_STATUS'])) { echo $DATA_RETURN['SALE_STATUS']; } ?></span>
                                         </div>
@@ -472,7 +493,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                     For any policy where the submitted date is unknown. The policy status should be Awaiting. <br><br>
                                     <div class="form-group has-<?php if(isset($DATA_RETURN['POLICY_STATUS'])) { echo $DATA_RETURN['POLICY_STATUS']; } ?> has-feedback">
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="PolicyStatus" id="PolicyStatus" required>
+                                            <select class="form-control" name="STATUS" id="PolicyStatus" required>
                                         <option value="">Select...</option>
                                         <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Live') { echo "selected"; } ?> value="Live">Live</option>
                                         <option <?php if(isset($DATA_RETURN['STATUS']) && $DATA_RETURN['STATUS']=='Awaiting') { echo "selected"; } ?> value="Awaiting">Awaiting</option>

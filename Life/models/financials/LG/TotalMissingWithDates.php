@@ -23,11 +23,7 @@ WHERE
         FROM
             financial_statistics_history)
         AND client_policy.insurer = 'Legal and General'
-        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
-        AND client_policy.policystatus NOT IN ('Awaiting' , 'Clawback',
-        'SUBMITTED-NOT-LIVE',
-        'CANCELLED',
-        'DECLINED')");
+        AND client_policy.policystatus = 'Live'");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
         $stmt->execute();

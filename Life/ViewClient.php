@@ -672,6 +672,18 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
                             require_once(__DIR__ . '/views/Aviva-Policies.php');
                         }
+                        
+                        $EngageMutual_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Engage Mutual' AND client_id=:CID");
+                        $EngageMutual_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $EngageMutual_CHECK->execute();
+                        if ($EngageMutual_CHECK->rowCount() > 0) {
+                            $AVIVA_POL = "1";
+                            require_once(__DIR__ . '/models/EngageMutualPoliciesModal.php');
+                            $EngageMutualPolicies = new EngageMutualPoliciesModal($pdo);
+                            $EngageMutualPoliciesList = $EngageMutualPolicies->getEngageMutualPolicies($search);
+                            require_once(__DIR__ . '/views/EngageMutal-Policies.php');
+                        }                        
+                        
                     } ?>
 
                 </div>

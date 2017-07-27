@@ -93,12 +93,12 @@ function textAreaAdjust(o) {
     <div class="form-group">
   <label class="col-md-4 control-label" for="agent">Lead Gen</label>  
   <div class="col-md-4">
-      <input id="provider-json" name='agent' class='form-control' required placeholder="Lead Gen" class="form-control input-md" type="text" required="">
+      <input id="agents" name='agent' class='form-control' required placeholder="Lead Gen" class="form-control input-md" type="text" required="">
   </div>
 </div>
 
     <script>var options = {
-	url: "../JSON/<?php if($companynamere=='Bluestone Protect') { echo "LeadGenNames" ; } else { echo "CUS_LEAD"; } ?>.json",
+	url: "../JSON/Agents.php?EXECUTE=1",
                 getValue: "full_name",
 
 	list: {
@@ -108,7 +108,7 @@ function textAreaAdjust(o) {
 	}
 };
 
-$("#provider-json").easyAutocomplete(options);</script>
+$("#agents").easyAutocomplete(options);</script>
 
 
 <div class="form-group">

@@ -192,6 +192,40 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
                 yearRange: "-100:+1"
             });
         });
+        $(function () {
+            $("#datefromJUST").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+
+        $(function () {
+            $("#datetoJUST").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });     
+        $(function () {
+            $("#datefromOTHER").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+
+        $(function () {
+            $("#datetoOTHER").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });        
     </script>
 </head>
 <body>   
@@ -239,18 +273,44 @@ if (!in_array($hello_name, $Level_10_Access, true)) {
 
                 <p>
                     <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom2" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
+                    <input type="text" id="datefromJUST" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
                 </p>
 
                 <p>
                     <label for="dateto">To:</label>
-                    <input type="text" id="dateto2" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
+                    <input type="text" id="datetoJUST" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
                 </p>
             </form>
+            
+                      <form class="AddClient" action="/export/Export.php?query=OTHERINSURERS" method="post">
+                <h3>Business Register For Jade</h3>
+                <p>
+                    <label for="Select" required>Select Policies that</label>
+                    <select name="Select">
+                        <option value="submitted_date">Were Added</option>
+                        <option value="sale_date">Were Sold</option>
+                    </select>
+                </p>
+                <br>
+
+                <p>
+                    <label for="datefrom">From:</label>
+                    <input type="text" id="datefromOTHER" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
+                </p>
+
+                <p>
+                    <label for="dateto">To:</label>
+                    <input type="text" id="datetoOTHER" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
+                </p>
+
+                <p>
+                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
+                </p>
+            </form>            
 
             <?php
             if (isset($ffhome)) {

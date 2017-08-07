@@ -152,7 +152,7 @@ $companynamere = $companydetailsq['company_name'];
 
                                  <li class="divider"></li>
                             
-                            <?php if ($hello_name == 'Michael') { ?>
+                            <?php if ($hello_name == 'Michael' || $hello_name == 'Matt') { ?>
                                 
                              <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php } ?>

@@ -196,7 +196,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Task_Access = array("Abbiek","Jakob");
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy');
     $Agent_Access = array("111111111");
-    $Closer_Access = array("James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey");
+    $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey");
     $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Gavin","Ryan","Amy","Rhiannon","Jakob","James Adams");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
 }

@@ -190,7 +190,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                 var table = $('#clients').DataTable({
                     "response": true,
                     "processing": true,
-                    "iDisplayLength": 25,
+                    "iDisplayLength": 5,
                     "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
@@ -216,8 +216,8 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         {"data": "client_id",
                             "render": function (data, type, full, meta) {
                                 return '<a href="/Life/AddPolicy.php?EXECUTE=1&search=' + data + '">Add Policy</a>';
-                            }},
-                    ],
+                            }}
+                    ]
                 });
 
             });

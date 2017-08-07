@@ -58,8 +58,6 @@ $companynamere = $companydetailsq['company_name'];
                 <li class="active"><a href="/CRMmain.php"><i class="fa fa-home">  Home</i></a></li>
                 <li><a href="/AddClient.php"><i class="fa fa-user-plus">  Add</i></a></li>
                 <li><a href="/SearchClients.php"><i class="fa fa-search">  Search</i></a></li>
-                <li><a href="/Life/QuickSearch.php"><i class="fa fa-flash">  Quick Search</i></a></li>
-
 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">CRM <b class="caret"></b></a>

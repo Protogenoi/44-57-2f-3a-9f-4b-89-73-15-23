@@ -118,6 +118,16 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
                                     </div>
+                                     <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Financials</h3>
+
+
+                                        <form action="/upload/finrupload.php?EXECUTE=8" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload Royal London financials</h3>
 

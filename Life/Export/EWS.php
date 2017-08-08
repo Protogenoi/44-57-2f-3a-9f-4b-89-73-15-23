@@ -157,24 +157,30 @@ WHERE
 
     if($EXECUTE=='RAW_EWS') {
 
-                        $output = "Date Added, Colour, Policy Number, Client Name, Dob, Post Code, EWS Warning, ADL Warning, Last Premium, Premium, C.B Due, C.B Date, Start Date, Reqs, Our Notes, Assigned\n";
+                        $output = "    master_agent_no,agent_no, policy_number,client_name,    dob,    address1,    address2,    address3,    address4,    post_code,    policy_type,    warning,    last_full_premium_paid,    net_premium,    premium_os,    clawback_due,    clawback_date,    policy_start_date,    off_risk_date,    seller_name,    frn,reqs\n";
                     $query = $pdo->prepare('SELECT 
-                        date_added,
-                        ournotes,
+                            master_agent_no,
+    agent_no,
     policy_number,
     client_name,
     dob,
+    address1,
+    address2,
+    address3,
+    address4,
     post_code,
+    policy_type,
     ews_status_status,
-    warning,
     last_full_premium_paid,
     net_premium,
+    premium_os,
     clawback_due,
     clawback_date,
     policy_start_date,
-    reqs,
-    color_status,
-    assigned
+    off_risk_date,
+    seller_name,
+    frn,
+    reqs
 FROM
     ews_data
 WHERE
@@ -186,24 +192,32 @@ WHERE
                     foreach ($list as $rs) {
                         
                         
-                    $DATE_ADDED=filter_var($rs['date_added'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    $ournotes=filter_var($rs['ournotes'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                        $POLICY_NUM=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $master_agent_no=filter_var($rs['master_agent_no'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $agent_no=filter_var($rs['agent_no'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        $policy_number=filter_var($rs['policy_number'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $client_name=filter_var($rs['client_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $dob=filter_var($rs['dob'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $address1=filter_var($rs['address1'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $address2=filter_var($rs['address2'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $address3=filter_var($rs['address3'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $address4=filter_var($rs['address4'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $post_code=filter_var($rs['post_code'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $ews_status_status=filter_var($rs['ews_status_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $warning=filter_var($rs['warning'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $policy_type=filter_var($rs['policy_type'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $ews_warning_warning=filter_var($rs['ews_status_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                         $last_full_premium_paid=filter_var($rs['last_full_premium_paid'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $net_premium=filter_var($rs['net_premium'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $premium_os=filter_var($rs['premium_os'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $clawback_due=filter_var($rs['clawback_due'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $clawback_date=filter_var($rs['clawback_date'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $policy_start_date=filter_var($rs['policy_start_date'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $reqs=filter_var($rs['reqs'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $color_status=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-                        $ASSIGNED=filter_var($rs['assigned'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $DATE_ADDED.",".$color_status.",".$POLICY_NUM.",".$client_name.",".$dob.",".$post_code.",".$ews_status_status.",".$warning.",".$last_full_premium_paid.",".$net_premium.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$reqs.",".$ournotes.",".$ASSIGNED."\n";
+                        $policy_start_date=filter_var($rs['policy_start_date'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $off_risk_date=filter_var($rs['off_risk_date'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $seller_name=filter_var($rs['seller_name'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $frn=filter_var($rs['frn'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $reqs=filter_var($rs['reqs'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        
+                        
+                        $output .= $master_agent_no.",".$agent_no.",".$policy_number.",".$client_name.",".$dob.",".$address1.",".$address2.",".$address3.",".$address4.",".$post_code.",".$policy_type.",".$ews_warning_warning.",".$last_full_premium_paid.",".$net_premium.",".$premium_os.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$off_risk_date.",".$seller_name.",".$frn.",".$reqs."\n";
                         
                     }
                     echo $output;

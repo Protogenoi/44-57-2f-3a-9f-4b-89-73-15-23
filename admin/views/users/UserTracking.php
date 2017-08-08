@@ -26,7 +26,7 @@
         <td><?php if(isset($USER_TRK_DATE)) { echo $USER_TRK_DATE; } ?></td>      
         <td><?php if(isset($USER_TRK_USER)) { echo $USER_TRK_USER; } ?></td> 
         <td><?php if(isset($USER_TRK_URL)) { echo $USER_TRK_URL; } ?></td> 
-        <td><strong><?php if(isset($USER_TRK_IP)) { echo $USER_TRK_IP; } ?></strong></td> 
+        <td><h4><span class="label <?php if($USER_TRK_IP!='81.145.167.66') { echo "label-danger"; } else { echo "label-success"; }?>"><?php if(isset($USER_TRK_IP)) { echo $USER_TRK_IP; } ?></span></h4></td> 
 
         </tr>
 </form>

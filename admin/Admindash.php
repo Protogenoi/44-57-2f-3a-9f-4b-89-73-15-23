@@ -1705,6 +1705,7 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                             <ul class="nav nav-pills">
                                 <li class="active"><a data-toggle="pill" href="#usertracking">User activity</a></li>
+                                <li><a data-toggle="pill" href="#trackinghistory">Tracking History</a></li>
                                 <li><a data-toggle="pill" href="#adduser">Add user</a></li>
                                 <li><a data-toggle="pill" href="#modifyuser">Modify Users</a></li>
                             </ul>
@@ -1730,6 +1731,25 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                     
                                     
                                 </div>
+                                
+                                <div id="trackinghistory" class="tab-pane fade in">
+                                    
+                            <?php
+                            
+                        $HIS_TRKN = $pdo->prepare("SELECT tracking_history_id FROM tracking_history");
+                        $HIS_TRKN->execute();
+                        if ($HIS_TRKN->rowCount() > 0) {
+                           
+                            require_once(__DIR__ . '/models/users/HistoryTrackingModel.php');
+                            $HistoryTracking = new HistoryTrackingModal($pdo);
+                            $HistoryTrackingList = $HistoryTracking->getHistoryTracking();
+                            require_once(__DIR__ . '/views/users/HistoryTracking.php');
+                        }                             
+                            
+                            ?>
+                                    
+                                    
+                                </div>                                
                                 
                                 
                                 <div id="adduser" class="tab-pane fade in">

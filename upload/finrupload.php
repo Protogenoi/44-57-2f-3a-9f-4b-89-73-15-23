@@ -227,6 +227,159 @@ if ($query->rowCount() == 0) {
 
 }
 
+ if($EXECUTE=='8') {
+
+    if ($_FILES['csv']['size'] > 0) {
+
+    $file = $_FILES['csv']['tmp_name'];
+    $handle = fopen($file,"r");
+    
+    do {
+        if ($data[0]) {
+
+if ($data[0] != 'Policy ref' && $data[0] != 'Policy ref' ) {
+$CSV_POLICY=$data[0];
+$CSV_PAYMENT=$data[1];
+$CSV_PAY_DATE=$data[2];
+$CSV_PROVIDER=$data[3];
+$CSV_CLIENT=$data[5];
+
+$reggy = "%$CSV_POLICY%";
+
+if ($CSV_PAYMENT >= 0) {
+   
+     
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number like :polhold AND insurer=:INSURER");
+    $query->bindParam(':INSURER', $CSV_PROVIDER, PDO::PARAM_STR);
+    $query->bindParam(':polhold', $reggy, PDO::PARAM_STR);
+    $query->execute();
+    $result=$query->fetch(PDO::FETCH_ASSOC);
+   
+if ($query->rowCount() >= 1) {
+    
+    $clientid=$result['client_id'];
+    $polid=$result['id'];
+    $policynumber=$result['policy_number'];
+    $ref= "$policynumber ($polid)";
+    $polstat=$result['policystatus'];
+     
+    $note="Financial Uploaded";
+    $message="COMM (Status changed from $polstat to Live)";
+    
+    
+    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+
+    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
+    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();
+    
+        $update = $pdo->prepare("UPDATE client_policy set policystatus='Live', edited=:sent WHERE id=:polid");
+        
+        $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+        $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+        $update->execute();
+        
+}
+
+if ($query->rowCount() <= 0) {
+    
+     $DUPE_NOMTC_CHK = $pdo->prepare("Select financials_nomatch_id from financials_nomatch WHERE financials_nomatch_payment=:pay AND financials_nomatch_policy=:pol");
+     $DUPE_NOMTC_CHK->bindParam(':pay', $CSV_PAYMENT, PDO::PARAM_STR, 250);
+     $DUPE_NOMTC_CHK->bindParam(':pol', $CSV_POLICY, PDO::PARAM_STR, 250);
+     $DUPE_NOMTC_CHK->execute();
+    
+    if ($DUPE_NOMTC_CHK->rowCount() <= 0) {
+
+   $insert = $pdo->prepare("INSERT INTO financials_nomatch set financials_nomatch_payment=:pay, financials_nomatch_policy=:pol, financials_nomatch_insert_by=:hello");
+    $insert->bindParam(':pay', $CSV_PAYMENT, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $CSV_POLICY, PDO::PARAM_STR, 250);
+    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();        
+        
+    }
+    
+}
+
+}
+
+if ($CSV_PAYMENT < 0) {
+     
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number like :polhold AND insurer=:INSURER");
+    $query->bindParam(':INSURER', $CSV_PROVIDER, PDO::PARAM_STR);
+    $query->bindParam(':polhold', $reggy, PDO::PARAM_STR);
+    $query->execute();
+    $result=$query->fetch(PDO::FETCH_ASSOC);
+   
+if ($query->rowCount() >= 1) {
+    
+    $clientid=$result['client_id'];
+    $polid=$result['id'];
+    $policynumber=$result['policy_number'];
+    $ref= "$policynumber ($polid)";
+    $polstat=$result['policystatus'];
+     
+    $note="Financial Uploaded";
+    $message="CLAWBACK (Status changed from $polstat to Clawback)";    
+    
+    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+
+    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
+    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();
+    
+        $update = $pdo->prepare("UPDATE client_policy set policystatus='Clawback', edited=:sent WHERE id=:polid");
+        $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+        $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+        $update->execute();
+        
+}
+
+if ($query->rowCount() <= 0) {
+    
+     $DUPE_NOMTC_CHK = $pdo->prepare("Select financials_nomatch_id from financials_nomatch WHERE financials_nomatch_payment=:pay AND financials_nomatch_policy=:pol");
+     $DUPE_NOMTC_CHK->bindParam(':pay', $CSV_PAYMENT, PDO::PARAM_STR, 250);
+     $DUPE_NOMTC_CHK->bindParam(':pol', $CSV_POLICY, PDO::PARAM_STR, 250);
+     $DUPE_NOMTC_CHK->execute();
+    
+    if ($DUPE_NOMTC_CHK->rowCount() <= 0) {
+
+   $insert = $pdo->prepare("INSERT INTO financials_nomatch set financials_nomatch_payment=:pay, financials_nomatch_policy=:pol, financials_nomatch_insert_by=:hello");
+    $insert->bindParam(':pay', $CSV_PAYMENT, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $CSV_POLICY, PDO::PARAM_STR, 250);
+    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();        
+        
+    }
+    
+}
+
+}
+
+   
+ $query = $pdo->prepare("INSERT INTO financials set financials_pay_date=:DATE, financials_policy=:POLICY, financials_payment=:PAYMENT, financials_provider=:PROVIDER, financials_client=:CLIENT, financials_insert_by=:HELLO");
+ $query->bindParam(':POLICY', $CSV_POLICY , PDO::PARAM_STR);
+ $query->bindParam(':DATE', $CSV_PAY_DATE , PDO::PARAM_STR);
+    $query->bindParam(':PAYMENT', $CSV_PAYMENT , PDO::PARAM_STR);
+    $query->bindParam(':PROVIDER', $CSV_PROVIDER , PDO::PARAM_STR);
+    $query->bindParam(':CLIENT', $CSV_CLIENT , PDO::PARAM_STR);
+    $query->bindParam(':HELLO', $hello_name , PDO::PARAM_STR);
+    $query->execute();
+
+}
+
+        }
+    } while ($data = fgetcsv($handle,1000,",","'"));
+    header('Location: /Financial_Reports.php?success=1'); die;
+}
+
+}
+
 if($EXECUTE=='2') {
     
     if ($_FILES['csv']['size'] > 0) {

@@ -4,6 +4,17 @@ $USER_TRACKING_GRAB_URL = $HTTP_PROTOCOL_CHK . filter_input(INPUT_SERVER,'HTTP_H
      
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
+    $SMS_QRY = $pdo->prepare("SELECT twilio_account_sid, AES_DECRYPT(twilio_account_token, UNHEX(:key)) AS twilio_account_token FROM twilio_account");
+    $SMS_QRY->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
+    $SMS_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
+    $SMS_RESULT=$SMS_QRY->fetch(PDO::FETCH_ASSOC);
+    
+    $SID=$SMS_RESULT['twilio_account_sid'];
+    $TOKEN=$SMS_RESULT['twilio_account_token'];
+
+use Twilio\Rest\Client;                
+require_once(__DIR__ . '../../twilio-php-master/Twilio/autoload.php');   
+
 function getRealIpAddr()
 {
     if (!empty(filter_input(INPUT_SERVER,'HTTP_CLIENT_IP', FILTER_SANITIZE_SPECIAL_CHARS)))   
@@ -24,6 +35,24 @@ function getRealIpAddr()
 getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 
+if($TRACKED_IP!='81.145.167.66') {
+
+    $client = new Client($SID, $TOKEN);
+
+$MOB_MSG="ADL $hello_name accessed from IP $TRACKED_IP!";
+
+
+$client->messages->create(
+    "07401434619",
+    array(
+        'from' => '+441792720471',
+        'body' => "$MOB_MSG"
+    )
+);                
+                
+    
+}
+
                 $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
                     SET
                     user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url=:URL, user_tracking_user=:USER, user_tracking_ip=INET6_ATON(:IP)
@@ -37,6 +66,15 @@ $TRACKED_IP= getRealIpAddr();
                 $USER_TRACKING_QRY->bindParam(':IP', $TRACKED_IP, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->bindParam(':IP2', $TRACKED_IP, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->execute();
+                
+                $USER_HISTORY_TRK = $pdo->prepare("INSERT INTO tracking_history
+                    SET
+                    tracking_history_id_fk=(SELECT id from users where login=:HELLO), tracking_history_url=:URL, tracking_history_user=:USER, tracking_history_ip=INET6_ATON(:IP)");
+                $USER_HISTORY_TRK->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+                $USER_HISTORY_TRK->bindParam(':USER', $hello_name, PDO::PARAM_STR);
+                $USER_HISTORY_TRK->bindParam(':URL', $USER_TRACKING_GRAB_URL, PDO::PARAM_STR);
+                $USER_HISTORY_TRK->bindParam(':IP', $TRACKED_IP, PDO::PARAM_STR);
+                $USER_HISTORY_TRK->execute();                
 
     if($USER_TRACKING=='1') {       
         

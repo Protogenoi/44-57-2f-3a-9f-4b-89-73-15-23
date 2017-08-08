@@ -95,11 +95,11 @@
             }
         }
 
-        if (($WOL_Policies['wol_comm'])) {
+        if (($WOL_Policies['financials_payment'])) {
             echo "<td><span class='label label-warning'>On Financial</span> </td>";
         } else {
 
-            echo "<td>" . $WOL_Policies['wol_comm'] . " </td>";
+            echo "<td>" . $WOL_Policies['financials_payment'] . " </td>";
         }
 
         echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";

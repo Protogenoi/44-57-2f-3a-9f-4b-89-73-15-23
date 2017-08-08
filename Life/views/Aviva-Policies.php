@@ -99,7 +99,7 @@
             }
         }
 
-        if (($Aviva_Policies['wol_comm'])) {
+        if (($Aviva_Policies['financials_payment'])) {
             echo "<td><span class='label label-warning'>On Financial</span> </td>";
         } else {
 

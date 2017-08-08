@@ -99,7 +99,7 @@
             }
         }
 
-        if (($RL_Policies['royal_london_comm'])) {
+        if (($RL_Policies['financials_payment'])) {
             echo "<td><span class='label label-warning'>On Financial</span> </td>";
         } else {
 

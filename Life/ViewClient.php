@@ -1723,7 +1723,27 @@ try {
 <?php
 try {
 
-    $VIT_FIN = $pdo->prepare("SELECT vitality_financials.vitality_insert_date, vitality_financials.vitality_comm, vitality_financials.vitality_comm_status, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM vitality_financials join client_policy on vitality_financials.vitality_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY vitality_financials.vitality_id");
+    $VIT_FIN = $pdo->prepare("SELECT
+            financials.financials_insert, 
+            financials.financials_payment, 
+            client_policy.type, 
+            client_policy.policy_number, 
+            client_policy.policystatus, 
+            client_policy.closer, 
+            client_policy.lead, 
+            client_policy.id AS POLID 
+        FROM 
+            financials 
+        JOIN 
+            client_policy
+        ON 
+            financials.financials_policy = client_policy.policy_number 
+        WHERE
+            client_policy.client_id=:id
+        AND 
+            financials.financials_provider='Vitality'
+        GROUP BY 
+            financials.financials_id");
     $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);
     $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
     if ($VIT_FIN->rowCount() > 0) {
@@ -1752,18 +1772,18 @@ try {
                                     }
 
                                     echo '<tr>';
-                                    echo "<td>" . $row['vitality_insert_date'] . "</td>";
+                                    echo "<td>" . $row['financials_insert'] . "</td>";
                                     echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['vitality_comm_status'] . "</td>";
+                                    echo "<td>" . $row['type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
                                     echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['vitality_comm']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['vitality_comm'] . "</span></td>";
-                                    } else if (intval($row["vitality_comm"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['vitality_comm'] . "</span></td>";
+                                    if (intval($row['financials_payment']) > 0) {
+                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
+                                    } else if (intval($row["financials_payment"]) < 0) {
+                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
                                     } else {
-                                        echo "<td>" . $row['vitality_comm'] . "</td>";
+                                        echo "<td>" . $row['financials_payment'] . "</td>";
                                     }
                                     echo "</tr>";
                                     echo "\n";
@@ -1779,7 +1799,27 @@ try {
 <?php
 try {
 
-    $RL_FIN = $pdo->prepare("SELECT royal_london_financials.royal_london_insert_date, royal_london_financials.royal_london_comm, royal_london_financials.royal_london_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM royal_london_financials join client_policy on royal_london_financials.royal_london_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY royal_london_financials.royal_london_id");
+    $RL_FIN = $pdo->prepare("SELECT
+            financials.financials_insert, 
+            financials.financials_payment, 
+            client_policy.type, 
+            client_policy.policy_number, 
+            client_policy.policystatus, 
+            client_policy.closer, 
+            client_policy.lead, 
+            client_policy.id AS POLID 
+        FROM 
+            financials 
+        JOIN 
+            client_policy
+        ON 
+            financials.financials_policy = client_policy.policy_number 
+        WHERE
+            client_policy.client_id=:id
+        AND 
+            financials.financials_provider='Royal London'
+        GROUP BY 
+            financials.financials_id");
     $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
     $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
     if ($RL_FIN->rowCount() > 0) {
@@ -1808,18 +1848,18 @@ try {
                                     }
 
                                     echo '<tr>';
-                                    echo "<td>" . $row['royal_london_insert_date'] . "</td>";
+                                    echo "<td>" . $row['financials_insert'] . "</td>";
                                     echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['royal_london_type'] . "</td>";
+                                    echo "<td>" . $row['type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
                                     echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['royal_london_comm']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['royal_london_comm'] . "</span></td>";
-                                    } else if (intval($row["royal_london_comm"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['royal_london_comm'] . "</span></td>";
+                                    if (intval($row['financials_payment']) > 0) {
+                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
+                                    } else if (intval($row["financials_payment"]) < 0) {
+                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
                                     } else {
-                                        echo "<td>" . $row['royal_london_comm'] . "</td>";
+                                        echo "<td>" . $row['financials_payment'] . "</td>";
                                     }
                                     echo "</tr>";
                                     echo "\n";
@@ -1835,7 +1875,27 @@ try {
 <?php
 try {
 
-    $WOL_FIN = $pdo->prepare("SELECT wol_financials.wol_insert_date, wol_financials.wol_comm, wol_financials.wol_comm_type, client_policy.policy_number, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM wol_financials join client_policy on wol_financials.wol_policy = client_policy.policy_number WHERE client_policy.client_id=:id GROUP BY wol_financials.wol_id");
+    $WOL_FIN = $pdo->prepare("SELECT
+            financials.financials_insert, 
+            financials.financials_payment, 
+            client_policy.type, 
+            client_policy.policy_number, 
+            client_policy.policystatus, 
+            client_policy.closer, 
+            client_policy.lead, 
+            client_policy.id AS POLID 
+        FROM 
+            financials 
+        JOIN 
+            client_policy
+        ON 
+            financials.financials_policy = client_policy.policy_number 
+        WHERE
+            client_policy.client_id=:id
+        AND 
+            financials.financials_provider='One Family'
+        GROUP BY 
+            financials.financials_id");
     $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
     $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
     if ($WOL_FIN->rowCount() > 0) {
@@ -1864,18 +1924,18 @@ try {
                                     }
 
                                     echo '<tr>';
-                                    echo "<td>" . $row['wol_insert_date'] . "</td>";
+                                    echo "<td>" . $row['financials_insert'] . "</td>";
                                     echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['wol_comm_type'] . "</td>";
+                                    echo "<td>" . $row['type'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";
                                     echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['wol_comm']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['wol_comm'] . "</span></td>";
-                                    } else if (intval($row["wol_comm"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['wol_comm'] . "</span></td>";
+                                    if (intval($row['financials_payment']) > 0) {
+                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
+                                    } else if (intval($row["financials_payment"]) < 0) {
+                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
                                     } else {
-                                        echo "<td>" . $row['wol_comm'] . "</td>";
+                                        echo "<td>" . $row['financials_payment'] . "</td>";
                                     }
                                     echo "</tr>";
                                     echo "\n";

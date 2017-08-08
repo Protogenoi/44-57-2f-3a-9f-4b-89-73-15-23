@@ -99,7 +99,7 @@
             }
         }
 
-        if (($VITALITY_Policies['vitality_comm'])) {
+        if (($VITALITY_Policies['financials_payment'])) {
             echo "<td><span class='label label-warning'>On Financial</span> </td>";
         } else {
 

@@ -6,7 +6,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/includes/user_tracking.php'); 
+require_once(__DIR__ . '/includes/user_tracking.php');
 
 $LOGOUT_ACTION = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 $FEATURE = filter_input(INPUT_GET, 'FEATURE', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -14,6 +14,7 @@ $FEATURE = filter_input(INPUT_GET, 'FEATURE', FILTER_SANITIZE_SPECIAL_CHARS);
 if (isset($LOGOUT_ACTION) && $LOGOUT_ACTION == "log_out") {
 	$page_protect->log_out();
 }
+
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
@@ -29,6 +30,16 @@ if (isset($fferror)) {
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
+}
+
+getRealIpAddr();
+$TRACKED_IP= getRealIpAddr();
+
+if(!in_array($hello_name, $ANYTIME_ACCESS,true)) {
+
+if($TRACKED_IP!='81.145.167.66') {
+    header('Location: http://google.com');
+}
 }
 
 $Level_2_Access = array("Jade");

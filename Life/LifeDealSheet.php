@@ -25,6 +25,16 @@ if (isset($fferror)) {
     }
 }
 
+getRealIpAddr();
+$TRACKED_IP= getRealIpAddr();
+
+if(!in_array($hello_name, $ANYTIME_ACCESS,true)) {
+
+if($TRACKED_IP!='81.145.167.66') {
+    header('Location: http://google.com');
+}
+}
+
         if ($ffpost_code == '1') {
 
             $PostcodeQuery = $pdo->prepare("select api_key from api_keys WHERE type ='PostCode' limit 1");

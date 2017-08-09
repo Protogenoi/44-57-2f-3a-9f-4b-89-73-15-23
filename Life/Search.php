@@ -116,7 +116,7 @@ if (isset($fferror)) {
 <div class="col-md-4">
 <div class="form-group">
     <button id="query" name="query" value="1" class="btn btn-success"><i class="fa fa-search"></i> Search</button>
-    <a href="QuickSearch.php" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
+    <a href="Search.php" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</a>
 </div>
 </div>
 

@@ -72,7 +72,7 @@ if (isset($fferror)) {
 
 <div class="col-md-2">
 <div class="form-group">
-    <select id="searchby" name="searchby" class="form-control">
+    <select id="searchby" name="searchby" class="form-control" required>
         <?php if(isset($SEARCH_searchby)) { 
             
             switch ($SEARCH_searchby) {

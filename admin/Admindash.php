@@ -28,6 +28,7 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link  rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -1734,7 +1735,42 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                 
                                 <div id="trackinghistory" class="tab-pane fade in">
                                     
+                                    
+                                    <?php
+                                    
+                                    $TRACKING_USER = filter_input(INPUT_POST, 'TRACKING_USER', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    $TRACKING_DATE = filter_input(INPUT_POST, 'TRACKING_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    
+                                    ?>
+                                    
+                                    
+                                    <div class="col-xs-12">
+                                    
+                                    <form method="POST" action="?users=y" class="form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="TRACKING_DATE">Date:</label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control" type="text" name="TRACKING_DATE" id="TRACKING_DATE" required value="<?php if (isset($TRACKING_DATE)) { echo $TRACKING_DATE; } ?>" >
+                                                </div>
+                                            </div>                                         
+                                        
+                                         <div class="form-group">
+                                            <label class="col-md-4 control-label" for="TRACKING_USER">Select user</label>
+                                            <div class="col-md-4">
+                                            <select id="taskuser" name="TRACKING_USER" class="form-control" onchange="this.form.submit()">
+                                            <option value="">Select user...</option>
+                                            </select>
+                                            </div>
+                                        </div> 
+                                        </fieldset>
+                                        
+                                        
+                                    </form>
+                                    </div>
                             <?php
+                        
+                            if(isset($TRACKING_USER) && $TRACKING_DATE) {
                             
                         $HIS_TRKN = $pdo->prepare("SELECT tracking_history_id FROM tracking_history");
                         $HIS_TRKN->execute();
@@ -1742,9 +1778,11 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                            
                             require_once(__DIR__ . '/models/users/HistoryTrackingModel.php');
                             $HistoryTracking = new HistoryTrackingModal($pdo);
-                            $HistoryTrackingList = $HistoryTracking->getHistoryTracking();
+                            $HistoryTrackingList = $HistoryTracking->getHistoryTracking($TRACKING_USER,$TRACKING_DATE);
                             require_once(__DIR__ . '/views/users/HistoryTracking.php');
-                        }                             
+                        }        
+                        
+                            }
                             
                             ?>
                                     
@@ -2928,7 +2966,18 @@ if ($settingsselect == 'y') {
                                     $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
                                     })
                                     });
-                                </script>
+                                   
+                                </script> <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+                                                                         <script>
+        $(function () {
+            $("#TRACKING_DATE").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:-0"
+            });
+        });
+        </script>
 </body>
 
 </html>

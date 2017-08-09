@@ -267,12 +267,96 @@ if (isset($fferror)) {
     </table>
                     <?php } } 
                     
+    else {
+                        try {
+                        $SEARCH = $pdo->prepare("SELECT CONCAT(client_details.first_name, ' ', client_details.last_name) AS NAME, CONCAT(client_details.first_name2, ' ', client_details.last_name2) AS NAME2, client_policy.policy_number, client_details.company, client_details.phone_number, client_details.submitted_date, client_details.client_id, client_policy.client_name,  client_details.post_code FROM client_details LEFT JOIN client_policy on client_details.client_id=client_policy.client_id WHERE DATE(client_details.submitted_date) = CURDATE() GROUP BY client_details.client_id ORDER BY client_details.submitted_date DESC");
+
+                        ?>
+        
+                    <table id="clients" class="table table-striped table-hover" width="auto" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Date Added</th>
+                <th>Client Name</th>
+                <th>Policy</th>
+                <th>Post Code</th>
+                <th>Phone #</th>
+                <th>Company</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Date Added</th>
+                <th>Client Name</th>
+                <th>Policy</th>
+                <th>Post Code</th>
+                <th>Phone #</th>
+                <th>Company</th>
+            </tr>
+        </tfoot>
+        
+        <?php
+                            
+                            $SEARCH->execute();
+                            if ($SEARCH->rowCount()>0) {
+                                while ($result=$SEARCH->fetch(PDO::FETCH_ASSOC)){
+                                    
+                                    $NAME=$result['NAME'];
+                                    $NAME2=$result['NAME2'];
+                                    
+                                    if($NAME2=='') {
+                                        
+                                        $CLIENT_NAMES=$NAME;
+                                        
+                                    }
+                                    
+                                    if(!empty($NAME2)) {
+                                        $CLIENT_NAMES="$NAME & $NAME2";
+                                    }
+                                    
+                                    switch ($result['client_name']) {
+                                        
+                                        case NULL:
+                                            $CLIENT_NAME=$CLIENT_NAMES;
+                                            break;
+                                        default:
+                                            $CLIENT_NAME=$result['client_name'];
+                                            
+                                        
+                                    }
+                                    
+                                    switch ($result['policy_number']) {
+                                        
+                                        case NULL:
+                                            $POLICY_NUM="<i><font color='blue'>No Policy Added</font></i>";
+                                            break;
+                                        default:
+                                            $POLICY_NUM=$result['policy_number'];
+                                            
+                                        
+                                    }
+                                    
+                                    echo "<tr class='clickable-row' data-href='ViewClient.php?search=".$result['client_id']."'><td>".$result['submitted_date']."</td>"; 
+                                    echo "<td>$CLIENT_NAME</td>"; 
+                                    echo "<td>$POLICY_NUM</td>"; 
+                                    echo "<td>".$result['post_code']."</td>"; 
+                                    echo "<td>".$result['phone_number']."</td>"; 
+                                    echo "<td>".$result['company']."</td>"; 
+                                    echo "<td></td></tr>"; 
+                                }
+                            }
+                        }
+                                                 catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                    }                   
+                    
                    
                     
                     
                     
                     
-                                                 } ?>
+                        } }?>
     
 </div>
        

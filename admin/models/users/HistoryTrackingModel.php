@@ -18,6 +18,8 @@ tracking_history_user
     tracking_history_date
 FROM
    tracking_history
+WHERE
+    DATE(tracking_history_date)=CURDATE()   
     ORDER BY
         tracking_history_date");
         $stmt->execute();

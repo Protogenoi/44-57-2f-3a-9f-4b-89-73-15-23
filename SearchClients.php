@@ -24,6 +24,10 @@ if (isset($fferror)) {
     }
 }
 
+if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
+    header('Location: /Life/Search.php');
+}
+
 if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
 

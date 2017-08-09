@@ -101,7 +101,7 @@ if (isset($fferror)) {
             ?>
       <option value="<?php echo $SEARCH_searchby;?>"><?php echo $option;?></option> 
         <?php } if(empty($SEARCH_searchby)) { ?>      
-      <option value="0">Search In</option>
+      <option value="">Search In</option>
         <?php } ?>
       <option value="1">Client Surname</option>
       <option value="2">Post Code</option>

@@ -36,6 +36,19 @@ getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 
 if($TRACKED_IP!='81.145.167.66') {
+    require_once(__DIR__ . '../../classes/database_class.php');
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("SELECT user_tracking_user FROM user_tracking WHERE user_tracking_user=:HELLO AND DATE(user_tracking_date)=CURDATE() AND INET6_NTOA(user_tracking_ip)=:IP");
+        $database->bind(':HELLO', $hello_name);
+        $database->bind(':IP', $TRACKED_IP);
+        $database->execute();
+        $row = $database->single();
+
+        $database->endTransaction();
+
+        if ($database->rowCount() <= 0) {    
 
     $client = new Client($SID, $TOKEN);
 
@@ -48,8 +61,9 @@ $client->messages->create(
         'from' => '+441792720471',
         'body' => "$MOB_MSG"
     )
-);                
-                
+);       
+
+}
     
 }
 

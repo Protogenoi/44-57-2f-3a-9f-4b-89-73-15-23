@@ -8,6 +8,13 @@ $USER_TRACKING=0;
 
 require_once(__DIR__ . '/includes/user_tracking.php'); 
 
+$LOGOUT_ACTION = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
+$FEATURE = filter_input(INPUT_GET, 'FEATURE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if (isset($LOGOUT_ACTION) && $LOGOUT_ACTION == "log_out") {
+	$page_protect->log_out();
+}
+
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');

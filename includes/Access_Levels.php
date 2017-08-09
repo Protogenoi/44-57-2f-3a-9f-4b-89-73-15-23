@@ -199,15 +199,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey");
     $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Gavin","Ryan","Amy","Rhiannon","Jakob","James Adams");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
+    $ANYTIME_ACCESS=array("Michael","Matt","Jade");
 }
 
-if ($companynamere == 'ADL_CUS') {
-    $COMPANY_ENTITY="The Financial Assessment Centre";
-    $Level_10_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
-    $Level_8_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
-    $Level_3_Access = array("Michael", "Dean", "Helen", "Andrew", "David", "James");
-    $Level_1_Access = array("Michael", "Dean", "Helen", "Andrew", "David", "James");
-    $SECRET = array("Michael");
-    $Task_Access = array("Michael", "Dean", "Helen", "Andrew", "David");
-}
 ?>

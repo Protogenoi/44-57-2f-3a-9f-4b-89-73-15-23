@@ -194,7 +194,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                 var table = $('#clients').DataTable({
                     "response": true,
                     "processing": true,
-                    "iDisplayLength": 5,
+                    "iDisplayLength": 10,
                     "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"

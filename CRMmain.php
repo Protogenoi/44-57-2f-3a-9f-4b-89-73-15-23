@@ -67,7 +67,11 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
     die;
 }
-
+        require_once(__DIR__ . '/classes/database_class.php');
+        require_once(__DIR__ . '/class/login/login.php');
+        $NEW_LOGIN_REQUEST = new UserActions($hello_name);
+        $NEW_LOGIN_REQUEST->UpdateToken();
+        echo $NEW_LOGIN_REQUEST->UpdateToken();
 ?>
 <!DOCTYPE html>
 <!-- 

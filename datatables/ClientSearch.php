@@ -69,6 +69,11 @@ echo json_encode($results);
             
 }
 
+} else {
+
+    header('Location: /../../CRMmain.php');
+    die;
+    
 }
 ?>
 

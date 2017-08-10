@@ -32,6 +32,19 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
     die;
 }
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '/classes/database_class.php');
+    require_once(__DIR__ . '/class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +58,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
-        <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.css">
         <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
@@ -244,7 +257,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                             },
-                            "ajax": "/datatables/getpolicy.php?EXECUTE=Life",
+                            "ajax": "/datatables/getpolicy.php?EXECUTE=Life&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                             "columns": [
                                 {
                                     "className": 'details-control',
@@ -320,7 +333,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                             },
-                            "ajax": "/datatables/getpolicy.php?EXECUTE=Home",
+                            "ajax": "/datatables/getpolicy.php?EXECUTE=Home&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                             "columns": [
                                 {
                                     "className": 'details-control',

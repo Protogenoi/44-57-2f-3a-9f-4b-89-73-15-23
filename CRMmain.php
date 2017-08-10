@@ -62,15 +62,23 @@ if (in_array($hello_name, $Closer_Access, true)) {
     die;
 }
 
-if (!in_array($hello_name, $Level_1_Access, true)) {
-
-    header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
-    die;
-}
         require_once(__DIR__ . '/classes/database_class.php');
         require_once(__DIR__ . '/class/login/login.php');
-        $NEW_LOGIN_REQUEST = new UserActions($hello_name,"TOKEN");
-        $NEW_LOGIN_REQUEST->UpdateToken();
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL <=0) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
 
 ?>
 <!DOCTYPE html>
@@ -133,7 +141,10 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="twelve columns">
                     <ul class="ca-menu">
 
-                        <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
+                        <?php 
+                        
+                        if (isset($ACCESS_LEVEL)) {
+                            if ($ACCESS_LEVEL >= 3) { ?>
                             <li>
                                 <a href="/AddClient.php">
                                     <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
@@ -190,7 +201,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                         <?php if ($ffpba == '1') { ?>
                             <li>
                                 <a href="<?php
-                                if ($ffpba == '1' && in_array($hello_name, $Level_10_Access, true) || $hello_name == 'Jakob') {
+                                if ($ACCESS_LEVEL == 10) {
                                     echo "/PBA/Main_Menu.php";
                                 } else {
                                     echo "#";
@@ -231,7 +242,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                         <?php
                         
                             if ($ffemployee == '1') {
-                                if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+                                if ($ACCESS_LEVEL == 10 || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
                                 ?>
                                 <li>
                                     <a href="Staff/Main_Menu.php">
@@ -248,7 +259,6 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                         ?>
 
                         <?php
-                        if (in_array($hello_name, $Level_1_Access, true)) {
                             if ($ffcompliance == '1') {
                                 ?>
                                 <li>
@@ -262,7 +272,6 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 </li>
                                 <?php
                             }
-                        }
                         ?>
                                 
  <?php
@@ -280,7 +289,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                                 </li>
                                 <?php
                             }
-                        }
+                        } }
                         ?>    
                                 
                     </ul>

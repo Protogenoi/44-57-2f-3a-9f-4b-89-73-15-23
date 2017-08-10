@@ -18,6 +18,13 @@
         .backcolour {
             background-color:#05668d !important;
         }
+ .blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
+}       
     </style>
     <script type="text/javascript" language="javascript" src="../js/jquery/jquery-3.0.0.min.js"></script>
     <script>
@@ -134,8 +141,26 @@ ORDER BY Sales, Leads");
             ?>
         </table>
 
+<?php        
+$NEWLEAD = $pdo->prepare("select agent,closer from dealsheet_call ");
+$NEWLEAD->execute();
+if ($NEWLEAD->rowCount()>0) {
+while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 
-        <?php
+?>
+      
+                      <div class="row blink_me">
+                <div class="col-sm-12">
+                    <strong><center><h1 style="color:red;"><i class="fa fa-exclamation"></i> <?php echo $result['agent']; ?> SEND LEAD TO <?php echo $result['closer']; ?> <i class="fa fa-exclamation"></i></h1></center></strong>
+                </div>
+      </div>
+      
+      
+      <?php
+
+}
+}        
+
         $TRACKER = $pdo->prepare("SELECT date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added DESC LIMIT 5");
 
         $TRACKER->execute();

@@ -24,9 +24,6 @@ if (isset($fferror)) {
     }
 }
 
-if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
-    header('Location: /Life/Search.php');
-}
 
 if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
 
@@ -36,7 +33,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     require_once(__DIR__ . '../../classes/database_class.php');
     require_once(__DIR__ . '../../class/login/login.php');
 
-        $SELECT_USER_TOKEN = new UserActions($hello_name,$TOKEN);
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
         $SELECT_USER_TOKEN->SelectToken();
         $OUT=$SELECT_USER_TOKEN->SelectToken();
         

@@ -38,7 +38,7 @@ if (isset($EXECUTE)) {
     }
 }
 } }
-if (empty($EXECUTE)) {
+else {
     header('Location: ../CRMmain.php?AccessDenied');
     die;
 }

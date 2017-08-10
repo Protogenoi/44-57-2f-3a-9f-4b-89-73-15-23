@@ -78,7 +78,19 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
         
-        }            
+        }  
+        
+    if($ClientSearch=='6') { 
+        
+    include('../includes/ADL_PDO_CON.php');
+
+$query = $pdo->prepare("SELECT submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details ORDER BY client_id DESC");
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+
+echo json_encode($results);
+        
+        }        
             
         }            
             

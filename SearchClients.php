@@ -32,6 +32,19 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
 
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '/classes/database_class.php');
+    require_once(__DIR__ . '/class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,$TOKEN);
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -199,7 +212,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "/datatables/ClientSearch.php?ClientSearch=1",
+                    "ajax": "/datatables/ClientSearch.php?ClientSearch=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',

@@ -36,7 +36,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     require_once(__DIR__ . '/classes/database_class.php');
     require_once(__DIR__ . '/class/login/login.php');
 
-        $SELECT_USER_TOKEN = new UserActions($hello_name,$TOKEN);
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
         $SELECT_USER_TOKEN->SelectToken();
         $OUT=$SELECT_USER_TOKEN->SelectToken();
         
@@ -91,28 +91,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </div>
                                 </a>
                             </li>
-                        <?php }if ($companynamere == 'Assura') { ?>
-
-                            <li>
-                                <a href="/Legacy/SearchLegClients.php">
-                                    <span class="ca-icon"><i class="fa fa-history"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Search<br/>Legacy Clients</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-
-                        <?php } if ($ffpba == '1') { ?>
-                            <li>
-                                <a href="SearchClients.php?client=PBA">
-                                    <span class="ca-icon"><i class="fa fa-search"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Search<br/>PBA Clients</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>                   
                         <?php } ?> 
 
                     </ul>

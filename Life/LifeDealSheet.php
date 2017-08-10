@@ -179,7 +179,14 @@ switch ($hello_name) {
 
         <?php echo "<h3>$Today_DATES</h3>"; ?>
         <?php echo "<h4>$Today_TIME</h4>"; ?>
+                    <form method="POST" action="php/CloserReady.php?EXECUTE=1">
+<button class="list-group-item"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; READY!!!/CANCEL</button>
+<select class="form-control" name="SEND_LEAD" id="SEND_LEAD">
+                                                            <option value="">Select Agent...</option>
 
+
+                                </select>
+                    </form>
                 </div>
 
             </div>
@@ -542,6 +549,26 @@ switch ($hello_name) {
             $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
         })
     });
+</script>
+<script type="text/JavaScript">
+    var $select = $('#SEND_LEAD');
+    $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){
+        $select.html('agent_name');
+        $.each(data, function(key, val){
+            $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
+        })
+    });
+</script>
+<script type="text/javascript">
+     function CALLMANANGER() {
+
+
+         $.get("php/LifeDealSheetManager.php?query=1");
+         return false;
+
+     }
+     
+     
 </script>
 </body>
 </html>

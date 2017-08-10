@@ -25,6 +25,9 @@
 @keyframes blinker {  
   50% { opacity: 0; }
 }       
+h1 {
+    font-size: 600%;
+}
     </style>
     <script type="text/javascript" language="javascript" src="../js/jquery/jquery-3.0.0.min.js"></script>
     <script>
@@ -151,7 +154,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
       
                       <div class="row blink_me">
                 <div class="col-sm-12">
-                    <strong><center><h1 style="color:red;"><i class="fa fa-exclamation"></i> <?php echo $result['agent']; ?> SEND LEAD TO <?php echo $result['closer']; ?> <i class="fa fa-exclamation"></i></h1></center></strong>
+                    <center><h1 style="color:white;"><i class="fa fa-exclamation"></i> <?php echo $result['agent']; ?> SEND LEAD TO <?php echo $result['closer']; ?> <i class="fa fa-exclamation"></i></h1></center>
                 </div>
       </div>
       

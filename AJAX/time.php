@@ -9,8 +9,9 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 if(isset($EXECUTE) && $EXECUTE=='1') {
 
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
 
-if($hello_name!='Michael') {
+if(!in_array($hello_name, $TIMELOCK_ACCESS)) {
 $TIMELOCK = date('H');
 
 if($TIMELOCK>='20' || $TIMELOCK<'08') {

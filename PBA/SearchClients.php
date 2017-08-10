@@ -1,17 +1,61 @@
-<?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+<?php
+require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '../../includes/adl_features.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+require_once(__DIR__ . '../../includes/adlfunctions.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
+}
+
+        if($ffpba=='0') {
+        
+        header('Location: ../../CRMmain.php'); die;
+        
+    }
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+
+if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+
+
+$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
-<title>Search Clients</title>
+<title>ADL | Search PBA Clients</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-<link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
@@ -25,18 +69,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
     <?php
     include('../includes/navbar.php');
     include('../includes/adlfunctions.php');
-    
-        if($ffpba=='0') {
-        
-        header('Location: /CRMmain.php'); die;
-        
-    }
-    
-        if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    } ?>
+     ?>
         <div class="container">
             
             
@@ -143,7 +176,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../datatables/ClientSearch.php?ClientSearch=4",
+        "ajax": "../datatables/ClientSearch.php?ClientSearch=4&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -181,6 +214,6 @@ $(document).ready(function() {
 } );
 		</script>
                 
-        <?php } } ?>
+<?php } } }?>
     </body>
 </html>

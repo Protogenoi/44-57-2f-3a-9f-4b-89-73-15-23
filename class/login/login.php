@@ -86,5 +86,26 @@ class UserActions {
         return $OUT;
             
         }
+        
+        function CheckAccessLevel() {
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("SELECT access_level FROM users WHERE login=:USER");
+        $database->bind(':USER', $this->hello_name);
+        $database->execute();  
+        $row = $database->single();
+
+        $database->endTransaction();    
+        
+        if ($database->rowCount() >= 1) {
+            $this->USER_ACCESS_LEVEL = $row['access_level'];
+            $OUT['ACCESS_LEVEL']=$this->USER_ACCESS_LEVEL;
+        }
+
+        return $OUT;            
+            
+        }
     
 }

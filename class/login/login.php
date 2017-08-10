@@ -4,10 +4,12 @@ class UserActions {
     
     public $isAlive = true;
     public $hello_name;
+    public $token;
     
-    function __construct($hello_name) {
+    function __construct($hello_name, $TOKEN) {
         
         $this->hello_name = $hello_name;
+        $this->token = $TOKEN;
         
     }
             
@@ -29,6 +31,60 @@ class UserActions {
 
         $database->endTransaction();
         
+        }
+        
+        function SelectToken() {
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("SELECT token from users WHERE login=:USER");
+        $database->bind(':USER', $this->hello_name);
+        $database->execute();  
+        $row = $database->single();
+        
+        if ($database->rowCount() >= 1) {
+
+        $this->TOKEN_SELECTED = $row['token'];
+        
+        $OUT['TOKEN_SELECT']=$this->TOKEN_SELECTED;
+        
+        }
+        
+        else {
+          
+        $OUT['TOKEN_SELECT']="NoToken";    
+            
+        }
+        
+        $database->endTransaction(); 
+        
+        return $OUT;
+
+        
+        }
+        function CheckToken() {
+            
+        $database = new Database();
+        $database->beginTransaction();
+
+        $database->query("SELECT id from users WHERE token=:TOKEN AND login=:USER");
+        $database->bind(':USER', $this->hello_name);
+        $database->bind(':TOKEN', $this->token);
+        $database->execute();  
+
+        $database->endTransaction();    
+        
+        if ($database->rowCount() >= 1) {
+            $OUT['TOKEN_CHECK']='Good';
+        }
+        
+        else {
+            $OUT['TOKEN_CHECK']='Bad';
+        }
+        
+        return $OUT;
+            
         }
     
 }

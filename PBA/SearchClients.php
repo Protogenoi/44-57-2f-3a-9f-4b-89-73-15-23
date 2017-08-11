@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -30,23 +30,33 @@ if (isset($fferror)) {
     }
 }
 
-
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-
-
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     require_once(__DIR__ . '../../classes/database_class.php');
     require_once(__DIR__ . '../../class/login/login.php');
 
-        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
-        $SELECT_USER_TOKEN->SelectToken();
-        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
         
         if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
         
         $TOKEN=$OUT['TOKEN_SELECT'];
                 
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
         }
 ?>
 <!DOCTYPE html>
@@ -68,7 +78,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <body>
     <?php
     include('../includes/navbar.php');
-    include('../includes/adlfunctions.php');
      ?>
         <div class="container">
             
@@ -193,7 +202,7 @@ $(document).ready(function() {
  { "data": "client_id",
             "render": function(data, type, full, meta) {
                 return '<a href="ViewClient.php?search=' + data + '">View</a>';
-            } },
+            } }
         ],
         "order": [[1, 'DESC']]
     } );
@@ -214,6 +223,6 @@ $(document).ready(function() {
 } );
 		</script>
                 
-<?php } } }?>
+<?php } }?>
     </body>
 </html>

@@ -1,8 +1,28 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '../../includes/adl_features.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+require_once(__DIR__ . '../../includes/adlfunctions.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -10,8 +30,7 @@ $policyID= filter_input(INPUT_GET, 'policyID', FILTER_SANITIZE_NUMBER_INT);
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 }
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
-include('../includes/adlfunctions.php');
-include('../classes/database_class.php');
+
 
     if($ffpba=='0') {
         
@@ -19,36 +38,30 @@ include('../classes/database_class.php');
         
     }
 
-if($companynamere=='Bluestone Protect') {
-
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: /CRMmain.php'); die;
-}
-}
-
 if(empty($search)) {
     
     header('Location: ../CRMmain.php'); die;
     
 }
 
-include('../includes/adl_features.php');
-
-if(isset($fferror)) {
-    if($fferror=='0') {
-        
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        
-    }
-    
-    }
-    
     $aid= filter_input(INPUT_GET, 'aid', FILTER_SANITIZE_NUMBER_INT);
     $pid= filter_input(INPUT_GET, 'pid', FILTER_SANITIZE_NUMBER_INT);
 
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,12 +78,6 @@ if(isset($fferror)) {
 <body>
     <?php
     include('../includes/navbar.php');
-        if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-
 
  $database = new Database(); 
  
@@ -93,25 +100,6 @@ if(isset($fferror)) {
             <li><a <?php if(isset($aid)) { ?> href="php/View_Account.php?aid=<?php echo $aid;?>" target="_blank" <?php } ?> >View Account</a></li>
             <li><a <?php if(isset($pid)) { ?>href="php/View_PBA.php?pid=<?php echo $pid;?>" target="_blank" <?php } ?> >View PBA</a></li>
 
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <div class="list-group">
-                        <?php 
-                        
-                        if($companynamere=='Bluestone Protect') {
-                        if (in_array($hello_name,$Level_10_Access, true)) { ?>
-                        <li><a class="list-group-item" href="/EditClient.php?search=<?php echo $search?>&pba"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>
-                        <?php } } ?>
-                        
-                                                <?php 
-                        if($companynamere!=='Bluestone Protect') {
-                         ?>
-                        <li><a class="list-group-item" href="/EditClient.php?search=<?php echo $search?>&pba"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>                  
-                        <?php }  ?>
-                    </div>
-                </ul>
-            </li>
             
         </ul>
 

@@ -1,8 +1,12 @@
 <?php
 require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/includes/user_tracking.php');
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
@@ -15,12 +19,29 @@ if ($ffanalytics == '1') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '1') {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
 }
+
+        require_once(__DIR__ . '/classes/database_class.php');
+        require_once(__DIR__ . '/class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if(isset($EXECUTE)) {
@@ -94,7 +115,7 @@ if(isset($btnupload)) {
     $query->execute();
     $data1 = $query->fetch(PDO::FETCH_ASSOC); 
     
-    $ID_FK=$data1['employee_id'];
+  $ID_FK=$data1['employee_id'];
      
 $UPLOAD = $pdo->prepare("INSERT INTO compliance_recordings set compliance_recordings_id_fk=:FK, compliance_recordings_company=:COMPANY, compliance_recordings_advisor=:ADVISOR, compliance_recordings_location=:LOCATION, compliance_recordings_recording_date=:DATE");
 $UPLOAD->bindParam(':FK',$ID_FK, PDO::PARAM_STR);
@@ -117,11 +138,11 @@ $UPLOAD->execute();
 
 }
 
-header('Location: /compliance/Recordings.php?RETURN=UPFAIL'); die;
+#header('Location: /compliance/Recordings.php?RETURN=UPFAIL'); die;
             }
             
             else {
-              header('Location: /compliance/Recordings.php?RETURN=UPNO'); die;  
+            #  header('Location: /compliance/Recordings.php?RETURN=UPNO'); die;  
             }
             
         }

@@ -25,12 +25,21 @@ if (isset($fferror)) {
     }
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
-
-    header('Location: ../CRMmain.php?AccessDenied');
-    die;
-}
-
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
@@ -53,6 +62,12 @@ if (isset($EXECUTE)) {
         }
         ?>
         <!DOCTYPE html>
+        <!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
         <html lang="en">
             <title>ADL | Add Product</title>
             <meta charset="UTF-8">

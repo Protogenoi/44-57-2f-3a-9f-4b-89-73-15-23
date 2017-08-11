@@ -58,23 +58,21 @@ $companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
 $companynamere = $companydetailsq['company_name'];
 
 
-if ($companynamere == 'Bluestone Protect') {
-    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade","Nick");
-    if (!in_array($hello_name, $Level_2_Access, true)) {
-
-        header('Location: ../CRMmain.php?AccessDenied');
-        die;
-    }
-}
-
-if ($companynamere == 'ADL_CUS') {
-    $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
-    if (!in_array($hello_name, $Level_2_Access, true)) {
-
-        header('Location: ../CRMmain.php?AccessDenied');
-        die;
-    }
-}
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 $FILTER = filter_input(INPUT_POST, 'FILTER', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -82,6 +80,12 @@ $datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html>
     <title>ADL | Financials</title>
     <meta charset="UTF-8">

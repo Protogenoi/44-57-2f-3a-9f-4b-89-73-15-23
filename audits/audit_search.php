@@ -91,8 +91,7 @@ require_once(__DIR__ . '/../includes/navbar.php');
                     <th>Grade</th>
                     <th>Edit</th>
                     <th>View</th>
-                    <th>PDF</th>
-                    <th>Profile</th>
+
                 </tr>
             </thead>
             <tfoot>
@@ -107,8 +106,6 @@ require_once(__DIR__ . '/../includes/navbar.php');
                     <th>Grade</th>
                     <th>Edit</th>
                     <th>View</th>
-                    <th>PDF</th>
-                    <th>Profile</th>
                 </tr>
             </tfoot>
         </table>
@@ -182,14 +179,6 @@ require_once(__DIR__ . '/../includes/navbar.php');
                     {"data": "id",
                         "render": function (data, type, full, meta) {
                             return '<a href="closer_form_view.php?auditid=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
-                        }},
-                    {"data": "id",
-                        "render": function (data, type, full, meta) {
-                            return '<a href="CloserPDFReport.php?auditid=' + data + '"><button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button></a>';
-                        }},
-                    {"data": "closer",
-                        "render": function (data, type, full, meta) {
-                            return '<a href="closer_reports.php?closer=' + data + '"><button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button></a>';
                         }}
                 ],
                 "order": [[1, 'desc']]

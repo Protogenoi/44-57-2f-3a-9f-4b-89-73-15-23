@@ -154,7 +154,12 @@ if ($query->rowCount() == 0) {
 
 }
 
-   
+$CHK_POLICY_HAS_ZERO = substr($CSV_Policy, 0, 1);
+
+if($CHK_POLICY_HAS_ZERO != 0) {
+    $CSV_Policy="0$CSV_Policy";
+}
+
  $query = $pdo->prepare("INSERT INTO financial_statistics_history "
 . "set Transmission_Date=:Transmission_Date ,"
 . " Transmission_Time=:Transmission_Time ,"

@@ -26,6 +26,19 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 $datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -614,7 +627,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?EWS=7",
+                "ajax": "/datatables/EWSData.php?EWS=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                  
                 "columns": [
                     {

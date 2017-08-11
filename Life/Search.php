@@ -10,7 +10,6 @@ require_once(__DIR__ . '../../includes/user_tracking.php');
 
 require_once(__DIR__ . '../../includes/adl_features.php');
 require_once(__DIR__ . '../../includes/Access_Levels.php');
-require_once(__DIR__ . '../../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '../../php/analyticstracking.php');
@@ -24,10 +23,23 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
-        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        
+        $SELECT_USER_TOKEN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -38,22 +50,6 @@ if (isset($fferror)) {
         header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
-        }
-
-
-$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
-
-        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
-        $SELECT_USER_TOKEN->SelectToken();
-        $OUT=$SELECT_USER_TOKEN->SelectToken();
-        
-        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
-        
-        $TOKEN=$OUT['TOKEN_SELECT'];
-                
         }
 ?>
 <!DOCTYPE html>

@@ -1,5 +1,23 @@
 <?php
 
+$USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if(isset($USER) && $TOKEN) {
+    
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
+        $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
+        $CHECK_USER_TOKEN->CheckToken();
+        $OUT=$CHECK_USER_TOKEN->CheckToken();
+        
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Bad') {
+         echo "BAD";   
+        }
+
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
+
 include('../includes/ADL_MYSQLI_CON.php');
 
 
@@ -12,9 +30,6 @@ if(isset($EWS)) {
         $sql = "SELECT 
  ews_data_history.policy_number
 , ews_data_history.id
-, ews_data_history.dob
-, ews_data_history.address1
-, ews_data_history.address2
 , ews_data_history.post_code
 , ews_data_history.policy_type
 , ews_data_history.warning
@@ -32,6 +47,7 @@ if(isset($EWS)) {
 , client_policy.policy_number AS cppol
 , client_policy.client_id
 , ews_data_history.color_status
+, ews_data_history.ournotes
 , client_policy.closer
 , client_policy.lead
 	FROM ews_data_history 
@@ -339,3 +355,5 @@ client_policy.policy_number = ews_data.policy_number");
     
     
     }
+
+} }

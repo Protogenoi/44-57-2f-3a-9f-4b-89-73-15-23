@@ -31,11 +31,22 @@ if ($ffaudits == '0') {
     die;
 }
 
-if (!in_array($hello_name, $Level_3_Access, true)) {
-
-    header('Location: /../CRMmain.php?AccessDenied');
-    die;
-}
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 
 $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);

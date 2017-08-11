@@ -24,15 +24,22 @@ if (isset($fferror)) {
     }
 }
 
-if ($ffaudits == '0') {
-
-    header('Location: /CRMmain.php');
-    die;
-}
-
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-
-
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -135,13 +142,6 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                                     <option value="Nicola">Nicola</option> 
                                     <option value="Gavin">Gavin</option> 
                                     <option value="David">David</option> 
-                                <?php } if ($companynamere == 'ADL_CUS') { ?>
-                                    <option value="Dan Matthews">Dan Matthews</option>
-                                    <option value="Joe Rimmell">Joe Rimmell</option>
-                                    <option value="Jordan Davies">Jordan Davies</option>
-                                    <option value="Matthew Brace">Matthew Brace</option>  
-                                    <option value="Jake Wood">Jake Wood</option> 
-                                    <option value="James Keen">James Keen</option> 
                                 <?php } ?>
                             </select>
                         </div>
@@ -2668,6 +2668,3 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
     </div>
 </body>
 </html>
-<?php } else {    header('Location: /CRMmain.php');
-    die;
-} ?>

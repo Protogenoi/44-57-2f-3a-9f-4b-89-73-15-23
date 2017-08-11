@@ -28,12 +28,25 @@ if (isset($fferror)) {
 
 if ($ffaudits=='0') {
         
-        header('Location: ../CRMmain.php'); die;
+        header('Location: /../CRMmain.php'); die;
     }
 
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-
-
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 $result = $conn->query("select grade, count(grade) As Alert from closer_audits where date_submitted between DATE_ADD(CURDATE(), INTERVAL 1-DAYOFWEEK(CURDATE()) DAY) AND DATE_ADD(CURDATE(), INTERVAL 7-DAYOFWEEK(CURDATE()) DAY) AND auditor='$hello_name' group by grade");
 
   $results = array();
@@ -744,8 +757,3 @@ echo "</table>";
 
 </body>
 </html>
-<?php } else { 
-    
-    header('Location: ../CRMmain.php'); die;
-
-} ?>

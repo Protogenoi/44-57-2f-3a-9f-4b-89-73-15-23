@@ -22,6 +22,19 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
 }
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,11 +89,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>Address 1</th>
-                            <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
                             <th>Warning</th>
@@ -105,11 +113,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>Address 1</th>
-                            <th>Address 2</th>
-                            <th>Address 3</th>
-                            <th>Address 4</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
                             <th>Warning</th>
@@ -221,7 +224,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "../../datatables/EWSData.php?EWS=1",
+                "ajax": "../../datatables/EWSData.php?EWS=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
 
                 "columns": [
                     {
@@ -238,11 +241,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                         "render": function(data, type, full, meta) {
                             return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
                         } },
-                    { "data": "address1"},
-                    { "data": "address2"},
-                    { "data": "address3"},
-                    { "data": "address4"},
-                    { "data": "dob" },
                     { "data": "post_code" },
                     { "data": "policy_type" },
                     { "data": "warning" },

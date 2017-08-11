@@ -4,11 +4,14 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/includes/user_tracking.php');
+
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');
 require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/php/analyticstracking.php');
@@ -28,14 +31,24 @@ if ($fflife == '0') {
     die;
 }
 
-if (!in_array($hello_name, $Level_10_Access, true)) {
-
-    header('Location: /CRMmain.php');
-    die;
-}
-
 $datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
+        require_once(__DIR__ . '/classes/database_class.php');
+        require_once(__DIR__ . '/class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -119,7 +132,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         </form>
                                     </div>
                                      <div class="col-xs-6 col-md-6">
-                                        <h3>Upload Financials</h3>
+                                        <h3>Upload other Insurers Financials</h3>
 
 
                                         <form action="/upload/finrupload.php?EXECUTE=8" method="post" enctype="multipart/form-data" name="form1" id="form1">

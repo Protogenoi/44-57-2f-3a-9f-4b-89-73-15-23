@@ -28,7 +28,6 @@ if (isset($fferror)) {
         require_once(__DIR__ . '/../classes/database_class.php');
         require_once(__DIR__ . '/../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->UpdateToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();

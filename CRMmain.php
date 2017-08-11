@@ -347,18 +347,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
     </div>
 
-    <div class="footer navbar-fixed-bottom"><center><?php adl_version(); ?> <a href="mailto:michael@adl-crm.uk?Subject=ADL"> Email Support </a> <?php
-            if ($hello_name == 'Michael') {
-
-                $time_start = microtime(true);
-                sleep(1);
-                $time_end = microtime(true);
-                $time = $time_end - $time_start;
-
-                echo "<i>Page execution {$time}.</i>";
-            }
-            ?></center></div>
-
+    <div class="footer navbar-fixed-bottom"><center><?php adl_version(); ?> <a href="mailto:michael@adl-crm.uk?Subject=ADL"> Email Support </a></center></div>
 
     <?php if ($ffgmaps == '1') { ?>
 

@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 6);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -51,7 +51,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 6) {
+        if($ACCESS_LEVEL < 3) {
             
         header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    

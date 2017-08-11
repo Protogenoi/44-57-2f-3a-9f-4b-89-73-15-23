@@ -10,7 +10,7 @@ class UserModal {
 
     public function getUser() {
 
-        $stmt = $this->pdo->prepare("SELECT company, id, login, pw, access_level, active, real_name FROM users");
+        $stmt = $this->pdo->prepare("SELECT company, id, login, pw, access_level, active, real_name FROM users ORDER BY access_level DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

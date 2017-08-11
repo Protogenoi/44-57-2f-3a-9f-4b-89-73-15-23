@@ -40,6 +40,14 @@ if (isset($fferror)) {
         die;    
             
         }
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }           
 ?>
 <!DOCTYPE html>
 <html>
@@ -165,7 +173,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../datatables/ClientSearch.php?ClientSearch=3",
+        "ajax": "../datatables/ClientSearch.php?ClientSearch=3&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

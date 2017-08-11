@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 6);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -36,15 +36,27 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     require_once(__DIR__ . '/classes/database_class.php');
     require_once(__DIR__ . '/class/login/login.php');
 
-        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
-        $SELECT_USER_TOKEN->SelectToken();
-        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
         
         if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
         
         $TOKEN=$OUT['TOKEN_SELECT'];
                 
         }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 6) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }        
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,13 +64,13 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
-        <link rel="stylesheet" href="styles/layoutcrm.css" type="text/css" />
+        <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
-        <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.css">
         <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>

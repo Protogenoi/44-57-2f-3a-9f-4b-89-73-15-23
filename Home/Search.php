@@ -4,6 +4,10 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../includes/user_tracking.php'); 
+
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
@@ -20,10 +24,31 @@ if (isset($fferror)) {
     }
 }
 
-      if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: ../CRMmain.php'); die;
-} 
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }        
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -64,7 +89,7 @@ require_once(__DIR__ . '/../includes/navbar.php');
 		<ul class="ca-menu">
 <?php if($ffhome=='1'){ ?>			
 			<li>
-			<a href="/SearchPolicies.php?query=Home">
+			<a href="/SearchPolicies.php?EXECUTE=Home">
                             <span class="ca-icon"><i class="fa fa-search"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Search<br/>Policies</h2>
@@ -171,7 +196,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "/datatables/ClientSearch.php?ClientSearch=5",
+        "ajax": "/datatables/ClientSearch.php?ClientSearch=5&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -192,8 +217,8 @@ $(document).ready(function() {
          { "data": "client_id",
             "render": function(data, type, full, meta) {
                 return '<a href="AddPolicy.php?Home=y&CID=' + data + '">Add Policy</a>';
-            } },
-        ],
+            } }
+        ]
     } );
 
 } );

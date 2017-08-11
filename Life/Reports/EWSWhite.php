@@ -16,6 +16,19 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     
     header('Location: ../../CRMmain.php?AccessDenied'); die;
 }
+
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
+        $SELECT_USER_TOKEN->SelectToken();
+        $OUT=$SELECT_USER_TOKEN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +87,6 @@ include("../../includes/adl_features.php");
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
                             <th>Warning</th>
@@ -99,7 +111,6 @@ include("../../includes/adl_features.php");
                             <th>Policy</th>
                             <th>Client</th>
                             <th>ID</th>
-                            <th>DOB</th>
                             <th>Post Code</th>
                             <th>Policy Type</th>
                             <th>Warning</th>
@@ -210,7 +221,7 @@ include("../../includes/adl_features.php");
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php echo $clwdate;?>",
+                "ajax": "/datatables/EWSData.php?&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php echo $clwdate;?>",
                  
                 "columns": [
                     {
@@ -227,7 +238,6 @@ include("../../includes/adl_features.php");
                         "render": function(data, type, full, meta) {
                             return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
                         } },
-                    { "data": "dob" },
                     { "data": "post_code" },
                     { "data": "policy_type" },
                     { "data": "warning" },

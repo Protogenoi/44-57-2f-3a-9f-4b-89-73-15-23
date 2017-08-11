@@ -560,18 +560,6 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
       </form>
    </td>";
-	echo "<td>
-      <form action='LeadPDFReport.php?new=y' method='POST' name='pdfformview'>
-	<input type='hidden' name='search' value='".$result['id']."' >
-<button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button>
-      </form>
-   </td>";
-	echo "<td>
-      <form action='agent_reports.php' method='get' name='leadgen'>
-	<input type='hidden' name='leadgen' value='".$result['agent']."' >
-<button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button>
-      </form>
-   </td>";
 if($hello_name == 'Michael'){
 echo "<td>
       <form id='deletenewauditconfirm$i' action='lead_gen_reports.php?deletenewaudit' method='GET' name='deleteaudit'>
@@ -641,8 +629,6 @@ if ($step =='Search') {
                 <th>Grade</th>
                 <th>Edit</th>
                 <th>View</th>
-                <th>PDF</th>
-                <th>Profile</th>
             </tr>
         </thead>
         <tfoot>
@@ -656,8 +642,6 @@ if ($step =='Search') {
                 <th>Grade</th>
                 <th>Edit</th>
                 <th>View</th>
-                <th>PDF</th>
-                <th>Profile</th>
             </tr>
         </tfoot>
     </table>
@@ -679,8 +663,6 @@ if ($step =='Searchold') {
                 <th>Grade</th>
                 <th>Edit</th>
                 <th>View</th>
-                <th>PDF</th>
-                <th>Profile</th>
             </tr>
         </thead>
         <tfoot>
@@ -693,8 +675,6 @@ if ($step =='Searchold') {
                 <th>Grade</th>
                 <th>Edit</th>
                 <th>View</th>
-                <th>PDF</th>
-                <th>Profile</th>
             </tr>
         </tfoot>
     </table>
@@ -723,7 +703,6 @@ echo
 	<th>Grade</th>
 	<th>Edited By</th>
 	<th>Date Edited</th>
-	<th colspan='5'>Options</th>
 	</tr>
 	</thead>";
 
@@ -767,18 +746,6 @@ switch( $result['grade'] )
 	echo "<td>
      <form action='LandG/View.php?EXECUTE=1&AID=".$result['id']."' method='POST'>
 <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
-      </form>
-   </td>";
-	echo "<td>
-      <form action='LeadPDFReport.php' method='POST' name='pdfformview'>
-	<input type='hidden' name='search' value='".$result['id']."' >
-<button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button>
-      </form>
-   </td>";
-	echo "<td>
-      <form action='agent_reports.php' method='get' name='leadgen'>
-	<input type='hidden' name='leadgen' value='".$result['lead_gen_name']."' >
-<button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button>
       </form>
    </td>";
 if($hello_name == 'Michael'){
@@ -1067,16 +1034,7 @@ $(document).ready(function() {
  { "data": "id",
             "render": function(data, type, full, meta) {
                 return '<a href="LandG/View.php?EXECUTE=1&AID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
-            } },
- 
- { "data": "id",
-            "render": function(data, type, full, meta) {
-                return '<a href="LeadPDFReport.php?new=y&auditid=' + data + '"><button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button></a>';
-            } },
-  { "data": "agent",
-            "render": function(data, type, full, meta) {
-                return '<a href="agent_reports.php?new=y&leadgen=' + data + '"><button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button></a>';
-            } },
+            } }
         ],
         "order": [[1, 'desc']]
     } );
@@ -1160,16 +1118,7 @@ $(document).ready(function() {
  { "data": "id",
             "render": function(data, type, full, meta) {
                 return '<a href="LandG/View.php?EXECUTE=1&AID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
-            } },
- 
- { "data": "id",
-            "render": function(data, type, full, meta) {
-                return '<a href="LeadPDFReport.php?new=y&auditid=' + data + '"><button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button></a>';
-            } },
-  { "data": "lead_gen_name",
-            "render": function(data, type, full, meta) {
-                return '<a href="agent_reports.php?leadgen=' + data + '"><button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button></a>';
-            } },
+            } }
         ],
         "order": [[1, 'desc']]
     } );

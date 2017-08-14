@@ -22,6 +22,9 @@ if (isset($fferror)) {
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
+    
+        require_once(__DIR__ . '../../classes/database_class.php');
+        require_once(__DIR__ . '../../class/login/login.php');
 } 
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
@@ -39,6 +42,12 @@ if (isset($fferror)) {
         }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
 <title>ADL | Email Inbox</title>
 <meta charset="UTF-8">

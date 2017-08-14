@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -23,6 +23,9 @@ if (isset($fferror)) {
     }
 }
 
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
 
@@ -30,7 +33,7 @@ if (isset($fferror)) {
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 3) {
+        if($ACCESS_LEVEL < 1) {
             
         header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
@@ -38,8 +41,14 @@ if (isset($fferror)) {
         }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-<title>Send Email</title>
+<title>ADL | Send Email</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>

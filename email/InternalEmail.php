@@ -20,19 +20,25 @@ if ($ffintemails=='0') {
 
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
 <title>ADL | Send Internal Email</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../datatables/css/layoutcrm.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/datatables/css/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-<script type="text/javascript" language="javascript" src="../js/jquery/jquery-3.0.0.min.js"></script>
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
 

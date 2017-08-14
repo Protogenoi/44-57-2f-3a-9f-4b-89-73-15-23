@@ -29,6 +29,9 @@ if ($ffkeyfactsemail == '0') {
     die;
 }
 
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
 
@@ -44,6 +47,12 @@ if ($ffkeyfactsemail == '0') {
         }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
     <title>ADL | KeyFacts Email</title>
     <meta charset="UTF-8">
@@ -69,9 +78,6 @@ if ($ffkeyfactsemail == '0') {
 
                 <button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#emailmodal"><span class="glyphicon glyphicon-envelope" data-></span> Generic Email</button>
 
-                <a href='TodayKFsfailed.php'><button type="button" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove-circle"></span> Check failed</button></a>
-
-                <a href='TodayKFs.php'><button type="button" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok-circle"></span> Sent attempts</button></a> </div>
             <div class="panel-body">
                 <form class="form-horizontal" id="emailform" name="emailform" method="post" enctype="multipart/form-data" action="php/SendKeyFacts.php">
                     <fieldset>

@@ -43,7 +43,7 @@ FROM
     client_details
     LEFT JOIN client_policy ON client_details.client_id=client_policy.client_id
 WHERE
-    client_details.submitted_date >= CURDATE()
+    DATE(client_details.submitted_date) >= '2017-08-14'
         AND client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM

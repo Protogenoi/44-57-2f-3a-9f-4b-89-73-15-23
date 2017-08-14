@@ -282,28 +282,7 @@ if (isset($fferror)) {
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
                 </p>
             </form>
-        
-
-            <form class="AddClient" action="/export/Export.php?query=VITALITYLIFE" method="post">
-                <h3>Export Vitality Business Register</h3>
-
-
-                <p>
-                    <label for="datefrom">From:</label>
-                    <input type="text" id="VITfrom" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
-                </p>
-
-                <p>
-                    <label for="dateto">To:</label>
-                    <input type="text" id="VITto" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
-                </p>
-
-                <p>
-                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
-                </p>
-            </form>       
-
-
+       
         </div>
 
         <div class="column-center">

@@ -1,17 +1,27 @@
 <?php 
+require_once(__DIR__ . '../../includes/adl_features.php');
 
-include('../includes/adlfunctions.php'); 
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 if ($ffintemails=='0') {
         
         header('Location: ../Emails.php'); die;
     }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>Send Internal Email</title>
+<title>ADL | Send Internal Email</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -26,13 +36,7 @@ if ($ffintemails=='0') {
 </head>
 <body>
 
-<?php include('../includes/navbar.php'); 
-                if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-    ?>
+<?php include('../includes/navbar.php');  ?>
   <div class="container">
 
       <?php email_sent_catch(); ?>

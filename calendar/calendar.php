@@ -1,19 +1,54 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adlfunctions.php'); 
-include('../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: /CRMmain.php'); die;
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
 
+require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '../../includes/adl_features.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
 }
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
 <title>ADL | Calendar</title>
 <meta charset="UTF-8">

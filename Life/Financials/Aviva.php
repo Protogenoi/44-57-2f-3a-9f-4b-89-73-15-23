@@ -1326,7 +1326,8 @@ WHERE
                             financials_nomatch_id, 
                             financials_nomatch_payment, 
                             financials_nomatch_insert, 
-                            financials_nomatch_policy 
+                            financials_nomatch_policy,
+                            bedrock_id
                         FROM 
                             financials_nomatch");
                 ?>
@@ -1335,6 +1336,7 @@ WHERE
                         <tr>
                             <th colspan="4">Unmatched Policies (Not on ADL)</th>
                         </tr>
+                    <th>Row</th>
                     <th>Entry Date</th>
                     <th>Policy</th>
                     <th>Premium</th>
@@ -1343,30 +1345,31 @@ WHERE
                     <?php
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
+                        $i=0;
                         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            
+                            $i++;
 
                             $policy = $row['financials_nomatch_policy'];
                             $paytype = $row['financials_nomatch_payment'];
                             $iddd = $row['financials_nomatch_id'];
+                            $BRID= $row['bedrock_id'];
 
-                            echo '<tr>';
+                            echo "<tr>
+                            <td>$i</td>
+                            ";
+                            
                             echo"<td>" . $row['financials_nomatch_insert'] . "</td>";
                             echo "<td>$policy</td>";
                             if (intval($row['financials_nomatch_policy']) > 0) {
                                 echo "<td><span class=\"label label-success\">" . $row['financials_nomatch_policy'] . "</span></td>";
-                            } else if (intval($row["financials_payment"]) < 0) {
-                                echo "<td><span class=\"label label-danger\">" . $row['financials_nomatch_policy'] . "</span></td>";
+                            } else if (intval($row["financials_nomatch_payment"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['financials_nomatch_payment'] . "</span></td>";
                             } else {
-                                echo "<td>" . $row['financials_payment'] . "</td>";
+                                echo "<td>" . $row['financials_nomatch_payment'] . "</td>";
                             }
-
-                            if (isset($datefrom)) {
-                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            } else {
-                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            }
-                            ?> 
-                            <?php
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Aviva&BRID=$BRID&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                 
                             echo "</tr>";
                             echo "\n";
                         }

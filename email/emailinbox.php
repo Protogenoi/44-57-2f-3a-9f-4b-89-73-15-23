@@ -1,33 +1,53 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+$USER_TRACKING=0;
 
-if(isset($fferror)) {
-    if($fferror=='0') {
-        
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '../../includes/adl_features.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
+} 
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <title>ADL | Email Inbox</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../datatables/css/layoutcrm.css" type="text/css" />
+<script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/datatables/css/layoutcrm.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
@@ -35,15 +55,7 @@ if(isset($fferror)) {
 	<body>
             
             <?php 
-            include('../includes/navbar.php'); 
-            include('../includes/adlfunctions.php'); 
-            include('../includes/config.php'); 
-                if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-            ?>
+            include('../includes/navbar.php'); ?>
 
 <div class='container'>
      <?php email_sent_catch(); ?>

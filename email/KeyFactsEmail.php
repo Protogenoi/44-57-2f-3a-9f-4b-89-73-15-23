@@ -77,7 +77,7 @@ if ($ffkeyfactsemail == '0') {
             <div class="panel-heading">Key Facts Email 
 
                 <button type="button" class="btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#emailmodal"><span class="glyphicon glyphicon-envelope" data-></span> Generic Email</button>
-
+            </div>
             <div class="panel-body">
                 <form class="form-horizontal" id="emailform" name="emailform" method="post" enctype="multipart/form-data" action="php/SendKeyFacts.php">
                     <fieldset>

@@ -222,24 +222,7 @@ if (isset($fferror)) {
                 changeYear: true,
                 yearRange: "-100:+1"
             });
-        });     
-        $(function () {
-            $("#datefromOTHER").datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+1"
-            });
-        });
-
-        $(function () {
-            $("#datetoOTHER").datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: "-100:+1"
-            });
-        });        
+        });          
     </script>
 </head>
 <body>   
@@ -299,60 +282,7 @@ if (isset($fferror)) {
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
                 </p>
             </form>
-            
-                      <form class="AddClient" action="/export/Export.php?query=OTHERINSURERS" method="post">
-                <h3>Business Register For Jade</h3>
-                <p>
-                    <label for="Select" required>Select Policies that</label>
-                    <select name="Select">
-                        <option value="submitted_date">Were Added</option>
-                        <option value="sale_date">Were Sold</option>
-                    </select>
-                </p>
-                <br>
-
-                <p>
-                    <label for="datefrom">From:</label>
-                    <input type="text" id="datefromOTHER" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
-                </p>
-
-                <p>
-                    <label for="dateto">To:</label>
-                    <input type="text" id="datetoOTHER" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
-                </p>
-
-                <p>
-                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
-                </p>
-            </form>            
-
-            <?php
-            if (isset($ffhome)) {
-                if ($ffhome == '1') {
-                    ?>
-
-                    <form class="AddClient" action="/export/Export.php?query=HOME" method="post">
-                        <h3>Export Home Business Register</h3>
-
-                        <p>
-                            <label for="datefrom">From:</label>
-                            <input type="text" id="datefrom7" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
-                        </p>
-
-                        <p>
-                            <label for="dateto">To:</label>
-                            <input type="text" id="dateto7" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
-                        </p>
-
-                        <p>
-                            <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
-                        </p>
-                    </form> 
-
-                    <?php
-                }
-            }
-            ?>
+        
 
             <form class="AddClient" action="/export/Export.php?query=VITALITYLIFE" method="post">
                 <h3>Export Vitality Business Register</h3>
@@ -401,34 +331,6 @@ if (isset($fferror)) {
                 <p>
                     <label for="dateto">To:</label>
                     <input type="text" id="dateto3" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
-                </p>
-
-                <p>
-                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
-                </p>
-
-            </form>
-
-
-            <form class="AddClient" action="/export/exportews.php" method="post">
-                <h3>Export EWS Database</h3>
-
-                <p>
-                    <label for="Select">Select</label>
-                    <select name="Select" required>
-                        <option value="date_added">Date Added</option>
-                    </select>
-                </p>
-                <br>
-
-                <p>
-                    <label for="datefrom">From:</label>
-                    <input type="text" id="datefrom4" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
-                </p>
-
-                <p>
-                    <label for="dateto">To:</label>
-                    <input type="text" id="dateto4" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
                 </p>
 
                 <p>

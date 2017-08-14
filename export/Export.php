@@ -265,25 +265,6 @@ WHERE
             echo $output;
             exit;
             }            
-            
-            if($query=='VITALITYLIFE') {
-                $output = "Application_Number,Policy_Number,Sale_Date,Title,Forename,Surname,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
-                $query = $pdo->prepare("SELECT client_policy.application_number, client_policy.policy_number, client_policy.sale_date, '' AS empty_col , client_policy.client_name, '' AS empty_col , client_details.phone_number,  client_details.alt_number, CONCAT(client_details.dob,' - ',client_details.dob2) AS CDOB, client_details.email, client_details.address1, client_details.address2, CONCAT(client_details.address3, ' ', client_details.town) AS TOWN, client_details.post_code, client_policy.premium, client_policy.type, client_policy.commission,'' AS empty_col ,'' AS empty_col2 , CONCAT(client_policy.lead, '/', client_policy.closer) AS AGENTS, client_policy.policystatus, client_policy.insurer, client_policy.submitted_by, client_details.company, client_details.submitted_date FROM client_policy LEFT JOIN client_details ON client_policy.client_id=client_details.client_id WHERE DATE(client_policy.sale_date) between :datefrom and :dateto OR (DATE(client_policy.submitted_date) between :datefrom2 and :dateto2) AND client_details.company ='TRB Vitality'");
-                $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-                $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
-                $query->execute();
-                
-                $list = $query->fetchAll();
-                foreach ($list as $rs) {
-                    $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['empty_col'].",".$rs['client_name'].",".$rs['empty_col'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
-                    
-                }
-                echo $output;
-                exit;
-                
-                } 
                 
                 if($query=='LIFEFINANCIALS') {
                     $output = "insert_date, Transmission Date,Transmission Time,Payment Date,Master Agency No,FRN Number,Sub Agency No,Policy Type,Policy,Broker Ref,Reason Code,Party,Policy Name,Initial,Product Description,Payment Type,Payment_Amount,Payment_Currency,Payment Basis,Payment Code,Payment Due Date,Premium Type,Premium Amount,Premium_Currency, Premium Frequency,Payment Reason,Scheme Number,Scheme Name\n";

@@ -1,12 +1,45 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '../../includes/adl_features.php');
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '../../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>ADL CRM | Bulk Email Email</title>
+<title>ADL | Bulk Email Email</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
@@ -21,12 +54,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 </head>
 <body>
     <?php include('../includes/navbar.php'); 
-    include('../includes/adlfunctions.php');
-                    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
+
     ?>
 
   <div class="container">
@@ -105,29 +133,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 </fieldset>
 </form> 
-<!--<script>
-$(document).ready(function(){
-  $('#emailform').on('submit',function(e) { 
-  $.ajax({
-      url:'php/SendKeyFacts.php', 
-      data:$(this).serialize(),
-      type:'POST',
-      success:function(data){
-            timer: 5000,
-      window.location.reload(true);
-        console.log(data);
-        
-	    swal("Success!", "Message sent!", "success");
-      },
-      error:function(data){
-       
-	    swal("Oops...", "Something went wrong :(", "error");
-      }
-    });
-    e.preventDefault();
-  });
-});
-</script>-->
+
 </div>
 </div>
 </div>

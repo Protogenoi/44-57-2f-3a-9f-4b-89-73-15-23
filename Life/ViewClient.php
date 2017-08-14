@@ -1885,6 +1885,82 @@ try {
                         ?>
 
                     </table>
+                    
+<?php
+try {
+
+    $AVIVA_FIN = $pdo->prepare("SELECT
+            financials.financials_insert, 
+            financials.financials_payment, 
+            client_policy.type, 
+            client_policy.policy_number, 
+            client_policy.policystatus, 
+            client_policy.closer, 
+            client_policy.lead, 
+            client_policy.id AS POLID 
+        FROM 
+            financials 
+        JOIN 
+            client_policy
+        ON 
+            financials.financials_policy = client_policy.policy_number 
+        WHERE
+            client_policy.client_id=:id
+        AND 
+            financials.financials_provider='Aviva'
+        GROUP BY 
+            financials.financials_id");
+    $AVIVA_FIN->bindParam(':id', $search, PDO::PARAM_INT);
+    $AVIVA_FIN->execute()or die(print_r($AVIVA_FIN->errorInfo(), true));
+    if ($AVIVA_FIN->rowCount() > 0) {
+        ?>
+
+                            <table  class='table table-hover table-condensed'>
+                                <thead>
+                                    <tr>
+                                        <th colspan='7'>Aviva</th>
+                                    </tr>
+                                <th>Comm Date</th>
+                                <th>Policy</th>
+                                <th>Commission Type</th>
+                                <th>Policy Status</th>
+                                <th>Closer</th>
+                                <th>Lead</th>
+                                <th>Amount</th>
+                                </thead>
+
+                                <?php
+                                while ($row = $AVIVA_FIN->fetch(PDO::FETCH_ASSOC)) {
+
+                                    if (isset($row['POLID'])) {
+
+                                        $PID = $row['POLID'];
+                                    }
+
+                                    echo '<tr>';
+                                    echo "<td>" . $row['financials_insert'] . "</td>";
+                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
+                                    echo "<td>" . $row['type'] . "</td>";
+                                    echo "<td>" . $row['policystatus'] . "</td>";
+                                    echo "<td>" . $row['closer'] . "</td>";
+                                    echo "<td>" . $row['lead'] . "</td>";
+                                    if (intval($row['financials_payment']) > 0) {
+                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
+                                    } else if (intval($row["financials_payment"]) < 0) {
+                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
+                                    } else {
+                                        echo "<td>" . $row['financials_payment'] . "</td>";
+                                    }
+                                    echo "</tr>";
+                                    echo "\n";
+                                }
+                            }
+                        } catch (PDOException $e) {
+                            echo 'Connection failed: ' . $e->getMessage();
+                        }
+                        ?>
+
+                    </table>                       
 
 <?php
 try {

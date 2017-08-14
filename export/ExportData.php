@@ -1,8 +1,30 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../includes/user_tracking.php'); 
+
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
 $ExportLegacy= filter_input(INPUT_GET, 'ExportLegacy', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ExportLegacy)) { if($ExportLegacy=='1') {

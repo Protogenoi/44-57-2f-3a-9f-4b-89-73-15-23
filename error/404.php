@@ -42,6 +42,7 @@ if (isset($fferror)) {
 <body>
 
 <?php include('../includes/navbar.php'); ?>
+    <?php include('../includes/adlfunctions.php'); ?>
 
  <div class="container">
 

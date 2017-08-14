@@ -54,25 +54,6 @@ if(isset($query)) {
     $filename = $file."_".date("Y-m-d_H-i",time());
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename='.$filename.'.csv');    
-    
-    if($query=='HOME') {
-        $output = "Application Number, policy_number,sale_date, title, client_name, Surname, phone_number,alt_number,dob,email,address,address2,town,post,premium,type,commission, Paid to HWIFS, Net Paid, lead/closer,status,insurer,added_by,company,added_date\n";
-        $query = $pdo->prepare("SELECT '' AS empty_col, home_policy.policy_number, home_policy.sale_date, '' AS empty_col, home_policy.client_name, '' AS empty_col, client_details.phone_number,  client_details.alt_number, CONCAT(client_details.dob,' - ',client_details.dob2) AS dob, client_details.email, client_details.address1, client_details.address2, CONCAT(client_details.address3, ' ', client_details.town) AS address3, client_details.post_code, home_policy.premium, home_policy.type, home_policy.commission, '' AS empty_col, '' AS empty_col, CONCAT(home_policy.lead, '/', home_policy.closer) AS agents, home_policy.status, home_policy.insurer, home_policy.added_by, client_details.company, client_details.submitted_date FROM home_policy LEFT JOIN client_details ON home_policy.client_id=client_details.client_id WHERE DATE(home_policy.sale_date) between :datefrom and :dateto OR (DATE(home_policy.added_date) between :datefrom2 and :dateto2) AND client_details.company ='TRB Home Insurance'");
-        $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-        $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-        $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
-        $query->execute();
-        
-        $list = $query->fetchAll();
-        foreach ($list as $rs) {
-            $output .= $rs['empty_col'].",".$rs['policy_number'].",".$rs['sale_date'].",".$rs['empty_col'].",".$rs['client_name'].",".$rs['empty_col'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['dob'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['address3'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col'].",".$rs['agents'].",".$rs['status'].",".$rs['insurer'].",".$rs['added_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
-            
-        }
-        echo $output;
-        exit;
-        
-        }
         
         if($query=='LIFE') {
             $simply_biz = "2.5";
@@ -142,79 +123,7 @@ WHERE
             echo $output;
             exit;
             }
-         
-        if($query=='OTHERINSURERS') {
-            $simply_biz = "2.5";
-            
-            $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
-            $query = $pdo->prepare("SELECT 
-    financial_statistics_history.payment_amount,
-    client_policy.application_number,
-    client_policy.policy_number,
-    CONCAT(DATE(client_policy.submitted_date), ' - ',
-    DATE(client_policy.sale_date)) as sale_sub,
-    client_policy.commission,
-    DATE(financial_statistics_history.insert_date) AS insert_date,
-    '' AS empty_col,
-    client_policy.client_name,
-    '' AS empty_col,
-    client_details.phone_number,
-    client_details.alt_number,
-    CONCAT(client_details.dob,
-            ' - ',
-            client_details.dob2) AS CDOB,
-    client_details.email,
-    client_details.address1,
-    client_details.address2,
-    CONCAT(client_details.address3,
-            ' ',
-            client_details.town) AS TOWN,
-    client_details.post_code,
-    client_policy.premium,
-    client_policy.type,
-    client_policy.commission,
-    '' AS empty_col,
-    '' AS empty_col2,
-    CONCAT(client_policy.lead,
-            '/',
-            client_policy.closer) AS AGENTS,
-    client_policy.policystatus,
-    client_policy.insurer,
-    client_policy.submitted_by,
-    client_details.company,
-    client_details.submitted_date
-FROM
-    client_policy
-        LEFT JOIN
-    client_details ON client_policy.client_id = client_details.client_id
-        LEFT JOIN
-    financial_statistics_history ON financial_statistics_history.policy = client_policy.policy_number
-WHERE
-    DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer IN ('Aviva','Royal London','Vitality','Royal London')
-        AND policystatus = 'Live'
-        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer IN ('Aviva','Royal London','Vitality','Royal London')
-        AND policystatus = 'Awaiting'");
-            $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-            $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-            $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-            $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
-            $query->execute();
-            $list = $query->fetchAll();
-            foreach ($list as $rs) {
-                
-                $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
-                $pipe=$rs['commission']-$ADL_AMOUNT;  
-                $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
-
-                
-                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
-                
-            }
-            echo $output;
-            exit;
-            }               
+                      
             
         if($query=='JUSTLIFE') {
             $simply_biz = "2.5";

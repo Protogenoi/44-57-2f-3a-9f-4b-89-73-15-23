@@ -1,23 +1,72 @@
 <?php
-require_once(__DIR__ . "/../classes/access_user/access_user_class.php");
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
-require_once(__DIR__ . '/../includes/user_tracking.php');
 
-require_once(__DIR__ .  "/../includes/ADL_PDO_CON.php");
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));
 $companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
 
 $companynamere = $companydetailsq['company_name'];
+
+    require_once(__DIR__ . '/../classes/database_class.php');
+    require_once(__DIR__ . '/../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
-    <title>Admin Dashboard</title>
+    <title>ADL | Admin Control Panel</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -32,7 +81,6 @@ $companynamere = $companydetailsq['company_name'];
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
-    <?php include('../includes/ADL_PDO_CON.php'); ?>
     <div id="wrapper">
 
         <div id="sidebar-wrapper">
@@ -75,8 +123,6 @@ $companynamere = $companydetailsq['company_name'];
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-
-
 
                         <?php
                         $SMSselect = filter_input(INPUT_GET, 'SMS', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -2958,17 +3004,17 @@ if ($settingsselect == 'y') {
 
                                     });
     </script>
-     <script type="text/JavaScript">
-                                    var $select = $('#taskuser');
-                                    $.getJSON('../JSON/ADL_USERS.php?EXECUTE=1', function(data){
-                                    $select.html('agent_name');
-                                    $.each(data, function(key, val){ 
-                                    $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
-                                    })
-                                    });
-                                   
-                                </script> <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-                                                                         <script>
+<script type="text/JavaScript">
+         var $select = $('#taskuser');
+         $.getJSON('../JSON/ADL_USERS.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+             $select.html('agent_name');
+             $.each(data, function(key, val){ 
+                 $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');
+             })
+         });
+              </script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
         $(function () {
             $("#TRACKING_DATE").datepicker({
                 dateFormat: 'yy-mm-dd',

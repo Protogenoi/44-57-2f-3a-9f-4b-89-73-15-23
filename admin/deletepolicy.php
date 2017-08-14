@@ -1,15 +1,19 @@
 <?php 
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '../../includes/user_tracking.php'); 
 
 require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-if ($ffanalytics == '0') {
+if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
@@ -21,19 +25,37 @@ if (isset($fferror)) {
     }
 }
 
-        if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: /CRMmain.php?AccessDenied'); die;
+    require_once(__DIR__ . '/../classes/database_class.php');
+    require_once(__DIR__ . '/../class/login/login.php');
 
-} 
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLifePolicy', FILTER_SANITIZE_SPECIAL_CHARS);
+$home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
+
 if(empty($DeleteLifePolicy)) {
    $DeleteLifePolicy= filter_input(INPUT_GET, 'DeleteLGPolicy', FILTER_SANITIZE_SPECIAL_CHARS); 
 }
-$home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
+<!-- 
+ Copyright (C) ADL CRM - All Rights Reserved
+ Unauthorised copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ Written by Michael Owen <michael@adl-crm.uk>, 2017
+-->
 <html lang="en">
 <title>ADL | Delete Policy</title>
 <meta charset="UTF-8">
@@ -198,7 +220,6 @@ $home= filter_input(INPUT_GET, 'home', FILTER_SANITIZE_SPECIAL_CHARS);
      
 <?php }
 
-
 if(isset($DeleteLifePolicy)) { 
     if($DeleteLifePolicy=='1') {
 
@@ -222,7 +243,7 @@ if(isset($DeleteLifePolicy)) {
     <div class="panel panel-danger">
       <div class="panel-heading">Delete Policy</div>
       <div class="panel-body">
-<form class="AddClient" enctype="multipart/form-data">
+<form class="AddClient">
 <br>
 
 

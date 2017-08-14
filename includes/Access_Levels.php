@@ -200,7 +200,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Manager_Access = array("Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Gavin","Ryan","Amy","Rhiannon","Jakob","James Adams");
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
     $ANYTIME_ACCESS=array("Michael","Matt","Jade");
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","carys","Nicola","Abbiek","leighton","Nick","Jakob","Tina","Carys Riley");
+    $GOOD_SEARH_ACCESS=array("James Adams","Michael","Matt","carys","Nicola","Abbiek","leighton","Nick","Jakob","Tina","Carys Riley");
     
     $TIMELOCK_ACCESS=array("Michael","Matt");
 }

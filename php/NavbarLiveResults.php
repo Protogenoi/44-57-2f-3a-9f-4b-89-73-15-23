@@ -87,6 +87,8 @@ FROM
     client_details
 WHERE
     DATE(submitted_date) >='2017-08-14'
+    AND
+    client_details.email !=''
  AND
     client_details.email NOT IN (SELECT 
             keyfactsemail_email

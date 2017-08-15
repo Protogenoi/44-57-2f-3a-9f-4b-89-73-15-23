@@ -12,9 +12,6 @@ require_once(__DIR__ . '/../includes/adl_features.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 
-if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
-}
 
 if (isset($fferror)) {
     if ($fferror == '1') {
@@ -196,7 +193,99 @@ WHERE
             }
             echo $output;
             exit;
-            }            
+            }    
+            
+          if($query=='OTHER') {
+            
+            $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $query = $pdo->prepare("SELECT 
+    financials.financials_payment,
+    client_policy.application_number,
+    client_policy.policy_number,
+    CONCAT(DATE(client_policy.submitted_date), ' - ',
+    DATE(client_policy.sale_date)) as sale_sub,
+    client_policy.commission,
+    DATE(financials.financials_insert) AS insert_date,
+    ' ' AS empty_col,
+    client_policy.client_name,
+    ' ' AS empty_col,
+    client_details.phone_number,
+    client_details.alt_number,
+    CONCAT(client_details.dob,
+            ' - ',
+            client_details.dob2) AS CDOB,
+    client_details.email,
+    client_details.address1,
+    client_details.address2,
+    CONCAT(client_details.address3,
+            ' ',
+            client_details.town) AS TOWN,
+    client_details.post_code,
+    client_policy.premium,
+    client_policy.type,
+    client_policy.commission,
+    '' AS empty_col,
+    '' AS empty_col2,
+    CONCAT(client_policy.lead,
+            '/',
+            client_policy.closer) AS AGENTS,
+    client_policy.policystatus,
+    client_policy.insurer,
+    client_policy.submitted_by,
+    client_details.company,
+    client_details.submitted_date
+FROM
+    client_policy
+        LEFT JOIN
+    client_details ON client_policy.client_id = client_details.client_id
+        LEFT JOIN
+    financials ON financials.financials_policy = client_policy.policy_number
+WHERE
+    DATE(sale_date) BETWEEN :datefrom AND :dateto
+        AND insurer IN ('Royal London','One Family','Engage Mutual','Aviva','Vitality')
+        AND policystatus = 'Live'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
+        AND client_policy.insurer IN ('Royal London','One Family','Engage Mutual','Aviva','Vitality')
+        AND policystatus = 'Awaiting'");
+            $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+            $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+            $query->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
+            $query->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
+            $query->execute();
+            $list = $query->fetchAll();
+            foreach ($list as $rs) {
+                
+                $INSURER=$rs['insurer'];
+                
+                
+                
+                if($INSURER=='Royal London') {
+                    $simply_biz = "18.75";
+                }
+                if($INSURER=='Aviva') {
+                    $simply_biz = "18.75";
+                }
+                if($INSURER=='Vitality') {
+                    $simply_biz = "25.00";
+                }
+                if($INSURER=='One Family') {
+                    $simply_biz = "17.50";
+                }
+                if($INSURER=='Engage Mutual') {
+                    $simply_biz = "17.50";
+                }                
+                
+                 $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
+                $pipe=$rs['commission']-$ADL_AMOUNT;  
+                $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
+
+                
+                $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['financials_payment'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                
+            }
+            echo $output;
+            exit;
+            }        
             
         if($query=='LIFECOMM') {
             $simply_biz = "2.5";

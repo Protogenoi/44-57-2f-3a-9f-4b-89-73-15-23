@@ -73,8 +73,16 @@ if(isset($btnupload)) {
  
  $new_size = $file_size/1024;  
  $new_file_name = strtolower($file);
+ 
+ if($uploadtype=="LGPolicy Summary") {
+     
+     $final_file=$search."-".$uploadtype;
+     
+ } else {
 
  $final_file=str_replace("'","",$new_file_name);
+ 
+ }
  
  
  if(move_uploaded_file($file_loc,$folder.$final_file)) {

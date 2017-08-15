@@ -87,6 +87,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     <thead>
                         <tr>
                             <th></th>
+                            <th>Date</th>
                             <th>Client Name</th>
                             <th>Client Name</th>
                             <th>Post Code</th>
@@ -96,6 +97,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     <tfoot>
                         <tr>
                             <th></th>
+                            <th>Date</th>
                             <th>Client Name</th>
                             <th>Client Name</th>
                             <th>Post Code</th>
@@ -161,6 +163,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             "data": null,
                             "defaultContent": ''
                         },
+                        {"data": "submitted_date"},
                         {"data": "Name"},
                         {"data": "Name2"},
                         {"data": "post_code"},

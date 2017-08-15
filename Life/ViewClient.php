@@ -538,6 +538,21 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             }
 
                             if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
+                                
+                                    $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGPolicy Summary'");
+                                    $LG_SUM_SHEET->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LG_SUM_SHEET->execute();
+
+                                    while ($result = $LG_SUM_SHEET->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGPOLFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
+                                            <?php
+                                        }
+                                    }                                
 
                                 try {
 
@@ -1079,6 +1094,7 @@ if (isset($fileuploadedfail)) {
                                     <option value="RLpolicy">Royal London App</option>
                                     <option value="RLkeyfacts">Royal London Keyfacts</option>
                                     <option disabled>──────────</option>
+                                    <option value="LGPolicy Summary">L&G Policy Summary</option>
                                     <option value="LGpolicy">L&G App</option>
                                     <option value="LGkeyfacts">L&G Keyfacts</option>
                                     <option disabled>──────────</option>
@@ -1347,6 +1363,7 @@ if (isset($fileuploadedfail)) {
                                     $uploadtype = $row['uploadtype'];
 
                                     switch ($uploadtype):
+                                        case "LGPolicy Summary":
                                         case "Dealsheet":
                                         case "LGpolicy":
                                         case "LGkeyfacts":
@@ -1383,6 +1400,9 @@ if (isset($fileuploadedfail)) {
                                     endswitch;
 
                                     switch ($uploadtype):
+                                        case "LGPolicy Summary";
+                                            $uploadtype = "L&G Policy Summary";
+                                            break;
                                         case "Avivakeyfacts":
                                             $uploadtype = "Aviva Keyfacts";
                                             break;
@@ -1487,6 +1507,17 @@ if (isset($fileuploadedfail)) {
                                             <?php
                                         }
                                     }
+                                    
+                                    if ($row['uploadtype'] == 'LGPolicy Summary') {
+                                        if (file_exists("../uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    }                                    
+                                    
                                     if ($row['uploadtype'] == 'LGpolicy') {
                                         if (!file_exists("../uploads/$file")) {
                                             ?>

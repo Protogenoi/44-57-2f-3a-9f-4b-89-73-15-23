@@ -22,8 +22,8 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($EXECUTE)) {
 
-$DATEFROM= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
-$DATETO= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$DATE= filter_input(INPUT_GET, 'DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+
 
     $file="TRACKER_PANTS";
     $filename = $file."_".date("Y-m-d_H-i",time());
@@ -31,6 +31,29 @@ $DATETO= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
     header('Content-Disposition: attachment; filename='.$filename.'.csv');    
 
     if($EXECUTE=='1') {
+        
+        
+if(isset($DATE)) {
+    
+     $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
+                    $query = $pdo->prepare("SELECT 
+    date_updated,
+    closer,
+    agent,
+    client,
+    phone,
+    current_premium,
+    our_premium,
+    comments,
+    sale
+FROM
+    closer_trackers
+WHERE
+    DATE(date_added) = :DATE
+ORDER BY date_added DESC");
+                    $query->bindParam(':DATE', $DATE, PDO::PARAM_STR);
+    
+} else {        
         
                         $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
                     $query = $pdo->prepare("SELECT 
@@ -48,6 +71,8 @@ FROM
 WHERE
     DATE(date_added) >= CURDATE()
 ORDER BY date_added DESC");
+                    
+}
                     $query->execute();
                     $list = $query->fetchAll();
                     foreach ($list as $rs) {

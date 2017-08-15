@@ -17,11 +17,15 @@ if ($ffanalytics == '1') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '0') {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
+}
+
+if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
+    header('Location: /Life/Search.php');
 }
 
 if ($fflife == '0') {

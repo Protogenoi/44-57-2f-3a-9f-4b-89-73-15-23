@@ -19,9 +19,106 @@ if(isset($fferror)) {
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);    
 $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
-$INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);  
+$INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS); 
 
-if(isset($INSURER)) {
+$CHECK= filter_input(INPUT_GET, 'CHECK', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+if(isset($CHECK)) {
+    if($CHECK=='1') {
+        
+        $GET_POLS = $pdo->prepare("SELECT
+                                        id, 
+                                        policy_number, 
+                                        payment_amount 
+                                    FROM 
+                                        financial_statistics_nomatch");
+        $GET_POLS->execute();
+        $result=$GET_POLS->fetch(PDO::FETCH_ASSOC); 
+        
+        if ($GET_POLS->rowCount() >= 1) {   
+            
+            $POLICY_CHECK=$result['policy_number'];
+            $POLICY_AMOUNT=$result['payment_amount'];
+            $NO_MATCH_ID=$result['id'];
+            
+            foreach ($POLICY_CHECK as $CHECK) {
+                
+                $Icheck = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
+                $Icheck->bindParam(':polhold', $POLICY_CHECK, PDO::PARAM_STR);
+                $Icheck->execute();
+                $result=$Icheck->fetch(PDO::FETCH_ASSOC);
+                    
+                if ($Icheck->rowCount() >= 1) {  
+                    
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
+                    $policynumber=$result['policy_number'];
+                    $REF= "$policynumber ($PID)";
+                    $polstat=$result['policystatus'];   
+                    
+                    $note="Financial Uploaded";
+                        
+                        if($POLICY_AMOUNT >= 0 ) {
+                            
+                            $message="COMM (Status changed from $polstat to Live)";
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                    $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE client_policy set policystatus='Live', edited=:sent WHERE id=:polid");
+                    $update->bindParam(':polid', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM financial_statistics_nomatch WHERE policy_number=:pol AND id=:id  LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':id', $NO_MATCH_ID, PDO::PARAM_INT);
+                       $delete->execute();
+                       
+                }
+                
+                }
+                
+                if($POLICY_AMOUNT < 0) {
+                    
+                            $message="CLAWBACK (Status changed from $polstat to Clawback)";
+                                
+                            $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                            $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                            $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
+                            $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                            $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                            $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                            $insert->execute();
+                                
+                            $update = $pdo->prepare("UPDATE client_policy set policystatus='Clawback', edited=:sent WHERE id=:polid");
+                            $update->bindParam(':polid', $PID, PDO::PARAM_INT);
+                            $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                            $update->execute();
+                                
+                       $delete = $pdo->prepare("DELETE FROM financial_statistics_nomatch WHERE policy_number=:pol AND id=:id  LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':id', $NO_MATCH_ID, PDO::PARAM_INT);
+                       $delete->execute();
+  
+                            
+                        } 
+                        }
+                        
+                    }
+                    
+                 header('Location: ../Life/Financials.php?RECHECK=y'); die;   
+                }
+                header('Location: ../Life/Financials.php?RECHECK=n'); die;
+        
+}
+    
+    if(isset($INSURER)) {
     if(isset($RECHECK)) {
         
 $datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);  
@@ -47,25 +144,25 @@ $iddd= filter_input(INPUT_GET, 'iddd', FILTER_SANITIZE_SPECIAL_CHARS);
                     
                 if ($Icheck->rowCount() >= 1) {  
                     
-                    $clientid=$result['client_id'];
-                    $polid=$result['id'];
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
                     $policynumber=$result['policy_number'];
-                    $ref= "$policynumber ($polid)";
+                    $REF= "$policynumber ($PID)";
                     $polstat=$result['policystatus'];
                         
                     $note="Financial Uploaded";
                     $message="COMM (Status changed from $polstat to Live)";
                         
-                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-                    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                    $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
                     $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
                     $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
                     $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                     $insert->execute();
                         
                     $update = $pdo->prepare("UPDATE client_policy set policystatus='Live', edited=:sent WHERE id=:polid");
-                    $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+                    $update->bindParam(':polid', $PID, PDO::PARAM_INT);
                     $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                     $update->execute();
                         
@@ -98,25 +195,25 @@ $iddd= filter_input(INPUT_GET, 'iddd', FILTER_SANITIZE_SPECIAL_CHARS);
                         
                     if ($Rcheck->rowCount() >= 1) {
                         
-                        $clientid=$result['client_id'];
-                        $polid=$result['id'];
+                        $CID=$result['client_id'];
+                        $PID=$result['id'];
                         $policynumber=$result['policy_number'];
-                        $ref= "$policynumber ($polid)";
+                        $REF= "$policynumber ($PID)";
                         $polstat=$result['policystatus'];
                             
                         $note="Financial Uploaded";
                         $message="COMM (Status changed from $polstat to Live)";
                             
-                        $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-                        $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-                        $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                        $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                        $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                        $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
                         $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
                         $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
                         $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                         $insert->execute();
                             
                         $update = $pdo->prepare("UPDATE client_policy set policystatus='Live', edited=:sent WHERE id=:polid");
-                        $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+                        $update->bindParam(':polid', $PID, PDO::PARAM_INT);
                         $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                         $update->execute();
                             
@@ -149,25 +246,25 @@ $iddd= filter_input(INPUT_GET, 'iddd', FILTER_SANITIZE_SPECIAL_CHARS);
                             
                         if ($Xcheck->rowCount() >= 1) {
                             
-                            $clientid=$result['client_id'];
-                            $polid=$result['id'];
+                            $CID=$result['client_id'];
+                            $PID=$result['id'];
                             $policynumber=$result['policy_number'];
-                            $ref= "$policynumber ($polid)";
+                            $REF= "$policynumber ($PID)";
                             $polstat=$result['policystatus'];
                                 
                             $note="Financial Uploaded";
                             $message="CLAWBACK (Status changed from $polstat to Clawback)";
                                 
-                            $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-                            $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-                            $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                            $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                            $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                            $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
                             $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
                             $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
                             $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                             $insert->execute();
                                 
                             $update = $pdo->prepare("UPDATE client_policy set policystatus='Clawback', edited=:sent WHERE id=:polid");
-                            $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+                            $update->bindParam(':polid', $PID, PDO::PARAM_INT);
                             $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                             $update->execute();
                                 
@@ -214,25 +311,25 @@ $iddd= filter_input(INPUT_GET, 'iddd', FILTER_SANITIZE_SPECIAL_CHARS);
                     
                 if ($Icheck->rowCount() >= 1) {  
                     
-                    $clientid=$result['client_id'];
-                    $polid=$result['id'];
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
                     $policynumber=$result['policy_number'];
-                    $ref= "$policynumber ($polid)";
+                    $REF= "$policynumber ($PID)";
                     $polstat=$result['policystatus'];
                         
                     $note="$INSURER Financial Uploaded";
                     $message="COMM (Status changed from $polstat to Live)";
                         
-                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-                    $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                    $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
                     $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
                     $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
                     $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                     $insert->execute();
                         
                     $update = $pdo->prepare("UPDATE client_policy set policystatus='Live', edited=:sent WHERE id=:polid");
-                    $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+                    $update->bindParam(':polid', $PID, PDO::PARAM_INT);
                     $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                     $update->execute();
                         
@@ -265,25 +362,25 @@ $iddd= filter_input(INPUT_GET, 'iddd', FILTER_SANITIZE_SPECIAL_CHARS);
                             
                         if ($Xcheck->rowCount() >= 1) {
                             
-                            $clientid=$result['client_id'];
-                            $polid=$result['id'];
+                            $CID=$result['client_id'];
+                            $PID=$result['id'];
                             $policynumber=$result['policy_number'];
-                            $ref= "$policynumber ($polid)";
+                            $REF= "$policynumber ($PID)";
                             $polstat=$result['policystatus'];
                                 
                             $note="$INSURER Financial Uploaded";
                             $message="CLAWBACK (Status changed from $polstat to Clawback)";
                                 
-                            $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
-                            $insert->bindParam(':clientid', $clientid, PDO::PARAM_STR, 12);
-                            $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                            $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                            $insert->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
+                            $insert->bindParam(':ref', $REF, PDO::PARAM_STR, 250);
                             $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
                             $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
                             $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                             $insert->execute();
                                 
                             $update = $pdo->prepare("UPDATE client_policy set policystatus='Clawback', edited=:sent WHERE id=:polid");
-                            $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+                            $update->bindParam(':polid', $PID, PDO::PARAM_INT);
                             $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
                             $update->execute();
                             

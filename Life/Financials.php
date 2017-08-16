@@ -1250,22 +1250,27 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                         <tr>
                             <th colspan="4">Unmatched Policies (Not on ADL)</th>
                         </tr>
+                    <th>Row</th>
                     <th>Entry Date</th>
                     <th>Policy</th>
                     <th>Premium</th>
                     <th>Re-check ADL</th>
                     <th>Check on L&G</th>
+                    <th>Recheck all</th>
                     </thead>
                     <?php
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
+                        $i=0;
                         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
+                            $i++;
                             $policy = $row['policy_number'];
                             $paytype = $row['payment_type'];
                             $iddd = $row['id'];
 
-                            echo '<tr>';
+                            echo "<tr>
+                            <td>$i</td>";
                             echo"<td>" . $row['entry_date'] . "</td>";
                             echo "<td>$policy</td>";
                             if (intval($row['payment_amount']) > 0) {
@@ -1284,6 +1289,8 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             ?> <td><form target="_blank" action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'><input type='hidden' name='policyNumber' value='<?php echo substr_replace($policy, "", -1); ?>'><input type='hidden' name='routeSelected' value='convLifeSummary'><button type='submit' class='btn btn-warning btn-sm'><i class='fa fa-check-circle-o'></i></button></form></td>
 
                             <?php
+                            echo "<td><a href='' class='btn btn-default btn-sm'> --IN PROGRESS-- </a></td>";
+
                             echo "</tr>";
                             echo "\n";
                         }

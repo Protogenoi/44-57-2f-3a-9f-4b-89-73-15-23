@@ -52,16 +52,19 @@ if($TRACKED_IP!='81.145.167.66') {
 
     $client = new Client($SID, $TOKEN);
 
+$MOB_ARRAY=array("07401434619","07917886451");
 $MOB_MSG="ADL $hello_name accessed from IP $TRACKED_IP!";
-
+foreach($MOB_ARRAY as $MESS_TO) {
 
 $client->messages->create(
-    "07401434619",
+    $MESS_TO,
     array(
         'from' => '+441792720471',
         'body' => "$MOB_MSG"
     )
-);       
+);   
+
+}
 
 }
     

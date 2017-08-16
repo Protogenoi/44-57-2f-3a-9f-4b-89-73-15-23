@@ -2582,6 +2582,7 @@ try {
                                         case "WOL Financial Uploaded":
                                             $TMicon = "fa-gbp";
                                             break;
+                                        case"LGPolicy Summary";
                                         case "Dealsheet":
                                         case"LGpolicy";
                                         case"LGkeyfacts";

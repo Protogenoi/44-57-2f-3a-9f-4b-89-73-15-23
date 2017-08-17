@@ -75,8 +75,8 @@ if(isset($btnupload)) {
  $new_file_name = strtolower($file);
  
  if($uploadtype=="LGPolicy Summary") {
-     
-     $final_file=$search."-".$uploadtype;
+     $DATE = date("his");
+     $final_file=$search."-".$uploadtype."-".$DATE;
      
  } else {
 

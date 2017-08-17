@@ -187,7 +187,7 @@ $(document).ready(function() {
             { "data": "grade" },
   { "data": "wol_id",
             "render": function(data, type, full, meta) {
-                return '<a href="View.php?query=Edit&WOLID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
+                return '<a href="Edit.php?EXECUTE=Edit&WOLID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
             } },
  { "data": "wol_id",
             "render": function(data, type, full, meta) {

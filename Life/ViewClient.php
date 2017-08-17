@@ -539,6 +539,19 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
                                 
+                                    $PULLED_POLSUM = $pdo->prepare("SELECT policy_number FROM client_policy WHERE insurer='Legal and General' AND client_id= :search");
+                                    $PULLED_POLSUM->bindParam(':search', $search, PDO::PARAM_INT);
+                                    $PULLED_POLSUM->execute();
+
+                                    while ($result = $PULLED_POLSUM->fetch(PDO::FETCH_ASSOC)) {           
+                                        
+                                        $POL_LOCATION = substr($result['policy_number'], 0, 9);
+                                        
+                                        if (file_exists("../uploads/LG/PolSummary/$POL_LOCATION")) { ?>
+        <a target="_blank" class="btn btn-default" href='../uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-file-pdf-o'></i> LG Summary (<?php echo $POL_LOCATION; ?>)</a>
+      <?php  }
+                                    }                               
+                                
                                     $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGPolicy Summary'");
                                     $LG_SUM_SHEET->bindParam(':search', $search_file_var, PDO::PARAM_STR);
                                     $LG_SUM_SHEET->execute();

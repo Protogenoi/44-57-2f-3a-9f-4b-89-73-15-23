@@ -8,7 +8,7 @@
             <th>Policy</th>
             <th>AN</th>
             <th>Type</th>
-            <th>Comm Type</th>
+            <th>Comm</th>
             <th>Term</th>
             <th>Premium</th>
             <th>Cover</th>
@@ -30,21 +30,18 @@
 
         $ADLSTATUS = $LG_Policies['ADLSTATUS'];
         $EWSSTATUS = $LG_Policies['warning'];
+        
+        $TRIM_POL = substr($polref, 0, 9);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
         if (empty($polref)) {
             echo "<td>TBC</td>";
         } else {
-            echo "<td><form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'>
-<input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value='$polref'>
-<input type='hidden' name='searchCriteria.period' id='searchCriteria.period' value='' >
-<input type='hidden' name='searchCriteria.agentNumber' id='searchCriteria.agentNumber' value='' >
-<input type='hidden' name='searchCriteria.status' id='searchCriteria.status' value='' >
-<input type='hidden' name='searchCriteria.oiiType' id='searchCriteria.oiiType' value='' >
-<input type='hidden' name='searchCriteria.includeLife' value='true' >
-<input type='hidden' name='searchCriteria.includeGI' id='searchCriteria.includeGI' value='false' >
-<button type='submit' value='SEARCH' name='command' class='btn btn-default btn-sm'>
+            echo "<td><form target='_blank' action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'>
+                <input type='hidden' name='policyNumber' value='$TRIM_POL'>
+                <input type='hidden' name='routeSelected' value='convLifeSummary'>
+<button type='submit' class='btn btn-default btn-sm'>
 <i class='fa fa-search'></i> $polref</button></form></td>";
         }
         echo "<td><a href='//www10.landg.com/CNBSWeb/administerApplicationDialogue/administerApplicationPage.htm?applicationId=$ANID' target='_blank' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $ANID</a></td>";

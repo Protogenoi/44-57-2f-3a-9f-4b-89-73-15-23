@@ -157,7 +157,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                                 echo "<td>".$result['grade']."</td>";
                                 echo "<td>".$result['updated_by']."</td>";
                                 echo "<td>".$result['updated_date']."</td>";
-   echo "<td><a href='View.php?query=Edit&WOLID=$WOL_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+   echo "<td><a href='Edit.php?EXECUTE=Edit&WOLID=$WOL_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
    echo "<td><a href='View.php?query=View&WOLID=$WOL_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
     echo "</tr>";
         ?>

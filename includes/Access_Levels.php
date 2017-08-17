@@ -1,7 +1,9 @@
 <?php
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
-if($hello_name!='Michael') {
+$TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
+
+if(!in_array($hello_name, $TIMELOCK_ACCESS)) {
 $TIMELOCK = date('H');
 
 if($TIMELOCK>='20' || $TIMELOCK<'08') {

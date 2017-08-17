@@ -38,7 +38,7 @@ $TRACKED_IP= getRealIpAddr();
 if(!in_array($hello_name, $ANYTIME_ACCESS,true)) {
 
 if($TRACKED_IP!='81.145.167.66') {
-    header('Location: http://google.com');
+    header('Location: /index.php?TIME=1');
 }
 }
 
@@ -78,8 +78,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
         die;    
             
         }
-
-
 ?>
 <!DOCTYPE html>
 <!-- 

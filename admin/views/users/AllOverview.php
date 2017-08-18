@@ -27,6 +27,16 @@
         $Keyfacts_Email= $AllOverviev['Keyfacts_Email'];
         $Tracker_Added= $AllOverviev['Tracker_Added'];
         
+       $Not_Found= $AllOverviev['Not_Found'];
+        $Control_Panel= $AllOverviev['Control_Panel'];
+        $Delete_Client= $AllOverviev['Delete_Client'];
+        
+        $Delete_Upload= $AllOverviev['Delete_Upload'];
+        $Delete_Policy= $AllOverviev['Delete_Policy'];
+        $Financials= $AllOverviev['Financials'];
+        $EWS= $AllOverviev['EWS'];
+        $Export= $AllOverviev['Export'];
+        
 
            echo  "
         <div class='col-xs-12'>
@@ -46,7 +56,7 @@
         <div class='col-xs-2'><center><strong>Policy Search</strong><br> $Advanced_Policy_Search</center></div>
             </div>
         </div>    
-          
+          <br><br><br>
 <div class='col-xs-12'>
 <div class='row'>
         <div class='col-xs-2'><center><strong>LG Audits</strong><br>$LG_Audit</center></div>
@@ -62,6 +72,18 @@
         <div class='col-xs-2'><center><strong>Keyfacts Email</strong><br>$Keyfacts_Email</center></div>
             </div>
         </div>
+        <br><br><br>
+<div class='col-xs-12'>
+<div class='row'>
+        <div class='col-xs-2'><center><strong>Control Panel</strong><br>$Control_Panel</center></div>
+        <div class='col-xs-2'><center><strong>EWS</strong><br>$EWS</center></div>
+        <div class='col-xs-2'><center><strong>Export</strong><br>$Export</center></div>
+        <div class='col-xs-2'><center><strong>Delete Client</strong><br>$Delete_Client</center></div>
+        <div class='col-xs-2'><center><strong>Delete Policy</strong><br>$Delete_Policy</center></div>
+        <div class='col-xs-2'><center><strong>Delete Upload</strong><br>$Delete_Upload</center></div>
+        <div class='col-xs-2'><center><strong>404</strong><br>$Not_Found</center></div>
+            </div>
+        </div> 
                    ";  
 
     

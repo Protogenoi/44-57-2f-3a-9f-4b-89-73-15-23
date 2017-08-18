@@ -71,6 +71,7 @@ function textAreaAdjust(o) {
                             <select class='form-control' name='closer' id='closer' required> 
                                 <option value="">Select...</option>
 <?php if($companynamere=='Bluestone Protect') { ?>
+<option value="Keith">Keith Keith</option>                                 
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>

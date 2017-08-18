@@ -345,8 +345,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
     </div>
 
-    <div class="footer navbar-fixed-bottom"><center><?php adl_version(); ?> <a href="mailto:michael@adl-crm.uk?Subject=ADL"> Email Support </a></center></div>
-
     <?php if ($ffgmaps == '1') { ?>
 
         <div id="map" class="col-md-6"></div>

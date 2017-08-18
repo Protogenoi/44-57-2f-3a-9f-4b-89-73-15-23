@@ -149,12 +149,8 @@ $companynamere = $companydetailsq['company_name'];
                                 <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Reports/RAG.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Register <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
                                 <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Assets/Assets.php'; } else { echo '/CRMmain.php?FEATURE=ASSETS'; } ?>">Asset Management <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
 
-                                 <li class="divider"></li>
-                            
-                            <?php if ($hello_name == 'Michael' || $hello_name == 'Matt') { ?>
-                                
-                             <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
-                            <?php } ?>
+                                 <li class="divider"></li> 
+                                 <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                         </ul>  
                     </li>
             </ul>

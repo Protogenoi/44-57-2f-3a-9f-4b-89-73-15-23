@@ -1788,8 +1788,7 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                     $TRACKING_DATE = filter_input(INPUT_POST, 'TRACKING_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     
                                     ?>
-                                    
-                                    
+ 
                                     <div class="col-xs-12">
                                     
                                     <form method="POST" action="?users=y" class="form-horizontal">
@@ -1813,22 +1812,61 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                         
                                         
                                     </form>
-                                    </div>
-                            <?php
+                                    </div> <br><br><br><br><br><br>
+<br><br><br>                            <?php
                         
                             if(isset($TRACKING_USER) && $TRACKING_DATE) {
                             
                         $HIS_TRKN = $pdo->prepare("SELECT tracking_history_id FROM tracking_history");
                         $HIS_TRKN->execute();
-                        if ($HIS_TRKN->rowCount() > 0) {
+                        if ($HIS_TRKN->rowCount() > 0) { ?>
+                                    
+                        <div class='panel panel-primary'>
+      <div class='panel-heading'><?php if(isset($TRACKING_USER)) { echo $TRACKING_USER; } ?> Tracking Summary</div>
+      <div class='panel-body'>
+          
+          
+          <?php
+                            
+                            require_once(__DIR__ . '/models/users/HistoryOverviewModel.php');
+                            $HistoryOverview = new HistoryOverviewModal($pdo);
+                            $HistoryOverviewList = $HistoryOverview->getHistoryOverview($TRACKING_USER,$TRACKING_DATE);
+                            require_once(__DIR__ . '/views/users/HistoryOverview.php');                               
                            
                             require_once(__DIR__ . '/models/users/HistoryTrackingModel.php');
                             $HistoryTracking = new HistoryTrackingModal($pdo);
                             $HistoryTrackingList = $HistoryTracking->getHistoryTracking($TRACKING_USER,$TRACKING_DATE);
-                            require_once(__DIR__ . '/views/users/HistoryTracking.php');
+                            require_once(__DIR__ . '/views/users/HistoryTracking.php'); 
+                            
+                            ?>
+          
+      </div>
+                        </div>                     
+                                    
+                                    <?php
+                            
                         }        
                         
+                            } else { ?>
+                                    
+                                                            <div class='panel panel-primary'>
+      <div class='panel-heading'>Tracking Summary</div>
+      <div class='panel-body'> <?php
+                                
+                            require_once(__DIR__ . '/models/users/AllOverviewModel.php');
+                            $AllOverviev = new AllOvervievModal($pdo);
+                            $AllOvervievList = $AllOverviev->getAllOverviev();
+                            require_once(__DIR__ . '/views/users/AllOverview.php');  
+                            
+                            ?>
+          
+      </div></div> <?php
+                                
                             }
+                            
+                            
+                            
+                            
                             
                             ?>
                                     

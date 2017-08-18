@@ -129,8 +129,8 @@ if (isset($Single_Client['callauditid'])) {
     $auditid = $Single_Client['callauditid'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General");
-$OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva");                     
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive");
+$OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");                     
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -537,7 +537,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 <?php
                             }
 
-                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
+                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='TRB Archive') {
                                 
                                     $PULLED_POLSUM = $pdo->prepare("SELECT policy_number FROM client_policy WHERE insurer='Legal and General' AND client_id= :search");
                                     $PULLED_POLSUM->bindParam(':search', $search, PDO::PARAM_INT);

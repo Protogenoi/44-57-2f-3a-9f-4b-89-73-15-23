@@ -56,61 +56,83 @@ $companynamere = $companydetailsq['company_name'];
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/CRMmain.php"><i class="fa fa-home">  Home</i></a></li>
+                
+                <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
+                
                 <li><a href="/AddClient.php"><i class="fa fa-user-plus">  Add</i></a></li>
                 <li><a href="/SearchClients.php"><i class="fa fa-search">  Search</i></a></li>
 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">CRM <b class="caret"></b></a>
                     <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "/AddClient.php"; } else { echo "#"; } ?>">Add Client</a></li>
-                        <li><a href="/<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "SearchClients.php"; } else { echo "#"; } ?>">Search Clients</a></li>
-                        <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "/SearchPolicies.php?query=Life"; } else { echo "#"; } ?>">Search Policies</a></li>
+                        <li><a href="/AddClient.php">Add Client</a></li>
+                        <li><a href="SearchClients.php">Search Clients</a></li>
+                        <li><a href="/SearchPolicies.php?query=Life">Search Policies</a></li>
                         <li class="divider"></li>
-                        <li><a href="<?php if(in_array($hello_name, $Level_8_Access, true)) { echo "/CRMReports.php"; } else { echo "#"; } ?>">Reports</a></li>                        
-                        <li><a href="<?php if ($fflife == '1' && in_array($hello_name, $Level_8_Access, true)) { echo "/Life/Reports/AllTasks.php"; } else { echo "#"; } ?>">Tasks</a></li>
-                        <li><a <?php if ($ffsms == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffsms == '1' && in_array($hello_name, $Level_8_Access, true)) { echo '/Life/SMS/Menu.php'; } else { echo '/CRMmain.php?FEATURE=SMS'; } ?>">SMS Report <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>
-                        <li><a <?php if ($ffcalendar == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffcalendar == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/calendar/calendar.php'; } else { echo '#'; } ?>">Callbacks <?php if ($ffcalendar == '0') { echo '(not enabled)'; } ?></a></li>
-                        <li class="divider"></li>
-                            
-                            <li><a href="<?php if(in_array($hello_name, $Level_3_Access, true)) { echo "/Emails.php"; } else { echo "#"; } ?>">Emails</a></li>
-                            <li><a <?php if ($ffkeyfactsemail == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffkeyfactsemail == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/Life/Reports/Keyfacts.php'; } else { echo '/CRMmain.php?FEATURE=KEYFACTSEMAIL'; } ?>">KeyFact Email Report <?php if ($ffkeyfactsemail == '0') { echo '(not enabled)'; } ?></a></li>
-                            <li><a href="<?php if ($hello_name == 'Michael') { echo '/email/emailinbox.php'; } else { echo '#'; } ?>"><?php if ($hello_name == 'Michael') { echo 'Email Inbox'; } else { echo 'Email Inbox (not enabled)'; } ?></a></li>
+                        <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
+                        <li><a href="/CRMReports.php">Reports</a></li>                        
+                        <li><a href="/Life/Reports/AllTasks.php">Tasks</a></li>
+                        <?php if ($ffsms == '1') { ?>
+                        <li><a href="/Life/SMS/Menu.php">SMS Report</a></li>
+                        <?php }
+                        }
+                        if ($ffcalendar == '1') { ?>
+                        <li><a href="/calendar/calendar.php">Callbacks</a></li>
+                        <?php } ?>
+                        <li class="divider"></li>   
+                            <li><a href="/Emails.php">Emails</a></li>
+                        <?php if ($ffkeyfactsemail == '1') { ?>
+                            <li><a href="/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
+                        <?php } 
+                        if ($hello_name == 'Michael') { ?>    
+                            <li><a href="/email/emailinbox.php">Email Inbox</a></li>
+                        <?php } ?>    
                            <li class="divider"></li>
-                            <li><a <?php if ($ffcompliance == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffcompliance == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/compliance/dash.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=COMPLIANCE'; } ?>"> Compliance <?php if ($ffsms == '0') { echo '(not enabled)'; }?></a></li>     
-                    <li class="divider"></li>
-                    <li><a href="<?php if(in_array($hello_name, $Level_1_Access, true)) { echo '/messenger/Main.php'; } else { echo '/CRMmain.php?FEATURE=MESSENGER'; } ?>"> Internal Messages</a></li>     
+                        <?php if ($ffcompliance == '1') { ?>   
+                            <li><a href="/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
+                            <li class="divider"></li>
+                        <?php } ?>    
+                    <li><a href="/messenger/Main.php>"> Internal Messages</a></li>  
 
                     </ul>
                 </li>
+                
+                <?php } ?>
+                
+                <?php if(in_array($hello_name, $Level_3_Access, true) && $ffaudits == '1') { ?>
 
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Audits <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="/audits/main_menu.php">Main Menu</a></li>
                             <li class="divider"></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) { echo '/audits/lead_gen_reports.php?step=New'; } else { echo '#'; } ?>">Lead Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) {  echo '/audits/auditor_menu.php'; } else { echo '#'; } ?>">Legal and General Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/RoyalLondon/Menu.php'; } else { echo '#'; } ?>">Royal London Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/Aviva/Menu.php'; } else { echo '#'; } ?>">Aviva Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/WOL/Menu.php'; } else { echo '#'; } ?>">One Family Audits <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
+                            <li><a href="/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
+                            <li><a href="/audits/auditor_menu.php">Legal and General Audits</a></li>
+                            <li><a href="/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
+                            <li><a href="/audits/Aviva/Menu.php">Aviva Audits</a></li>
+                            <li><a href="/audits/WOL/Menu.php">One Family Audits</a></li>
                             <li class="divider"></li>
-                            <li><a <?php if ($ffaudits == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffaudits == '1' && in_array($hello_name, $Level_3_Access, true)) {  echo '/audits/reports_main.php'; } else { echo '#'; } ?>">Reports <?php if ($ffaudits == '0') { echo "(not enabled)"; } ?></a></li>
+                            <li><a href="/audits/reports_main.php">Reports</a></li>
                         </ul>
                     </li>
+                    
+                <?php } 
+                if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Closer_Access, true)) { ?>
 
             <li class="dropdown">
         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
           Dialler
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
-            
-            <li><a <?php if ($ffdialler == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdialler == '1') { echo '/dialer/Recordings.php'; } else  { echo '/CRMmain.php?FEATURE=DIALER'; } ?>">Recordings <?php if ($ffdialler == '0') {  echo '(not enabled)'; } ?></a></li>
-
+            <?php if ($ffdialler == '1') { ?>
+            <li><a  href="/dialer/Recordings.php">Recordings</a></li>
+            <?php } 
+            if ($ffdealsheets == '1') { ?>
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
-            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-            <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1') { echo '/Life/LifeDealSheet.php?query=ListCallbacks'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-             <li class="divider"></li>
-            
+            <li><a href="/Life/LifeDealSheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
+            <li><a href="/Life/LifeDealSheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
+            <?php } ?>
+            <li class="divider"></li>
 <li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserTrackers'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
 <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/LifeDealSheet.php?query=CloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>
@@ -127,11 +149,11 @@ $companynamere = $companydetailsq['company_name'];
           <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/LifeDealSheet.php?query=CompletedDeals'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Completed Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
 
       </ul>
-             
       <?php
 
+                }
       
-      if($ffdealsheets=='1' && in_array($hello_name, $Closer_Access, true)) { ?>
+      if($ffkeyfactsemail=='1' && in_array($hello_name, $Closer_Access, true)) { ?>
              <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>      
                 
       <?php }
@@ -142,15 +164,24 @@ $companynamere = $companydetailsq['company_name'];
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                         <ul role='menu' class='dropdown-menu'>
                             <li><a href="https://www20.landg.com/PolicyEnquiriesIFACentre/ENTRY_POINT_RESOURCE?domain=adviser" target="_blank">LG Policy Summary Search</a></li>
-                                <li><a <?php if ($fffinancials == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($fffinancials == '1' && in_array($hello_name, $Level_10_Access, true)) { echo '/Life/Financials/Menu.php'; } else { echo '/CRMmain.php?FEATURE=FINANCIALS'; } ?>">Financials <?php if ($fffinancials == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffews == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffews == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/EWS.php'; } else { echo '/CRMmain.php?FEATURE=EWS'; } ?>">EWS <?php if ($ffews == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { echo '/Staff/Main_Menu.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Staff Database <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Holidays/Calendar.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Holidays <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Reports/RAG.php'; } else { echo '/CRMmain.php?FEATURE=EMPLOYEE'; } ?>">Register <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-                                <li><a <?php if ($ffemployee == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffemployee == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Staff/Assets/Assets.php'; } else { echo '/CRMmain.php?FEATURE=ASSETS'; } ?>">Asset Management <?php if ($ffemployee == '0') { echo "(not enabled)"; } ?></a></li> 
-
+                            <?php if(in_array($hello_name, $Level_10_Access, true)) { 
+                            if ($fffinancials == '0') {  ?>
+                            <li><a href="/Life/Financials/Menu.php">Financials</a></li> 
+                            <?php }
+                            if ($ffews == '1') { ?>
+                                <li><a href="/Life/Reports/EWS.php">EWS</a></li> 
+                            <?php } 
+                            if ($ffemployee == '1') { ?>    
+                                <li><a href="/Staff/Main_Menu.php">Staff Database</a></li> 
+                            <?php } 
+                            if ($ffemployee == '1') { ?>    
+                                <li><a  href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
+                                <li><a  href="/Staff/Reports/RAG.php">Register</a></li> 
+                                <li><a  href="/Staff/Assets/Assets.php">Asset Management</a></li> 
+                            <?php } ?>
                                  <li class="divider"></li> 
                                  <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
+                            <?php } ?>
                         </ul>  
                     </li>
             </ul>

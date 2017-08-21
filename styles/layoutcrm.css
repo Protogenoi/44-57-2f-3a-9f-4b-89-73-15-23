@@ -570,11 +570,11 @@ input[type=radio]:checked + label {
 
 /*---DATATABLE----*/
 td.details-control {
-    background: url('//datatables.net/examples/resources/details_open.png') no-repeat center center;
+    background: url('/img/details_open.png') no-repeat center center;
     cursor: pointer;
 }
 tr.shown td.details-control {
-    background: url('//datatables.net/examples/resources/details_close.png') no-repeat center center;
+    background: url('/img/details_close.png') no-repeat center center;
 }
 
 
@@ -657,180 +657,11 @@ tr.Purple td {
     .status_READY { color: black; background: #ADD8E6; }
     .status_INCALL { color: black; background: #D8BFD8; }
     
-        #element_to_pop_up_pol { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_taskcom { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_taskcomc { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_willcancel { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_willredraw { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_reinstated { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_polsadded { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_client { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_policy { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-        #element_to_pop_up_sms { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-    #element_to_pop_up_num { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-    #element_to_pop_up_num2 { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-    
-    #element_to_pop_up { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
 .b-close{
     cursor:pointer;
     position:absolute;
     right:10px;
     top:5px;
-}
-
-    #element_to_pop_up_email { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-    #element_to_pop_up_audit { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-    #element_to_pop_up_audit2 { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
-}
-
-    #element_to_pop_up_roles { 
-    background-color:#fff;
-    border-radius:15px;
-    color:#000;
-    display:none; 
-    padding:20px;
-    min-width:400px;
-    min-height: 180px;
 }
 
 	
@@ -1037,4 +868,3 @@ tr.Purple td {
         -ms-transform: translateY(0%);
     }
 }
-

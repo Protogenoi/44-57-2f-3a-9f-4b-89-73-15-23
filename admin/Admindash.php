@@ -72,7 +72,7 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/style/admindash.css">
+    <link rel="stylesheet" href="/styles/admindash.css">
     <link  rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link  rel="stylesheet" href="/styles/sweet-alert.min.css" />

@@ -205,7 +205,8 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?> 
+                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?>
+                                        <i class="fa fa-question-circle-o" style="color:skyblue" title="Download EWS <?php echo "$datefrom - $dateto"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS_DATES&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> EWS</a>
                                         <i class="fa fa-question-circle-o" style="color:skyblue" title="Download complete RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> RAW</a>
                                         <i class="fa fa-question-circle-o" style="color:skyblue" title="Download RAW EWS for Assigned user <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ASSIGNED_RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Assigned RAW</a>
                                     </th>

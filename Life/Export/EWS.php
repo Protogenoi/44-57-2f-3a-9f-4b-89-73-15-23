@@ -227,7 +227,7 @@ WHERE
     
 if($EXECUTE=='RAW_EWS_DATES') {
 
-                        $output = "    master_agent_no,agent_no, policy_number,client_name,    dob,    address1,    address2,    address3,    address4,    post_code,    policy_type,    warning,    last_full_premium_paid,    net_premium,    premium_os,    clawback_due,    clawback_date,    policy_start_date,    off_risk_date,    seller_name,    frn,reqs\n";
+                        $output = "    master_agent_no,agent_no, policy_number,client_name,    dob,    address1,    address2,    address3,    address4,    post_code,    policy_type,    warning,    last_full_premium_paid,    net_premium,    premium_os,    clawback_due,    clawback_date,    policy_start_date,    off_risk_date,    seller_name,    frn,reqs,adl id,adl warning, colour\n";
                     $query = $pdo->prepare('SELECT 
                             master_agent_no,
     agent_no,
@@ -250,7 +250,10 @@ if($EXECUTE=='RAW_EWS_DATES') {
     off_risk_date,
     seller_name,
     frn,
-    reqs
+    reqs,
+    warning,
+    id,
+    color_status
 FROM
     ews_data
 WHERE
@@ -287,8 +290,12 @@ WHERE
                         $frn=filter_var($rs['frn'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $reqs=filter_var($rs['reqs'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
+                        $ADL_ID=filter_var($rs['id'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $ADL_WARNING=filter_var($rs['warning'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+                        $ADL_COLOUR=filter_var($rs['color_status'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         
-                        $output .= $master_agent_no.",".$agent_no.",".$policy_number.",".$client_name.",".$dob.",".$address1.",".$address2.",".$address3.",".$address4.",".$post_code.",".$policy_type.",".$ews_warning_warning.",".$last_full_premium_paid.",".$net_premium.",".$premium_os.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$off_risk_date.",".$seller_name.",".$frn.",".$reqs."\n";
+                        
+                        $output .= $master_agent_no.",".$agent_no.",".$policy_number.",".$client_name.",".$dob.",".$address1.",".$address2.",".$address3.",".$address4.",".$post_code.",".$policy_type.",".$ews_warning_warning.",".$last_full_premium_paid.",".$net_premium.",".$premium_os.",".$clawback_due.",".$clawback_date.",".$policy_start_date.",".$off_risk_date.",".$seller_name.",".$frn.",".$reqs.",".$ADL_WARNING.",".$ADL_ID.",".$ADL_COLOUR."\n";
                         
                     }
                     echo $output;

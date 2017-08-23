@@ -1,15 +1,8 @@
 <?php
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
-$page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
 
 require_once(__DIR__ . '../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
+
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '../../php/analyticstracking.php');
@@ -41,8 +34,8 @@ if (isset($fferror)) {
 </head>
 <body>
 
-<?php include('../includes/navbar.php'); ?>
-    <?php include('../includes/adlfunctions.php'); ?>
+<?php include('../includes/navbar.php');
+include('../includes/adlfunctions.php'); ?>
 
  <div class="container">
 
@@ -65,24 +58,7 @@ if (isset($fferror)) {
                 <div class="jumbotron">
 <h1><span class="glyphicon glyphicon-search"></span> 404</h1>
 
-<p>The page you're looking for could not be found. Here are some helpful links to get you back on track:</p>
-
-<ul>
-                        <li>
-                            <a href="../CRMmain.php">CRM</a>
-                        </li>
-                        <li>
-                            <a href="../main_menu.php">Audits</a>
-                        </li>
-                        <li>
-                            <a href="//bureau.bluetelecoms.com">Dialer</a>
-                        </li>
-                        <li>
-                            <a href="//review_bureau.com">Review Bureau</a>
-                        </li>
-</ul>
-
-<?php logged_hostnameip();?> 
+<p>The page you're looking for could not be found.</p>
 
         </div>
     </div>

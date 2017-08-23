@@ -151,7 +151,7 @@ if ($ACT_CBS['badge'] > 0) { ?>
         if($ffkeyfactsemail=='1') {
             if ($KFS_stmtresult['badge'] >= '1') {
                 ?>
-        <li><a href="/Life/Reports/Keyfacts.php"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
+        <li><a href="/Life/Reports/Keyfacts.php?SEARCH=NotSent"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
 
                 <?php
             }          

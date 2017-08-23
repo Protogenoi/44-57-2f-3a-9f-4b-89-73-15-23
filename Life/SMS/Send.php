@@ -104,12 +104,15 @@ $client->messages->create(
 
 
 if(isset($search)) {
+    
+    $NOTE_OPTION="Sent SMS: $MESSAGE_OPTION";
 
-$INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:search, client_name=:recipientholder, sent_by=:sentbyholder, note_type='Sent SMS', message=:messageholder ");
+$INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:search, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:REF, message=:MESSAGE ");
 $INSERT->bindParam(':search',$search, PDO::PARAM_INT);
 $INSERT->bindParam(':sentbyholder',$hello_name, PDO::PARAM_STR, 100);
 $INSERT->bindParam(':recipientholder',$CLIENT_NAME, PDO::PARAM_STR, 500);
-$INSERT->bindParam(':messageholder',$MESSAGE_OPTION, PDO::PARAM_STR, 2500);
+$INSERT->bindParam(':REF',$NOTE_OPTION, PDO::PARAM_STR, 2500);
+$INSERT->bindParam(':MESSAGE',$SMS_MESSAGE, PDO::PARAM_STR, 2500);
 $INSERT->execute();
 
 header('Location: ../ViewClient.php?smssent=y&search='.$search); die;

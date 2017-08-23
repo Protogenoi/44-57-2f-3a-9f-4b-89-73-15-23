@@ -18,91 +18,30 @@ WHERE
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
          
    <?php  }
-    
-    
-}
-
-    if($WHICH_COMPANY=='ADL_CUS') {
-        if (in_array($hello_name,$Level_8_Access, true)) {
-        $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");
-        $database->bind(':CID', $search);
-        $database->execute(); 
-        $EWS_COUNT_RESULT=$database->single(); 
-        if ($database->rowCount()>=1) {
-            $EWS_COUNT=$EWS_COUNT_RESULT['id'];
-            if(isset($EWS_COUNT)) { if($EWS_COUNT>=1) {
-                ?>
-<div class="notice notice-danger" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> EWS:</strong> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?> <i>(action required).</i>  </div>              
-    <?php
-    
-}
-
-            }
-
-}
-
-}
-
-$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' AND task !='24 48' and deadline <= CURDATE()");
-$TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
-                            $TSK_QRY->execute();
-                            if ($TSK_QRY->rowCount()>0) { 
-                            while ($result=$TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>
-
-         
-    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Tasks To Do:</strong> <?php 
-foreach ($result as $value) {
-    echo "$value ";
-}
-?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
-         
-                          <?php  }   } 
-
- if(empty($closeraudit)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
-    
-
-            $database->query("select uploadtype from tbl_uploads where uploadtype='LGkeyfacts' and file like :search");
-            $database->bind(':search', $likesearch);
+   
+                $database->query("SELECT 
+    note_id
+FROM
+    client_note
+WHERE
+    note_type = 'Sent SMS: Welcome'
+        AND client_id = '1231231'
+        OR note_type = 'Sent SMS'
+        AND message = 'Welcome'
+        AND client_id =:CID");
+            $database->bind(':CID', $search);
             $database->execute();
             $database->single();
-                
-     if ($database->rowCount()<=0) {  
-         
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General Keyfacts not uploaded!"
-            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
-         
-     }
-     
-    $database->query("select uploadtype from tbl_uploads where uploadtype='LGpolicy' and file like :search");
-    $database->bind(':search', $likesearch);
-    $database->execute();
-    $database->single();
-     if ($database->rowCount()<=0) {  
-         
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Legal & General App not uploaded!"
-            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
-         
-     }
-
-     if($ffkeyfactsemail=='1') {
             
-         $database->query("select keyfactsemail_email from keyfactsemail where keyfactsemail_email=:email");
-         $database->bind(':email', $clientonemail);
-         $database->execute();
-         $database->single();
-         if ($database->rowCount()<=0) {  
+                 if ($database->rowCount()<=0) {  ?>
          
-    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDECLOSERKF'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
-            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";    
-             
-     
-     }    
-     
-}     
-     
+    <div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Alert:</strong> No Welcome SMS has been sent to this client! 
+          <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
+         
+   <?php  }   
+    
+    
 }
-//END CUS 
 
 if(isset($WHICH_COMPANY)){     
     if($WHICH_COMPANY=='TRB WOL') {
@@ -239,7 +178,7 @@ if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' ||
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> No closer call recording not uploaded!"
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Closer call recording not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
@@ -249,7 +188,7 @@ if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' ||
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> No agent call recording not uploaded!"
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Agent call recording not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }

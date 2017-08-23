@@ -25,11 +25,12 @@ FROM
     client_note
 WHERE
     note_type = 'Sent SMS: Welcome'
-        AND client_id = '1231231'
+        AND client_id = :CID
         OR note_type = 'Sent SMS'
         AND message = 'Welcome'
-        AND client_id =:CID");
+        AND client_id =:CID2");
             $database->bind(':CID', $search);
+            $database->bind(':CID2', $search);
             $database->execute();
             $database->single();
             

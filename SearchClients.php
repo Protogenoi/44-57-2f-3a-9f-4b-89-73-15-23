@@ -67,10 +67,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
-        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="/DataTable/datatables.min.css"/>
         <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
@@ -114,7 +111,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($fflife == '1') {
                 ?>
-                <table id="clients" class="display" width="auto" cellspacing="0">
+                <table id="clients" class="display" cellspacing="0">
                     <thead>
                         <tr>
                             <th></th>
@@ -144,23 +141,12 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                 </table>
             <?php }
             ?>
-            <div class="footer navbar-fixed-bottom"><center><?php
-                    if ($hello_name == 'Michael') {
-
-                        $time_start = microtime(true);
-                        sleep(1);
-                        $time_end = microtime(true);
-                        $time = $time_end - $time_start;
-
-                        echo "<i>Page execution {$time}.</i>";
-                    }
-                    ?></center></div>
+           
         </div>
 
         <script type="text/javascript" language="javascript" src="js/jquery/jquery-3.0.0.min.js"></script>
-        <script type="text/javascript" language="javascript" src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script type="text/javascript" language="javascript" src="js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <script type="text/javascript" language="javascript" src="js/datatables/jquery.DATATABLES.min.js"></script>
+        <script type="text/javascript" src="/DataTable/datatables.min.js"></script>
         <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
 

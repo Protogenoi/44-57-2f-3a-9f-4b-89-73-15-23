@@ -8,6 +8,10 @@ require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');
 require_once(__DIR__ . '/includes/adlfunctions.php');
 
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/includes/user_tracking.php'); 
+
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/php/analyticstracking.php');
 }
@@ -180,7 +184,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
                             </p>
                             <p>
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" class="form-control" style="width: 170px" name="email">
+                                <input type="email" id="email" class="form-control" style="width: 170" name="email" placeholder="Use no@email.no for no email address" title="Use no@email.no for no email address">                            
                             </p>
 
                             <br>

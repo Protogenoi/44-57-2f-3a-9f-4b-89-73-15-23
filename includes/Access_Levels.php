@@ -188,21 +188,30 @@ if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
 }
 
 if ($companynamere == 'Bluestone Protect') {
+    
     $COMPANY_ENTITY_ID="1";
     $COMPANY_ENTITY = 'Bluestone Protect';
+    
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys","Carys Riley");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","Gavin","James Adams","Carys Riley","Hayley Hutchinson");
-    $Level_3_Access = array("Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David","Richard","James Adams");
+    $Level_3_Access = array("Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured", "Gavin","David","Richard","James Adams");
     $Level_1_Access = array("Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured","Keith","David","Darryl","Gavin","James Adams");
+    
     $Task_Access = array("Abbiek","Jakob");
+    
     $SECRET = array("Michael", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Amy');
+    
     $Agent_Access = array("111111111");
     $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey");
     $Manager_Access = array("Hayley Hutchinson","Sarah Wallace","Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Gavin","Ryan","Amy","Rhiannon","Jakob","James Adams");
+    
     $QA_Access = array("Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy");
+    
     $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
+    
     $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver");
+    $EWS_SEARCH_ACCESS=array("Hayley Hutchinson","Sarah Wallace","James Adams","Gavin");
     
     $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 }

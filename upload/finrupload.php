@@ -126,11 +126,17 @@ if ($query->rowCount() >= 1) {
 
 if ($query->rowCount() == 0) {
     
+ $CHK_POLICY_HAS_ZERO = substr($CSV_Policy, 0, 1);
+
+if($CHK_POLICY_HAS_ZERO != 0) {
+    $CSV_Policy="0$CSV_Policy";
+}       
+    
    $insert = $pdo->prepare("INSERT INTO financial_statistics_nomatch set payment_amount=:pay, policy_number=:pol, entry_by=:hello, payment_type=:type");
 
     $insert->bindParam(':pay', $CSV_Premium_Amount, PDO::PARAM_STR, 250);
     $insert->bindParam(':type', $CSV_Payment_Type, PDO::PARAM_STR, 250);
-    $insert->bindParam(':pol', $regpol1, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $CSV_Policy, PDO::PARAM_STR, 250);
     $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
     $insert->execute();
     
@@ -174,11 +180,17 @@ if ($query->rowCount() >= 1) {
 
 if ($query->rowCount() == 0) {
     
+ $CHK_POLICY_HAS_ZERO = substr($CSV_Policy, 0, 1);
+
+if($CHK_POLICY_HAS_ZERO != 0) {
+    $CSV_Policy="0$CSV_Policy";
+}   
+    
    $insert = $pdo->prepare("INSERT INTO financial_statistics_nomatch set payment_amount=:pay, policy_number=:pol, entry_by=:hello, payment_type=:type");
 
     $insert->bindParam(':pay', $CSV_Premium_Amount, PDO::PARAM_STR, 250);
     $insert->bindParam(':type', $CSV_Payment_Type, PDO::PARAM_STR, 250);
-    $insert->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $CSV_Policy, PDO::PARAM_STR, 250);
     $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
     $insert->execute();
     

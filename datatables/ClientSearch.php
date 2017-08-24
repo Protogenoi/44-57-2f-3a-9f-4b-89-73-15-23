@@ -20,6 +20,9 @@ if(isset($USER) && $TOKEN) {
 
 include('../includes/ADL_MYSQLI_CON.php');
 
+$hello_name=$USER;
+require_once(__DIR__ . '../../includes/Access_Levels.php');
+
 
 $ClientSearch= filter_input(INPUT_GET, 'ClientSearch', FILTER_SANITIZE_NUMBER_INT);
 
@@ -62,15 +65,36 @@ echo json_encode($results);
         
         }              
         
-    if($ClientSearch=='6') { 
+    if($ClientSearch=='6') {
         
-    include('../includes/ADL_PDO_CON.php');
+            include('../includes/ADL_PDO_CON.php');
+        
+     if(in_array($USER, $EWS_SEARCH_ACCESS,true)) {
 
+$query = $pdo->prepare("SELECT 
+    ews_data.client_name AS Name,
+    ' ' AS Name2,
+    ews_data.post_code AS post_code,
+    ews_data.date_added AS submitted_date,
+    client_policy.client_id AS client_id
+FROM
+    ews_data
+        LEFT JOIN
+    client_policy ON client_policy.policy_number = ews_data.policy_number");
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+
+echo json_encode($results);
+        
+    } else {
+        
 $query = $pdo->prepare("SELECT submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details ORDER BY client_id DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
+
+    }
         
         }        
             

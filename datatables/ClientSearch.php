@@ -74,6 +74,7 @@ echo json_encode($results);
 $query = $pdo->prepare("SELECT 
     ews_data.client_name AS Name,
     ' ' AS Name2,
+    ' ' AS Name2 AS company
     ews_data.post_code AS post_code,
     ews_data.date_added AS submitted_date,
     client_policy.client_id AS client_id
@@ -88,7 +89,7 @@ echo json_encode($results);
         
     } else {
         
-$query = $pdo->prepare("SELECT submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details ORDER BY client_id DESC");
+$query = $pdo->prepare("SELECT company,submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details ORDER BY client_id DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 

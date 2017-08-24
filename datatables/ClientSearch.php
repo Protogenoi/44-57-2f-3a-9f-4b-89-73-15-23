@@ -74,7 +74,7 @@ echo json_encode($results);
 $query = $pdo->prepare("SELECT 
     ews_data.client_name AS Name,
     ' ' AS Name2,
-    ' ' AS Name2 AS company
+    client_policy.insurer AS company,
     ews_data.post_code AS post_code,
     ews_data.date_added AS submitted_date,
     client_policy.client_id AS client_id

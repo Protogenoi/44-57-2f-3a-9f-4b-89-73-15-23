@@ -19,8 +19,14 @@ require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
     $SID=$SMS_RESULT['twilio_account_sid'];
     $TOKEN=$SMS_RESULT['twilio_account_token'];
 
-use Twilio\Rest\Client;                
+
+use Twilio\Rest\Client;    
+
+if($ffsms=='1') {
+
 require('../../twilio-php-master/Twilio/autoload.php');
+
+}
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
@@ -29,7 +35,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $companynamere=$companydetailsq['company_name'];  
 
 if(isset($fferror)) {
-    if($fferror=='0') {
+    if($fferror=='1') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -187,6 +193,9 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                 }
 
 
+                if($ffsms=='1') {
+                
+                
 $client = new Client($SID, $TOKEN);
 
 $MOB_ARRAY=array("07401434619","07917886451","07890567225");
@@ -203,6 +212,7 @@ $client->messages->create(
 );                
                 
 }                
+                }
                 
                 header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Life'); die;
                 

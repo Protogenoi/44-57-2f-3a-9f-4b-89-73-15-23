@@ -81,7 +81,35 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
             <?php
 
             if ($fflife == '1') {
+                if(in_array($hello_name,$ADMIN_SEARCH_ACCESS)) {
                 ?>
+
+                
+                          <div class='notice notice-primary' role='alert'><center><strong>Search by phone number</strong></center></div>
+
+            
+                <table id="phone" class="display" width="auto" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Phone</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Phone</th>
+                            <th>View</th>
+                        </tr>
+                    </tfoot>
+                </table>    
+                          
+                <?php } ?>
+
+                          <div class='notice notice-primary' role='alert'><center><strong>Search clients</strong></center></div>            
+            
+            
                 <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>
@@ -105,7 +133,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>View</th>
                         </tr>
                     </tfoot>
-                </table>
+                </table>  
             <?php }
             ?>
           
@@ -178,5 +206,36 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             });
         </script>
+        <?php if(in_array($hello_name,$ADMIN_SEARCH_ACCESS)) { ?>
+        <script type="text/javascript" language="javascript" >
+
+            $(document).ready(function () {
+                var table = $('#phone').DataTable({
+                    "response": true,
+                    "processing": true,
+                    "iDisplayLength": 1,
+                    "aLengthMenu": [[1], [1]],
+                    "language": {
+                        "processing": "<div></div><div></div><div></div><div></div><div></div>"
+                    },
+                    "ajax": "/datatables/ClientSearch.php?ClientSearch=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {"data": "phone_number"},
+                        {"data": "client_id",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                            }}
+                    ]
+                });
+
+            });
+        </script>  
+        <?php } ?>
     </body>
 </html>

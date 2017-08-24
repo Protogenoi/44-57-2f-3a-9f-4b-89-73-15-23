@@ -97,7 +97,17 @@ echo json_encode($results);
 
     }
         
-        }        
+        }  
+        
+   if($ClientSearch=='7') {
+       
+$query = $pdo->prepare("SELECT client_id, phone_number FROM client_details");
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));  
+
+echo json_encode($results);
+       
+   }     
             
         }            
             

@@ -99,7 +99,8 @@ $Today_TIME = date("h:i:s");
                                 <option value="Richard">Richard</option>
                                 <option value="Gavin">Gavin</option>
                                 <option value="Kyle">Kyle</option>
-                                <option value="James">James<option>
+                                <option value="James">James</option>
+                                <option value="Martin">Martin</option>    
                             </select>
                                 </div>
                                 

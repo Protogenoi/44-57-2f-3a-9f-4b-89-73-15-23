@@ -90,6 +90,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Client Name</th>
                             <th>Client Name</th>
                             <th>Post Code</th>
+                            <th>Company</th>
                             <th>View</th>
                         </tr>
                     </thead>
@@ -100,6 +101,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>Client Name</th>
                             <th>Client Name</th>
                             <th>Post Code</th>
+                            <th>Company</th>
                             <th>View</th>
                         </tr>
                     </tfoot>
@@ -166,6 +168,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         {"data": "Name"},
                         {"data": "Name2"},
                         {"data": "post_code"},
+                        {"data": "company"},
                         {"data": "client_id",
                             "render": function (data, type, full, meta) {
                                 return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';

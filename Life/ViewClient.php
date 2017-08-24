@@ -222,6 +222,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     </span></a></li>
             <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                 <li><a data-toggle="pill" href="#menu3">Financial</a></li>
+                <li><a data-toggle="pill" href="#TRACKING">Tracking</a></li>
             <?php } ?>
 
             <li class="dropdown">
@@ -1704,7 +1705,33 @@ if (isset($fileuploadedfail)) {
                     } catch (PDOException $e) {
                         echo 'Connection failed: ' . $e->getMessage();
                     }
+                    
+                    
+                    if(in_array($hello_name, $Level_10_Access,true)) {
                     ?>
+            
+            
+            
+  <div id="TRACKING" class="tab-pane fade">
+      <div class="container">
+          
+          <?php
+          
+                            require_once(__DIR__ . '/models/client/UserTrackingModel.php');
+                            $UserTracking = new UserTrackingMOdal($pdo);
+                            $UserTrackingList = $UserTracking->getUserTracking($search);
+                            require_once(__DIR__ . '/views/client/UserTracking.php'); 
+                            
+                            
+                            ?>
+          
+          
+          
+      </div>
+          
+  </div>
+            
+                    <?php } ?>
 
             <div id="menu3" class="tab-pane fade">
                 <div class="container">

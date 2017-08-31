@@ -553,7 +553,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
         <a target="_blank" class="btn btn-default" href='../uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-file-pdf-o'></i> LG Summary (<?php echo $POL_LOCATION; ?>)</a>
       <?php  }
                                               if (file_exists("../uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
-        <a target="_blank" class="btn btn-default" href='../uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-file-pdf-o'></i> OLP Summary (<?php echo $POL_NORMAL; ?>)</a>
+        <a target="_blank" class="btn btn-default" href='../uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-file-pdf-o'></i> OLP Status (<?php echo $POL_NORMAL; ?>)</a>
       <?php  }
                                     }                               
                                 

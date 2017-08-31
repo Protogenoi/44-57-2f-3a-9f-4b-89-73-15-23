@@ -547,9 +547,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     while ($result = $PULLED_POLSUM->fetch(PDO::FETCH_ASSOC)) {           
                                         
                                         $POL_LOCATION = substr($result['policy_number'], 0, 9);
+                                        $POL_NORMAL=$result['policy_number'];
                                         
                                         if (file_exists("../uploads/LG/PolSummary/$POL_LOCATION")) { ?>
         <a target="_blank" class="btn btn-default" href='../uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-file-pdf-o'></i> LG Summary (<?php echo $POL_LOCATION; ?>)</a>
+      <?php  }
+                                              if (file_exists("../uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
+        <a target="_blank" class="btn btn-default" href='../uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-file-pdf-o'></i> OLP Summary (<?php echo $POL_NORMAL; ?>)</a>
       <?php  }
                                     }                               
                                 
@@ -566,8 +570,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
                                             <?php
                                         }
-                                    }                                
-
+                                    }                                 
+                                    
                                 try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGpolicy'");
@@ -1530,7 +1534,7 @@ if (isset($fileuploadedfail)) {
                                             <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
-                                    }                                    
+                                    }                                     
                                     
                                     if ($row['uploadtype'] == 'LGpolicy') {
                                         if (!file_exists("../uploads/$file")) {

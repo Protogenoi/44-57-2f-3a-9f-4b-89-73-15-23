@@ -86,7 +86,7 @@ if($ffkeyfactsemail=='1') {
 FROM
     client_details
 WHERE
-    DATE(submitted_date) >='2017-08-14'
+    DATE(submitted_date) >='2017-08-31'
     AND
     client_details.email !=''
  AND

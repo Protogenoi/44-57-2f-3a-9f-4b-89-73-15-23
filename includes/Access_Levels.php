@@ -210,7 +210,7 @@ if ($companynamere == 'Bluestone Protect') {
     
     $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
     
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver");
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Abbiek","Nicola","carys");
     $EWS_SEARCH_ACCESS=array("Hayley Hutchinson","Sarah Wallace","James Adams");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Abbiek","Michael","Nick","Tina","Matt","leighton");
     

@@ -83,8 +83,42 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
             if ($fflife == '1') {
                 if(in_array($hello_name,$ADMIN_SEARCH_ACCESS)) {
               } ?>
+              
+<div class='notice notice-primary' role='alert'><center><strong>Search clients</strong></center></div> 
 
-                          <div class='notice notice-primary' role='alert'><center><strong>Search clients</strong></center></div>            
+            <?php  if (in_array($hello_name, $OLD_CLIENT_SEARCH,true)) {?>
+
+<table id="home" class="display" width="auto" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sale Date</th>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Insurer</th>
+                                <th>Status</th>
+                                <th>View</th>
+                                <th>Add Policy</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Sale Date</th>
+                                <th>Client</th>
+                                <th>Policy</th>
+                                <th>Insurer</th>
+                                <th>Status</th>
+                                <th>View</th>
+                                <th>Add Policy</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+            
+            
+              <?php } else {?>
+
+                                     
             
             
                 <table id="clients" class="display" width="auto" cellspacing="0">
@@ -112,6 +146,11 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     </tfoot>
                 </table>  
             <?php }
+            
+            
+            
+            
+              }
             ?>
           
         </div>
@@ -149,6 +188,81 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                 </div>
             </div>
         </div>    
+      <?php if (in_array($hello_name, $OLD_CLIENT_SEARCH,true)) { ?>  
+     <script type="text/javascript" language="javascript" >
+                    /* Formatting function for row details - modify as you need */
+                    function format(d) {
+                        // `d` is the original data object for the row
+                        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                                '<tr>' +
+                                '<td>Insurer:</td>' +
+                                '<td>' + d.insurer + ' </td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td>Application Number:</td>' +
+                                '<td>' + d.application_number + ' </td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td>Policy Type:</td>' +
+                                '<td>' + d.type + ' </td>' +
+                                '</tr>' +
+                                '</table>';
+                    }
+
+                    $(document).ready(function () {
+                        var table = $('#home').DataTable({
+                            "response": true,
+                            "processing": true,
+                            "iDisplayLength": 10,
+                            "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 500], [5, 10, 25, 50, 100, 125, 150, 200, 500]],
+                            "language": {
+                                "processing": "<div></div><div></div><div></div><div></div><div></div>"
+
+                            },
+                            "ajax": "/datatables/ClientSearch.php?ClientSearch=8&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                            "columns": [
+                                {
+                                    "className": 'details-control',
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": ''
+                                },
+                                {"data": "sale_date"},
+                                {"data": "client_name"},
+                                {"data": "policy_number"},
+                                {"data": "insurer"},
+                                {"data": "PolicyStatus"},
+                                {"data": "client_id",
+                                    "render": function (data, type, full, meta) {
+                                        return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                                    }},
+                                {"data": "client_id",
+                                    "render": function (data, type, full, meta) {
+                                        return '<a href="Home/AddPolicy.php?Home=y&CID=' + data + '">Add Policy</a>';
+                                    }},
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        // Add event listener for opening and closing details
+                        $('#policy tbody').on('click', 'td.details-control', function () {
+                            var tr = $(this).closest('tr');
+                            var row = table.row(tr);
+
+                            if (row.child.isShown()) {
+                                // This row is already open - close it
+                                row.child.hide();
+                                tr.removeClass('shown');
+                            } else {
+                                // Open this row
+                                row.child(format(row.data())).show();
+                                tr.addClass('shown');
+                            }
+                        });
+                    });
+                </script>
+                
+                <?php } else { ?>
 
         <script type="text/javascript" language="javascript" >
 
@@ -183,5 +297,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             });
         </script>
+        
+                <?php } ?>
     </body>
 </html>

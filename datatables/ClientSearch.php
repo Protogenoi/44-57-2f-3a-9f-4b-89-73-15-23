@@ -87,19 +87,7 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
         
-    } 
-
-     elseif(in_array($USER, $OLD_CLIENT_SEARCH,true)) {
-
-$query = $pdo->prepare("SELECT company, phone_number, submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details
-    WHERE
-        DATE(submitted_date) BETWEEN '2013-01-01' AND  '2016-01-01'");
-$query->execute()or die(print_r($query->errorInfo(), true));
-json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
-
-echo json_encode($results);
-        
-    }    
+    }   
     
     else {
         
@@ -121,7 +109,33 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
        
-   }     
+   } 
+   
+   if($ClientSearch=='8') {
+       
+$query = $pdo->prepare("SELECT 
+    client_id,
+    client_name,
+    sale_date,
+    application_number,
+    policy_number,
+    type,
+    insurer,
+    submitted_by,
+    commission,
+    CommissionType,
+    PolicyStatus,
+    submitted_date
+FROM
+    client_policy
+WHERE
+    DATE(submitted_date) BETWEEN '2013-01-01' AND '2016-01-01'");
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));  
+
+echo json_encode($results);
+       
+   }   
             
         }            
             

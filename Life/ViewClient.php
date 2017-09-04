@@ -655,6 +655,135 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     echo 'Connection failed: ' . $e->getMessage();
                                 }
                             }
+                            
+                            if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY=='Aviva') {
+
+                                try {
+
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivapolicy'");
+                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery->execute();
+
+                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGPOLFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+
+                                try {
+
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivakeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery->execute();
+
+                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+                            }
+
+                            if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY=='Royal London') {
+
+                                try {
+
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLpolicy'");
+                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery->execute();
+
+                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGPOLFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+
+                                try {
+
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLkeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery->execute();
+
+                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+                            }  
+                            
+                            if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY=='One Family') {
+
+                                try {
+
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLpolicy'");
+                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery->execute();
+
+                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGPOLFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+
+                                try {
+
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLkeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery->execute();
+
+                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $LGFILE = $result['file'];
+                                        if (file_exists("../uploads/$LGFILE")) {
+                                            ?>
+                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                        <?php } else { ?>
+                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                            <?php
+                                        }
+                                    }
+                                } catch (PDOException $e) {
+                                    echo 'Connection failed: ' . $e->getMessage();
+                                }
+                            }                            
                             ?>
 
                         </div>

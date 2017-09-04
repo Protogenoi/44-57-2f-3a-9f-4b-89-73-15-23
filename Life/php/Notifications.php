@@ -163,7 +163,8 @@ foreach ($result as $value) {
 
 
 }
-if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY == 'TRB Home Insurance' || $WHICH_COMPANY=='TRB Royal London' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Vitality') {
+
+if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
 
     
      if($client_date_added <= "2017-03-07 16:25:00") {

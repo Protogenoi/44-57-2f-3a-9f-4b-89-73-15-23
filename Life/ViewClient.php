@@ -1649,13 +1649,7 @@ if (isset($fileuploadedfail)) {
                                                         <input type="hidden" name="search" value="<?php echo $search; ?>">
                                                         <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> </button>
                                                     </form>
-
-            <?php } ?>
-
-                                            </td>
-                                        </tr>
-                                    </thead>
-
+                                                    
                                     <script>
                                         document.querySelector('#deletefileconfirm<?php echo $i ?>').addEventListener('submit', function (e) {
                                             var form = this;
@@ -1686,7 +1680,13 @@ if (isset($fileuploadedfail)) {
                                                         }
                                                     });
                                         });
-                                    </script>
+                                    </script>                                                    
+
+            <?php } ?>
+
+                                            </td>
+                                        </tr>
+                                    </thead>
 
                         <?php
                     }

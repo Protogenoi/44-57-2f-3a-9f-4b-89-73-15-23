@@ -59,8 +59,8 @@ $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS
  
 
 if(isset($btnupload)) {    
-     
- $file = $search."-".$_FILES['file']['name'];
+    $DATE = date("his"); 
+ $file = $search."-".$DATE."-".$_FILES['file']['name'];
  $file_loc = $_FILES['file']['tmp_name'];
  $file_size = $_FILES['file']['size'];
  $file_type = $_FILES['file']['type'];

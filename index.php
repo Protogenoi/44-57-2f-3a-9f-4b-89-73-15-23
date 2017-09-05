@@ -79,10 +79,21 @@ $error = $my_access->the_msg;
                                     </center>
                                 </div>
                             </div>
+                        </form>
+                                             
+                        
+                    </div>
                     </div>
                 </div>
             </div>
-            <div class="footer navbar-fixed-bottom"><center><i class="fa fa-support"></i> <a href="mailto:michael@adl-crm.uk?Subject=ADL"> <strong>ADL Email Support</strong> </a></center></div>            
+            <div class="footer navbar-fixed-bottom"><center>
+                  <a class="btn btn-success btn-sm" href="https://www10.landg.com/SAuthGateWeb/login.html?domain=olpc&ut=z&entryPoint=https%3A%2F%2Fwww10.landg.com%2FProtectionPortal%2Fsecure%2FHome" target="_blank">Legal and General</a>
+                    <a class="btn btn-success btn-sm" href="https://protection.royallondon.com/extranet/do/rlLogin" target="_blank">Royal London</a> 
+                    <a class="btn btn-success btn-sm" href="https://portal.onefamilyadviser.com/Intermediaries/Portal/WebLogin.aspx" target="_blank">One Family</a> 
+                    <a class="btn btn-success btn-sm" href="https://www.aviva-for-advisers.co.uk" target="_blank">Aviva</a> 
+                    <a class="btn btn-success btn-sm" href="https://login.vitality.co.uk/medical/" target="_blank">Vitality</a>
+                    <a class="btn btn-success btn-sm" href="mailto:michael@adl-crm.uk?Subject=ADL"> <strong>ADL Email Support</strong> </a>
+                </center></div>            
             
         </div>
         

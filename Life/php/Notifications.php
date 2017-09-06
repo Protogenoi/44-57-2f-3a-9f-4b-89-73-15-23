@@ -19,7 +19,6 @@ WHERE
           
           <?php
           
-          $NUMBER_BAD='1';
           
                  }
           
@@ -40,7 +39,9 @@ WHERE
     <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>            
           
-   <?php  }
+   <?php  $NUMBER_BAD='1'; 
+   
+                 }
    
                 $database->query("SELECT 
     note_id

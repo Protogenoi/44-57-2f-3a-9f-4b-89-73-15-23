@@ -19,6 +19,8 @@ WHERE
           
           <?php
           
+          $NUMBER_BAD='1';
+          
                  }
           
           $CHECKSMS_FAILED="SMS has failed to be delivered to $Single_Client[phone_number]";

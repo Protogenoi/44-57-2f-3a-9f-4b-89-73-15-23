@@ -81,7 +81,7 @@ if(isset($WHICH_COMPANY)){
 //TRB    
     if($WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') {
         if (in_array($hello_name,$Level_8_Access, true)) {
-        $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND color_status='Black'");
+        $database->query("select count(id) AS id from ews_data where policy_number IN(select policy_number from client_policy WHERE client_id=:CID) AND warning like '%NEW' ");
         $database->bind(':CID', $search);
         $database->execute(); 
         $EWS_COUNT_RESULT=$database->single(); 
@@ -89,7 +89,7 @@ if(isset($WHICH_COMPANY)){
             $EWS_COUNT=$EWS_COUNT_RESULT['id'];
             if(isset($EWS_COUNT)) { if($EWS_COUNT>=1) {
                 ?>
-<div class="notice notice-danger" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> EWS:</strong> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS White"; } else { echo "1 policy on EWS White"; } } ?> <i>(action required).</i>  </div>              
+<div class="notice notice-danger" role="alert" id='HIDELGKEY'><strong><i class="fa fa-exclamation-circle fa-lg"></i> EWS:</strong> This client has <?php if(isset($EWS_COUNT)) { if($EWS_COUNT>=2) { echo "$EWS_COUNT policies on EWS"; } else { echo "1 policy on EWS"; } } ?> <i>(action required).</i>  </div>              
     <?php
     
 }

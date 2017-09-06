@@ -4,12 +4,20 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-
+    
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../twilio-php-master/Twilio/autoload.php');
+
+use Twilio\Rest\Client;
+
+    $SMS_QRY = $pdo->prepare("SELECT twilio_account_sid, AES_DECRYPT(twilio_account_token, UNHEX(:key)) AS twilio_account_token FROM twilio_account");
+    $SMS_QRY->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
+    $SMS_QRY->execute()or die(print_r($INSERT->errorInfo(), true));
+    $SMS_RESULT=$SMS_QRY->fetch(PDO::FETCH_ASSOC);
+    
+    $SID=$SMS_RESULT['twilio_account_sid'];
+    $TOKEN=$SMS_RESULT['twilio_account_token'];
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));

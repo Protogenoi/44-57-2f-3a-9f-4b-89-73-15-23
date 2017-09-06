@@ -16,7 +16,28 @@ WHERE
          
     <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-exclamation"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
+          
+          <?php
+          
+                 }
+          
+          $CHECKSMS_FAILED="SMS has failed to be delivered to $Single_Client[phone_number]";
          
+                $database->query("SELECT 
+    note_id
+FROM
+    client_note
+WHERE
+        note_type='SMS Failed' AND message=:PHONE");
+            $database->bind(':PHONE', $CHECKSMS_FAILED);
+            $database->execute();
+            $database->single();
+            
+                 if ($database->rowCount()>0) {  ?>
+         
+    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
+          <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>            
+          
    <?php  }
    
                 $database->query("SELECT 

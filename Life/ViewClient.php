@@ -398,7 +398,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                         <p>
                         <div class="input-group">
-                            <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" readonly >
+                            <input class="form-control" type="tel" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number'] ?>" <?php if(isset($NUMBER_BAD) &&  $NUMBER_BAD=='1') { echo "style='background:red'"; } ?> readonly >
                             <span class="input-group-btn">
                                 <button type="button" data-toggle="modal" data-target="#smsModal"  class="btn btn-success"><span class="glyphicon glyphicon-earphone"></span></button>
 

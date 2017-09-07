@@ -59,7 +59,7 @@ echo "YES";
 
 
 if ($ffsms == '1') {
-
+if (in_array($hello_name, $Level_8_Access, true)) { 
     $RPY_stmt = $pdo->prepare("SELECT 
     count(sms_inbound_id) AS badge 
 FROM
@@ -78,9 +78,10 @@ WHERE
     $RPY_stmt2->execute();
     $RPY_stmtresult2 = $RPY_stmt2->fetch(PDO::FETCH_ASSOC);
 }
+}
 
 if($ffkeyfactsemail=='1') {
-
+if (in_array($hello_name, $Level_8_Access, true)) { 
     $KFS_stmt = $pdo->prepare("SELECT 
     count(client_details.email) as badge
 FROM
@@ -96,7 +97,7 @@ WHERE
             keyfactsemail)");
     $KFS_stmt->execute();
     $KFS_stmtresult = $KFS_stmt->fetch(PDO::FETCH_ASSOC);
-    
+}
     
 }
 if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
@@ -132,6 +133,8 @@ WHERE
     $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+
+if (in_array($hello_name, $Level_8_Access, true)) { 
     $KF_UP_stmt = $pdo->prepare("SELECT 
     client_note.note_id
 FROM
@@ -157,13 +160,14 @@ WHERE
          $UPLOAD_COUNT++;
      }
     }
+}
 ?>
 
 <ul class="nav navbar-nav navbar-right">
-    <?php if(isset($UPLOAD_COUNT)) { ?>
+    <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT)) { ?>
 <li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
    
-    <?php } if ($ffcallbacks == '1') {
+    <?php } } if ($ffcallbacks == '1') {
 if ($ACT_CBS['badge'] > 0) { ?>
         <li><a href="/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 
@@ -178,6 +182,7 @@ if ($ACT_CBS['badge'] > 0) { ?>
             }
             
         if($ffkeyfactsemail=='1') {
+            if (in_array($hello_name, $Level_8_Access, true)) { 
             if ($KFS_stmtresult['badge'] >= '1') {
                 ?>
         <li><a href="/Life/Reports/Keyfacts.php?SEARCH=NotSent"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
@@ -185,8 +190,10 @@ if ($ACT_CBS['badge'] > 0) { ?>
                 <?php
             }          
         }
+        }
 
         if ($ffsms == '1') {
+            if (in_array($hello_name, $Level_8_Access, true)) { 
             if ($RPY_stmtresult['badge'] >= '1') {
                 ?>
                 <li><a href="/Life/SMS/Report.php?SEARCH_BY=Responses"> <span class="badge alert-success"> <i class='fa fa-commenting-o'></i> <?php echo $RPY_stmtresult['badge']; ?> </span></a></li>
@@ -198,6 +205,7 @@ if ($ACT_CBS['badge'] > 0) { ?>
 
                 <?php
             }
+        }
         }
         }    
             if ($MSG_stmtresult['badge'] >= '1') {

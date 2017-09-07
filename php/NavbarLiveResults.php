@@ -131,10 +131,39 @@ WHERE
     $MSG_stmt->execute();
     $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+    $KF_UP_stmt = $pdo->prepare("SELECT 
+    client_note.note_id
+FROM
+    client_note
+        JOIN
+    client_details ON client_note.client_id = client_details.client_id
+WHERE
+    client_details.client_id NOT IN (SELECT
+            client_id
+        FROM
+            client_note
+        WHERE
+            note_type like '%keyfacts' )
+        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        GROUP by client_details.client_id");
+    $KF_UP_stmt->execute();
+    
+    if ($KF_UP_stmt->rowCount() > 0) {
+        
+        $UPLOAD_COUNT=0;
+
+     while ($KF_UP_stmtresult = $KF_UP_stmt->fetch(PDO::FETCH_ASSOC)) {
+         $UPLOAD_COUNT++;
+     }
+    }
 ?>
 
 <ul class="nav navbar-nav navbar-right">
-    <?php if ($ffcallbacks == '1') {
+    <?php if(isset($UPLOAD_COUNT)) { ?>
+<li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
+   
+    <?php } if ($ffcallbacks == '1') {
 if ($ACT_CBS['badge'] > 0) { ?>
         <li><a href="/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 

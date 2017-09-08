@@ -95,7 +95,10 @@ if ($ACCESS_LEVEL < 3) {
         }
         if ($SEARCH == 'Missing Policy') {
             echo "No policies have been added for these clients";
-        }        
+        }  
+        if ($SEARCH == 'Welcome SMS') {
+            echo "No welcome SMS has been sent to this client";
+        }          
     } ?></strong></center></h2> </div>
         <br> 
 

@@ -200,67 +200,51 @@ switch ($hello_name) {
                 <div class="col-md-4">
 
         <?php echo "<h3>$Today_DATES</h3>"; ?>
-        <?php echo "<h4>$Today_TIME</h4>"; ?>
+        <?php echo "<h4>$Today_TIME</h4>";
+                    
+                        $MISS_KF_CHK = $pdo->prepare("SELECT 
+    client_details.client_id
+FROM
+    client_details
+    LEFT JOIN client_policy ON client_details.client_id=client_policy.client_id
+WHERE
+    DATE(client_details.submitted_date) >= '2017-08-31'
+        AND client_details.email NOT IN (SELECT 
+            keyfactsemail_email
+        FROM
+            keyfactsemail)
+        AND
+            client_policy.closer=:CLOSER
+    GROUP BY client_details.email ORDER BY client_details.submitted_date DESC");
+                        $MISS_KF_CHK->bindParam(':CLOSER', $hello_name, PDO::PARAM_STR);
+                        $MISS_KF_CHK->execute();
+                        if ($MISS_KF_CHK->rowCount() > 0) {
+                            require_once(__DIR__ . '/models/trackers/MissingKFEmailModel.php');
+                            $MissingKFEmail = new MissingKFEmailModal($pdo);
+                            $MissingKFEmailList = $MissingKFEmail->getMissingKFEmail($hello_name);
+                            require_once(__DIR__ . '/views/trackers/Missing-KFEmail.php');
+                        }       
+                        
+                        ?>                    
+                    
                     <form method="POST" action="php/CloserReady.php?EXECUTE=1">
 <button class="list-group-item"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; READY!!!/CANCEL</button>
 <select class="form-control" name="SEND_LEAD" id="SEND_LEAD">
     <option value="">Select agent</option>
                                                             <option value="Adam Arrigan">Adam Arrigan</option>
-<option value="Aidan Chalmers">Aidan Chalmers</option>
-<option value="Amir Keshavarz">Amir Keshavarz</option>
-<option value="Amy Da Cruz">Amy Da Cruz</option>
-<option value="Andrew Bevan">Andrew Bevan</option>
 <option value="Andy Jones">Andy Jones</option>
 <option value="Ashleigh Woodgate">Ashleigh Woodgate</option>
 <option value="Ashley Heaven">Ashley Heaven</option>
 <option value="Ashley Johns">Ashley Johns</option>
-<option value="Beth Rees">Beth Rees</option>
-<option value="Blesing Gundu">Blesing Gundu</option>
-<option value="Bradley Morgan">Bradley Morgan</option>
-<option value="Cameron Adams">Cameron Adams</option>
-<option value="Carly Pearce">Carly Pearce</option>
 <option value="Charlotte Griffiths">Charlotte Griffiths</option>
-<option value="Chelbie Williams">Chelbie Williams</option>
-<option value="Chloe Shelley-Ranson">Chloe Shelley-Ranson</option>
 <option value="Chole Bradford">Chole Bradford</option>
 <option value="Christian Sayers">Christian Sayers</option>
-<option value="Courtney Woods">Courtney Woods</option>
-<option value="Crystal Gale">Crystal Gale</option>
-<option value="Danielle Jones">Danielle Jones</option>
-<option value="Danielle Watkins">Danielle Watkins</option>
 <option value="David Bebee">David Bebee</option>
-<option value="Elisabeth Carputo">Elisabeth Carputo</option>
 <option value="Ffion Edwards">Ffion Edwards</option>
-<option value="Ffion Jackson">Ffion Jackson</option>
-<option value="Gavin Morgan">Gavin Morgan</option>
-<option value="Georgina Norris">Georgina Norris</option>
-<option value="Hannah Speed">Hannah Speed</option>
-<option value="Iona Bell">Iona Bell</option>
-<option value="Jack Beynon">Jack Beynon</option>
-<option value="Jack Hopkins">Jack Hopkins</option>
-<option value="Jacklyn Harford">Jacklyn Harford</option>
-<option value="Jake Elliot">Jake Elliot</option>
-<option value="James Lynn">James Lynn</option>
-<option value="Jess  Davies">Jess  Davies</option>
-<option value="Jessica Davies">Jessica Davies</option>
-<option value="Jessica Edwards">Jessica Edwards</option>
-<option value="John Langdon">John Langdon</option>
-<option value="John Williams">John Williams</option>
-<option value="Jolin Langdon">Jolin Langdon</option>
-<option value="Joseph Parr">Joseph Parr</option>
-<option value="Kailan Walsh">Kailan Walsh</option>
-<option value="Katies Jones">Katies Jones</option>
-<option value="Keeilla Smith">Keeilla Smith</option>
-<option value="Kirstie Green">Kirstie Green</option>
 <option value="Konstantin Kirilovic">Konstantin Kirilovic</option>
-<option value="Kyle Boucher">Kyle Boucher</option>
 <option value="Lee McDonaugh">Lee McDonaugh</option>
 <option value="Liam Draper">Liam Draper</option>
 <option value="Lois Taylor">Lois Taylor</option>
-<option value="Luken Lahetjuzan">Luken Lahetjuzan</option>
-<option value="Mark Provan">Mark Provan</option>
-<option value="Matthew Evans">Matthew Evans</option>
-<option value="Megan Perkins">Megan Perkins</option>
 <option value="Michael Hodge">Michael Hodge</option>
 <option value="Molly Grove">Molly Grove</option>
 <option value="Naomi Llewellyn">Naomi Llewellyn</option>

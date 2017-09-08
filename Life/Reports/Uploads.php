@@ -33,6 +33,30 @@ if ($fflife=='0') {
     }
 
     $SEARCH = filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }     
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +95,7 @@ if ($fflife=='0') {
             </form>
     
     <?php if(isset($SEARCH) && $SEARCH=='Insurer Keyfacts') {  ?>
-    <table id="LGKeyfacts" class="display" cellspacing="0">
+    <table id="KeyFacts" class="display" cellspacing="0">
         <thead>
             <tr>
                 <th></th>
@@ -111,7 +135,7 @@ if ($fflife=='0') {
    <script type="text/javascript" language="javascript" >
 
             $(document).ready(function () {
-                var table = $('#LGKeyfacts').DataTable({
+                var table = $('#KeyFacts').DataTable({
                     "response": true,
                     "processing": true,
                     "iDisplayLength": 25,
@@ -119,7 +143,7 @@ if ($fflife=='0') {
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "../JSON/Uploads.php?EXECUTE=1",
+                    "ajax": "../JSON/Uploads.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',

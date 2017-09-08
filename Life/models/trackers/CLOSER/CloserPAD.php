@@ -26,7 +26,7 @@
 FROM
     closer_trackers
 WHERE
-    DATE(date_added) >= :datefrom
+    DATE(date_added) = :datefrom
         AND closer =:closer
 ORDER BY date_added DESC");
             $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);

@@ -93,6 +93,9 @@ if ($ACCESS_LEVEL < 3) {
         if ($SEARCH == 'LG App') {
             echo "Legal and General Application missing";
         }
+        if ($SEARCH == 'Missing Policy') {
+            echo "No policies have been added for these clients";
+        }        
     } ?></strong></center></h2> </div>
         <br> 
 
@@ -115,7 +118,13 @@ if ($ACCESS_LEVEL < 3) {
         } ?> value="Agent Recording">Agent Recording</option>
                         <option <?php if ($SEARCH == 'LG App') {
             echo "selected";
-        } ?> value="LG App">Legal and General App</option>                        
+        } ?> value="LG App">Legal and General App</option>   
+                        <option <?php if ($SEARCH == 'Welcome SMS') {
+            echo "selected";
+        } ?> value="Welcome SMS">Welcome SMS</option> 
+                        <option <?php if ($SEARCH == 'Missing Policy') {
+            echo "selected";
+        } ?> value="Missing Policy">No policy added</option>                         
 <?php } ?>
 
                 </select>
@@ -182,7 +191,13 @@ if ($ACCESS_LEVEL < 3) {
         }
         if ($SEARCH == 'LG App') {
             echo "5";
-        }        
+        } 
+        if ($SEARCH == 'Welcome SMS') {
+            echo "6";
+        }   
+        if ($SEARCH == 'Missing Policy') {
+            echo "7";
+        }           
     } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                      "columns": [
                                          {

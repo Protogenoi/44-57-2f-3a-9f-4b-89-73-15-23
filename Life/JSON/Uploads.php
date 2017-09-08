@@ -4,8 +4,25 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+
+$USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if(isset($USER) && $TOKEN) {
+    
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
+        $CHECK_USER_TOKEN->CheckToken();
+        $OUT=$CHECK_USER_TOKEN->CheckToken();
+        
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Bad') {
+         echo "BAD";   
+        }
+
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
 
 
 
@@ -52,4 +69,6 @@ echo json_encode($results);
     
 }
 
+        }
+}
 ?>

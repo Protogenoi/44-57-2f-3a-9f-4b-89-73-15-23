@@ -213,7 +213,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 </a>
                             </li>
 
-                        <?php } ?>
+                        <?php } if(in_array($hello_name, $QA_Access,true)) { ?>
                             <li>
                                 <a href="http://192.168.1.184/dialer/Recordings.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
@@ -223,8 +223,21 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                     </div>
                                 </a>
                             </li>
+                            
+                                <li>
+                                    <a href="audits/main_menu.php">
+                                        <span class="ca-icon"><i class="fa fa-folder"></i></span>
+                                        <div class="ca-content">
+                                            <h2 class="ca-main">Call Audits<br/></h2>
+                                            <h3 class="ca-sub"></h3>
+                                        </div>
+                                    </a>
+                                </li>                            
+                            
+                        
+                        <?php }                             
                       
-                        <?php  } if ($fftwitter == '1') { ?>
+                       } if ($fftwitter == '1') { ?>
 
                             <li>
                                 <a href="#twitter" role="button" data-toggle="modal" data-target="#twitter">
@@ -287,7 +300,9 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 </li>
                                 <?php
                             }
-                        } }
+                        } 
+                        
+                           }
                         ?>    
                                 
                     </ul>

@@ -11,7 +11,7 @@
         <h4 class="modal-title">Keyfacts Email Tracker</h4>
       </div>
       <div class="modal-body">
-          <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>Make sure the email address is correct on the dealsheet and on OLP.</b></div>
+          <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>Sometimes the email may of been added wrong onto ADL. Make sure the email address is correct on the dealsheet and on OLP.</b></div>
 
           <table class="table table-hover">
               <thead>

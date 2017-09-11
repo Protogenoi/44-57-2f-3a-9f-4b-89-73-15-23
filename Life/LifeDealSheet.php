@@ -202,6 +202,41 @@ switch ($hello_name) {
         <?php echo "<h3>$Today_DATES</h3>"; ?>
         <?php echo "<h4>$Today_TIME</h4>";
                     
+         switch ($hello_name):
+            case "James":
+                $CLOSER_NAME = "James Adams";
+                break;
+            case "Mike":
+                $CLOSER_NAME = "Michael Lloyd";
+                break;
+            case "Sarah":
+                $CLOSER_NAME = "Sarah Wallace";
+                break;
+            case "Gavin":
+                $CLOSER_NAME = "Gavin Fulford";
+                break;
+            case "Richard";
+                $CLOSER_NAME = "Richard Michaels";
+                break;
+            case "Hayley":
+                $CLOSER_NAME = "Hayley Hutchinson";
+                break;
+            case "Martin";
+                $CLOSER_NAME="Martin Smith";
+                break;
+            case "Corey";
+                $CLOSER_NAME="Corey Divetta";
+                break;    
+            case "Kyle";
+                $CLOSER_NAME="Kyle Barnett";
+                break; 
+            case "carys";
+                $CLOSER_NAME="Carys Riley";
+                break;             
+            default:
+                $CLOSER_NAME = $hello_name;
+        endswitch;       
+        
                         $MISS_KF_CHK = $pdo->prepare("SELECT 
     client_details.client_id
 FROM
@@ -216,7 +251,7 @@ WHERE
         AND
             client_policy.closer=:CLOSER
     GROUP BY client_details.email ORDER BY client_details.submitted_date DESC");
-                        $MISS_KF_CHK->bindParam(':CLOSER', $hello_name, PDO::PARAM_STR);
+                        $MISS_KF_CHK->bindParam(':CLOSER', $CLOSER_NAME, PDO::PARAM_STR);
                         $MISS_KF_CHK->execute();
                         if ($MISS_KF_CHK->rowCount() > 0) {
                             require_once(__DIR__ . '/models/trackers/MissingKFEmailModel.php');

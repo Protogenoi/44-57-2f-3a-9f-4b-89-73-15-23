@@ -437,7 +437,7 @@ $(document).ready(function(){
                         <input type="radio" name="q2" <?php if (isset($q2) && $q2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc2();" value="1" id="yesCheckc2">Yes
                         <input type="radio" name="q2" <?php if (isset($q2) && $q2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc2();" value="0" id="noCheckc2">No
                         
-                        <div id="ifYesc2" style="display:none">
+                        <div id="ifYesc2" style="display:<?php if(isset($c2)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c2" name="c2" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c2)) { echo $c2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -473,7 +473,7 @@ function yesnoCheckc2() {
                         <input type="radio" name="q3" <?php if (isset($q3) && $q3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc3();" value="1" id="yesCheckc3">Yes
                         <input type="radio" name="q3" <?php if (isset($q3) && $q3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc3();" value="0" id="noCheckc3">No
                         
-                        <div id="ifYesc3" style="display:none">
+                        <div id="ifYesc3" style="display:<?php if(isset($c3)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c3" name="c3" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c3)) { echo $c3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -509,7 +509,7 @@ function yesnoCheckc3() {
                         <input type="radio" name="q4" <?php if (isset($q4) && $q4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc4();" value="1" id="yesCheckc4">Yes
                         <input type="radio" name="q4" <?php if (isset($q4) && $q4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc4();" value="0" id="noCheckc4">No
                         
-                        <div id="ifYesc4" style="display:none">
+                        <div id="ifYesc4" style="display:<?php if(isset($c4)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c4" name="c4" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c4)) { echo $c4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -545,7 +545,7 @@ function yesnoCheckc4() {
                         <input type="radio" name="q5" <?php if (isset($q5) && $q5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc5();" value="1" id="yesCheckc5">Yes
                         <input type="radio" name="q5" <?php if (isset($q5) && $q5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc5();" value="0" id="noCheckc5">No
                         
-                        <div id="ifYesc5" style="display:none">
+                        <div id="ifYesc5" style="display:<?php if(isset($c5)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c5" name="c5" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c5)) { echo $c5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -591,7 +591,7 @@ function yesnoCheckc5() {
                         <input type="radio" name="q6" <?php if (isset($q6) && $q6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc6();" value="1" id="yesCheckc6">Yes
                         <input type="radio" name="q6" <?php if (isset($q6) && $q6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc6();" value="0" id="noCheckc6">No
                         
-                        <div id="ifYesc6" style="display:none">
+                        <div id="ifYesc6" style="display:<?php if(isset($c6)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c6" name="c6" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c6)) { echo $c6; } ?></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -627,7 +627,7 @@ function yesnoCheckc6() {
                         <input type="radio" name="q7"  <?php if (isset($q7) && $q7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc7();" value="1" id="yesCheckc7">Yes
                         <input type="radio" name="q7" <?php if (isset($q7) && $q7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc7();" value="0" id="noCheckc7">No
                         
-                        <div id="ifYesc7" style="display:none">
+                        <div id="ifYesc7" style="display:<?php if(isset($c7)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c7" name="c7" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c7)) { echo $c7; } ?></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -663,7 +663,7 @@ function yesnoCheckc7() {
                         <input type="radio" name="q8" onclick="javascript:yesnoCheck();" <?php if (isset($q8) && $q8=="1") { echo "checked"; } ?> value="1" id="yesCheck">Yes
                         <input type="radio" name="q8" onclick="javascript:yesnoCheck();" <?php if (isset($q8) && $q8=="0") { echo "checked"; } ?> value="0" id="noCheck">No
                         
-                        <div id="ifYes" style="display:none">
+                        <div id="ifYes" style="display:<?php if(isset($c8)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c8" name="c8" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c8)) { echo $c8; } ?></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -699,7 +699,7 @@ function yesnoCheck() {
                         <input type="radio" name="q9" <?php if (isset($q9) && $q9=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc9();" value="1" id="yesCheckc9">Yes
                         <input type="radio" name="q9" <?php if (isset($q9) && $q9=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc9();" value="0" id="noCheckc9">No
                         
-                        <div id="ifYesc9" style="display:none">
+                        <div id="ifYesc9" style="display:<?php if(isset($c9)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c9" name="c9" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c9)) { echo $c9; } ?></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -736,7 +736,7 @@ function yesnoCheckc9() {
                         <input type="radio" name="q10" <?php if (isset($q10) && $q10=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc10();" value="1" id="yesCheckc10">Yes
                         <input type="radio" name="q10" <?php if (isset($q10) && $q10=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc10();" value="0" id="noCheckc10">No
                         
-                        <div id="ifYesc10" style="display:none">
+                        <div id="ifYesc10" style="display:<?php if(isset($c10)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c10" name="c10" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c10)) { echo $c10; } ?></textarea><span class="help-block"><p id="characterLeft10" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -773,7 +773,7 @@ function yesnoCheckc10() {
                         <input type="radio" name="q11" <?php if (isset($q11) && $q11=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc11();" value="1" id="yesCheckc11">Yes
                         <input type="radio" name="q11" <?php if (isset($q11vvv) && $q11=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc11();" value="0" id="noCheckc11">No
                         
-                        <div id="ifYesc11" style="display:none">
+                        <div id="ifYesc11" style="display:<?php if(isset($c11)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c11" name="c11" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c11)) { echo $c11; } ?></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -819,7 +819,7 @@ function yesnoCheckc11() {
                         <input type="radio" name="q12" <?php if (isset($q12) && $q12=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc12();" value="1" id="yesCheckc12">Yes
                         <input type="radio" name="q12" <?php if (isset($q12) && $q12=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc12();" value="0" id="noCheckc12">No
                         
-                        <div id="ifYesc12" style="display:none">
+                        <div id="ifYesc12" style="display:<?php if(isset($c12)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c12" name="c12" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c12)) { echo $c12; } ?></textarea><span class="help-block"><p id="characterLeft12" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -861,7 +861,7 @@ function yesnoCheckc12() {
                             <option value="4" onclick="javascript:yesnoCheckc13();" id="yesCheckc13">Poor</option>
                         </select>
                         
-                        <div id="ifYesc13" style="display:none">
+                        <div id="ifYesc13" style="display:<?php if(isset($c13)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c13" name="c13" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c13)) { echo $c13; } ?></textarea><span class="help-block"><p id="characterLeft13" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -898,7 +898,7 @@ function yesnoCheckc13() {
                         <input type="radio" name="q14" <?php if (isset($q14) && $q14=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc14();" value="1" id="yesCheckc14">Yes
                         <input type="radio" name="q14" <?php if (isset($q14) && $q14=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc14();" value="0" id="noCheckc14">No
                         
-                        <div id="ifYesc14" style="display:none">
+                        <div id="ifYesc14" style="display:<?php if(isset($c14)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c14" name="c14" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c14)) { echo $c14; } ?></textarea><span class="help-block"><p id="characterLeft14" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -943,7 +943,7 @@ function yesnoCheckc14() {
                         <input type="radio" name="q15" <?php if (isset($q15) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc15();" value="1" id="yesCheckc15">Yes
                         <input type="radio" name="q15" <?php if (isset($q15) && $q15=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc15();" value="0" id="noCheckc15">No
                         
-                        <div id="ifYesc15" style="display:none">
+                        <div id="ifYesc15" style="display:<?php if(isset($c15)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c15" name="c15" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c15)) { echo $c15; } ?></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -980,7 +980,7 @@ function yesnoCheckc15() {
                         <input type="radio" name="q16" <?php if (isset($q16) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc16();" value="1" id="yesCheckc16">Yes
                         <input type="radio" name="q16" <?php if (isset($q16) && $q16=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc16();" value="0" id="noCheckc16">No
                         
-                        <div id="ifYesc16" style="display:none">
+                        <div id="ifYesc16" style="display:<?php if(isset($c16)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c16" name="c16" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c16)) { echo $c16; } ?></textarea><span class="help-block"><p id="characterLeft16" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1017,7 +1017,7 @@ function yesnoCheckc16() {
                         <input type="radio" name="q17" <?php if (isset($q17) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc17();" value="1" id="yesCheckc17">Yes
                         <input type="radio" name="q17" <?php if (isset($q17) && $q17=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc17();" value="0" id="noCheckc17">No
                         
-                        <div id="ifYesc17" style="display:none">
+                        <div id="ifYesc17" style="display:<?php if(isset($c17)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c17" name="c17" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c17)) { echo $c17; } ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1053,7 +1053,7 @@ function yesnoCheckc17() {
                         <input type="radio" name="q18" <?php if (isset($q18) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc18();" value="1" id="yesCheckc18">Yes
                         <input type="radio" name="q18" <?php if (isset($q18) && $q18=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc18();" value="0" id="noCheckc18">No
                         
-                        <div id="ifYesc18" style="display:none">
+                        <div id="ifYesc18" style="display:<?php if(isset($c18)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c18" name="c18" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c18)) { echo $c18; } ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1090,7 +1090,7 @@ function yesnoCheckc18() {
                         <input type="radio" name="q19" <?php if (isset($q19) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc19();" value="1" id="yesCheckc19">Yes
                         <input type="radio" name="q19" <?php if (isset($q19) && $q19=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc19();" value="0" id="noCheckc19">No
                         
-                        <div id="ifYesc19" style="display:none">
+                        <div id="ifYesc19" style="display:<?php if(isset($c19)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c19" name="c19" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c19)) { echo $c19; } ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1135,7 +1135,7 @@ function yesnoCheckc19() {
                         <input type="radio" name="q20" <?php if (isset($q20) && $q20=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc20();" value="1" id="yesCheckc20">Yes
                         <input type="radio" name="q20" <?php if (isset($q20) && $q20=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc20();" value="0" id="noCheckc20">No
                         
-                        <div id="ifYesc20" style="display:none">
+                        <div id="ifYesc20" style="display:<?php if(isset($c20)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c20" name="c20" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c20)) { echo $c20; } ?></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1171,7 +1171,7 @@ function yesnoCheckc20() {
                         <input type="radio" name="q21" <?php if (isset($q21) && $q21=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc21();" value="1" id="yesCheckc21">Yes
                         <input type="radio" name="q21" <?php if (isset($q21) && $q21=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc21();" value="0" id="noCheckc21">No
                         
-                        <div id="ifYesc21" style="display:none">
+                        <div id="ifYesc21" style="display:<?php if(isset($c21)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c21" name="c21" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c21)) { echo $c21; } ?></textarea><span class="help-block"><p id="characterLeft37" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1207,7 +1207,7 @@ function yesnoCheckc21() {
                         <input type="radio" name="q22" <?php if (isset($q22) && $q22=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc22();" value="1" id="yesCheckc22">Yes
                         <input type="radio" name="q22" <?php if (isset($q22) && $q22=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc22();" value="0" id="noCheckc22">No
                         
-                        <div id="ifYesc22" style="display:none">
+                        <div id="ifYesc22" style="display:<?php if(isset($c22)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c22" name="c22" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c22)) { echo $c22; } ?></textarea><span class="help-block"><p id="characterLeft38" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1243,7 +1243,7 @@ function yesnoCheckc22() {
                         <input type="radio" name="q23" <?php if (isset($q23) && $q23=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc23();" value="1" id="yesCheckc23">Yes
                         <input type="radio" name="q23" <?php if (isset($q23) && $q23=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc23();" value="0" id="noCheckc23">No
                         
-                        <div id="ifYesc23" style="display:none">
+                        <div id="ifYesc23" style="display:<?php if(isset($c23)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c23" name="c23" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c23)) { echo $c23; } ?></textarea><span class="help-block"><p id="characterLeft39" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1280,7 +1280,7 @@ function yesnoCheckc23() {
                         <input type="radio" name="q24" <?php if (isset($q24) && $q24=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc24();" value="1" id="yesCheckc24">Yes
                         <input type="radio" name="q24" <?php if (isset($q24) && $q24=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc24();" value="0" id="noCheckc24">No
                         
-                        <div id="ifYesc24" style="display:none">
+                        <div id="ifYesc24" style="display:<?php if(isset($c24)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c24" name="c24" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c24)) { echo $c24; } ?></textarea><span class="help-block"><p id="characterLeft40" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1326,7 +1326,7 @@ function yesnoCheckc24() {
                         <input type="radio" name="q25" <?php if (isset($q25) && $q25=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc25();" value="1" id="yesCheckc25">Yes
                         <input type="radio" name="q25" <?php if (isset($q25) && $q25=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc25();" value="0" id="noCheckc25">No
                         
-                        <div id="ifYesc25" style="display:none">
+                        <div id="ifYesc25" style="display:<?php if(isset($c25)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c25" name="c25" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c25)) { echo $c25; } ?></textarea><span class="help-block"><p id="characterLeft41" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1363,7 +1363,7 @@ function yesnoCheckc25() {
                         <input type="radio" name="q26" <?php if (isset($q26) && $q26=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc26();" value="1" id="yesCheckc26">Yes
                         <input type="radio" name="q26" <?php if (isset($q26) && $q26=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc26();" value="0" id="noCheckc26">No
                         
-                        <div id="ifYesc26" style="display:none">
+                        <div id="ifYesc26" style="display:<?php if(isset($c26)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c26" name="c26" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c26)) { echo $c26; } ?></textarea><span class="help-block"><p id="characterLeft42" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1400,7 +1400,7 @@ function yesnoCheckc26() {
                         <input type="radio" name="q27" <?php if (isset($q27) && $q27=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc27();" value="1" id="yesCheckc27">Yes
                         <input type="radio" name="q27" <?php if (isset($q27) && $q27=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc27();" value="0" id="noCheckc27">No
                         
-                        <div id="ifYesc27" style="display:none">
+                        <div id="ifYesc27" style="display:<?php if(isset($c27)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c27" name="c27" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c27)) { echo $c27; } ?></textarea><span class="help-block"><p id="characterLeft27" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1437,7 +1437,7 @@ function yesnoCheckc27() {
                         <input type="radio" name="q28" <?php if (isset($q28) && $q28=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc28();" value="1" id="yesCheckc28">Yes
                         <input type="radio" name="q28" <?php if (isset($q28) && $q28=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc28();" value="0" id="noCheckc28">No
                         
-                        <div id="ifYesc28" style="display:none">
+                        <div id="ifYesc28" style="display:<?php if(isset($c28)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c28" name="c28" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c28)) { echo $c28; } ?></textarea><span class="help-block"><p id="characterLeft28" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1474,7 +1474,7 @@ function yesnoCheckc28() {
                         <input type="radio" name="q29" <?php if (isset($q29) && $q29=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc29();" value="1" id="yesCheckc29">Yes
                         <input type="radio" name="q29" <?php if (isset($q29) && $q29=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc29();" value="0" id="noCheckc29">No
                         
-                        <div id="ifYesc29" style="display:none">
+                        <div id="ifYesc29" style="display:<?php if(isset($c29)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c29" name="c29" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c29)) { echo $c29; } ?></textarea><span class="help-block"><p id="characterLeft29" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1512,7 +1512,7 @@ function yesnoCheckc29() {
                         <input type="radio" name="q30" <?php if (isset($q30) && $q30=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc30();" value="0" id="noCheckc30">No
                         <input type="radio" name="q30" <?php if (isset($q30) && $q30=="2") { echo "checked"; } ?> onclick="javascript:yesnoCheckc30();" value="2" id="yesCheckc30">N/A
                         
-                        <div id="ifYesc30" style="display:none">
+                        <div id="ifYesc30" style="display:<?php if(isset($c30)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c30" name="c30" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c30)) { echo $c30; } ?></textarea><span class="help-block"><p id="characterLeft30" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1558,7 +1558,7 @@ function yesnoCheckc30() {
                         <input type="radio" name="q31" <?php if (isset($q31) && $q31=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc31();" value="1" id="yesCheckc31">Yes
                         <input type="radio" name="q31" <?php if (isset($q31) && $q31=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc31();" value="0" id="noCheckc31">No
                         
-                        <div id="ifYesc31" style="display:none">
+                        <div id="ifYesc31" style="display:<?php if(isset($c31)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c31" name="c31" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c31)) { echo $c31; } ?></textarea><span class="help-block"><p id="characterLeft31" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1595,7 +1595,7 @@ function yesnoCheckc31() {
                         <input type="radio" name="q32" <?php if (isset($q32) && $q32=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc32();" value="1" id="yesCheckc32">Yes
                         <input type="radio" name="q32" <?php if (isset($q32) && $q32=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc32();" value="0" id="noCheckc32">No
                         
-                        <div id="ifYesc32" style="display:none">
+                        <div id="ifYesc32" style="display:<?php if(isset($c32)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c32" name="c32" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c32)) { echo $c32; } ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1632,7 +1632,7 @@ function yesnoCheckc32() {
                         <input type="radio" name="q33" <?php if (isset($q33) && $q33=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc33();" value="1" id="yesCheckc33">Yes
                         <input type="radio" name="q33" <?php if (isset($q33) && $q33=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc33();" value="0" id="noCheckc33">No
                         
-                        <div id="ifYesc33" style="display:none">
+                        <div id="ifYesc33" style="display:<?php if(isset($c33)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c33" name="c33" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c33)) { echo $c33; } ?></textarea><span class="help-block"><p id="characterLeft33" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1669,7 +1669,7 @@ function yesnoCheckc33() {
                         <input type="radio" name="q34" <?php if (isset($q34) && $q34=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc34();" value="1" id="yesCheckc34">Yes
                         <input type="radio" name="q34" <?php if (isset($q34) && $q34=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc34();" value="0" id="noCheckc34">No
                         
-                        <div id="ifYesc34" style="display:none">
+                        <div id="ifYesc34" style="display:<?php if(isset($c34)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c34" name="c34" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c34)) { echo $c34; } ?></textarea><span class="help-block"><p id="characterLeft34" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1706,7 +1706,7 @@ function yesnoCheckc34() {
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="1" id="yesCheckc35">Yes
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="0" id="noCheckc35">No
                         
-                        <div id="ifYesc35" style="display:none">
+                        <div id="ifYesc35" style="display:<?php if(isset($c35)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c35" name="c35" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c35)) { echo $c35; } ?></textarea><span class="help-block"><p id="characterLeft35" class="help-block ">You have reached the limit</p></span>
                         </div>
                         
@@ -1743,7 +1743,7 @@ function yesnoCheckc35() {
                         <input type="radio" name="q36" <?php if (isset($q36) && $q36=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc36();" value="1" id="yesCheckc36">Yes
                         <input type="radio" name="q36" <?php if (isset($q36) && $q36=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc36();" value="0" id="noCheckc36">No
                         
-                        <div id="ifYesc36" style="display:none">
+                        <div id="ifYesc36" style="display:<?php if(isset($c36)) { echo "block"; } else {  echo "none"; } ?>">
                             <textarea class="form-control"id="c36" name="c36" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"><?php if(isset($c36)) { echo $c36; } ?></textarea><span class="help-block"><p id="characterLeft36" class="help-block ">You have reached the limit</p></span>
                         </div>
                         

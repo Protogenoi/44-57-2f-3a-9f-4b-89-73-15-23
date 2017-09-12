@@ -970,13 +970,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
                                     } if ($CHK_NUM == '1') {
-                                        echo "SMS/Send.php?WHICH_COMPANY=$WHICH_COMPANY";
+                                        echo "SMS/Send.php";
                                     } ?>">
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
 
-                                            <label for="selectsms">Select SMS:</label>
+                                            <label for="selectsms">Message:</label>
                                             <select class="form-control" name="selectopt" id="selectopt">
                                                 <option value=" ">Select message...</option>
 
@@ -1021,6 +1021,27 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                             </select>
                                         </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="SMS_INSURER">Insurer:</label>
+                                            <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
+                                                <option value="">Select insurer...</option>
+                                                <option value="Legal and General">Legal and General</option>
+                                                <option value="Aviva">Aviva</option>
+                                                <option value="Vitality">Vitality</option>
+                                                <option value="Royal London">Royal London</option>
+                                                <option value="One Family">One Family</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="SMS_COMPANY">Company:</label>
+                                            <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
+                                                <option value="">Select company...</option>
+                                                <option value="Bluestone Protect">Bluestone Protect</option>
+                                                <option value="The Review Bureau">The Review Bureau</option>
+                                            </select>
+                                        </div>                                        
 
                                         <div id="General_Contact" class="SELECTED_SMS well" style="display:none">[CLIENT_NAME] Its Very Important We Speak To You Regarding Your Life Insurance Policy. Please Contact [COMPANY NAME] On [COMPANY TEL].</div>
                                         <div id="CFO" class="SELECTED_SMS well" style="display:none">We are sorry to here that you want to cancel your policy with [INSURER]. Cancelling any protection is an important decision and one that should be considered carefully. To discuss your options please call us on [COMPANY_TEL]. Yours Sincerely, Customer Services, [COMPANY_NAME].</div>
@@ -1036,7 +1057,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['phone_number']; ?>">
-                                        <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
 
                                         <center>
                                             <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND TEMPLATE SMS</button>

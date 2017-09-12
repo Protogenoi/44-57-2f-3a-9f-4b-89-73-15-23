@@ -808,6 +808,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             require_once(__DIR__ . '/views/Old-Policies.php');     
                             
                             $OLD_POLICY_DOCS='1';
+                            $HAS_OLD_LG_POL='1';
                             
                         } 
                         
@@ -825,6 +826,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             require_once(__DIR__ . '/views/LG-Policies.php');
                             
                             $NEW_POLICY_DOCS='1';
+                            $HAS_NEW_LG_POL='1';
                         }
 
                         $VIT_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
@@ -836,6 +838,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
                             require_once(__DIR__ . '/views/VITALITY-Policies.php');
+                            
+                            $HAS_VIT_POL='1';
                         }
 
                         $WOL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='One Family' AND client_id=:CID");
@@ -847,6 +851,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $WOLPolicies = new WOLPoliciesModal($pdo);
                             $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
                             require_once(__DIR__ . '/views/WOL-Policies.php');
+                            
+                            $HAS_WOL_POL='1';
                         }
 
                         $RL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Royal London' AND client_id=:CID");
@@ -858,6 +864,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $RLPolicies = new RLPoliciesModal($pdo);
                             $RLPoliciesList = $RLPolicies->getRLPolicies($search);
                             require_once(__DIR__ . '/views/RL-Policies.php');
+                            
+                            $HAS_RL_POL='1';
+                            
                         }
 
                         $Aviva_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Aviva' AND client_id=:CID");
@@ -869,6 +878,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $AvivaPolicies = new AvivaPoliciesModal($pdo);
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
                             require_once(__DIR__ . '/views/Aviva-Policies.php');
+                            
+                            $HAS_AVI_POL='1';
+                            
                         }
                         
                         $EngageMutual_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Engage Mutual' AND client_id=:CID");
@@ -1026,11 +1038,21 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_INSURER">Insurer:</label>
                                             <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
                                                 <option value="">Select insurer...</option>
+                                                <?php if(isset($HAS_OLD_LG_POL)|| isset($HAS_NEW_LG_POL)) { ?>
                                                 <option value="Legal and General">Legal and General</option>
+                                                <?php } 
+                                                if(isset($HAS_AVI_POL)) { ?>
                                                 <option value="Aviva">Aviva</option>
+                                                <?php } 
+                                                if(isset($HAS_VIT_POL)) { ?>
                                                 <option value="Vitality">Vitality</option>
+                                                <?php } 
+                                                if(isset($HAS_RL_POL)) { ?>
                                                 <option value="Royal London">Royal London</option>
+                                                <?php } 
+                                                if(isset($HAS_WOL_POL)) { ?>
                                                 <option value="One Family">One Family</option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                         

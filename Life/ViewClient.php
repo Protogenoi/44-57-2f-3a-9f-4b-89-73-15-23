@@ -1022,7 +1022,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     </form>
                                     <br>
-        <?php if (in_array($hello_name, $Level_9_Access, true)) { ?>
+        <?php if (in_array($hello_name, $Level_8_Access, true)) { ?>
 
                                         <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                 echo "#";

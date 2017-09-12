@@ -91,6 +91,7 @@ $Today_TIME = date("h:i:s");
                                 <div class="col-md-4">
                              <select class="form-control" name="CLOSER" id="CLOSER">
                                 <option value="All">All</option>
+                                <option value="carys">Carys</option>
                                 <option value="Corey">Corey</option>
                                 <option value="Mike">Mike</option>
                                 <option value="David">David</option>

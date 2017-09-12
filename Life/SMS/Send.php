@@ -18,7 +18,7 @@ if(isset($fferror)) {
     }
     
 $selectopt= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
-$WHICH_COMPANY= filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
+$WHICH_COMPANY= filter_input(INPUT_POST, 'SMS_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $search= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_NUMBER_INT);
 
@@ -29,8 +29,76 @@ $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS)
 $SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 
+$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London");
+$COMPANY_ARRAY=array("The Review Bureau","Bluestone Protect");
+
+if(!in_array($WHICH_COMPANY, $COMPANY_ARRAY)) {
+    header('Location: ../ViewClient.php?search='.$search); die;
+
+}
+
+if(!in_array($SMS_INSURER, $INSURER_ARRAY)) {
+    header('Location: ../ViewClient.php?search='.$search); die;
+
+}
+
 if(!isset($MESSAGE_OPTION)) {
     $MESSAGE_OPTION=$SMS_MESSAGE;
+}
+
+
+if(isset($WHICH_COMPANY)) {
+    
+if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Legal and General') {
+    $WHICH_COMPANY="The Review Bureau";
+    
+if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='One Family') {
+    $WHICH_COMPANY="TRB WOL";
+    
+}
+
+if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Royal London') {
+    $WHICH_COMPANY="TRB Royal London";
+    
+}
+
+if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Vitality') {
+    $WHICH_COMPANY="TRB Vitality";
+    
+}
+
+if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Aviva') {
+    $WHICH_COMPANY="TRB Aviva";
+    
+}    
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Legal and General') {
+    $WHICH_COMPANY="Bluestone Protect";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='One Family') {
+    $WHICH_COMPANY="One Family";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Royal London') {
+    $WHICH_COMPANY="Royal London";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Vitality') {
+    $WHICH_COMPANY="Vitality";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Aviva') {
+    $WHICH_COMPANY="Aviva";
+    
+}
+
 }
 
 if(isset($selectopt)) {

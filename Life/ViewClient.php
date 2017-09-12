@@ -793,9 +793,29 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     <?php
                     
                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
+                        
+                        if($WHICH_COMPANY=='The Review Bureau') {
+                            
+                        $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID AND insurer='Legal and General' AND client_id=:CID2 AND DATE(client_policy.submitted_date) <='2016-12-31'");
+                        $Old_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $Old_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
+                        $Old_CHECK->execute();
+                        if ($Old_CHECK->rowCount() > 0) {
+                            $LANG_POL = "1";
+                            require_once(__DIR__ . '/models/OldPoliciesModel.php');
+                            $OldPolicies = new OldPoliciesModal($pdo);
+                            $OldPoliciesList = $OldPolicies->getOldPolicies($search);
+                            require_once(__DIR__ . '/views/Old-Policies.php');     
+                            
+                            $OLD_POLICY_DOCS='1';
+                            
+                        } 
+                        
+                        }
 
-                        $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID");
+                        $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) >='2017-01-01' OR client_id=:CID AND insurer='Legal and General' AND client_id=:CID2 AND DATE(client_policy.submitted_date) >='2017-01-01'");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $LG_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
                         $LG_CHECK->execute();
                         if ($LG_CHECK->rowCount() > 0) {
                             $LANG_POL = "1";
@@ -803,6 +823,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $LGPolicies = new LGPoliciesModal($pdo);
                             $LGPoliciesList = $LGPolicies->getLGPolicies($search);
                             require_once(__DIR__ . '/views/LG-Policies.php');
+                            
+                            $NEW_POLICY_DOCS='1';
                         }
 
                         $VIT_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
@@ -1266,6 +1288,185 @@ if (isset($fileuploadedfail)) {
 
                         <?php 
                         
+                        if(isset($OLD_POLICY_DOCS) && isset($NEW_POLICY_DOCS)) {
+                            if($OLD_POLICY_DOCS=='1' && $NEW_POLICY_DOCS=='1') {
+                                ?>
+                            <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
+                            
+                            <a class="list-group-item" href="Letters/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Post Pack Letter</a>
+                            <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                
+                            
+                           
+                            <a class="list-group-item" href="Letters/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Trust Letter</a>
+                                
+                            <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                
+                            
+
+                                
+                            <a class="list-group-item" href="Letters/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Reinstate Letter</a>
+                                
+                            <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                
+                                
+                            <a class="list-group-item confirmation" href="Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Any Queries Call Us</a>
+                                
+                            <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                
+                            
+                            <?php 
+                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                            
+                            <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP My Account Details Email</a>
+                                
+                            <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>                                
+                            
+                                    <?php } ?>
+                            
+                            <?php if ($ffkeyfactsemail == '1') { ?>
+                            
+                                <a class="list-group-item confirmation" href="Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                    <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Closer Keyfacts Email</a>
+                                    
+                                <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                    <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                    
+                                    
+                                    
+                            <?php } ?>
+                                
+                            <!-- CLIENT TWO -->    
+                            <?php if (!empty($Single_Client['first_name2'])) { ?>
+                                <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
+                                
+                                <a class="list-group-item" href="Letters/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Post Pack Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                    
+                                
+                                
+                                <a class="list-group-item" href="Letters/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Trust Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                    
+                                  
+                                
+                                <a class="list-group-item" href="Letters/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Reinstate Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                    
+                               
+                                    <a class="list-group-item confirmation" href="Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Any Queries Call Us</a>
+                                        
+                                    <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                        
+                                
+                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                
+                                <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP My Account Details Email</a>
+                                
+                                <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>
+                                                                
+                                <?php } 
+                                
+                                
+                                if ($ffkeyfactsemail == '1') { ?>
+                                
+                                    <a class="list-group-item confirmation" href="Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                        if (!empty($clienttwomail)) {
+                            echo $clienttwomail;
+                        } else {
+                            echo $clientonemail;
+                        }
+                        ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Closer Keyfacts Email</a>
+                                        
+                                  <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                        if (!empty($clienttwomail)) {
+                            echo $clienttwomail;
+                        } else {
+                            echo $clientonemail;
+                        }
+                        ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                        
+                                        
+                            <?php } ?>
+                                
+                                <!-- JOINT -->
+
+                                <span class="label label-primary">Joint Letters/Emails</span>
+                                
+                                <a class="list-group-item" href="Letters/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Post Pack Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Post Pack Letter</a>                                    
+
+                                <a class="list-group-item" href="Letters/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Trust Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Trust Letter</a>                                    
+                              
+                                <a class="list-group-item" href="Letters/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Reinstate Letter</a>
+                                    
+                                <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Reinstate Letter</a>                                    
+                                    
+                            <?php } ?>
+
+                            <script type="text/javascript">
+                                var elems = document.getElementsByClassName('confirmation');
+                                var confirmIt = function (e) {
+                                    if (!confirm('Are you sure you want to send this email? The email will be immediately sent.'))
+                                        e.preventDefault();
+                                };
+                                for (var i = 0, l = elems.length; i < l; i++) {
+                                    elems[i].addEventListener('click', confirmIt, false);
+                                }
+                            </script>
+
+                            <?php                              
+                                
+                            }
+                            
+                        } else {
+                        
                         if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { ?>
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
@@ -1397,6 +1598,8 @@ if (isset($fileuploadedfail)) {
                             </script>
 
                             <?php
+                        }
+                        
                         }
 
                         if ($ffaudits == '1') {

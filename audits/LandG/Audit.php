@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
@@ -73,14 +73,14 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                     <div class="panel-body">
                         <p>
                         <div class='form-group'>
-                            <label for='closer'>Closer:</label>
-                            <select class='form-control' name='closer' id='full_name' required> 
+                            <label for='CLOSER'>Closer:</label>
+                            <select class='form-control' name='CLOSER' id='full_name' required> 
                                 <option value="">Select...</option>
 
                                 <script type="text/JavaScript"> 
                                     var $select = $('#full_name');
                                     $.getJSON('<?php
-                                    if ($companynamere == 'The Review Bureau') {
+                                    if ($companynamere == 'Bluestone Protect') {
                                         echo "/../../JSON/CloserNames.json";
                                     } if ($companynamere == 'ADL_CUS') {
                                         echo "/../../JSON/CUS_CLOSERS.json";
@@ -97,10 +97,10 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </div>
 
                         <div class='form-group'>
-                            <label for='closer2'>Closer (optional):</label>
-                            <select class='form-control' name='closer2' id='full_name2' >    
+                            <label for='CLOSER2'>Closer (optional):</label>
+                            <select class='form-control' name='CLOSER2' id='full_name2' >    
                                 <option value="None">None</option>    
-                                <?php if ($companynamere == 'The Review Bureau') { ?>
+                                <?php if ($companynamere == 'Bluestone Protect') { ?>
                                     <option value="Carys">Carys</option>
                                     <option value="Hayley">Hayley</option>
                                     <option value="James">James</option>
@@ -126,17 +126,17 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             </select>
                         </div>
 
-                        <label for="policy_number">Policy Number</label>
-                        <input type="text" class="form-control" name="policy_number" style="width: 520px">
+                        <label for="POLICY">Policy Number</label>
+                        <input type="text" class="form-control" name="POLICY" style="width: 520px">
 
-                        <label for="an_number">AN Number</label>
+                        <label for="AN_NUMBER">AN Number</label>
                         <input type="text" class="form-control" name="an_number" style="width: 520px" required>
 
                         </p>
 
                         <p>
                         <div class="form-group">
-                            <label for='grade'>Grade:</label>
+                            <label for='GRADE'>Grade:</label>
                             <select class="form-control" name="grade" required>
                                 <option value="">Select...</option>
                                 <option value="SAVED">Incomplete Audit (SAVE)</option>
@@ -299,7 +299,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q4">Q4. Did the closer provide the name and details of the firm who is regulated by the FCA?</label>
+                            <label for="q4">Q4. Did the CLOSER provide the name and details of the firm who is regulated by the FCA?</label>
                             <input type="radio" name="q4" 
 <?php if (isset($q4) && $q4 == "Yes") {
     echo "checked";
@@ -347,7 +347,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q5">Q5. Did the closer make the customer aware that they are unable to offer advice or personal opinion and that they will only be providing them with an information based service to make their own informed decision?</label>
+                            <label for="q5">Q5. Did the CLOSER make the customer aware that they are unable to offer advice or personal opinion and that they will only be providing them with an information based service to make their own informed decision?</label>
                             <input type="radio" name="q5" 
 <?php if (isset($q5) && $q5 == "Yes") {
     echo "checked";
@@ -646,7 +646,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q11">Q11. Did the closer confirm the policy was a single or a joint application?</label>
+                            <label for="q11">Q11. Did the CLOSER confirm the policy was a single or a joint application?</label>
                             <input type="radio" name="q11" 
 <?php if (isset($q11) && $q11 == "Yes") {
     echo "checked";
@@ -704,7 +704,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                     <div class="panel-body">
                         <p>
-                            <label for="q12">Q12. Did the closer check all details of what the client has with their existing life insurance policy?</label>
+                            <label for="q12">Q12. Did the CLOSER check all details of what the client has with their existing life insurance policy?</label>
                             <input type="radio" name="q12" 
                                    <?php if (isset($q12) && $q12 == "Yes") {
                                        echo "checked";
@@ -753,7 +753,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                         <p>
-                            <label for="q53">Q13. Did the closer mention waiver, indexation, or TPD?</label>
+                            <label for="q53">Q13. Did the CLOSER mention waiver, indexation, or TPD?</label>
                             <input type="radio" name="q53" 
                                    <?php if (isset($q53) && $q53 == "Yes") {
                                        echo "checked";
@@ -807,7 +807,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                         <p>
-                            <label for="q13">Q14. Did the closer ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label>
+                            <label for="q13">Q14. Did the CLOSER ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label>
                             <input type="radio" name="q13" 
 <?php if (isset($q13) && $q13 == "Yes") {
     echo "checked";
@@ -855,7 +855,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q14">Q15. Did The closer provide the customer with a sufficient amount of features and benefits for the policy?</label>
+                            <label for="q14">Q15. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
                             <select class="form-control" name="q14" onclick="javascript:yesnoCheckc14();">
                                 <option value="NA">Select...</option>
                                 <option value="More than sufficient">More than sufficient</option>
@@ -1168,7 +1168,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q18">Q21. Did the closer ask and accurately record the work and travel questions correctly?</label>
+                            <label for="q18">Q21. Did the CLOSER ask and accurately record the work and travel questions correctly?</label>
                             <input type="radio" name="q18" 
 <?php if (isset($q18) && $q18 == "Yes") {
     echo "checked";
@@ -1216,7 +1216,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q19">Q22. Did the closer ask and accurately record the hazardous activities questions?</label>
+                            <label for="q19">Q22. Did the CLOSER ask and accurately record the hazardous activities questions?</label>
                             <input type="radio" name="q19" 
 <?php if (isset($q19) && $q19 == "Yes") {
     echo "checked";
@@ -1264,7 +1264,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q20">Q23. Did the closer ask and accurately record the height and weight details correctly?</label>
+                            <label for="q20">Q23. Did the CLOSER ask and accurately record the height and weight details correctly?</label>
                             <input type="radio" name="q20" 
 <?php if (isset($q20) && $q20 == "Yes") {
     echo "checked";
@@ -1312,7 +1312,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q21">Q24. Did the closer ask and accurately record the smoking details correctly?</label>
+                            <label for="q21">Q24. Did the CLOSER ask and accurately record the smoking details correctly?</label>
                             <input type="radio" name="q21" 
                                    <?php if (isset($q21) && $q21 == "Yes") {
                                        echo "checked";
@@ -1360,7 +1360,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q22">Q25. Did the closer ask and accurately record the drug use details correctly?</label>
+                            <label for="q22">Q25. Did the CLOSER ask and accurately record the drug use details correctly?</label>
                             <input type="radio" name="q22" 
 <?php if (isset($q22) && $q22 == "Yes") {
     echo "checked";
@@ -1408,7 +1408,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q23">Q26. Did the closer ask and accurately record the alcohol consumption details correctly?</label>
+                            <label for="q23">Q26. Did the CLOSER ask and accurately record the alcohol consumption details correctly?</label>
                             <input type="radio" name="q23" 
 <?php if (isset($q23) && $q23 == "Yes") {
     echo "checked";
@@ -1788,7 +1788,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                         <p>
-                            <label for="q54">Q34. If appropriate did the closer confirm the exclusions on the policy?</label>
+                            <label for="q54">Q34. If appropriate did the CLOSER confirm the exclusions on the policy?</label>
                             <input type="radio" name="q54" 
 <?php if (isset($q54) && $q54 == "Yes") {
     echo "checked";
@@ -1900,7 +1900,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q33">Q36. Did the closer offer to read the direct debit guarantee?</label>
+                            <label for="q33">Q36. Did the CLOSER offer to read the direct debit guarantee?</label>
                             <input type="radio" name="q33" 
 <?php if (isset($q33) && $q33 == "Yes") {
     echo "checked";
@@ -1948,7 +1948,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q34">Q37. Did the closer offer a preferred premium collection date?</label>
+                            <label for="q34">Q37. Did the CLOSER offer a preferred premium collection date?</label>
                             <input type="radio" name="q34" 
 <?php if (isset($q34) && $q34 == "Yes") {
     echo "checked";
@@ -1996,7 +1996,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q35">Q38. Did the closer record the bank details correctly?</label>
+                            <label for="q35">Q38. Did the CLOSER record the bank details correctly?</label>
                             <input type="radio" name="q35" 
 <?php if (isset($q35) && $q35 == "Yes") {
     echo "checked";
@@ -2204,7 +2204,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
 
                         <p>
-                            <label for="q40">Q42. Like mentioned earlier did the closer make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label>
+                            <label for="q40">Q42. Like mentioned earlier did the CLOSER make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label>
                             <input type="radio" name="q40" 
 <?php if (isset($q40) && $q40 == "Yes") {
     echo "checked";
@@ -2300,7 +2300,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q42">Q44. Did the closer confirm that the customer will be getting a 'my account' email from Legal and General?</label>
+                            <label for="q42">Q44. Did the CLOSER confirm that the customer will be getting a 'my account' email from Legal and General?</label>
                             <input type="radio" name="q42" 
 <?php if (isset($q42) && $q42 == "Yes") {
     echo "checked";
@@ -2445,7 +2445,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q45">Q47. Did the closer confirm to the customer to cancel any existing direct debit?</label>
+                            <label for="q45">Q47. Did the CLOSER confirm to the customer to cancel any existing direct debit?</label>
                             <input type="radio" name="q45" 
 <?php if (isset($q45) && $q45 == "Yes") {
     echo "checked";
@@ -2749,7 +2749,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q51">Q53. Closer provided contact details for The Review Bureau?</label>
+                            <label for="q51">Q53. Closer provided contact details for Bluestone Protect?</label>
                             <input type="radio" name="q51" 
 <?php if (isset($q51) && $q51 == "Yes") {
     echo "checked";
@@ -2797,7 +2797,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                         </script>
 
                         <p>
-                            <label for="q52">Q54. Did the closer keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label>
+                            <label for="q52">Q54. Did the CLOSER keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label>
                             <input type="radio" name="q52" 
 <?php if (isset($q52) && $q52 == "Yes") {
     echo "checked";

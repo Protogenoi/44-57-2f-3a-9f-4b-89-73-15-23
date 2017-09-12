@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 require_once(__DIR__ . '/../../../includes/adl_features.php');
@@ -25,6 +25,13 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($EXECUTE)) {
     if($EXECUTE=="NEW") {
+        
+    $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CLOSER2 = filter_input(INPUT_POST, 'CLOSER2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $POLICY = filter_input(INPUT_POST, 'POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
+    $AN_NUMBER = filter_input(INPUT_POST, 'AN_NUMBER', FILTER_SANITIZE_SPECIAL_CHARS);
+    $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
+        
 
     $q1 = filter_input(INPUT_POST, 'q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $q2 = filter_input(INPUT_POST, 'q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -146,13 +153,11 @@ if (isset($EXECUTE)) {
     $c54 = filter_input(INPUT_POST, 'c54', FILTER_SANITIZE_SPECIAL_CHARS);
     $c55 = filter_input(INPUT_POST, 'c55', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    $grade = filter_input(INPUT_POST, 'grade', FILTER_SANITIZE_SPECIAL_CHARS);
-    $closer = filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
-    $closer2 = filter_input(INPUT_POST, 'closer2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $policy_number = filter_input(INPUT_POST, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
-    $annumber = filter_input(INPUT_POST, 'an_number', FILTER_SANITIZE_SPECIAL_CHARS);
+    
 
-    $NEW_annumber = preg_replace('/\s+/', '', $annumber);
+
+
+    $NEW_annumber = preg_replace('/\s+/', '', $AN_NUMBER);
   $totalCorrect = 0;
 
 if ($q1 =="Yes") { $totalCorrect++; }
@@ -261,15 +266,13 @@ $totalincorrect;
 
 
     $query = $pdo->prepare("INSERT INTO closer_audits SET 
-        an_number=:an_number,
- total:=total,
- closer:=closer,
- closer2:=closer2,
- cal_grade:=percentage2,
- score:=percentage,
- auditor:=auditor,
- policy_number:=policy,
- grade:=grade,
+
+closer:=CLOSER,
+closer2:=CLOSER2,
+policy_number:=POLICY,
+an_number=:AN_NUMBER,
+grade:=GRADE,
+
  q1:=q1,
  c1:=c1,
  q2:=q2,
@@ -279,6 +282,8 @@ $totalincorrect;
  q4:=q4,
  c4:=c4,
  q5:=q5,
+
+
  c5:=c5,
  q6:=q6,
  c6:=c6,
@@ -292,6 +297,18 @@ $totalincorrect;
  c10:=c10,
  q11:=q11,
  c11:=c11,
+
+
+ total:=total,
+ cal_grade:=percentage2,
+ score:=percentage,
+ auditor:=auditor,
+ 
+ 
+
+ 
+
+
  q12:=q12,
  c12:=c12,
  q13:=q13,
@@ -379,15 +396,13 @@ $totalincorrect;
  q55:=q55,
  c55:=c55,
  date_submitted=CURRENT_TIMESTAMP");
-    $query->bindParam(':total', $totalCorrect, PDO::PARAM_STR, 2500);
-    $query->bindParam(':closer', $closer, PDO::PARAM_STR, 2500);
-    $query->bindParam(':closer2', $closer2, PDO::PARAM_STR, 2500);
-    $query->bindParam(':percentage2', $percentage2, PDO::PARAM_STR, 2500);
-    $query->bindParam(':percentage ', $percentage, PDO::PARAM_STR, 2500);
-    $query->bindParam(':auditor ', $hello_name, PDO::PARAM_STR, 2500);
-    $query->bindParam(':policy', $policy_number, PDO::PARAM_STR, 2500);
-    $query->bindParam(':an_number', $NEW_annumber, PDO::PARAM_STR, 2500);
-    $query->bindParam(':grade ', $grade, PDO::PARAM_STR, 2500);
+    
+    $query->bindParam(':CLOSER', $CLOSER, PDO::PARAM_STR, 100);
+    $query->bindParam(':CLOSER2', $CLOSER2, PDO::PARAM_STR, 100);
+    $query->bindParam(':POLICY', $POLICY, PDO::PARAM_STR, 50);
+    $query->bindParam(':an_number', $NEW_annumber, PDO::PARAM_STR, 50);
+    $query->bindParam(':GRADE ', $GRADE, PDO::PARAM_STR, 12);
+    
     $query->bindParam(':q1', $q1, PDO::PARAM_STR, 2500);
     $query->bindParam(':c1', $c1, PDO::PARAM_STR, 2500);
     $query->bindParam(':q2', $q2, PDO::PARAM_STR, 2500);
@@ -398,6 +413,7 @@ $totalincorrect;
     $query->bindParam(':c4', $c4, PDO::PARAM_STR, 2500);
     $query->bindParam(':q5', $q5, PDO::PARAM_STR, 2500);
     $query->bindParam(':c5', $c5, PDO::PARAM_STR, 2500);
+    
     $query->bindParam(':q6', $q6, PDO::PARAM_STR, 2500);
     $query->bindParam(':c6', $c6, PDO::PARAM_STR, 2500);
     $query->bindParam(':q7', $q7, PDO::PARAM_STR, 2500);
@@ -410,6 +426,16 @@ $totalincorrect;
     $query->bindParam(':c10', $c10, PDO::PARAM_STR, 2500);
     $query->bindParam(':q11', $q11, PDO::PARAM_STR, 2500);
     $query->bindParam(':c11', $c11, PDO::PARAM_STR, 2500);
+    
+    
+    
+    $query->bindParam(':percentage2', $percentage2, PDO::PARAM_STR, 2500);
+    $query->bindParam(':percentage ', $percentage, PDO::PARAM_STR, 2500);
+    $query->bindParam(':auditor ', $hello_name, PDO::PARAM_STR, 2500);
+    $query->bindParam(':total', $totalCorrect, PDO::PARAM_STR, 2500);
+    
+
+
     $query->bindParam(':q12', $q12, PDO::PARAM_STR, 2500);
     $query->bindParam(':c12', $c12, PDO::PARAM_STR, 2500);
     $query->bindParam(':q13', $q13, PDO::PARAM_STR, 2500);

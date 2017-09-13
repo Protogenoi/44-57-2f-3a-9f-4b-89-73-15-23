@@ -186,7 +186,7 @@ if (isset($hello_name)) {
 
 
                         <?php
-                        if ($companynamere == 'Bluestone Protect' || $companynamere == 'ADL_CUS') {
+                        if ($companynamere == 'Bluestone Protect') {
                             if (in_array($hello_name, $Level_8_Access, true)) {
 
 
@@ -343,7 +343,6 @@ ews_data.policy_number
                         }
 
                         if ($companynamere != 'Bluestone Protect') {
-                            if ($companynamere != 'ADL_CUS') {
 
                                 $polid = $data2['id'];
                                 $policy_number = $data2["policy_number"];
@@ -448,7 +447,7 @@ ews_data.policy_number
 
                                 </form>
                             <?php
-                            }
+                          
                         }
                         ?>
                         <form class="AddClient">

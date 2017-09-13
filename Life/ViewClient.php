@@ -1038,21 +1038,17 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_INSURER">Insurer:</label>
                                             <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
                                                 <option value="">Select insurer...</option>
-                                                <?php if(isset($HAS_OLD_LG_POL)|| isset($HAS_NEW_LG_POL)) { ?>
+                                                
                                                 <option value="Legal and General">Legal and General</option>
-                                                <?php } 
-                                                if(isset($HAS_AVI_POL)) { ?>
+                                                
                                                 <option value="Aviva">Aviva</option>
-                                                <?php } 
-                                                if(isset($HAS_VIT_POL)) { ?>
+                                              
                                                 <option value="Vitality">Vitality</option>
-                                                <?php } 
-                                                if(isset($HAS_RL_POL)) { ?>
+                                             
                                                 <option value="Royal London">Royal London</option>
-                                                <?php } 
-                                                if(isset($HAS_WOL_POL)) { ?>
+                                          
                                                 <option value="One Family">One Family</option>
-                                                <?php } ?>
+                                               
                                             </select>
                                         </div>
                                         

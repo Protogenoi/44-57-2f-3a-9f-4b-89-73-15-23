@@ -680,6 +680,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email uncontactable client</h4>
                 </div>
                 <div class="modal-body">
+                    
                     <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Vitality') { echo "Emails"; } else { echo "/email/php"; } ?>/SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>

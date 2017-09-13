@@ -1037,16 +1037,11 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <div class="form-group">
                                             <label for="SMS_INSURER">Insurer:</label>
                                             <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
-                                                <option value="">Select insurer...</option>
-                                                
-                                                <option value="Legal and General">Legal and General</option>
-                                                
-                                                <option value="Aviva">Aviva</option>
-                                              
-                                                <option value="Vitality">Vitality</option>
-                                             
-                                                <option value="Royal London">Royal London</option>
-                                          
+                                                <option value="">Select insurer...</option> 
+                                                <option value="Legal and General">Legal and General</option>                                                
+                                                <option value="Aviva">Aviva</option>                                              
+                                                <option value="Vitality">Vitality</option>                                             
+                                                <option value="Royal London">Royal London</option>                                          
                                                 <option value="One Family">One Family</option>
                                                
                                             </select>

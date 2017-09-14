@@ -195,8 +195,8 @@ if ($companynamere == 'Bluestone Protect') {
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys","Carys Riley");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Heidy", "Nicola", "Mike","James Adams","Carys Riley","Hayley Hutchinson");
-    $Level_3_Access = array("Shaunagh","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured","David","Richard","James Adams");
-    $Level_1_Access = array("Shaunagh","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured","Keith","David","Darryl","Gavin","James Adams");
+    $Level_3_Access = array("Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured","David","Richard","James Adams");
+    $Level_1_Access = array("Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured","Keith","David","Darryl","Gavin","James Adams");
     
     $Task_Access = array("Abbiek","Jakob");
     
@@ -206,7 +206,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey","Gavin");
     $Manager_Access = array("Corey Divetta","Hayley Hutchinson","Sarah Wallace","Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Ryan","Amy","Rhiannon","Jakob","James Adams");
     
-    $QA_Access = array("Michael","Shaunagh","Nathan Thomas","Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy","Ryan");
+    $QA_Access = array("Michael","Nathan Thomas","Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy","Ryan");
     
     $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
     

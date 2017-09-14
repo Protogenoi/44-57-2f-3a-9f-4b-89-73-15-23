@@ -73,7 +73,6 @@ if (isset($fferror)) {
     ?>
   <div class="container">
 
-      <?php email_sent_catch(); ?>
 
 <form class="form-horizontal" method="post" action="php/SendGeneric.php" enctype="multipart/form-data">
 

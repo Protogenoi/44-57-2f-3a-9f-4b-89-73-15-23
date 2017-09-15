@@ -2526,7 +2526,7 @@ try {
                     }
                 }
 
-                if ($client_date_added >= "2016-06-19" && $WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
+                if ($client_date_added >= "2016-06-19") {
 
                     $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);

@@ -215,6 +215,8 @@ if ($companynamere == 'Bluestone Protect') {
     $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Abbiek","Michael","Nick","Tina","Matt","leighton");
     
+    $AUDIT_SEARCH_ACCESS=array("Amy","Ryan","Rhi","Nathan Thomas");
+    
     $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 }
 

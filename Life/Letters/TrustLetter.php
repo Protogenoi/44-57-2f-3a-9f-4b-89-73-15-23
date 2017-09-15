@@ -34,8 +34,8 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
     $main->execute();
     $data2=$main->fetch(PDO::FETCH_ASSOC);
     
-    $NAMEONE=$data2['NAME'];
-    $NAMETWO=$data2['NAMET'];
+    $NAMEONE=htmlspecialchars_decode($data2['NAME'], ENT_QUOTES);
+    $NAMETWO=htmlspecialchars_decode($data2['NAMET'], ENT_QUOTES);
     $ADD1=$data2['address1'];
     $ADD2=$data2['address2'];
     $ADD3=$data2['address3'];

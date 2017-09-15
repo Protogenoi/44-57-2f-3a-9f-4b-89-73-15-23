@@ -275,7 +275,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "/datatables/ClientSearch.php?ClientSearch=6&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                    "ajax": "/datatables/ClientSearch.php?ClientSearch=<?php if(in_array($hello_name,$AUDIT_SEARCH_ACCESS)) { echo "9"; } else { echo "6"; } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',

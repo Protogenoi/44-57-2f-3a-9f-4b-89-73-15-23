@@ -27,10 +27,8 @@ require_once(__DIR__ . '../../includes/Access_Levels.php');
 $ClientSearch= filter_input(INPUT_GET, 'ClientSearch', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ClientSearch)) {
-    
-    if($ClientSearch=='1') { 
-        
     include('../includes/ADL_PDO_CON.php');
+    if($ClientSearch=='1') { 
 
         $query = $pdo->prepare("SELECT company, phone_number, submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details ORDER BY client_id DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -56,8 +54,7 @@ print json_encode($rows);
             }
             
     if($ClientSearch=='5') { 
-        
-    include('../includes/ADL_PDO_CON.php');
+
         $query = $pdo->prepare("SELECT company, phone_number, submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code FROM client_details WHERE company='TRB Home Insurance' ORDER BY submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
@@ -66,9 +63,7 @@ echo json_encode($results);
         }              
         
     if($ClientSearch=='6') {
-        
-            include('../includes/ADL_PDO_CON.php');
-        
+
      if(in_array($USER, $EWS_SEARCH_ACCESS,true)) {
 
 $query = $pdo->prepare("SELECT 
@@ -135,7 +130,27 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
        
-   }   
+   }  
+   
+   if($ClientSearch=='9') {
+       if(in_array($USER, $AUDIT_SEARCH_ACCESS,true)) {
+           
+           $YEAR= date('Y');
+           $ALL_YEAR= "$YEAR-01-01";
+       
+       $query = $pdo->prepare("SELECT
+               company,submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code 
+               FROM client_details 
+               WHERE DATE(submitted_date) >=:YEAR 
+               ORDER BY client_id DESC");
+       $query->bindParam(':YEAR', $ALL_YEAR, PDO::PARAM_STR);
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+
+echo json_encode($results);
+       
+   }
+   }
             
         }            
             

@@ -211,8 +211,8 @@ if ($companynamere == 'Bluestone Protect') {
     $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
     
     $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Abbiek","Nicola","carys");
-    $EWS_SEARCH_ACCESS=array();
-    $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
+    $EWS_SEARCH_ACCESS=array("Corey Divetta");
+    $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Abbiek","Michael","Nick","Tina","Matt","leighton");
     
     $AUDIT_SEARCH_ACCESS=array("Amy","Ryan","Rhi","Nathan Thomas");

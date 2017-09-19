@@ -176,6 +176,30 @@ $error = $my_access->the_msg;
                 
             </div>
             
+            <?php
+            
+            function getRealIpAddr()
+{
+    if (!empty(filter_input(INPUT_SERVER,'HTTP_CLIENT_IP', FILTER_SANITIZE_SPECIAL_CHARS)))   
+    {
+      $ip=filter_input(INPUT_SERVER,'HTTP_CLIENT_IP', FILTER_SANITIZE_SPECIAL_CHARS);
+    } 
+    elseif (!empty(filter_input(INPUT_SERVER,'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_SPECIAL_CHARS)))
+    {
+      $ip=filter_input(INPUT_SERVER,'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    else
+    { 
+      $ip=filter_input(INPUT_SERVER,'REMOTE_ADDR', FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+    return $ip;
+}
+
+getRealIpAddr();
+$TRACKED_IP= getRealIpAddr();
+if($TRACKED_IP=='81.145.167.66') {
+?>
+            
             <div class="footer navbar-fixed-bottom">
                 <center>         
                     <a class="btn btn-success btn-sm" href="https://www10.landg.com/SAuthGateWeb/login.html?domain=olpc&ut=z&entryPoint=https%3A%2F%2Fwww10.landg.com%2FProtectionPortal%2Fsecure%2FHome" target="_blank">Legal and General</a>
@@ -186,7 +210,7 @@ $error = $my_access->the_msg;
                     <a class="btn btn-success btn-sm" href="mailto:michael@adl-crm.uk?Subject=ADL"> <strong>ADL Email Support</strong> </a>
                 </center>
             </div>            
-
+<?php } ?>
         </div>
 
         <script type="text/javascript">

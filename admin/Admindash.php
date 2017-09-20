@@ -1786,6 +1786,7 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                     
                                     $TRACKING_USER = filter_input(INPUT_POST, 'TRACKING_USER', FILTER_SANITIZE_SPECIAL_CHARS);
                                     $TRACKING_DATE = filter_input(INPUT_POST, 'TRACKING_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    $TRACKING_DATETO = filter_input(INPUT_POST, 'TRACKING_DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
                                     
                                     ?>
  
@@ -1794,11 +1795,19 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                     <form method="POST" action="?users=y" class="form-horizontal">
                                         <fieldset>
                                             <div class="form-group">
-                                                <label class="col-md-4 control-label" for="TRACKING_DATE">Date:</label>
+                                                <label class="col-md-4 control-label" for="TRACKING_DATE">Date from:</label>
                                                 <div class="col-md-4">
                                                     <input class="form-control" type="text" name="TRACKING_DATE" id="TRACKING_DATE" required value="<?php if (isset($TRACKING_DATE)) { echo $TRACKING_DATE; } ?>" >
                                                 </div>
-                                            </div>                                         
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label" for="TRACKING_DATE">Date to:</label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control" type="text" name="TRACKING_DATETO" id="TRACKING_DATETO" required value="<?php if (isset($TRACKING_DATETO)) { echo $TRACKING_DATETO; } ?>" >
+                                                </div>
+                                            </div> 
+                                            </div>
                                         
                                          <div class="form-group">
                                             <label class="col-md-4 control-label" for="TRACKING_USER">Select user</label>
@@ -1830,12 +1839,12 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                             
                             require_once(__DIR__ . '/models/users/HistoryOverviewModel.php');
                             $HistoryOverview = new HistoryOverviewModal($pdo);
-                            $HistoryOverviewList = $HistoryOverview->getHistoryOverview($TRACKING_USER,$TRACKING_DATE);
+                            $HistoryOverviewList = $HistoryOverview->getHistoryOverview($TRACKING_USER,$TRACKING_DATE,$TRACKING_DATETO);
                             require_once(__DIR__ . '/views/users/HistoryOverview.php');                               
                            
                             require_once(__DIR__ . '/models/users/HistoryTrackingModel.php');
                             $HistoryTracking = new HistoryTrackingModal($pdo);
-                            $HistoryTrackingList = $HistoryTracking->getHistoryTracking($TRACKING_USER,$TRACKING_DATE);
+                            $HistoryTrackingList = $HistoryTracking->getHistoryTracking($TRACKING_USER,$TRACKING_DATE,$TRACKING_DATETO);
                             require_once(__DIR__ . '/views/users/HistoryTracking.php'); 
                             
                             ?>
@@ -3055,6 +3064,16 @@ if ($settingsselect == 'y') {
 <script>
         $(function () {
             $("#TRACKING_DATE").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:-0"
+            });
+        });
+        </script>
+        <script>
+        $(function () {
+            $("#TRACKING_DATETO").datepicker({
                 dateFormat: 'yy-mm-dd',
                 changeMonth: true,
                 changeYear: true,

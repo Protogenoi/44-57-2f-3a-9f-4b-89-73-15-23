@@ -8,7 +8,7 @@ class HistoryOverviewModal {
         $this->pdo = $pdo;
     }
 
-    public function getHistoryOverview($TRACKING_USER,$TRACKING_DATE) {
+    public function getHistoryOverview($TRACKING_USER,$TRACKING_DATE,$TRACKING_DATETO) {
 
         $stmt = $this->pdo->prepare("SELECT 
     tracking_history_user,
@@ -101,9 +101,10 @@ FROM
 WHERE
     tracking_history_user=:USER
 AND
-    DATE(tracking_history_date)=:DATE");
+    DATE(tracking_history_date) BETWEEN :DATE AND :DATETO");
         $stmt->bindParam(':USER', $TRACKING_USER, PDO::PARAM_STR);
         $stmt->bindParam(':DATE', $TRACKING_DATE, PDO::PARAM_STR);
+        $stmt->bindParam(':DATETO', $TRACKING_DATETO, PDO::PARAM_STR);
         $stmt->execute();
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

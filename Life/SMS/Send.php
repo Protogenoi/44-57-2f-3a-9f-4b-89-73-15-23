@@ -52,6 +52,8 @@ if(isset($WHICH_COMPANY)) {
 if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Legal and General') {
     $WHICH_COMPANY="The Review Bureau";
     
+}
+    
 if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='One Family') {
     $WHICH_COMPANY="TRB WOL";
     
@@ -72,7 +74,6 @@ if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Aviva') {
     
 }    
     
-}
 
 if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Legal and General') {
     $WHICH_COMPANY="Bluestone Protect";
@@ -102,6 +103,8 @@ if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Aviva') {
 }
 
 if(isset($selectopt)) {
+    
+    echo "COMPANY: $WHICH_COMPANY | INSURER $SMS_INSURER | TITLE = $selectopt";
 
 include('../../includes/ADL_PDO_CON.php');
 

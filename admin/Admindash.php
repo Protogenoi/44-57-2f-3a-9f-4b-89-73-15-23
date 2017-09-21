@@ -1807,7 +1807,7 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                                     <input class="form-control" type="text" name="TRACKING_DATETO" id="TRACKING_DATETO" required value="<?php if (isset($TRACKING_DATETO)) { echo $TRACKING_DATETO; } ?>" >
                                                 </div>
                                             </div> 
-                                            </div>
+                          
                                         
                                          <div class="form-group">
                                             <label class="col-md-4 control-label" for="TRACKING_USER">Select user</label>
@@ -1821,7 +1821,9 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                         
                                         
                                     </form>
-                                    </div> <br><br><br><br><br><br>
+                                    </div> 
+                                
+                                <br><br><br><br><br><br>
 <br><br><br>                            <?php
                         
                             if(isset($TRACKING_USER) && $TRACKING_DATE) {

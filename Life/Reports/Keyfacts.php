@@ -33,6 +33,7 @@ if ($fflife=='0') {
     }
 
     $SEARCH = filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
+    $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +61,12 @@ if ($fflife=='0') {
           
           <div class='notice notice-primary' role='alert'><h2> <center><strong><?php if(isset($SEARCH) && $SEARCH=='NotSent') { echo "No attempts at sending a KeyFacts email to client"; } else { echo "KeyFacts email attempts"; } ?></strong></center></h2> </div>
     <br> 
+    <?php if(isset($RETURN) && $RETURN=='IGNORE') { ?>
+    
+          <div class='notice notice-success' role='alert'><center><strong><i class="fa fa-exclamation"></i> Keyfacts email alert dismissed!</strong></center> </div>
+    
+    
+    <?php } ?>
     
     <form action="" method="GET">
                 <div class="form-group col-xs-3">
@@ -78,7 +85,8 @@ if ($fflife=='0') {
                 <th><?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "ADL Client Added Date"; } if($SEARCH=="Sent") { echo "Sent Date"; } } if(!isset($SEARCH)) { echo "Sent Date"; } ?></th>
                 <th>Email</th>
                 <th>User</th>
-                <?php if(isset($SEARCH)) { if($SEARCH='NotSent') { echo "<th>View</th>"; } }?>
+                <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>View</th>"; } }?>
+                <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>Dismiss?</th>"; } }?>
             </tr>
         </thead>
         <tfoot>
@@ -87,7 +95,8 @@ if ($fflife=='0') {
                 <th>Date</th>
                 <th>Email</th>
                 <th>User</th>
-                <?php if(isset($SEARCH)) { if($SEARCH='NotSent') { echo "<th>View</th>"; } }?>
+                <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>View</th>"; } }?>
+                <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>Dismiss?</th>"; } }?>
             </tr>
         </tfoot>
     </table>
@@ -202,6 +211,10 @@ if ($fflife=='0') {
                             "render": function (data, type, full, meta) {
                                 return '<a href="/Life/ViewClient.php?search=' + data + ' " target="_blank">View</a>';
                             }},
+                                                {"data": "email",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/Life/php/Keyfacts.php?EXECUTE=1&EMAIL=' + data + ' " target="_blank"><i class="fa fa-check-circle-o"></i></a>';
+                            }}                        
 
                     ]
                 });

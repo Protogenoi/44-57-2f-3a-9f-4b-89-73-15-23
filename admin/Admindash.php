@@ -103,7 +103,6 @@ $companynamere = $companydetailsq['company_name'];
 
                 <a class="list-group-item" href="?AssignTasks=y"><i class="fa fa-tasks fa-fw"></i>&nbsp; Task Assignment</a>
 
-                <a class="list-group-item" href="?Firewall=y"><i class="fa fa-fire fa-fw"></i>&nbsp; Firewall</a>
 
                 <a class="list-group-item" href="?Vicidial=y"><i class="fa fa-headphones fa-fw"></i>&nbsp; Bluetelecoms Integration</a>
 
@@ -130,7 +129,6 @@ $companynamere = $companydetailsq['company_name'];
                         $AssignTasksselect = filter_input(INPUT_GET, 'AssignTasks', FILTER_SANITIZE_SPECIAL_CHARS);
                         $usersselect = filter_input(INPUT_GET, 'users', FILTER_SANITIZE_SPECIAL_CHARS);
                         $adminselect = filter_input(INPUT_GET, 'admindash', FILTER_SANITIZE_SPECIAL_CHARS);
-                        $fireselect = filter_input(INPUT_GET, 'Firewall', FILTER_SANITIZE_SPECIAL_CHARS);
                         $vicidialselect = filter_input(INPUT_GET, 'Vicidial', FILTER_SANITIZE_SPECIAL_CHARS);
                         $connexselect = filter_input(INPUT_GET, 'Connex', FILTER_SANITIZE_SPECIAL_CHARS);
                         $providerselect = filter_input(INPUT_GET, 'provider', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -1954,72 +1952,6 @@ if ($adminselect == 'y') {
                             <h1><i class="fa fa-cog"></i> Admin Dashboard</h1>
                             <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
                             <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-
-<?php }
-
-if ($fireselect == 'y') {
-    ?>
-
-                            <h1><i class="fa fa-fire"></i> Firewall Configuration</h1>
-                            <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">Add IP to whitelist</div>
-                                <div class="panel-body">
-
-    <?php
-    if ($_GET["ip"]) {
-        $thisip = $_GET["ip"];
-        if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\z/', $thisip)) {
-            $old_path = getcwd();
-            $output = shell_exec("bash addip.sh $thisip");
-            echo "<pre>$output $thisip added</pre><br><a href='Admindash.php'>Add another</a>";
-        } else {
-            die("Enter a valid IP Address");
-        }
-    } else {
-        echo '<form autocomplete="off" id="from1" class="form-horizontal"  name="input" action="Admindash.php" method="get">';
-        echo '<div class="form-group"><label class="col-md-4 control-label" for="enter">IP address:</label>  <div class="col-md-4"> <input class="form-control input-md" placeholder="94.23.217.206" type="text" name="ip"></div</div>';
-        echo '<br>    <div class="form-group">
-      <div class="col-xs-2"><button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Submit</button></div></div>';
-        echo '<input type="hidden" value="y" name="Firewall"></form>';
-    }
-    ?>
-                                    <script>
-                                        document.querySelector('#from1').addEventListener('submit', function (e) {
-                                            var form = this;
-                                            e.preventDefault();
-                                            swal({
-                                                title: "Add IP?",
-                                                text: "Submit IP address to firewall?",
-                                                type: "warning",
-                                                showCancelButton: true,
-                                                confirmButtonColor: '#DD6B55',
-                                                confirmButtonText: 'Yes!',
-                                                cancelButtonText: "No, cancel it!",
-                                                closeOnConfirm: false,
-                                                closeOnCancel: false
-                                            },
-                                                    function (isConfirm) {
-                                                        if (isConfirm) {
-                                                            swal({
-                                                                title: 'Complete!',
-                                                                text: 'Firewall rules updated!',
-                                                                type: 'success'
-                                                            }, function () {
-                                                                form.submit();
-                                                            });
-
-                                                        } else {
-                                                            swal("Cancelled", "No Changes have been made", "error");
-                                                        }
-                                                    });
-                                        });
-
-                                    </script>
-                                </div>
-                            </div>
 
 <?php }
 

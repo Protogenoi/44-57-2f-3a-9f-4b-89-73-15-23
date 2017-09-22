@@ -50,24 +50,6 @@ if(isset($provider)){
         }     
         
         }
-        
-        if($provider=='BulkSMS') {
-            
-            $query = $pdo->prepare("INSERT INTO sms_accounts set submitter=:hello, smsprovider='Bulk SMS', smsusername=:user, smspassword=AES_ENCRYPT(:pass, UNHEX(:key))");
-            $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
-            $query->bindParam(':user', $smsusername, PDO::PARAM_STR, 100);
-            $query->bindParam(':pass', $smspassword, PDO::PARAM_STR, 500);
-            $query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 100);     
-            $query->execute()or die(print_r($query->errorInfo(), true));
-            
-            if(isset($fferror)) {
-                if($fferror=='0') {
-                    header('Location: ../Admindash.php?smsaccount=y&SMS=y'); die;
-                    }
-                    
-                }
-                
-                } 
                 
                 }
                 

@@ -31,7 +31,7 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
 if ($fflife == '1') {
 if(in_array($hello_name,$Task_Access,true)) {
     $NAVdate = date("Y-m-d");
-echo "YES";
+
     $navbar = $pdo->prepare("select count(deadline) AS badge from Client_Tasks where deadline=:date AND assigned =:navbarname and complete ='0'");
     $navbar->bindParam(':navbarname', $hello_name, PDO::PARAM_STR, 25);
     $navbar->bindParam(':date', $NAVdate, PDO::PARAM_STR, 25);

@@ -545,7 +545,6 @@ $companynamere = $companydetailsq['company_name'];
                                 <li class="active"><a data-toggle="pill" href="#"><i class="fa  fa-envelope-o"></i></a></li>
                                 <li><a data-toggle="pill" href="#SMSTemplates">SMS Templates</a></li>
                                 <li><a data-toggle="pill" href="#SMSAddmessage">Add message</a></li>
-                                <li><a data-toggle="pill" href="#SMSSettings">Bulk SMS Settings</a></li>
                                 <li><a data-toggle="pill" href="#TwilioSettings">Twilio</a></li>
 
                             </ul>
@@ -723,41 +722,6 @@ $companynamere = $companydetailsq['company_name'];
                                     </form>
 
 
-
-                                </div>
-
-                                <div id="SMSSettings" class="tab-pane fade">
-
-
-                                    <form class="form-horizontal" method="POST" action="php/Addsmsaccounts.php?addsms&provider=BulkSMS">
-                                        <fieldset>
-                                            <legend>Bulk SMS</legend>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label" for="smsusername">Username</label>  
-                                                <div class="col-md-4">
-                                                    <input id="smsusername" name="smsusername" placeholder="" class="form-control input-md" value="<?php echo $smsuser; ?>" required="" type="text">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label" for="smspassword">Password</label>
-                                                <div class="col-md-4">
-                                                    <input id="smspassword" name="smspassword" placeholder="" class="form-control input-md" value="<?php echo $smspass; ?>" required="" type="password">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label class="col-md-4 control-label" for="singlebutton"></label>
-                                                <div class="col-md-4">
-                                                    <button id="submitsms" name="submitsms" class="btn btn-success">Submit</button>
-                                                </div>
-                                            </div>
-
-                                        </fieldset>
-                                    </form>
 
                                 </div>
 

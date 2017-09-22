@@ -202,7 +202,7 @@ $companynamere = $companydetailsq['company_name'];
             });
         }
 
-        t = setInterval(refresh_div, 5000);
+        t = setInterval(refresh_div, 3000);
     </script>
 <?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
                 <div class="LIVERESULTS">
@@ -224,6 +224,6 @@ $companynamere = $companydetailsq['company_name'];
             });
         }
 
-        t = setInterval(refresh_div, 5000);
+        t = setInterval(refresh_div, 3000);
     </script>
 <?php }  } ?>

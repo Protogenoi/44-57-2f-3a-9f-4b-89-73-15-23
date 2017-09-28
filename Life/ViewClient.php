@@ -2080,8 +2080,8 @@ if (isset($fileuploadedfail)) {
                     <?php
                     try {
 
-                        $query55 = $pdo->prepare("SELECT leadauditid, client_id, title, first_name, last_name, email, title2, first_name2, last_name2, dob2, email2 FROM client_details WHERE client_id =:data2searchholder");
-                        $query55->bindParam(':data2searchholder', $search, PDO::PARAM_INT);
+                        $query55 = $pdo->prepare("SELECT leadauditid, client_id, title, first_name, last_name, email, title2, first_name2, last_name2, dob2, email2 FROM client_details WHERE client_id =:CID");
+                        $query55->bindParam(':CID', $search, PDO::PARAM_INT);
                         $query55->execute();
                         $Single_Client = $query55->fetch(PDO::FETCH_ASSOC);
                     } catch (PDOException $e) {

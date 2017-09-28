@@ -280,8 +280,10 @@ if (in_array($hello_name, $Closer_Access, true)) {
                         ?>
                                 
  <?php
+ 
+ if ($fftrackers == '1') {
                         if (in_array($hello_name, $Manager_Access, true)) {
-                            if ($fftrackers == '1') {
+                            
                                 ?>
                                 <li>
                                     <a href="/Life/Trackers/Closers.php?EXECUTE=1">

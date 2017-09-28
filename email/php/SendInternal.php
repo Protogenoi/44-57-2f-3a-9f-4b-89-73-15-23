@@ -23,7 +23,7 @@ include('../../includes/ADL_PDO_CON.php');
                             
                             $companynamere=$companydetailsq['company_name'];  
                             
-if($companynamere=='Bluestone Protect' || $companynamere=='ADL_CUS') {                               
+if($companynamere=='Bluestone Protect') {                               
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -57,11 +57,6 @@ $body = html_entity_decode($message);
 $body .= $sig;
 
 $mail             = new PHPMailer();
-
-$mail->addCustomHeader("Return-Receipt-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("X-Confirm-Reading-To: $ConfirmReadingTo");
-    $mail->addCustomHeader("Disposition-notification-to: $ConfirmReadingTo");
-    $mail->ConfirmReadingTo = "$emailbccdb";
 
 $mail->IsSMTP(); 
 $mail->CharSet = 'UTF-8';

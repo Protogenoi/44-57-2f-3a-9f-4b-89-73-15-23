@@ -148,7 +148,7 @@ WHERE
             client_note
         WHERE
             note_type like '%keyfacts' )
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-18'
         GROUP by client_details.client_id");
     $KF_UP_stmt->execute();
     
@@ -175,9 +175,9 @@ if ($ACT_CBS['badge'] > 0) { ?>
             if(in_array($hello_name,$Task_Access,true)) {
 
         if ($navbarresult['badge'] > 0) {
-            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i>  Today <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
+            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i> <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
     if ($navbarresult2['badge'] > 0) {
-            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i>  Expired <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
+            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
         }
             }
             

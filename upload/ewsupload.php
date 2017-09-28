@@ -49,7 +49,7 @@ if ($_FILES["csv"]["size"] > 0) {
     
             $date=date("y-m-d-G:i:s");
             
-            $fileup = $date."-".$hello_name."-".EWS;
+            $fileup = $date."-".$hello_name."-EWS";
             $file_loc = $_FILES["csv"]["tmp_name"];
             $file_size = $_FILES["csv"]["size"];
             $file_type = $_FILES["csv"]["type"];

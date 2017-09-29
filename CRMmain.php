@@ -209,7 +209,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                         <?php } if(in_array($hello_name, $QA_Access,true)) { ?>
                             <li>
-                                <a href="https://164.39.13.58/ConnexReports/dashboard.php">
+                                <a href="https://164.39.13.58/ConnexReports/dashboard.php" target="_blank">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Connex<br/>Call Recordings</h2>

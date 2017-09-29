@@ -209,10 +209,10 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                         <?php } if(in_array($hello_name, $QA_Access,true)) { ?>
                             <li>
-                                <a href="http://192.168.1.184/dialer/Recordings.php">
+                                <a href="https://164.39.13.58/ConnexReports/dashboard.php">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">Bluetelecoms<br/>Call Recordings</h2>
+                                        <h2 class="ca-main">Connex<br/>Call Recordings</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>

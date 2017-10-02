@@ -36,6 +36,9 @@ if(isset($option)) {
     $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
+    $POST_ARRIVED = filter_input(INPUT_POST, 'PostArrived', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $POST_RETURNED = filter_input(INPUT_POST, 'PostReturned', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
     $SELECTquery = $pdo->prepare("SELECT Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks WHERE client_id=:cid");
     $SELECTquery->bindParam(':cid', $search, PDO::PARAM_INT); 
     $SELECTquery->execute();
@@ -141,7 +144,9 @@ if(isset($option)) {
         
     }
 
-        $query = $pdo->prepare("UPDATE Client_Tasks set Upsells=:Upsells, PitchTrust=:PitchTrust, PitchTPS=:PitchTPS, RemindDD=:RemindDD, CYDReturned=:CYDReturned, DocsArrived=:DocsArrived, HappyPol=:HappyPol WHERE client_id=:cid");
+        $query = $pdo->prepare("UPDATE Client_Tasks set post_returned=:RETURN, post_arrived=:ARRIVED, Upsells=:Upsells, PitchTrust=:PitchTrust, PitchTPS=:PitchTPS, RemindDD=:RemindDD, CYDReturned=:CYDReturned, DocsArrived=:DocsArrived, HappyPol=:HappyPol WHERE client_id=:cid");
+        $query->bindParam(':ARRIVED', $POST_ARRIVED, PDO::PARAM_STR);
+        $query->bindParam(':RETURN', $POST_RETURNED, PDO::PARAM_STR);
         $query->bindParam(':HappyPol', $HappyPol, PDO::PARAM_STR);
         $query->bindParam(':DocsArrived', $DocsArrived, PDO::PARAM_STR);
         $query->bindParam(':CYDReturned', $CYDReturned, PDO::PARAM_STR);

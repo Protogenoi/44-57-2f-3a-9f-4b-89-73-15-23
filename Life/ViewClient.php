@@ -2528,7 +2528,7 @@ try {
 
                 if ($client_date_added >= "2016-06-19") {
 
-                    $database->query("select Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
+                    $database->query("select post_arrived, post_returned, Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
                     $database->execute();
                     $result = $database->single();
@@ -2541,9 +2541,53 @@ try {
                     $PitchTrust = $result['PitchTrust'];
                     $Upsells = $result['Upsells'];
                     $Taskoption = $result['Task'];
+                    
+                    $PostArrived= $result['post_arrived'];
+                    $PostReturned = $result['post_returned'];
                     ?>
                     <center>
                         <br><br>
+                        
+                        <?php
+                        
+                        if($WHICH_COMPANY=='One Family' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='Aviva') { ?>
+                        
+                        <div class="btn-group">
+                            <button data-toggle="collapse" data-target="#HappyPol" class="<?php
+                            if (empty($HappyPol)) {
+                                echo "btn btn-danger";
+                            } else {
+                                echo "btn btn-success";
+                            }
+                            ?>">Happy with Policy <br><?php if(isset($HappyPol)) { echo $HappyPol; } ?></button>   
+                            
+                            <button data-toggle="collapse" data-target="#PostArrived" class="<?php
+                            if (empty($PostArrived)) {
+                                echo "btn btn-danger";
+                            } else {
+                                echo "btn btn-success";
+                            }
+                            ?>">Post arrived? <br><?php echo $PostArrived; ?></button>
+
+                            <button data-toggle="collapse" data-target="#PostReturned" class="<?php
+                            if (empty($PostReturned)) {
+                                echo "btn btn-danger";
+                            } else {
+                                echo "btn btn-success";
+                            }
+                            ?>">Post returned? <br><?php echo $PostReturned; ?></button>                            
+                            
+                            <button data-toggle="collapse" data-target="#RemindDD" class="<?php
+                            if (empty($RemindDD)) {
+                                echo "btn btn-danger";
+                            } else {
+                                echo "btn btn-success";
+                            }
+                            ?>">Remind/Cancel Old/New DD <br><?php echo $RemindDD; ?></button>
+
+                        </div>                        
+                        
+                        <?php }  else { ?>
 
                         <div class="btn-group">
                             <button data-toggle="collapse" data-target="#HappyPol" class="<?php
@@ -2596,7 +2640,7 @@ try {
                             }
                             ?>">Upsells <br><?php echo $Upsells; ?></button>
                         </div>
-
+                <?php } ?>
                         <br><br>
 
 
@@ -2626,6 +2670,66 @@ try {
 
                                 </div>
                             </div>
+                            
+         <div id="PostArrived" class="collapse">
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="PostArrived">Post Arrived?</label>
+                                    <div class="col-md-4"> 
+                                        <label class="radio-inline" for="PostArrived-0">
+                                            <input name="PostArrived" id="PostArrived-0" value="No" type="radio" <?php
+                            if (isset($PostArrived)) {
+                                if ($PostArrived == 'No') {
+                                    echo "checked='checked'";
+                                }
+                            }
+                            ?>>
+                                            No
+                                        </label> 
+                                        <label class="radio-inline" for="PostArrived-1">
+                                            <input name="PostArrived" id="PostArrived-1" value="Yes" type="radio" <?php
+                            if (isset($PostArrived)) {
+                                if ($PostArrived == 'Yes') {
+                                    echo "checked='checked'";
+                                }
+                            }
+                            ?>>
+                                            Yes
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>     
+                            
+                             <div id="PostReturned" class="collapse">
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="PostReturned">Post Returned?</label>
+                                    <div class="col-md-4"> 
+                                        <label class="radio-inline" for="PostReturned-0">
+                                            <input name="PostReturned" id="PostReturned-0" value="No" type="radio" <?php
+                            if (isset($PostReturned)) {
+                                if ($PostReturned == 'No') {
+                                    echo "checked='checked'";
+                                }
+                            }
+                            ?>>
+                                            No
+                                        </label> 
+                                        <label class="radio-inline" for="PostReturned-1">
+                                            <input name="PostReturned" id="PostReturned-1" value="Yes" type="radio" <?php
+                            if (isset($PostReturned)) {
+                                if ($PostReturned == 'Yes') {
+                                    echo "checked='checked'";
+                                }
+                            }
+                            ?>>
+                                            Yes
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>                             
 
                             <div id="HappyPol" class="collapse">
 
@@ -2762,6 +2866,8 @@ try {
                             ?>>
                                             Old DD Not Cancelled
                                         </label> 
+                                        
+                                        <?php if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='Bluestone Protect') { ?>
                                         <label class="radio-inline" for="RemindDD-2">
                                             <input name="RemindDD" id="RemindDD-2" value="Replacing Legal and General" type="radio" <?php
                                         if (isset($RemindDD)) {
@@ -2772,6 +2878,7 @@ try {
                             ?>>
                                             Replacing Legal and General
                                         </label> 
+                                        <?php } ?>
                                         <label class="radio-inline" for="RemindDD-3">
                                             <input name="RemindDD" id="RemindDD-3" value="Keeping Old Policy" type="radio" <?php
                                         if (isset($RemindDD)) {

@@ -803,43 +803,6 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
     }
     
-    if($WEAPON_AP>=1) {
-        if($WEAPON_AP=='1') {
-            $T_SAVE++;
-        }
-        if($WEAPON_AP=='2') {
-            $T_SAVE++;
-            $T_SAVE++;
-        }     
-        if($WEAPON_AP=='3') {
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-        }        
-        if($WEAPON_AP=='4') {
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-        }      
-        if($WEAPON_AP=='5') {
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-        }       
-        if($WEAPON_AP=='6') {
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-            $T_SAVE++;
-        }
-        
-    }
-    
     if($WEAPON_STR + $T_TOUGHNESS >= $WEAPON_STR) {
     //DOUBLE 2+
         $TOTAL_WOUNDS=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
@@ -897,13 +860,13 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if(!is_numeric ($WEAPON_DAMAGE)) {
+    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp') {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON); 
     
-    } if(is_numeric ($WEAPON_DAMAGE)) {
+    } if(is_numeric ($WEAPON_DAMAGE) && $UNIT_WEAPON !='Grav-cannon and grav-amp') {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
@@ -962,6 +925,54 @@ $DIE_THREE_MOD=0;
 	</tr>
 	</table>";        
                     
+    }
+    
+    if($UNIT_WEAPON=='Grav-cannon and grav-amp' && $T_SAVE<=3) {
+        
+    
+$DIE_ONE_MOD=0;
+$DIE_TWO_MOD=0;
+$DIE_THREE_MOD=0;        
+        
+    for ($x = 0; $x <= $WOUNDS_TO_ROLL; $x++) {
+
+        $DIE = mt_rand(1, 3);
+
+        if ($DIE == 1) {
+            $DIE_ONE_MOD++;
+        }
+        if ($DIE == 2) {
+            $DIE_TWO_MOD++;
+            $DIE_TWO_MOD++;
+        }
+        if ($DIE == 3) {
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+        }
+		
+		    }  
+            
+        $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD." (1D3)";    
+        
+    echo "<table class='table'>
+        <tr>
+        <th colspan='7'>1D3 Damage on 3+ save or better</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+        <th>Wounds</th>
+	</tr>
+	<tr>
+	<th>$DIE_ONE_MOD</th>
+	<th>$DIE_TWO_MOD</th>
+	<th>$DIE_THREE_MOD</th>
+        <th>$TOTAL_WOUNDS</th>  
+	</tr>
+	</table>";        
+        
     }
     
     if($WEAPON_DAMAGE=='1D6') {
@@ -1048,6 +1059,43 @@ $DIE_SIX_MOD=0;
 }
 
 function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
+    
+    if($WEAPON_AP>=1) {
+        if($WEAPON_AP=='1') {
+            $T_SAVE++;
+        }
+        if($WEAPON_AP=='2') {
+            $T_SAVE++;
+            $T_SAVE++;
+        }     
+        if($WEAPON_AP=='3') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }        
+        if($WEAPON_AP=='4') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }      
+        if($WEAPON_AP=='5') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }       
+        if($WEAPON_AP=='6') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }
+        
+    }    
     
     $DIE_ONE = 0;
     $DIE_TWO = 0;

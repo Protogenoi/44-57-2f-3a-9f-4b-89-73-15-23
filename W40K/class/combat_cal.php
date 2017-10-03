@@ -418,7 +418,12 @@ class combat_cal {
     if($WEAPON_TYPE=='Heavy 3') {
         $SHOW_ROLL_HITS=($number+1)*3;
         $number=$SHOW_ROLL_HITS-1;
-    }    
+    } 
+    
+    if($WEAPON_TYPE=='Heavy 4') {
+        $SHOW_ROLL_HITS=($number+1)*4;
+        $number=$SHOW_ROLL_HITS-1;
+    }     
     
     if(empty($SHOW_ROLL_HITS)) {
                $SHOW_ROLL_HITS=$number+1;

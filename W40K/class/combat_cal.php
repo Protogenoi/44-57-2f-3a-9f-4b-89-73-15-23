@@ -148,7 +148,7 @@ class combat_cal {
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>$SHOW_ROLL_HITS shots | $U_BS+ to hit ($UNIT_WEAPON | $WEAPON_TYPE)</th>
+        <th colspan='7'>$SHOW_ROLL_HITS shots | $UNIT_WEAPON ($WEAPON_TYPE) | $U_BS+ to hit</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -488,28 +488,33 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     if($WEAPON_STR + $T_TOUGHNESS >= $WEAPON_STR) {
     //DOUBLE 2+
         $TOTAL_WOUNDS=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $WOUNDS_ON=2;
     }
 
     if($WEAPON_STR>$T_TOUGHNESS) {
         //3+
         $TOTAL_WOUNDS=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $WOUNDS_ON=3;
     }
     if($WEAPON_STR==$T_TOUGHNESS) {
         //TO WOUND = 4+
         $TOTAL_WOUNDS=$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $WOUNDS_ON=4;
     }
     if($WEAPON_STR<$T_TOUGHNESS) {
         // 5+
         $TOTAL_WOUNDS=$DIE_FIVE+$DIE_SIX;
+        $WOUNDS_ON=5;
     }    
     if($WEAPON_STR + $T_TOUGHNESS <= $WEAPON_STR) {
     //STR HALF OR LESS THAN T
         $TOTAL_WOUNDS=$DIE_SIX;
+        $WOUNDS_ON=6;
     }
     
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>Wounds</th>
+        <th colspan='7'>Toughness $T_TOUGHNESS | Weapon Str $WEAPON_STR | $WOUNDS_ON+ to wound </th>
         </tr>
 	<tr>
 	<th>1</th>

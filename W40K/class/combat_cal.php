@@ -666,10 +666,12 @@ function save_rolls($T_SAVE,$SAVE_ROLLS) {
         $TOTAL_SAVES=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
         $TOTAL_FAILS=$DIE_ONE;
     }    
+    
+    $SAVE_ROLL_DISPLAY=$SAVE_ROLLS+1;
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>Saves</th>
+        <th colspan='7'>$SAVE_ROLL_DISPLAY Wound(s) | $T_SAVE+ to Save</th>
         </tr>
 	<tr>
 	<th>1</th>

@@ -100,7 +100,11 @@ class combat_cal {
         $SHOW_ROLL_HITS=($number+1)*2;
         $number=$number+$MODELS_TO_FIRE;
 
-    }    
+    }  
+    
+    if(empty($SHOW_ROLL_HITS)) {
+               $SHOW_ROLL_HITS=$number+1;
+    }
 
     for ($x = 0; $x <= $number; $x++) {
 

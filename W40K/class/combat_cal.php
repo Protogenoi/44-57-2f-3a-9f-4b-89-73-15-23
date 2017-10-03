@@ -102,6 +102,10 @@ class combat_cal {
 
     }  
     
+    if($WEAPON_TYPE=='Grenade D6') {
+        $number=$DIE = (mt_rand(1, 6))-1;
+    }
+    
     if(empty($SHOW_ROLL_HITS)) {
                $SHOW_ROLL_HITS=$number+1;
     }
@@ -551,7 +555,7 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>Toughness $T_TOUGHNESS | Weapon Str $WEAPON_STR | $WOUNDS_ON+ to wound </th>
+        <th colspan='7'>$TOTAL_WOUNDS Wounds | Toughness $T_TOUGHNESS | Weapon Str $WEAPON_STR | $WOUNDS_ON+ to wound </th>
         </tr>
 	<tr>
 	<th>1</th>

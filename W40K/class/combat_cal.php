@@ -13,7 +13,7 @@
  */
 class combat_cal { 
     
-    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION) {
+    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE) {
     
         if($FACTION=='Ultramarines') {
         
@@ -85,6 +85,12 @@ class combat_cal {
     if($WEAPON_TYPE=='Rapid Fire 1' && $RAPID_FIRE>=1) {
         $number=$number+$RAPID_FIRE;
     }
+    
+    if($WEAPON_TYPE=='Assualt 2') {
+        $SHOW_ROLL_HITS=($number+1)*2;
+        $number=$number+$MODELS_TO_FIRE;
+
+    }    
 
     for ($x = 0; $x <= $number; $x++) {
 
@@ -116,7 +122,7 @@ class combat_cal {
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>Rolls</th>
+        <th colspan='7'>$SHOW_ROLL_HITS Rolls ($UNIT_WEAPON | $WEAPON_TYPE)</th>
         </tr>
 	<tr>
 	<th>1</th>

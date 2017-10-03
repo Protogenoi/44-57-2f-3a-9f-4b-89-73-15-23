@@ -181,7 +181,7 @@ class combat_cal {
         
     }
     
- if($UNIT=='Tatical Squad') {
+ if($UNIT=='Tactical Squad') {
         $U_BS=3;
         
         if($UNIT_WEAPON=='Boltgun') {
@@ -198,46 +198,7 @@ class combat_cal {
             $WEAPON_STR=4;
             $WEAPON_AP=0;
             $WEAPON_DAMAGE="1";          
-        }       
-        
-        if($UNIT_WEAPON=='Heavy Bolter') {
-            $WEAPON_RANGE=36;
-            $WEAPON_TYPE='Heavy 3';
-            $WEAPON_STR=5;
-            $WEAPON_AP=1;
-            $WEAPON_DAMAGE="1";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
-            
-        }    
-        
-        if($UNIT_WEAPON=='Frag Missile Launcher') {
-            $WEAPON_RANGE=48;
-            $WEAPON_TYPE='Heavy D6';
-            $WEAPON_STR=4;
-            $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
-            
-        }  
-        
-        if($UNIT_WEAPON=='Krak Missile Launcher') {
-            $WEAPON_RANGE=48;
-            $WEAPON_TYPE='Heavy 1';
-            $WEAPON_STR=8;
-            $WEAPON_AP=2;
-            $WEAPON_DAMAGE="1D6"; 
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
-            
-        }    
+        }           
         
         if($UNIT_WEAPON=='Frag Grenade') {
             $WEAPON_RANGE=6;
@@ -307,7 +268,115 @@ class combat_cal {
             $WEAPON_AP=3;
             $WEAPON_DAMAGE="2";           
         
-    }    
+    }  
+    
+        if($UNIT_WEAPON=='Grav-cannon and grav-amp') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Heavy 4';
+            $WEAPON_STR=5;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1";  
+            
+            //if target has a save 3+ or better the damage is D3
+ 
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }            
+            
+        }     
+  
+        if($UNIT_WEAPON=='Heavy Bolter') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 3';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";  
+ 
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }            
+            
+        }
+        
+        if($UNIT_WEAPON=='Lascannon') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=9;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1D6";  
+ 
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }            
+            
+        }   
+        
+        if($UNIT_WEAPON=='Frag Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy D6';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";   
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        }  
+        
+        if($UNIT_WEAPON=='Krak Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=2;
+            $WEAPON_DAMAGE="1D6"; 
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        }   
+        
+        if($UNIT_WEAPON=='Multi-meta') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=4;
+            $WEAPON_DAMAGE="1D6"; 
+            
+        //HALF RANGE ROLL TWO D6 for damage and discard the lowest.    
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        } 
+
+        if($UNIT_WEAPON=='Plasma Cannon') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 1D3';
+            $WEAPON_STR=7;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1";    
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        } 
+
+        if($UNIT_WEAPON=='Supercharged Plasma Cannon') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 1D3';
+            $WEAPON_STR=8;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="2";    
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        }          
     
         }    
     

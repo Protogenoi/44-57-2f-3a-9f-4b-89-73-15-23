@@ -195,8 +195,8 @@ if ($companynamere == 'Bluestone Protect') {
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Tina", "Nicola");
-    $Level_3_Access = array("Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley",  "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Keith", "Rhiannon", "Ryan", "TEST", "Assured","David","Richard","James Adams");
-    $Level_1_Access = array("Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "Carys Riley", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Rhiannon", "Ryan", "TEST", "Assured","Keith","David","Darryl","Gavin","James Adams");
+    $Level_3_Access = array("Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Keith", "Ryan", "David","Richard","James Adams");
+    $Level_1_Access = array("Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "Abbiek", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Ryan", "Keith","David","Darryl","Gavin","James Adams");
     
     $Task_Access = array("Abbiek","Jakob");
     
@@ -206,7 +206,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey","Gavin");
     $Manager_Access = array("Corey Divetta","Hayley Hutchinson","Sarah Wallace","Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Ryan","Amy","Jakob","James Adams");
     
-    $QA_Access = array("Michael","Nathan Thomas","Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy","Ryan");
+    $QA_Access = array("Michael","Nathan Thomas","Abbiek", "carys", "Jakob", "Nicola", "Tina", "Amy","Ryan","Ciara");
     
     $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
     
@@ -215,7 +215,7 @@ if ($companynamere == 'Bluestone Protect') {
     $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Abbiek","Michael","Nick","Tina","Matt","leighton");
     
-    $AUDIT_SEARCH_ACCESS=array("Amy","Nathan Thomas","Ryan");
+    $AUDIT_SEARCH_ACCESS=array("Amy","Nathan Thomas","Ryan","Ciara");
     
     $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 }

@@ -172,10 +172,10 @@ class combat_cal {
     
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION);
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP);
 }
 
-function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION) {
+function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP) {
 
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -485,6 +485,43 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
     }
     
+    if($WEAPON_AP>=1) {
+        if($WEAPON_AP=='1') {
+            $T_SAVE++;
+        }
+        if($WEAPON_AP=='2') {
+            $T_SAVE++;
+            $T_SAVE++;
+        }     
+        if($WEAPON_AP=='3') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }        
+        if($WEAPON_AP=='4') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }      
+        if($WEAPON_AP=='5') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }       
+        if($WEAPON_AP=='6') {
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+            $T_SAVE++;
+        }
+        
+    }
+    
     if($WEAPON_STR + $T_TOUGHNESS >= $WEAPON_STR) {
     //DOUBLE 2+
         $TOTAL_WOUNDS=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
@@ -640,6 +677,11 @@ function save_rolls($T_SAVE,$SAVE_ROLLS) {
         if ($DIE == 6) {
             $DIE_SIX++;
         }
+    }
+    
+    if($T_SAVE>6) {
+        $TOTAL_SAVES=0;
+        $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;    
     }
     
     if($T_SAVE==6) {

@@ -553,9 +553,13 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
         $WOUNDS_ON=6;
     }
     
+    if($WEAPON_DAMAGE==2) {
+        $TOTAL_WOUNDS=$TOTAL_WOUNDS*2;
+    }
+    
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>$TOTAL_WOUNDS Wounds | Toughness $T_TOUGHNESS | Weapon Str $WEAPON_STR | $WOUNDS_ON+ to wound </th>
+        <th colspan='7'>$TOTAL_WOUNDS Wounds | T $T_TOUGHNESS | STR $WEAPON_STR | DMG $WEAPON_DAMAGE | $WOUNDS_ON+ to wound </th>
         </tr>
 	<tr>
 	<th>1</th>

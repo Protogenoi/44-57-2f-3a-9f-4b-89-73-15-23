@@ -5,6 +5,6 @@
 $combat_cal = new combat_cal();
               $HITS =$MODELS_TO_FIRE-1;
              
-$combat_cal->roll(6,$HITS,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION);
+$combat_cal->roll(6,$HITS,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE);
 
               ?>

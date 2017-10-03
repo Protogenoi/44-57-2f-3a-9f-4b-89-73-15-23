@@ -45,13 +45,13 @@ class combat_cal {
         
     }  
     
-    if($UNIT_WEAPON=='Bolt Pistol') {
-        $WEAPON_STR=4;
-        $WEAPON_AP=0;
-        $WEAPON_DAMAGE=1;
-        $WEAPON_TYPE='Pistol 1';
-        $WEAPON_RANGE=12;
-    }      
+        if($UNIT_WEAPON=='Bolt Pistol') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Pistol 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }      
     
     if($UNIT_WEAPON=='Bolt Rifle') {
         $WEAPON_STR=4;
@@ -61,22 +61,124 @@ class combat_cal {
         $WEAPON_RANGE=30;
     } 
     
-    if($UNIT_WEAPON=='Frag grenade') {
-        $WEAPON_STR=3;
-        $WEAPON_AP=0;
-        $WEAPON_DAMAGE=1;
-        $WEAPON_TYPE='Grenade D6';
-        $WEAPON_RANGE=6;
-    }
-
-    if($UNIT_WEAPON=='Krak grenade') {
-        $WEAPON_STR=6;
-        $WEAPON_AP=1;
-        $WEAPON_DAMAGE="1D3";
-        $WEAPON_TYPE='Grenade 1';
-        $WEAPON_RANGE=6;
-    }     
+        if($UNIT_WEAPON=='Frag Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade D6';
+            $WEAPON_STR=3;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }        
+        
+        if($UNIT_WEAPON=='Krak Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade 1';
+            $WEAPON_STR=6;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1D3";          
+        }      
     
+    }
+    
+    if($UNIT=='Scout Squad') {
+        $U_BS=3;
+        
+        if($UNIT_WEAPON=='Boltgun') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Rapid Fire 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }
+        
+        if($UNIT_WEAPON=='Bolt Pistol') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Pistol 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }  
+        
+        if($UNIT_WEAPON=='Astartes Shotgun') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Assault 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1"; 
+
+        if($MOVEMENT=='Advanced') {
+            $U_BS=4;
+        }            
+            
+        }         
+        
+        if($UNIT_WEAPON=='Heavy Bolter') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 3';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";  
+ 
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }            
+            
+        }    
+        
+        if($UNIT_WEAPON=='Frag Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy D6';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";   
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        }  
+        
+        if($UNIT_WEAPON=='Krak Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=2;
+            $WEAPON_DAMAGE="1D6"; 
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }             
+            
+        }   
+        
+        if($UNIT_WEAPON=='Sniper Rifle') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";  
+            
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        } 
+        
+        }  
+        
+        if($UNIT_WEAPON=='Frag Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade D6';
+            $WEAPON_STR=3;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }        
+        
+        if($UNIT_WEAPON=='Krak Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade 1';
+            $WEAPON_STR=6;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1D3";          
+        }        
+        
     }
     
         }
@@ -105,6 +207,15 @@ class combat_cal {
     if($WEAPON_TYPE=='Grenade D6') {
         $number=$DIE = (mt_rand(1, 6))-1;
     }
+    
+    if($WEAPON_TYPE=='Heavy D6') {
+        $number=$DIE = (mt_rand(1, 6))-1;
+    }   
+    
+    if($WEAPON_TYPE=='Heavy 3') {
+        $SHOW_ROLL_HITS=($number+1)*3;
+        $number=$SHOW_ROLL_HITS-1;
+    }    
     
     if(empty($SHOW_ROLL_HITS)) {
                $SHOW_ROLL_HITS=$number+1;
@@ -176,10 +287,10 @@ class combat_cal {
     
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP);
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON);
 }
 
-function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP) {
+function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON) {
 
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -557,6 +668,8 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
         $TOTAL_WOUNDS=$TOTAL_WOUNDS*2;
     }
     
+    
+    
     echo "<table class='table'>
         <tr>
         <th colspan='7'>$TOTAL_WOUNDS Wounds | T $T_TOUGHNESS | STR $WEAPON_STR | DMG $WEAPON_DAMAGE | $WOUNDS_ON+ to wound </th>
@@ -585,19 +698,19 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE); 
+    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON); 
     
     } if(is_numeric ($WEAPON_DAMAGE)) {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
     
     }
     
 }
 
-function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE) {
+function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON) {
     
 $WOUNDS_TO_ROLL=$TOTAL_WOUNDS-1;
 
@@ -648,13 +761,90 @@ $DIE_THREE_MOD=0;
                     
     }
     
+    if($WEAPON_DAMAGE=='1D6') {
+        
+$DIE_ONE_MOD=0;
+$DIE_TWO_MOD=0;
+$DIE_THREE_MOD=0; 
+$DIE_FOUR_MOD=0; 
+$DIE_FIVE_MOD=0; 
+$DIE_SIX_MOD=0; 
+        
+    for ($x = 0; $x <= $WOUNDS_TO_ROLL; $x++) {
+
+        $DIE = mt_rand(1, 6);
+
+        if ($DIE == 1) {
+            $DIE_ONE_MOD++;
+        }
+        if ($DIE == 2) {
+            $DIE_TWO_MOD++;
+            $DIE_TWO_MOD++;
+        }
+        if ($DIE == 3) {
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+        }
+        if ($DIE == 4) {
+            $DIE_FOUR_MOD++;
+            $DIE_FOUR_MOD++;
+            $DIE_FOUR_MOD++;
+            $DIE_FOUR_MOD++;
+        }
+        if ($DIE == 5) {
+            $DIE_FIVE_MOD++;
+            $DIE_FIVE_MOD++;
+            $DIE_FIVE_MOD++;
+            $DIE_FIVE_MOD++;
+            $DIE_FIVE_MOD++;
+        }
+        if ($DIE == 6) {
+            $DIE_SIX_MOD++;
+            $DIE_SIX_MOD++;
+            $DIE_SIX_MOD++;
+            $DIE_SIX_MOD++;
+            $DIE_SIX_MOD++;
+            $DIE_SIX_MOD++;            
+        }        
+		
+		    }  
+            
+        $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD+$DIE_FOUR_MOD+$DIE_FIVE_MOD+$DIE_SIX_MOD." ($WEAPON_DAMAGE)";    
+        
+    echo "<table class='table'>
+        <tr>
+        <th colspan='7'>1D6 Damage</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>Wounds</th>
+	</tr>
+	<tr>
+	<th>$DIE_ONE_MOD</th>
+	<th>$DIE_TWO_MOD</th>
+	<th>$DIE_THREE_MOD</th>
+        <th>$DIE_FOUR_MOD</th>
+        <th>$DIE_FIVE_MOD</th>
+        <th>$DIE_SIX_MOD</th>            
+        <th>$TOTAL_WOUNDS</th>  
+	</tr>
+	</table>";        
+                    
+    }    
+    
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
     
 }
 
-function save_rolls($T_SAVE,$SAVE_ROLLS) {
+function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
     
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -718,10 +908,18 @@ function save_rolls($T_SAVE,$SAVE_ROLLS) {
     }    
     
     $SAVE_ROLL_DISPLAY=$SAVE_ROLLS+1;
+    
+    if($UNIT_WEAPON=='Sniper Rifle') {
+    $MORTAL_WOUNDS=$DIE_SIX;
+    }
+    
+    if(empty($MORTAL_WOUNDS)) {
+        $MORTAL_WOUNDS=0;
+    }
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>$SAVE_ROLL_DISPLAY Wound(s) | $T_SAVE+ to Save</th>
+        <th colspan='7'>$SAVE_ROLL_DISPLAY Wound(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -732,6 +930,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS) {
 	<th>6</th>
         <th>Fails</th>
         <th>Saves</th>
+        <th>Mortal</th>
 	</tr>
 	<tr>
 	<th>$DIE_ONE</th>
@@ -741,7 +940,8 @@ function save_rolls($T_SAVE,$SAVE_ROLLS) {
 	<th>$DIE_FIVE</th>
 	<th>$DIE_SIX</th>
         <th>$TOTAL_FAILS</th>
-        <th>$TOTAL_SAVES</th>  
+        <th>$TOTAL_SAVES</th>
+        <th>$MORTAL_WOUNDS</th>    
 	</tr>
 	</table>";    
     

@@ -13,7 +13,7 @@
  */
 class combat_cal { 
     
-    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE) {
+    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
     
         if($FACTION=='Ultramarines') {
         
@@ -25,7 +25,12 @@ class combat_cal {
         $WEAPON_AP=0;
         $WEAPON_DAMAGE=1;
         $WEAPON_TYPE='Assualt 2';
-        $WEAPON_RANGE=24;        
+        $WEAPON_RANGE=24;   
+    
+        if($MOVEMENT=='Advanced') {
+            $U_BS=4;
+        }
+        
     }
     if($UNIT_WEAPON=='Stalker Bolt Rifle') {
         $WEAPON_STR=4;
@@ -33,6 +38,11 @@ class combat_cal {
         $WEAPON_DAMAGE=1;
         $WEAPON_TYPE='Heavy 1';
         $WEAPON_RANGE=36;
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }        
+        
     }  
     
     if($UNIT_WEAPON=='Bolt Pistol') {
@@ -115,14 +125,26 @@ class combat_cal {
             $DIE_SIX++;
         }
     }    
-    
+ 
+    if($U_BS=='6') {
+        $TOTAL_HITS=$DIE_SIX;
+    }       
+    if($U_BS=='5') {
+        $TOTAL_HITS=$DIE_FIVE+$DIE_SIX;
+    }      
+    if($U_BS=='4') {
+        $TOTAL_HITS=$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+    }     
     if($U_BS=='3') {
         $TOTAL_HITS=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
-    }       
+    }
+    if($U_BS=='2') {
+        $TOTAL_HITS=$DIE_TWO;
+    }      
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>$SHOW_ROLL_HITS Rolls ($UNIT_WEAPON | $WEAPON_TYPE)</th>
+        <th colspan='7'>$SHOW_ROLL_HITS shots | $U_BS+ to hit ($UNIT_WEAPON | $WEAPON_TYPE)</th>
         </tr>
 	<tr>
 	<th>1</th>

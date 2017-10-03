@@ -499,13 +499,13 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if($WEAPON_DAMAGE=='1D3') {
+    if(!is_numeric ($WEAPON_DAMAGE)) {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE); 
     
-    } else {
+    } if(is_numeric ($WEAPON_DAMAGE)) {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
@@ -544,7 +544,7 @@ $DIE_THREE_MOD=0;
 		
 		    }  
             
-        $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD." (1D3)";    
+        $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD." ($WEAPON_DAMAGE)";    
         
     echo "<table class='table'>
         <tr>

@@ -65,25 +65,25 @@
                             if($UNIT=='Tactical Squad') {
                             ?>
                         <option disabled>─────Wargear─────</option>
-                        <option value='Boltgun'>Boltgun</option>
-                        <option value='Bolt Pistol'>Bolt Pistol</option>
-                        <option value='Frag Grenade'>Frag Grenade</option>
-                        <option value='Krak Grenade'>Krak Grenade</option>
+                        <option value='Boltgun'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Boltgun</option>
+                        <option value='Bolt Pistol'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Bolt Pistol</option>
+                        <option value='Frag Grenade'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Frag Grenade</option>
+                        <option value='Krak Grenade'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Krak Grenade</option>
                         <option disabled>─────Heavy Weapons─────</option>
-                        <option value='Grav-cannon and grav-amp'>Grav-cannon and grav-amp</option>
-                        <option value='Heavy bolter'>Heavy bolter</option>
-                        <option value='Lascannon'>Lascannon</option>
-                        <option value='Frag Missile Launcher'>Frag Missile Launcher</option>
-                        <option value='Krak Missile Launcher'>Krak Missile Launcher</option>
-                        <option value='Multi-meta'>Multi-melta</option>
-                        <option value='Plasma cannon'>Plasma cannon</option>
-                        <option value='Supercharged Plasma cannon'>Supercharged Plasma cannon</option>
+                        <option value='Grav-cannon and grav-amp'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Grav-cannon and grav-amp</option>
+                        <option value='Heavy Bolter'<?php if($UNIT_WEAPON=='Heavy Bolter') { echo "selected"; } ?> >Heavy Bolter</option>
+                        <option value='Lascannon'<?php if($UNIT_WEAPON=='Lascannon') { echo "selected"; } ?> >Lascannon</option>
+                        <option value='Frag Missile Launcher'<?php if($UNIT_WEAPON=='Frag Missile Launcher') { echo "selected"; } ?> >Frag Missile Launcher</option>
+                        <option value='Krak Missile Launcher'<?php if($UNIT_WEAPON=='Krak Missile Launcher') { echo "selected"; } ?> >Krak Missile Launcher</option>
+                        <option value='Multi-meta'<?php if($UNIT_WEAPON=='Multi-melta') { echo "selected"; } ?> >Multi-melta</option>
+                        <option value='Plasma cannon'<?php if($UNIT_WEAPON=='Plasma cannon') { echo "selected"; } ?> >Plasma cannon</option>
+                        <option value='Supercharged Plasma cannon'<?php if($UNIT_WEAPON=='Supercharged Plasma cannon') { echo "selected"; } ?> >Supercharged Plasma cannon</option>
                         <option disabled>─────Special Weapons─────</option>
-                        <option value='Flamer'>Flamer</option>
-                        <option value='Grav-gun'>Grav-gun</option>
-                        <option value='Meltagun'>Meltagun</option>
-                        <option value='Plasma Gun'>Plasma Gun</option>
-                        <option value='Supercharged Plasma Gun'>Supercharged Plasma Gun</option>
+                        <option value='Flamer'<?php if($UNIT_WEAPON=='Flamer') { echo "selected"; } ?> >Flamer</option>
+                        <option value='Grav-gun'<?php if($UNIT_WEAPON=='Grav-gun') { echo "selected"; } ?> >Grav-gun</option>
+                        <option value='Meltagun'<?php if($UNIT_WEAPON=='Meltagun') { echo "selected"; } ?> >Meltagun</option>
+                        <option value='Plasma Gun'<?php if($UNIT_WEAPON=='Plasma Gun') { echo "selected"; } ?> >Plasma Gun</option>
+                        <option value='Supercharged Plasma Gun'<?php if($UNIT_WEAPON=='Supercharged Plasma Gun') { echo "selected"; } ?> >Supercharged Plasma Gun</option>
                             <?php }                              
                         } else { ?>
                         <option value=''>Select...</option>
@@ -98,7 +98,7 @@ $(document).ready(function () {
         if (val === "Intercessor Squad") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Auto Bolt Rifle'>Auto Bolt Rifle</option><option value='Stalker Bolt Rifle'>Stalker Bolt Rifle</option><option value='Bolt Rifle'>Bolt Rifle</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option>");
         } else if (val === "Tactical Squad") {
-            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Boltgun'>Boltgun</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Heavy Weapons─────</option><option value='Grav-cannon and grav-amp'>Grav-cannon and grav-amp</option><option value='Heavy bolter'>Heavy bolter</option><option value='Lascannon'>Lascannon</option><option value='Frag Missile Launcher'>Frag Missile Launcher</option><option value='Krak Missile Launcher'>Krak Missile Launcher</option><option value='Multi-meta'>Multi-melta</option><option value='Plasma cannon'>Plasma cannon</option><option disabled>─────Special Weapons─────</option><option value='Flamer'>Flamer</option><option value='Grav-gun'>Grav-gun</option><option value='Meltagun'>Meltagun</option><option value='Plasma Gun'>Plasma Gun</option><option value='Supercharged Plasma Gun'>Supercharged Plasma Gun</option><option value='Supercharged Plasma cannon'>Supercharged Plasma cannon</option>");
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Boltgun'>Boltgun</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Heavy Weapons─────</option><option value='Grav-cannon and grav-amp'>Grav-cannon and grav-amp</option><option value='Heavy Bolter'>Heavy Bolter</option><option value='Lascannon'>Lascannon</option><option value='Frag Missile Launcher'>Frag Missile Launcher</option><option value='Krak Missile Launcher'>Krak Missile Launcher</option><option value='Multi-meta'>Multi-melta</option><option value='Plasma cannon'>Plasma cannon</option><option disabled>─────Special Weapons─────</option><option value='Flamer'>Flamer</option><option value='Grav-gun'>Grav-gun</option><option value='Meltagun'>Meltagun</option><option value='Plasma Gun'>Plasma Gun</option><option value='Supercharged Plasma Gun'>Supercharged Plasma Gun</option><option value='Supercharged Plasma cannon'>Supercharged Plasma cannon</option>");
         } else if (val === "Scout Squad") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Boltgun'>Boltgun</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option value='Astartes Shotgun'>Astartes Shotgun</option><option value='Heavy Bolter'>Heavy Bolter</option><option value='Frag Missile Launcher'>Frag Missile Launcher</option><option value='Krak Missile Launcher'>Krak Missile Launcher</option><option value='Sniper Rifle'>Sniper Rifle</option>");
         }

@@ -126,7 +126,7 @@ class combat_cal {
         
         if($UNIT_WEAPON=='Frag Missile Launcher') {
             $WEAPON_RANGE=48;
-            $WEAPON_TYPE='Heavy D6';
+            $WEAPON_TYPE='Heavy 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
             $WEAPON_DAMAGE="1";   
@@ -313,7 +313,7 @@ class combat_cal {
         
         if($UNIT_WEAPON=='Frag Missile Launcher') {
             $WEAPON_RANGE=48;
-            $WEAPON_TYPE='Heavy D6';
+            $WEAPON_TYPE='Heavy 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
             $WEAPON_DAMAGE="1";   
@@ -337,7 +337,7 @@ class combat_cal {
             
         }   
         
-        if($UNIT_WEAPON=='Multi-meta') {
+        if($UNIT_WEAPON=='Multi-melta') {
             $WEAPON_RANGE=24;
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=8;
@@ -407,7 +407,11 @@ class combat_cal {
         $number=$DIE = (mt_rand(1, 6))-1;
     }
     
-    if($WEAPON_TYPE=='Heavy D6') {
+    if($WEAPON_TYPE=='Heavy 1D3') {
+        $number=$DIE = (mt_rand(1, 3))-1;
+    }     
+    
+    if($WEAPON_TYPE=='Heavy 1D6') {
         $number=$DIE = (mt_rand(1, 6))-1;
     }   
     

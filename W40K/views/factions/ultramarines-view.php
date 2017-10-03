@@ -62,7 +62,7 @@
                         <option value='Krak Missile Launcher' <?php if($UNIT_WEAPON=='Krak Missile Launcher') { echo "selected"; } ?> >Krak Missile Launcher</option>
                         <option value='Sniper Rifle' <?php if($UNIT_WEAPON=='Sniper Rifle') { echo "selected"; } ?> >Sniper Rifle</option>                       
                             <?php }                             
-                            if($UNIT=='Tatical Squad') {
+                            if($UNIT=='Tactical Squad') {
                             ?>
                         <option disabled>─────Wargear─────</option>
                         <option value='Boltgun'>Boltgun</option>

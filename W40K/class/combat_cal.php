@@ -590,10 +590,6 @@ class combat_cal {
         $number=$number+$RANGE_BONUS;
     }
     
-        if($UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
-        $number=$number+$RANGE_BONUS;
-    }
-    
     if($WEAPON_TYPE=='Assualt 2') {
         $SHOW_ROLL_HITS=($number+1)*2;
         $number=$number+$MODELS_TO_FIRE;
@@ -692,10 +688,10 @@ class combat_cal {
     
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON);
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS);
 }
 
-function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON) {
+function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS) {
 
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -706,7 +702,7 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 
     for ($x = 0; $x <= $TOTAL_HITS; $x++) {
 
-        $DIE = mt_rand(1, $sides) . "<br>";
+        $DIE = mt_rand(1, $sides);
 
         if ($DIE == 1) {
             $DIE_ONE++;
@@ -1062,11 +1058,11 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp') {
+    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON); 
+    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
     
     } if(is_numeric ($WEAPON_DAMAGE) && $UNIT_WEAPON !='Grav-cannon and grav-amp') {
     
@@ -1078,9 +1074,54 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
 }
 
-function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON) {
+function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS) {
     
 $WOUNDS_TO_ROLL=$TOTAL_WOUNDS-1;
+
+    if($UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
+ 
+$ORIG_DIE_ONE=0;
+$ORIG_DIE_TWO=0;
+$DIE=0;
+        
+    for ($x = 0; $x <= $WOUNDS_TO_ROLL; $x++) {
+        
+        $DIE = mt_rand(1, 6);
+        $DIE_TWO = mt_rand(1, 6);
+        
+        $ORIG_DIE_ONE=$DIE;
+        $ORIG_DIE_TWO=$DIE_TWO;
+        
+        if($DIE >= $DIE_TWO) {     
+                    
+            
+        } if($DIE_TWO > $DIE) {      
+          
+          $DIE=$DIE_TWO;
+            
+        }      
+		
+		    }  
+            
+        $TOTAL_WOUNDS=$DIE." ($WEAPON_DAMAGE)";    
+        
+    echo "<table class='table'>
+        <tr>
+        <th colspan='7'>2D6 Damage and discarded highest</th>
+        </tr>
+	<tr>
+	<th>Die 1</th>
+	<th>Die 2</th>
+        <th>Wounds</th>
+	</tr>
+	<tr>
+        <th>$ORIG_DIE_ONE</th>
+        <th>$ORIG_DIE_TWO</th>            
+        <th>$TOTAL_WOUNDS</th>  
+	</tr>
+	</table>";         
+        
+    }
 
     if($WEAPON_DAMAGE=='1D3') {
         

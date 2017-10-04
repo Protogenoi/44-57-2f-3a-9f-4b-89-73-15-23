@@ -1065,11 +1065,15 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
-$FLAG=1;
+    
+    $FLAG=1;
+
     } 
+    
     if(empty($FLAG)) {
         $FLAG=0;
     }
+    
     if(is_numeric ($WEAPON_DAMAGE) &&  $FLAG == 0) {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();

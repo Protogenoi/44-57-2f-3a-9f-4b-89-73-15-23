@@ -535,7 +535,9 @@ class combat_cal {
         
         $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX+$ROLL_SEVEN+$ROLL_EIGHT+$ROLL_NINE+$ROLL_TEN;
         
-        }        
+        } 
+        
+        //ALTERNATIVE HOWEVER IS NOT AS FAIR AS ROLLING XD6 seperatly $TOTAL_HITS=(mt_rand($SHOW_ROLL_HITS, 6*$SHOW_ROLL_HITS)); 
 
     echo "<table class='table'>
         <tr>

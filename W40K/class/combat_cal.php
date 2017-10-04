@@ -573,7 +573,7 @@ class combat_cal {
     
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON);
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS);
 }
     
     
@@ -1032,6 +1032,8 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
         $TOTAL_WOUNDS=$TOTAL_WOUNDS*2;
     }
     
+
+    
     
     
     echo "<table class='table'>
@@ -1058,18 +1060,19 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
+    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3'|| $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
     
     } if(is_numeric ($WEAPON_DAMAGE) && $UNIT_WEAPON !='Grav-cannon and grav-amp') {
-    
+    if($UNIT_WEAPON=='Grav-gun' && $T_SAVE>'3') {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
     
+    }
     }
     
 }
@@ -1152,7 +1155,7 @@ $DIE_THREE_MOD=0;
         
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>1D3 Damage</th>
+        <th colspan='4'>1D3 Damage</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -1170,7 +1173,7 @@ $DIE_THREE_MOD=0;
                     
     }
     
-    if($UNIT_WEAPON=='Grav-cannon and grav-amp' && $T_SAVE<=3) {
+    if($UNIT_WEAPON=='Grav-cannon and grav-amp' && $T_SAVE<=3 || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3') {
         
     
 $DIE_ONE_MOD=0;
@@ -1200,7 +1203,7 @@ $DIE_THREE_MOD=0;
         
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>1D3 Damage on 3+ save or better</th>
+        <th colspan='4'>1D3 Damage on 3+ save or better</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -1413,7 +1416,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
 
     echo "<table class='table'>
         <tr>
-        <th colspan='7'>$SAVE_ROLL_DISPLAY Wound(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
+        <th colspan='9'>$SAVE_ROLL_DISPLAY Wound(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
         </tr>
 	<tr>
 	<th>1</th>

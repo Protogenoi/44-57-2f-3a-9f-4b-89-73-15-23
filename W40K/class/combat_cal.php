@@ -380,14 +380,202 @@ class combat_cal {
     
         }        
         
+    if($UNIT_WEAPON=='Flamer') {
+        
+    $combat_cal = new combat_cal();
+    $combat_cal->d_six_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+            
+        
+    }    
+    
+    if($UNIT_WEAPON!='Flamer') {
+    
     $combat_cal = new combat_cal();
     $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
-        
+    
     }
     
-    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
+    }
     
+    function d_six_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
 
+        $SHOW_ROLL_HITS=$number+1;
+        
+        $ROLL_ONE=0;
+        $ROLL_TWO=0;
+        $ROLL_THREE=0;
+        $ROLL_FOUR=0;
+        $ROLL_FIVE=0;
+        $ROLL_SIX=0;
+        $ROLL_SEVEN=0;
+        $ROLL_EIGHT=0;
+        $ROLL_NINE=0;
+        $ROLL_TEN=0;
+        
+        if($SHOW_ROLL_HITS=='1') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE;
+        
+        }
+        
+        if($SHOW_ROLL_HITS=='2') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='3') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='4') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='5') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='6') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        $ROLL_SIX=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='7') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        $ROLL_SIX=(mt_rand(1, 6));
+        $ROLL_SEVEN=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX+$ROLL_SEVEN;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='8') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        $ROLL_SIX=(mt_rand(1, 6));
+        $ROLL_SEVEN=(mt_rand(1, 6));
+        $ROLL_EIGHT=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX+$ROLL_SEVEN+$ROLL_EIGHT;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='9') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        $ROLL_SIX=(mt_rand(1, 6));
+        $ROLL_SEVEN=(mt_rand(1, 6));
+        $ROLL_EIGHT=(mt_rand(1, 6));
+        $ROLL_NINE=(mt_rand(1, 6));
+      
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX+$ROLL_SEVEN+$ROLL_EIGHT+$ROLL_NINE;
+        
+        }
+
+        if($SHOW_ROLL_HITS=='10') {
+
+        $ROLL_ONE=(mt_rand(1, 6));
+        $ROLL_TWO=(mt_rand(1, 6));
+        $ROLL_THREE=(mt_rand(1, 6));
+        $ROLL_FOUR=(mt_rand(1, 6));
+        $ROLL_FIVE=(mt_rand(1, 6));
+        $ROLL_SIX=(mt_rand(1, 6));
+        $ROLL_SEVEN=(mt_rand(1, 6));
+        $ROLL_EIGHT=(mt_rand(1, 6));
+        $ROLL_NINE=(mt_rand(1, 6));
+        $ROLL_TEN=(mt_rand(1, 6));
+        
+        $TOTAL_HITS=$ROLL_ONE+$ROLL_TWO+$ROLL_THREE+$ROLL_FOUR+$ROLL_FIVE+$ROLL_SIX+$ROLL_SEVEN+$ROLL_EIGHT+$ROLL_NINE+$ROLL_TEN;
+        
+        }        
+
+    echo "<table class='table'>
+        <tr>
+        <th colspan='11'>$SHOW_ROLL_HITS shots | $UNIT_WEAPON ($WEAPON_TYPE) | Auto 1D6 hits</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+	<th>4</th>
+	<th>5</th>
+	<th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+        <th>Hits</th>
+	</tr>
+	<tr>
+	<th>$ROLL_ONE</th>
+	<th>$ROLL_TWO</th>
+	<th>$ROLL_THREE</th>
+	<th>$ROLL_FOUR</th>
+	<th>$ROLL_FIVE</th>
+	<th>$ROLL_SIX</th>
+        <th>$ROLL_SEVEN</th>
+        <th>$ROLL_EIGHT</th>
+        <th>$ROLL_NINE</th>
+        <th>$ROLL_TEN</th>
+        <th>$TOTAL_HITS</th>    
+	</tr>
+	</table>";
+    
+    $PASS_HITS=$TOTAL_HITS-1;
+    $combat_cal = new combat_cal();
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON);
+}
+    
+    
+    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
     
     $DIE_ONE = 0;
     $DIE_TWO = 0;

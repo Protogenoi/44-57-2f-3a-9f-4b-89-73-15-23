@@ -119,19 +119,19 @@ $(document).ready(function () {
             </div>   
 
             <div class="form-group">
-                <label class="col-sm-4 control-label" style="text-align:left;" for="RAPID_FIRE">Models in Rapid fire:</label>
+                <label class="col-sm-4 control-label" style="text-align:left;" for="RANGE_BONUS">Range Bonus:</label>
                 <div class="col-sm-6">
-                    <select class="form-control" name="RAPID_FIRE" id="RAPID_FIRE" style="width: 170px" required>
+                    <select class="form-control" name="RANGE_BONUS" id="RANGE_BONUS" style="width: 170px" required>
                         <option value="">Select...</option>
-                        <?php if(isset($RAPID_FIRE) && $RAPID_FIRE==0) { ?>
+                        <?php if(isset($RANGE_BONUS) && $RANGE_BONUS==0) { ?>
                         <option value="0" selected>0</option>
                         <?php } ?>
-                            <?php for ($RAPID_FIRE_COUNT = 10; $RAPID_FIRE_COUNT > 0; $RAPID_FIRE_COUNT = $RAPID_FIRE_COUNT - 1) {
-                                                            if($RAPID_FIRE_COUNT> 11) {
+                            <?php for ($RANGE_BONUS_COUNT = 10; $RANGE_BONUS_COUNT > 0; $RANGE_BONUS_COUNT = $RANGE_BONUS_COUNT - 1) {
+                                                            if($RANGE_BONUS_COUNT> 11) {
                                                                break; 
                                                     } 
                                                             ?>
-                        <option value="<?php if(isset($RAPID_FIRE_COUNT)) { echo $RAPID_FIRE_COUNT; } ?>" <?php if($RAPID_FIRE==$RAPID_FIRE_COUNT) { echo "selected"; } ?> ><?php if(isset($RAPID_FIRE_COUNT)) { echo $RAPID_FIRE_COUNT; } ?></option>
+                        <option value="<?php if(isset($RANGE_BONUS_COUNT)) { echo $RANGE_BONUS_COUNT; } ?>" <?php if($RANGE_BONUS==$RANGE_BONUS_COUNT) { echo "selected"; } ?> ><?php if(isset($RANGE_BONUS_COUNT)) { echo $RANGE_BONUS_COUNT; } ?></option>
 
                         <?php } ?>
                         <option value="0">0</option>

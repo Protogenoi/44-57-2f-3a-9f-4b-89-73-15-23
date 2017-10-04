@@ -13,8 +13,8 @@
  */
 class combat_cal { 
     
-    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
-    
+    function weapon_stats ($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
+
         if($FACTION=='Ultramarines') {
         
     if($UNIT=='Intercessor Squad') {
@@ -276,9 +276,7 @@ class combat_cal {
             $WEAPON_STR=5;
             $WEAPON_AP=3;
             $WEAPON_DAMAGE="1";  
-            
-            //if target has a save 3+ or better the damage is D3
- 
+
         if($MOVEMENT=='Moved') {
             $U_BS=4;
         }            
@@ -380,11 +378,16 @@ class combat_cal {
     
         }    
     
-        }
-    
-    if($ENEMY_FACTION=='Deathguard') {
+        }        
         
-    }    
+    $combat_cal = new combat_cal();
+    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+        
+    }
+    
+    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RAPID_FIRE,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
+    
+
     
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -451,7 +454,7 @@ class combat_cal {
         if ($DIE == 6) {
             $DIE_SIX++;
         }
-    }    
+    }      
  
     if($U_BS=='6') {
         $TOTAL_HITS=$DIE_SIX;
@@ -468,7 +471,7 @@ class combat_cal {
     if($U_BS=='2') {
         $TOTAL_HITS=$DIE_TWO;
     }      
-
+    
     echo "<table class='table'>
         <tr>
         <th colspan='7'>$SHOW_ROLL_HITS shots | $UNIT_WEAPON ($WEAPON_TYPE) | $U_BS+ to hit</th>

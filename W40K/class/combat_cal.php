@@ -1065,14 +1065,16 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
-    
-    } if(is_numeric ($WEAPON_DAMAGE) && $UNIT_WEAPON !='Grav-cannon and grav-amp') {
-    if($UNIT_WEAPON=='Grav-gun' && $T_SAVE>'3') {
+$FLAG=1;
+    } 
+    if(empty($FLAG)) {
+        $FLAG=0;
+    }
+    if(is_numeric ($WEAPON_DAMAGE) &&  $FLAG == 0) {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
     
-    }
     }
     
 }
@@ -1416,7 +1418,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
 
     echo "<table class='table'>
         <tr>
-        <th colspan='9'>$SAVE_ROLL_DISPLAY Wound(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
+        <th colspan='9'>$SAVE_ROLL_DISPLAY Save(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
         </tr>
 	<tr>
 	<th>1</th>

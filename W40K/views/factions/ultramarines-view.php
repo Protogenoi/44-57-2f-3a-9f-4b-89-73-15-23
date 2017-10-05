@@ -19,6 +19,8 @@
                         <option value="Tactical Squad" <?php if(isset($UNIT) && $UNIT=='Tactical Squad') { echo "selected"; } ?> >Tactical Squad</option>
                         <option value="Scout Squad" <?php if(isset($UNIT) && $UNIT=='Scout Squad') { echo "selected"; } ?> >Scout Squad</option>
                         <option value="Crusader Squad" <?php if(isset($UNIT) && $UNIT=='Crusader Squad') { echo "selected"; } ?> >Crusader Squad (Black Templars)</option>
+                        <option disabled>─────FAST ATTACK─────</option>
+                        <option value="Inceptor Squad" <?php if(isset($UNIT) && $UNIT=='Inceptor Squad') { echo "selected"; } ?> >Inceptor Squad</option>
                         </select>
                 </div>     
             </div>  
@@ -148,8 +150,12 @@
                         <option value='Supercharged Combi-plasma'<?php if($UNIT_WEAPON=='Supercharged Combi-plasma') { echo "selected"; } ?> >Supercharged Combi-plasma</option>
                         <option value='Storm Bolter'<?php if($UNIT_WEAPON=='Storm Bolter') { echo "selected"; } ?> >Storm Bolter</option>                         
                             <?php }
-                            
-                            } else { ?>
+                        if($UNIT=="Inceptor Squad") { ?>
+                        <option value='Assualt Bolter'<?php if($UNIT_WEAPON=='Assualt Bolter') { echo "selected"; } ?> >Assualt Bolter</option>
+                        <option value='Plasma Exterminator'<?php if($UNIT_WEAPON=='Plasma Exterminator') { echo "selected"; } ?> >Plasma Exterminator</option>
+                        <option value='Supercharged Plasma Exterminator'<?php if($UNIT_WEAPON=='Supercharged Plasma Exterminator') { echo "selected"; } ?> >Supercharged Plasma Exterminator</option>
+                        <?php }   
+                        } else { ?>
                         <option value=''>Select...</option>
                             <?php } ?>
                     </select>
@@ -174,6 +180,8 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Boltstorm Gauntlet'>Boltstorm Gauntlet</option>");
         } if (val === "Primaris Ancient") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Bolt Rifle'>Bolt Rifle</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option>");
+        } if (val === "Inceptor Squad") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Assualt Bolter'>Assualt Bolter</option><option value='Plasma Exterminator'>Plasma Exterminator</option><option value='Supercharged Plasma Exterminator'>Supercharged Plasma Exterminator</option>");
         } 
     });
 });        

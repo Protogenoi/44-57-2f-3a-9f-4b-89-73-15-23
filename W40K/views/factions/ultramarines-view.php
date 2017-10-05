@@ -47,7 +47,7 @@
                         <option value="Bolt Pistol" <?php if($UNIT_WEAPON=='Bolt Pistol') { echo "selected"; } ?> >Bolt Pistol</option>
                         <option value='Master Crafted Auto Bolt Rifle' <?php if($UNIT_WEAPON=='Master Crafted Auto Bolt Rifle') { echo "selected"; } ?> >Master Crafted Auto Bolt Rifle</option>
                         <option value='Master Crafted Stalker Bolt Rifle' <?php if($UNIT_WEAPON=='Master Crafted Stalker Bolt Rifle') { echo "selected"; } ?> >Master Crafted Stalker Bolt Rifle</option>
-                        <option value='Bolt Pistol' <?php if($UNIT_WEAPON=='Frag Grenade') { echo "selected"; } ?> >Krak Grenade</option>
+                        <option value='Bolt Pistol' <?php if($UNIT_WEAPON=='Frag Grenade') { echo "selected"; } ?> >Frag Grenade</option>
                         <option value='Krak Grenade' <?php if($UNIT_WEAPON=='Krak Grenade') { echo "selected"; } ?> >Krak Grenade</option>                                
                         <?php    }
                             if($UNIT=='Intercessor Squad') {

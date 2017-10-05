@@ -39,6 +39,60 @@ class combat_cal {
        }
        
         if($FACTION=='Ultramarines') {
+            
+            if($UNIT=='Primaris Lieutenants') {
+                
+                $U_BS=3;
+                
+    if($UNIT_WEAPON=='Master Crafted Auto Bolt Rifle') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Assualt 2';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="2";     
+    
+        if($MOVEMENT=='Advanced') {
+            $U_BS=4;
+        }
+        
+    }
+    if($UNIT_WEAPON=='Master Crafted Stalker Bolt Rifle') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=2;
+            $WEAPON_DAMAGE="2";  
+
+        if($MOVEMENT=='Moved') {
+            $U_BS=4;
+        }        
+        
+    }  
+        if($UNIT_WEAPON=='Bolt Pistol') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Pistol 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }      
+    
+        if($UNIT_WEAPON=='Frag Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade D6';
+            $WEAPON_STR=3;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }        
+        
+        if($UNIT_WEAPON=='Krak Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade 1';
+            $WEAPON_STR=6;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1D3";          
+        }      
+    
+    }    
         
     if($UNIT=='Intercessor Squad') {
         $U_BS=3; 

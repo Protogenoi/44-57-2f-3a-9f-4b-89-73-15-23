@@ -14,7 +14,30 @@
 class combat_cal { 
     
     function weapon_stats ($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
-
+        
+                
+       if($UNIT_WEAPON=='Combi-flamer') {
+           $UNIT_WEAPON='Flamer';
+       }
+       if($UNIT_WEAPON=='Combi-melta') {
+           $UNIT_WEAPON='Meltagun';
+       }
+       if($UNIT_WEAPON=='Combi-plasma') {
+           $UNIT_WEAPON=='Plasma Gun';
+       }
+       if($UNIT_WEAPON=='Supercharged Combi-plasma') {
+           $UNIT_WEAPON=='Supercharged Plasma Gun';
+       }
+       
+       if($UNIT_WEAPON=='Storm Bolter') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Rapid Fire 2';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";  
+           
+       }
+       
         if($FACTION=='Ultramarines') {
         
     if($UNIT=='Intercessor Squad') {
@@ -177,7 +200,7 @@ class combat_cal {
             $WEAPON_STR=6;
             $WEAPON_AP=1;
             $WEAPON_DAMAGE="1D3";          
-        }        
+        }  
         
     }
     
@@ -791,6 +814,14 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
     if($WEAPON_TYPE=='Rapid Fire 1' && $RANGE_BONUS>=1) {
         $number=$number+$RANGE_BONUS;
     }
+    
+    if($WEAPON_TYPE=='Rapid Fire 2' && $RANGE_BONUS>=1) {
+        $number=($MODELS_TO_FIRE+$RANGE_BONUS)*2-1;
+    }  
+    
+    if($WEAPON_TYPE=='Rapid Fire 2' && $RANGE_BONUS==0) {
+        $number=$number+$MODELS_TO_FIRE;
+    }      
     
     if($WEAPON_TYPE=='Assualt 2') {
         $SHOW_ROLL_HITS=($number+1)*2;

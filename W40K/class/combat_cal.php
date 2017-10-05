@@ -89,6 +89,43 @@ class combat_cal {
         }             
             
         }
+        
+        if($UNIT=='Inceptor Squad') {
+            $U_BS=3;
+            
+            if($UNIT_WEAPON=='Assualt Bolter') {
+            $WEAPON_RANGE=18;
+            $WEAPON_TYPE='Assualt 3';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";  
+                
+            }
+            if($UNIT_WEAPON=='Plasma Exterminator') {
+            $WEAPON_RANGE=18;
+            $WEAPON_TYPE='Assualt 1D3';
+            $WEAPON_STR=7;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1"; 
+            
+        if($MOVEMENT=='Advanced') {
+            $U_BS=4;
+        }            
+                
+            }
+            if($UNIT_WEAPON=='Supercharged Plasma Exterminator') {
+            $WEAPON_RANGE=18;
+            $WEAPON_TYPE='Assualt 1D3';
+            $WEAPON_STR=8;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="2";  
+            
+        if($MOVEMENT=='Advanced') {
+            $U_BS=4;
+        }            
+                
+            }            
+        }
             
             if($UNIT=='Primaris Lieutenants') {
                 
@@ -718,7 +755,15 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
         
     }    
     
-    if($UNIT_WEAPON!='Flamer') {
+    elseif($UNIT_WEAPON=='Plasma Exterminator' || $UNIT_WEAPON=='Supercharged Plasma Exterminator') {
+        
+    $combat_cal = new combat_cal();
+    $combat_cal->two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+              
+        
+    }
+    
+    elseif($UNIT_WEAPON!='Flamer') {
     
     $combat_cal = new combat_cal();
     $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
@@ -726,6 +771,58 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
     }
     
     }
+    
+    function two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
+        
+$DIE_ONE_MOD=0;
+$DIE_TWO_MOD=0;
+$DIE_THREE_MOD=0;        
+        
+    for ($x = 0; $x <= $MODELS_TO_FIRE; $x++) {
+
+        $DIE = mt_rand(1, 3);
+
+        if ($DIE == 1) {
+            $DIE_ONE_MOD++;
+        }
+        if ($DIE == 2) {
+            $DIE_TWO_MOD++;
+            $DIE_TWO_MOD++;
+        }
+        if ($DIE == 3) {
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+            $DIE_THREE_MOD++;
+        }
+		
+		    }  
+            
+        $TOTAL_HITS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD;    
+        
+    echo "<table class='table'>
+        <tr>
+        <th colspan='4'>$WEAPON_TYPE Hits</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+        <th>Hits</th>
+	</tr>
+	<tr>
+	<th>$DIE_ONE_MOD</th>
+	<th>$DIE_TWO_MOD</th>
+	<th>$DIE_THREE_MOD</th>
+        <th>$TOTAL_HITS</th>  
+	</tr>
+	</table>";  
+    
+    $number=$TOTAL_HITS-1;
+ 
+    $combat_cal = new combat_cal();
+    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+        
+    }   
     
     function d_six_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
 
@@ -937,7 +1034,21 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
         $SHOW_ROLL_HITS=($number+1)*2;
         $number=$number+$MODELS_TO_FIRE;
 
+    } 
+    
+    if($WEAPON_TYPE=='Assualt 3') {
+        $SHOW_ROLL_HITS=($number+1)*6;
+        $number=$number+$SHOW_ROLL_HITS-$MODELS_TO_FIRE;
+
     }  
+
+    if($WEAPON_TYPE=='Assualt 1D3') {
+        if($UNIT_WEAPON=='Plasma Exterminator' || $UNIT_WEAPON=='Supercharged Plasma Exterminator') {
+            
+        } else{
+        $number=$DIE = (mt_rand(1, 3));
+    }        
+    }
     
     if($WEAPON_TYPE=='Grenade D6') {
         $number=$DIE = (mt_rand(1, 6))-1;
@@ -1403,7 +1514,7 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3'|| $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1 || $UNIT_WEAPON=='Multi-melta' && $RANGE_BONUS>=1) {
+    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3'|| $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1 || $UNIT_WEAPON=='Multi-melta' && $RANGE_BONUS>=1 || $UNIT_WEAPON=='Supercharged Plasma Exterminator') {
 
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();

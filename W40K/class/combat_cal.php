@@ -40,6 +40,18 @@ class combat_cal {
        
         if($FACTION=='Ultramarines') {
             
+        if($UNIT=='Captain in Gravis armour') {
+        $U_BS=2;
+        if($UNIT_WEAPON=='Boltstorm Gauntlet') {    
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Pistol 3';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";  
+            
+        }
+        }
+            
             if($UNIT=='Primaris Lieutenants') {
                 
                 $U_BS=3;
@@ -875,7 +887,12 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
     
     if($WEAPON_TYPE=='Rapid Fire 2' && $RANGE_BONUS==0) {
         $number=$number+$MODELS_TO_FIRE;
-    }      
+    }   
+    
+    if($WEAPON_TYPE=='Pistol 3') {
+        $SHOW_ROLL_HITS=($number+1)*3;
+        $number=$SHOW_ROLL_HITS-1;
+    }     
     
     if($WEAPON_TYPE=='Assualt 2') {
         $SHOW_ROLL_HITS=($number+1)*2;
@@ -946,7 +963,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
         $TOTAL_HITS=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
     }
     if($U_BS=='2') {
-        $TOTAL_HITS=$DIE_TWO;
+        $TOTAL_HITS=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
     }      
     
     echo "<table class='table'>

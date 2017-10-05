@@ -242,7 +242,7 @@ class combat_cal {
             $WEAPON_TYPE='Assualt 1';
             $WEAPON_STR=8;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="D6";   
+            $WEAPON_DAMAGE="1D6";   
             
             //HALF RANGE ROLL TWO D6 for damage and discard the lowest.
  
@@ -1060,21 +1060,15 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 	</tr>
 	</table>";  
     
-    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3'|| $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
-    
+    if(!is_numeric ($WEAPON_DAMAGE) || $UNIT_WEAPON=='Grav-cannon and grav-amp' || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3'|| $UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1 || $UNIT_WEAPON=='Multi-melta' && $RANGE_BONUS>=1) {
+
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
     
-    $FLAG=1;
+    
 
-    } 
-    
-    if(empty($FLAG)) {
-        $FLAG=0;
-    }
-    
-    if(is_numeric ($WEAPON_DAMAGE) &&  $FLAG == 0) {
+    } elseif(is_numeric ($WEAPON_DAMAGE)) {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
     $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
@@ -1087,7 +1081,7 @@ function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_
     
 $WOUNDS_TO_ROLL=$TOTAL_WOUNDS-1;
 
-    if($UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1) {
+    if($UNIT_WEAPON=='Meltagun' && $RANGE_BONUS>=1 || $UNIT_WEAPON=='Multi-melta' && $RANGE_BONUS>=1) {
  
 $ORIG_DIE_ONE=0;
 $ORIG_DIE_TWO=0;
@@ -1132,7 +1126,7 @@ $DIE=0;
         
     }
 
-    if($WEAPON_DAMAGE=='1D3') {
+    elseif($WEAPON_DAMAGE=='1D3') {
         
 $DIE_ONE_MOD=0;
 $DIE_TWO_MOD=0;
@@ -1179,7 +1173,7 @@ $DIE_THREE_MOD=0;
                     
     }
     
-    if($UNIT_WEAPON=='Grav-cannon and grav-amp' && $T_SAVE<=3 || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3') {
+    elseif($UNIT_WEAPON=='Grav-cannon and grav-amp' && $T_SAVE<=3 || $UNIT_WEAPON=='Grav-gun' && $T_SAVE=='3') {
         
     
 $DIE_ONE_MOD=0;
@@ -1227,7 +1221,7 @@ $DIE_THREE_MOD=0;
         
     }
     
-    if($WEAPON_DAMAGE=='1D6') {
+    elseif($WEAPON_DAMAGE=='1D6') {
         
 $DIE_ONE_MOD=0;
 $DIE_TWO_MOD=0;

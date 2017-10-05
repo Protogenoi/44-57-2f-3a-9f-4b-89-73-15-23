@@ -51,6 +51,44 @@ class combat_cal {
             
         }
         }
+        
+        if($UNIT=='Primaris Ancient') {
+            $U_BS=3;
+            
+    if($UNIT_WEAPON=='Bolt Rifle') {
+        $WEAPON_RANGE=30;
+        $WEAPON_TYPE='Rapid Fire 1';
+        $WEAPON_STR=4;
+        $WEAPON_AP=1;
+        $WEAPON_DAMAGE=1;
+            
+    }             
+
+        if($UNIT_WEAPON=='Bolt Pistol') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Pistol 1';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }      
+    
+        if($UNIT_WEAPON=='Frag Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade D6';
+            $WEAPON_STR=3;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";          
+        }        
+        
+        if($UNIT_WEAPON=='Krak Grenade') {
+            $WEAPON_RANGE=6;
+            $WEAPON_TYPE='Grenade 1';
+            $WEAPON_STR=6;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1D3";          
+        }             
+            
+        }
             
             if($UNIT=='Primaris Lieutenants') {
                 
@@ -143,11 +181,12 @@ class combat_cal {
         }      
     
     if($UNIT_WEAPON=='Bolt Rifle') {
+        $WEAPON_RANGE=30;
+        $WEAPON_TYPE='Rapid Fire 1';
         $WEAPON_STR=4;
         $WEAPON_AP=1;
         $WEAPON_DAMAGE=1;
-        $WEAPON_TYPE='Rapid Fire 1';
-        $WEAPON_RANGE=30;
+            
     } 
     
         if($UNIT_WEAPON=='Frag Grenade') {

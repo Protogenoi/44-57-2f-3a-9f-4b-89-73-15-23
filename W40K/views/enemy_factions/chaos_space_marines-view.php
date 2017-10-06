@@ -11,7 +11,7 @@
                         <option value="Kharn the Betrayer" <?php if($TARGET_UNIT=='Kharn the Betrayer') { echo "selected"; } ?> >Kharn the Betrayer</option>
                         <option value="Abaddon the Despoiler" <?php if($TARGET_UNIT=='Abaddon the Despoiler') { echo "selected"; } ?> >Abaddon the Despoiler</option>
                         <option value="Daemon Prince" <?php if($TARGET_UNIT=='Daemon Prince') { echo "selected"; } ?> >Daemon Prince</option>                        
-                        <option disabled>─────Elites─────</option>
+                        <option disabled>─────ELITES─────</option>
                         <option value="Khorne Bezerkers" <?php if($TARGET_UNIT=='Khorne Bezerkers') { echo "selected"; } ?> >Khorne Bezerkers</option>
                         <option value="Bezerker Champion" <?php if($TARGET_UNIT=='Bezerker Champion') { echo "selected"; } ?> >Bezerker Champion</option>
                         <option value="Rubric Marines" <?php if($TARGET_UNIT=='Rubric Marines') { echo "selected"; } ?> >Rubric Marines</option>
@@ -35,7 +35,7 @@
                         <option value="Plagueridden" <?php if($TARGET_UNIT=='Plagueridden') { echo "selected"; } ?> >Plagueridden</option>
                         <option value="Daemonettes" <?php if($TARGET_UNIT=='Daemonettes') { echo "selected"; } ?> >Daemonettes</option>
                         <option value="Alluress" <?php if($TARGET_UNIT=='Alluress') { echo "selected"; } ?> >Alluress</option>
-                        <option disabled>─────Heavy Support─────</option>
+                        <option disabled>─────HEAVY SUPPORT─────</option>
                         <option value="Havocs" <?php if($TARGET_UNIT=='Havocs') { echo "selected"; } ?> >Havocs</option>
                         <option value="Chaos Land Raider" <?php if($TARGET_UNIT=='Chaos Land Raider') { echo "selected"; } ?> >Chaos Land Raider</option>
                         <option value="Chaos Predator" <?php if($TARGET_UNIT=='Chaos Predator') { echo "selected"; } ?> >Chaos Predator</option>

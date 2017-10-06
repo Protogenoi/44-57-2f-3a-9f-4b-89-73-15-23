@@ -1277,7 +1277,7 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     }
         
     if($ENEMY_FACTION || $FACTION =='Deathguard') {
-    if($TARGET_UNIT=='Deathguard') {
+    if($TARGET_UNIT=='Plague Marines') {
         $T_WS=3;
         $T_BS=3;
         $T_WOUNDS=1;

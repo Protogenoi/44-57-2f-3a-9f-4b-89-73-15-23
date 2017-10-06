@@ -14,6 +14,7 @@
                         <option value="Noxious Blightbringer" <?php if($TARGET_UNIT=='Noxious Blightbringer') { echo "selected"; } ?> >Noxious Blightbringer</option>
                         <option disabled>─────TROOPS─────</option>
                         <option value="Plague Marines" <?php if($TARGET_UNIT=='Plague Marines') { echo "selected"; } ?> >Plague Marines</option>
+                        <option value="Plague Champion" <?php if($TARGET_UNIT=='Plague Champion') { echo "selected"; } ?> >Plague Champion</option>
                         <option value="Pox walkers" <?php if($TARGET_UNIT=='Pox walkers') { echo "selected"; } ?> >Pox walkers</option>
                         <option disabled>─────FAST ATTACK─────</option>
                         <option value="Foetid Bloat-Drone" <?php if($TARGET_UNIT=='Foetid Bloat-Drone') { echo "selected"; } ?> >Foetid Bloat-Drone</option>

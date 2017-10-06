@@ -7,9 +7,17 @@
                 <div class="col-sm-6">
                     <select class="form-control" name="TARGET_UNIT" id="UNIT" style="width: 170px" required>
                         <option value="">Select...</option>
+                        <option disabled>─────HQ─────</option>
+                        <option value="Lord of Contagion" <?php if($TARGET_UNIT=='Lord of Contagion') { echo "selected"; } ?> >Lord of Contagion</option>
+                        <option value="Malignant Plaguecaster" <?php if($TARGET_UNIT=='Malignant Plaguecaster') { echo "selected"; } ?> >Malignant Plaguecaster</option>
+                        <option disabled>─────ELITES─────</option>
+                        <option value="Noxious Blightbringer" <?php if($TARGET_UNIT=='Noxious Blightbringer') { echo "selected"; } ?> >Noxious Blightbringer</option>
                         <option disabled>─────TROOPS─────</option>
-                        <option value="Deathguard" <?php if($TARGET_UNIT=='Deathguard') { echo "selected"; } ?> >Deathguard</option>
+                        <option value="Plague Marines" <?php if($TARGET_UNIT=='Plague Marines') { echo "selected"; } ?> >Plague Marines</option>
                         <option value="Pox walkers" <?php if($TARGET_UNIT=='Pox walkers') { echo "selected"; } ?> >Pox walkers</option>
+                        <option disabled>─────FAST ATTACK─────</option>
+                        <option value="Foetid Bloat-Drone" <?php if($TARGET_UNIT=='Foetid Bloat-Drone') { echo "selected"; } ?> >Foetid Bloat-Drone</option>
+                        <option disabled>─────HEAVY SUPPORT─────</option>
                     </select>
                 </div>     
             </div>                   

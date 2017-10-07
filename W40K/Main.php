@@ -79,6 +79,7 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
                         <option value="Deathguard" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Deathguard') { echo "selected"; } ?> >Deathguard</option>
                         <option value="Chaos Space Marines" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') { echo "selected"; } ?> >Chaos Space Marines</option>
                         <option value="Eldar" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') { echo "selected"; } ?> >Eldar</option>
+                        <option value="Ultramarines" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Ultramarines') { echo "selected"; } ?> >Ultramarines</option>
 
                     </select>
                 </div>     

@@ -78,6 +78,8 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
                         <option value="">Select...</option> 
                         <option value="Deathguard" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Deathguard') { echo "selected"; } ?> >Deathguard</option>
                         <option value="Chaos Space Marines" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') { echo "selected"; } ?> >Chaos Space Marines</option>
+                        <option value="Eldar" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') { echo "selected"; } ?> >Eldar</option>
+
                     </select>
                 </div>     
             </div>
@@ -126,6 +128,9 @@ if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') {
     require_once(__DIR__ . '/views/enemy_factions/chaos_space_marines-view.php');
 }
 
+if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') {
+    require_once(__DIR__ . '/views/enemy_factions/eldar-view.php');
+}
 ?>          
         
            <?php if(isset($FACTION) && $ENEMY_FACTION) { ?>   

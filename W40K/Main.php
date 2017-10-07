@@ -132,6 +132,10 @@ if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') {
 if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') {
     require_once(__DIR__ . '/views/enemy_factions/eldar-view.php');
 }
+
+if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Ultramarines') {
+    require_once(__DIR__ . '/views/enemy_factions/ultramarines-view.php');
+}
 ?>          
         
            <?php if(isset($FACTION) && $ENEMY_FACTION) { ?>   

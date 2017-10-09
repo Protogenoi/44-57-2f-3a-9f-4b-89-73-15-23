@@ -54,7 +54,7 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
         }
         ?>
 
-        <form method="POST" action="Main.php?action=1">    
+        <form method="POST" action="Ranged.php?action=1">    
             
             <input type="hidden" name="FACTION" value="<?php echo $FACTION; ?>">
             <input type="hidden" name="ENEMY_FACTION" value="<?php echo $ENEMY_FACTION; ?>">

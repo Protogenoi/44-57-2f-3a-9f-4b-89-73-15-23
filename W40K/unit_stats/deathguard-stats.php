@@ -64,7 +64,7 @@
         
         $U_ABILITIES=array("Disgustingly Resilient");
         $U_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$U_KEYWORDS=array("Infantry","Plague Marines");         
+        $U_KEYWORDS=array("Infantry","Plague Marines");         
         
     } 
     
@@ -81,7 +81,7 @@
         
         $U_ABILITIES=array("Disgustingly Resilient");
         $U_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$U_KEYWORDS=array("Infantry","Plague Marines");            
+        $U_KEYWORDS=array("Infantry","Plague Marines");            
         
     }     
     
@@ -98,7 +98,7 @@
         
         $U_ABILITIES=array("Disgustingly Resilient","Curse of the Walking Pox","Mindless","Diseased Horde");
         $U_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$U_KEYWORDS=array("Infantry","Pox walkers");            
+        $U_KEYWORDS=array("Infantry","Pox walkers");            
         
     }
     

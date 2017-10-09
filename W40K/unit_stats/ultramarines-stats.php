@@ -1,6 +1,6 @@
 <?php
     
-    if($TARGET_UNIT=='Captain in Gravis armour') {
+    if($UNIT=='Captain in Gravis armour') {
         $U_MOVE=5;
         $U_WS=2;
         $U_BS=2;
@@ -13,7 +13,7 @@
         $U_INVUL =4;        
     }
     
-    if($TARGET_UNIT=='Primaris Lieutenants') {
+    if($UNIT=='Primaris Lieutenants') {
         $U_MOVE=6;
         $U_WS=2;
         $U_BS=3;
@@ -26,7 +26,7 @@
         $U_INVUL =0;        
     }    
     
-    if($TARGET_UNIT=='Primaris Ancient') {
+    if($UNIT=='Primaris Ancient') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -39,7 +39,7 @@
         $U_INVUL =0;        
     } 
     
-    if($TARGET_UNIT=='Intercessor Squad') {
+    if($UNIT=='Intercessor Squad') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -52,7 +52,7 @@
         $U_INVUL =0;        
     }  
     
-    if($TARGET_UNIT=='Intercessor Sergeant') {
+    if($UNIT=='Intercessor Sergeant') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -65,7 +65,7 @@
         $U_INVUL =0;        
     }   
     
-    if($TARGET_UNIT=='Tactical Squad') {
+    if($UNIT=='Tactical Squad') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -78,7 +78,7 @@
         $U_INVUL =0;        
     } 
 
-    if($TARGET_UNIT=='Tactical Marine Sergeant') {
+    if($UNIT=='Tactical Marine Sergeant') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -91,7 +91,7 @@
         $U_INVUL =0;        
     } 
 
-    if($TARGET_UNIT=='Scout Squad') {
+    if($UNIT=='Scout Squad') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;
@@ -104,7 +104,7 @@
         $U_INVUL =0;        
     } 
 
-    if($TARGET_UNIT=='Scout Sergeant') {
+    if($UNIT=='Scout Sergeant') {
         $U_MOVE=6;
         $U_WS=3;
         $U_BS=3;

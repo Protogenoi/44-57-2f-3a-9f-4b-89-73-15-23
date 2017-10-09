@@ -14,63 +14,25 @@
 class combat_cal { 
     
     function weapon_stats ($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
-        
-                
-       if($UNIT_WEAPON=='Combi-flamer') {
-           $UNIT_WEAPON='Flamer';
-       }
-       if($UNIT_WEAPON=='Combi-melta') {
-           $UNIT_WEAPON='Meltagun';
-       }
-       if($UNIT_WEAPON=='Combi-plasma') {
-           $UNIT_WEAPON=='Plasma Gun';
-       }
-       if($UNIT_WEAPON=='Supercharged Combi-plasma') {
-           $UNIT_WEAPON=='Supercharged Plasma Gun';
-       }
-       
-       if($UNIT_WEAPON=='Storm Bolter') {
-            $WEAPON_RANGE=24;
-            $WEAPON_TYPE='Rapid Fire 2';
-            $WEAPON_STR=4;
-            $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";  
-           
-       }
        
        if($FACTION=='Ultramarines') {
            
-           if (file_exists("../unit_stats/ultramarines-stats.php")) {
            require_once(__DIR__ . '/../unit_stats/ultramarines-stats.php');
-           }
-           
-           if (file_exists("../unit_stats/ultramarines-weapons.php")) {
            require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');
-           }
-       
+
        }
        
        if($FACTION=='Eldar') {
-           
-           if (file_exists("../unit_stats/eldar-stats.php")) {
+
            require_once(__DIR__ . '/../unit_stats/eldar-stats.php');
-           }
-           
-           if (file_exists("../unit_stats/eldar-weapons.php")) {
            require_once(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
-           }
        
        }  
        
        if($FACTION=='Deathguard') {
-           
-           if (file_exists("../unit_stats/deathguard-stats.php")) {
+
            require_once(__DIR__ . '/../unit_stats/deathguard-stats.php');
-           }
-           
-           if (file_exists("../unit_stats/deathguard-weapons.php")) {
            require_once(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
-           }
        
        }       
         

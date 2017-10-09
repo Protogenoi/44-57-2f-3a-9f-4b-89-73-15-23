@@ -98,7 +98,7 @@
         
         $T_ABILITIES=array("Disgustingly Resilient","Curse of the Walking Pox","Mindless","Diseased Horde");
         $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$T_KEYWORDS=array("Infantry","Pox walkers");            
+        $T_KEYWORDS=array("Infantry","Pox walkers");            
         
     }
     

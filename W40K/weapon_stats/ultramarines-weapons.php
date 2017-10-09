@@ -1,5 +1,27 @@
 <?php
 
+       if($UNIT_WEAPON=='Combi-flamer') {
+           $UNIT_WEAPON='Flamer';
+       }
+       if($UNIT_WEAPON=='Combi-melta') {
+           $UNIT_WEAPON='Meltagun';
+       }
+       if($UNIT_WEAPON=='Combi-plasma') {
+           $UNIT_WEAPON=='Plasma Gun';
+       }
+       if($UNIT_WEAPON=='Supercharged Combi-plasma') {
+           $UNIT_WEAPON=='Supercharged Plasma Gun';
+       }
+       
+       if($UNIT_WEAPON=='Storm Bolter') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Rapid Fire 2';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";  
+           
+       }
+
         if($UNIT=='Captain in Gravis armour') {
 
         if($UNIT_WEAPON=='Boltstorm Gauntlet') {    

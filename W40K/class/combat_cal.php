@@ -558,20 +558,20 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL); 
+    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL,$T_ABILITIES); 
     
     
 
     } elseif(is_numeric ($WEAPON_DAMAGE)) {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL,$T_ABILITIES);
     
     }
     
 }
 
-function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL) {
+function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL,$T_ABILITIES) {
     
 $WOUNDS_TO_ROLL=$TOTAL_WOUNDS-1;
 
@@ -794,11 +794,11 @@ $DIE_SIX_MOD=0;
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL,$T_ABILITIES);
     
 }
 
-function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
+function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL,$T_ABILITIES) {
     
     if($WEAPON_AP>=1) {
         if($WEAPON_AP=='1') {
@@ -931,8 +931,8 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
     }
     
     else {
-        $TOTAL_INVUL=0;
-        $TOTAL_INVUL_FAILS=0;
+        $TOTAL_INVUL="-";
+        $TOTAL_INVUL_FAILS="-";
     }
     
     }
@@ -973,7 +973,92 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
         <th>$TOTAL_INVUL ($TOTAL_INVUL_FAILS)</th>   
         <th>$MORTAL_WOUNDS</th>    
 	</tr>
-	</table>";    
+	</table>";  
+    
+    $IGN_WOUND=array("Disgustingly Resilient");
+    
+    if (array_intersect($IGN_WOUND, $T_ABILITIES)) {
+    
+    $combat_cal = new combat_cal();
+    $combat_cal->ignore_wounds($TOTAL_SAVES,$TOTAL_INVUL,$TOTAL_FAILS,$TOTAL_INVUL_FAILS);
+    
+    }
+    
+}
+
+function ignore_wounds($TOTAL_SAVES,$TOTAL_INVUL,$TOTAL_FAILS,$TOTAL_INVUL_FAILS) {
+        
+    $DIE_ONE = 0;
+    $DIE_TWO = 0;
+    $DIE_THREE = 0;
+    $DIE_FOUR = 0;
+    $DIE_FIVE = 0;
+    $DIE_SIX = 0;       
+    
+    if($TOTAL_SAVES>$TOTAL_INVUL) {
+        $IGN_SAVE_ROLLS=$TOTAL_INVUL_FAILS-1;
+        $SHOW_IGN_SAVE_ROLLS=$TOTAL_INVUL_FAILS;
+    }
+    elseif($TOTAL_SAVES<=$TOTAL_INVUL) {
+        $IGN_SAVE_ROLLS=$TOTAL_FAILS-1;
+        $SHOW_IGN_SAVE_ROLLS=$TOTAL_FAILS;
+    }
+        
+    for ($x = 0; $x <= $IGN_SAVE_ROLLS; $x++) {
+
+        $DIE = mt_rand(1, 6);
+
+        if ($DIE == 1) {
+            $DIE_ONE++;
+        }
+        if ($DIE == 2) {
+            $DIE_TWO++;
+        }
+        if ($DIE == 3) {
+            $DIE_THREE++;
+        }
+        if ($DIE == 4) {
+            $DIE_FOUR++;
+        }
+        if ($DIE == 5) {
+            $DIE_FIVE++;
+        }
+        if ($DIE == 6) {
+            $DIE_SIX++;
+        }
+    }
+    $IGNORE_WOUNDS=$DIE_FIVE+$DIE_SIX;
+    $FAILS=$SHOW_IGN_SAVE_ROLLS-$IGNORE_WOUNDS;
+
+    if(empty($IGNORE_WOUNDS)) {
+        $IGNORE_WOUNDS=0;
+        $FAILS="-";
+    }
+    
+    echo "<table class='table'>
+        <tr>
+        <th colspan='9'>$SHOW_IGN_SAVE_ROLLS roll(s) to Ignore wounds</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+	<th>4</th>
+	<th>5</th>
+	<th>6</th>
+        <th>Saves</th>
+	</tr>
+	<tr>
+	<th>$DIE_ONE</th>
+	<th>$DIE_TWO</th>
+	<th>$DIE_THREE</th>
+	<th>$DIE_FOUR</th>
+	<th>$DIE_FIVE</th>
+	<th>$DIE_SIX</th> 
+        <th>$IGNORE_WOUNDS($FAILS)</th>   
+	</tr>
+	</table>";      
+    
     
 }
 

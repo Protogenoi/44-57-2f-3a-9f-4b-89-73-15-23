@@ -35,6 +35,13 @@ class combat_cal {
            require_once(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
        
        }       
+       
+       if($FACTION=='Chaos Space Marines') {
+
+           require_once(__DIR__ . '/../unit_stats/csm-stats.php');
+           require_once(__DIR__ . '/../weapon_stats/csm-weapons.php');  
+       
+       }        
         
  if(strpos($WEAPON_TYPE,"Assualt") !== false && $MOVEMENT=='Advanced') {
      

@@ -3,8 +3,8 @@
 class combat_cal { 
     
     function weapon_stats ($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT) {
-       
-       if($FACTION=='Ultramarines') {
+
+        if($FACTION=='Ultramarines') {
            
            require_once(__DIR__ . '/../unit_stats/ultramarines-stats.php');
            require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');
@@ -932,6 +932,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
     
     else {
         $TOTAL_INVUL=0;
+        $TOTAL_INVUL_FAILS=0;
     }
     
     }

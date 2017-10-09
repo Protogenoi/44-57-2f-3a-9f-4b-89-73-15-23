@@ -65,10 +65,7 @@
             $WEAPON_STR=7;
             $WEAPON_AP=3;
             $WEAPON_DAMAGE="1"; 
-            
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }            
+          
                 
             }
             if($UNIT_WEAPON=='Supercharged Plasma Exterminator') {
@@ -76,11 +73,7 @@
             $WEAPON_TYPE='Assualt 1D3';
             $WEAPON_STR=8;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="2";  
-            
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="2";             
                 
             }            
         }
@@ -95,10 +88,6 @@
             $WEAPON_STR=4;
             $WEAPON_AP=0;
             $WEAPON_DAMAGE="2";     
-    
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }
         
     }
     if($UNIT_WEAPON=='Master Crafted Stalker Bolt Rifle') {
@@ -107,10 +96,7 @@
             $WEAPON_STR=4;
             $WEAPON_AP=2;
             $WEAPON_DAMAGE="2";  
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }        
+      
         
     }  
         if($UNIT_WEAPON=='Bolt Pistol') {
@@ -147,10 +133,7 @@
         $WEAPON_DAMAGE=1;
         $WEAPON_TYPE='Assualt 2';
         $WEAPON_RANGE=24;   
-    
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }
+
         
     }
     if($UNIT_WEAPON=='Stalker Bolt Rifle') {
@@ -159,10 +142,7 @@
         $WEAPON_DAMAGE=1;
         $WEAPON_TYPE='Heavy 1';
         $WEAPON_RANGE=36;
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }        
+       
         
     }  
     
@@ -233,10 +213,7 @@
             $WEAPON_STR=6;
             $WEAPON_AP=4;
             $WEAPON_DAMAGE="1";  
-            
-         if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }           
+         
             
         }
         
@@ -245,11 +222,7 @@
             $WEAPON_TYPE='Assualt 2';
             $WEAPON_STR=7;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="2";  
-            
-         if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }           
+            $WEAPON_DAMAGE="2";           
             
         }   
         
@@ -259,10 +232,7 @@
             $WEAPON_STR=8;
             $WEAPON_AP=4;
             $WEAPON_DAMAGE="1";  
-            
-         if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }           
+         
             
         }
         
@@ -271,11 +241,7 @@
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=9;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="2";  
-            
-         if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }           
+            $WEAPON_DAMAGE="2";          
             
         }        
         
@@ -322,11 +288,7 @@
             $WEAPON_TYPE='Assault 1';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1"; 
-
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";           
             
         }         
         
@@ -335,11 +297,7 @@
             $WEAPON_TYPE='Heavy 3';
             $WEAPON_STR=5;
             $WEAPON_AP=1;
-            $WEAPON_DAMAGE="1";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";            
             
         }    
         
@@ -348,11 +306,7 @@
             $WEAPON_TYPE='Heavy 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";              
             
         }  
         
@@ -361,11 +315,7 @@
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=8;
             $WEAPON_AP=2;
-            $WEAPON_DAMAGE="1D6"; 
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1D6";            
             
         }   
         
@@ -375,10 +325,7 @@
             $WEAPON_STR=4;
             $WEAPON_AP=0;
             $WEAPON_DAMAGE="1";  
-            
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        } 
+
         
         }  
         
@@ -439,11 +386,7 @@
             $WEAPON_TYPE='Assualt 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
- 
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";              
             
         }    
         
@@ -460,11 +403,7 @@
             $WEAPON_TYPE='Assualt 1';
             $WEAPON_STR=8;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="1D6";   
- 
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }         
+            $WEAPON_DAMAGE="1D6";          
         
     } 
     
@@ -491,11 +430,7 @@
             $WEAPON_TYPE='Heavy 4';
             $WEAPON_STR=5;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1";  
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";             
             
         }     
   
@@ -504,11 +439,7 @@
             $WEAPON_TYPE='Heavy 3';
             $WEAPON_STR=5;
             $WEAPON_AP=1;
-            $WEAPON_DAMAGE="1";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";           
             
         }
         
@@ -517,11 +448,7 @@
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=9;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1D6";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1D6";   
             
         }   
         
@@ -530,11 +457,7 @@
             $WEAPON_TYPE='Heavy 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";               
             
         }  
         
@@ -543,11 +466,7 @@
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=8;
             $WEAPON_AP=2;
-            $WEAPON_DAMAGE="1D6"; 
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1D6";            
             
         }   
         
@@ -556,11 +475,7 @@
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=8;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="1D6";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1D6";                
             
         } 
 
@@ -569,11 +484,7 @@
             $WEAPON_TYPE='Heavy 1D3';
             $WEAPON_STR=7;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";                
             
         } 
 
@@ -582,11 +493,7 @@
             $WEAPON_TYPE='Heavy 1D3';
             $WEAPON_STR=8;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="2";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="2";             
             
         }          
     
@@ -599,11 +506,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Assault 1';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1"; 
-
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";             
             
         }         
         
@@ -644,11 +547,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Assualt 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
- 
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";               
             
         }    
         
@@ -665,11 +564,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Assualt 1';
             $WEAPON_STR=8;
             $WEAPON_AP=4;
-            $WEAPON_DAMAGE="1D6";   
- 
-        if($MOVEMENT=='Advanced') {
-            $U_BS=4;
-        }         
+            $WEAPON_DAMAGE="1D6";          
         
     } 
     
@@ -696,11 +591,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 4';
             $WEAPON_STR=5;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1";  
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";            
             
         }     
   
@@ -709,11 +600,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 3';
             $WEAPON_STR=5;
             $WEAPON_AP=1;
-            $WEAPON_DAMAGE="1";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1";             
             
         }
         
@@ -722,11 +609,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=9;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1D6";  
- 
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }            
+            $WEAPON_DAMAGE="1D6";            
             
         }   
         
@@ -735,11 +618,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 1D6';
             $WEAPON_STR=4;
             $WEAPON_AP=0;
-            $WEAPON_DAMAGE="1";   
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";               
             
         }  
         
@@ -748,11 +627,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 1';
             $WEAPON_STR=8;
             $WEAPON_AP=2;
-            $WEAPON_DAMAGE="1D6"; 
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1D6";             
             
         }   
         
@@ -762,11 +637,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_STR=8;
             $WEAPON_AP=4;
             $WEAPON_DAMAGE="1D6";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
-            
+ 
         } 
 
         if($UNIT_WEAPON=='Plasma Cannon') {
@@ -774,11 +645,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_TYPE='Heavy 1D3';
             $WEAPON_STR=7;
             $WEAPON_AP=3;
-            $WEAPON_DAMAGE="1";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            $WEAPON_DAMAGE="1";               
             
         } 
 
@@ -788,10 +655,7 @@ if(strpos($UNIT,"Crusader Squad") !== false) {
             $WEAPON_STR=8;
             $WEAPON_AP=3;
             $WEAPON_DAMAGE="2";    
-
-        if($MOVEMENT=='Moved') {
-            $U_BS=4;
-        }             
+            
             
         }          
     

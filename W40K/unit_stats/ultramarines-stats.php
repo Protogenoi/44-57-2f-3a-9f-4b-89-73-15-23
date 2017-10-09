@@ -10,7 +10,7 @@
         $U_ATTACKS=5;
         $U_LD=9;
         $U_SAVE=3; 
-        $U_INVUL =4;        
+        $U_INVUL=4;        
     }
     
     if($UNIT=='Primaris Lieutenants') {
@@ -23,7 +23,7 @@
         $U_ATTACKS=4;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     }    
     
     if($UNIT=='Primaris Ancient') {
@@ -36,7 +36,7 @@
         $U_ATTACKS=4;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     } 
     
     if($UNIT=='Intercessor Squad') {
@@ -49,7 +49,7 @@
         $U_ATTACKS=2;
         $U_LD=7;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     }  
     
     if($UNIT=='Intercessor Sergeant') {
@@ -62,7 +62,7 @@
         $U_ATTACKS=3;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     }   
     
     if($UNIT=='Tactical Squad') {
@@ -75,7 +75,7 @@
         $U_ATTACKS=1;
         $U_LD=7;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     } 
 
     if($UNIT=='Tactical Marine Sergeant') {
@@ -88,7 +88,7 @@
         $U_ATTACKS=2;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     } 
 
     if($UNIT=='Scout Squad') {
@@ -101,7 +101,7 @@
         $U_ATTACKS=1;
         $U_LD=7;
         $U_SAVE=4; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     } 
 
     if($UNIT=='Scout Sergeant') {
@@ -114,6 +114,6 @@
         $U_ATTACKS=2;
         $U_LD=8;
         $U_SAVE=4; 
-        $U_INVUL =0;        
+        $U_INVUL=0;        
     }     
 

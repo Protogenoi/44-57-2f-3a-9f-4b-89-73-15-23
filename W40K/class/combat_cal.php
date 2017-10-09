@@ -44,6 +44,13 @@ class combat_cal {
            require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');  
        
        }
+       
+       if($FACTION=='Eldar') {
+           
+           require_once(__DIR__ . '/../unit_stats/eldar-stats.php');
+           require_once(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
+       
+       }       
         
  if(strpos($WEAPON_TYPE,"Assualt") !== false && $MOVEMENT=='Advanced') {
      

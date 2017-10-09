@@ -1,5 +1,5 @@
 <?php
-
+        
     if($TARGET_UNIT=='Lord of Contagion') {
         $T_WS=2;
         $T_BS=2;
@@ -9,6 +9,11 @@
         $T_ATTACKS=4;
         $T_LD=9;
         $T_SAVE=2; 
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient","Nurgle's Gift","Cataphractii Armour","Teleport Strike");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $T_KEYWORDS=array("Infantry","Terminator","Character","Lord of Contagion");
         
     }
     
@@ -21,6 +26,11 @@
         $T_ATTACKS=3;
         $T_LD=8;
         $T_SAVE=3; 
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient","Pestilential Fallout");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $T_KEYWORDS=array("Infantry","Character","Psyker","Malignant Plaguecaster");        
         
     } 
 
@@ -33,6 +43,11 @@
         $T_ATTACKS=3;
         $T_LD=8;
         $T_SAVE=3; 
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient","Tocsin of Misery");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $T_KEYWORDS=array("Infantry","Character","Noxious Blightbringer");          
         
     }     
         
@@ -45,6 +60,11 @@
         $T_ATTACKS=1;
         $T_LD=7;
         $T_SAVE=3; 
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $$T_KEYWORDS=array("Infantry","Plague Marines");         
         
     } 
     
@@ -56,7 +76,12 @@
         $T_WOUNDS=1;
         $T_ATTACKS=2;
         $T_LD=8;
-        $T_SAVE=3; 
+        $T_SAVE=3;
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $$T_KEYWORDS=array("Infantry","Plague Marines");            
         
     }     
     
@@ -69,6 +94,11 @@
         $T_ATTACKS=2;
         $T_LD=4;
         $T_SAVE=7; 
+        $T_INVUL=0;
+        
+        $T_ABILITIES=array("Disgustingly Resilient","Curse of the Walking Pox","Mindless","Diseased Horde");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
+        $$T_KEYWORDS=array("Infantry","Pox walkers");            
         
     }
     
@@ -81,6 +111,10 @@
         $T_ATTACKS=3;
         $T_LD=49;
         $T_SAVE=3; 
+        $T_INVUL=5;
         
-    }    
-
+        $T_ABILITIES=array("Disgustingly Resilient","Putrid Explosion","Daemonic");
+        $T_FACTION_KW=array("Chaos","Daemon","Nurgle","Heretic Astartes","Death Guard");
+        $T_KEYWORDS=array("Vehicle","Daemon Engine","Fly","Foetid Bloat-Drone");          
+        
+    } 

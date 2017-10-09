@@ -40,15 +40,37 @@ class combat_cal {
        
        if($FACTION=='Ultramarines') {
            
+           if (file_exists("../unit_stats/ultramarines-stats.php")) {
            require_once(__DIR__ . '/../unit_stats/ultramarines-stats.php');
-           require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');  
+           }
+           
+           if (file_exists("../unit_stats/ultramarines-weapons.php")) {
+           require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');
+           }
        
        }
        
        if($FACTION=='Eldar') {
            
+           if (file_exists("../unit_stats/eldar-stats.php")) {
            require_once(__DIR__ . '/../unit_stats/eldar-stats.php');
+           }
+           
+           if (file_exists("../unit_stats/eldar-weapons.php")) {
            require_once(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
+           }
+       
+       }  
+       
+       if($FACTION=='Deathguard') {
+           
+           if (file_exists("../unit_stats/deathguard-stats.php")) {
+           require_once(__DIR__ . '/../unit_stats/deathguard-stats.php');
+           }
+           
+           if (file_exists("../unit_stats/deathguard-weapons.php")) {
+           require_once(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
+           }
        
        }       
         

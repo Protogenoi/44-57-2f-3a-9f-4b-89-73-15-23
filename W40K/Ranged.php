@@ -1,6 +1,7 @@
 <?php
+$fferror=0;
 if (isset($fferror)) {
-    if ($fferror == '1') {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -11,6 +12,17 @@ $ACTION = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $FACTION = filter_input(INPUT_GET, 'FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
 $ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if(empty($FACTION)) {
+    $FACTION = filter_input(INPUT_POST, 'FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    
+}
+if(empty($ENEMY_FACTION)) {
+    $ENEMY_FACTION = filter_input(INPUT_POST, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    
+}
 
 $UNIT = filter_input(INPUT_POST, 'UNIT', FILTER_SANITIZE_SPECIAL_CHARS);
 $MODELS_TO_FIRE = filter_input(INPUT_POST, 'MODELS_TO_FIRE', FILTER_SANITIZE_SPECIAL_CHARS);

@@ -39,8 +39,9 @@ class combat_cal {
        }
        
        if($FACTION=='Ultramarines') {
-       
-       require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');  
+           
+           require_once(__DIR__ . '/../unit_stats/ultramarines-stats.php');
+           require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');  
        
        }
         

@@ -804,29 +804,29 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
         if($WEAPON_AP=='1') {
             $T_SAVE++;
         }
-        if($WEAPON_AP=='2') {
+        elseif($WEAPON_AP=='2') {
             $T_SAVE++;
             $T_SAVE++;
         }     
-        if($WEAPON_AP=='3') {
+        elseif($WEAPON_AP=='3') {
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
         }        
-        if($WEAPON_AP=='4') {
+        elseif($WEAPON_AP=='4') {
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
         }      
-        if($WEAPON_AP=='5') {
+        elseif($WEAPON_AP=='5') {
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
         }       
-        if($WEAPON_AP=='6') {
+        elseif($WEAPON_AP=='6') {
             $T_SAVE++;
             $T_SAVE++;
             $T_SAVE++;
@@ -873,34 +873,34 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
         $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;    
     }
     
-    if($T_SAVE==6) {
+    elseif($T_SAVE==6) {
         $TOTAL_SAVES=$DIE_SIX;
         $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE;
     }      
     
-    if($T_SAVE==5) {
+    elseif($T_SAVE==5) {
         $TOTAL_SAVES=$DIE_FIVE+$DIE_SIX;
         $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR;
     }     
 
-    if($T_SAVE==4) {
+    elseif($T_SAVE==4) {
         $TOTAL_SAVES=$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
         $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE;
+    } 
+    
+    elseif($T_SAVE==3) {
+        $TOTAL_SAVES=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_FAILS=$DIE_ONE+$DIE_TWO;
+    }
+    
+    elseif($T_SAVE==2) {
+        $TOTAL_SAVES=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_FAILS=$DIE_ONE;
     }    
     
-    if(isset($T_INVUL)) {
-    
-    if($T_INVUL==3) {
-        $TOTAL_INVUL=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
-        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO;
-    }
-    
-    elseif($T_INVUL==2) {
-        $TOTAL_INVUL=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
-        $TOTAL_INVUL_FAILS=$DIE_ONE;
-    }
+    if(isset($T_INVUL)) {    
 
-    elseif($T_INVUL>6) {
+    if($T_INVUL>6) {
         $TOTAL_INVUL=0;
         $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;    
     }
@@ -935,11 +935,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
     }
     
     }
-    
-    if($T_INVUL>0) {
-        $TOTAL_FAILS=$TOTAL_INVUL_FAILS;
-    }
-    
+
     $SAVE_ROLL_DISPLAY=$SAVE_ROLLS+1;
     
     if($UNIT_WEAPON=='Sniper Rifle') {
@@ -963,7 +959,6 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
 	<th>6</th>
         <th>Saves</th>
         <th>Invul</th>
-        <th>Fails</th>
         <th>Mortal</th>
 	</tr>
 	<tr>
@@ -973,9 +968,8 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
 	<th>$DIE_FOUR</th>
 	<th>$DIE_FIVE</th>
 	<th>$DIE_SIX</th>
-        <th>$TOTAL_SAVES</th>
-        <th>$TOTAL_INVUL</th>
-        <th>$TOTAL_FAILS</th>    
+        <th>$TOTAL_SAVES ($TOTAL_FAILS)</th>
+        <th>$TOTAL_INVUL ($TOTAL_INVUL_FAILS)</th>   
         <th>$MORTAL_WOUNDS</th>    
 	</tr>
 	</table>";    

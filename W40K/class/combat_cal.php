@@ -45,6 +45,18 @@ class combat_cal {
        
        }
         
+ if(strpos($WEAPON_TYPE,"Assualt") !== false && $MOVEMENT=='Advanced') {
+     
+     $U_BS++;
+     
+ }   
+ 
+  if(strpos($WEAPON_TYPE,"Heavy") !== false && $MOVEMENT=='Moved') {
+     
+     $U_BS++;
+     
+ }
+       
     if($UNIT_WEAPON=='Flamer') {
         
     $combat_cal = new combat_cal();

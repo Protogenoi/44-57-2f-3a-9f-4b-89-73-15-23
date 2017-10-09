@@ -64,7 +64,7 @@
         
         $T_ABILITIES=array("Disgustingly Resilient");
         $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$T_KEYWORDS=array("Infantry","Plague Marines");         
+        $T_KEYWORDS=array("Infantry","Plague Marines");         
         
     } 
     
@@ -81,7 +81,7 @@
         
         $T_ABILITIES=array("Disgustingly Resilient");
         $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","Death Guard");
-        $$T_KEYWORDS=array("Infantry","Plague Marines");            
+        $T_KEYWORDS=array("Infantry","Plague Marines");            
         
     }     
     

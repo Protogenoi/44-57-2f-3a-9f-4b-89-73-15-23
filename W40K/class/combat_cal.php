@@ -558,20 +558,20 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
 
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
+    $combat_cal->damage_modifier($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL); 
     
     
 
     } elseif(is_numeric ($WEAPON_DAMAGE)) {
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL);
     
     }
     
 }
 
-function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS) {
+function damage_modifier ($TOTAL_WOUNDS,$WEAPON_DAMAGE,$T_SAVE,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$T_INVUL) {
     
 $WOUNDS_TO_ROLL=$TOTAL_WOUNDS-1;
 
@@ -794,11 +794,11 @@ $DIE_SIX_MOD=0;
     
     $SAVE_ROLLS=$TOTAL_WOUNDS-1;
     $combat_cal = new combat_cal();
-    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON);
+    $combat_cal->save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL);
     
 }
 
-function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
+function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL) {
     
     if($WEAPON_AP>=1) {
         if($WEAPON_AP=='1') {
@@ -888,15 +888,57 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
         $TOTAL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE;
     }    
     
-    if($T_SAVE==3) {
-        $TOTAL_SAVES=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
-        $TOTAL_FAILS=$DIE_ONE+$DIE_TWO;
+    if(isset($T_INVUL)) {
+    
+    if($T_INVUL==3) {
+        $TOTAL_INVUL=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO;
     }
     
-    if($T_SAVE==2) {
-        $TOTAL_SAVES=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
-        $TOTAL_FAILS=$DIE_ONE;
+    elseif($T_INVUL==2) {
+        $TOTAL_INVUL=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE;
+    }
+
+    elseif($T_INVUL>6) {
+        $TOTAL_INVUL=0;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;    
+    }
+    
+    elseif($T_INVUL==6) {
+        $TOTAL_INVUL=$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE;
+    }      
+    
+    elseif($T_INVUL==5) {
+        $TOTAL_INVUL=$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE+$DIE_FOUR;
+    }     
+
+    elseif($T_INVUL==4) {
+        $TOTAL_INVUL=$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO+$DIE_THREE;
     }    
+    
+    elseif($T_INVUL==3) {
+        $TOTAL_INVUL=$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE+$DIE_TWO;
+    }
+    
+    elseif($T_INVUL==2) {
+        $TOTAL_INVUL=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
+        $TOTAL_INVUL_FAILS=$DIE_ONE;
+    }
+    
+    else {
+        $TOTAL_INVUL=0;
+    }
+    
+    }
+    
+    if($T_INVUL>0) {
+        $TOTAL_FAILS=$TOTAL_INVUL_FAILS;
+    }
     
     $SAVE_ROLL_DISPLAY=$SAVE_ROLLS+1;
     
@@ -910,7 +952,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
 
     echo "<table class='table'>
         <tr>
-        <th colspan='9'>$SAVE_ROLL_DISPLAY Save(s) | AP $WEAPON_AP | $T_SAVE+ to Save</th>
+        <th colspan='9'>$SAVE_ROLL_DISPLAY Save(s) | AP $WEAPON_AP | $T_SAVE+ to Save | $T_INVUL+ Invul</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -919,8 +961,9 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
 	<th>4</th>
 	<th>5</th>
 	<th>6</th>
-        <th>Fails</th>
         <th>Saves</th>
+        <th>Invul</th>
+        <th>Fails</th>
         <th>Mortal</th>
 	</tr>
 	<tr>
@@ -930,8 +973,9 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON) {
 	<th>$DIE_FOUR</th>
 	<th>$DIE_FIVE</th>
 	<th>$DIE_SIX</th>
-        <th>$TOTAL_FAILS</th>
         <th>$TOTAL_SAVES</th>
+        <th>$TOTAL_INVUL</th>
+        <th>$TOTAL_FAILS</th>    
         <th>$MORTAL_WOUNDS</th>    
 	</tr>
 	</table>";    

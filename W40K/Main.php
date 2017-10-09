@@ -77,7 +77,7 @@ $ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIA
             <div class="row">
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-arrow-right"></i> Movement</a></div>
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-magic"></i> Psychic</a></div>
-            <div class="col-md-2"><a href="Ranged.php<?php if(isset($FACTION)) { echo "?FACTION=$FACTION"; } ?><?php if(isset($FACTION)) { echo "&ENEMY_FACTION=$ENEMY_FACTION"; } ?>" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-crosshairs"></i> Shoot</a></div>
+            <div class="col-md-2"><a href="Ranged.php<?php if(isset($FACTION)) { echo "?FACTION=$FACTION"; } ?><?php if(isset($FACTION)) { echo "&ENEMY_FACTION=$ENEMY_FACTION"; } ?>" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-crosshairs"></i> Shooting</a></div>
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-fast-forward"></i> Charge</a></div>
             </div>
         </div>

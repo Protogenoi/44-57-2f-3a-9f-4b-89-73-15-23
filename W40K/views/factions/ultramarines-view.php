@@ -206,7 +206,6 @@ $(document).ready(function () {
                 <label class="col-sm-4 control-label" style="text-align:left;" for="MOVEMENT">Movement:</label>
                 <div class="col-sm-6">
                     <select class="form-control" name="MOVEMENT" id="MOVEMENT" style="width: 170px" required>
-                        <option value="">Select...</option> 
                         <option value="Stationary" <?php if($MOVEMENT=='Stationary') { echo "selected"; } ?> >Stationary</option>
                         <option value="Moved" <?php if($MOVEMENT=='Moved') { echo "selected"; } ?> >Moved</option>
                         <option value="Advanced" <?php if($MOVEMENT=='Advanced') { echo "selected"; } ?> >Advanced</option>
@@ -219,7 +218,7 @@ $(document).ready(function () {
                 <label class="col-sm-4 control-label" style="text-align:left;" for="RANGE_BONUS">Range Bonus:</label>
                 <div class="col-sm-6">
                     <select class="form-control" name="RANGE_BONUS" id="RANGE_BONUS" style="width: 170px" required>
-                        <option value="">Select...</option>
+                        <option value="0">0</option>
                         <?php if(isset($RANGE_BONUS) && $RANGE_BONUS==0) { ?>
                         <option value="0" selected>0</option>
                         <?php } ?>
@@ -231,7 +230,7 @@ $(document).ready(function () {
                         <option value="<?php if(isset($RANGE_BONUS_COUNT)) { echo $RANGE_BONUS_COUNT; } ?>" <?php if($RANGE_BONUS==$RANGE_BONUS_COUNT) { echo "selected"; } ?> ><?php if(isset($RANGE_BONUS_COUNT)) { echo $RANGE_BONUS_COUNT; } ?></option>
 
                         <?php } ?>
-                        <option value="0">0</option>
+                        
                     </select>
                 </div>     
             </div> 

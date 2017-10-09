@@ -340,38 +340,58 @@
     }    
     
     if($TARGET_UNIT=='Plaguebearers') {
+        $T_MOVE=5;
         $T_WS=4;
         $T_BS=4;
+        $T_STR=4;
+        $T_TOUGHNESS=4;
         $T_WOUNDS=1;
-        $T_SAVE=6;
-        $T_TOUGHNESS=4; 
+        $T_ATTACKS=1;
+        $T_LD=7;
+        $T_SAVE=6; 
+        $T_INVUL=5;  
         
     }  
     
     if($TARGET_UNIT=='Plagueridden') {
+        $T_MOVE=5;
         $T_WS=4;
         $T_BS=4;
+        $T_STR=4;
+        $T_TOUGHNESS=4;
         $T_WOUNDS=1;
-        $T_SAVE=6;
-        $T_TOUGHNESS=4; 
+        $T_ATTACKS=2;
+        $T_LD=7;
+        $T_SAVE=6; 
+        $T_INVUL=5;  
         
     }       
 
     if($TARGET_UNIT=='Daemonettes') {
+        $T_MOVE=7;
         $T_WS=3;
         $T_BS=3;
+        $T_STR=3;
+        $T_TOUGHNESS=3;
         $T_WOUNDS=1;
-        $T_SAVE=6;
-        $T_TOUGHNESS=3; 
+        $T_ATTACKS=2;
+        $T_LD=7;
+        $T_SAVE=6; 
+        $T_INVUL=5;  
         
     }  
 
     if($TARGET_UNIT=='Alluress') {
+        $T_MOVE=7;
         $T_WS=3;
         $T_BS=3;
+        $T_STR=3;
+        $T_TOUGHNESS=3;
         $T_WOUNDS=1;
-        $T_SAVE=6;
-        $T_TOUGHNESS=3; 
+        $T_ATTACKS=3;
+        $T_LD=7;
+        $T_SAVE=6; 
+        $T_INVUL=5; 
         
     } 
 

@@ -34,30 +34,26 @@ $ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIA
 </head>
 <body>
 
-    <div class="container-fluid">
+    <div class="container">
         
-<div class="col-xs-12">
-            <div class="col-xs-8">
-        
-                <div class="row">
+<div class="col-md-12">
+    <div class="row">
                 
         <form method="GET" action="">
             
             <div class="form-group">
-                <label class="col-sm-4 control-label" style="text-align:left;" for="FACTION">Your Faction:</label>
-                <div class="col-sm-6">
+                <label class="col-sm-1 control-label" style="text-align:left;" for="FACTION">Your Faction:</label>
+                <div class="col-sm-3">
                     <select class="form-control" name="FACTION" id="FACTION" style="width: 170px" required">
-                        <option value="">Select...</option> 
                         <option value="Ultramarines" <?php if(isset($FACTION) && $FACTION=='Ultramarines') { echo "selected"; } ?> >Ultramarines</option>
                     </select>
                 </div>     
             </div>
             
             <div class="form-group">
-                <label class="col-sm-4 control-label" style="text-align:left;" for="ENEMY_FACTION">Enemy Faction :</label>
-                <div class="col-sm-6">
+                <label class="col-sm-1 control-label" style="text-align:left;" for="ENEMY_FACTION">Enemy Faction:</label>
+                <div class="col-sm-3">
                     <select class="form-control" name="ENEMY_FACTION" id="ENEMY_FACTION" style="width: 170px" required>
-                        <option value="">Select...</option> 
                         <option value="Deathguard" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Deathguard') { echo "selected"; } ?> >Deathguard</option>
                         <option value="Chaos Space Marines" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') { echo "selected"; } ?> >Chaos Space Marines</option>
                         <option value="Eldar" <?php if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') { echo "selected"; } ?> >Eldar</option>
@@ -67,26 +63,26 @@ $ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIA
                 </div>     
             </div>
             
-                            <div class="form-group">
-                                <label class="col-sm-4 control-label" style="text-align:left;"></label>
-                                <div class="col-sm-6">
-                                <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Submit</button>
-                                </div>
-                            </div>            
+            <div class="form-group">                
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Go!</button>
+                </div>
+            </div>            
             
         </form>
-                </div>
             </div>
-        </div>        
+             
         
         <div class="col-md-12">
+            <div class="row">
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-arrow-right"></i> Movement</a></div>
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-magic"></i> Psychic</a></div>
             <div class="col-md-2"><a href="Ranged.php<?php if(isset($FACTION)) { echo "?FACTION=$FACTION"; } ?><?php if(isset($FACTION)) { echo "&ENEMY_FACTION=$ENEMY_FACTION"; } ?>" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-crosshairs"></i> Shoot</a></div>
             <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-fast-forward"></i> Charge</a></div>
+            </div>
         </div>
     </div>
-
+ </div>  
 
 </body>
 </html>

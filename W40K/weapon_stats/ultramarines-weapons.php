@@ -1,7 +1,7 @@
 <?php
 
         if($UNIT=='Captain in Gravis armour') {
-        $U_BS=2;
+
         if($UNIT_WEAPON=='Boltstorm Gauntlet') {    
             $WEAPON_RANGE=12;
             $WEAPON_TYPE='Pistol 3';
@@ -13,7 +13,6 @@
         }
         
         if($UNIT=='Primaris Ancient') {
-            $U_BS=3;
             
     if($UNIT_WEAPON=='Bolt Rifle') {
         $WEAPON_RANGE=30;
@@ -51,7 +50,6 @@
         }
         
         if($UNIT=='Inceptor Squad') {
-            $U_BS=3;
             
             if($UNIT_WEAPON=='Assualt Bolter') {
             $WEAPON_RANGE=18;
@@ -142,7 +140,6 @@
     }    
         
     if($UNIT=='Intercessor Squad') {
-        $U_BS=3; 
     
     if($UNIT_WEAPON=='Auto Bolt Rifle') {
         $WEAPON_STR=4;
@@ -205,7 +202,7 @@
     }
     
     if($UNIT=='Hellblaster Squad') {
-        $U_BS=3;
+
          if($UNIT_WEAPON=='Bolt Pistol') {
             $WEAPON_RANGE=12;
             $WEAPON_TYPE='Pistol 1';
@@ -303,7 +300,6 @@
     }
     
     if($UNIT=='Scout Squad') {
-        $U_BS=3;
         
         if($UNIT_WEAPON=='Boltgun') {
             $WEAPON_RANGE=24;
@@ -405,7 +401,6 @@
     }
     
  if($UNIT=='Tactical Squad') {
-        $U_BS=3;
         
         if($UNIT_WEAPON=='Boltgun') {
             $WEAPON_RANGE=24;
@@ -598,7 +593,6 @@
         }    
         
 if(strpos($UNIT,"Crusader Squad") !== false) {
-        $U_BS=3;
         
         if($UNIT_WEAPON=='Astartes Shotgun') {
             $WEAPON_RANGE=12;

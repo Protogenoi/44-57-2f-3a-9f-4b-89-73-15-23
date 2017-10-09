@@ -7,17 +7,8 @@ if (isset($fferror)) {
     }
 }
 
-$ACTION = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$FACTION = filter_input(INPUT_POST, 'FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
-$ENEMY_FACTION = filter_input(INPUT_POST, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$UNIT = filter_input(INPUT_POST, 'UNIT', FILTER_SANITIZE_SPECIAL_CHARS);
-$MODELS_TO_FIRE = filter_input(INPUT_POST, 'MODELS_TO_FIRE', FILTER_SANITIZE_SPECIAL_CHARS);
-$UNIT_WEAPON = filter_input(INPUT_POST, 'UNIT_WEAPON', FILTER_SANITIZE_SPECIAL_CHARS);
-$MOVEMENT = filter_input(INPUT_POST, 'MOVEMENT', FILTER_SANITIZE_SPECIAL_CHARS);
-$RANGE_BONUS = filter_input(INPUT_POST, 'RANGE_BONUS', FILTER_SANITIZE_SPECIAL_CHARS);
-$TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_CHARS);
+$FACTION = filter_input(INPUT_GET, 'FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
+$ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -27,7 +18,7 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-    <title>ADL CRM</title>
+    <title>Main</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -43,23 +34,14 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
 </head>
 <body>
 
-    <div class="container">
+    <div class="container-fluid">
         
-        <?php
-
-        if(isset($FACTION) && $ENEMY_FACTION) { ?>
-        
-        <div class="notice notice-info fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><center><strong>Factions:</strong> <?php echo "$FACTION vs $ENEMY_FACTION" ?>.</center></div>
-<?php
-        }
-        ?>
-        
-        <div class="col-xs-12">
+<div class="col-xs-12">
             <div class="col-xs-8">
         
                 <div class="row">
                 
-        <form method="POST" action="">
+        <form method="GET" action="">
             
             <div class="form-group">
                 <label class="col-sm-4 control-label" style="text-align:left;" for="FACTION">Your Faction:</label>
@@ -95,55 +77,14 @@ $TARGET_UNIT = filter_input(INPUT_POST, 'TARGET_UNIT', FILTER_SANITIZE_SPECIAL_C
         </form>
                 </div>
             </div>
+        </div>        
+        
+        <div class="col-md-12">
+            <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-arrow-right"></i> Movement</a></div>
+            <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-magic"></i> Psychic</a></div>
+            <div class="col-md-2"><a href="Ranged.php<?php if(isset($FACTION)) { echo "?FACTION=$FACTION"; } ?><?php if(isset($FACTION)) { echo "&ENEMY_FACTION=$ENEMY_FACTION"; } ?>" target="_blank" class="btn btn-default btn-lg"><i class="fa fa-crosshairs"></i> Shoot</a></div>
+            <div class="col-md-2"><a href="#" class="btn btn-default btn-lg"><i class="fa fa-fast-forward"></i> Charge</a></div>
         </div>
-        
-      
-        <form method="POST" action="Main.php?action=1">    
-            
-            <input type="hidden" name="FACTION" value="<?php echo $FACTION; ?>">
-            <input type="hidden" name="ENEMY_FACTION" value="<?php echo $ENEMY_FACTION; ?>">
-<?php 
-
-if(isset($FACTION) && $FACTION=='Ultramarines') {
-    require_once(__DIR__ . '/views/factions/ultramarines-view.php');
-}
-
-?>
-   <div class="col-xs-4">
-<?php 
-
-if(isset($ACTION) && $ACTION=='1') {
-    require_once(__DIR__ . '/views/results/results-view.php');
-}
-
-?>   
-   </div>
-            
-<?php 
-
-if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Deathguard') {
-    require_once(__DIR__ . '/views/enemy_factions/deathguard-view.php');
-}
-
-if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Chaos Space Marines') {
-    require_once(__DIR__ . '/views/enemy_factions/chaos_space_marines-view.php');
-}
-
-if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Eldar') {
-    require_once(__DIR__ . '/views/enemy_factions/eldar-view.php');
-}
-
-if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Ultramarines') {
-    require_once(__DIR__ . '/views/enemy_factions/ultramarines-view.php');
-}
-?>          
-        
-           <?php if(isset($FACTION) && $ENEMY_FACTION) { ?>   
-        <button type="submit" class="btn btn-success btn-lg btn-block"><i class="fa fa-exclamation"></i> Fire!</button>
-      <?php } ?>   
-    </form>
-   
-        
     </div>
 
 

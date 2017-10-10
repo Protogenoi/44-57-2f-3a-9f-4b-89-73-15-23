@@ -93,7 +93,7 @@ if (isset($fferror)) {
 
         $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $client_namePOST = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $POST_NAME = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
     if (isset($search)) {
@@ -108,14 +108,16 @@ if (isset($fferror)) {
 
     $NAME = $data2['NAME'];
     $NAME2 = $data2['NAME2'];
-    $NAME3 = "$data2[NAME] and $data2[NAME2]";
+    $NAME3 = $data2['NAME'] ." and ". $data2['NAME2'];
+    $SOJ=$data2['soj'];
+   
     ?>
     <div class="container">
         <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
         <div class="editpolicy">
             <div class="notice notice-warning">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Warning!</strong> You are now editing <?php echo $data2['client_name'] ?>'s Policy .
+                <strong>Warning!</strong> You are now editing <?php echo $data2['client_name']; ?>'s Policy .
             </div>
 
             <div class="panel-group">
@@ -137,25 +139,19 @@ if (isset($fferror)) {
                                 <div class="alert alert-info"><strong>Client Name:</strong> 
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br> 
                                     <select class="form-control" name="client_name" id="client_name" style="width: 170px" required>
-                                        <option value="<?php echo $NAME; ?>" <?php if (isset($client_namePOST)) {
-        if ($client_namePOST == $NAME) {
-            echo "selected";
-        }
-    } ?> ><?php echo $NAME ?></option>
+                                        <?php if (isset($POST_NAME)) {  ?>
+                                        <option value="<?php echo $NAME; ?>" <?php if($POST_NAME == $NAME) { echo "selected"; }  ?> ><?php echo $NAME ?></option>
+                                        
                                         <?php if (!empty($NAME2)) { ?>
-                                            <option value="<?php echo $NAME2; ?>" <?php if (isset($client_namePOST)) {
-                                            if ($client_namePOST == $NAME2) {
-                                                echo "selected";
-                                            }
-                                        } ?> ><?php echo $NAME2 ?></option>   
-                                            <option value="<?php echo "$NAME and $NAME2"; ?>" <?php if (isset($client_namePOST)) {
-                                            if ($client_namePOST == "$NAME and $NAME2") {
-                                                echo "selected";
-                                            }
-                                        } ?> ><?php echo "$NAME and $NAME2" ?></option>  
-                                                                                                          <?php
-                                                                                                      }
-                                                                                                      ?>
+                                        
+                                        <option value="<?php echo $NAME2; ?>" <?php if($POST_NAME == $NAME2) { echo "selected"; } ?> ><?php echo $NAME2; ?></option>   
+                                        <option value="<?php echo $NAME3; ?>" <?php if($SOJ == 'Joint') { echo "selected"; } ?> ><?php echo $NAME3; ?></option>  
+                                        
+                                            <?php
+                                            
+                                        } }
+                                        ?>
+                                        
                                     </select>
 
                                 </div>   

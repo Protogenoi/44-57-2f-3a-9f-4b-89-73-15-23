@@ -124,7 +124,7 @@ $query = $pdo->prepare("SELECT
 FROM
     client_policy
 WHERE
-    DATE(submitted_date) BETWEEN '2013-01-01' AND '2016-01-01'");
+    DATE(submitted_date) BETWEEN '2013-01-01' AND '2018-01-01'");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));  
 
@@ -136,7 +136,7 @@ echo json_encode($results);
        if(in_array($USER, $AUDIT_SEARCH_ACCESS,true)) {
            
            $YEAR= date('Y');
-           $ALL_YEAR= "$YEAR-01-01";
+           $ALL_YEAR= "2011-01-01";
        
        $query = $pdo->prepare("SELECT
                company,submitted_date, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name, CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2, post_code 

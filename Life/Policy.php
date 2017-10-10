@@ -37,7 +37,7 @@ if (isset($EXECUTE)) {
         
         $custtype = filter_input(INPUT_POST, 'custtype', FILTER_SANITIZE_SPECIAL_CHARS);
         
-
+        $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
         $NAME = filter_input(INPUT_POST, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
         $APP = filter_input(INPUT_POST, 'APP', FILTER_SANITIZE_SPECIAL_CHARS);
         $POLICY = filter_input(INPUT_POST, 'POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -57,9 +57,8 @@ if (isset($EXECUTE)) {
         $STATUS = filter_input(INPUT_POST, 'STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
         
 
-$NewPolicy = new newPolicy($hello_name,"Bluestone Protect",$CID,$NAME,$APP,$POLICY,$TYPE,$INSURER,$PREMIUM,$COMMISSION,$COVER,$TERM,$COMM,$CB_TERM,$DRIP,$CLOSER,$AGENT,$SALE,$SUB,$STATUS);
+$NewPolicy = new newPolicy($hello_name,$COMPANY_ENTITY,$CID,$NAME,$APP,$POLICY,$TYPE,$INSURER,$PREMIUM,$COMMISSION,$COVER,$TERM,$COMM,$CB_TERM,$DRIP,$CLOSER,$AGENT,$SALE,$SUB,$STATUS);
 
-$NewPolicy->selectPolicy();
 $NewPolicy->checkVARS();
 $data=$NewPolicy->selectPolicy();
 
@@ -79,6 +78,18 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
    $NewPolicy->AddPolicy();
     
 }
+
+    }
+if($EXECUTE=='2') {
+    $NewPolicy = new newPolicy($hello_name,$COMPANY_ENTITY,$CID,"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0");
+
+    
+$NewPolicy->selectPolicy();
+    $NewPolicy->checkVARS();
+$data=$NewPolicy->selectPolicy();
+
+}    
+    
 ?>
 <!DOCTYPE html>
         <html lang="en">
@@ -167,7 +178,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                             
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal" method="POST" action="?EXECUTE=1&CID=<?php echo $CID ?>">
                                         
                                         <div class="col-sm-4">
                                             
@@ -263,7 +274,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
                                             <option value="">Select...</option>
                                             <option <?php if(isset($DATA_RETURN['INSURER']) && $DATA_RETURN['INSURER']=='Legal and General') { echo "selected"; } ?> value="Legal and General" <?php
                                             if (isset($INSURER)) {
-                                                if ($INSURER == 'Legal and General') {
+                                                if ($INSURER == 'Legal and General' || $INSURER == 'Bluestone Protect') {
                                                     echo "selected";
                                                 }
                                             }
@@ -526,8 +537,7 @@ if(isset($DATA_DUPE['DUPE']) && $DATA_DUPE['DUPE']=='NO') {
 </html>
     
     <?php
-    
-                                }
+  
                                 
                                 }
                                 

@@ -1,37 +1,8 @@
 <?php
 
-if (isset($fferror)) {
-    if ($fferror == '1') {
-
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-    }
-}
-
-$title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
-$first = filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS);
-$last = filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS);
-$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_SPECIAL_CHARS);
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
-$phone = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
-$alt = filter_input(INPUT_POST, 'alt_number', FILTER_SANITIZE_SPECIAL_CHARS);
-$title2 = filter_input(INPUT_POST, 'title2', FILTER_SANITIZE_SPECIAL_CHARS);
-$first2 = filter_input(INPUT_POST, 'first_name2', FILTER_SANITIZE_SPECIAL_CHARS);
-$last2 = filter_input(INPUT_POST, 'last_name2', FILTER_SANITIZE_SPECIAL_CHARS);
-$dob2 = filter_input(INPUT_POST, 'dob2', FILTER_SANITIZE_SPECIAL_CHARS);
-$email2 = filter_input(INPUT_POST, 'email2', FILTER_SANITIZE_SPECIAL_CHARS);
-$add1 = filter_input(INPUT_POST, 'address1', FILTER_SANITIZE_SPECIAL_CHARS);
-$add2 = filter_input(INPUT_POST, 'address2', FILTER_SANITIZE_SPECIAL_CHARS);
-$add3 = filter_input(INPUT_POST, 'address3', FILTER_SANITIZE_SPECIAL_CHARS);
-$town = filter_input(INPUT_POST, 'town', FILTER_SANITIZE_SPECIAL_CHARS);
-$post = strtoupper(filter_input(INPUT_POST, 'post_code', FILTER_SANITIZE_SPECIAL_CHARS));
-
-$INSURER = filter_input(INPUT_POST, 'custype', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$correct_dob = date("Y-m-d", strtotime($dob));
+$correct_dob = date("Y-m-d", strtotime($DOB));
 if (!empty($dob2)) {
-    $correct_dob2 = date("Y-m-d", strtotime($dob2));
+    $correct_dob2 = date("Y-m-d", strtotime($DOB2));
 } else {
     $correct_dob2 = "NA";
 }
@@ -58,31 +29,31 @@ class NewClient {
     public $post;
 
 
-    function __construct($hello_name, $INSURER, $COMPANY_ENTITY, $title, $first, $last, $correct_dob, $email, $phone, $alt, $title2, $first2, $last2, $correct_dob2, $email2, $add1, $add2, $add3, $town, $post) {
+    function __construct($hello_name, $INSURER, $COMPANY_ENTITY, $TITLE, $FIRST, $LAST, $correct_dob, $EMAIL, $NUMBER, $ALT, $TITLE2, $FIRST2, $LAST2, $correct_dob2, $EMAIL2, $ADD1, $ADD2, $ADD3, $TOWN, $POST) {
 
         $this->company = $COMPANY_ENTITY;
         $this->insurer = $INSURER;
         $this->hello = $hello_name;
 
-        $this->title = $title;
-        $this->first = $first;
-        $this->last = $last;
+        $this->title = $TITLE;
+        $this->first = $FIRST;
+        $this->last = $LAST;
         $this->dob = $correct_dob;
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->alt = $alt;
+        $this->email = $EMAIL;
+        $this->phone = $NUMBER;
+        $this->alt = $ALT;
 
-        $this->title2 = $title2;
-        $this->first2 = $first2;
-        $this->last2 = $last2;
+        $this->title2 = $TITLE2;
+        $this->first2 = $FIRST2;
+        $this->last2 = $LAST2;
         $this->dob2 = $correct_dob2;
-        $this->email2 = $email2;
+        $this->email2 = $EMAIL2;
 
-        $this->add = $add1;
-        $this->add2 = $add2;
-        $this->add3 = $add3;
-        $this->town = $town;
-        $this->post = $post;
+        $this->add = $ADD1;
+        $this->add2 = $ADD2;
+        $this->add3 = $ADD3;
+        $this->town = $TOWN;
+        $this->post = $POST;
     }
     
     function checkVARS() {
@@ -586,7 +557,7 @@ class NewClient {
             
             $database->endTransaction();
             
-     header('Location: /Life/Policy.php?EXECUTE=1&CID='.$this->LAST_ID.'&INSURER='.$this->insurer); die;       
+     header('Location: /Life/Policy.php?EXECUTE=2&CID='.$this->LAST_ID.'&INSURER='.$this->insurer); die;       
             
     }
 

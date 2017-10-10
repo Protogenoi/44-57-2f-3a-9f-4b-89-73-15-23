@@ -117,9 +117,6 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
 
-                                        <form action="/export/finreporttemp.php" method="post">
-                                            <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
-                                        </form>
                                     </div>
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload WOL financials</h3>

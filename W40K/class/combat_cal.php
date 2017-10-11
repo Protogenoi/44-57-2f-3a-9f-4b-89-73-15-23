@@ -11,21 +11,21 @@ class combat_cal {
 
        }
        
-       if($FACTION=='Eldar') {
+       elseif($FACTION=='Eldar') {
 
            require(__DIR__ . '/../unit_stats/eldar-stats.php');
            require(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
        
        }  
        
-       if($FACTION=='Deathguard') {
+       elseif($FACTION=='Deathguard') {
 
            require(__DIR__ . '/../unit_stats/deathguard-stats.php');
            require(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
        
        }       
        
-       if($FACTION=='Chaos Space Marines') {
+       elseif($FACTION=='Chaos Space Marines') {
 
            require(__DIR__ . '/../unit_stats/csm-stats.php');
            require(__DIR__ . '/../weapon_stats/csm-weapons.php');  
@@ -375,7 +375,7 @@ $DIE_THREE_MOD=0;
 
     for ($x = 0; $x <= $number; $x++) {
 
-        $DIE = mt_rand(1, $sides) . "<br>";
+        $DIE = mt_rand(1, $sides);
 
         if ($DIE == 1) {
             $DIE_ONE++;

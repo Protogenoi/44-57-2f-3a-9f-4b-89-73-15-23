@@ -249,17 +249,47 @@ $(document).ready(function () {
            require(__DIR__ . '/../../unit_stats/ultramarines-stats.php');
 
        }
+       
+       echo "<table class='table table-condensed'>
+           <tr>
+           <th colspan='10'>Unit Stats</th>
+           </tr>
+           <tr>
+           <th>M</th>
+           <th>WS</th>
+           <th>BS</th>
+           <th>S</th>
+           <th>T</th>
+           <th>W</th>
+           <th>A</th>
+           <th>Ld</th>
+           <th>Save</th>
+           <th>Invul</th>
+           </tr>
+           <tr>
+           <td>$U_MOVE</td>
+           <td>$U_WS</td>
+           <td>$U_BS</td>
+           <td>$U_STR</td>
+           <td>$U_TOUGHNESS</td>
+           <td>$U_WOUNDS</td>
+           <td>$U_ATTACKS</td>
+           <td>$U_LD</td>
+           <td>$U_SAVE</td>
+           <td>$U_INVUL</td>
+           </tr>
+           </table>";       
         
-        echo "Abilities:<ul>";
+        echo "<strong>Abilities</strong>:<ul>";
 foreach($U_ABILITIES as $key) {
     echo "<li>$key</li>";
 }
 
-echo "</ul>Faction Keywords:<ul>";
+echo "</ul><strong>Faction Keywords:</strong><ul>";
 foreach($U_FACTION_KW as $key) {
     echo "<li>$key</li>";
 }
-echo "</ul>Keywords:<ul>";
+echo "</ul><strong>Keywords:</strong><ul>";
 foreach($U_KEYWORDS as $key) {
     echo "<li>$key</li>";
 }

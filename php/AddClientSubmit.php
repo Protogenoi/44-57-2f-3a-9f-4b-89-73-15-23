@@ -400,6 +400,99 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         
  }
  
+ if($custype=='Aviva' || $custype=='One Family') {
+    
+                $weekarray=array('Mon','Tue','Wed','Thu','Fri');
+                $today=date("D"); // check Day Mon - Sun
+                $date=date("Y-m-d",strtotime($today)); // Convert day to date
+                
+                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='5 day'");
+                $database->execute();
+                $assign5d=$database->single();
+                
+                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='18 day'");
+                $database->execute();
+                $assign18d=$database->single();
+
+                $assign5=$assign5d['Assigned'];
+                $assign18=$assign18d['Assigned'];
+
+$task5="5 day";
+$next5 = date("D", strtotime("+5 day")); // Add 2 to Day
+
+if($next5 =="Sat") { //Check if Weekend
+
+    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+7 day")); //Add extra 2 Days if Sat Weekend
+
+    $deadline5=$SkipWeekEndDay5;
+
+}
+
+if($next5=="Sun") { //Check if Weekend
+
+    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+6 day")); //Add extra 1 day if Sunday
+
+    $deadline5=$SkipWeekEndDay5;
+
+}
+
+
+if (in_array($next5,$weekarray,true)){
+
+$WeekDay5 = date("Y-m-d", strtotime("+5 day"));
+
+    $deadline5=$WeekDay5;
+
+} 
+
+
+$task18="18 day";
+$next18 = date("D", strtotime("+18 day")); // Add 2 to Day
+
+if($next18 =="Sat") { //Check if Weekend
+
+    $SkipWeekEndDay18 = date("Y-m-d", strtotime("+20 day")); //Add extra 2 Days if Sat Weekend
+
+    $deadline18=$SkipWeekEndDay18;
+
+}
+
+if($next18=="Sun") { //Check if Weekend
+
+    $SkipWeekEndDay18 = date("Y-m-d", strtotime("+19 day")); //Add extra 1 day if Sunday
+
+    $deadline18=$SkipWeekEndDay18;
+
+}
+
+
+if (in_array($next18,$weekarray,true)){
+
+$WeekDay18 = date("Y-m-d", strtotime("+18 day"));
+
+    $deadline18=$WeekDay18;
+
+} 
+
+        
+        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
+        $database->bind(':assign', $assign5, PDO::PARAM_STR);
+        $database->bind(':task', $task5, PDO::PARAM_STR);
+        $database->bind(':added', $date_added, PDO::PARAM_STR);
+        $database->bind(':deadline', $deadline5, PDO::PARAM_STR); 
+        $database->bind(':cid', $lastid); 
+        $database->execute();
+        
+        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
+        $database->bind(':assign', $assign18, PDO::PARAM_STR);
+        $database->bind(':task', $task18, PDO::PARAM_STR);
+        $database->bind(':added', $date_added, PDO::PARAM_STR);
+        $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
+        $database->bind(':cid', $lastid); 
+        $database->execute();    
+     
+ }
+ 
                 $database->endTransaction();
          
      }

@@ -554,7 +554,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
       <?php  } 
       if (file_exists("../uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
         <a target="_blank" class="btn btn-default" href='../uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
-      <?php  }
+      <?php  } 
                                     }                               
                                 
                                     $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGPolicy Summary'");

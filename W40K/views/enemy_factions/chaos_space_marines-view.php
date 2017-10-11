@@ -47,7 +47,7 @@
                 </div>     
             </div> 
              </div>
-         
+         <?php if(isset($TARGET_UNIT)) { ?>
              <br><br><br><br><br><br><br><br><br><br>
               <div class="row">
   <div class="panel-group">
@@ -113,6 +113,6 @@ echo "</ul>";
     </div>
   </div>
               </div>
-             
+         <?php } ?>
 
         </div>

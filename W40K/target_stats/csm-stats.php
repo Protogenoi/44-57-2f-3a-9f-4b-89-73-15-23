@@ -11,7 +11,11 @@
         $T_ATTACKS=6;
         $T_LD=9;
         $T_SAVE=3; 
-        $T_INVUL=4;         
+        $T_INVUL=4;   
+        
+        $T_ABILITIES=array("Death to the False Emperor","Blood for the Blood God","The Betrayer","Kill! Maim! Burn!","Sigil of Corruption");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","World Eaters");
+        $T_KEYWORDS=array("Character","Infantry","Chaos Lord","Kharn the Betrayer");        
         
     }     
     
@@ -27,11 +31,13 @@
         $T_SAVE=2; 
         $T_INVUL=4;
         
-        $T_ABILITIES=array("Death to the false Emperor","The Warmaster","Dark Destiny","Lord of the Black Legion","Mark of Chaos Ascendant","Teleport Strike");
+        $T_ABILITIES=array("Death to the False Emperor","The Warmaster","Dark Destiny","Lord of the Black Legion","Mark of Chaos Ascendant","Teleport Strike");
+        $T_FACTION_KW=array("Chaos","Khorne","Nurgle","Slaanesh","Tzeentch","Heretic Astartes","Black Legion");
+        $T_KEYWORDS=array("Character","Infantry","Chaos Lord","Terminator","Abaddon the Despoiler");
         
     } 
 
-    if($TARGET_UNIT=='Daemon Prince') {
+    if($TARGET_UNIT=='Khorne Daemon Prince') {
         $T_MOVE=8;
         $T_WS=2;
         $T_BS=2;
@@ -43,7 +49,65 @@
         $T_SAVE=3; 
         $T_INVUL=5;
         
-    }   
+        $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic","Might of Magic");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince");        
+        
+    }
+  
+    if($TARGET_UNIT=='Nurgle Daemon Prince') {
+        $T_MOVE=8;
+        $T_WS=2;
+        $T_BS=2;
+        $T_STR=7;
+        $T_TOUGHNESS=6;
+        $T_WOUNDS=8;
+        $T_ATTACKS=4;
+        $T_LD=10;
+        $T_SAVE=3; 
+        $T_INVUL=5;
+        
+        $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
+        
+    } 
+
+    if($TARGET_UNIT=='Slaanesh Daemon Prince') {
+        $T_MOVE=8;
+        $T_WS=2;
+        $T_BS=2;
+        $T_STR=7;
+        $T_TOUGHNESS=6;
+        $T_WOUNDS=8;
+        $T_ATTACKS=4;
+        $T_LD=10;
+        $T_SAVE=3; 
+        $T_INVUL=5;
+        
+        $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $T_FACTION_KW=array("Chaos","Slaanesh","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
+        
+    } 
+
+    if($TARGET_UNIT=='Tzeentch Daemon Prince') {
+        $T_MOVE=8;
+        $T_WS=2;
+        $T_BS=2;
+        $T_STR=7;
+        $T_TOUGHNESS=6;
+        $T_WOUNDS=8;
+        $T_ATTACKS=4;
+        $T_LD=10;
+        $T_SAVE=3; 
+        $T_INVUL=5;
+        
+        $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
+        
+    }     
     
     if($TARGET_UNIT=='Khorne Bezerkers') {
         $T_MOVE=6;
@@ -56,6 +120,10 @@
         $T_LD=7;
         $T_SAVE=3; 
         $T_INVUL=0;
+        
+        $T_ABILITIES=array("Death to the False Emperor","Blood for the Blood God");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Khorne Bezerkers");         
         
     }    
     
@@ -71,6 +139,10 @@
         $T_SAVE=3; 
         $T_INVUL=0;
         
+        $T_ABILITIES=array("Death to the False Emperor","Blood for the Blood God");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Khorne Bezerkers");          
+        
     }    
     
     if($TARGET_UNIT=='Rubric Marines') {
@@ -84,6 +156,10 @@
         $T_LD=7;
         $T_SAVE=3; 
         $T_INVUL=5;
+        
+        $T_ABILITIES=array("Death to the False Emperor","Favoured of Tzeentch","All is Dust");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Psyker","Rubric Marines");         
         
     }
     
@@ -99,6 +175,10 @@
         $T_SAVE=3; 
         $T_INVUL=5; 
         
+        $T_ABILITIES=array("Death to the False Emperor","Favoured of Tzeentch","All is Dust");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Psyker","Rubric Marines");          
+        
     }    
 
     if($TARGET_UNIT=='Plague Marines') {
@@ -112,6 +192,10 @@
         $T_LD=7;
         $T_SAVE=3; 
         $T_INVUL=0; 
+        
+        $T_ABILITIES=array("Death to the False Emperor","Disgustingly Resilient","Vectors of Death and Disease","Plague Weapon");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Plague Marines");          
         
     }   
     
@@ -127,6 +211,10 @@
         $T_SAVE=3; 
         $T_INVUL=0;  
         
+        $T_ABILITIES=array("Death to the False Emperor","Disgustingly Resilient","Vectors of Death and Disease","Plague Weapon");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Plague Marines");           
+        
     }    
     
     if($TARGET_UNIT=='Chaos Terminator') {
@@ -140,6 +228,10 @@
         $T_LD=8;
         $T_SAVE=2; 
         $T_INVUL=5;  
+        
+        $T_ABILITIES=array("Death to the False Emperor","Teleport Strike","Terminator Armour");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Terminators","Chaos Terminator");         
         
     }     
 
@@ -155,6 +247,10 @@
         $T_SAVE=2; 
         $T_INVUL=5;
         
+        $T_ABILITIES=array("Death to the False Emperor","Teleport Strike","Terminator Armour");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Terminators","Chaos Terminator");         
+        
     } 
     
     if($TARGET_UNIT=='Helbrute') {
@@ -168,6 +264,10 @@
         $T_LD=8;
         $T_SAVE=3; 
         $T_INVUL=0;
+        
+        $T_ABILITIES=array("Crazed","Explodes","Battering Onslaught");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Vehicle","Helbrute");         
         
     } 
     
@@ -183,6 +283,10 @@
         $T_SAVE=3; 
         $T_INVUL=0;
         
+        $T_ABILITIES=array("Death to the False Emperor");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Havocs");           
+        
     }   
     
     if($TARGET_UNIT=='Chaos Land Raider') {
@@ -196,6 +300,10 @@
         $T_LD=9;
         $T_SAVE=2; 
         $T_INVUL=0;
+        
+        $T_ABILITIES=array("Smoke Launchers","Explodes","Daemonic Machine Spirit");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Vehicle","Transport","Chaos Land Raider");         
         
     }  
     
@@ -211,6 +319,10 @@
         $T_SAVE=3; 
         $T_INVUL=0;
         
+        $T_ABILITIES=array("Smoke Launchers","Explodes");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Vehicle","Chaos Predator");          
+        
     }     
     
     if($TARGET_UNIT=='Chaos Space Marines') {
@@ -224,6 +336,10 @@
         $T_LD=7;
         $T_SAVE=3; 
         $T_INVUL=0;
+        
+        $T_ABILITIES=array("Death to the False Emperor");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Chaos Space Marines");             
         
     }  
 
@@ -239,6 +355,10 @@
         $T_SAVE=3; 
         $T_INVUL=0;
         
+        $T_ABILITIES=array("Death to the False Emperor");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Chaos Space Marines");            
+        
     }     
 
     if($TARGET_UNIT=='Chaos Cultists') {
@@ -252,6 +372,10 @@
         $T_LD=5;
         $T_SAVE=6; 
         $T_INVUL=0; 
+        
+        $T_ABILITIES=array("None");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Chaos Cultists");            
         
     } 
     
@@ -267,6 +391,10 @@
         $T_SAVE=6; 
         $T_INVUL=0; 
         
+        $T_ABILITIES=array("None");
+        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_KEYWORDS=array("Infantry","Chaos Cultists");         
+        
     }     
 
     if($TARGET_UNIT=='Bloodletters') {
@@ -280,6 +408,10 @@
         $T_LD=7;
         $T_SAVE=6; 
         $T_INVUL=5; 
+        
+        $T_ABILITIES=array("Daemonic Ritual","Murderous Tide","Daemonic","Daemonic Icon","Unstoppable Ferocity","Instrument of Chaos");
+        $T_FACTION_KW=array("Chaos","Khorne");
+        $T_KEYWORDS=array("Infantry","Daemon","Bloodletters");         
         
     }
     
@@ -295,6 +427,10 @@
         $T_SAVE=6; 
         $T_INVUL=5; 
         
+        $T_ABILITIES=array("Daemonic Ritual","Murderous Tide","Daemonic","Daemonic Icon","Unstoppable Ferocity","Instrument of Chaos");
+        $T_FACTION_KW=array("Chaos","Khorne");
+        $T_KEYWORDS=array("Infantry","Daemon","Bloodletters");          
+        
     }    
     
     if($TARGET_UNIT=='Pink Horrors') {
@@ -309,6 +445,10 @@
         $T_SAVE=6; 
         $T_INVUL=5;  
         
+        $T_ABILITIES=array("Daemonic Ritual","Made Magic Manifest","Daemonic","Split","Ephemeral Form","Daemonic Icon","Iridescent Horror","Instrument of Chaos");
+        $T_FACTION_KW=array("Chaos","Tzeentch");
+        $T_KEYWORDS=array("Infantry","Pysker","Daemon","Horrors");          
+        
     }    
 
     if($TARGET_UNIT=='Blue Horrors') {
@@ -321,7 +461,11 @@
         $T_ATTACKS=1;
         $T_LD=7;
         $T_SAVE=6; 
-        $T_INVUL=5; 
+        $T_INVUL=5;
+        
+        $T_ABILITIES=array("Daemonic Ritual","Made Magic Manifest","Daemonic","Split","Ephemeral Form","Daemonic Icon","Iridescent Horror","Instrument of Chaos");
+        $T_FACTION_KW=array("Chaos","Tzeentch");
+        $T_KEYWORDS=array("Infantry","Pysker","Daemon","Horrors");          
         
     }
     
@@ -337,6 +481,10 @@
         $T_SAVE=6; 
         $T_INVUL=5; 
         
+        $T_ABILITIES=array("Daemonic Ritual","Made Magic Manifest","Daemonic","Split","Ephemeral Form","Daemonic Icon","Iridescent Horror","Instrument of Chaos");
+        $T_FACTION_KW=array("Chaos","Tzeentch");
+        $T_KEYWORDS=array("Infantry","Pysker","Daemon","Horrors");          
+        
     }    
     
     if($TARGET_UNIT=='Plaguebearers') {
@@ -349,7 +497,11 @@
         $T_ATTACKS=1;
         $T_LD=7;
         $T_SAVE=6; 
-        $T_INVUL=5;  
+        $T_INVUL=5; 
+        
+        $T_ABILITIES=array("Daemonic Ritual","Instrument of Chaos","Daemonic","Cloud of Flies","Disgustingly Resilient","Daemonic Icon");
+        $T_FACTION_KW=array("Chaos","Nurgle");
+        $T_KEYWORDS=array("Infantry","Daemon","Plaguebearers");          
         
     }  
     
@@ -365,6 +517,10 @@
         $T_SAVE=6; 
         $T_INVUL=5;  
         
+        $T_ABILITIES=array("Daemonic Ritual","Instrument of Chaos","Daemonic","Cloud of Flies","Disgustingly Resilient","Daemonic Icon");
+        $T_FACTION_KW=array("Chaos","Nurgle");
+        $T_KEYWORDS=array("Infantry","Daemon","Plaguebearers");         
+        
     }       
 
     if($TARGET_UNIT=='Daemonettes') {
@@ -379,6 +535,10 @@
         $T_SAVE=6; 
         $T_INVUL=5;  
         
+        $T_ABILITIES=array("Daemonic Ritual","Instrument of Chaos","Daemonic","Quicksilver Swiftness","Graceful Killers","Daemonic Icon");
+        $T_FACTION_KW=array("Chaos","Slaanesh");
+        $T_KEYWORDS=array("Infantry","Daemon","Daemonettes");         
+        
     }  
 
     if($TARGET_UNIT=='Alluress') {
@@ -392,6 +552,10 @@
         $T_LD=7;
         $T_SAVE=6; 
         $T_INVUL=5; 
+        
+        $T_ABILITIES=array("Daemonic Ritual","Instrument of Chaos","Daemonic","Quicksilver Swiftness","Graceful Killers","Daemonic Icon");
+        $T_FACTION_KW=array("Chaos","Slaanesh");
+        $T_KEYWORDS=array("Infantry","Daemon","Daemonettes");         
         
     } 
 

@@ -110,18 +110,9 @@ if(isset($ENEMY_FACTION) && $ENEMY_FACTION=='Ultramarines') {
         <button type="submit" class="btn btn-success btn-lg btn-block"><i class="fa fa-exclamation"></i> Fire!</button>
       <?php } ?>   
     </form>
-   
         
     </div>
 
 
 </body>
 </html>
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-

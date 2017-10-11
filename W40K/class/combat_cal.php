@@ -6,29 +6,29 @@ class combat_cal {
 
         if($FACTION=='Ultramarines') {
            
-           require_once(__DIR__ . '/../unit_stats/ultramarines-stats.php');
-           require_once(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');
+           require(__DIR__ . '/../unit_stats/ultramarines-stats.php');
+           require(__DIR__ . '/../weapon_stats/ultramarines-weapons.php');
 
        }
        
        if($FACTION=='Eldar') {
 
-           require_once(__DIR__ . '/../unit_stats/eldar-stats.php');
-           require_once(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
+           require(__DIR__ . '/../unit_stats/eldar-stats.php');
+           require(__DIR__ . '/../weapon_stats/eldar-weapons.php');  
        
        }  
        
        if($FACTION=='Deathguard') {
 
-           require_once(__DIR__ . '/../unit_stats/deathguard-stats.php');
-           require_once(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
+           require(__DIR__ . '/../unit_stats/deathguard-stats.php');
+           require(__DIR__ . '/../weapon_stats/deathguard-weapons.php');  
        
        }       
        
        if($FACTION=='Chaos Space Marines') {
 
-           require_once(__DIR__ . '/../unit_stats/csm-stats.php');
-           require_once(__DIR__ . '/../weapon_stats/csm-weapons.php');  
+           require(__DIR__ . '/../unit_stats/csm-stats.php');
+           require(__DIR__ . '/../weapon_stats/csm-weapons.php');  
        
        }        
         
@@ -476,22 +476,22 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     }
     
     if($ENEMY_FACTION=='Ultramarines') {
-        require_once(__DIR__ . '/../target_stats/ultramarines-stats.php');  
+        require(__DIR__ . '/../target_stats/ultramarines-stats.php');  
 
     }
 
     if($ENEMY_FACTION=='Eldar') {
-        require_once(__DIR__ . '/../target_stats/eldar-stats.php');  
+        require(__DIR__ . '/../target_stats/eldar-stats.php');  
 
     }    
 
     if($ENEMY_FACTION=='Deathguard') {
-        require_once(__DIR__ . '/../target_stats/deathguard-stats.php');  
+        require(__DIR__ . '/../target_stats/deathguard-stats.php');  
 
     } 
     
     if($ENEMY_FACTION=='Chaos Space Marines') {
-        require_once(__DIR__ . '/../target_stats/csm-stats.php');  
+        require(__DIR__ . '/../target_stats/csm-stats.php');  
 
     }     
     

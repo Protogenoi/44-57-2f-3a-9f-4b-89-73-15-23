@@ -37,6 +37,9 @@ if (isset($fferror)) {
         $SMTP_USER=$queryr['email'];
         $signat=  html_entity_decode($queryr['sig']);
         
+        
+        $EMAIL_IDD="idd@bluestoneprotect.com";
+        
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
                             $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
@@ -127,6 +130,8 @@ if (isset($_FILES["fileToUpload6"]) &&
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->AddBCC("$emailbccdb", "$emaildisplaynamedb");
+$mail->AddCC($EMAIL_IDD,$emaildisplaynamedb);
+
 $mail->Subject    = "$emailsubjectdb";
 $mail->IsHTML(true); 
 $mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test

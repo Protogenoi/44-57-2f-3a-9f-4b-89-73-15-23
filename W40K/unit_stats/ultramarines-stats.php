@@ -11,6 +11,11 @@
         $U_LD=9;
         $U_SAVE=3; 
         $U_INVUL=4;        
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Rites of Battle","Iron Halo");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Character","Infantry","Mk X Gravis","Primaris","Captain");         
+        
     }
     
     if($UNIT=='Primaris Lieutenants') {
@@ -23,7 +28,12 @@
         $U_ATTACKS=4;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL=0;        
+        $U_INVUL=0; 
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Company Heroes","Tactical Precision");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Character","Infantry","Primaris","Lieutenants");         
+        
     }    
     
     if($UNIT=='Primaris Ancient') {
@@ -37,6 +47,11 @@
         $U_LD=8;
         $U_SAVE=3; 
         $U_INVUL=0;        
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Astartes Banner");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Character","Infantry","Primaris","Ancient");          
+        
     } 
     
     if($UNIT=='Intercessor Squad') {
@@ -49,7 +64,12 @@
         $U_ATTACKS=2;
         $U_LD=7;
         $U_SAVE=3; 
-        $U_INVUL=0;        
+        $U_INVUL=0;    
+
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads","Auxiliary Grenade Launcher");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Primaris","Intercessor Squad");          
+        
     }  
     
     if($UNIT=='Intercessor Sergeant') {
@@ -62,7 +82,12 @@
         $U_ATTACKS=3;
         $U_LD=8;
         $U_SAVE=3; 
-        $U_INVUL=0;        
+        $U_INVUL=0;   
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads","Auxiliary Grenade Launcher");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Primaris","Intercessor Squad");           
+        
     }   
     
     if($UNIT=='Tactical Squad') {
@@ -75,7 +100,12 @@
         $U_ATTACKS=1;
         $U_LD=7;
         $U_SAVE=3; 
-        $U_INVUL=0;        
+        $U_INVUL=0;    
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Tactical Squad");           
+        
     } 
 
     if($UNIT=='Tactical Marine Sergeant') {
@@ -89,6 +119,11 @@
         $U_LD=8;
         $U_SAVE=3; 
         $U_INVUL=0;        
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Tactical Squad");           
+        
     } 
 
     if($UNIT=='Scout Squad') {
@@ -101,7 +136,12 @@
         $U_ATTACKS=1;
         $U_LD=7;
         $U_SAVE=4; 
-        $U_INVUL=0;        
+        $U_INVUL=0;  
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Concealed Positions","Combat Squads","Camo Cloaks");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Scout","Scout Squad");           
+        
     } 
 
     if($UNIT=='Scout Sergeant') {
@@ -114,6 +154,11 @@
         $U_ATTACKS=2;
         $U_LD=8;
         $U_SAVE=4; 
-        $U_INVUL=0;        
+        $U_INVUL=0;       
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Concealed Positions","Combat Squads","Camo Cloaks");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","<CHAPTER>");
+        $U_KEYWORDS=array("Infantry","Scout","Scout Squad");          
+        
     }     
 

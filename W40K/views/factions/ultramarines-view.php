@@ -235,7 +235,42 @@ $(document).ready(function () {
                 </div>     
             </div> 
 </div>
+              <br><br><br>
+              <div class="row">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">Abilities, keywords, and faction keywords.</div>
+      <div class="panel-body">
+          
+<?php
 
+        if($FACTION=='Ultramarines') {
+           
+           require(__DIR__ . '/../../unit_stats/ultramarines-stats.php');
+
+       }
+        
+        echo "Abilities:<ul>";
+foreach($U_ABILITIES as $key) {
+    echo "<li>$key</li>";
+}
+
+echo "</ul>Faction Keywords:<ul>";
+foreach($U_FACTION_KW as $key) {
+    echo "<li>$key</li>";
+}
+echo "</ul>Keywords:<ul>";
+foreach($U_KEYWORDS as $key) {
+    echo "<li>$key</li>";
+}
+echo "</ul>";
+?>
+      
+      </div>
+    </div>
+  </div>
+              </div>
+              
             
        
         </div>

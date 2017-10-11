@@ -50,7 +50,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic","Might of Magic");
-        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince");        
         
     }
@@ -68,7 +68,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
-        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
         
     } 
@@ -86,7 +86,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
-        $T_FACTION_KW=array("Chaos","Slaanesh","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Slaanesh","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
         
     } 
@@ -104,7 +104,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
-        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker");        
         
     }     
@@ -122,7 +122,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Death to the False Emperor","Blood for the Blood God");
-        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Khorne Bezerkers");         
         
     }    
@@ -140,7 +140,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Death to the False Emperor","Blood for the Blood God");
-        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Khorne Bezerkers");          
         
     }    
@@ -158,7 +158,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Favoured of Tzeentch","All is Dust");
-        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Psyker","Rubric Marines");         
         
     }
@@ -176,7 +176,7 @@
         $T_INVUL=5; 
         
         $T_ABILITIES=array("Death to the False Emperor","Favoured of Tzeentch","All is Dust");
-        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Psyker","Rubric Marines");          
         
     }    
@@ -194,7 +194,7 @@
         $T_INVUL=0; 
         
         $T_ABILITIES=array("Death to the False Emperor","Disgustingly Resilient","Vectors of Death and Disease","Plague Weapon");
-        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Plague Marines");          
         
     }   
@@ -212,7 +212,7 @@
         $T_INVUL=0;  
         
         $T_ABILITIES=array("Death to the False Emperor","Disgustingly Resilient","Vectors of Death and Disease","Plague Weapon");
-        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Plague Marines");           
         
     }    
@@ -230,7 +230,7 @@
         $T_INVUL=5;  
         
         $T_ABILITIES=array("Death to the False Emperor","Teleport Strike","Terminator Armour");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Terminators","Chaos Terminator");         
         
     }     
@@ -248,7 +248,7 @@
         $T_INVUL=5;
         
         $T_ABILITIES=array("Death to the False Emperor","Teleport Strike","Terminator Armour");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Terminators","Chaos Terminator");         
         
     } 
@@ -266,7 +266,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Crazed","Explodes","Battering Onslaught");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Vehicle","Helbrute");         
         
     } 
@@ -284,7 +284,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Death to the False Emperor");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Havocs");           
         
     }   
@@ -302,7 +302,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Smoke Launchers","Explodes","Daemonic Machine Spirit");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Vehicle","Transport","Chaos Land Raider");         
         
     }  
@@ -320,7 +320,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Smoke Launchers","Explodes");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Vehicle","Chaos Predator");          
         
     }     
@@ -338,7 +338,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Death to the False Emperor");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Chaos Space Marines");             
         
     }  
@@ -356,7 +356,7 @@
         $T_INVUL=0;
         
         $T_ABILITIES=array("Death to the False Emperor");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Chaos Space Marines");            
         
     }     
@@ -374,7 +374,7 @@
         $T_INVUL=0; 
         
         $T_ABILITIES=array("None");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Chaos Cultists");            
         
     } 
@@ -392,7 +392,7 @@
         $T_INVUL=0; 
         
         $T_ABILITIES=array("None");
-        $T_FACTION_KW=array("Chaos","<MARK OF CHAOS>","Heretic Astartes","<LEGION>");
+        $T_FACTION_KW=array("Chaos","MARK OF CHAOS","Heretic Astartes","LEGION");
         $T_KEYWORDS=array("Infantry","Chaos Cultists");         
         
     }     

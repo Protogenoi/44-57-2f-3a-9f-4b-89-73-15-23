@@ -235,6 +235,7 @@ $(document).ready(function () {
                 </div>     
             </div> 
 </div>
+              <?php if(isset($UNIT)) { ?>
               <br><br><br>
               <div class="row">
   <div class="panel-group">
@@ -300,7 +301,7 @@ echo "</ul>";
     </div>
   </div>
               </div>
-              
+              <?php } ?>
             
        
         </div>

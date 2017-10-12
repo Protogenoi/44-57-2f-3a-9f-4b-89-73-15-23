@@ -18,7 +18,7 @@
                         <option value="Intercessor Squad" <?php if(isset($UNIT) && $UNIT=='Intercessor Squad') { echo "selected"; } ?> >Intercessor Squad</option>
                         <option value="Intercessor Sergeant" <?php if(isset($UNIT) && $UNIT=='Intercessor Sergeant') { echo "selected"; } ?> >Intercessor Sergeant</option>
                         <option value="Tactical Squad" <?php if(isset($UNIT) && $UNIT=='Tactical Squad') { echo "selected"; } ?> >Tactical Squad</option>
-                        <option value="Tactical Marine Sergeant Sergeant" <?php if(isset($UNIT) && $UNIT=='Tactical Marine Sergeant Sergeant') { echo "selected"; } ?> >Tactical Marine Sergeant Sergeant</option>
+                        <option value="Tactical Marine Sergeant" <?php if(isset($UNIT) && $UNIT=='Tactical Marine Sergeant') { echo "selected"; } ?> >Tactical Marine Sergeant</option>
                         <option value="Scout Squad" <?php if(isset($UNIT) && $UNIT=='Scout Squad') { echo "selected"; } ?> >Scout Squad</option>
                         <option value="Scout Sergeant" <?php if(isset($UNIT) && $UNIT=='Scout Sergeant') { echo "selected"; } ?> >Scout Sergeant</option>
                         <option value="Crusader Squad" <?php if(isset($UNIT) && $UNIT=='Crusader Squad') { echo "selected"; } ?> >Crusader Squad (Black Templars)</option>

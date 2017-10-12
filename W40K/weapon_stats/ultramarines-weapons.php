@@ -71,7 +71,7 @@
             
         }
         
-        if($UNIT=='Inceptor Squad') {
+        if($UNIT=='Inceptor Squad' || $UNIT=='Inceptor Sergeant') {
             
             if($UNIT_WEAPON=='Assualt Bolter') {
             $WEAPON_RANGE=18;
@@ -147,7 +147,7 @@
     
     }    
         
-    if($UNIT=='Intercessor Squad') {
+    if($UNIT=='Intercessor Squad' || $UNIT=='Intercessor Sergeant') {
     
     if($UNIT_WEAPON=='Auto Bolt Rifle') {
         $WEAPON_STR=4;
@@ -203,7 +203,7 @@
     
     }
     
-    if($UNIT=='Hellblaster Squad') {
+    if($UNIT=='Hellblaster Squad' || $UNIT=='Hellblaster Sergeant') {
 
          if($UNIT_WEAPON=='Bolt Pistol') {
             $WEAPON_RANGE=12;
@@ -287,7 +287,7 @@
         
     }
     
-    if($UNIT=='Scout Squad') {
+    if($UNIT=='Scout Squad' || $UNIT=='Scout Sergeant') {
         
         if($UNIT_WEAPON=='Boltgun') {
             $WEAPON_RANGE=24;
@@ -369,7 +369,7 @@
         
     }
     
- if($UNIT=='Tactical Squad') {
+ if($UNIT=='Tactical Squad' || $UNIT=='Tactical Marine Sergeant') {
         
         if($UNIT_WEAPON=='Boltgun') {
             $WEAPON_RANGE=24;

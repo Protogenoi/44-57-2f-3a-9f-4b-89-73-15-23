@@ -46,6 +46,7 @@ $ENEMY_FACTION = filter_input(INPUT_GET, 'ENEMY_FACTION', FILTER_SANITIZE_SPECIA
                 <div class="col-sm-3">
                     <select class="form-control" name="FACTION" id="FACTION" style="width: 170px" required">
                         <option value="Ultramarines" <?php if(isset($FACTION) && $FACTION=='Ultramarines') { echo "selected"; } ?> >Ultramarines</option>
+                        <option value="Chaos Space Marines" <?php if(isset($FACTION) && $FACTION=='Chaos Space Marines') { echo "selected"; } ?> >Chaos Space Marines</option>
                     </select>
                 </div>     
             </div>

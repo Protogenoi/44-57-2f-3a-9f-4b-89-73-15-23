@@ -445,11 +445,13 @@ $DIE_THREE_MOD=0;
     $combat_cal = new combat_cal();
     $combat_cal->reroll_ones(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$U_ABILITIES,$RE_ROLLL_ONES,$DIE_ONE,$U_BS);     
      
- }      
+ } else {      
     
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
     $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS);
+    
+ }
 }
 
 function reroll_ones($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$U_ABILITIES,$RE_ROLLL_ONES,$DIE_ONE,$U_BS) {

@@ -27,7 +27,7 @@ class combat_cal {
        
        elseif($FACTION=='Chaos Space Marines') {
 
-           require(__DIR__ . '/../unit_stats/csm-stats.php');
+           require(__DIR__ . '/../unit_stats/csm.php');
            require(__DIR__ . '/../weapon_stats/csm-weapons.php');  
        
        }        

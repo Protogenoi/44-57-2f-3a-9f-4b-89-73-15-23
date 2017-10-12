@@ -26,7 +26,8 @@
                         <option value="Inceptor Squad" <?php if(isset($UNIT) && $UNIT=='Inceptor Squad') { echo "selected"; } ?> >Inceptor Squad</option>
                         <option value="Inceptor Sergeant" <?php if(isset($UNIT) && $UNIT=='Inceptor Sergeant') { echo "selected"; } ?> >Inceptor Sergeant</option>
                         <option disabled>─────HEAVY SUPPORT─────</option>
-                        <option value="Hellblaster Squad" <?php if(isset($UNIT) && $UNIT=='Hellblaster Squad') { echo "selected"; } ?> >Hellblaster Squad</option>                        
+                        <option value="Hellblaster Squad" <?php if(isset($UNIT) && $UNIT=='Hellblaster Squad') { echo "selected"; } ?> >Hellblaster Squad</option>
+                        <option value="Hellblaster Sergeant" <?php if(isset($UNIT) && $UNIT=='Hellblaster Sergeant') { echo "selected"; } ?> >Hellblaster Sergeant</option>                          
                         </select>
                 </div>     
             </div>  

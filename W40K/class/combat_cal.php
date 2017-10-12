@@ -96,7 +96,7 @@ $DIE_THREE_MOD=0;
             
         $TOTAL_HITS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD;    
         
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='4'>$WEAPON_TYPE Hits</th>
         </tr>
@@ -263,7 +263,7 @@ $DIE_THREE_MOD=0;
         
         //ALTERNATIVE HOWEVER IS NOT AS FAIR AS ROLLING XD6 seperatly $TOTAL_HITS=(mt_rand($SHOW_ROLL_HITS, 6*$SHOW_ROLL_HITS)); 
 
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='11'>$SHOW_ROLL_HITS shots | $UNIT_WEAPON ($WEAPON_TYPE) | Auto 1D6 hits</th>
         </tr>
@@ -413,7 +413,7 @@ $DIE_THREE_MOD=0;
         $TOTAL_HITS=$DIE_TWO+$DIE_THREE+$DIE_FOUR+$DIE_FIVE+$DIE_SIX;
     }      
     
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='7'>$SHOW_ROLL_HITS shots | $UNIT_WEAPON ($WEAPON_TYPE) | $U_BS+ to hit</th>
         </tr>
@@ -506,10 +506,12 @@ if($DIE_ONE>0) {
     if($U_BS=='2') {
         $REROLL_HITS=$DIE_TWO_ROLL+$DIE_THREE_ROLL+$DIE_FOUR_ROLL+$DIE_FIVE_ROLL+$DIE_SIX_ROLL;
     }     
-
-    echo "<table class='table'>
+    
+    $TOTAL_HITS++;
+    $DISPLAY_HITS=$TOTAL_HITS+$REROLL_HITS;
+    echo "<table class='table table-condensed'>
         <tr>
-        <th colspan='7'>$DIE_ONE Re-roll hit rolls of 1</th>
+        <th colspan='8'>$DIE_ONE Re-roll hit rolls of 1</th>
         </tr>
 	<tr>
 	<th>1</th>
@@ -518,7 +520,9 @@ if($DIE_ONE>0) {
 	<th>4</th>
 	<th>5</th>
 	<th>6</th>
+        <th>Reroll</th>
         <th>Hits</th>
+        <th>Total</th>
 	</tr>
 	<tr>
 	<th>$DIE_ONE_ROLL</th>
@@ -527,7 +531,9 @@ if($DIE_ONE>0) {
 	<th>$DIE_FOUR_ROLL</th>
 	<th>$DIE_FIVE_ROLL</th>
 	<th>$DIE_SIX_ROLL</th>
-        <th>$REROLL_HITS</th>    
+        <th>$REROLL_HITS</th>  
+        <th>$TOTAL_HITS</th>  
+        <th>$DISPLAY_HITS</th>          
 	</tr>
 	</table>";     
      
@@ -627,7 +633,7 @@ function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FA
     
     
     
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='7'>$TOTAL_WOUNDS Wounds | T $T_TOUGHNESS | STR $WEAPON_STR | DMG $WEAPON_DAMAGE | $WOUNDS_ON+ to wound </th>
         </tr>
@@ -699,7 +705,7 @@ $DIE=0;
             
         $TOTAL_WOUNDS=$DIE." ($WEAPON_DAMAGE)";    
         
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='7'>2D6 Damage and discarded highest</th>
         </tr>
@@ -744,7 +750,7 @@ $DIE_THREE_MOD=0;
             
         $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD." ($WEAPON_DAMAGE)";    
         
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='4'>1D3 Damage</th>
         </tr>
@@ -792,7 +798,7 @@ $DIE_THREE_MOD=0;
             
         $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD." (1D3)";    
         
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='4'>1D3 Damage on 3+ save or better</th>
         </tr>
@@ -863,7 +869,7 @@ $DIE_SIX_MOD=0;
             
         $TOTAL_WOUNDS=$DIE_ONE_MOD+$DIE_TWO_MOD+$DIE_THREE_MOD+$DIE_FOUR_MOD+$DIE_FIVE_MOD+$DIE_SIX_MOD." ($WEAPON_DAMAGE)";    
         
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='7'>1D6 Damage</th>
         </tr>
@@ -1044,7 +1050,7 @@ function save_rolls($T_SAVE,$SAVE_ROLLS,$WEAPON_AP,$UNIT_WEAPON,$T_INVUL,$T_ABIL
         $MORTAL_WOUNDS=0;
     }
 
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='9'>$SAVE_ROLL_DISPLAY Save(s) | AP $WEAPON_AP | $T_SAVE+ to Save | $T_INVUL+ Invul</th>
         </tr>
@@ -1132,7 +1138,7 @@ function ignore_wounds($TOTAL_SAVES,$TOTAL_INVUL,$TOTAL_FAILS,$TOTAL_INVUL_FAILS
         $FAILS="-";
     }
     
-    echo "<table class='table'>
+    echo "<table class='table table-condensed'>
         <tr>
         <th colspan='9'>$SHOW_IGN_SAVE_ROLLS roll(s) to Ignore wounds</th>
         </tr>

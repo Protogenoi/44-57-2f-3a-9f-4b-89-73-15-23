@@ -63,7 +63,7 @@ class combat_cal {
     elseif($UNIT_WEAPON!='Flamer') {
     
     $combat_cal = new combat_cal();
-    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE,$U_ABILITIES);        
     
     }
     
@@ -301,7 +301,7 @@ $DIE_THREE_MOD=0;
 }
     
     
-    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
+    function roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE,$U_ABILITIES) {
     
     $DIE_ONE = 0;
     $DIE_TWO = 0;
@@ -395,7 +395,7 @@ $DIE_THREE_MOD=0;
         if ($DIE == 6) {
             $DIE_SIX++;
         }
-    }      
+    }       
  
     if($U_BS=='6') {
         $TOTAL_HITS=$DIE_SIX;
@@ -437,9 +437,106 @@ $DIE_THREE_MOD=0;
 	</tr>
 	</table>";
     
+  $RE_ROLLL_ONES=array("Rites of Battle");
+ 
+ if (array_intersect($RE_ROLLL_ONES, $U_ABILITIES)) {
+     
+    $PASS_HITS=$TOTAL_HITS-1;
+    $combat_cal = new combat_cal();
+    $combat_cal->reroll_ones(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$U_ABILITIES,$RE_ROLLL_ONES,$DIE_ONE,$U_BS);     
+     
+ }      
+    
     $PASS_HITS=$TOTAL_HITS-1;
     $combat_cal = new combat_cal();
     $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS);
+}
+
+function reroll_ones($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS,$U_ABILITIES,$RE_ROLLL_ONES,$DIE_ONE,$U_BS) {
+    
+ if (array_intersect($RE_ROLLL_ONES, $U_ABILITIES)) {
+     
+    $DIE_ONE_ROLL = 0;
+    $DIE_TWO_ROLL = 0;
+    $DIE_THREE_ROLL = 0;
+    $DIE_FOUR_ROLL = 0;
+    $DIE_FIVE_ROLL = 0;
+    $DIE_SIX_ROLL = 0;
+
+    $NUMBER_OF_REROLLS=$DIE_ONE-1;
+    
+if($DIE_ONE>0) {
+
+    for ($x = 0; $x <= $NUMBER_OF_REROLLS; $x++) {
+
+        $DIE_REROLL = mt_rand(1, $sides);
+
+        if ($DIE_REROLL == 1) {
+            $DIE_ONE_ROLL++;
+        }
+        if ($DIE_REROLL == 2) {
+            $DIE_TWO_ROLL++;
+        }
+        if ($DIE_REROLL == 3) {
+            $DIE_THREE_ROLL++;
+        }
+        if ($DIE_REROLL == 4) {
+            $DIE_FOUR_ROLL++;
+        }
+        if ($DIE_REROLL == 5) {
+            $DIE_FIVE_ROLL++;
+        }
+        if ($DIE_REROLL == 6) {
+            $DIE_SIX_ROLL++;
+        }
+    }       
+}
+    if($U_BS=='6') {
+        $REROLL_HITS=$DIE_SIX_ROLL;
+    }       
+    if($U_BS=='5') {
+        $REROLL_HITS=$DIE_FIVE_ROLL+$DIE_SIX_ROLL;
+    }      
+    if($U_BS=='4') {
+        $REROLL_HITS=$DIE_FOUR_ROLL+$DIE_FIVE_ROLL+$DIE_SIX_ROLL;
+    }     
+    if($U_BS=='3') {
+        $REROLL_HITS=$DIE_THREE_ROLL+$DIE_FOUR_ROLL+$DIE_FIVE_ROLL+$DIE_SIX_ROLL;
+    }
+    if($U_BS=='2') {
+        $REROLL_HITS=$DIE_TWO_ROLL+$DIE_THREE_ROLL+$DIE_FOUR_ROLL+$DIE_FIVE_ROLL+$DIE_SIX_ROLL;
+    }     
+
+    echo "<table class='table'>
+        <tr>
+        <th colspan='7'>$DIE_ONE Re-roll hit rolls of 1</th>
+        </tr>
+	<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>3</th>
+	<th>4</th>
+	<th>5</th>
+	<th>6</th>
+        <th>Hits</th>
+	</tr>
+	<tr>
+	<th>$DIE_ONE_ROLL</th>
+	<th>$DIE_TWO_ROLL</th>
+	<th>$DIE_THREE_ROLL</th>
+	<th>$DIE_FOUR_ROLL</th>
+	<th>$DIE_FIVE_ROLL</th>
+	<th>$DIE_SIX_ROLL</th>
+        <th>$REROLL_HITS</th>    
+	</tr>
+	</table>";     
+     
+ }   
+ 
+    $PASS_HITS=$TOTAL_HITS+$REROLL_HITS-1;
+    $combat_cal = new combat_cal();
+    $combat_cal->results(6,$PASS_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS); 
+    
 }
 
 function results($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE,$FACTION,$ENEMY_FACTION,$WEAPON_AP,$UNIT_WEAPON,$RANGE_BONUS) {

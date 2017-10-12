@@ -462,6 +462,12 @@ function reroll_ones($sides, $TOTAL_HITS,$TARGET_UNIT,$WEAPON_STR,$WEAPON_DAMAGE
     $DIE_FOUR_ROLL = 0;
     $DIE_FIVE_ROLL = 0;
     $DIE_SIX_ROLL = 0;
+    
+    $MATCH_ABILITY_USED=array_intersect($RE_ROLLL_ONES, $U_ABILITIES);
+    
+      foreach($MATCH_ABILITY_USED as $row){
+      $ABILITY_USED=$row;
+  }
 
     $NUMBER_OF_REROLLS=$DIE_ONE-1;
     
@@ -509,9 +515,10 @@ if($DIE_ONE>0) {
     
     $TOTAL_HITS++;
     $DISPLAY_HITS=$TOTAL_HITS+$REROLL_HITS;
+
     echo "<table class='table table-condensed'>
         <tr>
-        <th colspan='8'>$DIE_ONE Re-roll hit rolls of 1</th>
+        <th colspan='8'>$ABILITY_USED: $DIE_ONE re-roll(s) for hit rolls of 1</th>
         </tr>
 	<tr>
 	<th>1</th>

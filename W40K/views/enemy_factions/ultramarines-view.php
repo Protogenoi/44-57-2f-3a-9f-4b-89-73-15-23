@@ -22,8 +22,10 @@
                         <option value="Crusader Squad" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Crusader Squad') { echo "selected"; } ?> >Crusader Squad (Black Templars)</option>
                         <option disabled>─────FAST ATTACK─────</option>
                         <option value="Inceptor Squad" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Inceptor Squad') { echo "selected"; } ?> >Inceptor Squad</option>
+                        <option value="Inceptor Sergeant" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Inceptor Sergeant') { echo "selected"; } ?> >Inceptor Sergeant</option>
                         <option disabled>─────HEAVY SUPPORT─────</option>
-                        <option value="Hellblaster Squad" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Hellblaster Squad') { echo "selected"; } ?> >Hellblaster Squad</option>  
+                        <option value="Hellblaster Squad" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Hellblaster Squad') { echo "selected"; } ?> >Hellblaster Squad</option>
+                        <option value="Hellblaster Sergeant" <?php if(isset($TARGET_UNIT) && $TARGET_UNIT=='Hellblaster Sergeant') { echo "selected"; } ?> >Hellblaster Sergeant</option>
                     </select>
                 </div>     
             </div>                   

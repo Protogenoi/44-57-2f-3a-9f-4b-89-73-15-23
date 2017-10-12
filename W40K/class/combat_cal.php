@@ -55,7 +55,7 @@ class combat_cal {
     elseif($UNIT_WEAPON=='Plasma Exterminator' || $UNIT_WEAPON=='Supercharged Plasma Exterminator') {
         
     $combat_cal = new combat_cal();
-    $combat_cal->two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+    $combat_cal->two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE,$U_ABILITIES);        
               
         
     }
@@ -69,7 +69,7 @@ class combat_cal {
     
     }
     
-    function two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE) {
+    function two_d_three_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE,$U_ABILITIES) {
         
 $DIE_ONE_MOD=0;
 $DIE_TWO_MOD=0;
@@ -117,7 +117,7 @@ $DIE_THREE_MOD=0;
     $number=$TOTAL_HITS-1;
  
     $combat_cal = new combat_cal();
-    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        
+    $combat_cal->roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE,$U_ABILITIES);        
         
     }   
     

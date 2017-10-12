@@ -7,10 +7,10 @@
            $UNIT_WEAPON='Meltagun';
        }
        if($UNIT_WEAPON=='Combi-plasma') {
-           $UNIT_WEAPON=='Plasma Gun';
+           $UNIT_WEAPON='Plasma Gun';
        }
        if($UNIT_WEAPON=='Supercharged Combi-plasma') {
-           $UNIT_WEAPON=='Supercharged Plasma Gun';
+           $UNIT_WEAPON='Supercharged Plasma Gun';
        }
        
        if($UNIT_WEAPON=='Storm Bolter') {

@@ -76,6 +76,11 @@ if(isset($FACTION) && $FACTION=='Ultramarines') {
     require_once(__DIR__ . '/views/factions/ultramarines-view.php');
 }
 
+elseif(isset($FACTION) && $FACTION=='Chaos Space Marines') {
+    require_once(__DIR__ . '/views/factions/csm-view.php');
+}
+
+
 ?>
    <div class="col-xs-4">
 <?php 

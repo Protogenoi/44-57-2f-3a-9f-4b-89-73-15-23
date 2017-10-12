@@ -161,4 +161,40 @@
         $T_KEYWORDS=array("Infantry","Scout","Scout Squad");          
         
     }     
+    
+    if($TARGET_UNIT=='Inceptor Squad') {
+        $T_MOVE=10;
+        $T_WS=3;
+        $T_BS=3;
+        $T_STR=4;
+        $T_TOUGHNESS=5;
+        $T_WOUNDS=2;
+        $T_ATTACKS=2;
+        $T_LD=7;
+        $T_SAVE=3; 
+        $T_INVUL=0;       
+        
+        $T_ABILITIES=array("And They Shall Know No Fear","Crushing Charge","Meteoric Descent","Combat Squads");
+        $T_FACTION_KW=array("Imperium","Adeptus Astartes","CHAPTER");
+        $T_KEYWORDS=array("Infantry","Jump Pack","Mk X Gravis","Primaris","Fly","Inceptor Squad");          
+        
+    }    
+    
+    if($TARGET_UNIT=='Inceptor Sergeant') {
+        $T_MOVE=10;
+        $T_WS=3;
+        $T_BS=3;
+        $T_STR=4;
+        $T_TOUGHNESS=5;
+        $T_WOUNDS=2;
+        $T_ATTACKS=3;
+        $T_LD=8;
+        $T_SAVE=3; 
+        $T_INVUL=0;       
+        
+        $T_ABILITIES=array("And They Shall Know No Fear","Crushing Charge","Meteoric Descent","Combat Squads");
+        $T_FACTION_KW=array("Imperium","Adeptus Astartes","CHAPTER");
+        $T_KEYWORDS=array("Infantry","Jump Pack","Mk X Gravis","Primaris","Fly","Inceptor Squad");          
+        
+    }     
 

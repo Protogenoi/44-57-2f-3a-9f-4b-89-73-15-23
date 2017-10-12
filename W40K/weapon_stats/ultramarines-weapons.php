@@ -365,7 +365,43 @@
             $WEAPON_STR=6;
             $WEAPON_AP=1;
             $WEAPON_DAMAGE="1D3";          
+        } 
+        
+        if($UNIT_WEAPON=='Flamer') {
+            $WEAPON_RANGE=8;
+            $WEAPON_TYPE='Assualt 1D6';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";              
+            
         }  
+
+        if($UNIT_WEAPON=='Meltagun') {
+            $WEAPON_RANGE=12;
+            $WEAPON_TYPE='Assualt 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=4;
+            $WEAPON_DAMAGE="1D6";          
+        
+    } 
+    
+        if($UNIT_WEAPON=='Plasma Gun') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Rapid Fire 1';
+            $WEAPON_STR=7;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1";           
+        
+    }
+
+        if($UNIT_WEAPON=='Supercharged Plasma Gun') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Rapid Fire 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="2";           
+        
+    }    
         
     }
     

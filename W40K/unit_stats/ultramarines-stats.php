@@ -196,5 +196,40 @@
         $_UFACTION_KW=array("Imperium","Adeptus Astartes","CHAPTER");
         $_UKEYWORDS=array("Infantry","Jump Pack","Mk X Gravis","Primaris","Fly","Inceptor Squad");          
         
-    }     
+    } 
 
+    if($UNIT=='Hellblaster Squad') {
+        $U_MOVE=6;
+        $U_WS=3;
+        $U_BS=3;
+        $U_STR=4;
+        $U_TOUGHNESS=4;
+        $U_WOUNDS=2;
+        $U_ATTACKS=2;
+        $U_LD=7;
+        $U_SAVE=3; 
+        $U_INVUL=0;       
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","CHAPTER");
+        $U_KEYWORDS=array("Infantry","Primaris","Hellblaster Squad");          
+        
+    }     
+      
+    if($UNIT=='Hellblaster Sergeant') {
+        $U_MOVE=6;
+        $U_WS=3;
+        $U_BS=3;
+        $U_STR=4;
+        $U_TOUGHNESS=4;
+        $U_WOUNDS=2;
+        $U_ATTACKS=3;
+        $U_LD=8;
+        $U_SAVE=3; 
+        $U_INVUL=0;       
+        
+        $U_ABILITIES=array("And They Shall Know No Fear","Combat Squads");
+        $U_FACTION_KW=array("Imperium","Adeptus Astartes","CHAPTER");
+        $U_KEYWORDS=array("Infantry","Primaris","Hellblaster Squad");          
+        
+    }  

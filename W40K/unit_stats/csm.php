@@ -36,6 +36,78 @@
         $U_KEYWORDS=array("Character","Infantry","Chaos Lord","Terminator","Abaddon the Despoiler");
         
     } 
+    
+    if($UNIT=='Khorne Winged Daemon Prince') {
+        $U_MOVE=12;
+        $U_WS=2;
+        $U_BS=2;
+        $U_STR=7;
+        $U_TOUGHNESS=6;
+        $U_WOUNDS=8;
+        $U_ATTACKS=4;
+        $U_LD=10;
+        $U_SAVE=3; 
+        $U_INVUL=5;
+        
+        $U_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic","Might of Magic");
+        $U_FACTION_KW=array("Chaos","Khorne","Heretic Astartes","LEGION");
+        $U_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Fly");        
+        
+    }
+  
+    if($UNIT=='Nurgle Winged Daemon Prince') {
+        $U_MOVE=12;
+        $U_WS=2;
+        $U_BS=2;
+        $U_STR=7;
+        $U_TOUGHNESS=6;
+        $U_WOUNDS=8;
+        $U_ATTACKS=4;
+        $U_LD=10;
+        $U_SAVE=3; 
+        $U_INVUL=5;
+        
+        $U_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $U_FACTION_KW=array("Chaos","Nurgle","Heretic Astartes","LEGION");
+        $U_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker","Fly");        
+        
+    } 
+
+    if($UNIT=='Slaanesh Winged Daemon Prince') {
+        $U_MOVE=12;
+        $U_WS=2;
+        $U_BS=2;
+        $U_STR=7;
+        $U_TOUGHNESS=6;
+        $U_WOUNDS=8;
+        $U_ATTACKS=4;
+        $U_LD=10;
+        $U_SAVE=3; 
+        $U_INVUL=5;
+        
+        $U_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $U_FACTION_KW=array("Chaos","Slaanesh","Heretic Astartes","LEGION");
+        $U_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker","Fly");        
+        
+    } 
+
+    if($UNIT=='Tzeentch Winged Daemon Prince') {
+        $U_MOVE=12;
+        $U_WS=2;
+        $U_BS=2;
+        $U_STR=7;
+        $U_TOUGHNESS=6;
+        $U_WOUNDS=8;
+        $U_ATTACKS=4;
+        $U_LD=10;
+        $U_SAVE=3; 
+        $U_INVUL=5;
+        
+        $U_ABILITIES=array("Death to the False Emperor","Prince of Chaos","Daemonic");
+        $U_FACTION_KW=array("Chaos","Tzeentch","Heretic Astartes","LEGION");
+        $U_KEYWORDS=array("Character","Monster","Daemon","Daemon Prince","Psyker","Fly");        
+        
+    }    
 
     if($UNIT=='Khorne Daemon Prince') {
         $U_MOVE=8;

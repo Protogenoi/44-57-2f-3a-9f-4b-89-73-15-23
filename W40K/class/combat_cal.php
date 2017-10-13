@@ -366,8 +366,18 @@ $DIE_THREE_MOD=0;
         $number=$SHOW_ROLL_HITS-1;
     } 
     
+    if($WEAPON_TYPE=='Heavy 2') {
+        $SHOW_ROLL_HITS=($number+1)*2;
+        $number=$SHOW_ROLL_HITS-1;
+    }     
+    
     if($WEAPON_TYPE=='Heavy 4') {
         $SHOW_ROLL_HITS=($number+1)*4;
+        $number=$SHOW_ROLL_HITS-1;
+    } 
+
+    if($WEAPON_TYPE=='Heavy 6') {
+        $SHOW_ROLL_HITS=($number+1)*6;
         $number=$SHOW_ROLL_HITS-1;
     }     
     

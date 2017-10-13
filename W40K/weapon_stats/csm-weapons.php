@@ -547,7 +547,7 @@
             
         }    
         
-        if($UNIT_WEAPON=='Twin Heavy Bolter') {
+        if($UNIT_WEAPON=='Heavy Bolter') {
             $WEAPON_RANGE=36;
             $WEAPON_TYPE='Heavy 3';
             $WEAPON_STR=5;

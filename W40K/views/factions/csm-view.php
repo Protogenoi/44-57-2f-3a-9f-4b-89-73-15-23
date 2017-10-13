@@ -90,7 +90,7 @@
                         <option value='Talon of Horus (Melee)'<?php if($UNIT_WEAPON=='Talon of Horus (Melee)') { echo "selected"; } ?> >Talon of Horus (Melee)</option>                       
                         <option value='Drachnyen' <?php if($UNIT_WEAPON=='Drachnyen') { echo "selected"; } ?> >Drach'nyen</option>                        
                             <?php }                             
-                            if(strpos($UNIT=='Daemon Prince')) {
+                            if(strpos($UNIT=='Daemon Prince') !== false) {
                             ?>
                         <option disabled>─────Wargear─────</option>
                         <option value='Warp Bolter'<?php if($UNIT_WEAPON=='Warp Bolter') { echo "selected"; } ?> >Warp Bolter</option>

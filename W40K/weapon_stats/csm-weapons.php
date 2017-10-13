@@ -416,4 +416,36 @@
          
         $WEAPON_ABILITY="When attacking with this weapon subtract 1 from the hit roll.";    
             
-        }          
+        }   
+        
+        if($UNIT_WEAPON=='Heavy Flamer') {
+            $WEAPON_RANGE=8;
+            $WEAPON_TYPE='Heavy 1D6';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";    
+            
+        $WEAPON_ABILITY="This weapon automaticaly hits its target.";     
+            
+        }  
+        
+        
+        if($UNIT_WEAPON=='Reaper Autocannon') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 4';
+            $WEAPON_STR=7;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";      
+            
+        }        
+        
+         if($UNIT_WEAPON=='Chain Fist') {
+            $WEAPON_RANGE='Melee';
+            $WEAPON_TYPE='Melee';
+            $WEAPON_STR="x2";
+            $WEAPON_AP=4;
+            $WEAPON_DAMAGE="2";  
+            
+       $WEAPON_ABILITY="When attacking with this weapon subtract 1 from the hit roll.";     
+                    
+    }        

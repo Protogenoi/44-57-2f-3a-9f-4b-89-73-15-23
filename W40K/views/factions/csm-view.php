@@ -99,7 +99,7 @@
                         <option value='Daemonic Axe'<?php if($UNIT_WEAPON=='Daemonic Axe') { echo "selected"; } ?> >Daemonic Axe</option>
                         <option value='Malefic Talons'<?php if($UNIT_WEAPON=='Malefic Talons') { echo "selected"; } ?> >Malefic Talons</option>                     
                             <?php }
-                            if(strpos($UNIT,"Khorne Bezerkers") !== false) {
+                            if(strpos($UNIT,"Bezerker") !== false) {
                             ?>
                         <option disabled>─────Wargear─────</option>
                         <option value='Bolt Pistol'<?php if($UNIT_WEAPON=='Bolt Pistol') { echo "selected"; } ?> >Bolt Pistol</option>

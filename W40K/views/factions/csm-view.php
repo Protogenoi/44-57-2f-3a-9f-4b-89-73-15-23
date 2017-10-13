@@ -197,14 +197,30 @@
                         <option value='Power Maul' <?php if($UNIT_WEAPON=='Power Maul') { echo "selected"; } ?> >Power Maul</option>
                         <option value='Power Sword' <?php if($UNIT_WEAPON=='Power Sword') { echo "selected"; } ?> >Power Sword</option>
                         <option value='Chain Fist' <?php if($UNIT_WEAPON=='Chain Fist') { echo "selected"; } ?> >Chain Fist</option>
-                            <?php }                               
+                            <?php }
+                             if($UNIT=='Helbrute') {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Combi-bolter'<?php if($UNIT_WEAPON=='Combi-bolter') { echo "selected"; } ?> >Combi-bolter</option>
+                        <option value='Twin Heavy Bolter'<?php if($UNIT_WEAPON=='Twin Heavy Bolter') { echo "selected"; } ?> >Twin Heavy Bolter</option>
+                        <option value='Heavy Flamer'<?php if($UNIT_WEAPON=='Heavy Flamer') { echo "selected"; } ?> >Heavy Flamer</option>
+                        <option value='Twin Lascannon'<?php if($UNIT_WEAPON=='Twin Lascannon') { echo "selected"; } ?> >Twin Lascannon</option>
+                        <option value='Helbrute Plasma Cannon'<?php if($UNIT_WEAPON=='Helbrute Plasma Cannon') { echo "selected"; } ?> >Helbrute Plasma Cannon</option>
+                        <option value='Missile Launcher'<?php if($UNIT_WEAPON=='Missile Launcher') { echo "selected"; } ?> >Missile Launcher</option>
+                        <option value='Multi-melta'<?php if($UNIT_WEAPON=='Multi-melta') { echo "selected"; } ?> >Multi-melta</option>
+                        <option value='Reaper Autocannon'<?php if($UNIT_WEAPON=='Reaper Autocannon') { echo "selected"; } ?> >Reaper Autocannon</option>
+                        <option disabled>─────Melee─────</option>
+                        <option value='Helbrute Fist' <?php if($UNIT_WEAPON=='Helbrute Fist') { echo "selected"; } ?> >Helbrute Fist</option> 
+                        <option value='Helbrute Hammer' <?php if($UNIT_WEAPON=='Helbrute Hammer') { echo "selected"; } ?> >Helbrute Hammer</option>
+                        <option value='Power Scourge' <?php if($UNIT_WEAPON=='Power Scourge') { echo "selected"; } ?> >Power Scourge</option>
+                            <?php }                            
                         } else { ?>
                         <option value=''>Select...</option>
                             <?php } ?>
                     </select>
                 </div>     
             </div>
-                                                                                                                             
+                                                                                                                                                     
         <script>
 $(document).ready(function () {
     $("#UNIT").change(function () {
@@ -245,6 +261,8 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Combi-bolter'>Combi-bolter</option><option value='Combi-flamer'>Combi-flamer</option><option value='Combi-melta'>Combi-melta</option><option value='Combi-plasma'>Combi-plasma</option><option value='Supercharged Combi-plasma'>Supercharged Combi-plasma</option><option value='Heavy Flamer'>Heavy Flamer</option><option value='Reaper Autocannon'>Reaper Autocannon</option><option disabled>─────Melee─────</option><option value='Lighting Claw'>Lighting Claw</option><option value='Power Axe'>Power Axe</option><option value='Power Fist'>Power Fist</option><option value='Power Maul'>Power Maul</option><option value='Power Sword'>Power Sword</option><option value='Chain Fist'>Chain Fist</option>");
         } else if (val === "Terminator Champion") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Combi-bolter'>Combi-bolter</option><option value='Combi-flamer'>Combi-flamer</option><option value='Combi-melta'>Combi-melta</option><option value='Combi-plasma'>Combi-plasma</option><option value='Supercharged Combi-plasma'>Supercharged Combi-plasma</option><option value='Heavy Flamer'>Heavy Flamer</option><option value='Reaper Autocannon'>Reaper Autocannon</option><option disabled>─────Melee─────</option><option value='Lighting Claw'>Lighting Claw</option><option value='Power Axe'>Power Axe</option><option value='Power Fist'>Power Fist</option><option value='Power Maul'>Power Maul</option><option value='Power Sword'>Power Sword</option><option value='Chain Fist'>Chain Fist</option>");
+        } else if (val === "Helbrute") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Combi-bolter'>Combi-bolter</option><option value='Twin Heavy Bolter'>Twin Heavy Bolter</option><option value='Heavy Flamer'>Heavy Flamer</option><option value='Twin Lascannon'>Twin Lascannon</option><option value='Helbrute Plasma Cannon'>Helbrute Plasma Cannon</option><option value='Missile Launcher'>Missile Launcher</option><option value='Multi-melta'>Multi-melta</option><option value='Reaper Autocannon'>Reaper Autocannon</option><option disabled>─────Melee─────</option><option value='Helbrute Fist'>Helbrute Fist</option><option value='Helbrute Hammer'>Helbrute Hammer</option><option value='Power Scourge'>Power Scourge</option>");
         } 
     });
 });        

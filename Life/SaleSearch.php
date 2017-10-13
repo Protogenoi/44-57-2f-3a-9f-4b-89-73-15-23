@@ -84,7 +84,7 @@ $DATETO = filter_input(INPUT_POST, 'DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
 
             <?php if ($fflife == '1') { ?>
               
-<div class='notice notice-primary' role='alert'><center><strong>Search sales</strong></center></div> 
+<div class='notice notice-primary' role='alert'><center><strong>Search sales by sale date.</strong></center></div> 
 
             <?php  if (in_array($hello_name, $ADMIN_SEARCH_ACCESS,true)) {?>
 

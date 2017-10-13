@@ -123,14 +123,31 @@
                         <option value='Power Fist' <?php if($UNIT_WEAPON=='Power Fist') { echo "selected"; } ?> >Power Fist</option>
                         <option value='Power Maul' <?php if($UNIT_WEAPON=='Power Maul') { echo "selected"; } ?> >Power Maul</option>
                         <option value='Power Sword' <?php if($UNIT_WEAPON=='Power Sword') { echo "selected"; } ?> >Power Sword</option>
-                            <?php }                            
+                            <?php } 
+                            if($UNIT=='Rubic Marines') {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Inferno Boltgun' <?php if($UNIT_WEAPON=='Inferno Boltgun') { echo "selected"; } ?> >Inferno Boltgun</option>
+                        <option value='Warpflamer' <?php if($UNIT_WEAPON=='Warpflamer') { echo "selected"; } ?> >Warpflamer</option>
+                        <option value='Soulreaper Cannon' <?php if($UNIT_WEAPON=='Soulreaper Cannon') { echo "selected"; } ?> >Soulreaper Cannon</option>
+                            <?php }   
+                            if($UNIT=='Aspiring Sorcerer') {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Inferno Bolt Pistol'<?php if($UNIT_WEAPON=='Inferno Bolt Pistol') { echo "selected"; } ?> >Inferno Bolt Pistol</option>
+                        <option value='Warp Flame Pistol'<?php if($UNIT_WEAPON=='Warp Flame Pistol') { echo "selected"; } ?> >Warp Flame Pistol</option>
+                        <option disabled>─────Melee─────</option>
+                        <option value='Force Stave' <?php if($UNIT_WEAPON=='Force Stave') { echo "selected"; } ?> >Force Stave</option> 
+                        <option value='Force Axe' <?php if($UNIT_WEAPON=='Force Axe') { echo "selected"; } ?> >Force Axe</option> 
+                        <option value='Force Sword' <?php if($UNIT_WEAPON=='Force Sword') { echo "selected"; } ?> >Force Sword</option> 
+                            <?php }                              
                         } else { ?>
                         <option value=''>Select...</option>
                             <?php } ?>
                     </select>
                 </div>     
             </div>
-                        
+                                                                         
         <script>
 $(document).ready(function () {
     $("#UNIT").change(function () {
@@ -159,6 +176,10 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Plasma Pistol'>Plasma Pistol</option><option value='Supercharged Plasma Pistol'>Supercharged Plasma Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Chain Sword'>Chain Sword</option><option value='Chainaxe'>Chainaxe</option>");
         } else if (val === "Bezerker Champion") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Plasma Pistol'>Plasma Pistol</option><option value='Supercharged Plasma Pistol'>Supercharged Plasma Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Chain Sword'>Chain Sword</option><option value='Chainaxe'>Chainaxe</option><option disabled>─────Champion Equipment─────</option><option value='Boltgun'>Boltgun</option><option value='Combi-bolter'>Combi-bolter</option><option value='Combi-flamer'>Combi-flamer</option><option value='Combi-melta'>Combi-melta</option><option value='Combi-plasma'>Combi-plasma</option><option value='Supercharged Combi-plasma'>Supercharged Combi-plasma</option><option disabled>─────Melee─────</option><option value='Lighting Claw'>Lighting Claw</option><option value='Power Axe'>Power Axe</option><option value='Power Fist'>Power Fist</option><option value='Power Maul'>Power Maul</option><option value='Power Sword'>Power Sword</option>");
+        } else if (val === "Rubic Marine") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Inferno Boltgun'>Inferno Boltgun</option><option value='Warpflamer'>Warpflamer</option><option value='Soulreaper Cannon'>Soulreaper Cannon</option>");
+        } else if (val === "Aspiring Sorcerer") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Inferno Bolt Pistol'>Inferno Bolt Pistol</option><option value='Warp Flame Pistol'>Warp Flame Pistol</option><option disabled>─────Melee─────</option><option value='Force Stave'>Force Stave</option><option value='Force Axe'>Force Axe</option><option value='Force Sword'>Force Sword</option>");
         }
     });
 });        

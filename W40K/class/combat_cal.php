@@ -44,7 +44,7 @@ class combat_cal {
      
  }
        
-    $AUTO_HIT_WEAPONS=array("Flamer","Warp Flame Pistol","Warpflamer");
+    $AUTO_HIT_WEAPONS=array("Flamer","Warp Flame Pistol","Warpflamer","Plague Belcher","Plague Spewer");
  
     if (in_array($UNIT_WEAPON,$AUTO_HIT_WEAPONS,true)) {
         

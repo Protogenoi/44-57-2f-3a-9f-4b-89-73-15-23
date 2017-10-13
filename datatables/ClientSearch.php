@@ -151,6 +151,41 @@ echo json_encode($results);
        
    }
    }
+   
+   if($ClientSearch==10) {
+       
+       $DATEFROM= filter_input(INPUT_GET, 'DATEFROM', FILTER_SANITIZE_SPECIAL_CHARS);
+       $DATETO= filter_input(INPUT_GET, 'DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
+       $CLOSER= filter_input(INPUT_GET, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+       
+       $CLOSER_LIKE="%$CLOSER%";
+       
+$query = $pdo->prepare("SELECT 
+    client_id,
+    client_name,
+    sale_date,
+    submitted_date,
+    application_number,
+    policy_number,
+    insurer,
+    submitted_by,
+    commission,
+    closer,
+    lead,
+    PolicyStatus
+FROM
+    client_policy
+WHERE
+    DATE(sale_date) BETWEEN :DATEFROM AND :DATETO AND closer LIKE :CLOSER");
+    $query->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
+    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
+    $query->bindParam(':CLOSER', $CLOSER_LIKE, PDO::PARAM_STR, 100);
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));  
+
+echo json_encode($results);       
+       
+   }
             
         }            
             

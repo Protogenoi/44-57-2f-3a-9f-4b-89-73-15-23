@@ -99,13 +99,37 @@
                         <option value='Daemonic Axe'<?php if($UNIT_WEAPON=='Daemonic Axe') { echo "selected"; } ?> >Daemonic Axe</option>
                         <option value='Malefic Talons'<?php if($UNIT_WEAPON=='Malefic Talons') { echo "selected"; } ?> >Malefic Talons</option>                     
                             <?php }
+                            if(strpos($UNIT,"Khorne Bezerkers") !== false) {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Bolt Pistol'<?php if($UNIT_WEAPON=='Bolt Pistol') { echo "selected"; } ?> >Bolt Pistol</option>
+                        <option value='Plasma Pistol' <?php if($UNIT_WEAPON=='Plasma Pistol') { echo "selected"; } ?> >Plasma Pistol</option>
+                        <option value='Supercharged Plasma Pistol' <?php if($UNIT_WEAPON=='Supercharged Plasma Pistol') { echo "selected"; } ?> >Supercharged Plasma Pistol</option>
+                        <option value='Frag Grenade' <?php if($UNIT_WEAPON=='Frag Grenade') { echo "selected"; } ?> >Frag Grenade</option>
+                        <option value='Krak Grenade' <?php if($UNIT_WEAPON=='Krak Grenade') { echo "selected"; } ?> >Krak Grenade</option>
+                        <option disabled>─────Melee─────</option>
+                        <option value='Chain Sword' <?php if($UNIT_WEAPON=='Chain Sword') { echo "selected"; } ?> >Chain Sword</option>
+                        <option value='Chain Axe' <?php if($UNIT_WEAPON=='Chain Axe') { echo "selected"; } ?> >Chain Axe</option>
+                        <option disabled>─────Champion Equipment─────</option>
+                        <option value='Boltgun' <?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Boltgun</option>
+                        <option value='Combi-bolter'<?php if($UNIT_WEAPON=='Combi-bolter') { echo "selected"; } ?> >Combi-bolter</option> 
+                        <option value='Combi-flamer'<?php if($UNIT_WEAPON=='Combi-flamer') { echo "selected"; } ?> >Combi-flamer</option>                       
+                        <option value='Combi-melta'<?php if($UNIT_WEAPON=='Combi-melta') { echo "selected"; } ?> >Combi-melta</option>
+                        <option value='Combi-plasma'<?php if($UNIT_WEAPON=='Combi-plasma') { echo "selected"; } ?> >Combi-plasma</option>                       
+                        <option disabled>─────Melee─────</option>
+                        <option value='Lighting Claw' <?php if($UNIT_WEAPON=='Lighting Claw') { echo "selected"; } ?> >Lighting Claw</option>
+                        <option value='Power Axe' <?php if($UNIT_WEAPON=='Power Axe') { echo "selected"; } ?> >Power Axe</option>
+                        <option value='Power Fist' <?php if($UNIT_WEAPON=='Power Fist') { echo "selected"; } ?> >Power Fist</option>
+                        <option value='Power Maul' <?php if($UNIT_WEAPON=='Power Maul') { echo "selected"; } ?> >Power Maul</option>
+                        <option value='Power Sword' <?php if($UNIT_WEAPON=='Power Sword') { echo "selected"; } ?> >Power Sword</option>
+                            <?php }                            
                         } else { ?>
                         <option value=''>Select...</option>
                             <?php } ?>
                     </select>
                 </div>     
             </div>
-
+                        
         <script>
 $(document).ready(function () {
     $("#UNIT").change(function () {
@@ -130,6 +154,10 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");
         } else if (val === "Tzeentch Winged Daemon Prince") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");
+        } else if (val === "Khorne Bezerkers") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Plasma Pistol'>Plasma Pistol</option><option value='Supercharged Plasma Pistol'>Supercharged Plasma Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Chain Sword'>Chain Sword</option><option value='Chain Axe'>Chain Axe</option>");
+        } else if (val === "Bezerker Champion") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Plasma Pistol'>Plasma Pistol</option><option value='Supercharged Plasma Pistol'>Supercharged Plasma Pistol</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Chain Sword'>Chain Sword</option><option value='Chain Axe'>Chain Axe</option><option disabled>─────Champion Equipment─────</option><option value='Boltgun'>Boltgun</option><option value='Combi-bolter'>Combi-bolter</option><option value='Combi-flamer'>Combi-flamer</option><option value='Combi-melta'>Combi-melta</option><option value='Combi-plasma'>Combi-plasma</option><option disabled>─────Melee─────</option><option value='Lighting Claw'>Lighting Claw</option><option value='Power Axe'>Power Axe</option><option value='Power Fist'>Power Fist</option><option value='Power Maul'>Power Maul</option><option value='Power Sword'>Power Sword</option>");
         }
     });
 });        

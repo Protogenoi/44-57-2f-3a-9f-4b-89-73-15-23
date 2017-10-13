@@ -448,4 +448,93 @@
             
        $WEAPON_ABILITY="When attacking with this weapon subtract 1 from the hit roll.";     
                     
-    }        
+    } 
+    
+        if($UNIT_WEAPON=='Twin Heavy Bolter') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 6';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";      
+            
+        }
+        
+        if($UNIT_WEAPON=='Twin Lascannon') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 2';
+            $WEAPON_STR=9;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1D6";      
+            
+        }   
+        
+        if($UNIT_WEAPON=='Helbrute Plasma Cannon') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 1D3';
+            $WEAPON_STR=8;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="2";   
+            
+        $WEAPON_ABILITY="For each hit roll of 1, the Helbrute suffers a mortal wound after all of this weapons shots have been resolved.";   
+            
+        } 
+
+        if($UNIT_WEAPON=='Frag Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1D6';
+            $WEAPON_STR=4;
+            $WEAPON_AP=0;
+            $WEAPON_DAMAGE="1";   
+                        
+        }   
+        
+        if($UNIT_WEAPON=='Krak Missile Launcher') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=2;
+            $WEAPON_DAMAGE="1D6";   
+                        
+        }   
+        
+        if($UNIT_WEAPON=='Multi-melta') {
+            $WEAPON_RANGE=24;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=8;
+            $WEAPON_AP=4;
+            $WEAPON_DAMAGE="1D6";                
+            
+        }         
+        
+        if($UNIT_WEAPON=='Helbrute Fist') {
+            $WEAPON_RANGE="Melee";
+            $WEAPON_TYPE='Melee';
+            $WEAPON_STR="x2";
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="3";                
+            
+        }    
+        
+        if($UNIT_WEAPON=='Helbrute Hammer') {
+            $WEAPON_RANGE="Melee";
+            $WEAPON_TYPE='Melee';
+            $WEAPON_STR="x2";
+            $WEAPON_AP=4;
+            $WEAPON_DAMAGE="1D6";  
+            
+        $WEAPON_ABILITY="When attacking with this weapon subtract 1 from the hit roll.";     
+    
+            
+        }      
+        
+        if($UNIT_WEAPON=='Power Scourge') {
+            $WEAPON_RANGE="Melee";
+            $WEAPON_TYPE='Melee';
+            $WEAPON_STR="+2";
+            $WEAPON_AP=2;
+            $WEAPON_DAMAGE="2";  
+            
+        $WEAPON_ABILITY="Each time the bearer fights it can make 3 additional attacks with this weapon.";     
+    
+            
+        }        

@@ -427,8 +427,7 @@
             
         $WEAPON_ABILITY="This weapon automaticaly hits its target.";     
             
-        }  
-        
+        }       
         
         if($UNIT_WEAPON=='Reaper Autocannon') {
             $WEAPON_RANGE=36;
@@ -536,5 +535,32 @@
             
         $WEAPON_ABILITY="Each time the bearer fights it can make 3 additional attacks with this weapon.";     
     
+            
+        }    
+        
+        if($UNIT_WEAPON=='Autocannon') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 2';
+            $WEAPON_STR=7;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="2";      
+            
+        }    
+        
+        if($UNIT_WEAPON=='Twin Heavy Bolter') {
+            $WEAPON_RANGE=36;
+            $WEAPON_TYPE='Heavy 3';
+            $WEAPON_STR=5;
+            $WEAPON_AP=1;
+            $WEAPON_DAMAGE="1";      
+            
+        }   
+        
+        if($UNIT_WEAPON=='Lascannon') {
+            $WEAPON_RANGE=48;
+            $WEAPON_TYPE='Heavy 1';
+            $WEAPON_STR=9;
+            $WEAPON_AP=3;
+            $WEAPON_DAMAGE="1D6";      
             
         }        

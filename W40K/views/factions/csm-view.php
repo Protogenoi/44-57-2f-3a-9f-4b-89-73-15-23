@@ -120,7 +120,7 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");
         } else if (val === "Nurgle Daemon Prince") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");
-        } else if (val === "Nurgled Winged Daemon Prince") {
+        } else if (val === "Nurgle Winged Daemon Prince") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");
         } else if (val === "Slaanesh Daemon Prince") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Warp Bolter'>Warp Bolter</option><option disabled>─────Melee─────</option><option value='Hellforged Sword'>Hellforged Sword</option><option value='Daemonic Axe'>Daemonic Axe</option><option value='Malefic Talons'>Malefic Talons</option>");

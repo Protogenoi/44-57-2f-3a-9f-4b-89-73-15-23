@@ -44,7 +44,9 @@ class combat_cal {
      
  }
        
-    if($UNIT_WEAPON=='Flamer') {
+    $AUTO_HIT_WEAPONS=arrray("Flamer","Warp Flame Pistol","Warpflammer");
+ 
+    if(in_array($AUTO_HIT_WEAPONS,$UNIT_WEAPON)) {
         
     $combat_cal = new combat_cal();
     $combat_cal->d_six_roll($sides, $number,$UNIT,$TARGET_UNIT,$UNIT_WEAPON,$RANGE_BONUS,$FACTION,$ENEMY_FACTION,$MODELS_TO_FIRE,$MOVEMENT,$WEAPON_STR,$WEAPON_DAMAGE,$WEAPON_AP,$U_BS,$WEAPON_TYPE,$WEAPON_RANGE);        

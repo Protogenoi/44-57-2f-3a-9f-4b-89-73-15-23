@@ -206,7 +206,8 @@
                         <option value='Heavy Flamer'<?php if($UNIT_WEAPON=='Heavy Flamer') { echo "selected"; } ?> >Heavy Flamer</option>
                         <option value='Twin Lascannon'<?php if($UNIT_WEAPON=='Twin Lascannon') { echo "selected"; } ?> >Twin Lascannon</option>
                         <option value='Helbrute Plasma Cannon'<?php if($UNIT_WEAPON=='Helbrute Plasma Cannon') { echo "selected"; } ?> >Helbrute Plasma Cannon</option>
-                        <option value='Missile Launcher'<?php if($UNIT_WEAPON=='Missile Launcher') { echo "selected"; } ?> >Missile Launcher</option>
+                        <option value='Frag Missile Launcher'<?php if($UNIT_WEAPON=='Frag Missile Launcher') { echo "selected"; } ?> >Frag Missile Launcher</option>
+                        <option value='Krak Missile Launcher'<?php if($UNIT_WEAPON=='Krak Missile Launcher') { echo "selected"; } ?> >Krak Missile Launcher</option>
                         <option value='Multi-melta'<?php if($UNIT_WEAPON=='Multi-melta') { echo "selected"; } ?> >Multi-melta</option>
                         <option value='Reaper Autocannon'<?php if($UNIT_WEAPON=='Reaper Autocannon') { echo "selected"; } ?> >Reaper Autocannon</option>
                         <option disabled>─────Melee─────</option>

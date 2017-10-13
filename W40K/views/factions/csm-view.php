@@ -140,14 +140,53 @@
                         <option value='Force Stave' <?php if($UNIT_WEAPON=='Force Stave') { echo "selected"; } ?> >Force Stave</option> 
                         <option value='Force Axe' <?php if($UNIT_WEAPON=='Force Axe') { echo "selected"; } ?> >Force Axe</option> 
                         <option value='Force Sword' <?php if($UNIT_WEAPON=='Force Sword') { echo "selected"; } ?> >Force Sword</option> 
-                            <?php }                              
+                            <?php } 
+                            if($UNIT=='Plague Marines') {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Blight Launcher'<?php if($UNIT_WEAPON=='Blight Launcher') { echo "selected"; } ?> >Blight Launcher</option>
+                        <option value='Plasma Gun'<?php if($UNIT_WEAPON=='Plasma Gun') { echo "selected"; } ?> >Plasma Gun</option>
+                        <option value='Supercharged Plasma Gun'<?php if($UNIT_WEAPON=='Supercharged Plasma Gun') { echo "selected"; } ?> >Supercharged Plasma Gun</option>
+                        <option value='Boltgun'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Boltgun</option>
+                        <option value='Meltagun'<?php if($UNIT_WEAPON=='Meltagun') { echo "selected"; } ?> >Meltagun</option>
+                        <option value='Plague Belcher'<?php if($UNIT_WEAPON=='Plague Belcher') { echo "selected"; } ?> >Plague Belcher</option>
+                        <option value='Plague Spewer'<?php if($UNIT_WEAPON=='Plague Spewer') { echo "selected"; } ?> >Plague Spewer</option>
+                        <option disabled>─────Grenades─────</option>
+                        <option value='Blight Grenade' <?php if($UNIT_WEAPON=='Blight Grenade') { echo "selected"; } ?> >Blight Grenade</option>
+                        <option value='Frag Grenade' <?php if($UNIT_WEAPON=='Frag Grenade') { echo "selected"; } ?> >Frag Grenade</option>
+                        <option value='Krak Grenade' <?php if($UNIT_WEAPON=='Krak Grenade') { echo "selected"; } ?> >Krak Grenade</option>                        
+                        <option disabled>─────Melee─────</option>
+                        <option value='Plague Knife' <?php if($UNIT_WEAPON=='Plague Knife') { echo "selected"; } ?> >Plague Knife</option> 
+                        <option value='Bubotic Axe' <?php if($UNIT_WEAPON=='Bubotic Axe') { echo "selected"; } ?> >Bubotic Axe</option>
+                        <option value='Flail of Corruption' <?php if($UNIT_WEAPON=='Flail of Corruption') { echo "selected"; } ?> >Flail of Corruption</option>
+                        <option value='Great Plague Cleaver' <?php if($UNIT_WEAPON=='Great Plague Cleaver') { echo "selected"; } ?> >Great Plague Cleaver</option>
+                        <option value='Mace of Contagion' <?php if($UNIT_WEAPON=='Mace of Contagion') { echo "selected"; } ?> >Mace of Contagion</option>
+                            <?php }   
+                            if($UNIT=='Plague Champion') {
+                            ?>
+                        <option disabled>─────Wargear─────</option>
+                        <option value='Plasma Gun'<?php if($UNIT_WEAPON=='Plasma Gun') { echo "selected"; } ?> >Plasma Gun</option>
+                        <option value='Supercharged Plasma Gun'<?php if($UNIT_WEAPON=='Supercharged Plasma Gun') { echo "selected"; } ?> >Supercharged Plasma Gun</option>
+                        <option value='Bolt Pistol'<?php if($UNIT_WEAPON=='Bolt Pistol') { echo "selected"; } ?> >Bolt Pistol</option>
+                        <option value='Plasma Pistol'<?php if($UNIT_WEAPON=='Plasma Pistol') { echo "selected"; } ?> >Plasma Pistol</option>
+                        <option value='Supercharged Plasma Pistol'<?php if($UNIT_WEAPON=='Supercharged Plasma Pistol') { echo "selected"; } ?> >Supercharged Plasma Pistol</option>
+                        <option value='Boltgun'<?php if($UNIT_WEAPON=='Boltgun') { echo "selected"; } ?> >Boltgun</option>
+                        <option disabled>─────Grenades─────</option>
+                        <option value='Blight Grenade' <?php if($UNIT_WEAPON=='Blight Grenade') { echo "selected"; } ?> >Blight Grenade</option>
+                        <option value='Frag Grenade' <?php if($UNIT_WEAPON=='Frag Grenade') { echo "selected"; } ?> >Frag Grenade</option>
+                        <option value='Krak Grenade' <?php if($UNIT_WEAPON=='Krak Grenade') { echo "selected"; } ?> >Krak Grenade</option>                        
+                        <option disabled>─────Melee─────</option>
+                        <option value='Plague Knife' <?php if($UNIT_WEAPON=='Plague Knife') { echo "selected"; } ?> >Plague Knife</option> 
+                        <option value='Plague Sword' <?php if($UNIT_WEAPON=='Plague Sword') { echo "selected"; } ?> >Plague Sword</option> 
+                        <option value='Power Fist' <?php if($UNIT_WEAPON=='Power Fist') { echo "selected"; } ?> >Power Fist</option>
+                            <?php }                             
                         } else { ?>
                         <option value=''>Select...</option>
                             <?php } ?>
                     </select>
                 </div>     
             </div>
-                                                                         
+                                                                                                     
         <script>
 $(document).ready(function () {
     $("#UNIT").change(function () {
@@ -180,7 +219,11 @@ $(document).ready(function () {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Inferno Boltgun'>Inferno Boltgun</option><option value='Warpflamer'>Warpflamer</option><option value='Soulreaper Cannon'>Soulreaper Cannon</option>");
         } else if (val === "Aspiring Sorcerer") {
             $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Inferno Bolt Pistol'>Inferno Bolt Pistol</option><option value='Warp Flame Pistol'>Warp Flame Pistol</option><option disabled>─────Melee─────</option><option value='Force Stave'>Force Stave</option><option value='Force Axe'>Force Axe</option><option value='Force Sword'>Force Sword</option>");
-        }
+        } else if (val === "Plague Marines") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Blight Launcher'>Blight Launcher</option><option value='Plasma Gun'>Plasma Gun</option><option value='Supercharged Plasma Gun'>Supercharged Plasma Gun</option><option value='Boltgun'>Boltgun</option><option value='Meltagun'>Meltagun</option><option value='Plague Belcher'>Plague Belcher</option><option value='Plague Spewer'>Plague Spewer</option><option disabled>─────Grenades─────</option><option value='Blight Grenade'>Blight Grenade</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Plague Knife'>Plague Knife</option><option value='Bubotic Axe'>Bubotic Axe</option><option value='Flail of Corruption'>Flail of Corruption</option><option value='Great Plague Cleaver'>Great Plague Cleaver</option><option value='Mace of Contagion'>Mace of Contagion</option>");
+        } else if (val === "Plague Champion") {
+            $("#UNIT_WEAPON").html("<option disabled>─────Wargear─────</option><option value='Plasma Gun'>Plasma Gun</option><option value='Supercharged Plasma Gun'>Supercharged Plasma Gun</option><option value='Bolt Pistol'>Bolt Pistol</option><option value='Plasma Pistol'>Plasma Pistol</option><option value='Supercharged Plasma Pistol'>Supercharged Plasma Pistol</option><option value='Boltgun'>Boltgun</option><option disabled>─────Grenades─────</option><option value='Blight Grenade'>Blight Grenade</option><option value='Frag Grenade'>Frag Grenade</option><option value='Krak Grenade'>Krak Grenade</option><option disabled>─────Melee─────</option><option value='Plague Knife'>Plague Knife</option><option value='Plague Sword'>Plague Sword</option><option value='Power Fist'>Power Fist</option>");
+        } 
     });
 });        
 </script>

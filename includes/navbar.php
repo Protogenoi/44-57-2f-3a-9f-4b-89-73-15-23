@@ -86,9 +86,6 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts">Missing Uploads</a></li>
                         <?php if ($ffkeyfactsemail == '1') { ?>
                             <li><a href="/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
-                        <?php } 
-                        if ($hello_name == 'Michael') { ?>    
-                            <li><a href="/email/emailinbox.php">Email Inbox</a></li>
                         <?php } ?>    
                            <li class="divider"></li>
                         <?php if ($ffcompliance == '1') { ?>   

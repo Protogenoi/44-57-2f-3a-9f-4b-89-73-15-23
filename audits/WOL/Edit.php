@@ -345,12 +345,9 @@ function textAreaAdjust(o) {
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Kyle") { echo "selected"; }  ?> value="Kyle">Kyle</option>  
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Mike") { echo "selected"; }  ?> value="Mike">Mike</option> 
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Richard") { echo "selected"; }  ?> value="Richard">Richard</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Ricky") { echo "selected"; }  ?> value="Ricky">Ricky</option> 
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Sarah") { echo "selected"; }  ?> value="Sarah">Sarah</option> 
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Nicola") { echo "selected"; }  ?> value="Nicola">Nicola</option> 
                                     <option <?php if(isset($CLOSER) && $CLOSER=="Gavin") { echo "selected"; }  ?> value="Gavin">Gavin</option> 
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="David") { echo "selected"; }  ?> value="David">David</option> 
-
                             </select>
                         </div>
                         
@@ -365,11 +362,9 @@ function textAreaAdjust(o) {
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Kyle") { echo "selected"; }  ?> value="Kyle">Kyle</option>  
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Mike") { echo "selected"; }  ?> value="Mike">Mike</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Richard") { echo "selected"; }  ?> value="Richard">Richard</option>
-                                    <option <?php if(isset($CLOSER2) && $CLOSER2=="Ricky") { echo "selected"; }  ?> value="Ricky">Ricky</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Sarah") { echo "selected"; }  ?> value="Sarah">Sarah</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Nicola") { echo "selected"; }  ?> value="Nicola">Nicola</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Gavin") { echo "selected"; }  ?> value="Gavin">Gavin</option> 
-                                    <option <?php if(isset($CLOSER2) && $CLOSER2=="David") { echo "selected"; }  ?> value="David">David</option> 
                             </select>
                         </div>
                         

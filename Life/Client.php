@@ -294,7 +294,7 @@ $data= $NewClient->addClientValidation();
                                 </select>
                             </div>                 
                             </div>
-                                
+                           m     
                                 <div class="form-group has-<?php if(isset($check['FIRST_STATUS2'])) { echo $check['FIRST_STATUS2']; } ?> has-feedback">
                                     <label class="col-sm-4 control-label" style="text-align:left;" for="first2_name">First Name:</label>
                                     <div class="col-sm-6">

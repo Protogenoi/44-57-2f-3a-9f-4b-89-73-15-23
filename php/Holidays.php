@@ -18,7 +18,12 @@ $RAND_XMAS_ARRAY = array_rand($XMAS_ARRAY, 2);
     </script>
     
     <?php } 
-    if($HALLOWEEN=='31st of October') { ?>
+    if($HALLOWEEN=='31st of October') { 
+        
+$HALLOWEEN_ARRAY = array("jonny.mp3", "were.mp3", "scream.mp3");
+$RAND_HALLOWEEN_ARRAY = array_rand($HALLOWEEN_ARRAY, 2);        
+        
+        ?>
     <script src="/bats/halloween-bats.js"></script>
 	<script type="text/javascript">
 		$.fn.halloweenBats({

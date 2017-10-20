@@ -73,7 +73,7 @@ if (isset($fferror)) {
         }
     </script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-    <?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
+    
 
 </head>
 <body>
@@ -2665,5 +2665,6 @@ if (isset($fferror)) {
 
 
     </div>
+    <?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
 </body>
 </html>

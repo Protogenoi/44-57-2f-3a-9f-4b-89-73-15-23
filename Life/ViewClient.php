@@ -1082,7 +1082,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                 echo "#";
             } if ($CHK_NUM == '1') {
-                echo "SMS/Send.php?EXECUTE=1";
+                echo "SMS/CusSend.php?EXECUTE=1";
             } ?>">
 
                                             <input type="hidden" name="keyfield" value="<?php echo $search; ?>">

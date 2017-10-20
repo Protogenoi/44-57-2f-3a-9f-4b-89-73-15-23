@@ -215,21 +215,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             });
         </script>
-        <?php if (isset($HALLOWEEN)) { ?>
-            <script src="/bats/halloween-bats.js"></script>
-            <script type="text/javascript">
-            $.fn.halloweenBats({
-                image: 'https://dev.adlcrm.com/bats/bats.png', // Path to the image.
-                zIndex: 10000, // The z-index you need.
-                amount: 10, // Bat amount.
-                width: 35, // Image width.
-                height: 20, // Animation frame height.
-                frames: 4, // Amount of animation frames.
-                speed: 20, // Higher value = faster.
-                flickering: 15 // Higher value = slower.
-            });
-            </script>  
-        <?php } ?>
+        <?php require_once(__DIR__ . '/php/Holidays.php'); ?>
     </body>
 </html>
 <?php } else {    header('Location: /CRMmain.php');

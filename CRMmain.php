@@ -503,7 +503,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
     require_once(__DIR__ . '/php/Holidays.php');
 
     if (isset($hello_name)) {
-        if (in_array($hello_name, array("Michael", "Jakob", "Nicola", "carys", "Abbiek", "Georgia", "Amy", "Nathan", "Mike"))) {
+        if (in_array($hello_name, array("Michael", "Jakob", "Nicola", "carys", "Ciara", "Ryan", "Amy", "Nathan Thomas"))) {
 
             if ($XMAS == 'December') {
                 $SANTA_TIME = date("H");
@@ -513,6 +513,14 @@ if (in_array($hello_name, $Closer_Access, true)) {
                 </audio>  
                 <?php
             }
+            
+            if($HALLOWEEN=='31st of October') {  ?><style>body {
+    background-image: url("https://dev.adlcrm.com/img/Halloween.gif");
+}</style>
+                           <audio autoplay>
+                    <source src="sounds/halloween/<?php echo $HALLOWEEN_ARRAY[$RAND_HALLOWEEN_ARRAY[0]]; ?>" type="audio/mpeg">
+                </audio>       
+           <?php }
         }
     }
     ?>

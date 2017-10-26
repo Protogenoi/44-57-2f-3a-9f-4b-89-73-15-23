@@ -148,7 +148,7 @@ WHERE
             client_note
         WHERE
             note_type like '%keyfacts' )
-        AND DATE(client_details.submitted_date) >= '2017-10-01'
+        AND DATE(client_details.submitted_date) >= '2017-10-23'
         GROUP by client_details.client_id");
     $KF_UP_stmt->execute();
     

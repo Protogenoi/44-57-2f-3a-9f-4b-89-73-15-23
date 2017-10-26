@@ -97,7 +97,9 @@ if (isset($hello_name)) {
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
     
     if(empty($data2['covera'])) {
-        $COVER_AMOUNT=0;
+        $data2['covera']=0;
+    } elseif(!is_numeric ( $data2['covera'] )) {
+        $data2['covera']=0;
     }
     $COVER_AMOUNT = number_format($data2['covera'],2);
 

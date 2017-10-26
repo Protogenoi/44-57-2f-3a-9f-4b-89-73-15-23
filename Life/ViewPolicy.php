@@ -56,11 +56,8 @@ if (isset($hello_name)) {
             case "Nicola":
                 $hello_name_full = "Nicola Griffiths";
                 break;
-            case "Rhibayliss":
-                $hello_name_full = "Rhiannon Bayliss";
-                break;
-            case "Abbiek":
-                $hello_name_full = "Abbie Kenyon";
+            case "Ciara":
+                $hello_name_full = "Ciara Begley";
                 break;
             case "carys":
                 $hello_name_full = "Carys Riley";
@@ -77,35 +74,11 @@ if (isset($hello_name)) {
             case "Amy":
                 $hello_name_full = "Amy Clayfield";
                 break;
-            case "Mike":
-                $hello_name_full = "Michael Lloyd";
-                break;
             default:
                 $hello_name_full = $hello_name;
         }
     }
 
-    if ($companynamere == 'ADL_CUS') {
-        switch ($hello_name) {
-            case "Michael":
-                $hello_name_full = "Michael Owen";
-                break;
-            case "Dean":
-                $hello_name_full = "Dean Howell";
-                break;
-            case "Helen":
-                $hello_name_full = "Helen Hinder";
-                break;
-            case "Andrew":
-                $hello_name_full = "Andrew Collier";
-                break;
-            case "David":
-                $hello_name_full = "David Govier";
-                break;
-            default:
-                $hello_name_full = $hello_name;
-        }
-    }
 }
 
     $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -122,6 +95,8 @@ if (isset($hello_name)) {
     $query->bindParam(':CID', $search, PDO::PARAM_INT);
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
+    
+    $COVER_AMOUNT = number_format($data2['covera'],2);
 
     $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
     $query2->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -183,10 +158,7 @@ if (isset($hello_name)) {
                 <div class="panel-body">
                     <div class="column-right">
 
-
-
                         <?php
-                        if ($companynamere == 'Bluestone Protect') {
                             if (in_array($hello_name, $Level_8_Access, true)) {
 
 
@@ -340,115 +312,7 @@ ews_data.policy_number
                                 </form>
                                 <?php
                             }
-                        }
 
-                        if ($companynamere != 'Bluestone Protect') {
-
-                                $polid = $data2['id'];
-                                $policy_number = $data2["policy_number"];
-                                $clientname = $data2['client_name'];
-
-                                $ews_stuff = $pdo->prepare("SELECT
-ews_data.policy_number
-, ews_data.id
-, ews_data.warning
-, ews_data.ournotes
-, ews_data.date_added
-, ews_data.ews_status_status
-, ews_data.client_name
-, ews_data.color_status
-	FROM ews_data
-	LEFT JOIN client_policy 
-	ON ews_data.policy_number=client_policy.policy_number
-	WHERE ews_data.policy_number=:policy AND client_policy.id=:polid");
-                                $ews_stuff->bindParam(':policy', $policy_number, PDO::PARAM_STR, 12);
-                                $ews_stuff->bindParam(':polid', $polid, PDO::PARAM_STR, 12);
-                                $ews_stuff->execute();
-                                $ewsresult = $ews_stuff->fetch(PDO::FETCH_ASSOC);
-
-
-                                $warning = $ewsresult['warning'];
-                                $ournotes = $ewsresult['ournotes'];
-                                $ews_status_status = $ewsresult['ews_status_status'];
-                                ?>
-
-                                <form action="php/EWSUpdate.php?EXECUTE=1" method="POST" id="from1" autocomplete="off" class="form-horizontal">
-
-                                    <input type='hidden' name='client_id' value='<?php echo $search; ?>'>
-                                    <input type='hidden' name='policy_number' value='<?php echo $policy_number; ?>'>
-                                    <input type='hidden' name='client_name' value='<?php echo $clientname; ?>'>
-
-
-                                    <fieldset>
-
-                                        <legend>Update EWS</legend>
-
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="warning">Current Status</label>  
-                                            <div class="col-md-4">
-                                                <input id="warning" name="warning" class="form-control input-md" type="text" value='<?php echo $warning; ?>' readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="status">New Status</label>
-                                            <div class="col-md-4">
-                                                <select id="status" name="status" class="form-control" required>
-                                                    <option value="<?php echo $ews_status_status; ?>"><?php echo $ews_status_status; ?></option>
-                                                    <option value="RE-INSTATED">RE-INSTATED</option>
-                                                    <option value="WILL CANCEL">WILL CANCEL</option>
-                                                    <option value="REDRAWN">REDRAWN</option>
-                                                    <option value="WILL REDRAW">WILL REDRAW</option>
-                                                    <option value="CANCELLED">CANCELLED</option>
-                                                    <option value="FUTURE CALLBACK">Future Callback</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="selectbasic">Set Colour</label>
-                                            <div class="col-md-4">
-                                                <select id="colour" name="colour" class="form-control" required>
-                                                    <option value="" ></option>
-                                                    <option value="green" style="background-color:green;color:white;">Green</option>
-                                                    <option value="orange" style="background-color:orange;color:white;">Orange</option>
-                                                    <option value="purple" style="background-color:purple;color:white;">Purple</option>
-                                                    <option value="red" style="background-color:red;color:white;">Red</option>
-                                                    <option value="black" style="background-color:black;color:white;">Black</option>
-                                                    <option value="blue" style="background-color:blue;color:white;">Blue</option>
-                                                    <option value="Grey" style="background-color:grey;color:white;">Grey</option>
-                                                    <option value="yellow" style="background-color:yellow;color:black;">Yellow</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="textarea">Notes</label>
-                                            <div class="col-md-4">                     
-                                                <textarea class="form-control" id="textarea" name="notes" maxlength="800" placeholder="800 CHARS Max"><?php echo $ournotes; ?></textarea>
-                                                <span id="chars">800</span> characters remaining
-                                            </div>
-                                        </div>
-
-                                        <center>
-
-                                            <div class="form-group">
-                                                <div class="col-md-10">
-                                                    <button id="button1id" name="button1id" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Update</button>
-                                                    <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
-                                                    <a href="EditPolicy.php?policyID=<?php echo $policyID; ?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
-                                                </div>
-                                            </div>
-
-
-                                        </center>
-                                    </fieldset>
-
-                                </form>
-                            <?php
-                          
-                        }
                         ?>
                         <form class="AddClient">
                             <p>
@@ -567,7 +431,7 @@ ews_data.policy_number
                                         <label for="covera">Cover Amount</label>
                                         <div class="input-group"> 
                                             <span class="input-group-addon">£</span>
-                                            <input style="width: 170px" type="number" value="<?php echo $data2['covera']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" class="form-control" readonly style="width: 200px"/>
+                                            <input style="width: 170px" type="text" value="<?php echo $COVER_AMOUNT; ?>" class="form-control currency" id="covera" name="covera" class="form-control" readonly style="width: 200px"/>
                                         </div> 
                                         </p>
 

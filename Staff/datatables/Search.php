@@ -71,13 +71,13 @@ if(isset($EXECUTE)) {
     }        
 
     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-                $query = $pdo->prepare("SELECT employee_details.company, employee_details.employee_id, CONCAT(employee_details.firstname,' ', employee_details.lastname) AS NAME, employee_contact.mob, employee_contact.tel, employee_details.position FROM employee_details JOIN employee_contact ON employee_details.employee_id = employee_contact.employee_id ORDER BY employee_details.added_date DESC");
+                $query = $pdo->prepare("SELECT employee_details.employed, employee_details.company, employee_details.employee_id, CONCAT(employee_details.firstname,' ', employee_details.lastname) AS NAME, employee_contact.mob, employee_contact.tel, employee_details.position FROM employee_details JOIN employee_contact ON employee_details.employee_id = employee_contact.employee_id ORDER BY employee_details.added_date DESC");
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
         
     } else {
-                $query = $pdo->prepare("SELECT employee_details.company, employee_details.employee_id, CONCAT(employee_details.firstname,' ', employee_details.lastname) AS NAME, employee_contact.mob, employee_contact.tel, employee_details.position FROM employee_details JOIN employee_contact ON employee_details.employee_id = employee_contact.employee_id WHERE employee_details.company=:COMPANY ORDER BY employee_details.added_date DESC");
+                $query = $pdo->prepare("SELECT employee_details.employed, employee_details.company, employee_details.employee_id, CONCAT(employee_details.firstname,' ', employee_details.lastname) AS NAME, employee_contact.mob, employee_contact.tel, employee_details.position FROM employee_details JOIN employee_contact ON employee_details.employee_id = employee_contact.employee_id WHERE employee_details.company=:COMPANY ORDER BY employee_details.added_date DESC");
        $query->bindParam(':COMPANY', $COMPANY, PDO::PARAM_STR);
                 $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));

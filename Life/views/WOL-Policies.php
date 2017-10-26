@@ -26,6 +26,8 @@
 
         $ADLSTATUS = $WOL_Policies['ADLSTATUS'];
         $EWSSTATUS = $WOL_Policies['warning'];
+        
+        $COVER_AMOUNT = number_format($WOL_Policies['covera'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -36,7 +38,7 @@
         }
 
         echo "<td>£" . $WOL_Policies['premium'] . "</td>";
-        echo "<td>£" . $WOL_Policies['covera'] . "</td>";
+        echo "<td>£$COVER_AMOUNT</td>";
 
         if ($WOL_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $WOL_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";

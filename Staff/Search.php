@@ -103,6 +103,7 @@ if (isset($fferror)) {
                 <th>Mob</th>
                 <th>Tel</th>
                 <th>Company</th>
+                <th>Employed</th>
                 <th>View</th>
             </tr>
         </thead>
@@ -114,6 +115,7 @@ if (isset($fferror)) {
                 <th>Mob</th>
                 <th>Tel</th>
                 <th>Company</th>
+                <th>Employed</th>
                 <th>View</th>
             </tr>
         </tfoot>
@@ -647,6 +649,7 @@ $(document).ready(function() {
             { "data": "mob" },
             { "data": "tel" },
             { "data": "company" },
+            { "data": "employed" },
  { "data": "employee_id",
             "render": function(data, type, full, meta) {
                 return '<a href="ViewEmployee.php?REF=' + data + '">View</a>';

@@ -33,7 +33,13 @@
         
         $COVER_AMOUNT = number_format($LG_Policies['covera'],2);
         
+        /*
+        $COVER_WORDS = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+        $COVER_WORDS->format($COVER_AMOUNT);
+        */
         $TRIM_POL = substr($polref, 0, 9);
+        
+        $COVER_WORDS='NOT ENABLED YET';
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -51,7 +57,7 @@
         echo "<td>" . $LG_Policies['CommissionType'] . "</td>";
         echo "<td>" . $LG_Policies['polterm'] . "</td>";
         echo "<td>£" . $LG_Policies['premium'] . "</td>";
-        echo "<td>£$COVER_AMOUNT</td>";
+        echo "<td title='$COVER_WORDS'>£$COVER_AMOUNT</td>";
 
         if ($LG_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $LG_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $LG_Policies['PolicyStatus'] . "</span></td>";

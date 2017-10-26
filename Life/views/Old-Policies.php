@@ -31,6 +31,9 @@
         $ADLSTATUS = $Old_Policies['ADLSTATUS'];
         $EWSSTATUS = $Old_Policies['warning'];
         
+        if(empty($Old_Policies['covera'])) {
+            $Old_Policies['covera']=0;
+        }
         $COVER_AMOUNT = number_format($Old_Policies['covera'],2);
         
         $TRIM_POL = substr($polref, 0, 9);

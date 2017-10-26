@@ -96,6 +96,9 @@ if (isset($hello_name)) {
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
     
+    if(empty($data2['covera'])) {
+        $COVER_AMOUNT=0;
+    }
     $COVER_AMOUNT = number_format($data2['covera'],2);
 
     $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");

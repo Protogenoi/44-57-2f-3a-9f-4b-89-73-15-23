@@ -28,6 +28,8 @@
 
         $ADLSTATUS = $VITALITY_Policies['ADLSTATUS'];
         $EWSSTATUS = $VITALITY_Policies['warning'];
+        
+        $COVER_AMOUNT = number_format($VITALITY_Policies['covera'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -40,7 +42,7 @@
         echo "<td>" . $VITALITY_Policies['CommissionType'] . "</td>";
         echo "<td>" . $VITALITY_Policies['polterm'] . "</td>";
         echo "<td>£" . $VITALITY_Policies['premium'] . "</td>";
-        echo "<td>£" . $VITALITY_Policies['covera'] . "</td>";
+        echo "<td>£$COVER_AMOUNT</td>";
 
         if ($VITALITY_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $VITALITY_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $VITALITY_Policies['PolicyStatus'] . "</span></td>";

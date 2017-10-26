@@ -28,6 +28,8 @@
 
         $ADLSTATUS = $EngageMutual_Policies['ADLSTATUS'];
         $EWSSTATUS = $EngageMutual_Policies['warning'];
+        
+        $COVER_AMOUNT = number_format($EngageMutual_Policies['covera'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -40,7 +42,7 @@
         echo "<td>" . $EngageMutual_Policies['CommissionType'] . "</td>";
         echo "<td>" . $EngageMutual_Policies['polterm'] . "</td>";
         echo "<td>£" . $EngageMutual_Policies['premium'] . "</td>";
-        echo "<td>£" . $EngageMutual_Policies['covera'] . "</td>";
+        echo "<td>£$COVER_AMOUNT</td>";
 
         if ($EngageMutual_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $EngageMutual_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $EngageMutual_Policies['PolicyStatus'] . "</span></td>";

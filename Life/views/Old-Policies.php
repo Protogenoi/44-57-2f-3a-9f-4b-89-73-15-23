@@ -31,6 +31,8 @@
         $ADLSTATUS = $Old_Policies['ADLSTATUS'];
         $EWSSTATUS = $Old_Policies['warning'];
         
+        $COVER_AMOUNT = number_format($Old_Policies['covera'],2);
+        
         $TRIM_POL = substr($polref, 0, 9);
 
         echo '<tr>';
@@ -49,7 +51,7 @@
         echo "<td>" . $Old_Policies['CommissionType'] . "</td>";
         echo "<td>" . $Old_Policies['polterm'] . "</td>";
         echo "<td>£" . $Old_Policies['premium'] . "</td>";
-        echo "<td>£" . $Old_Policies['covera'] . "</td>";
+        echo "<td>£$COVER_AMOUNT</td>";
 
         if ($Old_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $Old_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $Old_Policies['PolicyStatus'] . "</span></td>";

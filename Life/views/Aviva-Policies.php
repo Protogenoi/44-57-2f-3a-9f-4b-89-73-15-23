@@ -28,6 +28,8 @@
 
         $ADLSTATUS = $Aviva_Policies['ADLSTATUS'];
         $EWSSTATUS = $Aviva_Policies['warning'];
+        
+        $COVER_AMOUNT = number_format($Aviva_Policies['covera'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -40,7 +42,7 @@
         echo "<td>" . $Aviva_Policies['CommissionType'] . "</td>";
         echo "<td>" . $Aviva_Policies['polterm'] . "</td>";
         echo "<td>£" . $Aviva_Policies['premium'] . "</td>";
-        echo "<td>£" . $Aviva_Policies['covera'] . "</td>";
+        echo "<td>£$COVER_AMOUNT</td>";
 
         if ($Aviva_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $Aviva_Policies['PolicyStatus'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $Aviva_Policies['PolicyStatus'] . "</span></td>";

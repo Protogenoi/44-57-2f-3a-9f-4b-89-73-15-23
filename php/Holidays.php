@@ -20,9 +20,27 @@ $RAND_XMAS_ARRAY = array_rand($XMAS_ARRAY, 2);
     <?php } 
     if($HALLOWEEN=='31st of October') { 
         
-$HALLOWEEN_ARRAY = array("jonny.mp3", "were.mp3", "scream.mp3");
-$RAND_HALLOWEEN_ARRAY = array_rand($HALLOWEEN_ARRAY, 2);        
-        
+$HALLOWEEN_ARRAY = array("jonny.mp3", "were.mp3", "scream.mp3","Halloween.mp3");
+$DIE = mt_rand(1, 4);
+
+
+                                    switch ($DIE):
+                                        case "1":
+                                            $RAND_HALLOWEEN_ARRAY = "jonny.mp3";
+                                            break;
+                                        case "2":
+                                            $RAND_HALLOWEEN_ARRAY = "were.mp3";
+                                            break;
+                                        case "3":
+                                            $RAND_HALLOWEEN_ARRAY = "scream.mp3";
+                                            break; 
+                                        case "4":
+                                            $RAND_HALLOWEEN_ARRAY = "Halloween.mp3";
+                                            break;                                        
+                                        default:
+                                            $RAND_HALLOWEEN_ARRAY = "scream.mp3";
+                                    endswitch;
+
         ?>
     <script src="/bats/halloween-bats.js"></script>
 	<script type="text/javascript">

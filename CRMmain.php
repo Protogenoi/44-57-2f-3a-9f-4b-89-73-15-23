@@ -514,12 +514,15 @@ if (in_array($hello_name, $Closer_Access, true)) {
                 <?php
             }
             
-            if($HALLOWEEN=='31st of October') {  ?><style>body {
-    background-image: url("https://dev.adlcrm.com/img/Halloween.gif");
-}</style>
-                           <audio autoplay>
-                    <source src="sounds/halloween/<?php echo $HALLOWEEN_ARRAY[$RAND_HALLOWEEN_ARRAY[0]]; ?>" type="audio/mpeg">
-                </audio>       
+            if($HALLOWEEN=='31st of October') {  ?>
+    <style>
+        body {
+    background-image: url("https://dev.adlcrm.com/img/552086.jpg");
+        }
+    </style>
+                <audio autoplay>
+                    <source src="sounds/halloween/<?php echo $RAND_HALLOWEEN_ARRAY; ?>" type="audio/mpeg">
+                </audio>    
            <?php }
         }
     }

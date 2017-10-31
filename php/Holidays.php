@@ -45,10 +45,10 @@ $DIE = mt_rand(1, 4);
     <script src="/bats/halloween-bats.js"></script>
 	<script type="text/javascript">
 		$.fn.halloweenBats({
-	image: 'https://dev.adlcrm.com/bats/bats.png', // Path to the image.
+	image: 'https://review.adlcrm.com/bats/bats.png', // Path to the image.
 	zIndex: 10000, // The z-index you need.
-	amount: 10, // Bat amount.
-	width: 35, // Image width.
+	amount: 15, // Bat amount.
+	width: 100, // Image width.
 	height: 20, // Animation frame height.
 	frames: 4, // Amount of animation frames.
 	speed: 20, // Higher value = faster.

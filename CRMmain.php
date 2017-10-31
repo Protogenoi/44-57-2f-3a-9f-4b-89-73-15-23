@@ -507,27 +507,25 @@ if (in_array($hello_name, $Closer_Access, true)) {
             if ($XMAS == 'December') {
                 $SANTA_TIME = date("H");
                 
-                if (in_array($hello_name, array("Michael", "Jakob", "Nicola", "carys", "Ciara", "Ryan", "Amy", "Nathan Thomas"))) {
                 ?>
                 <audio autoplay>
                     <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
                 </audio>  
                 <?php
-                }
+          
             }
             
             if($HALLOWEEN=='31st of October') {  ?>
     <style>
         body {
-    background-image: url("https://dev.adlcrm.com/img/552086.jpg");
+    background-image: url("https://review.adlcrm.com/img/552086.jpg");
         }
     </style>
-    <?php if (in_array($hello_name, array("Michael", "Jakob", "Nicola", "carys", "Ciara", "Ryan", "Amy", "Nathan Thomas"))) { ?>
+
                 <audio autoplay>
                     <source src="sounds/halloween/<?php echo $RAND_HALLOWEEN_ARRAY; ?>" type="audio/mpeg">
                 </audio>    
             <?php } }
-        }
 
     ?>
 </body>

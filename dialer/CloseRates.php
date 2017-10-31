@@ -268,6 +268,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 
 
     </div>
-
+<?php require_once(__DIR__ . '/../php/Holidays.php'); ?>
 </body>
 </html>

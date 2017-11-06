@@ -133,6 +133,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         }
         
         $RECHECK = filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
+        $UPDATED = filter_input(INPUT_GET, 'UPDATED', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (isset($RECHECK)) {
 
@@ -144,8 +145,29 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
             if ($RECHECK == 'n') {
 
                 print("<div class=\"notice notice-danger\" role=\"alert\" ><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Policy not found on recheck!</div>");
-            }
-        } echo "<br>";
+            }         
+            
+        }
+        
+            if(isset($UPDATED)) {
+                
+                if($UPDATED == 1 ) {
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> $UPDATED Policy found on recheck!</div>";
+                
+                }
+                
+                elseif($UPDATED >=2 ) {
+                    echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> $UPDATED Policies found on recheck!</div>";
+                    
+                }
+                
+                else {
+                    echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Success:</strong> No Policies found on recheck!</div>";
+                }
+   
+    }          
+        
+        echo "<br>";
         ?>
 
         <ul class="nav nav-pills">
@@ -1248,7 +1270,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th colspan="4">Unmatched Policies (Not on ADL)</th>
+                            <th colspan="7">Unmatched Policies (Not on ADL)</th>
                         </tr>
                     <th>Row</th>
                     <th>Entry Date</th>
@@ -1266,6 +1288,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
 
                             $i++;
                             $policy = $row['policy_number'];
+                            $AMOUNT = $row['payment_amount'];
                             $paytype = $row['payment_type'];
                             $iddd = $row['id'];
 
@@ -1289,7 +1312,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             ?> <td><form target="_blank" action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'><input type='hidden' name='policyNumber' value='<?php echo substr_replace($policy, "", -1); ?>'><input type='hidden' name='routeSelected' value='convLifeSummary'><button type='submit' class='btn btn-warning btn-sm'><i class='fa fa-check-circle-o'></i></button></form></td>
 
                             <?php
-                            echo "<td><a href='' class='btn btn-default btn-sm'> --IN PROGRESS-- </a></td>";
+                            echo "<td><td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LG' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i>Check all non matching policies</a></td></td>";
 
                             echo "</tr>";
                             echo "\n";

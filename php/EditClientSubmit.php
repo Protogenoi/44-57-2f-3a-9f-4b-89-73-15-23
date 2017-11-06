@@ -1,7 +1,7 @@
 <?php 
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../includes/adl_features.php');
@@ -17,7 +17,7 @@ if(isset($fferror)) {
     
     }
 
-include('../includes/PDOcon.php');
+include('../includes/ADL_PDO_CON.php');
 
     $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
     $legacy= filter_input(INPUT_GET, 'legacy', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -121,65 +121,95 @@ $last_name2= filter_input(INPUT_POST, 'last_name2', FILTER_SANITIZE_SPECIAL_CHAR
 $callauditid2= filter_input(INPUT_POST, 'callauditid2', FILTER_SANITIZE_SPECIAL_CHARS);
 $leadauditid2= filter_input(INPUT_POST, 'leadauditid2', FILTER_SANITIZE_SPECIAL_CHARS);
 $company= filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
-$keyfield= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
+$CID= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
 $lead= filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $closer= filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
 $changereason= filter_input(INPUT_POST, 'changereason', FILTER_SANITIZE_SPECIAL_CHARS);
 $dealsheet_id= filter_input(INPUT_POST, 'dealsheet_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $query = $pdo->prepare("SELECT CONCAT(title, ' ', first_name, ' ',last_name) AS orig_name, CONCAT(title2, ' ', first_name2, ' ',last_name2) AS orig_name2 FROM client_details WHERE client_id=:origidholder");
-$query->bindParam(':origidholder',$keyfield, PDO::PARAM_INT);
+$query->bindParam(':origidholder',$CID, PDO::PARAM_INT);
 $query->execute(); 
 $origdetails=$query->fetch(PDO::FETCH_ASSOC);
 
 $oname=$origdetails['orig_name'];
 $oname2=$origdetails['orig_name2'];
 
-$sql = "UPDATE client_details
+$UPDATE_CLIENT = $pdo->prepare("UPDATE client_details
 SET
-dealsheet_id='$dealsheet_id',
-title='$title',
-first_name='$first_name',
-last_name='$last_name',
-dob='$dob',
-email='$email',
-phone_number='$phone_number',
-alt_number='$alt_number',
-title2='$title2',
-first_name2='$first_name2',
-last_name2='$last_name2',
-dob2='$dob2',
-email2='$email2',
-address1='$address1',
-address2='$address2',
-address3='$address3',
-town='$town',
-post_code='$post_code',
-leadid1='$leadid1',
-leadid2='$leadid2',
-leadid3='$leadid3',
-callauditid='$callauditid',
-leadauditid='$leadauditid',
-leadid12='$leadid12',
-leadid22='$leadid22',
-leadid32='$leadid32',
-callauditid2='$callauditid2',
-leadauditid2='$leadauditid2',
+dealsheet_id=:DEAL_ID,
+title=:TITLE,
+first_name=:FIRST,
+last_name=:LAST,
+dob=:DOB,
+email=:EMAIL,
+phone_number=:PHONE,
+alt_number=:ALT,
+title2=:TITLE2,
+first_name2=:FIRST2,
+last_name2=:LAST2,
+dob2=:DOB2,
+email2=:EMAIL2,
+address1=:ADD1,
+address2=:ADD2,
+address3=:ADD3,
+town=:TOWN,
+post_code=:POST,
+leadid1=:LEADID,
+leadid2=:LEADID2,
+leadid3=:LEADID3,
+callauditid=:AUDITID,
+leadauditid=:LEADAUDITID,
+leadid12=:LEAD_ID,
+leadid22=:LEAD_ID_2,
+leadid32=:LEAD_ID_3,
+callauditid2=:CALL_AUDIT_ID,
+leadauditid2=:LEAD_AUDIT_ID,
 date_edited=CURRENT_TIMESTAMP,
-recent_edit='$hello_name' ,
-recent_edit='$closer' ,
-company='$company',    
-recent_edit='$lead' 
-WHERE client_id='$keyfield' ";
+recent_edit=:HELLO,
+company=:COMPANY
+WHERE client_id=:CID");
+$UPDATE_CLIENT->bindParam(':DEAL_ID',$dealsheet_id, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':TITLE',$title, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':FIRST',$first_name, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':LAST',$last_name, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':DOB',$dob, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':EMAIL',$email, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':PHONE',$phone_number, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':ALT',$alt_number, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':TITLE2',$title2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':FIRST2',$first_name2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':LAST2',$last_name2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':DOB2',$dob2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':EMAIL2',$email2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':ADD1',$address1, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':ADD2',$address2, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':ADD3',$address3, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':TOWN',$town, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':POST',$post_code, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':LEADID',$leadid1, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEADID2',$leadid2, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEADID3',$leadid3, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':AUDITID',$callauditid, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEADAUDITID',$leadauditid, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEAD_ID',$leadid12, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEAD_ID_2',$leadid22, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEAD_ID_3',$leadid32, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':CALL_AUDIT_ID',$callauditid2, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':LEAD_AUDIT_ID',$leadauditid2, PDO::PARAM_INT);
+$UPDATE_CLIENT->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':COMPANY',$company, PDO::PARAM_STR);
+$UPDATE_CLIENT->bindParam(':CID',$CID, PDO::PARAM_INT);
+$UPDATE_CLIENT->execute(); 
 
-if (mysqli_query($conn, $sql)) {
+if ($UPDATE_CLIENT->rowCount()>=1) {  
 
 $clientnamedata= "CRM Alert";   
 $notedata= "Client Details Updated";
 
 
 $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-$query->bindParam(':clientidholder',$keyfield, PDO::PARAM_INT);
+$query->bindParam(':clientidholder',$CID, PDO::PARAM_INT);
 $query->bindParam(':sentbyholder',$hello_name, PDO::PARAM_STR, 100);
 $query->bindParam(':recipientholder',$clientnamedata, PDO::PARAM_STR, 500);
 $query->bindParam(':noteholder',$notedata, PDO::PARAM_STR, 255);
@@ -215,7 +245,7 @@ if(isset($changereason)){
 }
     if(isset($fferror)) {
     if($fferror=='0') {
-   header('Location: ../Life/ViewClient.php?clientedited=y&search='.$keyfield); die;
+   header('Location: ../Life/ViewClient.php?clientedited=y&search='.$CID); die;
     }
     }
     
@@ -225,7 +255,7 @@ if(isset($changereason)){
     if(isset($fferror)) {
     if($fferror=='0') {
     
-    header('Location: ../Life/ViewClient.php?clientedited=n&search='.$keyfield); die;
+    header('Location: ../Life/ViewClient.php?clientedited=n&search='.$CID); die;
     }
     }
 }
@@ -354,4 +384,3 @@ header('Location: ../CRMmain.php?Clientadded=failed'); die;
     }
         }
 ?>
-

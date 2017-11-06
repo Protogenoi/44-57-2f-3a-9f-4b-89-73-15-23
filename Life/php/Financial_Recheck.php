@@ -1,13 +1,13 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 include('../../includes/adl_features.php');
 
 if(isset($fferror)) {
-    if($fferror=='1') {
+    if($fferror=='0') {
         
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -21,6 +21,101 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 $RECHECK= filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
 $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);  
 $AMOUNT= filter_input(INPUT_GET, 'AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+$INSURER_ARRAY=array('LG','OneFamily','RoyalLondon','Aviva','Vitality');
+
+if(!in_array($INSURER, $INSURER_ARRAY)) {
+    
+    if(isset($datefrom)) {
+        header('Location: ../Life/Financials.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;
+        
+    } else {
+        header('Location: ../Financial_Reports.php?INVALUD'); die;
+        
+    }
+    
+}
+
+if(isset($EXECUTE) && $EXECUTE==10) {
+    if($INSURER=='LG') {
+        
+        $i=0;
+        
+            $Icheck = $pdo->prepare("SELECT id, policy_number, payment_amount FROM financial_statistics_nomatch");
+            $Icheck->execute();
+            if ($Icheck->rowCount() >= 1) {  
+            while ($result=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
+            
+            $POL_NUM=$result['policy_number'];
+            $FID=$result['id'];
+            $AMOUNT=$result['payment_amount'];
+                    
+                $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
+                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $SELECT_Q->execute();
+                $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
+                if ($SELECT_Q->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
+                    $policynumber=$result['policy_number'];
+                    $ref= "$policynumber ($PID)";
+                    $polstat=$result['policystatus'];     
+                    
+                    $note="Financial Uploaded";
+                    
+                    if($AMOUNT >= 0) {  
+                    
+                    $message="COMM (Status changed from $polstat to Live)";
+                    $POL_STATUS='Live';
+                    
+                    } elseif($AMOUNT < 0) {
+                        
+                        $message="COMM (Status changed from $polstat to Clawback)";
+                        $POL_STATUS='Clawback';
+                        
+                    } else {
+                        
+                        $message="ERROR";
+                        $POL_STATUS='ERROR';                        
+                        
+                    }
+                        
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE client_policy set policystatus=:policystatus, edited=:sent WHERE id=:PID");
+                    $update->bindParam(':PID', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $update->bindParam(':policystatus', $POL_STATUS, PDO::PARAM_STR, 50);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM financial_statistics_nomatch WHERE policy_number=:pol AND id=:ID LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
+                       $delete->execute();  
+                       
+                }
+                    
+                }
+            }
+           
+                                        header('Location: /Life/Financials.php?UPDATED='.$i); die;    
+
+        
+    }    
+    
+    }
+
 if(isset($INSURER)) {
     if(isset($RECHECK)) {
         

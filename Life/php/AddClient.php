@@ -61,6 +61,16 @@ $INSURER_ARRAY_ONE=array("Bluestone Protect","The Review Bureau","TRB Archive","
   });
 </script>
 <script>
+  $(function() {
+    $( "#submitted_date" ).datepicker({
+        dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+    yearRange: "-100:+1"
+        });
+  });
+</script>
+<script>
 webshims.setOptions('forms-ext', {
     replaceUI: 'auto',
     types: 'number'

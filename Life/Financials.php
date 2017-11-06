@@ -1277,7 +1277,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                     <th>Policy</th>
                     <th>Premium</th>
                     <th>Re-check ADL</th>
-                    <th>Check on L&G</th>
+                    <th>L&G Summary Sheet</th>
                     <th>Recheck all</th>
                     </thead>
                     <?php
@@ -1307,12 +1307,12 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             if (isset($datefrom)) {
                                 echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             } else {
-                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                                echo "<td><a href='../php/Financial_Recheck.php?EXECUTE=1&INSURER=LG&RECHECK=y&finpolicynumber=$policy&paytype=$paytype&iddd=$iddd' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i> Check single non matching policy</a></td>";
                             }
-                            ?> <td><form target="_blank" action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'><input type='hidden' name='policyNumber' value='<?php echo substr_replace($policy, "", -1); ?>'><input type='hidden' name='routeSelected' value='convLifeSummary'><button type='submit' class='btn btn-warning btn-sm'><i class='fa fa-check-circle-o'></i></button></form></td>
+                            ?> <td><form target="_blank" action='//www20.landg.com/PolicyEnquiriesIFACentre/requests.do' method='post'><input type='hidden' name='policyNumber' value='<?php echo substr_replace($policy, "", -1); ?>'><input type='hidden' name='routeSelected' value='convLifeSummary'><button type='submit' class='btn btn-warning btn-sm'><i class='fa fa-check-circle-o'></i> Check L&G Summary Statement</button></form></td>
 
                             <?php
-                            echo "<td><td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LG' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i>Check all non matching policies</a></td></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LG' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
 
                             echo "</tr>";
                             echo "\n";

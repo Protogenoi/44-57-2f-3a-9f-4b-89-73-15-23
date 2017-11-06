@@ -793,10 +793,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     <?php
                     
                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
-                        
-                        if($WHICH_COMPANY=='The Review Bureau') {
                             
-                        $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID AND insurer='Legal and General' AND client_id=:CID2 AND DATE(client_policy.submitted_date) <='2016-12-31'");
+                        $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");
                         $Old_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $Old_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
                         $Old_CHECK->execute();
@@ -811,10 +809,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $HAS_OLD_LG_POL='1';
                             
                         } 
-                        
-                        }
 
-                        $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) >='2017-01-01' OR client_id=:CID AND insurer='Legal and General' AND client_id=:CID2 AND DATE(client_policy.submitted_date) >='2017-01-01'");
+                        $LG_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) >='2017-01-01' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) >='2017-01-01'");
                         $LG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $LG_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
                         $LG_CHECK->execute();

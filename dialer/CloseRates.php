@@ -252,7 +252,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         <td bgcolor="#ffffff"><strong><?php echo $TRK_current_premium; ?></strong></td>
                         <td bgcolor="#ffffff"><strong><?php echo $TRK_our_premium; ?></strong></td>
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_comments; ?></strong></td>
-                        <td bgcolor="<?php echo $TRK_BG; ?>"><strong><?php echo $TRK_sale; ?></strong></td>
+                        <td bgcolor="<?php echo $TRK_BG; ?>"><strong style="font-size: 40px;"><?php echo $TRK_sale; ?></strong></td>
 
                     <?php
                     }

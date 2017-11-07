@@ -165,9 +165,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 }        
 
         $TRACKER = $pdo->prepare("SELECT date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added DESC LIMIT 5");
-
         $TRACKER->execute();
-        $i = 0;
 
         if ($TRACKER->rowCount() > 0) {
             ?>
@@ -175,7 +173,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
             <table id="tracker" class="table" id="users">
                 <thead>
                     <tr>
-                        <th>Row</th>
                         <th>Closer</th>
                         <th>Agent</th>
                         <th>Client</th>
@@ -186,9 +183,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     </tr>
                 </thead> <?php
                 while ($TRACKERresult = $TRACKER->fetch(PDO::FETCH_ASSOC)) {
-
-                    $i++;
-
+                    
                     $TRK_tracker_id = $TRACKERresult['tracker_id'];
                     $TRK_agent = $TRACKERresult['agent'];
                     $TRK_closer = $TRACKERresult['closer'];
@@ -251,7 +246,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     ?>
 
                     <tr>
-                        <td bgcolor="#ffffff"> <?php echo $i; ?></td>
                         <td bgcolor="#ffffff"> <strong style="font-size: 40px;"> <?php echo $TRK_closer; ?></strong></td>
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_agent; ?></strong></td>
                         <td bgcolor="#ffffff"><strong><?php echo $TRK_client; ?></strong></td>

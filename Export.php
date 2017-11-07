@@ -273,6 +273,26 @@ if (isset($fferror)) {
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
                 </p>
             </form>
+            
+            <form class="AddClient" action="/export/Export.php?query=BYUSER" method="post">
+                <h3>Export Business Register by user:</h3>
+                                        <select id="USER" name="USER" class="form-control">
+                    <?php
+                                                    $query = $pdo->prepare("SELECT submitted_by from client_policy group by submitted_by");
+                                                    $query->execute();
+                                                    if ($query->rowCount() > 0) {
+                                                        while ($result = $query->fetch(PDO::FETCH_ASSOC)) {   
+                                                            
+                                               $submitted_by=$result['submitted_by'];                
+                    
+                    ?>
+                        <option value="<?php if(isset($submitted_by)) { echo $submitted_by; } ?>"><?php if(isset($submitted_by)) { echo $submitted_by; } ?></option>
+                                                    <?php }  } ?>
+                    </select>
+                </p>
+                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
+                </p>
+            </form>            
 
                       <form class="AddClient" action="/export/Export.php?query=JUSTLIFE" method="post">
                 <h3>Legal and General Business Register</h3>

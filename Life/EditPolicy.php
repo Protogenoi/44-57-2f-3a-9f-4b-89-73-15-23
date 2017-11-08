@@ -101,7 +101,7 @@ if (isset($fferror)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
+    $query = $pdo->prepare("SELECT CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name AS POL_NAME, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
     $query->bindParam(':search', $id, PDO::PARAM_INT);
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
@@ -110,6 +110,11 @@ if (isset($fferror)) {
     $NAME2 = $data2['NAME2'];
     $NAME3 = $data2['NAME'] ." and ". $data2['NAME2'];
     $SOJ=$data2['soj'];
+    
+if(empty($POST_NAME)) {
+        $POST_NAME=$data2['POL_NAME'];
+        unset($NAME2);
+    }    
    
     ?>
     <div class="container">
@@ -117,7 +122,7 @@ if (isset($fferror)) {
         <div class="editpolicy">
             <div class="notice notice-warning">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <strong>Warning!</strong> You are now editing <?php echo $data2['client_name']; ?>'s Policy .
+                <strong>Warning!</strong> You are now editing <?php echo $data2['POL_NAME']; ?>'s Policy .
             </div>
 
             <div class="panel-group">
@@ -127,7 +132,8 @@ if (isset($fferror)) {
 
                         <form id="from1" id="form1" class="AddClient" method="post" action="../php/EditPolicySubmit.php" enctype="multipart/form-data">
                             <input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
-                            <input type="hidden" name="NAME2" value="<?php echo $NAME2; ?>">
+
+                            <input type="hidden" name="NAME2" value="<?php if(isset($NAME2)) { echo $NAME2; } ?>">
                             <input type="hidden" name="NAME3" value="<?php echo $NAME3; ?>">
                             <input  class="form-control"type="hidden" name="keyfield" value="<?php echo $search ?>">
                             <input  class="form-control"type="hidden" name="policyID" value="<?php echo $data2['policy_number'] ?>">

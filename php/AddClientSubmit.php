@@ -734,7 +734,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" required>
     <script>var options = {
-	url: "/JSON/LeadGenNames.json",
+	url: "../JSON/Agents.php?EXECUTE=1",
                 getValue: "full_name",
 
 	list: {
@@ -1021,7 +1021,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" required>
     <script>var options = {
-	url: "/JSON/LeadGenNames.json",
+	url: "../JSON/Agents.php?EXECUTE=1",
                 getValue: "full_name",
 
 	list: {

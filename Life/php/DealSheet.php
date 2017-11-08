@@ -132,7 +132,7 @@ if(isset($dealsheet)) {
             
             $database->endTransaction();
             
-            header('Location: ../LifeDealSheet.php?RESULT='.$lastid); die;    
+            header('Location: ../Dealsheet.php?RESULT='.$lastid); die;    
         
         
     }
@@ -186,7 +186,7 @@ if(isset($dealsheet)) {
             
             $database->endTransaction();
             
-            header('Location: ../LifeDealSheet.php?RESULT='.$lastid); die;
+            header('Location: ../Dealsheet.php?RESULT='.$lastid); die;
         
         
     }
@@ -513,7 +513,7 @@ $database->execute();
             
             $database->endTransaction();
         
-            header('Location: ../LifeDealSheet.php?query=CloserDealSheets&RESULT='.$deal_id); die;
+            header('Location: ../Dealsheet.php?query=CloserDealSheets&RESULT='.$deal_id); die;
         
     }
     
@@ -848,7 +848,7 @@ $database->execute();
             
             $database->endTransaction();
         
-            header('Location: ../LifeDealSheet.php?query=CloserDealSheets&RESULT='.$deal_id); die;
+            header('Location: ../Dealsheet.php?query=CloserDealSheets&RESULT='.$deal_id); die;
         
     }
     
@@ -1073,7 +1073,7 @@ $database->execute();
             
             $database->endTransaction();
         
-            header('Location: ../LifeDealSheet.php?query=QADealSheets&RESULT='.$deal_id); die;
+            header('Location: ../Dealsheet.php?query=QADealSheets&RESULT='.$deal_id); die;
         
     }
 
@@ -1141,7 +1141,7 @@ $database = new Database();
             
             $database->endTransaction();
         
-            header('Location: ../LifeDealSheet.php?query=ADL&RESULT='.$deal_id); die;
+            header('Location: ../Dealsheet.php?query=ADL&RESULT='.$deal_id); die;
     
 }
 

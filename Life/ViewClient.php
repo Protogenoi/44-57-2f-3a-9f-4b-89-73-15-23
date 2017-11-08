@@ -3558,8 +3558,6 @@ try {
                                         });
                             });
         </script>
-        
-        <?php if($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') { ?>
         <script>
             document.querySelector('#ClientTaskForm').addEventListener('submit', function (e) {
                 var form = this;
@@ -3592,7 +3590,6 @@ try {
             });
 
         </script>
-        <?php } ?>
         <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
         <script>var maxLength = 2000;
             $('textarea').keyup(function () {

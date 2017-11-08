@@ -170,7 +170,7 @@ $auditid = filter_input(INPUT_GET, 'auditid', FILTER_SANITIZE_NUMBER_INT);
                             </div>
 
                             <script>var options = {
-                                    url: "../JSON/LeadGenNames.json",
+                                    url: "../JSON/Agents.php?EXECUTE=1",
                                     getValue: "full_name",
 
                                     list: {

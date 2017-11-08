@@ -53,75 +53,6 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 $Today_DATE = date("d-M-Y");
 $Today_DATES = date("l jS \of F Y");
 $Today_TIME = date("h:i:s");
-
-if(in_array($hello_name, $Closer_Access, true) || $hello_name=='Michael') {
-    
-    
-            $CLO_CR = $pdo->prepare("SELECT 
-    COUNT(IF(sale = 'SALE',
-        1,
-        NULL)) AS Sales,
- COUNT(IF(sale IN ('SALE' , 'NoCard',
-            'QDE',
-            'DEC',
-            'QUN',
-            'QNQ',
-            'DIDNO',
-            'QCBK',
-            'QQQ',
-            'Other',
-            'QML'),
-        1,
-        NULL)) AS Leads
-FROM
-    closer_trackers
-
-WHERE
-date_added > DATE(NOW()) 
-AND closer=:closer");
-        $CLO_CR->bindParam(':closer', $hello_name, PDO::PARAM_STR);
-        $CLO_CR->execute();
-        $CLO_CR_RESULT = $CLO_CR->fetch(PDO::FETCH_ASSOC);
-        
-                            if ( $CLO_CR_RESULT['Sales'] == '0') {
-                        $Formattedrate = "0.0";
-                    } else {
-                        $Conversionrate =  $CLO_CR_RESULT['Leads'] /  $CLO_CR_RESULT['Sales'];
-                        $SINGLE_CLOSER_RATE = number_format($Conversionrate, 1);
-                    }
-    
-}
-
-switch ($hello_name) {
-
-    case "511";
-        $real_name = 'Kyle';
-        break;
-    case "103";
-        $real_name = 'Sarah';
-        break;
-    case "5000";
-        $real_name = 'Mike';
-        break;
-    case "1312";
-        $real_name = 'Hayley';
-        break;
-    case "118";
-        $real_name = 'Gavin';
-        break;
-    case "104";
-        $real_name = 'Richard';
-        break;
-    case "201";
-        $real_name = 'Stavros';
-        break;
-    case "555";
-        $real_name = 'James';
-        break;
-
-    default;
-        $real_name = $hello_name;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,29 +68,6 @@ switch ($hello_name) {
     <link rel="stylesheet" type="text/css" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link rel="stylesheet" type="text/css" href="/styles/admindash.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    
-    <?php if(in_array($hello_name, $Closer_Access, true) || $hello_name=='Michael') { 
-        if(isset($SINGLE_CLOSER_RATE)) {
-        if($SINGLE_CLOSER_RATE>=6) { ?> <style>
-            .CLOSE_RATE {
-            background-color:#B00004;
-    }
-        </style> 
-            <?php } 
-                    if($SINGLE_CLOSER_RATE >4.9 && $SINGLE_CLOSER_RATE<6) { ?> <style>
-            .CLOSE_RATE {
-            background-color:#FD7900;
-    }
-        </style> 
-            <?php } 
-    
-   if($SINGLE_CLOSER_RATE <=4.9 && $SINGLE_CLOSER_RATE >= 1) {  ?> 
-        <style>
-            .CLOSE_RATE {
-            background-color:#16A53F;
-        }
-        </style> 
-    <?php } }  }?>
     <style>
         .form-row input {
             padding: 3px 1px;
@@ -177,12 +85,12 @@ switch ($hello_name) {
             z-index: 3;
         }
     </style>
-    <body <?php if(in_array($hello_name, $Closer_Access, true)) { if($CLO_CR>='1.5') { echo "bgcolor='#B00004'"; } else { echo "bgcolor='#16A53F'" ?>   <?php } } ?>>
+    <body>
 
 <?php     require_once(__DIR__ . '/../includes/navbar.php'); ?>
         
             <div class="container">
-                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $real_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
+                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
             <?php
             if (isset($QUERY)) {
@@ -1321,6 +1229,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                         <option value="">Closer</option>
                                                     <?php } ?>
                             <option value="James">James Adams</option>
+                            <option value="Martin">Martin Smith</option>
                             <option value="Kyle">Kyle Barnett</option>  
                             <option value="David">David Bebee</option> 
                             <option value="Richard">Richard Michaels</option>
@@ -1329,9 +1238,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                             <option value="Gavin">Gavin Fulford</option> 
                             <option value="Mike">Michael Lloyd</option> 
                             <option value="carys">Carys Riley</option>
-                            <option value="abbiek">Abbie Kenyon</option>
                             <option value="Nicola">Nicola Griffiths</option>
-                            <option value="Keith">Keith Dance</option>
                                 </select>
                             </div>
 
@@ -2483,6 +2390,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                         <option value="">Closer</option>
         <?php } ?>
                             <option value="James">James Adams</option>
+                            <option value="Martin">Martin Smith</option>
                             <option value="Kyle">Kyle Barnett</option>  
                             <option value="David">David Bebee</option> 
                             <option value="Richard">Richard Michaels</option>
@@ -2491,9 +2399,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                             <option value="Gavin">Gavin Fulford</option> 
                             <option value="Mike">Michael Lloyd</option> 
                             <option value="carys">Carys Riley</option>
-                            <option value="abbiek">Abbie Kenyon</option>
                             <option value="Nicola">Nicola Griffiths</option>
-                            <option value="Keith">Keith Dance</option>
                                 </select>
                             </div>
 
@@ -3590,14 +3496,17 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
         <?php } else { ?>
                                         <option value="">Closer</option>
         <?php } ?>
-                                    <option value="Carys Riley">Carys Riley</option>
-                                    <option value="James">James</option>
-                                    <option value="Kyle">Kyle</option>  
-                                    <option value="David">David</option> 
-                                    <option value="Richard">Richard</option>
-                                    <option value="Hayley Hutchinson">Hayley Hutchinson</option> 
-                                    <option value="Sarah">Sarah</option>
-                                    <option value="Gavin">Gavin</option> 
+                            <option value="James">James Adams</option>
+                            <option value="Martin">Martin Smith</option>
+                            <option value="Kyle">Kyle Barnett</option>  
+                            <option value="David">David Bebee</option> 
+                            <option value="Richard">Richard Michaels</option>
+                            <option value="Hayley">Hayley Hutchinson</option> 
+                            <option value="Sarah">Sarah Wallace</option>
+                            <option value="Gavin">Gavin Fulford</option> 
+                            <option value="Mike">Michael Lloyd</option> 
+                            <option value="carys">Carys Riley</option>
+                            <option value="Nicola">Nicola Griffiths</option>
                                 </select>
                             </div>
 
@@ -5025,13 +4934,13 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                     </div>
 
                     <div class="col-md-4">
-                        <label class="col-md-6 control-label" for="textinput">DATE</label>
+                        <label class="col-md-6 control-label" for="textinput">DATE:</label>
                         <input type="text" name="deal_date" class="form-control input-md" placeholder="" value="<?php echo $data2['date_added']; ?>">
                     </div>
 
                     <div class="col-md-4">
                         <p>
-                            <label class="col-md-6 control-label" for="agent">LEAD AGENT:</label>
+                            <label class="col-md-6 control-label" for="agent">LEAD:</label>
                             <input type='text' id='agent' name='agent' class="form-control input-md" value="<?php echo $data2['agent']; ?>" readonly>
                         </p>
                     </div>
@@ -6120,6 +6029,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
         <?php } ?>
                             <option value="CLOSER CALLBACK">SET AS CALLBACK</option>            
                             <option value="James">James Adams</option>
+                            <option value="Martin">Martin Smith</option>
                             <option value="Kyle">Kyle Barnett</option>  
                             <option value="David">David Bebee</option> 
                             <option value="Richard">Richard Michaels</option>
@@ -6128,9 +6038,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                             <option value="Gavin">Gavin Fulford</option> 
                             <option value="Mike">Michael Lloyd</option> 
                             <option value="carys">Carys Riley</option>
-                            <option value="abbiek">Abbie Kenyon</option>
                             <option value="Nicola">Nicola Griffiths</option>
-                            <option value="Keith">Keith Dance</option>
                         </select>
                     </div>
 
@@ -6217,11 +6125,11 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $real_name; ?> Dealsheet Callbacks</span>
+                <span class="label label-primary"><?php echo $hello_name; ?> Dealsheet Callbacks</span>
 
         <?php
         $CALLBKSQ = $pdo->prepare("SELECT date_updated, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='CALLBACK' AND agent=:agent ORDER BY date_updated ");
-        $CALLBKSQ->bindParam(':agent', $real_name, PDO::PARAM_STR);
+        $CALLBKSQ->bindParam(':agent', $hello_name, PDO::PARAM_STR);
         $CALLBKSQ->execute();
         if ($CALLBKSQ->rowCount() > 0) {
             while ($CALLBKSQresult = $CALLBKSQ->fetch(PDO::FETCH_ASSOC)) {
@@ -6268,7 +6176,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $real_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
+                <span class="label label-primary"><?php echo $hello_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
                 <form method="post" action="<?php if (isset($TrackerEdit)) {
             echo 'php/Tracker.php?query=edit';
         } else {
@@ -6294,7 +6202,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
         if (isset($TrackerEdit)) {
 
             $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
-            $TRACKER_EDIT->bindParam(':closer', $real_name, PDO::PARAM_STR);
+            $TRACKER_EDIT->bindParam(':closer', $hello_name, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
             if ($TRACKER_EDIT->rowCount() > 0) {
@@ -6315,7 +6223,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
                 ?>
 
-                                <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
+                                <input type="hidden" value="<?php echo $hello_name; ?>" name="closer">
                                 <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                 <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
@@ -6423,7 +6331,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
             }
         } else {
             ?>
-                            <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
+                            <input type="hidden" value="<?php echo $hello_name; ?>" name="closer">
                             <td> <select class="form-control" name="agent_name" id="agent_name">
                                                             <option value="">Select Agent...</option>
 
@@ -6469,7 +6377,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                 </form>
         <?php
         $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
-        $TRACKER->bindParam(':closer', $real_name, PDO::PARAM_STR);
+        $TRACKER->bindParam(':closer', $hello_name, PDO::PARAM_STR);
         $TRACKER->execute();
         if ($TRACKER->rowCount() > 0) {
             ?>
@@ -6702,7 +6610,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
             <div class="col-md-4">
                 <p>
                     <label class="col-md-6 control-label" for="agent">LEAD AGENT:</label>
-                    <input type='text' id='agent' name='agent' class="form-control input-md" value="<?php echo $real_name; ?>" readonly>
+                    <input type='text' id='agent' name='agent' class="form-control input-md" value="<?php echo $hello_name; ?>" readonly>
                 </p>
             </div>
 
@@ -7487,6 +7395,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                     <option value="">SEND TO CLOSER OR SET AS CALLBACK</option>
                     <option value="CALLBACK">Set as Callback</option>
                             <option value="James">James Adams</option>
+                            <option value="Martin">Martin Smith</option>
                             <option value="Kyle">Kyle Barnett</option>  
                             <option value="David">David Bebee</option> 
                             <option value="Richard">Richard Michaels</option>
@@ -7495,9 +7404,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                             <option value="Gavin">Gavin Fulford</option> 
                             <option value="Mike">Michael Lloyd</option> 
                             <option value="carys">Carys Riley</option>
-                            <option value="abbiek">Abbie Kenyon</option>
                             <option value="Nicola">Nicola Griffiths</option>
-                            <option value="Keith">Keith Dance</option>
                 </select>
             </div>
 

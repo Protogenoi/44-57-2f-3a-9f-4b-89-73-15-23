@@ -23,13 +23,8 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
 }
 }
 
-$cnquery = $pdo->prepare("select company_name from company_details limit 1");
-$cnquery->execute()or die(print_r($query->errorInfo(), true));
-$companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
-
-$companynamere = $companydetailsq['company_name'];
-
-if ($companynamere == 'Bluestone Protect') {
+$COM_MANAGER_ACCESS = array("Michael");
+$COM_LVL_10_ACCESS = array("Michael");
     
     $COMPANY_ENTITY_ID="1";
     $COMPANY_ENTITY = 'Bluestone Protect';
@@ -60,6 +55,4 @@ if ($companynamere == 'Bluestone Protect') {
     $AUDIT_SEARCH_ACCESS=array("Amy","Nathan Thomas","Ryan","Ciara","Katie Guilfoyle");
     
     $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
-}
-
 ?>

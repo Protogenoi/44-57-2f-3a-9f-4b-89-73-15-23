@@ -1,6 +1,12 @@
 <?php
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 
+$cnquery = $pdo->prepare("select company_name from company_details limit 1");
+$cnquery->execute()or die(print_r($query->errorInfo(), true));
+$companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
+
+$companynamere = $companydetailsq['company_name'];
+
 $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 
 if(!in_array($hello_name, $TIMELOCK_ACCESS)) {

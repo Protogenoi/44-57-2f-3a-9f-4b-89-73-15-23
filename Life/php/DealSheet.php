@@ -247,7 +247,25 @@ if(isset($dealsheet)) {
     $database = new Database(); 
     $database->beginTransaction();
             
-            $database->query("UPDATE dealsheet_prt1 set status=:qa, agent=:agent, closer=:closer, title=:title, forename=:forename, surname=:surname, dob=:dob, title2=:title2, forename2=:forename2, surname2=:surname2, dob2=:dob2, postcode=:postcode, mobile=:mobile, home=:home, email=:email WHERE deal_id=:deal_id");
+            $database->query("UPDATE dealsheet_prt1 
+                SET
+                    status=:qa, 
+                    agent=:agent, 
+                    closer=:closer, 
+                    title=:title, 
+                    forename=:forename, 
+                    surname=:surname, 
+                    dob=:dob, 
+                    title2=:title2, 
+                    forename2=:forename2, 
+                    surname2=:surname2, 
+                    dob2=:dob2, 
+                    postcode=:postcode, 
+                    mobile=:mobile, 
+                    home=:home, 
+                    email=:email 
+                WHERE 
+                    deal_id=:deal_id");
             $database->bind(':qa',$CLOSER_STATUS);
             $database->bind(':deal_id',$deal_id);
             $database->bind(':agent',$agent);
@@ -266,7 +284,27 @@ if(isset($dealsheet)) {
             $database->bind(':email',$email);
             $database->execute(); 
             
-            $database->query("UPDATE dealsheet_prt2 set deal_id=:deal_id, q1a=:q1a, q1b=:q1b, q1c=:q1c, q1d=:q1d, q2a=:q2a, q3a=:q3a, q4a=:q4a, q4b=:q4b, q4c=:q4c, q4d=:q4d, q4e=:q4e, q5a=:q5a, q6a=:q6a, q6b=:q6b, q7a=:q7a, comments=:comments, callback=:callback WHERE deal_id=:deal_id");
+            $database->query("UPDATE dealsheet_prt2
+                    SET
+                        q1a=:q1a, 
+                        q1b=:q1b, 
+                        q1c=:q1c, 
+                        q1d=:q1d, 
+                        q2a=:q2a, 
+                        q3a=:q3a, 
+                        q4a=:q4a, 
+                        q4b=:q4b, 
+                        q4c=:q4c, 
+                        q4d=:q4d, 
+                        q4e=:q4e, 
+                        q5a=:q5a, 
+                        q6a=:q6a, 
+                        q6b=:q6b, 
+                        q7a=:q7a, 
+                        comments=:comments, 
+                        callback=:callback 
+                    WHERE 
+                        deal_id=:deal_id");
             $database->bind(':deal_id',$deal_id);
             $database->bind(':q1a',$q1a);
             $database->bind(':q1b',$q1b);
@@ -288,54 +326,61 @@ if(isset($dealsheet)) {
             $database->execute(); 
             
             
-            $database->query("SELECT deal_id FROM dealsheet_prt3 WHERE deal_id=:deal_id");
+            $database->query("SELECT deal_id
+                    FROM 
+                        dealsheet_prt3 
+                    WHERE 
+                        deal_id=:deal_id");
             $database->bind(':deal_id',$deal_id);
             $database->execute(); 
             
             if ($database->rowCount()>=1) {
                 
-                        $database->query("UPDATE dealsheet_prt3 set exist_pol=:exist_pol,
-pol_num_1=:pol_num_1,
-pol_num_1_pre=:pol_num_1_pre,
-pol_num_1_com=:pol_num_1_com,
-pol_num_1_cov=:pol_num_1_cov,
-pol_num_1_yr=:pol_num_1_yr,
-pol_num_1_type=:pol_num_1_type,
-pol_num_1_soj=:pol_num_1_soj,
-pol_num_2=:pol_num_2,
-pol_num_2_pre=:pol_num_2_pre,
-pol_num_2_com=:pol_num_2_com,
-pol_num_2_cov=:pol_num_2_cov,
-pol_num_2_yr=:pol_num_2_yr,
-pol_num_2_type=:pol_num_2_type,
-pol_num_2_soj=:pol_num_2_soj,
-pol_num_3=:pol_num_3,
-pol_num_3_pre=:pol_num_3_pre,
-pol_num_3_com=:pol_num_3_com,
-pol_num_3_cov=:pol_num_3_cov,
-pol_num_3_yr=:pol_num_3_yr,
-pol_num_3_type=:pol_num_3_type,
-pol_num_3_soj=:pol_num_3_soj,
-pol_num_4=:pol_num_4,
-pol_num_4_pre=:pol_num_4_pre,
-pol_num_4_com=:pol_num_4_com,
-pol_num_4_cov=:pol_num_4_cov,
-pol_num_4_yr=:pol_num_4_yr,
-pol_num_4_type=:pol_num_4_type,
-pol_num_4_soj=:pol_num_4_soj,
-chk_post=:chk_post,
-chk_dob=:chk_dob,
-chk_mob=:chk_mob,
-chk_home=:chk_home,
-chk_email=:chk_email,
-fee=:fee,
-total=:total,
-years=:years,
-month=:month,
-comm_after=:comm_after,
-sac=:sac,
-date=:date
-WHERE deal_id=:deal_id");
+                        $database->query("UPDATE dealsheet_prt3 
+                            SET 
+                                exist_pol=:exist_pol,
+                                pol_num_1=:pol_num_1,
+                                pol_num_1_pre=:pol_num_1_pre,
+                                pol_num_1_com=:pol_num_1_com,
+                                pol_num_1_cov=:pol_num_1_cov,
+                                pol_num_1_yr=:pol_num_1_yr,
+                                pol_num_1_type=:pol_num_1_type,
+                                pol_num_1_soj=:pol_num_1_soj,
+                                pol_num_2=:pol_num_2,
+                                pol_num_2_pre=:pol_num_2_pre,
+                                pol_num_2_com=:pol_num_2_com,
+                                pol_num_2_cov=:pol_num_2_cov,
+                                pol_num_2_yr=:pol_num_2_yr,
+                                pol_num_2_type=:pol_num_2_type,
+                                pol_num_2_soj=:pol_num_2_soj,
+                                pol_num_3=:pol_num_3,
+                                pol_num_3_pre=:pol_num_3_pre,
+                                pol_num_3_com=:pol_num_3_com,
+                                pol_num_3_cov=:pol_num_3_cov,
+                                pol_num_3_yr=:pol_num_3_yr,
+                                pol_num_3_type=:pol_num_3_type,
+                                pol_num_3_soj=:pol_num_3_soj,
+                                pol_num_4=:pol_num_4,
+                                pol_num_4_pre=:pol_num_4_pre,
+                                pol_num_4_com=:pol_num_4_com,
+                                pol_num_4_cov=:pol_num_4_cov,
+                                pol_num_4_yr=:pol_num_4_yr,
+                                pol_num_4_type=:pol_num_4_type,
+                                pol_num_4_soj=:pol_num_4_soj,
+                                chk_post=:chk_post,
+                                chk_dob=:chk_dob,
+                                chk_mob=:chk_mob,
+                                chk_home=:chk_home,
+                                chk_email=:chk_email,
+                                fee=:fee,
+                                total=:total,
+                                years=:years,
+                                month=:month,
+                                comm_after=:comm_after,
+                                sac=:sac,
+                                date=:date
+                                    WHERE 
+                                deal_id=:deal_id");
             
 $database->bind(':exist_pol',$exist_pol);
 $database->bind(':pol_num_1',$pol_1_num);

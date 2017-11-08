@@ -174,7 +174,7 @@ if (isset($EXECUTE)) {
 
                             <div class="alert alert-info"><strong>Policy Number:</strong> 
                                 For Awaiting/TBC polices, leave as TBC. A unique ID will be generated. <br><br> <input type='text' id='policy_number' name='policy_number' class="form-control" autocomplete="off" style="width: 170px" <?php
-                                        if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau' ||  $data2['company'] == 'ADL_CUS') {
+                                        if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau') {
                                             echo "maxlength='10'";
                                         }
                                         ?> value="TBC">
@@ -236,7 +236,7 @@ if (isset($EXECUTE)) {
                                             <option value="">Select...</option>
                                             <option value="Legal and General" <?php
                                             if (isset($data2['company'])) {
-                                                if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau' ||   $data2['company'] == 'TRB Archive' || $data2['company'] == 'ADL_CUS') {
+                                                if ($data2['company'] == 'Bluestone Protect' || $data2['company']=='The Review Bureau' || $data2['company'] == 'TRB Archive') {
                                                     echo "selected";
                                                 }
                                             }
@@ -440,13 +440,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/<?php
-                                                        if ($companynamere == 'Bluestone Protect') {
-                                                            echo "CloserNames";
-                                                        } else {
-                                                            echo "CUS_CLOSERS";
-                                                        }
-                                                        ?>.json",
+                                                            url: "../JSON/CloserNames.json",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {
@@ -463,13 +457,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/<?php
-                                                        if ($companynamere == 'Bluestone Protect') {
-                                                            echo "LeadGenNames";
-                                                        } else {
-                                                            echo "CUS_LEAD";
-                                                        }
-                                                        ?>.json",
+                                                            url: "../JSON/LeadGenNames.json",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

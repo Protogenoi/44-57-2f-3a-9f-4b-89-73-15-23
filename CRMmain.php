@@ -52,7 +52,7 @@ if (in_array($hello_name, $Level_2_Access, true)) {
 
 if (in_array($hello_name, $Agent_Access, true)) {
 
-    header('Location: /Life/LifeDealSheet.php');
+    header('Location: /Life/DealSheet.php');
     die;
 }
 

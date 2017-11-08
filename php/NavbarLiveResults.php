@@ -100,22 +100,6 @@ WHERE
 }
     
 }
-if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    
-    $MSG_stmt = $pdo->prepare("SELECT 
-    count(messenger_id) AS badge 
-FROM
-    messenger
-WHERE
-    messenger_to=:HELLO
-    AND
-    messenger_status='Unread'");
-    $MSG_stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
-    $MSG_stmt->execute();
-    $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);    
-    
-} else {
-
 
     $MSG_stmt = $pdo->prepare("SELECT 
     count(messenger_id) AS badge 
@@ -131,8 +115,6 @@ WHERE
     $MSG_stmt->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
     $MSG_stmt->execute();
     $MSG_stmtresult = $MSG_stmt->fetch(PDO::FETCH_ASSOC);
-}
-
 
 if (in_array($hello_name, $Level_8_Access, true)) { 
     $KF_UP_stmt = $pdo->prepare("SELECT 

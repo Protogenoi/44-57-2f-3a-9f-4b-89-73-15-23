@@ -406,13 +406,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/<?php
-                                                        if ($companynamere == 'Bluestone Protect') {
-                                                            echo "CloserNames";
-                                                        } else {
-                                                            echo "CUS_CLOSERS";
-                                                        }
-                                                        ?>.json",
+                                                            url: "../JSON/CloserNames.json",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

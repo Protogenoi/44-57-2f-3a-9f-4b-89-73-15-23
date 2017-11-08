@@ -743,7 +743,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
                                             ?>">
                                     </p>
                                     <script>var options = {
-                                            url: "/JSON/LeadGenNames.json",
+                                            url: "../JSON/Agents.php?EXECUTE=1",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -1656,7 +1656,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
     <script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 
     <script>var options = {
-            url: "../JSON/LeadGenNames.json",
+            url: "..../JSON/Agents.php?EXECUTE=1",
             getValue: "full_name",
             list: {
                 match: {

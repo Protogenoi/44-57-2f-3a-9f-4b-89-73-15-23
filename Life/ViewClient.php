@@ -1166,16 +1166,18 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         </p>
                                     </form>
 
+
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
                                     } if ($CHK_NUM == '1') {
-                                        echo "SMS/Send.php?WHICH_COMPANY=$WHICH_COMPANY";
+                                        echo "SMS/Send.php";
                                     } ?>">
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
                                         <div class="form-group">
-                                            <label for="selectsms">Select SMS:</label>
-                                            <select class="form-control" name="selectopt">
+
+                                            <label for="selectsms">Message:</label>
+                                            <select class="form-control" name="selectopt" id="selectopt">
                                                 <option value=" ">Select message...</option>
 
                                                 <?php
@@ -1183,14 +1185,14 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One `family') {
+                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
-                                                    }
-                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
-                                                        $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'Aviva') {
                                                         $SMS_INSURER = 'Aviva';
+                                                    }
+                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
+                                                        $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
@@ -1198,7 +1200,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 }
 
                                                 try {
-  $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
+
+                                                    $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
                                                     $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY2', $WHICH_COMPANY, PDO::PARAM_STR);
@@ -1207,7 +1210,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                         while ($smstitles = $SMSquery->fetch(PDO::FETCH_ASSOC)) {
 
                                                             $smstitle = $smstitles['title'];
-                                                          
+                           
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
@@ -1219,14 +1222,34 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             </select>
                                         </div>
                                         
+                                        <div class="form-group">
+                                            <label for="SMS_INSURER">Insurer:</label>
+                                            <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
+                                                <option value="">Select insurer...</option> 
+                                                <option value="Legal and General">Legal and General</option>                                                
+                                                <option value="Aviva">Aviva</option>                                              
+                                                <option value="Vitality">Vitality</option>                                             
+                                                <option value="Royal London">Royal London</option>                                          
+                                                <option value="One Family">One Family</option>
+                                               
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="SMS_COMPANY">Company:</label>
+                                            <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
+                                                <option value="">Select company...</option>
+                                                <option value="Bluestone Protect">Bluestone Protect</option>
+                                                <option value="The Review Bureau">The Review Bureau</option>
+                                            </select>
+                                        </div>                                        
+
                                         <input type="hidden" id="FullName" name="FullName" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <input type="hidden" id="phone_number" name="phone_number" value="<?php echo $Single_Client['alt_number']; ?>">
-                                        <input type="hidden" id="SMS_INSURER" name="SMS_INSURER" value="<?php echo $SMS_INSURER; ?>">
 
-                                        <br>
-                                        <br>
-
-                                        <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND SMS</button>
+                                        <center>
+                                            <button type='submit' class='btn btn-success'><i class='fa fa-mobile'></i> SEND TEMPLATE SMS</button>
+                                        </center>
 
                                     </form>
 

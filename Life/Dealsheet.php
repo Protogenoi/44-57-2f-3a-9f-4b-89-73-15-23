@@ -6080,18 +6080,17 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
     <div class="container">
 
         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=NEW">
-            <div class="col-md-4">
-                <br>
-            </div>
 
             <div class="col-md-4">
                 <label class="col-md-6 control-label" for="textinput">DATE</label>
                 <input type="text" name="deal_date" class="form-control input-md" placeholder="" value="<?php echo $Today_DATE; ?>">
             </div>
+            
+            <div class="col-md-4"></div>
 
             <div class="col-md-4">
                 <p>
-                    <label class="col-md-6 control-label" for="agent">LEAD AGENT:</label>
+                    <label class="col-md-6 control-label" for="agent">AGENT:</label>
                     <input type='text' id='agent' name='agent' class="form-control input-md" value="<?php echo $hello_name; ?>" readonly>
                 </p>
             </div>

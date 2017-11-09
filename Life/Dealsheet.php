@@ -93,7 +93,9 @@ $Today_TIME = date("h:i:s");
                 <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
             <?php
+            
     if (isset($QUERY)) {
+        
     if ($QUERY == 'ViewCallBacks') {
 
                     require_once(__DIR__ . '/../classes/database_class.php');
@@ -5905,6 +5907,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
     <?php } ?>
 
     <?php
+    
     if ($QUERY == 'CloserDealSheets') {
         ?>
 
@@ -6942,20 +6945,6 @@ $("#provider-json").easyAutocomplete(options);</script>
         return false;
     }
 </script>
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-<!--<script>
-    $(function () {
-        $('#CloserSelect').change(function () {
-            this.form.submit();
-        });
-    });
-</script>-->
-
 <script src="/js/jquery.postcodes.min.js"></script>
 <script>
                                     $(function () {

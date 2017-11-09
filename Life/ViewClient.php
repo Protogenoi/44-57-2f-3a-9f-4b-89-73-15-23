@@ -1340,19 +1340,25 @@ if (isset($fileuploadedfail)) {
 
                         <?php 
                         
-                        if(isset($OLD_POLICY_DOCS) && isset($NEW_POLICY_DOCS)) {
-                            if($OLD_POLICY_DOCS=='1' && $NEW_POLICY_DOCS=='1') {
+                        if(isset($OLD_POLICY_DOCS) && isset($NEW_POLICY_DOCS) || $WHICH_COMPANY=='The Review Bureau') {
+                            if(empty($OLD_POLICY_DOCS)) {
+                                $OLD_POLICY_DOCS=0;
+                            }
+                            if(empty($NEW_POLICY_DOCS)) {
+                                $NEW_POLICY_DOCS=0;
+                            }                            
+                            if($OLD_POLICY_DOCS=='1' && $NEW_POLICY_DOCS=='1' || $WHICH_COMPANY=='The Review Bureau') {
                                 ?>
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
                             <a class="list-group-item" href="Letters/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Post Pack Letter</a>
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
                             <a class="list-group-item" href="Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                
                             
                            
                             <a class="list-group-item" href="Letters/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Trust Letter</a>
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
                                 
                             <a class="list-group-item" href="Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                
@@ -1360,13 +1366,13 @@ if (isset($fileuploadedfail)) {
 
                                 
                             <a class="list-group-item" href="Letters/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Reinstate Letter</a>
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
                                 
                             <a class="list-group-item" href="Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                
                                 
                             <a class="list-group-item confirmation" href="Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Any Queries Call Us</a>
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
                                 
                             <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                
@@ -1375,7 +1381,7 @@ if (isset($fileuploadedfail)) {
                             if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
                             
                             <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP My Account Details Email</a>
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
                                 
                             <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>                                
@@ -1385,7 +1391,7 @@ if (isset($fileuploadedfail)) {
                             <?php if ($ffkeyfactsemail == '1') { ?>
                             
                                 <a class="list-group-item confirmation" href="Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                    <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Closer Keyfacts Email</a>
+                                    <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
                                     
                                 <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                     <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                    
@@ -1398,21 +1404,21 @@ if (isset($fileuploadedfail)) {
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
                                 
                                 <a class="list-group-item" href="Letters/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Post Pack Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                    
                                 
                                 
                                 <a class="list-group-item" href="Letters/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Trust Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                    
                                   
                                 
                                 <a class="list-group-item" href="Letters/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Reinstate Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                    
@@ -1424,7 +1430,7 @@ if (isset($fileuploadedfail)) {
                                     echo $clientonemail;
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Any Queries Call Us</a>
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
                                         
                                     <a class="list-group-item confirmation" href="php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
@@ -1443,7 +1449,7 @@ if (isset($fileuploadedfail)) {
                                 } else {
                                     echo $clientonemail;
                                 }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP My Account Details Email</a>
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
                                 
                                 <a class="list-group-item confirmation" href="php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
@@ -1465,7 +1471,7 @@ if (isset($fileuploadedfail)) {
                             echo $clientonemail;
                         }
                         ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Closer Keyfacts Email</a>
+                                        <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
                                         
                                   <a class="list-group-item confirmation" href="php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
                         if (!empty($clienttwomail)) {
@@ -1483,19 +1489,19 @@ if (isset($fileuploadedfail)) {
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 
                                 <a class="list-group-item" href="Letters/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Post Pack Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Post Pack Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Post Pack Letter</a>                                    
 
                                 <a class="list-group-item" href="Letters/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Trust Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Trust Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Trust Letter</a>                                    
                               
                                 <a class="list-group-item" href="Letters/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; BSP Joint Reinstate Letter</a>
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Reinstate Letter</a>
                                     
                                 <a class="list-group-item" href="Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Reinstate Letter</a>                                    

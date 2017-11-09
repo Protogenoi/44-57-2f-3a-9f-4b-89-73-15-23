@@ -93,8 +93,8 @@ $Today_TIME = date("h:i:s");
                 <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
             <?php
-            if (isset($QUERY)) {
-                if ($QUERY == 'ViewCallBacks') {
+    if (isset($QUERY)) {
+    if ($QUERY == 'ViewCallBacks') {
 
                     require_once(__DIR__ . '/../classes/database_class.php');
 
@@ -1256,7 +1256,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                     </div> <?php
                                         }
 
-                                        if ($QUERY == 'ViewQADealSheet') {
+    if ($QUERY == 'ViewQADealSheet') {
 
                                             require_once(__DIR__ . '/../classes/database_class.php');
 
@@ -4894,7 +4894,8 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                             <?php
                             }
 
-                            if ($QUERY == 'ViewCloserDealSheet') {
+    if ($QUERY == 'ViewCloserDealSheet') {
+
                                 require_once(__DIR__ . '/../classes/database_class.php');
 
 
@@ -6058,7 +6059,6 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
     <?php } ?>
 
-
     <?php
     if ($QUERY == 'CloserDealSheets') {
         ?>
@@ -6081,7 +6081,6 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
         </script>
     <?php
     }
-
 
     if ($QUERY == 'AllCloserDealSheets') {
         ?>
@@ -6128,7 +6127,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                 <span class="label label-primary"><?php echo $hello_name; ?> Dealsheet Callbacks</span>
 
         <?php
-        $CALLBKSQ = $pdo->prepare("SELECT date_updated, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='CALLBACK' AND agent=:agent ORDER BY date_updated ");
+        $CALLBKSQ = $pdo->prepare("SELECT date_updated, deal_id, agent, closer, CONCAT(title, ' ', forename, ' ', surname) AS NAME, CONCAT(title2, ' ', forename2, ' ', surname2) AS NAME2 FROM dealsheet_prt1 WHERE status='CALLBACK' AND agent=:agent ORDER BY date_updated");
         $CALLBKSQ->bindParam(':agent', $hello_name, PDO::PARAM_STR);
         $CALLBKSQ->execute();
         if ($CALLBKSQ->rowCount() > 0) {
@@ -6141,7 +6140,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                 $CLO_DATE = $CALLBKSQresult['date_updated'];
                 ?>
 
-                        <a class="list-group-item" href="LifeDealSheet.php?query=ViewCallBacks&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
+                        <a class="list-group-item" href="Dealsheet.php?query=ViewCallBacks&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
 
 
                 <?php
@@ -6506,7 +6505,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                         <option <?php if(isset($TRK_MTG) && $TRK_MTG=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
                                     </select>
                                 </td>
-                                <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
+                                <td><a href='Dealsheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
                 <?php }
             ?>          
                     </table>
@@ -6518,7 +6517,6 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
         </div>
 
     <?php }
-
 
     if ($QUERY == 'CompletedDeals') {
         ?>
@@ -6593,7 +6591,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
     <?php
     }
-} else {
+} if(empty($QUERY)) {
     ?>
     <div class="container">
 

@@ -1081,7 +1081,7 @@ $database->bind(':date',$closer_date);
 $database->bind(':deal_id',$deal_id);
 $database->execute();     
 
- /*   PART 4 */
+ /*   PART 4
             
             $database->query("SELECT deal_id FROM dealsheet_prt4 WHERE deal_id=:deal_id");
             $database->bind(':deal_id',$deal_id);
@@ -1110,7 +1110,7 @@ $database->execute();
                 $database->bind(':deal_id',$deal_id);
                 $database->execute();    
             
-            }    
+            }    */
             
             $lastid =  $database->lastInsertId();
             

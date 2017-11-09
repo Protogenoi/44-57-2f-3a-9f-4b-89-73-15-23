@@ -132,7 +132,7 @@ $Today_TIME = date("h:i:s");
 
                         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=CLOSERRESEND&REF=<?php echo $deal_id; ?>">
                             <div class="col-md-4">
-                                <img height="80" src="/img/RBlogo.png"><br>
+                                <br>
                             </div>
 
                             <div class="col-md-4">
@@ -1243,7 +1243,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
                         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=QA&REF=<?php echo $deal_id; ?>">
                             <div class="col-md-4">
-                                <img height="80" src="/img/RBlogo.png"><br>
+                                <br>
                             </div>
 
                             <div class="col-md-4">
@@ -2350,7 +2350,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
                         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=QA&REF=<?php echo $deal_id; ?>">
                             <div class="col-md-4">
-                                <img height="80" src="/img/RBlogo.png"><br>
+                                <br>
                             </div>
 
                             <div class="col-md-4">
@@ -4830,7 +4830,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
                 <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=CLOSER&REF=<?php echo $deal_id; ?>">
                     <div class="col-md-4">
-                        <img height="80" src="/img/RBlogo.png"><br>
+                        <br>
                     </div>
 
                     <div class="col-md-4">
@@ -6081,7 +6081,7 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
 
         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=NEW">
             <div class="col-md-4">
-                <img height="80" src="/img/RBlogo.png"><br>
+                <br>
             </div>
 
             <div class="col-md-4">

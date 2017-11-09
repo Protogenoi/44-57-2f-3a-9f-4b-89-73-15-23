@@ -25,26 +25,12 @@ if (isset($fferror)) {
         error_reporting(E_ALL);
     }
 }
-if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
+if (in_array($hello_name,$Level_10_Access, true)) {
 
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='Bluestone Protect';
     }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }   
+
 
     $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);

@@ -131,14 +131,14 @@ $Today_TIME = date("h:i:s");
                     <div class="container">
 
                         <form id="Send" class="form" method="POST" action="php/DealSheet.php?dealsheet=CLOSERRESEND&REF=<?php echo $deal_id; ?>">
-                            <div class="col-md-4">
-                                <br>
-                            </div>
 
                             <div class="col-md-4">
                                 <label class="col-md-6 control-label" for="textinput">DATE</label>
                                 <input type="text" name="deal_date" class="form-control input-md" placeholder="" value="<?php echo $data2['date_added']; ?>">
                             </div>
+                            
+                            <div class="col-md-4">
+                            </div>                            
 
                             <div class="col-md-4">
                                 <p>

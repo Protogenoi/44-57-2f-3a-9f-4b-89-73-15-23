@@ -48,7 +48,7 @@ if(isset($query)) {
                                     
                                     ?>
                         
-                            <a class="list-group-item" href="LifeDealSheet.php?query=ViewCloserDealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
+                            <a class="list-group-item" href="Dealsheet.php?query=ViewCloserDealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
 
                         
                         <?php
@@ -103,7 +103,7 @@ if(isset($query)) {
                                     
                                     ?>
                         
-                            <a class="list-group-item" href="LifeDealSheet.php?query=ViewCloserDealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
+                            <a class="list-group-item" href="Dealsheet.php?query=ViewCloserDealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $CLO_DATE | Lead Gen: $CLO_AGENT | $CLO_NAME - $CLO_NAME2"; ?></a>
 
                         
                         <?php
@@ -156,7 +156,7 @@ if($query=='QADealSheets') { ?>
                                     
                                     ?>
                         
-                            <a class="list-group-item" href="LifeDealSheet.php?query=ViewQADealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $DL_DATE | Closer: $CLO_CLO | Lead Gen: $CLO_AGENT <br><i class='fa fa-user fa-fw' aria-hidden='true'></i> $CLO_NAME - $CLO_NAME2"; ?></a>
+                            <a class="list-group-item" href="Dealsheet.php?query=ViewQADealSheet&REF=<?php echo $CLO_ID; ?>"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; <?php echo "Date: $DL_DATE | Closer: $CLO_CLO | Lead Gen: $CLO_AGENT <br><i class='fa fa-user fa-fw' aria-hidden='true'></i> $CLO_NAME - $CLO_NAME2"; ?></a>
 
                         
                         <?php

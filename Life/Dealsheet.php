@@ -316,9 +316,9 @@ $Today_TIME = date("h:i:s");
                                                         <option value="">Year</option>
                                                     <?php } ?>
                                                     <?php
-                                                    $INCyear = date("Y") - 100;
+                                                    $INCyear = date("Y") - 60;
 
-                                                    for ($i = 0; $i <= 100; ++$i) {
+                                                    for ($i = 0; $i <= 60; ++$i) {
                                                         ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -408,9 +408,9 @@ $Today_TIME = date("h:i:s");
                                                         <option value="">Year (2)</option>
                                                     <?php
                                                     }
-                                                    $INCyear = date("Y") - 100;
+                                                    $INCyear = date("Y") - 60;
 
-                                                    for ($i = 0; $i <= 100; ++$i) {
+                                                    for ($i = 0; $i <= 60; ++$i) {
                                                         ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -1427,9 +1427,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                         <option value="">Year</option>
         <?php
         }
-        $INCyear = date("Y") - 100;
+        $INCyear = date("Y") - 60;
 
-        for ($i = 0; $i <= 100; ++$i) {
+        for ($i = 0; $i <= 60; ++$i) {
             ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -1519,9 +1519,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                         <option value="">Year</option>
         <?php
         }
-        $INCyear = date("Y") - 100;
+        $INCyear = date("Y") - 60;
 
-        for ($i = 0; $i <= 100; ++$i) {
+        for ($i = 0; $i <= 60; ++$i) {
             ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -2534,9 +2534,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                         <option value="">Year</option>
         <?php
         }
-        $INCyear = date("Y") - 100;
+        $INCyear = date("Y") - 60;
 
-        for ($i = 0; $i <= 100; ++$i) {
+        for ($i = 0; $i <= 60; ++$i) {
             ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -2626,9 +2626,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                         <option value="">Year</option>
         <?php
         }
-        $INCyear = date("Y") - 100;
+        $INCyear = date("Y") - 60;
 
-        for ($i = 0; $i <= 100; ++$i) {
+        for ($i = 0; $i <= 60; ++$i) {
             ?>
                                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -5014,9 +5014,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                 <option value="">Year</option>
                 <?php
                 }
-                $INCyear = date("Y") - 100;
+                $INCyear = date("Y") - 60;
 
-                for ($i = 0; $i <= 100; ++$i) {
+                for ($i = 0; $i <= 60; ++$i) {
                     ?>
                                                 <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
                     <?php
@@ -5106,9 +5106,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                                 <option value="">Year</option>
                 <?php
                 }
-                $INCyear = date("Y") - 100;
+                $INCyear = date("Y") - 60;
 
-                for ($i = 0; $i <= 100; ++$i) {
+                for ($i = 0; $i <= 60; ++$i) {
                     ?>
                                                 <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
             <?php
@@ -6226,9 +6226,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                 <select class="form-control input-md" name="dob_year">
                                     <option value="">Year</option>
     <?php
-    $INCyear = date("Y") - 100;
+    $INCyear = date("Y") - 60;
 
-    for ($i = 0; $i <= 100; ++$i) {
+    for ($i = 0; $i <= 60; ++$i) {
         ?>
                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
         <?php
@@ -6300,9 +6300,9 @@ if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manage
                                 <select class="form-control input-md" name="dob_year2">
                                     <option value="">Year (2)</option>
     <?php
-    $INCyear = date("Y") - 100;
+    $INCyear = date("Y") - 60;
 
-    for ($i = 0; $i <= 100; ++$i) {
+    for ($i = 0; $i <= 60; ++$i) {
         ?>
                                         <option value="<?php echo $INCyear; ?>"><?php echo $INCyear; ?></option>
         <?php

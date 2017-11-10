@@ -8,6 +8,31 @@ $USER_TRACKING=0;
 
 require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        } 
+
 include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 include('../../includes/ADL_PDO_CON.php');
@@ -611,7 +636,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "datatables/EWS.php?EWS=1",
+                "ajax": "datatables/EWS.php?EWS=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                  
                 "columns": [
                     {

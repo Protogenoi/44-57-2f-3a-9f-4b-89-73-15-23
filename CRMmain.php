@@ -15,6 +15,11 @@ if (isset($LOGOUT_ACTION) && $LOGOUT_ACTION == "log_out") {
 	$page_protect->log_out();
 }
 
+require_once(__DIR__ . '/includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
 
 require_once(__DIR__ . '/includes/adl_features.php');
 require_once(__DIR__ . '/includes/Access_Levels.php');

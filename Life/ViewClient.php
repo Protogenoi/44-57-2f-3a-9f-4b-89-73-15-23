@@ -132,6 +132,11 @@ if (isset($Single_Client['callauditid'])) {
 if(isset($Single_Client['phone_number'])) {
     $PHONE_NUMBER=$Single_Client['phone_number'];
 }
+
+if(isset($Single_Client['alt_number'])) {
+    $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
+}
+
 $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");                     
 ?>
@@ -1109,6 +1114,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 </div>
             </div>
 
+            <?php if(!empty($ALT_PHONE_NUMBER)) { ?>
+            
             <div id="smsModalalt" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -1264,6 +1271,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 </div>
             </div>
 
+            <?php } ?>
+            
             <!-- START TAB 3 -->
 
             <div id="menu2" class="tab-pane fade">

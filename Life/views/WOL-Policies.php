@@ -27,7 +27,13 @@
         $ADLSTATUS = $WOL_Policies['ADLSTATUS'];
         $EWSSTATUS = $WOL_Policies['warning'];
         
+        
+        if(!empty($WOL_Policies['covera'])) {
         $COVER_AMOUNT = number_format($WOL_Policies['covera'],2);
+        
+        } else {
+            $COVER_AMOUNT=0;
+        }
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";

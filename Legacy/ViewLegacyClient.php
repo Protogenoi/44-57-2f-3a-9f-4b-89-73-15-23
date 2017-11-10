@@ -660,7 +660,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
           <?php if ($ffsms=='1') { ?>
     
           
-          <form class="AddClient" method="POST" action="/php/sms.php">
+          <form class="AddClient" method="POST">
               <input type="hidden" name="keyfield" value="<?php echo $search?>">
               <div class="form-group">
                   <label for="selectsms">Select SMS:</label>
@@ -896,7 +896,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
           <?php if ($ffsms=='1') { ?>
     
           
-          <form class="AddClient" method="POST" action="/php/sms.php">
+          <form class="AddClient" method="POST">
               <input type="hidden" name="keyfield" value="<?php echo $search?>">
               <div class="form-group">
                   <label for="selectsms">Select SMS:</label>

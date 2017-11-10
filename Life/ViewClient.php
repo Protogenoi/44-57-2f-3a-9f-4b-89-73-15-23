@@ -2158,12 +2158,12 @@ WHERE
                             require_once(__DIR__ . '/views/financials/transactions/wol-view.php');             
                             
                             }                             
-                            
+                       ?>                 </div>
+            </div>
+                 <?php
                             } ?>
                     
-                </div>
-            </div>
-            
+
             <div id="menu4" class="tab-pane fade">
 
                 <?php

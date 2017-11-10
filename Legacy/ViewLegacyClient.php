@@ -61,7 +61,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 <body>
     
     <?php include('../includes/navbar.php'); 
-    include('../includes/PDOcon.php'); 
+    include('../includes/ADL_PDO_CON.php'); 
     include('../includes/adlfunctions.php');
             include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     

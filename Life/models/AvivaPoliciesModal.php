@@ -12,6 +12,7 @@ class AvivaPoliciesModal {
 
         $stmt = $this->pdo->prepare("SELECT DISTINCT
                 client_policy.policy_number, 
+                client_policy.application_number, 
                 client_policy.type, 
                 client_policy.CommissionType, 
                 client_policy.polterm, 

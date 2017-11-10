@@ -129,6 +129,9 @@ if (isset($Single_Client['callauditid'])) {
     $auditid = $Single_Client['callauditid'];
 }
 
+if(isset($Single_Client['phone_number'])) {
+    $PHONE_NUMBER=$Single_Client['phone_number'];
+}
 $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");                     
 ?>
@@ -1688,6 +1691,25 @@ if (isset($fileuploadedfail)) {
         
                                     <a class="list-group-item" href="/audits/WOL/View.php?query=View&WOLID=<?php echo $WOL_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Closer Audit</a>
        <?php }
+       
+         $LEAD_AUDIT_QRY = $pdo->prepare("SELECT 
+    id
+FROM
+    Audit_LeadGen
+WHERE
+    an_number =:PHONE");
+        $LEAD_AUDIT_QRY->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+        $LEAD_AUDIT_QRY->execute();
+        $LEAD_AUDIT_ROW = $LEAD_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
+        
+        if ($LEAD_AUDIT_QRY->rowCount() > 0) {
+
+        $LEAD_LEAD_ID = $LEAD_AUDIT_ROW['id'];     ?>                                  
+                                    
+                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
+                                    
+                                    
+        <?php                }      
                             }
                             
 if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {

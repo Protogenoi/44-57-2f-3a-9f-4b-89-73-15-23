@@ -8,6 +8,12 @@ $USER_TRACKING=0;
 
 require_once(__DIR__ . '/includes/user_tracking.php');
 
+require_once(__DIR__ . '/includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
 $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS); 
 $search= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT); 
 

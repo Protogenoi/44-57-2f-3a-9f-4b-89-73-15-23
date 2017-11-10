@@ -8,6 +8,27 @@ $USER_TRACKING=0;
 
 include('../../../includes/user_tracking.php'); 
 
+
+$USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if(isset($USER) && $TOKEN) {
+    
+    require_once(__DIR__ . '../../../classes/database_class.php');
+    require_once(__DIR__ . '../../../class/login/login.php');
+
+        $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
+        $CHECK_USER_TOKEN->CheckToken();
+        $OUT=$CHECK_USER_TOKEN->CheckToken();
+        
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Bad') {
+         echo "BAD";   
+        }
+
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
+
+
+
 include('../../../includes/adl_features.php');
 include('../../../includes/Access_Levels.php');
 include('../../../includes/ADL_PDO_CON.php');
@@ -64,3 +85,12 @@ client_policy.policy_number = ews.policy_number");
     
     
     }
+    
+}
+
+} else {
+
+    header('Location: /../../CRMmain.php');
+    die;
+    
+}    

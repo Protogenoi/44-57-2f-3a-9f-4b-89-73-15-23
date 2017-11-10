@@ -17,7 +17,9 @@ if(isset($fferror)) {
     
     }
 
-include('../includes/PDOcon.php');
+include('../includes/ADL_PDO_CON.php');
+include('../includes/ADL_MYSQLI_CON.php');
+
 
 $Legacy= filter_input(INPUT_GET, 'Legacy', FILTER_SANITIZE_NUMBER_INT);
 $EWS= filter_input(INPUT_GET, 'EWS', FILTER_SANITIZE_NUMBER_INT);

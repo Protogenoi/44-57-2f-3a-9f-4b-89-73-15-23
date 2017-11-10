@@ -2093,7 +2093,7 @@ WHERE
           <?php
           
                             require_once(__DIR__ . '/models/client/UserTrackingModel.php');
-                            $UserTracking = new UserTrackingMOdal($pdo);
+                            $UserTracking = new UserTrackingModal($pdo);
                             $UserTrackingList = $UserTracking->getUserTracking($search);
                             require_once(__DIR__ . '/views/client/UserTracking.php'); 
                             
@@ -2114,362 +2114,55 @@ WHERE
                 <div class="container">
 
 <?php
+                            if(isset($HAS_NEW_LG_POL) && $HAS_NEW_LG_POL == 1 || isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1 ) {
 
-    $LG_FIN = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE client_id=:id GROUP BY financial_statistics_history.id");
-    $LG_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $LG_FIN->execute()or die(print_r($LG_FIN->errorInfo(), true));
-    if ($LG_FIN->rowCount() > 0) {
-        ?>
-
-                            <table  class='table table-hover table-condensed'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='7'>Legal and General</th>
-                                    </tr>
-                                <th>Comm Date</th>
-                                <th>Policy</th>
-                                <th>Commission Type</th>
-                                <th>Policy Status</th>
-                                <th>Closer</th>
-                                <th>Lead</th>
-                                <th>Amount</th>
-                                </thead>
-
-                                <?php
-                                while ($row = $LG_FIN->fetch(PDO::FETCH_ASSOC)) {
-
-                                    if (isset($row['payment'])) {
-
-                                        $formattedpayment = number_format($row['payment'], 2);
-                                    }
-
-                                    if (isset($row['deduction'])) {
-
-                                        $formatteddeduction = number_format($row['deduction'], 2);
-                                    }
-
-                                    if (isset($row['policy_number'])) {
-
-                                        $clientid = $row['policy_number'];
-                                    }
-
-                                    if (isset($row['POLID'])) {
-
-                                        $PID = $row['POLID'];
-                                    }
-
-                                    echo '<tr>';
-                                    echo "<td>" . $row['insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['Policy'] . "</a></td>";
-                                    echo "<td>" . $row['CommissionType'] . "</td>";
-                                    echo "<td>" . $row['policystatus'] . "</td>";
-                                    echo "<td>" . $row['closer'] . "</td>";
-                                    echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['Payment_Amount']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['Payment_Amount'] . "</span></td>";
-                                    } else if (intval($row["Payment_Amount"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['Payment_Amount'] . "</span></td>";
-                                    } else {
-                                        echo "<td>" . $row['Payment_Amount'] . "</td>";
-                                    }
-                                    echo "</tr>";
-                                    echo "\n";
-                                }
+                            require_once(__DIR__ . '/models/financials/transactions/LGModel.php');
+                            $LGtrans = new LGtransModel($pdo);
+                            $LGtransList = $LGtrans->getLGtrans($search);
+                            require_once(__DIR__ . '/views/financials/transactions/lg-view.php'); 
+                            
                             }
-                        ?>
-                    </table>
-<?php
-
-    $VIT_FIN = $pdo->prepare("SELECT
-            financials.financials_insert, 
-            financials.financials_payment, 
-            client_policy.type, 
-            client_policy.policy_number, 
-            client_policy.policystatus, 
-            client_policy.closer, 
-            client_policy.lead, 
-            client_policy.id AS POLID 
-        FROM 
-            financials 
-        JOIN 
-            client_policy
-        ON 
-            financials.financials_policy = client_policy.policy_number 
-        WHERE
-            client_policy.client_id=:id
-        AND 
-            financials.financials_provider='Vitality'
-        GROUP BY 
-            financials.financials_id");
-    $VIT_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $VIT_FIN->execute()or die(print_r($VIT_FIN->errorInfo(), true));
-    if ($VIT_FIN->rowCount() > 0) {
-        ?>
-
-                            <table  class='table table-hover table-condensed'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='7'>Vitality</th>
-                                    </tr>
-                                <th>Comm Date</th>
-                                <th>Policy</th>
-                                <th>Commission Type</th>
-                                <th>Policy Status</th>
-                                <th>Closer</th>
-                                <th>Lead</th>
-                                <th>Amount</th>
-                                </thead>
-
-                                <?php
-                                while ($row = $VIT_FIN->fetch(PDO::FETCH_ASSOC)) {
-
-                                    if (isset($row['POLID'])) {
-
-                                        $PID = $row['POLID'];
-                                    }
-
-                                    echo '<tr>';
-                                    echo "<td>" . $row['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['type'] . "</td>";
-                                    echo "<td>" . $row['policystatus'] . "</td>";
-                                    echo "<td>" . $row['closer'] . "</td>";
-                                    echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['financials_payment']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
-                                    } else if (intval($row["financials_payment"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
-                                    } else {
-                                        echo "<td>" . $row['financials_payment'] . "</td>";
-                                    }
-                                    echo "</tr>";
-                                    echo "\n";
-                                }
+                            
+                            if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
+                            
+                            require_once(__DIR__ . '/models/financials/transactions/VitModel.php');
+                            $VITtrans = new VITtransModel($pdo);
+                            $VITtransList = $VITtrans->getVITtrans($search);
+                            require_once(__DIR__ . '/views/financials/transactions/vit-view.php');             
+                            
                             }
-                        ?>
-
-                    </table>
-
-<?php
-
-    $RL_FIN = $pdo->prepare("SELECT
-            financials.financials_insert, 
-            financials.financials_payment, 
-            client_policy.type, 
-            client_policy.policy_number, 
-            client_policy.policystatus, 
-            client_policy.closer, 
-            client_policy.lead, 
-            client_policy.id AS POLID 
-        FROM 
-            financials 
-        JOIN 
-            client_policy
-        ON 
-            financials.financials_policy = client_policy.policy_number 
-        WHERE
-            client_policy.client_id=:id
-        AND 
-            financials.financials_provider='Royal London'
-        GROUP BY 
-            financials.financials_id");
-    $RL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $RL_FIN->execute()or die(print_r($RL_FIN->errorInfo(), true));
-    if ($RL_FIN->rowCount() > 0) {
-        ?>
-
-                            <table  class='table table-hover table-condensed'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='7'>Royal London</th>
-                                    </tr>
-                                <th>Comm Date</th>
-                                <th>Policy</th>
-                                <th>Commission Type</th>
-                                <th>Policy Status</th>
-                                <th>Closer</th>
-                                <th>Lead</th>
-                                <th>Amount</th>
-                                </thead>
-
-                                <?php
-                                while ($row = $RL_FIN->fetch(PDO::FETCH_ASSOC)) {
-
-                                    if (isset($row['POLID'])) {
-
-                                        $PID = $row['POLID'];
-                                    }
-
-                                    echo '<tr>';
-                                    echo "<td>" . $row['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['type'] . "</td>";
-                                    echo "<td>" . $row['policystatus'] . "</td>";
-                                    echo "<td>" . $row['closer'] . "</td>";
-                                    echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['financials_payment']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
-                                    } else if (intval($row["financials_payment"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
-                                    } else {
-                                        echo "<td>" . $row['financials_payment'] . "</td>";
-                                    }
-                                    echo "</tr>";
-                                    echo "\n";
-                                }
-                            }
-                        ?>
-
-                    </table>
+                            
+                            if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
+                            
+                            require_once(__DIR__ . '/models/financials/transactions/RLModel.php');
+                            $RLtrans = new RLtransModel($pdo);
+                            $RLtransList = $RLtrans->getRLtrans($search);
+                            require_once(__DIR__ . '/views/financials/transactions/rl-view.php');             
+                            
+                            }   
+                            
+                            if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
+                            
+                            require_once(__DIR__ . '/models/financials/transactions/AVIModel.php');
+                            $AVItrans = new AVItransModel($pdo);
+                            $AVItransList = $AVItrans->getAVItrans($search);
+                            require_once(__DIR__ . '/views/financials/transactions/avi-view.php');             
+                            
+                            }  
+                            
+                            if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
+                            
+                            require_once(__DIR__ . '/models/financials/transactions/WOLModel.php');
+                            $WOLtrans = new WOLtransModel($pdo);
+                            $WOLtransList = $WOLtrans->getWOLtrans($search);
+                            require_once(__DIR__ . '/views/financials/transactions/wol-view.php');             
+                            
+                            }                             
+                            
+                            } ?>
                     
-<?php
-
-    $AVIVA_FIN = $pdo->prepare("SELECT
-            financials.financials_insert, 
-            financials.financials_payment, 
-            client_policy.type, 
-            client_policy.policy_number, 
-            client_policy.policystatus, 
-            client_policy.closer, 
-            client_policy.lead, 
-            client_policy.id AS POLID 
-        FROM 
-            financials 
-        JOIN 
-            client_policy
-        ON 
-            financials.financials_policy = client_policy.policy_number 
-        WHERE
-            client_policy.client_id=:id
-        AND 
-            financials.financials_provider='Aviva'
-        GROUP BY 
-            financials.financials_id");
-    $AVIVA_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $AVIVA_FIN->execute()or die(print_r($AVIVA_FIN->errorInfo(), true));
-    if ($AVIVA_FIN->rowCount() > 0) {
-        ?>
-
-                            <table  class='table table-hover table-condensed'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='7'>Aviva</th>
-                                    </tr>
-                                <th>Comm Date</th>
-                                <th>Policy</th>
-                                <th>Commission Type</th>
-                                <th>Policy Status</th>
-                                <th>Closer</th>
-                                <th>Lead</th>
-                                <th>Amount</th>
-                                </thead>
-
-                                <?php
-                                while ($row = $AVIVA_FIN->fetch(PDO::FETCH_ASSOC)) {
-
-                                    if (isset($row['POLID'])) {
-
-                                        $PID = $row['POLID'];
-                                    }
-
-                                    echo '<tr>';
-                                    echo "<td>" . $row['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['type'] . "</td>";
-                                    echo "<td>" . $row['policystatus'] . "</td>";
-                                    echo "<td>" . $row['closer'] . "</td>";
-                                    echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['financials_payment']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
-                                    } else if (intval($row["financials_payment"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
-                                    } else {
-                                        echo "<td>" . $row['financials_payment'] . "</td>";
-                                    }
-                                    echo "</tr>";
-                                    echo "\n";
-                                }
-                            }
-                        ?>
-
-                    </table>                       
-
-<?php
-
-    $WOL_FIN = $pdo->prepare("SELECT
-            financials.financials_insert, 
-            financials.financials_payment, 
-            client_policy.type, 
-            client_policy.policy_number, 
-            client_policy.policystatus, 
-            client_policy.closer, 
-            client_policy.lead, 
-            client_policy.id AS POLID 
-        FROM 
-            financials 
-        JOIN 
-            client_policy
-        ON 
-            financials.financials_policy = client_policy.policy_number 
-        WHERE
-            client_policy.client_id=:id
-        AND 
-            financials.financials_provider='One Family'
-        GROUP BY 
-            financials.financials_id");
-    $WOL_FIN->bindParam(':id', $search, PDO::PARAM_INT);
-    $WOL_FIN->execute()or die(print_r($WOL_FIN->errorInfo(), true));
-    if ($WOL_FIN->rowCount() > 0) {
-        ?>
-
-                            <table  class='table table-hover table-condensed'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='7'>One Family</th>
-                                    </tr>
-                                <th>Comm Date</th>
-                                <th>Policy</th>
-                                <th>Commission Type</th>
-                                <th>Policy Status</th>
-                                <th>Closer</th>
-                                <th>Lead</th>
-                                <th>Amount</th>
-                                </thead>
-
-                                <?php
-                                while ($row = $WOL_FIN->fetch(PDO::FETCH_ASSOC)) {
-
-                                    if (isset($row['POLID'])) {
-
-                                        $PID = $row['POLID'];
-                                    }
-
-                                    echo '<tr>';
-                                    echo "<td>" . $row['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $row['policy_number'] . "</a></td>";
-                                    echo "<td>" . $row['type'] . "</td>";
-                                    echo "<td>" . $row['policystatus'] . "</td>";
-                                    echo "<td>" . $row['closer'] . "</td>";
-                                    echo "<td>" . $row['lead'] . "</td>";
-                                    if (intval($row['financials_payment']) > 0) {
-                                        echo "<td><span class=\"label label-success\">" . $row['financials_payment'] . "</span></td>";
-                                    } else if (intval($row["financials_payment"]) < 0) {
-                                        echo "<td><span class=\"label label-danger\">" . $row['financials_payment'] . "</span></td>";
-                                    } else {
-                                        echo "<td>" . $row['financials_payment'] . "</td>";
-                                    }
-                                    echo "</tr>";
-                                    echo "\n";
-                                }
-                            }
-                        ?>
-
-                    </table>                    
-
                 </div>
             </div>
-            
-                    <?php } ?>
             
             <div id="menu4" class="tab-pane fade">
 

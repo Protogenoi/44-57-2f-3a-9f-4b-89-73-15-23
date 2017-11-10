@@ -214,7 +214,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         ?>
 
                     </span></a></li>
+                    <?php if($ffcallbacks==1) { ?>
             <li><a data-toggle='modal' data-target='#CK_MODAL'>Callbacks</a></li>
+                    <?php } ?>
             <li><a data-toggle="pill" href="#menu2">Files & Uploads <span class="badge alert-warning">
 
                         <?php
@@ -3279,7 +3281,7 @@ WHERE
                 </div>
             </div>
         </div>
-
+<?php if($ffcallbacks==1) { ?>
         <div id='CK_MODAL' class='modal fade' role='dialog'>
             <div class='modal-dialog modal-lg'>
                 <div class='modal-content'>
@@ -3466,8 +3468,11 @@ WHERE
                         </div>
                     </div>
                 </div>
-            </div></div>
+            </div>
+        </div>
+   <?php } ?>
 
+    <?php if($ffcallbacks==1) { ?>    
         <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
         <script type="text/javascript">
@@ -3476,6 +3481,7 @@ WHERE
                             });
         </script>
         <script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
+    <?php } ?>
         <script>
                             document.querySelector('#clientnotessubtab').addEventListener('submit', function (e) {
                                 var form = this;

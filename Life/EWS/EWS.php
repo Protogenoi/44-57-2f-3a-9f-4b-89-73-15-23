@@ -208,7 +208,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
 //CALCULATE TOTAL WITH DATES
     require_once(__DIR__ . '/models/EWS/raw/TOTAL.php');
     $RawTOTAL = new RawTOTALModal($pdo);
-    $RawTOTALList = $RawTOTAL->getRawTOTAL($EWS_DATE);
+    $RAWTOTALList = $RawTOTAL->getRawTOTAL($EWS_DATE);
     require_once(__DIR__ . '/views/EWS/raw/TOTAL.php');                            
     //END OF CALCULATION       
                         ?>       

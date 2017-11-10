@@ -1816,9 +1816,6 @@ WHERE
                                 }
                             }
                         }
-
-                        try {
-
                             $queryup = $pdo->prepare("SELECT file, uploadtype FROM tbl_uploads WHERE file like :file");
                             $queryup->bindParam(':file', $likesearch, PDO::PARAM_INT);
                             $queryup->execute();
@@ -2051,9 +2048,6 @@ WHERE
             }
         }
     }
-} catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
-}
 ?>
                     </div>
 
@@ -2072,7 +2066,6 @@ WHERE
                                 </tr>
 
                                         <?php
-                                        try {
 
                                             $query = $pdo->prepare("SELECT file, uploadtype, id FROM tbl_uploads WHERE file like :file");
                                             $query->bindParam(':file', $likesearch, PDO::PARAM_STR, 150);
@@ -2144,29 +2137,13 @@ WHERE
 
                         <?php
                     }
-                } catch (PDOException $e) {
-                    echo 'Connection failed: ' . $e->getMessage();
-                }
             }
             ?>
                     </table>
                 </div>
             </div>
 
-                    <?php
-                    try {
-
-                        $query55 = $pdo->prepare("SELECT leadauditid, client_id, title, first_name, last_name, email, title2, first_name2, last_name2, dob2, email2 FROM client_details WHERE client_id =:CID");
-                        $query55->bindParam(':CID', $search, PDO::PARAM_INT);
-                        $query55->execute();
-                        $Single_Client = $query55->fetch(PDO::FETCH_ASSOC);
-                    } catch (PDOException $e) {
-                        echo 'Connection failed: ' . $e->getMessage();
-                    }
-                    
-                    
-                    if(in_array($hello_name, $Level_10_Access,true)) {
-                    ?>
+                    <?php if(in_array($hello_name, $Level_10_Access,true)) { ?>
 
   <div id="TRACKING" class="tab-pane fade">
       <div class="container">

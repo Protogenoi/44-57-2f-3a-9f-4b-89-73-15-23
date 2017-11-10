@@ -1715,7 +1715,32 @@ WHERE
         
                                     <a class="list-group-item" href="/audits/Aviva/View.php?EXECUTE=VIEW&AUDITID=<?php echo $AVIVA_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Closer Audit</a>
        <?php }
-                            }
+                                    
+        $LEAD_AUDIT_QRY = $pdo->prepare("SELECT 
+    id
+FROM
+    Audit_LeadGen
+WHERE
+    an_number = (SELECT 
+            application_number
+        FROM
+            client_policy
+        WHERE
+            client_id = :CID
+                AND insurer = 'Aviva'
+        GROUP BY application_number)");
+        $LEAD_AUDIT_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+        $LEAD_AUDIT_QRY->execute();
+        $LEAD_AUDIT_ROW = $LEAD_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
+        
+        if ($LEAD_AUDIT_QRY->rowCount() > 0) {
+
+        $LEAD_LEAD_ID = $LEAD_AUDIT_ROW['id'];     ?>                                  
+                                    
+                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Lead Audit</a>
+                                    
+                                    
+        <?php                }    }
                             
                         }
 

@@ -169,20 +169,15 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 <body>
     <?php
     require_once(__DIR__ . '/../includes/navbar.php');
-    
 
-    try {
         $anquery = $pdo->prepare("select application_number from client_policy where client_id=:search");
         $anquery->bindParam(':search', $search, PDO::PARAM_INT);
         $anquery->execute();
         $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
 
         $an_number = $ansearch['application_number'];
-    } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-    }
-
-    try {
+        
+        if(!empty($an_number)) {
 
         $auditquery = $pdo->prepare("select closer_audits.id AS CLOSER, closer_audits.grade AS CGRADE, Audit_LeadGen.id AS LEAD, Audit_LeadGen.grade AS LGRADE from closer_audits LEFT JOIN Audit_LeadGen on closer_audits.an_number=Audit_LeadGen.an_number where closer_audits.an_number=:annum");
         $auditquery->bindParam(':annum', $an_number, PDO::PARAM_STR);
@@ -193,9 +188,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
         $leadaudit = $auditre['LEAD'];
         $CGRADE = $auditre['CGRADE'];
         $LGRADE = $auditre['LGRADE'];
-    } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-    }
+        
+        }
+
     ?>
     <br>
     <div class="container">
@@ -2193,9 +2188,7 @@ WHERE
                     
                     if(in_array($hello_name, $Level_10_Access,true)) {
                     ?>
-            
-            
-            
+
   <div id="TRACKING" class="tab-pane fade">
       <div class="container">
           
@@ -2215,8 +2208,10 @@ WHERE
           
   </div>
             
-                    <?php } ?>
-
+                    <?php } 
+                    
+                    if (in_array($hello_name, $Level_10_Access, true)) { ?>
+            
             <div id="menu3" class="tab-pane fade">
                 <div class="container">
 
@@ -2595,7 +2590,9 @@ try {
 
                 </div>
             </div>
-
+            
+                    <?php } ?>
+            
             <div id="menu4" class="tab-pane fade">
 
                 <?php

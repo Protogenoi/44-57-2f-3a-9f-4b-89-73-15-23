@@ -604,7 +604,7 @@ if(empty($CID)) {
                                 </p>
                             </form>
                             
-                            <form class="AddClient" method="POST" action="/php/sms.php">
+                            <form class="AddClient" method="POST">
                                 <input type="hidden" name="keyfield" value="<?php echo $CID?>">
                                 <div class="form-group">
                                     <label for="selectsms">Select SMS:</label>
@@ -720,7 +720,7 @@ if(empty($CID)) {
                                 </p>
                             </form>
                             
-                            <form class="AddClient" method="POST" action="/php/sms.php">
+                            <form class="AddClient" method="POST">
                                 <input type="hidden" name="keyfield" value="<?php echo $CID;?>">
                                 <div class="form-group">
                                     <label for="selectsms">Select SMS:</label>

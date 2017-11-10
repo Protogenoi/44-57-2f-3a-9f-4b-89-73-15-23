@@ -1666,10 +1666,12 @@ if (isset($fileuploadedfail)) {
 
                                 <span class="label label-primary">Audit Reports</span>                    
 
-                                <?php if (!empty($closeraudit)) { ?>
-                                    <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Closer Audit</a>
+                                <?php 
+                                
+                                if (!empty($closeraudit)) { ?>
+                                    <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Closer Audit</a>
                                 <?php } if (!empty($leadaudit)) { ?>
-                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Lead Audit</a>
+                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Lead Audit</a>
 
                                     <?php
                                 }
@@ -1684,9 +1686,37 @@ if (isset($fileuploadedfail)) {
 
         $WOL_AUDIT_ID = $WOL_AUDIT_ROW['wol_id'];   ?>
         
-                                    <a class="list-group-item" href="/audits/WOL/View.php?query=View&WOLID=<?php echo $WOL_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Closer Audit</a>
+                                    <a class="list-group-item" href="/audits/WOL/View.php?query=View&WOLID=<?php echo $WOL_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Closer Audit</a>
        <?php }
                             }
+                            
+if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {
+                                
+        $AVIVA_AUDIT_QRY = $pdo->prepare("SELECT 
+    aviva_audit_id
+FROM
+    aviva_audit
+WHERE
+    aviva_audit_policy = (SELECT 
+            application_number
+        FROM
+            client_policy
+        WHERE
+            client_id = :CID
+                AND insurer = 'Aviva'
+        GROUP BY application_number)");
+        $AVIVA_AUDIT_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+        $AVIVA_AUDIT_QRY->execute();
+        $AVIVA_AUDIT_ROW = $AVIVA_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
+        
+        if ($AVIVA_AUDIT_QRY->rowCount() > 0) {
+
+        $AVIVA_AUDIT_ID = $AVIVA_AUDIT_ROW['aviva_audit_id'];   ?>
+        
+                                    <a class="list-group-item" href="/audits/Aviva/View.php?EXECUTE=VIEW&AUDITID=<?php echo $AVIVA_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Closer Audit</a>
+       <?php }
+                            }
+                            
                         }
 
                         if ($ffdialler == '1') {

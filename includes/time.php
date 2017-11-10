@@ -25,8 +25,7 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
                 $USER_TRACKING_QRY->bindParam(':USER', $hello_name, PDO::PARAM_STR);
                 $USER_TRACKING_QRY->execute();      
    
-    header('Location: ../../CRMmain.php?action=log_out');
-    die;
+    $FORCE_LOGOUT=1;
     
 }
 }

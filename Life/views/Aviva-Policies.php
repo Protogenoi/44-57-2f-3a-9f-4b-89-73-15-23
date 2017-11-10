@@ -6,8 +6,9 @@
         <tr>
             <th>Client</th>
             <th>Policy</th>
+            <th>AN</th>
             <th>Type</th>
-            <th>Comm Type</th>
+            <th>Comm</th>
             <th>Term</th>
             <th>Premium</th>
             <th>Cover</th>
@@ -25,6 +26,7 @@
         $polref = $Aviva_Policies['policy_number'];
         $polcap[] = $Aviva_Policies['id'];
         $POL_HOLDER = $Aviva_Policies['client_name'];
+        $APP_NUMBER = $Aviva_Policies['application_number'];
 
         $ADLSTATUS = $Aviva_Policies['ADLSTATUS'];
         $EWSSTATUS = $Aviva_Policies['warning'];
@@ -38,6 +40,7 @@
         } else {
             echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
         }
+        echo "<td>$APP_NUMBER</td>";
         echo "<td>" . $Aviva_Policies['type'] . "</td>";
         echo "<td>" . $Aviva_Policies['CommissionType'] . "</td>";
         echo "<td>" . $Aviva_Policies['polterm'] . "</td>";

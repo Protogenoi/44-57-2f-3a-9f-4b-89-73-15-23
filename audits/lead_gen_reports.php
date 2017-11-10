@@ -14,20 +14,21 @@ require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../includes/ADL_MYSQLI_CON.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
-if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
-}
+    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '../../class/login/login.php');
 
-if ($ffaudits=='0') {
-        
-        header('Location: /../CRMmain.php'); die;
-    }
-
-
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -39,6 +40,15 @@ if ($ffaudits=='0') {
         die;    
             
         }
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../php/analyticstracking.php');
+}
+
+if ($ffaudits=='0') {
+        
+        header('Location: /../CRMmain.php'); die;
+    }
 
 $step= filter_input(INPUT_GET, 'step', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -1012,7 +1022,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "datatables/AuditSearch.php?AuditType=NewLeadGen",
+        "ajax": "datatables/AuditSearch.php?AuditType=NewLeadGen&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -1097,7 +1107,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "datatables/AuditSearch.php?AuditType=OldLeadGen",
+        "ajax": "datatables/AuditSearch.php?AuditType=OldLeadGen&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

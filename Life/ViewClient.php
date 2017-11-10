@@ -515,8 +515,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             if (empty($dealsheet_id)) {
 
-                                try {
-
                                     $Dealquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Dealsheet'");
                                     $Dealquery->bindParam(':search', $search_file_var, PDO::PARAM_INT);
                                     $Dealquery->execute();
@@ -531,9 +529,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
+
                             } else {
                                 ?>
                                 <a href="LifeDealSheet.php?REF=<?php echo $dealsheet_id; ?>&query=CompletedADL" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> ADL Dealsheet</a>
@@ -574,8 +570,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }                                 
-                                    
-                                try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGpolicy'");
                                     $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -591,11 +585,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-
-                                try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGkeyfacts'");
                                     $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -611,14 +600,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
+
                             }
 
                             if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY=='Vitality') {
-
-                                try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitypolicy'");
                                     $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -634,11 +619,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-
-                                try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitykeyfacts'");
                                     $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -654,14 +634,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
                             }
                             
                             if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY=='Aviva') {
-
-                                try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivapolicy'");
                                     $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -677,11 +652,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-
-                                try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivakeyfacts'");
                                     $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -697,14 +667,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
                             }
 
                             if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY=='Royal London') {
-
-                                try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLpolicy'");
                                     $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -720,11 +685,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-
-                                try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLkeyfacts'");
                                     $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -740,14 +700,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
                             }  
                             
                             if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY=='One Family') {
-
-                                try {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLpolicy'");
                                     $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -763,11 +718,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
-
-                                try {
 
                                     $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLkeyfacts'");
                                     $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
@@ -783,9 +733,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <?php
                                         }
                                     }
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
+
                             }                            
                             ?>
 
@@ -993,8 +941,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                 }
 
-                                                try {
-
                                                     $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
                                                     $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
@@ -1008,9 +954,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
-                                                } catch (PDOException $e) {
-                                                    echo 'Connection failed: ' . $e->getMessage();
-                                                }
+
                                                 ?>
 
                                             </select>
@@ -1174,8 +1118,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                 }
 
-                                                try {
-
                                                     $SMSquery = $pdo->prepare("SELECT title from sms_templates WHERE insurer =:insurer AND company=:COMPANY OR insurer='NA' AND company=:COMPANY2");
                                                     $SMSquery->bindParam(':insurer', $SMS_INSURER, PDO::PARAM_STR);
                                                     $SMSquery->bindParam(':COMPANY', $WHICH_COMPANY, PDO::PARAM_STR);
@@ -1189,9 +1131,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                             echo "<option value='$smstitle'>$smstitle</option>";
                                                         }
                                                     }
-                                                } catch (PDOException $e) {
-                                                    echo 'Connection failed: ' . $e->getMessage();
-                                                }
+
                                                 ?>
 
                                             </select>
@@ -2172,7 +2112,6 @@ WHERE
                 <div class="container">
 
 <?php
-try {
 
     $LG_FIN = $pdo->prepare("SELECT financial_statistics_history.*, client_policy.policy_number, client_policy.CommissionType, client_policy.policystatus, client_policy.closer, client_policy.lead, client_policy.id AS POLID FROM financial_statistics_history join client_policy on financial_statistics_history.Policy = client_policy.policy_number WHERE client_id=:id GROUP BY financial_statistics_history.id");
     $LG_FIN->bindParam(':id', $search, PDO::PARAM_INT);
@@ -2235,13 +2174,9 @@ try {
                                     echo "\n";
                                 }
                             }
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
                         ?>
                     </table>
 <?php
-try {
 
     $VIT_FIN = $pdo->prepare("SELECT
             financials.financials_insert, 
@@ -2309,15 +2244,11 @@ try {
                                     echo "\n";
                                 }
                             }
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
                         ?>
 
                     </table>
 
 <?php
-try {
 
     $RL_FIN = $pdo->prepare("SELECT
             financials.financials_insert, 
@@ -2385,15 +2316,11 @@ try {
                                     echo "\n";
                                 }
                             }
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
                         ?>
 
                     </table>
                     
 <?php
-try {
 
     $AVIVA_FIN = $pdo->prepare("SELECT
             financials.financials_insert, 
@@ -2461,15 +2388,11 @@ try {
                                     echo "\n";
                                 }
                             }
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
                         ?>
 
                     </table>                       
 
 <?php
-try {
 
     $WOL_FIN = $pdo->prepare("SELECT
             financials.financials_insert, 
@@ -2537,9 +2460,6 @@ try {
                                     echo "\n";
                                 }
                             }
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
                         ?>
 
                     </table>                    
@@ -3119,7 +3039,6 @@ try {
 
                 <h3><span class="label label-info">Client Timeline</span></h3>             
                     <?php
-                        try {
 
                             $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
                             $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
@@ -3250,11 +3169,9 @@ try {
                             } else {
                                 echo "<br><br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No data/information found (Client notes)</div>";
                             }
-                            echo "</table>";
-                        } catch (PDOException $e) {
-                            echo 'Connection failed: ' . $e->getMessage();
-                        }
+
                     ?>
+                        </table>
             </div>
 
         </div>
@@ -3405,7 +3322,6 @@ try {
                                                                         <option value='<?php echo $hello_name; ?>'><?php echo $hello_name; ?></option>
 
                                                                         <?php
-                                                                        try {
 
                                                                             $calluser = $pdo->prepare("SELECT login, real_name from users where extra_info ='User'");
 
@@ -3419,9 +3335,6 @@ try {
                                                                                     <?php
                                                                                 }
                                                                             }
-                                                                        } catch (PDOException $e) {
-                                                                            echo 'Connection failed: ' . $e->getMessage();
-                                                                        }
                                                                         ?>
 
                                                                     </select>

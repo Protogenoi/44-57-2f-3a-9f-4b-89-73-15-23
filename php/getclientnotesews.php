@@ -68,7 +68,7 @@ if(isset($query)) {
     }
     }
 
-include('../includes/PDOcon.php');
+include('../includes/ADL_MYSQLI_CON.php');
 if(isset($Legacy)) {
     
     if($Legacy=='1') {   
@@ -77,7 +77,7 @@ if(isset($Legacy)) {
          $y= filter_input(INPUT_POST, 'pid', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $sql = "select message, sent_by, date_sent from legacy_client_note where client_id ='$x' and client_name='$y' and note_type='ews status update' ORDER BY date_sent DESC";
-        $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+        $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
         
         $rows = array();
         while($r =mysqli_fetch_assoc($result)) {
@@ -125,7 +125,7 @@ else {
 
 
     $sql = "select message, sent_by, date_sent from client_note where client_id ='$x' and client_name='$y' and note_type='ews status update' ORDER BY date_sent DESC";
-    $result = mysqli_query($connection, $sql) or die("Error in Selecting " . mysqli_error($connection));
+    $result = mysqli_query($conn, $sql) or die("Error in Selecting " . mysqli_error($conn));
 
 
     $rows = array();

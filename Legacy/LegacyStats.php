@@ -59,7 +59,6 @@ if (isset($fferror)) {
     
     <?php
     include('../includes/navbar.php');
-    include('../includes/PDOcon.php');
             include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
     
     if($ffanalytics=='1') {

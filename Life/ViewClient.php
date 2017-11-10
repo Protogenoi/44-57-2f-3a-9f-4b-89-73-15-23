@@ -1726,7 +1726,7 @@ WHERE
         WHERE
             client_id = :CID
                 AND insurer = 'Aviva'
-        GROUP BY application_number)");
+        LIMIT 1) GROUP BY aviva_audit_id");
         $AVIVA_AUDIT_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
         $AVIVA_AUDIT_QRY->execute();
         $AVIVA_AUDIT_ROW = $AVIVA_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
@@ -1750,7 +1750,7 @@ WHERE
         WHERE
             client_id = :CID
                 AND insurer = 'Aviva'
-        GROUP BY application_number)");
+        LIMIT 1) GROUP BY id");
         $LEAD_AUDIT_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
         $LEAD_AUDIT_QRY->execute();
         $LEAD_AUDIT_ROW = $LEAD_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);

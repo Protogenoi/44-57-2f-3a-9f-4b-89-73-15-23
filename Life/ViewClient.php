@@ -904,8 +904,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 <?php
                 if ($ffcallbacks == '1') {
 
-                    try {
-
                         $query = $pdo->prepare("SELECT CONCAT(callback_time, ' - ', callback_date) AS calltimeid from scheduled_callbacks WHERE client_id =:CID");
                         $query->bindParam(':CID', $search, PDO::PARAM_INT);
                         $query->execute();
@@ -914,9 +912,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $calltimeid = $pullcall['calltimeid'];
 
                         echo "<button type=\"button\" class=\"btn btn-default btn-block\" data-toggle=\"modal\" data-target=\"#schcallback\"><i class=\"fa fa-calendar-check-o\"></i> Schedule callback ($calltimeid)</button>";
-                    } catch (PDOException $e) {
-                        echo 'Connection failed: ' . $e->getMessage();
-                    }
+
                 }
                 ?>
             </div>
@@ -933,19 +929,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             <?php
                             if ($ffsms == '1') {
 
-                                try {
-
-                                    $smsquery = $pdo->prepare("select smsprovider, smsusername, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword from sms_accounts limit 1");
-                                    $smsquery->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
-                                    $smsquery->execute()or die(print_r($query->errorInfo(), true));
-                                    $smsaccount = $smsquery->fetch(PDO::FETCH_ASSOC);
-
-                                    $smsuser = $smsaccount['smsusername'];
-                                    $smspass = $smsaccount['smspassword'];
-                                    $smspro = $smsaccount['smsprovider'];
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
                                 ?>
                                 <br> 
 
@@ -1128,19 +1111,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             <?php
                             if ($ffsms == '1') {
 
-                                try {
-
-                                    $smsquery = $pdo->prepare("select smsprovider, smsusername, AES_DECRYPT(smspassword, UNHEX(:key)) AS smspassword from sms_accounts limit 1");
-                                    $smsquery->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500);
-                                    $smsquery->execute()or die(print_r($query->errorInfo(), true));
-                                    $smsaccount = $smsquery->fetch(PDO::FETCH_ASSOC);
-
-                                    $smsuser = $smsaccount['smsusername'];
-                                    $smspass = $smsaccount['smspassword'];
-                                    $smspro = $smsaccount['smsprovider'];
-                                } catch (PDOException $e) {
-                                    echo 'Connection failed: ' . $e->getMessage();
-                                }
                                 ?>
                                 <br> 
 

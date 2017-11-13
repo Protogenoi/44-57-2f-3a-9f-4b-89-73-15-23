@@ -92,7 +92,7 @@ $CBDATE = filter_input(INPUT_GET, 'CBDATE', FILTER_SANITIZE_SPECIAL_CHARS);
                 if(in_array($hello_name,$ADMIN_EWS_SEARCH_ACCESS)) {
               ?>
               
-<div class='notice notice-primary' role='alert'><center><strong>Search clients</strong></center></div>
+<div class='notice notice-primary' role='alert'><center><strong>Search EWS timeline notes</strong></center></div>
 
 <form metho="GET" action="">
 <div class="col-md-2">
@@ -101,7 +101,7 @@ $CBDATE = filter_input(INPUT_GET, 'CBDATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 <div class="col-md-2">
     <div class="btn-group">
-        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search EWS notes</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search</button>
     </div>
 </div>
 </form>

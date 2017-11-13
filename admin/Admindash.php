@@ -109,6 +109,7 @@ $companynamere = $companydetailsq['company_name'];
 
                 <a class="list-group-item" href="?AssignTasks=y"><i class="fa fa-tasks fa-fw"></i>&nbsp; Task Assignment</a>
 
+                <a class="list-group-item" href="?EWSSelect=y"><i class="fa fa-tasks fa-fw"></i>&nbsp; EWS Assignment</a>
 
                 <a class="list-group-item" href="?Vicidial=y"><i class="fa fa-headphones fa-fw"></i>&nbsp; Bluetelecoms Integration</a>
 
@@ -133,6 +134,7 @@ $companynamere = $companydetailsq['company_name'];
                         $SMSselect = filter_input(INPUT_GET, 'SMS', FILTER_SANITIZE_SPECIAL_CHARS);
                         $Emailselect = filter_input(INPUT_GET, 'Emails', FILTER_SANITIZE_SPECIAL_CHARS);
                         $AssignTasksselect = filter_input(INPUT_GET, 'AssignTasks', FILTER_SANITIZE_SPECIAL_CHARS);
+                        $EWS_SELECT = filter_input(INPUT_GET, 'EWSSelect', FILTER_SANITIZE_SPECIAL_CHARS);
                         $usersselect = filter_input(INPUT_GET, 'users', FILTER_SANITIZE_SPECIAL_CHARS);
                         $adminselect = filter_input(INPUT_GET, 'admindash', FILTER_SANITIZE_SPECIAL_CHARS);
                         $vicidialselect = filter_input(INPUT_GET, 'Vicidial', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -1677,6 +1679,148 @@ $companynamere = $companydetailsq['company_name'];
                                                     swal({
                                                         title: 'Assigned!',
                                                         text: 'Task assigned!',
+                                                        type: 'success'
+                                                    }, function () {
+                                                        form.submit();
+                                                    });
+
+                                                } else {
+                                                    swal("Cancelled", "No changes were made", "error");
+                                                }
+                                            });
+                                });
+
+                            </script>
+    <?php
+}
+
+if ($EWS_SELECT == 'y') {
+
+
+
+
+                                    $EWSAssigned = filter_input(INPUT_GET, 'EWSAssigned', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                                    if (isset($EWSAssigned)) {
+
+                                        $EWSAssignedTo = filter_input(INPUT_GET, 'TaskAssignedTo', FILTER_SANITIZE_SPECIAL_CHARS);
+                                        $EWSUPDATED = filter_input(INPUT_GET, 'EWSUPDATED', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                                        if ($EWSAssigned == 'y') {
+
+                                            echo"<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> EWS status $EWSUPDATED has been updated and assigned to $EWSAssignedTo!</div><br>";
+                                        }
+
+                                        if ($EWSAssigned == 'failed') {
+
+                                            print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes have been made!</div><br>");
+                                        }
+                                    }
+                                    ?>
+
+                            <h1><i class="fa fa-tasks"></i> Assign EWS statuses</h1>
+
+
+                            <legend>EWS currently set</legend>
+
+                            <?php
+                            $query = $pdo->prepare("SELECT assigned, status from assign_ews_status");
+                            ?>
+
+                            <table id="Already Assigned" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Status</th>
+                                        <th>Assigned</th>                                
+                                    </tr>
+                                </thead>
+
+                            <?php
+                            $query->execute();
+                            if ($query->rowCount() > 0) {
+                                while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                    echo '<tr>';
+                                    echo "<td>" . $result['status'] . "</td>";
+                                    echo "<td>" . $result['assigned'] . "</td>";
+                                    echo '</tr>';
+                                }
+                            } else {
+                                ?>
+
+                                    <div class="notice notice-info" role="alert"><strong><i class="fa fa-exclamation-triangle fa-lg"></i> Info:</strong> No EWS warning have been assigned yet!</div><br>
+
+
+                                <?php } ?>
+                            </table>
+                            <legend>Update who get assigned</legend>
+                                <?php
+                                $EWSArray = array("BOUNCED DD","CANCELLED","CANCELLED DD","CFO","LAPSED","RE-INSTATED","REDRAWN","WILL CANCEL","WILL REDRAW");
+                                $arrlength = count($EWSArray);
+                                $LVL_8_COUNT = count($Level_8_Access);
+                                ?>
+
+                            <form class="form-inline" id="EWSFORM" name="EWSFORM" action="php/AssignEWS.php?EXECUTE=1" method='POST'>
+                                <fieldset>
+
+                                    <div class="form-group">
+                                        <label class="control-label" for="EWS_STATUS">EWS Status</label> 
+                                        <select name="EWS_STATUS" id="EWS_STATUS">
+                            <?php for ($x = 0; $x < $arrlength; $x++) {
+                                ?><option value="<?php if (isset($EWSArray)) {
+                            echo $EWSArray[$x];
+                        } ?>"><?php if (isset($EWSArray)) {
+                            echo $EWSArray[$x];
+                        } ?></option>
+
+    <?php } ?>   
+                                        </select>
+                                    </div>
+                                        
+                                       <div class="form-group">
+                                        <label class="control-label" for="EWS_USER">EWS User</label>  
+                                        <select name="EWS_USER" id="EWS_USER">
+                            <?php for ($x = 0; $x < $LVL_8_COUNT; $x++) {
+                                ?><option value="<?php if (isset($Level_8_Access)) {
+                            echo $Level_8_Access[$x];
+                        } ?>"><?php if (isset($Level_8_Access)) {
+                            echo $Level_8_Access[$x];
+                        } ?></option>
+
+    <?php } ?>                                           
+</select>
+                                       </div>
+               
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="submittask"></label>
+                                            <div class="col-md-4">
+                                                <button class="btn btn-success"><i class="fa  fa-check-circle-o"></i></button>
+                                            </div>
+                                        </div>
+
+                                </fieldset>
+                            </form>                        
+                            <script>
+                                document.querySelector('#EWSFORM').addEventListener('submit', function (e) {
+                                    var form = this;
+                                    e.preventDefault();
+                                    swal({
+                                        title: "Assign EWS?",
+                                        text: "Are you sure you want to assign EWS to this user?",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#DD6B55',
+                                        confirmButtonText: 'Yes, I am sure!',
+                                        cancelButtonText: "No, cancel it!",
+                                        closeOnConfirm: false,
+                                        closeOnCancel: false
+                                    },
+                                            function (isConfirm) {
+                                                if (isConfirm) {
+                                                    swal({
+                                                        title: 'Assigned!',
+                                                        text: 'EWS assigned!',
                                                         type: 'success'
                                                     }, function () {
                                                         form.submit();

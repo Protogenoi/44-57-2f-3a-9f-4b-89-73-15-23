@@ -60,6 +60,4 @@ $COM_LVL_10_ACCESS = array("Michael");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton");
     
     $AUDIT_SEARCH_ACCESS=array("Amy","Nathan Thomas","Ryan","Ciara","Katie Guilfoyle");
-    
-    $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 ?>

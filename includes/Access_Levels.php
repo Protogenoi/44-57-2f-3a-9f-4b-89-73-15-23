@@ -55,6 +55,7 @@ $COM_LVL_10_ACCESS = array("Michael");
     
     $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","carys");
     $EWS_SEARCH_ACCESS=array("");
+    $ADMIN_EWS_SEARCH_ACCESS=array("carys","Nicola","Michael","Matt");
     $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton");
     

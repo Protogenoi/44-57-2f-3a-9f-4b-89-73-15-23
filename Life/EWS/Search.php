@@ -30,6 +30,7 @@ if (isset($fferror)) {
 }
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+$CBDATE = filter_input(INPUT_GET, 'CBDATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     require_once(__DIR__ . '../../../classes/database_class.php');
     require_once(__DIR__ . '../../../class/login/login.php');
@@ -75,6 +76,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/DataTable/datatables.min.css"/>
         <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
@@ -83,14 +85,28 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
         <div class="container">
-
+            
             <?php
 
             if ($ffews == '1') {
                 if(in_array($hello_name,$ADMIN_EWS_SEARCH_ACCESS)) {
               ?>
               
-<div class='notice notice-primary' role='alert'><center><strong>Search clients</strong></center></div> 
+<div class='notice notice-primary' role='alert'><center><strong>Search EWS by Clawbak Date</strong></center></div>
+
+<form metho="GET" action="">
+<div class="col-md-2">
+    <input type="text" id="CBDATE" name="CBDATE" value="<?php if(isset($CBDATE)) { echo "$CBDATE"; } ?>" class="form-control" placeholder="Search by Clawback Date">
+</div>
+
+<div class="col-md-2">
+    <div class="btn-group">
+        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search</button>
+    </div>
+</div>
+</form>
+               
+    <?php if(isset($CBDATE)) { ?>
 
                 <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
@@ -127,15 +143,16 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     </tfoot>
                 </table>  
             <?php 
-              } }
+            } } }
             ?>
           
         </div>
 
-        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <script type="text/javascript" src="/DataTable/datatables.min.js"></script>
-        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-1.11.1.min.js"></script>    
+    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
+    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 
         <script type="text/javascript">
@@ -166,7 +183,8 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         </div> 
 <?php 
             if ($ffews == '1') {
-                if(in_array($hello_name,$ADMIN_EWS_SEARCH_ACCESS)) { ?>
+                if(in_array($hello_name,$ADMIN_EWS_SEARCH_ACCESS)) { 
+                    if(isset($CBDATE)) { ?>
         <script type="text/javascript" language="javascript" >
              $(document).ready(function () {
                 var table = $('#clients').DataTable({
@@ -177,7 +195,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                                        "ajax": "datatables/EWS.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                        "ajax": "datatables/EWS.php?EXECUTE=1&CBDATE=<?php if(isset($CBDATE)) { echo $CBDATE; } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',
@@ -203,13 +221,23 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                 });
 
             });           
-        </script>
-        
+        </script>      
             <?php 
             
                     } 
                     
                     } 
+                    }
             ?>
+    <script>
+        $(function () {
+            $("#CBDATE").datepicker({
+                dateFormat: 'M-y',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:-0"
+            });
+        });
+    </script>          
     </body>
 </html>

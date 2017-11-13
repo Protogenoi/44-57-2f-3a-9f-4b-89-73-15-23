@@ -92,8 +92,15 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
                             <li class="divider"></li>
                         <?php } ?>    
-                    <li><a href="/messenger/Main.php>"> Internal Messages</a></li>  
-
+                    <li><a href="/messenger/Main.php>"> Internal Messages</a></li> 
+                    <?php if ($ffews == '1' && in_array($hello_name, $Level_8_Access, true)) { ?>
+                    <li class="divider"></li>
+                    <li><a href="/Life/Reports/EWS.php"> Early Warning System</a></li>
+                    <li><a href="/Life/Reports/EWSModify.php"> Correct a EWS Record</a></li>
+                    <li><a href="/Life/Reports/EWSAgentPerformance.php"> EWS Agent Performance</a></li> 
+                    <li><a href="/Life/EWS/Search.php"> Search EWS To Work</a></li> 
+                    <li><a href="/Life/EWS/CallHistory.php"> Search EWS Timeline Notes</a></li> 
+                    <?php } ?>
                     </ul>
                 </li>
                 

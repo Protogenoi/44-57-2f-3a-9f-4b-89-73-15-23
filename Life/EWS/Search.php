@@ -197,7 +197,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         {"data": "color_status"},
                         {"data": "client_id",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                                return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ]
                 });

@@ -36,7 +36,7 @@ include('../../../includes/ADL_PDO_CON.php');
 
 $EWS= filter_input(INPUT_GET, 'EWS', FILTER_SANITIZE_NUMBER_INT);
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-
+$CBDATE= filter_input(INPUT_GET, 'CBDATE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if(isset($EWS)) {
     if($EWS=='1') {
@@ -107,12 +107,51 @@ FROM
         LEFT JOIN
     client_policy ON client_policy.policy_number = ews_data.policy_number
 WHERE
-    ews_data.warning LIKE '%NEW'");
+    ews_data.warning LIKE '%NEW'
+AND 
+    ews_data.clawback_date=:DATE");
+        $query->bindParam(':DATE',$CBDATE, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
         
     }
+
+    if($EXECUTE == 2 ) {
+
+        $query = $pdo->prepare("
+            SELECT 
+    ews_data.updated_date,
+    ews_data.client_name,
+    ews_data.post_code,
+    ews_data.policy_number,
+    ews_data.clawback_due,
+    ews_data.clawback_date,
+    ews_data.off_risk_date,
+    ews_data.warning,
+    ews_data.ews_status_status,
+    ews_data.color_status,
+    client_policy.client_id,
+    client_note.message,
+    client_note.sent_by
+FROM
+    ews_data
+        LEFT JOIN
+    client_policy ON client_policy.policy_number = ews_data.policy_number
+        LEFT JOIN
+    client_note ON client_policy.policy_number = client_note.client_name
+WHERE
+    ews_data.warning NOT LIKE '%NEW'
+AND 
+    ews_data.clawback_date =:DATE
+    ");
+        $query->bindParam(':DATE',$CBDATE, PDO::PARAM_STR);
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode($results);
+        
+    }    
+    
 }    
     
 }

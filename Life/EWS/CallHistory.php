@@ -101,7 +101,7 @@ $CBDATE = filter_input(INPUT_GET, 'CBDATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 <div class="col-md-2">
     <div class="btn-group">
-        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search</button>
+        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search EWS notes</button>
     </div>
 </div>
 </form>

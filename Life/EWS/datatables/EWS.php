@@ -1,7 +1,7 @@
 <?php
 include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 6);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -14,8 +14,8 @@ $TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if(isset($USER) && $TOKEN) {
     
-    require_once(__DIR__ . '../../../classes/database_class.php');
-    require_once(__DIR__ . '../../../class/login/login.php');
+    require_once(__DIR__ . '/../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../class/login/login.php');
 
         $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
         $CHECK_USER_TOKEN->CheckToken();
@@ -35,10 +35,11 @@ include('../../../includes/ADL_PDO_CON.php');
 
 
 $EWS= filter_input(INPUT_GET, 'EWS', FILTER_SANITIZE_NUMBER_INT);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+
 
 if(isset($EWS)) {
     if($EWS=='1') {
-
 
         $query = $pdo->prepare("SELECT 
     ews.master_agent_no,
@@ -81,10 +82,38 @@ client_policy.policy_number = ews.policy_number");
         json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
         
-    }    
-    
+    }   
     
     }
+    
+if(isset($EXECUTE)) {
+    if($EXECUTE == 1 ) {
+
+        $query = $pdo->prepare("
+            SELECT 
+    ews_data.date_added,
+    ews_data.client_name,
+    ews_data.post_code,
+    ews_data.policy_number,
+    ews_data.clawback_due,
+    ews_data.clawback_date,
+    ews_data.off_risk_date,
+    ews_data.assigned,
+    ews_data.warning,
+    ews_data.color_status,
+    client_policy.client_id
+FROM
+    ews_data
+        LEFT JOIN
+    client_policy ON client_policy.policy_number = ews_data.policy_number
+WHERE
+    ews_data.warning LIKE '%NEW'");
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode($results);
+        
+    }
+}    
     
 }
 

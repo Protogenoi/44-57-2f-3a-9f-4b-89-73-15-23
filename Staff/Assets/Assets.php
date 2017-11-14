@@ -1,13 +1,14 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 9);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/Access_Levels.php');
+require_once(__DIR__ . '../../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_10_Access, true)) {
     
-    header('Location: ../index.php?AccessDenied'); die;
+    header('Location: ../../index.php?AccessDenied'); die;
 
 }
 

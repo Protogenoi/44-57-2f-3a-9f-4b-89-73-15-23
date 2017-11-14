@@ -31,6 +31,7 @@ if($TIMELOCK>='20' || $TIMELOCK<'08') {
 
 $COM_MANAGER_ACCESS = array("Michael");
 $COM_LVL_10_ACCESS = array("Michael");
+$TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $COMPANY_ENTITY_ID="1";
     $COMPANY_ENTITY = 'Bluestone Protect';

@@ -11,24 +11,6 @@ if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_M
             if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='Bluestone Protect';
     }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='Assured Protect and Mortgages';
-    }  
-     if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-         $COMPANY=filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
-     }
         
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 

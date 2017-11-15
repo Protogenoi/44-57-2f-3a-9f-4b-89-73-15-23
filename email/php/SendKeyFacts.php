@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once(__DIR__ . '/../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
 require_once(__DIR__ . '/../../includes/adlfunctions.php');

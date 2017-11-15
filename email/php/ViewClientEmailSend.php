@@ -69,7 +69,7 @@ $subject= filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);
                     $query->bindParam(':message',$messagedata, PDO::PARAM_STR, 2500);
                     $query->execute();
                     
-                    require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+                    require_once('../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
                     
                     $target_dir = "../../uploads/";
                     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

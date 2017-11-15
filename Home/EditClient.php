@@ -71,7 +71,7 @@ if (isset($CID)) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
         <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">

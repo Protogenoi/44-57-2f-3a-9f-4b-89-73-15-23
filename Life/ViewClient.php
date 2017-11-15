@@ -159,7 +159,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
-    <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+    <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
@@ -3339,7 +3339,7 @@ WHERE
         </script>
         <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
         <script src="/js/sweet-alert.min.js"></script>
-        <script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
+        <script type="text/javascript" src="/resources/lib/summernote-master/dist/summernote.js"></script>
 
         <script type="text/javascript">
             $(function () {

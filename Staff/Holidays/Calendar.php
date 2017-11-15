@@ -24,7 +24,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <link href='fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/styles/Notices.css" />
 
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />

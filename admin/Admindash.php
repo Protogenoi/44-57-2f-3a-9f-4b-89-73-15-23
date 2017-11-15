@@ -82,7 +82,7 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+    <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -3088,7 +3088,7 @@ if ($settingsselect == 'y') {
                                         $("#wrapper").toggleClass("toggled");
                                     });
     </script>
-    <script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
+    <script type="text/javascript" src="/resources/lib/summernote-master/dist/summernote.js"></script>
 
     <script type="text/javascript">
                                     $(function () {

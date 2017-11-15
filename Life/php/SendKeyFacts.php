@@ -10,7 +10,7 @@ if(isset($ffkeyfactsemail) && $ffkeyfactsemail=='0') {
     header('Location: ../../CRMmain.php?Feature=NotEnabled'); die;
 }
 
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once('../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);

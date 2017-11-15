@@ -478,7 +478,7 @@ WHERE
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
     <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
@@ -1899,7 +1899,7 @@ function showTQC7(select_item) {
 
     <script src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>    
+    <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script>    
                                     <script type="text/JavaScript">
                                     var $select = $('#CLOSER');
                                     $.getJSON('/JSON/CloserNames.json', 

@@ -69,7 +69,7 @@ if (isset($fferror)) {
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src='fullcalendar-2.4.0/moment.js'></script>
-<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 
 <script src='fullcalendar-2.4.0/lib/jquery.min.js'></script>
 <script src='fullcalendar-2.4.0/fullcalendar.min.js'></script>

@@ -70,7 +70,7 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
-    <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>

@@ -12,7 +12,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 }
 
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once('../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
 
         $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account3'");

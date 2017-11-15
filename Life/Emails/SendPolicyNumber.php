@@ -11,7 +11,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
     header('Location: ../../CRMmain.php?AccessDenied'); die;
 
 }
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once('../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
 
 

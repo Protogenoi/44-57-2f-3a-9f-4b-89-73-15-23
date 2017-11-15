@@ -4,7 +4,7 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once('../../PHPMailer_5.2.0/class.phpmailer.php');
+require_once('../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 include('../../includes/ADL_PDO_CON.php');
 
 $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);

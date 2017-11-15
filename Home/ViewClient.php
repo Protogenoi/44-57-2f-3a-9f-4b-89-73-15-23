@@ -79,8 +79,8 @@ if(empty($CID)) {
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
-    <link rel="stylesheet" type="text/css" href="../clockpicker-gh-pages/assets/css/github.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
@@ -1644,8 +1644,8 @@ $('.clockpicker').clockpicker();
 </script>
 
 
-<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
-<script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
 <script type="text/javascript">
 $('.clockpicker').clockpicker()
 	.find('input').change(function(){
@@ -1653,7 +1653,7 @@ $('.clockpicker').clockpicker()
 	});
 
 </script>
-<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
 <script>
         document.querySelector('#clientnotessubtab').addEventListener('submit', function(e) {
             var form = this;

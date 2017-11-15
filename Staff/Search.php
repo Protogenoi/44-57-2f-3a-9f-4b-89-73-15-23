@@ -65,11 +65,11 @@ if (isset($fferror)) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/styles/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" href="/styles/datatables/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico"  />
 </head>
 <body>
@@ -239,7 +239,7 @@ if (isset($fferror)) {
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Title</label>
-                                                <select name="title" class="form-control">
+                                                <select name="title" class="form-control" required>
                                                     <option value=""></option>
                                                     <option value="Mr">Mr</option>
                                                     <option value="Mrs">Mrs</option>

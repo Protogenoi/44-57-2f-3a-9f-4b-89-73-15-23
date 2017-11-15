@@ -96,7 +96,7 @@ if(isset($fferror)) {
 <html lang="en">
 <title>ADL | Add Client Submit</title>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
@@ -773,7 +773,7 @@ if($custype=='TRB Home Insurance') {
 <html lang="en">
 <title>Add Home Insurance Policy</title>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">

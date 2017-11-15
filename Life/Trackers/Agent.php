@@ -47,7 +47,7 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
-<link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+<link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <body>
 

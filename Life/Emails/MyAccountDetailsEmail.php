@@ -399,7 +399,7 @@ $ref= "$recipient";
 
 
 header('Location: ../ViewClient.php?search='.$search.'&EMAIL=MYACCOUNT&emailto='.$email); die;
-    ?>
+?>
 
 
 

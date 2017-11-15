@@ -169,7 +169,7 @@ header('Location: ../ViewClient.php?EMAIL=KEYFACTS&emailto='.$email.'&search='.$
 }
 
 header('Location: ../ViewClient.php?emailfailed&search='.$search); die;
-    ?>
+?>
 
 
 

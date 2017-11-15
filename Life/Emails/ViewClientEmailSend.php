@@ -169,5 +169,4 @@ header('Location: ../../Life/ViewClient.php?EMAIL=GENERIC&emailsent&emailto='.$e
 
     }
     }
-
-    ?>
+?>

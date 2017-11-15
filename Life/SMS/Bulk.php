@@ -60,7 +60,7 @@ if(isset($RETURN)) {
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
         <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.11.4/jquery-ui.css">
-        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>

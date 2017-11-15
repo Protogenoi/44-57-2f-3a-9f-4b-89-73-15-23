@@ -34,14 +34,14 @@ include('../../classes/database_class.php');
 <title>ADL | Company Assets</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
-    <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-    <link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../styles/sweet-alert.min.css" />
-    <link rel="stylesheet" href="../../styles/Notices.css" />
-    <link rel="stylesheet" href="../../styles/LargeIcons.css" type="text/css" />
-    <link rel="stylesheet" href="../../styles/datatables/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
+    <link rel="stylesheet" href="/styles/Notices.css" />
+    <link rel="stylesheet" href="/styles/LargeIcons.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -766,11 +766,11 @@ if($SEARCH=='9') { ?>
     </div>
 </div>  
 
-<script type="text/javascript" language="javascript" src="../../js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/datatables/jquery.DATATABLES.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../js/sweet-alert.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <?php if(isset($SEARCH)) {
     if($SEARCH=='1') { 
         ?>

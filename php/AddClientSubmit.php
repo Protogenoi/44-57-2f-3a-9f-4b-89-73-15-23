@@ -106,8 +106,8 @@ if(isset($fferror)) {
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-<script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script>
   $(function() {
     $( "#sale_date" ).datepicker({
@@ -783,8 +783,8 @@ if($custype=='TRB Home Insurance') {
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-<script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script>
   $(function() {
     $( "#sale_date" ).datepicker({

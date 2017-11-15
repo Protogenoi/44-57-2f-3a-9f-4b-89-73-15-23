@@ -70,6 +70,8 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
 <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/styles/Notices.css" />
+<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesassets/css/github.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
     .label {
@@ -118,7 +120,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 color: green;
             }
         </style>
-<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/jquery.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 </head>
@@ -1651,7 +1653,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 </div>        
     <?php } ?>
     
-<script type="text/javascript" src="/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>  
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.js"></script>  
 <script type="text/javascript">
 $('.clockpicker').clockpicker({
 	placement: 'top',
@@ -1662,7 +1664,7 @@ $('.clockpicker').clockpicker({
 		console.log(this.value);
 	});
 </script>
-<script type="text/javascript" src="/clockpicker-gh-pages/assets/js/highlight.min.js"></script>
+<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/highlight.min.js"></script>
 <script src="/js/sweet-alert.min.js"></script> 
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
     

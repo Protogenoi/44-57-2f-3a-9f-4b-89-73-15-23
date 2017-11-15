@@ -42,10 +42,10 @@ $DIE = mt_rand(1, 4);
                                     endswitch;
 
         ?>
-    <script src="/bats/halloween-bats.js"></script>
+    <script src="/resources/lib/bats/halloween-bats.js"></script>
 	<script type="text/javascript">
 		$.fn.halloweenBats({
-	image: 'https://review.adlcrm.com/bats/bats.png', // Path to the image.
+	image: 'https://review.adlcrm.com/resources/lib/bats/bats.png', // Path to the image.
 	zIndex: 10000, // The z-index you need.
 	amount: 15, // Bat amount.
 	width: 100, // Image width.

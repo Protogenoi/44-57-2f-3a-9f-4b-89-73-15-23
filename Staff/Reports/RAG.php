@@ -32,12 +32,12 @@ $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
     <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="../../styles/Notices.css" />
     <link rel="stylesheet" href="../../styles/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" href="../../styles/datatables/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 

@@ -8,9 +8,9 @@ $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="imagetoolbar" content="no" />
-<link rel="stylesheet" href="../styles/realtimereport.css" type="text/css" />
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="icon" type="../image/x-icon" href="/img/favicon.ico"  />
+<link rel="stylesheet" href="/styles/realtimereport.css" type="text/css" />
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="icon" type="/image/x-icon" href="/img/favicon.ico"  />
 <style>
     @import url('http://getbootstrap.com/dist/css/bootstrap.css');
  html, body, .container-table {

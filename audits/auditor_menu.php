@@ -145,7 +145,7 @@ $jsonTable4 = json_encode($table);
 <title>ADL | Legal and General Audits</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/datatables/css/layoutcrm.css" type="text/css" />
+<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">

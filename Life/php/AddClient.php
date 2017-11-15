@@ -39,7 +39,6 @@ $INSURER_ARRAY_ONE=array("Bluestone Protect","The Review Bureau","TRB Archive","
 <title>ADL | Add Client Submit</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
-<link rel="stylesheet" href="/style/jquery-ui.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">

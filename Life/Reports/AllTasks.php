@@ -27,7 +27,7 @@ if ($fflife=='0') {
 <link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="../../styles/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="//cdn.oesmith.co.uk/morris-0.5.1.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />

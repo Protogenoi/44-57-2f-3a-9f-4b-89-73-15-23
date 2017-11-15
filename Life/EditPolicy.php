@@ -63,12 +63,12 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link  rel="stylesheet" href="/styles/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+    <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+    <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
 
@@ -608,13 +608,7 @@ if(empty($POST_NAME)) {
                                     <label for="closer">Closer:</label>
                                     <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/<?php
-                                                if ($companynamere == 'Bluestone Protect') {
-                                                    echo "CloserNames";
-                                                } else {
-                                                    echo "CUS_CLOSERS";
-                                                }
-                                                ?>.json",
+                                            url: "/JSON/CloserNames.json",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -628,13 +622,7 @@ if(empty($POST_NAME)) {
                                     <label for="lead">Lead Gen:</label>
                                     <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/<?php
-                                                if ($companynamere == 'Bluestone Protect') {
-                                                    echo "LeadGenNames";
-                                                } else {
-                                                    echo "CUS_LEAD";
-                                                }
-                                                ?>.json",
+                                            url: "/JSON/LeadGenNames.json",
                                             getValue: "full_name",
                                             list: {
                                                 match: {

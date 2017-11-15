@@ -154,7 +154,7 @@ switch ($hello_name) {
     <link rel="stylesheet" type="text/css" href="/styles/Notices.css">
     <link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+    <link rel="stylesheet" type="text/css" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link rel="stylesheet" type="text/css" href="/styles/admindash.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     
@@ -668,7 +668,7 @@ WHERE
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-<script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script type="text/JavaScript">
     var $select = $('#agent_name');
     $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){

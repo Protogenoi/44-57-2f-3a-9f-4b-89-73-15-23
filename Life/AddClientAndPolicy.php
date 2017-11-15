@@ -66,7 +66,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+    <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
     <style>
@@ -1659,7 +1659,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-    <script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+    <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 
     <script>var options = {
             url: "..../JSON/Agents.php?EXECUTE=1",

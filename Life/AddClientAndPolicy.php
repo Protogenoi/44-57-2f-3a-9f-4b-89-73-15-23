@@ -60,7 +60,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 <html lang="en">
     <title>ADL | DealSheet to ADL</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">

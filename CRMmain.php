@@ -99,7 +99,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         html { height: 100% }

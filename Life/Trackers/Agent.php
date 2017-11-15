@@ -186,5 +186,14 @@ if (isset($datefrom)) {
 };
 
 $("#provider-json").easyAutocomplete(options);</script>   
+      <script type="text/JavaScript">
+                                    var $select = $('#CLOSER');
+                                    $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){
+                                    $select.html('CLOSER');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
+                                    })
+                                    });
+                                </script>
 </body>
 </html>

@@ -76,8 +76,8 @@ $auditid = filter_input(INPUT_GET, 'auditid', FILTER_SANITIZE_NUMBER_INT);
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/js/sweet-alert.min.js"></script>
-    <link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-    <script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+    <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+    <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
     <style type="text/css">
         .editclient{
             margin: 20px;

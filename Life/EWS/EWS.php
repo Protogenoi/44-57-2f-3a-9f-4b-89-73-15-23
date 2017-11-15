@@ -60,7 +60,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css"> 
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">    

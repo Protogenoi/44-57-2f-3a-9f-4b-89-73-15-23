@@ -68,8 +68,8 @@ if ($ffaudits=='0') {
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-<script src="/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";

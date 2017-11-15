@@ -60,7 +60,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
-        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
 </head>
 <body>

@@ -68,7 +68,7 @@ if (isset($fferror)) {
 <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
 <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
 <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
     

@@ -218,15 +218,10 @@ $mail->Body    = $body;
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
 } else {
-  echo "<br><br><div class=\"notice notice-success fade in\">
-        <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-        <strong>Success!</strong> Message sent!
-    </div>";
-echo "<br><br><a href='../BulkEmail.php'>Send Another Email</h1></a>";
+  
 }
 
-//header('Location: ../BulkEmail.php?emailsent'); die;
-    ?>
+?>
 
 
 

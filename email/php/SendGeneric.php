@@ -23,7 +23,7 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             
                             $companynamere=$companydetailsq['company_name'];        
         
-if($companynamere=='Bluestone Protect' || $companynamere=='ADL_CUS') {   
+if($companynamere=='Bluestone Protect') {   
 
 $target_dir = "../../uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);

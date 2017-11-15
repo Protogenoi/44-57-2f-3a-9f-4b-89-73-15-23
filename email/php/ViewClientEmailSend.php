@@ -172,5 +172,4 @@ header('Location: ../../Life/ViewClient.php?emailsent&emailto='.$email.'&search=
 
     }
     }
-
-    ?>
+?>

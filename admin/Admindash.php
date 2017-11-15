@@ -80,7 +80,7 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/admindash.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

@@ -28,24 +28,24 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
     <title>Master EWS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
-    <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../..//resources/templates/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="../../datatables/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="../../datatables/css/dataTables.customLoader.walker.css">
-    <link rel="stylesheet" type="text/css" href="../../datatables/css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
+    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
+    <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="//datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
     <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="../../js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" language="javascript" src="../../datatables/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" language="javascript" src="../../datatables/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="../../datatables/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" src="/datatables/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
 
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

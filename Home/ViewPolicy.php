@@ -62,7 +62,7 @@ if (isset($fferror)) {
 <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style type="text/css">

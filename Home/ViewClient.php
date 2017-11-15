@@ -76,7 +76,7 @@ if(empty($CID)) {
     <link rel="stylesheet" href="/styles/Timeline.css" type="text/css" />
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">

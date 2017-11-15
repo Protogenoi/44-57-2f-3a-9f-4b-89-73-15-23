@@ -51,7 +51,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         <link rel="stylesheet" href="/styles/viewlayout.css" type="text/css" />
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>

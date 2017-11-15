@@ -75,7 +75,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-     <link rel="stylesheet" href="/summernote-master/dist/summernote.css">
+     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
      <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -440,7 +440,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     })
                                     });
                                 </script>
-                                      <script type="text/javascript" src="/summernote-master/dist/summernote.js"></script>
+                                      <script type="text/javascript" src="/resources/lib/summernote-master/dist/summernote.js"></script>
 
         <script type="text/javascript">
             $(function () {

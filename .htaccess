@@ -7,5 +7,5 @@ Options -Indexes
 
 ErrorDocument 404 https://review.adlcrm.com/error/404.php 
 ErrorDocument 403 https://review.adlcrm.com/error/403.php 
-ErrorDocument 500 https:/review.adlcrm.com/error/500.php
+ErrorDocument 500 https://review.adlcrm.com/error/500.php
 

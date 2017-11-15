@@ -59,7 +59,7 @@ if ($ffaudits=='0') {
 <link rel="stylesheet" href="/datatables/css/layoutcrm.css" type="text/css" />
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>

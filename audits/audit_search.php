@@ -80,7 +80,7 @@ if ($ffaudits == '0') {
         <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
         <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
-        <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>

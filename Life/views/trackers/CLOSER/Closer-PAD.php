@@ -47,7 +47,7 @@
                     echo $TRK_EDIT_DATE;
                 } ?></td>    
                                         
-                                                                <td><input size="8" class="form-control" type="text" name="closer" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                                                                <td><input size="8" class="form-control" type="text" name="closer" id="closer" value="<?php if (isset($TRK_EDIT_closer)) {
                     echo $TRK_EDIT_closer;
                 } ?>"></td>     
                                 <td><input size="8" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {

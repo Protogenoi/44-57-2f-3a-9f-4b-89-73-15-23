@@ -54,7 +54,7 @@ if(isset($_GET["dateto"])) $dateto = $_GET["dateto"];
     <link rel="stylesheet" href="../../styles/layoutcrm.css" type="text/css" />
     <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="../../img/favicon.ico" rel="icon" type="image/x-icon" />
     <!-- new smoothness 
@@ -728,10 +728,7 @@ while ($row=$unpaid->fetch(PDO::FETCH_ASSOC)){
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
-                                        
-                                        <form action="/export/finreporttemp.php" method="post">
-                                            <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>

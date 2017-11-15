@@ -45,9 +45,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">    
-    <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css"> 
-    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">    
+    <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>   
     <link rel="stylesheet" type="text/css" href="//datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
     <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">  
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />   
@@ -138,14 +136,12 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
         </div>
     </div>
  
- 
-    <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-1.11.1.min.js"></script>    
-    <script type="text/javascript" language="javascript" src="/datatables/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
-    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        
        <script type="text/javascript" language="javascript" >
                 function format ( d ) {
 

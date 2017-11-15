@@ -76,7 +76,7 @@ $DATETO = filter_input(INPUT_POST, 'DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
         <link rel="stylesheet" href="/styles/layoutcrm.css" type="text/css" />
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/DataTable/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
         <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
@@ -168,11 +168,11 @@ $DATETO = filter_input(INPUT_POST, 'DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
             ?>
           
         </div>
-    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-1.11.1.min.js"></script>    
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>    
-    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
 
         <script type="text/javascript">

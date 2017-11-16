@@ -135,8 +135,8 @@ $jsonTable3 = json_encode($table);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -220,7 +220,7 @@ $jsonTable3 = json_encode($table);
     </div>
     
 <script src="../../js/jquery.min.js"></script>
-<script src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="../../resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 

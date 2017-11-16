@@ -99,7 +99,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-<link rel="stylesheet" href="/styles/Notices.css" />
+<link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesassets/css/github.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />

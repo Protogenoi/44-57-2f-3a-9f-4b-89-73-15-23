@@ -578,7 +578,7 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <link rel="stylesheet" href="/styles/viewlayout.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/audit_view.css" type="text/css" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script src="/js/jquery-1.4.min.js"></script>

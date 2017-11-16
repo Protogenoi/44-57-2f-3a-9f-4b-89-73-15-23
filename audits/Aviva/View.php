@@ -521,7 +521,7 @@ WHERE
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <link rel="stylesheet" href="/styles/viewlayout.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/audit_view.css" type="text/css" />
 </head>
 <body>
 

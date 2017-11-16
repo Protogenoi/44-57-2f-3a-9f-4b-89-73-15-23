@@ -3,7 +3,7 @@
 <title>Bluestone Protect | BLANK</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="styles/layout3.css" type="text/css" />
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 </head>
 <body>
 

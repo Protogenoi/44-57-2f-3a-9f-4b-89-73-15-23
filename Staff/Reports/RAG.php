@@ -64,7 +64,7 @@ $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/styles/Notices.css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

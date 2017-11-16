@@ -97,7 +97,7 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
@@ -463,7 +463,7 @@ $('#calendar2').fullCalendar('removeEvents', event.id);
  });
 
 </script>    
-<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
 <script type="text/javascript">
     $('.clockpicker').clockpicker();

@@ -38,8 +38,8 @@
     <meta http-equiv="imagetoolbar" content="no" />
     <link rel="stylesheet" href="/resources/templates/ADL/wallboard.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="icon" type="../image/x-icon" href="/img/favicon.ico"  />
     <style>
         .vertical-center-row {

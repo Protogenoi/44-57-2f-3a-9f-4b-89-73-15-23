@@ -53,7 +53,7 @@ if(isset($RETURN)) {
     <title>ADL | Bulk SMS</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/styles/Notices.css">
+    <link rel="stylesheet" href="/resources/templates/ADL/Notices.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>

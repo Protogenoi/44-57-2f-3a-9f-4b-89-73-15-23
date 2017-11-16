@@ -48,7 +48,7 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/styles/Notices.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/styles/sweet-alert.min.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
 <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">

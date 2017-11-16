@@ -98,7 +98,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+<link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesassets/css/github.min.css">
@@ -152,7 +152,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
         </style>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/jquery.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
     

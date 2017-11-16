@@ -52,8 +52,8 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href='fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
 <link href='fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 
@@ -110,6 +110,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <div id='calendar'></div>
 </div>
 
-  <script src="../../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>  
+  <script src="../../resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>  
 </body>
 </html>

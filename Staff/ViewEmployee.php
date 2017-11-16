@@ -94,8 +94,8 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <title>ADL | View Employee</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
@@ -1696,7 +1696,7 @@ $('.clockpicker').clockpicker({
 </script>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/highlight.min.js"></script>
 <script src="/js/sweet-alert.min.js"></script> 
-<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
+<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
     
 <script>
 $(document).ready(function() {

@@ -109,9 +109,9 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/ADL/control_panel.css">
-    <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/sweet-alert.min.css" />
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />

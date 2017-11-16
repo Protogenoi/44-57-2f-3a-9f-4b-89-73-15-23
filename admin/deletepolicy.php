@@ -102,7 +102,7 @@ if(empty($DeleteLifePolicy)) {
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <script src="/ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link  rel="stylesheet" href="../styles/sweet-alert.min.css" />
+<link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src="/js/sweet-alert.min.js"></script>
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />

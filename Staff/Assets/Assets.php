@@ -68,7 +68,7 @@ include('../../classes/database_class.php');
     <link rel="stylesheet" href="/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/styles/Notices.css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />

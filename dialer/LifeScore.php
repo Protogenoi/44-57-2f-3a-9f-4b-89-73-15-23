@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="imagetoolbar" content="no" />
-    <link rel="stylesheet" href="/styles/realtimereport.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/ADL/wallboard.css" type="text/css" />
     <style>
         .status_piltrans {color: white; background: #551A8B; }
         .blink_me {

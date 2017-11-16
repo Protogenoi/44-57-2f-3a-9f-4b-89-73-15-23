@@ -81,7 +81,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>

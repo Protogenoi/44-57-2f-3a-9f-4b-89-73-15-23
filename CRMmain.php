@@ -229,12 +229,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                             ?>
 
                             <li>
-                                <a href="<?php
-                                    echo "/Home/Main_Menu.php";
-                                } else {
-                                    echo "#";
-                                }
-                                ?>">
+                                <a href="/addon/Home/Main_Menu.php">
                                     <span class="ca-icon"><i class="fa fa-home"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Home<br/>Insurance</h2>
@@ -242,7 +237,9 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                     </div>
                                 </a>
                             </li>
-                        <?php if ($ffpba == '1' && $ACCESS_LEVEL == 10) { ?>
+                        <?php }
+                        
+                        if ($ffpba == '1' && $ACCESS_LEVEL == 10) { ?>
                             <li>
                                 <a href="/PBA/Main_Menu.php">
                                     <span class="ca-icon"><i class="fa fa-credit-card"></i></span>

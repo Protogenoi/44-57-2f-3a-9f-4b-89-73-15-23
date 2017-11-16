@@ -87,8 +87,8 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
         <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
@@ -990,7 +990,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
         <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-        <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
 <script>
 $(document).ready(function(){

@@ -40,7 +40,7 @@ if($ffews=='0') {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -428,7 +428,7 @@ if($ffews=='0') {
     </div>
 
     <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
             <script src="/js/sweet-alert.min.js"></script>
     <script>
         document.querySelector('#EWSSUBMIT').addEventListener('submit', function(e) {

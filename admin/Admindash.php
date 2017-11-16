@@ -105,8 +105,8 @@ $companynamere = $companydetailsq['company_name'];
     <title>ADL | Admin Control Panel</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/ADL/control_panel.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
@@ -3111,7 +3111,7 @@ if ($settingsselect == 'y') {
     <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/js/sweet-alert.min.js"></script>
     <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script>
                                     $("#menu-toggle").click(function (e) {
                                         e.preventDefault();

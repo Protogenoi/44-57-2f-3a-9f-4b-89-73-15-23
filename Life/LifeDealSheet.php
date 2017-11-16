@@ -185,7 +185,7 @@ switch ($hello_name) {
     <link rel="stylesheet" type="text/css" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-    <link rel="stylesheet" type="text/css" href="/styles/admindash.css">
+    <link rel="stylesheet" type="text/css" href="/resources/templates/ADL/control_panel.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     
     <?php if(in_array($hello_name, $Closer_Access, true) || $hello_name=='Michael') { 

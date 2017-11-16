@@ -89,9 +89,9 @@ if (isset($fferror)) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -166,7 +166,7 @@ require_once(__DIR__ . '/../includes/navbar.php');
 <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 
         <script type="text/javascript">

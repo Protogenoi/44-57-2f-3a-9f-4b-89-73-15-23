@@ -59,8 +59,8 @@ if (!in_array($hello_name,$Level_10_Access, true)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
@@ -382,7 +382,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
     </div>
 </div>  
         
-    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {                                                                                                    
                                                                                                         

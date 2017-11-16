@@ -1,6 +1,6 @@
-@import url(navi.css);
-@import url(forms.css);
-@import url(tables.css);
+@import url(audit_view_navi.css);
+@import url(audit_view_forms.css);
+@import url(audit_view_tables.css);
 
 body { font-family: DroidSansRegular, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-size: 15px; line-height: 20px; color: #666; position: relative; -webkit-font-smoothing: antialiased; }
 

@@ -83,16 +83,16 @@ if (isset($_GET["auditid"])) {
     <title>ADL | L&G Closer Audit Edit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../styles/layout.css" type="text/css" />
-    <link rel="stylesheet" href="/../bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/../resources/templates/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <link  rel="stylesheet" href="../resources/lib/sweet-alert/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/sweet-alert.min.js"></script>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="/js/sweet-alert.min.js"></script>
     <style type="text/css">
         .editclient{
             margin: 20px;

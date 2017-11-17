@@ -97,7 +97,7 @@ $companynamere = $companydetailsq['company_name'];
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="/AddClient.php">Add Client</a></li>
                         <li><a href="SearchClients.php">Search Clients</a></li>
-                        <li><a href="/SearchPolicies.php?query=Life">Search Policies</a></li>
+                        <li><a href="/SearchPolicies.php?EXECUTE=Life">Search Policies</a></li>
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
                         <li><a href="/CRMReports.php">Reports</a></li>                        

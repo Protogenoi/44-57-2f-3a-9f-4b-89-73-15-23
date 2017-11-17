@@ -127,7 +127,7 @@ $data= $NewClient->addClientValidation();
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
     <script type="text/javascript" language="javascript" src="js/jquery/jquery-3.0.0.min.js"></script>

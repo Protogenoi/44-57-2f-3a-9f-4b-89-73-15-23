@@ -191,7 +191,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
           
         </div>
 
-        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>

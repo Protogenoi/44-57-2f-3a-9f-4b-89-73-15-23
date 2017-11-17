@@ -1725,8 +1725,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
         };
 
         $("#lead").easyAutocomplete(options);</script>
-    <script src="/js/sweet-alert.min.js"></script>
-
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 
     <script src="/js/jquery.postcodes.min.js"></script>
     <script>

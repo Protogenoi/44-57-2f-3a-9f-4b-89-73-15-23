@@ -6153,7 +6153,7 @@ $("#provider-json").easyAutocomplete(options);</script>
     };
 
     $("#lead").easyAutocomplete(options);</script>
-<script src="/js/sweet-alert.min.js"></script>
+<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 
 <script type="text/javascript">
      function CALLMANANGER() {

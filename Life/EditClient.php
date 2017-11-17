@@ -107,7 +107,7 @@ if ($ffpost_code == '1') {
         <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
         <script src="/js/jquery-2.1.4.min.js"></script>
-        <script src="/js/sweet-alert.min.js"></script>
+        <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script>

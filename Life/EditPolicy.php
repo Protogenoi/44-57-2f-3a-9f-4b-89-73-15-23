@@ -765,7 +765,7 @@ if(empty($POST_NAME)) {
 
 <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
 
-<script src="/js/sweet-alert.min.js"></script>
+<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script>
     $(function () {
         $("#dob").datepicker();

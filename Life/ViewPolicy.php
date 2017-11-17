@@ -691,7 +691,7 @@ ews_data.policy_number
         });
 
     </script>
-    <script src="/js/sweet-alert.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <script type="text/javascript">
         var elems = document.getElementsByClassName('confirmation');
         var confirmIt = function (e) {

@@ -50,7 +50,7 @@
             background-color:#05668d !important;
         }
     </style>
-    <script type="text/javascript" language="javascript" src="../js/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script>
         function refresh_div() {
             jQuery.ajax({

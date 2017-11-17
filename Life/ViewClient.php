@@ -1620,7 +1620,7 @@ if (isset($fileuploadedfail)) {
                                 if (!empty($closeraudit)) { ?>
                                     <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Closer Audit</a>
                                 <?php } if (!empty($leadaudit)) { ?>
-                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Lead Audit</a>
+                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Lead Audit</a>
 
                                     <?php
                                 }
@@ -1652,7 +1652,7 @@ WHERE
 
         $LEAD_LEAD_ID = $LEAD_AUDIT_ROW['id'];     ?>                                  
                                     
-                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
+                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
                                     
                                     
         <?php                }      
@@ -1705,7 +1705,7 @@ WHERE
 
         $LEAD_LEAD_ID = $LEAD_AUDIT_ROW['id'];     ?>                                  
                                     
-                                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Lead Audit</a>
+                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Lead Audit</a>
                                     
                                     
         <?php                }    }

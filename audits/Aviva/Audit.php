@@ -545,8 +545,6 @@ WHERE
                         <select class="form-control" <?php if(isset($EXECUTE) && $EXECUTE=='EDIT' && isset($AUDITID)) { } else { ?>id="CLOSER" <?php } ?> name="CLOSER" required>
                             <?php if(isset($EXECUTE) && $EXECUTE=='EDIT' && isset($AUDITID)) { ?>
                              <option value='<?php echo $CLOSER; ?>'><?php echo $CLOSER; ?></option>
-<?php if ($companynamere == 'Bluestone Protect') { ?>
-
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
@@ -554,24 +552,10 @@ WHERE
                                             <option value="Mike">Mike</option> 
                                             <option value="Nathan">Nathan</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Ricky">Ricky</option> 
+                                            <option value="Martin">Martin</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Stavros">Stavros</option>
                                             <option value="Nicola">Nicola</option>  
                                             <option value="Gavin">Gavin</option>
-                                            <option value="Rhys">Rhys</option> 
-                                            <option value="David">David</option> 
-<?php } if ($companynamere == 'ADL_CUS') { ?>
-                                            <option value="Dan Matthews">Dan Matthews</option>
-                                            <option value="Joe Rimmell">Joe Rimmell</option>
-                                            <option value="Jordan Davies">Jordan Davies</option>
-                                            <option value="Matthew Brace">Matthew Brace</option>  
-                                            <option value="Sam Morris">Sam Morris</option> 
-                                            <option value="Steve Pattin">Steve Pattin</option> 
-                                            <option value="James Keen">James Keen</option> 
-<?php } ?>                             
-                            <?php } else { ?>
-                            <option value="">Closer</option>
                             <?php } ?>
                         </select>      
                     </div>

@@ -100,27 +100,16 @@ function textAreaAdjust(o) {
                             <label for='closer'>Closer:</label>
                             <select class='form-control' name='closer' id='closer' required> 
                                 <option value="">Select...</option>
-<?php if($companynamere=='Bluestone Protect') { ?>
-<option value="Keith">Keith Keith</option>                                 
 <option value="Carys">Carys</option>
 <option value="Hayley">Hayley</option>
 <option value="James">James</option>
 <option value="Kyle">Kyle</option>  
-<option value="Mike">Mike</option> 
-<option value="Nathan">Nathan</option> 
+<option value="Mike">Mike</option>  
 <option value="Richard">Richard</option>
-<option value="Ricky">Ricky</option> 
+<option value="Martin">Martin</option> 
 <option value="Sarah">Sarah</option> 
-<option value="Stavros">Stavros</option>
 <option value="Nicola">Nicola</option> 
 <option value="Gavin">Gavin</option> 
-<option value="Rhys">Rhys</option> 
-    <?php } if($companynamere=='ADL_CUS') {?>
-<option value="Dan Matthews">Dan Matthews</option>
-<option value="Joe Rimmell">Joe Rimmell</option>
-<option value="Jordan Davies">Jordan Davies</option>
-<option value="Matthew Brace">Matthew Brace</option>  
-    <?php } ?>
                             </select>
                         </div>
                         
@@ -133,14 +122,11 @@ function textAreaAdjust(o) {
 <option value="James">James</option>
 <option value="Kyle">Kyle</option>  
 <option value="Mike">Mike</option> 
-<option value="Nathan">Nathan</option> 
 <option value="Richard">Richard</option>
-<option value="Ricky">Ricky</option> 
+<option value="Martin">Martin</option> 
 <option value="Sarah">Sarah</option> 
-<option value="Stavros">Stavros</option>
 <option value="Nicola">Nicola</option> 
 <option value="Gavin">Gavin</option> 
-<option value="Martin">Mr Bounce</option>
             </select>
                         </div>
                         

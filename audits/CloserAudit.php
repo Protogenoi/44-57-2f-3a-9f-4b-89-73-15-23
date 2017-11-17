@@ -132,22 +132,14 @@ if (isset($fferror)) {
                     <div class="panel-body">
                         <p>
 
-
-
                         <div class='form-group'>
                             <label for='full_name'>Closer:</label>
                             <select class='form-control' name='full_name' id='full_name' required> 
                                 <option value="">Select...</option>
 
-                                <script type="text/JavaScript">
+                                <script type="text/JavaScript"> 
                                     var $select = $('#full_name');
-                                    $.getJSON('<?php
-                                    if ($companynamere == 'Bluestone Protect') {
-                                        echo "../JSON/CloserNames.json";
-                                    } if ($companynamere == 'ADL_CUS') {
-                                        echo "../JSON/CUS_CLOSERS.json";
-                                    }
-                                    ?> ', function(data){
+                                    $.getJSON('/../../JSON/Closers.php?EXECUTE=1', function(data){
                                     $select.html('full_name');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
@@ -158,26 +150,20 @@ if (isset($fferror)) {
                             </select>
                         </div>
 
-
-
                         <div class='form-group'>
                             <label for='full_name2'>Closer (optional):</label>
                             <select class='form-control' name='full_name2' id='full_name2' >    
                                 <option value="None">None</option>    
-                                <?php if ($companynamere == 'Bluestone Protect') { ?>
-                                <option value="Martin">Bounce</option>
                                     <option value="Carys">Carys</option>
                                     <option value="Hayley">Hayley</option>
                                     <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="Mike">Mike</option> 
+                                    <option value="Martin">Martin</option> 
                                     <option value="Richard">Richard</option>
-                                    <option value="Ricky">Ricky</option> 
                                     <option value="Sarah">Sarah</option> 
                                     <option value="Nicola">Nicola</option> 
                                     <option value="Gavin">Gavin</option> 
-                                    <option value="David">David</option> 
-                                <?php } ?>
                             </select>
                         </div>
 

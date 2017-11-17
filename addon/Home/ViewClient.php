@@ -918,7 +918,7 @@ if(empty($CID)) {
                         <?php if(!empty($closeraudit)) { ?>
                     <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; Closer Audit</a>
                         <?php } if(!empty($leadaudit)) { ?>
-                    <a class="list-group-item" href="/audits/lead_gen_form_view.php?new=y&auditid=<?php echo $leadaudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; Lead Audit</a>
+                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $leadaudit;?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp; Lead Audit</a>
 
                         <?php                  } } }
                     

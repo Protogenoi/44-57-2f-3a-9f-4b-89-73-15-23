@@ -145,7 +145,7 @@ if (isset($CID)) {
             $PostCodeKey = $PDre['api_key'];
             ?>
 
-            <script src="/js/jquery.postcodes.min.js"></script>
+            <script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
 
         <?php } ?>
     </head>

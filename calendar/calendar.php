@@ -359,7 +359,7 @@ if ($ffcalendar=='0') {
     </div>
 </div>
     
-<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <script src='fullcalendar-2.4.0/moment.js'></script>
 <script src='fullcalendar-2.4.0/lib/jquery.min.js'></script>

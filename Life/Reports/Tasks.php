@@ -131,8 +131,8 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-<script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
-<script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+<script type="text/javascript" language="javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+<script type="text/javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <?php 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 if(isset($EXECUTE)) {                 
@@ -155,7 +155,7 @@ $(document).ready(function () {
         $.ajax({
             'async': false,
             'global': false,
-            'url': '../JSON/GetAllTasks.php?agent=<?php echo $hello_name;?>',
+            'url': '../JSON/GetAllTasks.php?agent=<?php if(isset($hello_name)) { echo $hello_name; } ?>',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -183,6 +183,7 @@ $(document).ready(function () {
 config.element = 'bar-chart';
 Morris.Bar(config);
 </script>
+
 
 <script type="text/javascript" language="javascript" >
 function format ( d ) {

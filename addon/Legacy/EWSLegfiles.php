@@ -235,28 +235,274 @@ if ($_FILES[csv][size] > 0) {
 <title>ADL | Early Warning System</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
-    <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
-    <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="//datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
-    <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" language="javascript" src="//datatables.net/release-datatables/extensions/ColVis/js/dataTables.colVis.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.oesmith.co.uk/morris-0.5.1.css">
+        <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
+        <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+        <link rel="stylesheet" type="text/css" href="//cdn.oesmith.co.uk/morris-0.5.1.css">
+ <style>
+            div.smallcontainer {
+                margin: 0 auto;
+                font: 70%/1.45em "Helvetica Neue",HelveticaNeue,Verdana,Arial,Helvetica,sans-serif;
+            }
+.panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
+        </style>
+    </head>
+    <body>
 
+<?php include('../includes/navbar.php'); 
+        include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
+    
+    if($ffanalytics=='1') {
+    
+    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    
+    }
+?>
+        
+        <div class="container">
+            <ul class="nav nav-pills">
+                <li><a data-toggle="pill" href="#home">Master</a></li>
+                <li class="active"><a data-toggle="pill" href="#menu2">Cases to Work</a></li>
+                <li><a data-toggle="pill" href="#menu1">Rebroke</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            
+            <div id="home" class="tab-pane fade in active">  
+                <div class="smallcontainer">
+                    
+                    <table id="MASTER" class="display compact" width="auto" cellspacing="0">
+                        
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                
+                </div> 
+                
+            </div>
+            
+            <div id="menu1" class="tab-pane fade">
+                <div class="smallcontainer">
+                    <table id="PROGRESS" class="display compact" width="auto" cellspacing="0">
+                        
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                    
+            </div>
+            
+            <div id="menu2" class="tab-pane fade">
+                <div class="smallcontainer">
+                    
+                    <table id="WORK" class="display compact" width="auto" cellspacing="0">
+                        
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </thead>
+                        
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>ID</th>
+                                <th>Client</th>
+                                <th>Client Name</th>
+                                <th>Provider</th>
+                                <th>Policy #</th>
+                                <th>Created Date</th>
+                                <th>Commission Status</th>
+                                <th>Product</th>
+                                <th>Gender</th>
+                                <th>Life Sum Assured</th>
+                                <th>Life Term</th>
+                                <th>Premium</th>
+                                <th>Term Assurance Type</th>
+                                <th>CIC Sum Assured</th>
+                                <th>CIC Term</th>
+                                <th>PHI Sum Assured</th>
+                                <th>PHI Age Until</th>
+                                <th>PHI Term</th>
+                                <th>FIB Sum Assured</th>
+                                <th>FIB Age Until</th>
+                                <th>Premium</th>
+                                <th>Description</th>
+                                <th>Provider Cat</th>
+                                <th>Provider</th>
+                                <th>Commission Type</th>
+                                <th>Our Status</th>
+                                <th>Color</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                
+                </div>
+            </div>
+  </div>
+  
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
@@ -807,270 +1053,6 @@ tr.addClass('shown');
     } );
 } );
         </script>
-
- <style>
-            div.smallcontainer {
-                margin: 0 auto;
-                font: 70%/1.45em "Helvetica Neue",HelveticaNeue,Verdana,Arial,Helvetica,sans-serif;
-            }
-.panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
-        </style>
-    </head>
-    <body>
-
-<?php include('../includes/navbar.php'); 
-        include($_SERVER['DOCUMENT_ROOT']."/includes/adl_features.php");
-    
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-?>
-        
-        <div class="container">
-            <ul class="nav nav-pills">
-                <li><a data-toggle="pill" href="#home">Master</a></li>
-                <li class="active"><a data-toggle="pill" href="#menu2">Cases to Work</a></li>
-                <li><a data-toggle="pill" href="#menu1">Rebroke</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            
-            <div id="home" class="tab-pane fade in active">  
-                <div class="smallcontainer">
-                    
-                    <table id="MASTER" class="display compact" width="auto" cellspacing="0">
-                        
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </thead>
-                        
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                
-                </div> 
-                
-            </div>
-            
-            <div id="menu1" class="tab-pane fade">
-                <div class="smallcontainer">
-                    <table id="PROGRESS" class="display compact" width="auto" cellspacing="0">
-                        
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </thead>
-                        
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                    
-            </div>
-            
-            <div id="menu2" class="tab-pane fade">
-                <div class="smallcontainer">
-                    
-                    <table id="WORK" class="display compact" width="auto" cellspacing="0">
-                        
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </thead>
-                        
-                        <tfoot>
-                            <tr>
-                                <th></th>
-                                <th>ID</th>
-                                <th>Client</th>
-                                <th>Client Name</th>
-                                <th>Provider</th>
-                                <th>Policy #</th>
-                                <th>Created Date</th>
-                                <th>Commission Status</th>
-                                <th>Product</th>
-                                <th>Gender</th>
-                                <th>Life Sum Assured</th>
-                                <th>Life Term</th>
-                                <th>Premium</th>
-                                <th>Term Assurance Type</th>
-                                <th>CIC Sum Assured</th>
-                                <th>CIC Term</th>
-                                <th>PHI Sum Assured</th>
-                                <th>PHI Age Until</th>
-                                <th>PHI Term</th>
-                                <th>FIB Sum Assured</th>
-                                <th>FIB Age Until</th>
-                                <th>Premium</th>
-                                <th>Description</th>
-                                <th>Provider Cat</th>
-                                <th>Provider</th>
-                                <th>Commission Type</th>
-                                <th>Our Status</th>
-                                <th>Color</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                
-                </div>
-            </div>
-            
-
-
-
-
-
-
-  </div>
-  
-
 
 
     </body>

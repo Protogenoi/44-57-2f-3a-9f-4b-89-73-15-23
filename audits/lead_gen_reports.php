@@ -911,7 +911,7 @@ echo "</table>";
 <script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script src="../js/sweet-alert.min.js"></script>
+<script src="../resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script type="text/javascript" src="//www.google.com/jsapi"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript">

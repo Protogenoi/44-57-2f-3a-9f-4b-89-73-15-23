@@ -108,7 +108,7 @@ if (isset($_GET["auditid"])) {
     <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <script src="/js/jquery-2.1.4.min.js"></script>
-    <script src="/js/sweet-alert.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <style type="text/css">
         .editclient{
             margin: 20px;

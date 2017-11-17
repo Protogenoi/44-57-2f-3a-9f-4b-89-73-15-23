@@ -6172,7 +6172,7 @@ $("#provider-json").easyAutocomplete(options);</script>
         return false;
     }
 </script>
-<script src="/js/jquery.postcodes.min.js"></script>
+<script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
 <script>
                                     $(function () {
                                         $("#dob").datepicker({

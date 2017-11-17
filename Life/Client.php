@@ -136,7 +136,7 @@ $data= $NewClient->addClientValidation();
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <?php if ($ffpost_code == '1') { ?>
-        <script src="/js/jquery.postcodes.min.js"></script>
+        <script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
     <?php } ?>
 
     <script>

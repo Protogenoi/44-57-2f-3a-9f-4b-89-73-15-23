@@ -146,7 +146,7 @@ if ($ffpost_code == '1') {
         if ($ffpost_code == '1') {
             ?>
 
-            <script src="/js/jquery.postcodes.min.js"></script>
+            <script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
 
 <?php } ?>
     </head>

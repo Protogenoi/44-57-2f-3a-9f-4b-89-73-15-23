@@ -56,7 +56,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
-
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
@@ -110,6 +109,6 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <div id='calendar'></div>
 </div>
 
-  <script src="../../resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>  
+  <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>  
 </body>
 </html>

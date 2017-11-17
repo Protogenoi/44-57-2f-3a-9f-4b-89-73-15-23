@@ -72,7 +72,7 @@ include('../../classes/database_class.php');
     <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>

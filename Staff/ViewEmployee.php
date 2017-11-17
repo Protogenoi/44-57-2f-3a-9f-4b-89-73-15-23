@@ -1695,7 +1695,7 @@ $('.clockpicker').clockpicker({
 	});
 </script>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/highlight.min.js"></script>
-<script src="/js/sweet-alert.min.js"></script> 
+<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script> 
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
     
 <script>

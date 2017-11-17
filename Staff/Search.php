@@ -661,7 +661,7 @@ if (isset($fferror)) {
     </div>
 </div>   
 
-<script type="text/javascript" language="javascript" src="/js/sweet-alert.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 
     <script type="text/javascript" language="javascript" >
  

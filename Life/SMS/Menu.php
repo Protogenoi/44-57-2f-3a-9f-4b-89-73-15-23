@@ -85,7 +85,7 @@ if ($ffsms == '0') {
         
     </div>
 
-    <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
 </body>

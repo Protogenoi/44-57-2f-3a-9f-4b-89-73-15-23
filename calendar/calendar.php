@@ -91,18 +91,17 @@ if (isset($fferror)) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-<link href='fullcalendar-2.4.0/fullcalendar.css' rel='stylesheet' />
-<link href='fullcalendar-2.4.0/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+
+<script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
 <style>
      .clockpicker-popover {
     z-index: 999999;
@@ -358,12 +357,7 @@ if ($ffcalendar=='0') {
     </div>
     </div>
 </div>
-    
-<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
-<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-<script src='fullcalendar-2.4.0/moment.js'></script>
-<script src='fullcalendar-2.4.0/lib/jquery.min.js'></script>
-<script src='fullcalendar-2.4.0/fullcalendar.min.js'></script>
+   
 <script>
  $(document).ready(function() {
   var date = new Date();
@@ -492,5 +486,6 @@ $('.clockpicker').clockpicker()
 
     });
   </script>
+  <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 </body>
 </html>

@@ -90,19 +90,17 @@ if (isset($fferror)) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-<link href='fullcalendar-2.4.0/fullcalendar.css' rel='stylesheet' />
-<link href='fullcalendar-2.4.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src='fullcalendar-2.4.0/moment.js'></script>
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 
-<script src='fullcalendar-2.4.0/lib/jquery.min.js'></script>
-<script src='fullcalendar-2.4.0/fullcalendar.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
 
 <script>
 
@@ -335,6 +333,6 @@ if ($ffcalendar=='0') {
     
     
 </div>
-
+<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 </body>
 </html>

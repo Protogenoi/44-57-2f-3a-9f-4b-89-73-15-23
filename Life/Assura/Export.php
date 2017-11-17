@@ -48,23 +48,20 @@ include('../../includes/adl_features.php');
 <title>Assura Export Data</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-<script type="text/javascript" language="javascript" src="../../js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
+        <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
+        <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+        
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 <script>
   $(function() {
-    $( "#datefrom2" ).datepicker({
+    $( "#datefrom" ).datepicker({
         dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
@@ -74,7 +71,7 @@ include('../../includes/adl_features.php');
   </script>
  <script>
   $(function() {
-    $( "#dateto2" ).datepicker({
+    $( "#dateto" ).datepicker({
         dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
@@ -92,76 +89,7 @@ include('../../includes/adl_features.php');
         });
   });
   </script>
- <script>
-  $(function() {
-    $( "#dateto3" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
-  <script>
-  $(function() {
-    $( "#datefrom4" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
- <script>
-  $(function() {
-    $( "#dateto4" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
- <script>
-  $(function() {
-    $( "#datefrom5" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
- <script>
-  $(function() {
-    $( "#dateto5" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
- <script>
-  $(function() {
-    $( "#datefrom6" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
- <script>
-  $(function() {
-    $( "#dateto6" ).datepicker({
-        dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true,
-    yearRange: "-100:+1"
-        });
-  });
-  </script>
+
 	</head>
 	<body>
             
@@ -193,12 +121,12 @@ include('../../includes/adl_features.php');
 
 <p>
 <label for="datefrom">From:</label>
-<input type="text" id="datefrom2" name="datefrom" value="<?php echo $datefrom ?>" required>
+<input type="text" id="datefrom" name="datefrom" value="<?php if(isset($datefrom)) { echo $datefrom; } ?>" required>
 </p>
 
 <p>
 <label for="dateto">To:</label>
-<input type="text" id="dateto2" name="dateto" value="<?php echo $dateto ?>" required>
+<input type="text" id="dateto" name="dateto" value="<?php if(isset($dateto)) { echo $dateto; } ?>" required>
 </p>
 
 <p>

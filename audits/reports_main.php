@@ -80,16 +80,14 @@ if ($ffanalytics == '1') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="../resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="../resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="../resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
 
-<?php require_once(__DIR__ . '/../includes/navbar.php');
-
-?>
+<?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
 
   <div class="container">
 
@@ -146,8 +144,7 @@ if ($ffanalytics == '1') {
 
 
     </div>
-<script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

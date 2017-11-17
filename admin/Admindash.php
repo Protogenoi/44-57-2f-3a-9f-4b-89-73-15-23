@@ -3138,7 +3138,7 @@ if ($settingsselect == 'y') {
              })
          });
               </script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script>
         $(function () {
             $("#TRACKING_DATE").datepicker({

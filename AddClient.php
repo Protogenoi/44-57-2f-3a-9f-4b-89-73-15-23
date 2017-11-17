@@ -80,11 +80,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-window.onbeforeunload = function() {
-  return "Data will be lost if you leave the page, are you sure?";
-};
-</script>
+
     <?php if ($ffpost_code == '1') { ?>
         <script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
     <?php } ?>

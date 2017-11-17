@@ -95,37 +95,7 @@ if(isset($submit)) {
     $newdatefrom="$datefrom%";
     $newdateto="$dateto%";
     
-    $result = $conn->query("SELECT 
-count(ews_status_status) AS Alert,
-ews_status_status
-FROM ews_data
-WHERE ews_data.ournotes = ''
-OR color_status='black'
-OR color_status='blue'
-AND date_added between '$newdatefrom' AND '$newdateto'
-GROUP BY ews_status_status");
-
-  $results = array();
-  $table = array();
-  $table['cols'] = array(
-
-    array('label' => 'ews_status_status', 'type' => 'string'),
-    array('label' => 'Alert', 'type' => 'number')
-
-);
-    foreach($result as $r) {
-
-      $temp = array();
-
-      $temp[] = array('v' => (string) $r['ews_status_status']); 
-
-      $temp[] = array('v' => (int) $r['Alert']); 
-      $results[] = array('c' => $temp);
-    }
-
-$table['rows'] = $results;
-
-$jsonTable3 = json_encode($table); 
+  
 
 }
 ?>
@@ -223,6 +193,8 @@ $jsonTable3 = json_encode($table);
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
  <script type="text/javascript">
      
@@ -257,24 +229,6 @@ $jsonTable3 = json_encode($table);
         };
         
     var chart = new google.visualization.PieChart(document.getElementById('CASESWORKED'));
-    chart.draw(data, options);
-    }
-     </script>
-      <script type="text/javascript">
-     
-    google.load('visualization', '1', {'packages':['corechart']});
-    google.setOnLoadCallback(drawChart);
-    
-    function drawChart() {
-        var data = new google.visualization.DataTable(<?=$jsonTable3?>);
-        var options = {
-            title: 'EWS Date Search',
-            pieHole: 0.4,
-            colors: ['#DC3912', '#109618', '#FF9900', '#990099'],
-            backgroundColor: '#FFFFFF'
-        };
-        
-    var chart = new google.visualization.PieChart(document.getElementById('DATED'));
     chart.draw(data, options);
     }
      </script>

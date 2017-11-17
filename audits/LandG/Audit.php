@@ -109,13 +109,7 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
 
                                 <script type="text/JavaScript"> 
                                     var $select = $('#full_name');
-                                    $.getJSON('<?php
-                                    if ($companynamere == 'Bluestone Protect') {
-                                        echo "/../../JSON/CloserNames.json";
-                                    } if ($companynamere == 'ADL_CUS') {
-                                        echo "/../../JSON/CUS_CLOSERS.json";
-                                    }
-                                    ?> ', function(data){
+                                    $.getJSON('/../../JSON/Closers.php?EXECUTE=1', function(data){
                                     $select.html('full_name');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
@@ -130,29 +124,17 @@ if (!in_array($hello_name, $Level_3_Access, true)) {
                             <label for='CLOSER2'>Closer (optional):</label>
                             <select class='form-control' name='CLOSER2' id='full_name2' >    
                                 <option value="None">None</option>    
-                                <?php if ($companynamere == 'Bluestone Protect') { ?>
                                     <option value="Carys">Carys</option>
                                     <option value="Hayley">Hayley</option>
                                     <option value="James">James</option>
                                     <option value="Kyle">Kyle</option>  
                                     <option value="Mike">Mike</option> 
-                                    <option value="Nathan">Nathan</option> 
+                                    <option value="Martin">Martin</option> 
                                     <option value="Richard">Richard</option>
-                                    <option value="Ricky">Ricky</option> 
                                     <option value="Sarah">Sarah</option> 
-                                    <option value="Stavros">Stavros</option>
                                     <option value="Nicola">Nicola</option> 
                                     <option value="Gavin">Gavin</option> 
-                                    <option value="Rhys">Rhys</option> 
-                                    <option value="David">David</option> 
-                                <?php } if ($companynamere == 'ADL_CUS') { ?>
-                                    <option value="Dan Matthews">Dan Matthews</option>
-                                    <option value="Joe Rimmell">Joe Rimmell</option>
-                                    <option value="Jordan Davies">Jordan Davies</option>
-                                    <option value="Matthew Brace">Matthew Brace</option>  
-                                    <option value="Sam Morris">Sam Morris</option> 
-                                    <option value="Steve Pattin">Steve Pattin</option> 
-                                <?php } ?>
+
                             </select>
                         </div>
 

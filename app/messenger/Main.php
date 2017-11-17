@@ -106,7 +106,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
      <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
-     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -383,14 +382,12 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 </tfoot>                    
         
                     <?php
-                    
-                    $i=0;
+
                     while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-                        $i++;
                         $NOTE=html_entity_decode($result['messenger_msg']);
 
 
-                        echo "<form method='POST' id='MSG_FORM$i' name='MSG_FORM$i' action='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."&SENDER=" . $result['messenger_date'] . "'><tr>
+                        echo "<form method='POST' id='MSG_FORM' name='MSG_FORM' action'><tr>
                            <td>" . $result['messenger_date'] . "</td>";
                         echo "<td>" . $result['messenger_sent_by'] . "</td>"; ?>
                                 <?php
@@ -412,42 +409,10 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
       <?php  }
     
                         echo "<td>$NOTE</td>";
-                        echo "<td><button type='submit' class='btn btn-success'><i class='fa fa-check-circle-o'></i></button></td>";
+                        echo "<td><a href='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."&SENDER=" . $result['messenger_date'] . "' class='btn btn-success'><i class='fa fa-check-circle-o'></i></a></td>";
                         echo "</tr>";
                  ?>  
-                     
-        <script>
-            document.querySelector('#MSG_FORM<?php echo $i; ?>').addEventListener('submit', function (e) {
-                var form = this;
-                e.preventDefault();
-                swal({
-                    title: "Update message?",
-                    text: "Confirm to mark as read!",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: '#DD6B55',
-                    confirmButtonText: 'Yes, I am sure!',
-                    cancelButtonText: "No, cancel it!",
-                    closeOnConfirm: false,
-                    closeOnCancel: false
-                },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                swal({
-                                    title: 'Updated!',
-                                    text: 'Message read!!',
-                                    type: 'success'
-                                }, function () {
-                                    form.submit();
-                                });
-
-                            } else {
-                                swal("Cancelled", "No changes were made", "error");
-                            }
-                        });
-            });
-
-        </script>                     
+                 
                      
                      <?php   }
             ?> </table>  <?php  } 
@@ -459,7 +424,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
                       <script type="text/JavaScript">
                                     var $select = $('#MSG_TO');

@@ -83,12 +83,11 @@ if (isset($fferror)) {
 <title>ADL | Staff Database</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>

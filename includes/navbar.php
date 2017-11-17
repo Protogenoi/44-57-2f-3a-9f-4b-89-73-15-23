@@ -122,7 +122,7 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
                             <li class="divider"></li>
                         <?php } ?>    
-                    <li><a href="/app/messenger/Main.php>"> Internal Messages</a></li> 
+                    <li><a href="/app/messenger/Main.php"> Internal Messages</a></li> 
                     <?php if ($ffews == '1' && in_array($hello_name, $Level_8_Access, true)) { ?>
                     <li class="divider"></li>
                     <li><a href="/Life/Reports/EWS.php"> Early Warning System</a></li>

@@ -40,8 +40,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>   
-    <link rel="stylesheet" type="text/css" href="//datatables.net/release-datatables/extensions/ColVis/css/dataTables.colVis.css">
-    <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">  
+    <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">  
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />   
         <style>
         div.smallcontainer {

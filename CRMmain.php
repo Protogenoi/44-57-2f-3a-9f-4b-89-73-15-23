@@ -404,7 +404,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
         <div id="map" class="col-md-6"></div>
 
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ-TiUwPaHJKUPgtMKt1aa7JZPI35Gq1U&signed_in=true&callback=initMap"></script> 
-        <script src="js/googlemapslocation.js"></script>
+        <script src="/resources/lib/google/googlemapslocation.js"></script>
 
     <?php } ?>
 

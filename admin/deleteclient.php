@@ -111,7 +111,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 </style>
 <link  rel="stylesheet" href="../resources/lib/sweet-alert/sweet-alert.min.css" />
 <script src="/js/jquery-2.1.4.min.js"></script>
-<script src="/js/sweet-alert.min.js"></script>
+<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 </head>
 <body>
     

@@ -3107,9 +3107,9 @@ if ($settingsselect == 'y') {
         </div>
 
     </div>
-    <script src="/js/sweet-alert.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <script src="/js/jquery-2.1.4.min.js"></script>
-    <script src="/js/sweet-alert.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script>

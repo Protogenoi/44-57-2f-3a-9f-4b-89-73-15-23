@@ -100,15 +100,15 @@ if ($ffpost_code == '1') {
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
         <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-        <script src="/js/jquery-2.1.4.min.js"></script>
+        
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
         <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
         <script>
             $(function () {
                 $("#dob").datepicker({
@@ -134,12 +134,6 @@ if ($ffpost_code == '1') {
                 e.preventDefault();
             });
         </script>
-        <style type="text/css">
-            .editclient{
-                margin: 20px;
-            }
-
-        </style>
 
         <?php
         if ($ffpost_code == '1') {

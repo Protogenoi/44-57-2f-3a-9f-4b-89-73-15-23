@@ -151,7 +151,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
             }
         </style>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>

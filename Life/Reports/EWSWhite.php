@@ -199,11 +199,11 @@ include("../../includes/adl_features.php");
             var table = $('#white').DataTable( {
                 dom: 'C<"clear">lfrtip',
                 "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-                    if ( aData["color_status"] != '' )  {
+                    if ( aData["color_status"] !== '' )  {
                         $('td', nRow).css("color", aData["color_status"]);
                     }
                     
-                     if ( aData["ews_status_status"] == "NEW" )  {
+                     if ( aData["ews_status_status"] === "NEW" )  {
                         $('td', nRow).addClass( 'black' );
                     }
                 
@@ -216,7 +216,7 @@ include("../../includes/adl_features.php");
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php echo $clwdate;?>",
+                "ajax": "/datatables/EWSData.php?&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php if(isset($clwdate)) { echo $clwdate; } ?>",
                  
                 "columns": [
                     {

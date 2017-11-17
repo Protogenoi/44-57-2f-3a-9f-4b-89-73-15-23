@@ -42,7 +42,6 @@ if(isset($fferror)) {
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.oesmith.co.uk/morris-0.5.1.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -129,12 +128,11 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js"></script>
 
-<script type="text/javascript" language="javascript" src="../../resources/lib/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-<script type="text/javascript" language="javascript" src="../../resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-
-<script type="text/javascript" language="javascript" src="../../js/datatables/jquery.DATATABLES.min.js"></script>
-<script src="../../resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 <?php 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 if(isset($EXECUTE)) {                 

@@ -349,7 +349,7 @@ $("#lead").easyAutocomplete(options);</script>
     </script>
 
   <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
-  <script src="/js/sweet-alert.min.js"></script>
+  <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script>
 webshims.setOptions('forms-ext', {
     replaceUI: 'auto',

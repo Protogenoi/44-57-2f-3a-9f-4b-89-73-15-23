@@ -82,7 +82,7 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
     <?php if ($ffpost_code == '1') { ?>
-        <script src="js/jquery.postcodes.min.js"></script>
+        <script src="/resources/lib/ideal-postcodes/jquery.postcodes.min.js"></script>
     <?php } ?>
 
     <script>

@@ -95,23 +95,16 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<script type="text/javascript" language="javascript" src="js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-<style type="text/css">
-	.warningalert{
-		margin: 20px;
-	}
-</style>
 <link  rel="stylesheet" href="../resources/lib/sweet-alert/sweet-alert.min.css" />
-<script src="/js/jquery-2.1.4.min.js"></script>
-<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
+<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script src="/js/jquery-2.1.4.min.js"></script>
+        <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 </head>
 <body>
     
@@ -506,10 +499,7 @@ $data2=$query->fetch(PDO::FETCH_ASSOC);
 <br>
 <br>
     <?php } ?>
-<input type="hidden" name="search" value="<?php echo $_GET["search"]?>" readonly>
-
-
-
+<input type="hidden" name="search" value="<?php if(isset($search)) { echo $search; } ?>" readonly>
 
 </form>
 </div>

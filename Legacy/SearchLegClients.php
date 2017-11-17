@@ -169,13 +169,12 @@ if (isset($fferror)) {
     </table>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>        
-<script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
-<script src="/js/jquery-1.10.2.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" language="javascript" src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+        <script src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        
 <script type="text/javascript" language="javascript" >
 /* Formatting function for row details - modify as you need */
 function format ( d ) {

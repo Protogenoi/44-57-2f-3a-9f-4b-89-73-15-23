@@ -96,7 +96,7 @@ if (isset($fferror)) {
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 
-<script src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 </head>

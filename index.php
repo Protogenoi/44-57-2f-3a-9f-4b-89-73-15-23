@@ -127,9 +127,7 @@ $error = $my_access->the_msg;
             
         </div>
         
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-        <script src="js/utilities.js"></script>
-        <script src="js/index-disable-submit.js"></script>
+        <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         
 <!-- Begin Cookie Consent plugin by Silktide - //silktide.com/cookieconsent -->
 <script type="text/javascript">

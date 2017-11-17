@@ -39,7 +39,7 @@ $XMAS_ARRAY = array("santascoming.mp3", "ninnymuggins.mp3", "arnold_reindeer.mp3
 $RAND_XMAS_ARRAY = array_rand($XMAS_ARRAY, 2);
     
 ?>
-<script src="../js/jquery.snow.js"></script>
+<script src="/resources/lib/snow/jquery.snow.js"></script>
     <script>
     $(document).ready( function(){
         $.fn.snow({ minSize: 9, maxSize: 65, newOn: 1000, flakeColor: '#2D7A95' } );

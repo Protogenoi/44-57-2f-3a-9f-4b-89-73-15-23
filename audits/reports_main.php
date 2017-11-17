@@ -144,7 +144,7 @@ if ($ffanalytics == '1') {
 
 
     </div>
-<script src="/js/jquery/jquery-3.0.0.min.js"></script>
+<script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

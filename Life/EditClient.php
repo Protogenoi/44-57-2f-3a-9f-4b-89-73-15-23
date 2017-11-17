@@ -84,7 +84,7 @@ if ($ffpost_code == '1') {
             
         }
 ?>
-<!DOCTYPE html>\
+<!DOCTYPE html>
 <!-- 
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
@@ -97,7 +97,6 @@ if ($ffpost_code == '1') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-        <script type="text/javascript" language="javascript" src="/js/jquery.dataTables.min.js"></script>
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">

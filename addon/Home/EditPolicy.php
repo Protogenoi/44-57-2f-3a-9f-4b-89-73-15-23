@@ -111,7 +111,7 @@ $NAME2=$data2['NAME2'];
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>

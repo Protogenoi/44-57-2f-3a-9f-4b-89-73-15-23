@@ -59,7 +59,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
-<script src='/resources/lib//resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
 </head>

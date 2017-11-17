@@ -161,15 +161,6 @@ echo  '<div class="row">
     </div>';
 } //End of function definition
 
-function logged_in_as($hello_name) {
-echo '<div class="loginnote">
- <div class="notice notice-success fade in" id="HIDEHELLO">
-        <a href="#" class="close" data-dismiss="alert" id="CLICKTOHIDEHELLO">&times;</a>
-        <strong>Success!</strong> <script src="../js/timeofdaygreet.js"></script> <b>'.$hello_name.'</b><br>
-    </div>
-</div>';
-} //End of function definition
-
 function logged_hostnameip() {
 
 $HTTP_REFERER = filter_input(INPUT_SERVER,'HTTP_REFERER', FILTER_SANITIZE_SPECIAL_CHARS);

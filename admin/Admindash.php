@@ -113,7 +113,7 @@ $companynamere = $companydetailsq['company_name'];
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>

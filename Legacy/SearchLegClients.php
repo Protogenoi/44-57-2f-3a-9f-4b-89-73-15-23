@@ -173,10 +173,9 @@ if (isset($fferror)) {
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" language="javascript" src="../js/jquery.dataTables.min.js"></script>        
 <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
-<script src="../js/jquery-1.10.2.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script type="text/javascript" language="javascript" src="../js/dataTables.responsive.min.js"></script>
-<script type="text/javascript" language="javascript" src="../js/jquery.dataTables.js"></script>
+<script src="/js/jquery-1.10.2.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script type="text/javascript" language="javascript" src="/datatables/js/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" >
 /* Formatting function for row details - modify as you need */
 function format ( d ) {

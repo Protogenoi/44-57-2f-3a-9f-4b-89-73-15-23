@@ -513,7 +513,7 @@ WHERE
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
-    <?php require_once(__DIR__ . '/../../php/Holidays.php');?>
+    <?php require_once(__DIR__ . '/../../app/Holidays.php');?>
 </head>
 <body>
     <?php require_once(__DIR__ . '/../../includes/NAV.php');?><br>

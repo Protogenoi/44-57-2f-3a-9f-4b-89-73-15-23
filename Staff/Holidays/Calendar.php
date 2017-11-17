@@ -50,8 +50,8 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <title>Calendar</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href='fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
-<link href='fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
+<link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
@@ -59,9 +59,9 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
-<script src='fullcalendar-3.0.0/lib/moment.min.js'></script>
-<script src='fullcalendar-3.0.0/lib/jquery.min.js'></script>
-<script src='fullcalendar-3.0.0/fullcalendar.min.js'></script>
+<script src='/resources/lib//resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
+<script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
 </head>
 <body>
 <?php include('../../includes/navbar.php'); ?>
@@ -97,7 +97,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 			navLinks: true, // can click day/week names to navigate views
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: 'fullcalendar-3.0.0/json/GetEvents.php?EXECUTE=1'
+			events: '/resources/lib/fullcalendar-3.0.0/json/GetEvents.php?EXECUTE=1'
 		});
 		
 	});

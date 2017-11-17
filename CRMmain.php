@@ -541,7 +541,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                 
                 ?>
                 <audio autoplay>
-                    <source src="sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
+                    <source src="/app/sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
                 </audio>  
                 <?php
           
@@ -555,7 +555,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
     </style>
 
                 <audio autoplay>
-                    <source src="sounds/halloween/<?php echo $RAND_HALLOWEEN_ARRAY; ?>" type="audio/mpeg">
+                    <source src="/app/sounds/halloween/<?php echo $RAND_HALLOWEEN_ARRAY; ?>" type="audio/mpeg">
                 </audio>    
             <?php } }
 

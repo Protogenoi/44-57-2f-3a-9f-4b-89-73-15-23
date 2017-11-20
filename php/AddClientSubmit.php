@@ -29,7 +29,7 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
@@ -774,7 +774,7 @@ if($custype=='TRB Home Insurance') { ?>
 <label for="closer">Closer:</label>
 <input type='text' id='closer' name='closer' style="width: 140px" required>
     <script>var options = {
-	url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -789,7 +789,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" required>
     <script>var options = {
-	url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -1060,7 +1060,7 @@ input.currency {
 <label for="closer">Closer:</label>
 <input type='text' id='closer' name='closer' style="width: 140px" required>
     <script>var options = {
-	url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -1075,7 +1075,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" required>
     <script>var options = {
-	url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

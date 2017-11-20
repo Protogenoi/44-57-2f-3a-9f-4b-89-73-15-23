@@ -39,26 +39,6 @@ $companynamere = $companydetailsq['company_name'];
 
 $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 
-if(!in_array($hello_name, $TIMELOCK_ACCESS)) {
-$TIMELOCK = date('H');
-
-if($TIMELOCK>='20' || $TIMELOCK<'08') {
-    
-                $USER_TRACKING_QRY = $pdo->prepare("INSERT INTO user_tracking
-                    SET
-                    user_tracking_id_fk=(SELECT id from users where login=:HELLO), user_tracking_url='Access_Level_Logout', user_tracking_user=:USER
-                    ON DUPLICATE KEY UPDATE
-                    user_tracking_url='Access_Level_Logout'");
-                $USER_TRACKING_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
-                $USER_TRACKING_QRY->bindParam(':USER', $hello_name, PDO::PARAM_STR);
-                $USER_TRACKING_QRY->execute();      
-   
-    header('Location: ../../CRMmain.php?action=log_out');
-    die;
-    
-}
-}
-
 $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
 $COM_MANAGER_ACCESS = array("Michael");
 $COM_LVL_10_ACCESS = array("Michael");

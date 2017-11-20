@@ -769,7 +769,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
                                 ?>">
                                     </p>
                                     <script>var options = {
-                                            url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -790,7 +790,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
                                             ?>">
                                     </p>
                                     <script>var options = {
-                                            url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -1703,7 +1703,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
     <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 
     <script>var options = {
-            url: "..../JSON/Agents.php?EXECUTE=1",
+            url: "..../app/JSON/Agents.php?EXECUTE=1",
             getValue: "full_name",
             list: {
                 match: {
@@ -1714,7 +1714,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $("#provider-json").easyAutocomplete(options);</script>
     <script>var options = {
-            url: "/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+            url: "/app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
             getValue: "full_name",
             list: {
                 match: {
@@ -1726,7 +1726,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
         $("#closer").easyAutocomplete(options);
     </script>
     <script>var options = {
-            url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+            url: "../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
             getValue: "full_name",
             list: {
                 match: {

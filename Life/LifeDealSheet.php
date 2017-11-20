@@ -71,6 +71,33 @@ if($TRACKED_IP!='81.145.167.66') {
 }
 }
 
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 1) {
+            
+        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
 
 if ($fftrackers == '0') {
     header('Location: ../CRMmain.php?Feature=NotEnabled');
@@ -701,7 +728,7 @@ WHERE
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script type="text/JavaScript">
     var $select = $('#agent_name');
-    $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){
+    $.getJSON('../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
         $select.html('agent_name');
         $.each(data, function(key, val){
             $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');

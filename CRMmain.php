@@ -77,6 +77,23 @@ if($TRACKED_IP!='81.145.167.66') {
 }
 }
 
+        require_once(__DIR__ . '/classes/database_class.php');
+        require_once(__DIR__ . '/class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->UpdateToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL <=0) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }  
+
 $Level_2_Access = array("Jade");
 
 if (in_array($hello_name, $Level_2_Access, true)) {
@@ -95,24 +112,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
     header('Location: /Life/LifeDealSheet.php?query=CloserTrackers');
     die;
-}
-
-        require_once(__DIR__ . '/classes/database_class.php');
-        require_once(__DIR__ . '/class/login/login.php');
-        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->UpdateToken();
-        $CHECK_USER_LOGIN->CheckAccessLevel();
-        
-        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
-        
-        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
-        
-        if($ACCESS_LEVEL <=0) {
-            
-        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
-        die;    
-            
-        }      
+}    
 ?>
 <!DOCTYPE html>
 <!-- 

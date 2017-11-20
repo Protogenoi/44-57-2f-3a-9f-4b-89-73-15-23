@@ -40,7 +40,7 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
     $SMS_RESULT=$SMS_QRY->fetch(PDO::FETCH_ASSOC);
     
     $SID=$SMS_RESULT['twilio_account_sid'];
-    $TOKEN=$SMS_RESULT['twilio_account_token'];
+    $SMS_TOKEN=$SMS_RESULT['twilio_account_token'];
 
 use Twilio\Rest\Client;                
 require_once(__DIR__ . '../../twilio-php-master/Twilio/autoload.php');   
@@ -80,7 +80,7 @@ if($TRACKED_IP!='81.145.167.66') {
 
         if ($database->rowCount() <= 0) {    
 
-    $client = new Client($SID, $TOKEN);
+    $client = new Client($SID, $SMS_TOKEN);
 
 $MOB_ARRAY=array("07401434619","07917886451");
 $MOB_MSG="ADL $hello_name accessed from IP $TRACKED_IP!";

@@ -489,7 +489,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            url: "../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {
@@ -506,7 +506,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            url: "../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

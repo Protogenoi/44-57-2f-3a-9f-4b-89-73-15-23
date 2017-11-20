@@ -21,11 +21,35 @@ if(isset($fferror)) {
     
     }
     
-    $INSURER= filter_input(INPUT_POST, 'custype', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
         
-    include('../../classes/database_class.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: ../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }    
+    
+    $INSURER= filter_input(INPUT_POST, 'custype', FILTER_SANITIZE_SPECIAL_CHARS);
+
     include('../../includes/adlfunctions.php');
 
 $INSURER_ARRAY_ONE=array("Bluestone Protect","The Review Bureau","TRB Archive","TRB Vitality","Vitality","TRB Aviva","Aviva","TRB WOL","One Family","TRB Royal London","Royal London");
@@ -633,7 +657,7 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                         <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../../JSON/CloserNames.json",
+                                                            url: "../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {
@@ -650,7 +674,7 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                         <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../../JSON/Agents.php?EXECUTE=1",
+                                                            url: "../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

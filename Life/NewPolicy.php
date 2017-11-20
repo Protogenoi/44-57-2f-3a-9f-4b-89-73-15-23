@@ -63,8 +63,19 @@ if (isset($fferror)) {
 
         require_once(__DIR__ . '/../classes/database_class.php');
         require_once(__DIR__ . '/../class/login/login.php');
+        
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -111,6 +122,7 @@ if (isset($EXECUTE)) {
             <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
             <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
             <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+            
             <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
             <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
             <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
@@ -442,7 +454,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='closer' name='closer' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/CloserNames.json",
+                                                            url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {
@@ -459,7 +471,7 @@ if (isset($EXECUTE)) {
                                                         <input type='text' id='lead' name='lead' style="width: 170px" class="form-control" style="width: 170px" required>
                                                     </p>
                                                     <script>var options = {
-                                                            url: "../JSON/Agents.php?EXECUTE=1",
+                                                            url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

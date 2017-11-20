@@ -27,11 +27,31 @@
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
  * 
-*/  
+*/
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+if(isset($USER) && $TOKEN) {
+    
+    require_once(__DIR__ . '/../classes/database_class.php');
+    require_once(__DIR__ . '/../class/login/login.php');
+
+        $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
+        $CHECK_USER_TOKEN->CheckToken();
+        $OUT=$CHECK_USER_TOKEN->CheckToken();
+        
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Bad') {
+         echo "BAD";   
+        }
+
+        if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
+
+$hello_name=$USER;
 
 require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/time.php');
 
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
@@ -53,6 +73,16 @@ ORDER BY full_name");
         
 }
 
+}
+        }
+        
+}
+
+else {
+
+    header('Location: /../../CRMmain.php');
+    die;
+    
 }
   
 ?>

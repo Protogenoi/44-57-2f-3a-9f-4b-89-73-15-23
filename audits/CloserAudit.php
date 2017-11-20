@@ -142,7 +142,7 @@ if (isset($fferror)) {
 
                                 <script type="text/JavaScript"> 
                                     var $select = $('#full_name');
-                                    $.getJSON('/../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+                                    $.getJSON('/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
                                     $select.html('full_name');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
@@ -157,7 +157,7 @@ if (isset($fferror)) {
                             <label for='full_name2'>Closer (optional):</label>
                             <input type="text" class='form-control' name='full_name2' id='full_name2' style="width: 520px">       
                                                     <script>var options = {
-                                                            url: "../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            url: "../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                             getValue: "full_name",
                                                             list: {
                                                                 match: {

@@ -1943,7 +1943,7 @@ function showTQC7(select_item) {
     <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script>    
                                     <script type="text/JavaScript">
                                     var $select = $('#CLOSER');
-                                    $.getJSON('/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', 
+                                    $.getJSON('/app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', 
                                     function(data){
                                     $select.html('full_name');
                                     $.each(data, function(key, val){ 

@@ -6147,7 +6147,7 @@ $Today_TIME = date("h:i:s");
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 
 <script>var options = {
-url: "..../JSON/Agents.php?EXECUTE=1",
+url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
 getValue: "full_name",
 list: {
 match: {
@@ -6158,7 +6158,7 @@ enabled: true
 
 $("#provider-json").easyAutocomplete(options);</script>
 <script>var options = {
-        url: "/JSON/CloserNames.json",
+        url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         getValue: "full_name",
         list: {
             match: {
@@ -6170,7 +6170,7 @@ $("#provider-json").easyAutocomplete(options);</script>
     $("#closer").easyAutocomplete(options);
 </script>
 <script>var options = {
-        url: "/JSON/AllNames.json",
+        url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         getValue: "full_name",
         list: {
             match: {
@@ -6254,7 +6254,7 @@ $("#provider-json").easyAutocomplete(options);</script>
 </script>
                                     <script type="text/JavaScript">
                                     var $select = $('#agent_name');
-                                    $.getJSON('../../JSON/Agents.php?EXECUTE=1', function(data){
+                                    $.getJSON('../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
                                     $select.html('agent_name');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');

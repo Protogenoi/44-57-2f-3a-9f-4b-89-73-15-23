@@ -1714,7 +1714,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $("#provider-json").easyAutocomplete(options);</script>
     <script>var options = {
-            url: "/JSON/CloserNames.json",
+            url: "/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
             getValue: "full_name",
             list: {
                 match: {
@@ -1726,7 +1726,7 @@ $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
         $("#closer").easyAutocomplete(options);
     </script>
     <script>var options = {
-            url: "/JSON/AllNames.json",
+            url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
             getValue: "full_name",
             list: {
                 match: {

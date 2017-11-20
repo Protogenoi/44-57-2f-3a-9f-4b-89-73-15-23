@@ -49,9 +49,7 @@ if(isset($USER) && $TOKEN) {
         if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
 
 $hello_name=$USER;
-
 require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/time.php');
 
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
@@ -74,16 +72,13 @@ ORDER BY full_name");
 }
 
 }
-
+  
         }
-        
-}
-
-else {
+    
+ } else {
 
     header('Location: /../../CRMmain.php');
     die;
     
-}        
-  
+}   
 ?>

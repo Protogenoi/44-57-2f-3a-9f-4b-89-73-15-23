@@ -27,7 +27,7 @@
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
  * 
-*/
+*/  
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -49,9 +49,7 @@ if(isset($USER) && $TOKEN) {
         if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
 
 $hello_name=$USER;
-
 require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/time.php');
 
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
@@ -74,15 +72,13 @@ ORDER BY full_name");
 }
 
 }
+  
         }
-        
-}
-
-else {
+    
+ } else {
 
     header('Location: /../../CRMmain.php');
     die;
     
-}
-  
+}   
 ?>

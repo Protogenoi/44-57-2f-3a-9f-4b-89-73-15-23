@@ -31,6 +31,8 @@
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
         include('../includes/ADL_PDO_CON.php');

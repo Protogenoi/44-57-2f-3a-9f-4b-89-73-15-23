@@ -37,16 +37,14 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 $USER_TRACKING=1;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
 
 require_once(__DIR__ . '/../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
-
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../php/analyticstracking.php');
@@ -80,12 +78,14 @@ if (isset($fferror)) {
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 3) {
+        if($ACCESS_LEVEL < 2) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
+        
+        require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -103,7 +103,7 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     
@@ -628,7 +628,7 @@ if(empty($POST_NAME)) {
                                     <label for="closer">Closer:</label>
                                     <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "/../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -642,7 +642,7 @@ if(empty($POST_NAME)) {
                                     <label for="lead">Lead Gen:</label>
                                     <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "/../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {

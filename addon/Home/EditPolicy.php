@@ -63,8 +63,19 @@ if (isset($fferror)) {
 
         require_once(__DIR__ . '/../../classes/database_class.php');
         require_once(__DIR__ . '/../../class/login/login.php');
+        
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -72,7 +83,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 3) {
             
-        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -249,7 +260,7 @@ $NAME2=$data2['NAME2'];
 <label for="closer">Closer:</label>
 <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]?>" required>
 <script>var options = {
-	url: "/JSON/CloserNames.json",
+	url: "../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -264,7 +275,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]?>" required>
     <script>var options = {
-	url: "../JSON/Agents.php?EXECUTE=1",
+	url: "../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

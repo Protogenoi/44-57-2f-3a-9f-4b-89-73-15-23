@@ -255,7 +255,7 @@ if (!isset($datefrom)) {
         });
     </script>
     <script>var options = {
-	url: "../../app/JSON/Agents.php?EXECUTE=1?USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

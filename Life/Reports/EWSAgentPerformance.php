@@ -1,5 +1,5 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 7);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
@@ -10,47 +10,61 @@ if($ffews=='0') {
     header('Location: ../../CRMmain.php?FEATURE=EWS');
 }
 
+        require_once(__DIR__ . '/../../includes/Access_Levels.php');
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
+        
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
-include('../../includes/Access_Levels.php');
 
 if (!in_array($hello_name,$Level_8_Access, true)) {
     
     header('Location: ../../CRMmain.php'); die;
 
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>EWS Agent Performance</title>
+<title>ADL | EWS Agent Performance</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-      <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-      <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-      <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+    <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
+    <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+      
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
-    <style>
-        .label-purple {
-  background-color: #8e44ad;
-}
-#tableEditor {
-    position: absolute;
-    left: 50px; top: 250px;
-    padding: 5px;
-    border: 1px solid #000;
-    background: #fff;
-}
-        div.smallcontainer {
-          
-            font: 70%/1.45em "Helvetica Neue",HelveticaNeue,Verdana,Arial,Helvetica,sans-serif;
-        }
-    </style>
+
 </head>
 <body>
     
@@ -96,18 +110,17 @@ $newdateto="$dateto 23:00:00";
 <div class="col-xs-2">
 <input type='text' id='agent' name='agent' style="width: 140px" value="<?php if(isset($agent)) { echo "$agent";}?>">      
 </div>
-<script>var options = {
-	url: "../../JSON/<?php if($companynamere=='Bluestone Protect') { echo "AllNames" ; } else { echo "CUS_AllNames"; } ?>.json",
-                getValue: "full_name",
+                                                    <script>var options = {
+                                                            url: "../../JSON/AllAgents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            getValue: "full_name",
+                                                            list: {
+                                                                match: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        };
 
-	list: {
-		match: {
-			enabled: true
-		}
-	}
-};
-
-$("#agent").easyAutocomplete(options);</script>
+                                                        $("#agent").easyAutocomplete(options);</script>
 
 <div class="col-xs-2">
   <input id="datefrom" name="datefrom" placeholder="Date From" <?php if(isset($datefrom)) { echo "value='$datefrom'"; }?>class="form-control input-md" type="text">

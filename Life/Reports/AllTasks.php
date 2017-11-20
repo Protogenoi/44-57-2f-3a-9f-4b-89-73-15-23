@@ -121,7 +121,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         $.ajax({
             'async': false,
             'global': false,
-            'url': '../JSON/GetAllTasks.php',
+            'url': '../app/JSON/GetAllTasks.php',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -181,7 +181,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../JSON/gettask.php",
+        "ajax": "../app/JSON/gettask.php",
         "columns": [
             {
                 "className":      'details-control',

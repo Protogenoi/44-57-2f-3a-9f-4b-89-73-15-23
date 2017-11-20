@@ -155,7 +155,7 @@ $(document).ready(function () {
         $.ajax({
             'async': false,
             'global': false,
-            'url': '../JSON/GetAllTasks.php?agent=<?php if(isset($hello_name)) { echo $hello_name; } ?>',
+            'url': '../app/JSON/GetAllTasks.php?agent=<?php if(isset($hello_name)) { echo $hello_name; } ?>',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -219,7 +219,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../JSON/gettask.php?agent=<?php echo $hello_name;?>",
+        "ajax": "../app/JSON/gettask.php?agent=<?php echo $hello_name;?>",
         "columns": [
             {
                 "className":      'details-control',

@@ -163,7 +163,7 @@ if ($fflife=='0') {
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "../JSON/KeyFacts.php?EXECUTE=1",
+                    "ajax": "../app/JSON/KeyFacts.php?EXECUTE=1",
                     "columns": [
                         {
                             "className": 'details-control',
@@ -193,7 +193,7 @@ if ($fflife=='0') {
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "../JSON/KeyFacts.php?EXECUTE=2",
+                    "ajax": "../app/JSON/KeyFacts.php?EXECUTE=2",
                     "columns": [
                         {
                             "className": 'details-control',
@@ -231,7 +231,7 @@ if(!isset($SEARCH)) {?>
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "../JSON/KeyFacts.php?EXECUTE=1",
+                    "ajax": "../app/JSON/KeyFacts.php?EXECUTE=1",
                     "columns": [
                         {
                             "className": 'details-control',

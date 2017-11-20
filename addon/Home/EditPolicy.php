@@ -260,7 +260,7 @@ $NAME2=$data2['NAME2'];
 <label for="closer">Closer:</label>
 <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]?>" required>
 <script>var options = {
-	url: "../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -275,7 +275,7 @@ $("#closer").easyAutocomplete(options);</script>
 <label for="lead">Lead Gen:</label>
 <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]?>" required>
     <script>var options = {
-	url: "../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

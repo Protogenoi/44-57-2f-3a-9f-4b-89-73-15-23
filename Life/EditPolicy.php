@@ -617,7 +617,7 @@ if(empty($POST_NAME)) {
                                     <label for="closer">Closer:</label>
                                     <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/CloserNames.json",
+                                            url: "/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -631,7 +631,7 @@ if(empty($POST_NAME)) {
                                     <label for="lead">Lead Gen:</label>
                                     <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                     <script>var options = {
-                                            url: "/JSON/LeadGenNames.json",
+                                            url: "/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {

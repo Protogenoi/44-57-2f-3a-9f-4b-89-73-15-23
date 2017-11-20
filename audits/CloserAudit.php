@@ -102,25 +102,17 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        .loginnote{
-            margin: 20px;
-        }
-        .red{
-            color:red;
-        }
-    </style>
+    <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script>
     <script>
         function textAreaAdjust(o) {
             o.style.height = "1px";
             o.style.height = (25 + o.scrollHeight) + "px";
         }
-    </script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-    
+    </script>    
 
 </head>
 <body>
@@ -163,19 +155,19 @@ if (isset($fferror)) {
 
                         <div class='form-group'>
                             <label for='full_name2'>Closer (optional):</label>
-                            <select class='form-control' name='full_name2' id='full_name2' >    
-                                <option value="None">None</option>    
-                                    <option value="Carys">Carys</option>
-                                    <option value="Hayley">Hayley</option>
-                                    <option value="James">James</option>
-                                    <option value="Kyle">Kyle</option>  
-                                    <option value="Mike">Mike</option> 
-                                    <option value="Martin">Martin</option> 
-                                    <option value="Richard">Richard</option>
-                                    <option value="Sarah">Sarah</option> 
-                                    <option value="Nicola">Nicola</option> 
-                                    <option value="Gavin">Gavin</option> 
-                            </select>
+                            <input type="text" class='form-control' name='full_name2' id='full_name2' style="width: 520px">       
+                                                    <script>var options = {
+                                                            url: "../../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            getValue: "full_name",
+                                                            list: {
+                                                                match: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        };
+
+                                                        $("#full_name2").easyAutocomplete(options);</script>
+
                         </div>
 
                         <label for="policy_id">Policy Number</label>

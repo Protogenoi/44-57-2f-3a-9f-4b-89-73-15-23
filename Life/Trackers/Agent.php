@@ -74,7 +74,6 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
-<link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <body>
 
@@ -185,8 +184,6 @@ if (isset($datefrom)) {
 }
 ?>
 
-  
-
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
@@ -202,7 +199,7 @@ if (isset($datefrom)) {
         });
     </script>
     <script>var options = {
-	url: "../../app/JSON/Agents.php?EXECUTE=1",
+	url: "../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {
@@ -212,7 +209,7 @@ if (isset($datefrom)) {
 	}
 };
 
-$("#provider-json").easyAutocomplete(options);</script>   
+$("#provider-json").easyAutocomplete(options);</script>    
       <script type="text/JavaScript">
                                     var $select = $('#CLOSER');
                                     $.getJSON('../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){

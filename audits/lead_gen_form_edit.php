@@ -69,8 +69,19 @@ if ($ffaudits == '0') {
 
         require_once(__DIR__ . '/../classes/database_class.php');
         require_once(__DIR__ . '/../class/login/login.php');
+        
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -78,7 +89,7 @@ if ($ffaudits == '0') {
         
         if($ACCESS_LEVEL < 2) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -206,7 +217,7 @@ $auditid = filter_input(INPUT_GET, 'auditid', FILTER_SANITIZE_NUMBER_INT);
                             </div>
 
                             <script>var options = {
-                                    url: "../JSON/Agents.php?EXECUTE=1",
+                                    url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                     getValue: "full_name",
 
                                     list: {

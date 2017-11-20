@@ -427,7 +427,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
                       <script type="text/JavaScript">
                                     var $select = $('#MSG_TO');
-                                    $.getJSON('/../../JSON/ADL_USERS.php?EXECUTE=1', function(data){
+                                    $.getJSON('/../../app/JSON/ADL_USERS.php?EXECUTE=1', function(data){
                                     $select.html('MSG_TO');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');

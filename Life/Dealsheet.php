@@ -61,6 +61,33 @@ if (isset($fferror)) {
     }
 }
 
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
+        
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 1) {
+            
+        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
 getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 
@@ -3510,7 +3537,7 @@ $Today_TIME = date("h:i:s");
                                 } ?>">
                                                 </p>
                                                 <script>var options = {
-                                                        url: "/JSON/CloserNames.json",
+                                                        url: "../JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                         getValue: "full_name",
                                                         list: {
                                                             match: {
@@ -3529,7 +3556,7 @@ $Today_TIME = date("h:i:s");
                                 } ?>">
                                                 </p>
                                                 <script>var options = {
-                                                        url: "../JSON/Agents.php?EXECUTE=1",
+                                                        url: "../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                                         getValue: "full_name",
                                                         list: {
                                                             match: {

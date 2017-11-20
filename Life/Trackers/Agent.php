@@ -202,7 +202,7 @@ if (isset($datefrom)) {
         });
     </script>
     <script>var options = {
-	url: "../../JSON/Agents.php?EXECUTE=1",
+	url: "../../app/JSON/Agents.php?EXECUTE=1",
                 getValue: "full_name",
 
 	list: {
@@ -215,7 +215,7 @@ if (isset($datefrom)) {
 $("#provider-json").easyAutocomplete(options);</script>   
       <script type="text/JavaScript">
                                     var $select = $('#CLOSER');
-                                    $.getJSON('../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+                                    $.getJSON('../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
                                     $select.html('CLOSER');
                                     $.each(data, function(key, val){ 
                                     $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');

@@ -728,7 +728,7 @@ WHERE
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script type="text/JavaScript">
     var $select = $('#agent_name');
-    $.getJSON('../../JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+    $.getJSON('../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
         $select.html('agent_name');
         $.each(data, function(key, val){
             $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');

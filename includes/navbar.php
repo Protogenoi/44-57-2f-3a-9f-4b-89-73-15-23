@@ -112,7 +112,7 @@ $companynamere = $companydetailsq['company_name'];
                         <li><a href="/calendar/calendar.php">Callbacks</a></li>
                         <?php } ?>
                         <li class="divider"></li>   
-                            <li><a href="/Emails.php">Emails</a></li>
+                        <li><a href="/email/Emails.php">Emails</a></li>
                             <li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts">Missing Uploads</a></li>
                         <?php if ($ffkeyfactsemail == '1') { ?>
                             <li><a href="/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>

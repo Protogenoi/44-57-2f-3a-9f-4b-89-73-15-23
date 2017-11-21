@@ -122,7 +122,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
 		<ul class="ca-menu">
 <?php if($ffhome=='1'){ ?>			
 			<li>
-			<a href="/SearchPolicies.php?EXECUTE=Home">
+			<a href="SearchPolicies.php?EXECUTE=Home">
                             <span class="ca-icon"><i class="fa fa-search"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Search<br/>Policies</h2>

@@ -47,9 +47,6 @@ if(isset($USER) && $TOKEN) {
 
         if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
 
-
-require_once(__DIR__ . '/../../includes/ADL_MYSQLI_CON.php');
-
 $hello_name=$USER;
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
 

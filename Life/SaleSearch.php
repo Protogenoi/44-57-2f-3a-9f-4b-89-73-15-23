@@ -263,7 +263,7 @@ $DATETO = filter_input(INPUT_POST, 'DATETO', FILTER_SANITIZE_SPECIAL_CHARS);
                                 "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                             },
-                            "ajax": "/datatables/ClientSearch.php?ClientSearch=10&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&CLOSER=<?php echo $CLOSER; ?>&DATETO=<?php echo $DATETO; ?>&DATEFROM=<?php echo $DATEFROM; ?>",
+                            "ajax": "/Life/JSON/ClientSearch.php?ClientSearch=10&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&CLOSER=<?php echo $CLOSER; ?>&DATETO=<?php echo $DATETO; ?>&DATEFROM=<?php echo $DATEFROM; ?>",
                             "columns": [
                                 {
                                     "className": 'details-control',

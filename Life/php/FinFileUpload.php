@@ -7,7 +7,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
     
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../twilio-php-master/Twilio/autoload.php');
+require_once(__DIR__ . '/../../resources/lib/twilio-php-master/Twilio/autoload.php');
 
 use Twilio\Rest\Client;
 

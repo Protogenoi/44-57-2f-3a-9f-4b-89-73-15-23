@@ -185,7 +185,7 @@ if (isset($fferror)) {
                                 </li>
     <?php } ?>
                             <li>
-                                <a href="/Emails.php">
+                                <a href="/email/Emails.php">
                                     <span class="ca-icon"><i class="fa fa-envelope"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Emails<br/></h2>

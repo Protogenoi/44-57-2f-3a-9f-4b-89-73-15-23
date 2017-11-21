@@ -73,7 +73,7 @@ h1 {
             });
         }
 
-        t = setInterval(refresh_div, 10000);
+        t = setInterval(refresh_div, 1000);
     </script>
 </head>
 <body class="backcolour">
@@ -291,8 +291,21 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                 ?>          
         </table> 
 
+<?php 
+$Today_TIME=date("h:i:s");
+$Today_DATES = date("l jS \of F Y"); ?>   
+        
+        
+                    <div class="col-md-12">
 
-    </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4"><?php echo "<font color='white'><h3>$Today_TIME | $Today_DATES</h3</font>"; ?></div>
+                        <div class="col-md-4"></div>
+
+                    </div>          
+        
+    </div>    
+    
 <?php require_once(__DIR__ . '/../../app/Holidays.php'); ?>
 </body>
 </html>

@@ -100,7 +100,7 @@ $companynamere = $companydetailsq['company_name'];
                         <li><a href="/SearchPolicies.php?EXECUTE=Life">Search Policies</a></li>
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
-                        <li><a href="/CRMReports.php">Reports</a></li>                        
+                        <li><a href="/Life/CRMReports.php">Reports</a></li>                        
                         <li><a href="/Life/Reports/AllTasks.php">Tasks</a></li>
                         <?php if ($ffsms == '1') { ?>
                         <li><a href="/Life/SMS/Menu.php">SMS Report</a></li>

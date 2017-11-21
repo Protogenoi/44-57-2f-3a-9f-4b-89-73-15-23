@@ -158,7 +158,7 @@ if (isset($fferror)) {
                                 </li>
 
                                 <li>
-                                    <a href="/Export.php">
+                                    <a href="/app/admin/Export.php">
                                         <span class="ca-icon"><i class="fa fa-cloud-download"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Export<br/>Data</h2>
@@ -168,7 +168,7 @@ if (isset($fferror)) {
                                 </li>
 
                                 <li>
-                                    <a href="/Upload.php">
+                                    <a href="/app/admin/Upload.php">
                                         <span class="ca-icon"><i class="fa fa-cloud-upload"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Upload<br/>Data</h2>

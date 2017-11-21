@@ -32,7 +32,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>ADL | Real Time Report</title>
+    <title>ADL | Close Rates</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -79,8 +79,7 @@ h1 {
 <body class="backcolour">
     <div class="contain-to-grid">
         <?php
-        include("../includes/ADL_PDO_CON.php");
-
+        require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
         $query = $pdo->prepare("SELECT 
 closer,
@@ -294,6 +293,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 
 
     </div>
-<?php require_once(__DIR__ . '/../app/Holidays.php'); ?>
+<?php require_once(__DIR__ . '/../../app/Holidays.php'); ?>
 </body>
 </html>

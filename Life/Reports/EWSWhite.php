@@ -216,7 +216,7 @@ include("../../includes/adl_features.php");
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php if(isset($clwdate)) { echo $clwdate; } ?>",
+                "ajax": "/Life/EWS/JSON/EWSData.php?&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>&<?php if(isset($hello_name)){ if($hello_name=='Abbie') { echo "EWS=5";} elseif($hello_name=='carys') { echo "EWS=6";} else { echo "EWS=2";} }?>&clwdate=<?php if(isset($clwdate)) { echo $clwdate; } ?>",
                  
                 "columns": [
                     {

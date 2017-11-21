@@ -220,7 +220,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "../../datatables/EWSData.php?EWS=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                "ajax": "/Life/EWS/JSON/EWSData.php?EWS=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
 
                 "columns": [
                     {

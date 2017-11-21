@@ -217,7 +217,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../datatables/ClientSearch.php?ClientSearch=4&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+        "ajax": "/PBA/JSON/ClientSearch.php?ClientSearch=4&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

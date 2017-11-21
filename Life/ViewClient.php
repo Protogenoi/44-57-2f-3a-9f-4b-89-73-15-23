@@ -283,7 +283,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             <li><a class="list-group-item" href="AddPolicy.php?EXECUTE=1&search=<?php echo $search ?>"><i class="fa fa-plus fa-fw"></i> Add Policy</a></li>
                         <?php } ?>
                         <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
-                            <li><a class="list-group-item" href="/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
+                            <li><a class="list-group-item" href="/app/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
                         <?php } ?>
 
                     </div>
@@ -1747,7 +1747,7 @@ WHERE
                                        if (isset($CONNEX_URL)) {
                                            echo $CONNEX_URL;
                                        }
-                                       ?>/Admin/data/search/edit/?id=<?php echo $leadid1; ?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Connex Call Recording | Lead ID 1</a>
+                                       ?>/app/admin/data/search/edit/?id=<?php echo $leadid1; ?>" target="_blank"><i class="fa fa-headphones fa-fw" aria-hidden="true"></i> &nbsp; Connex Call Recording | Lead ID 1</a>
 
                                 <?php } else {
                                     ?>

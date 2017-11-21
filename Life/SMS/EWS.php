@@ -65,7 +65,7 @@ WHERE
 $sth->execute();
 $result = $sth->fetchAll();
 
- require('../../twilio-php-master/Twilio/autoload.php');
+ require('../../resources/lib/twilio-php-master/Twilio/autoload.php');
  use Twilio\Rest\Client;
  $client = new Client($SID, $TOKEN);
 

@@ -194,7 +194,7 @@ if(empty($CID)) {
                         <?php 
                         
                         if (in_array($hello_name,$Level_10_Access, true)) { ?>
-                        <li><a class="list-group-item" href="/admin/deleteclient.php?CID=<?php echo $CID; ?>&home"><i class="fa fa-trash fa-fw"></i>&nbsp; Delete Client</a></li>
+                        <li><a class="list-group-item" href="/app/admin/deleteclient.php?CID=<?php echo $CID; ?>&home"><i class="fa fa-trash fa-fw"></i>&nbsp; Delete Client</a></li>
                         <?php } ?>
 
                         
@@ -515,7 +515,7 @@ if(empty($CID)) {
                                                         
                                                         if (in_array($hello_name,$Level_10_Access, true)) {
                                                             
-                                                            echo "<td><a href='/admin/deletepolicy.php?home&PID=$PID&CID=$CID' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </a></td>";
+                                                            echo "<td><a href='/app/admin/deletepolicy.php?home&PID=$PID&CID=$CID' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </a></td>";
                                                             
                                                         }
                                                         

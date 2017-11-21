@@ -166,7 +166,7 @@ $tworesult=$clienttwo->fetch(PDO::FETCH_ASSOC);
                     <ul class="dropdown-menu">
                         <div class="list-group">
                             <li><a class="list-group-item" href="../EditClient.php?search=<?php echo $search?>&legacy"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp; Edit Client</a></li>
-                            <li><a class="list-group-item" href="../admin/deleteclient.php?search=<?php echo $search?>&legacy"><i class="fa fa-trash fa-fw"></i>&nbsp; Delete Client</a></li>
+                            <li><a class="list-group-item" href="../app/admin/deleteclient.php?search=<?php echo $search?>&legacy"><i class="fa fa-trash fa-fw"></i>&nbsp; Delete Client</a></li>
                         </div>
                     </ul>
             </li>

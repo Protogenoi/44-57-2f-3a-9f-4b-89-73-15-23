@@ -33,7 +33,7 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th colspan='5'><h2>History Tracking</h2> <a href="/app/admin/Admindash.php?users=y" class="btn btn-xs btn-success"><i class="fa fa-refresh"></i> </a></th>
+            <th colspan='5'><h2>History Tracking</h2> <a href="/app/app/admin/Admindash.php?users=y" class="btn btn-xs btn-success"><i class="fa fa-refresh"></i> </a></th>
         </tr>
         <tr>
             <th>Date</th>

@@ -56,7 +56,7 @@
         $USER_COMPANY = $User['company']; ?>
 
         <tr>
-        <form method="POST" action="/app/admin/php/AddNewUser.php?EXECUTE=1&USER_ID=<?php echo $USER_ID; ?>">
+        <form method="POST" action="/app/app/admin/php/AddNewUser.php?EXECUTE=1&USER_ID=<?php echo $USER_ID; ?>">
         <td><input class="form-control" type="text" name="USER_USERNAME" value="<?php if(isset($USER_USERNAME)) { echo $USER_USERNAME; } ?>" ></td>      
         <td><input class="form-control" type="text" name="USER_LOGIN" value="<?php if(isset($USER_LOGIN)) { echo $USER_LOGIN; } ?>" ></td>
                <td>

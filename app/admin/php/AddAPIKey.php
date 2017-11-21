@@ -73,7 +73,7 @@ if(isset($fferror)) {
             $database->bind(':hello',$hello_name);
             $database->execute(); 
             
-            header('Location: /app/admin/Admindash.php?PostCode=y&PostCodeMSG=1'); die; 
+            header('Location: ../Admindash.php?PostCode=y&PostCodeMSG=1'); die; 
                 
             }
             
@@ -86,11 +86,11 @@ if(isset($fferror)) {
             
            
             
-            header('Location: /app/admin/Admindash.php?PostCode=y&PostCodeMSG=2'); die; 
+            header('Location: ../Admindash.php?PostCode=y&PostCodeMSG=2'); die; 
             
             }
             
-        header('Location: /app/admin/Admindash.php?PostCode=y&PostCodeMSG=3'); die;     
+        header('Location: ../Admindash.php?PostCode=y&PostCodeMSG=3'); die;     
             
         }
         

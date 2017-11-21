@@ -232,7 +232,7 @@ $companynamere = $companydetailsq['company_name'];
                                 <li><a  href="/Staff/Assets/Assets.php">Asset Management</a></li> 
                             <?php } ?>
                                  <li class="divider"></li> 
-                                 <li><a href='/admin/Admindash.php?admindash=y'>Control Panel</a></li>
+                                 <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php } ?>
                         </ul>  
                     </li>

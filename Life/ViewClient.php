@@ -69,7 +69,7 @@ if (empty($search)) {
 
 $ACCESS_ALLOW=array("Michael","Matt");
 if($search=='138583' && !(in_array($hello_name,$ACCESS_ALLOW))) {
-    header('Location: ../SearchClients.php?ClientDeleted');
+    header('Location: ../app/SearchClients.php?ClientDeleted');
 }
 
         require_once(__DIR__ . '/../classes/database_class.php');

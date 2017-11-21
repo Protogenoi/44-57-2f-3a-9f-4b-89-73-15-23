@@ -383,20 +383,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
             </div>
         </div>
 
-        <div class="modal modal-static fade" id="LOADINGEWS" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="text-center">
-                            <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
-                            <br>
-                            <h3>Loading <?php echo "$hello_name's"; ?> user settings... </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-
     </div>
 
     <?php if ($ffgmaps == '1') { ?>
@@ -407,21 +393,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
         <script src="/resources/lib/google/googlemapslocation.js"></script>
 
     <?php } ?>
-
-
-    <script type="text/javascript">
-                            $(document).ready(function () {
-
-
-                                $('#LOADINGEWS').modal('show');
-                            })
-
-                                    ;
-
-                            $(window).load(function () {
-                                $('#LOADINGEWS').delay(3000).modal('hide');
-                            });
-    </script> 
 
     <div id="pappoint" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">

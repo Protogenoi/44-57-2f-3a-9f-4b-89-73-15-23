@@ -229,7 +229,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "/datatables/ClientSearch.php?ClientSearch=5&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+        "ajax": "/addon/Home/JSON/ClientSearch.php?ClientSearch=5&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

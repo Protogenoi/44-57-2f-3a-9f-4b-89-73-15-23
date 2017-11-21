@@ -102,7 +102,7 @@ if (isset($fferror)) {
     <div class="container2">
 
         <?php
-        if (!empty($_GET[success])) {
+        if (!empty($_GET['success'])) {
             echo "<div class=\"notice notice-success fade in\">
             <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
             <strong>Success!</strong> File Uploaded to Database.

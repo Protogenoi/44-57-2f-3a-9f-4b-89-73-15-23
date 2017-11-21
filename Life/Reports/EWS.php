@@ -624,7 +624,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/datatables/EWSData.php?EWS=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                "ajax": "/Life/EWS/JSON/EWSData.php?EWS=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                  
                 "columns": [
                     {

@@ -91,22 +91,6 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
                         ?>
                     
                     <li>
-                        <a href="../../CRMReports.php">
-                            <span class="ca-icon"><i class="fa fa-arrow-left"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Back<br/></h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>
-                    
-                    <?php 
-                    
-                    if (in_array($hello_name,$Level_10_Access, true)) {
-                        
-                        ?>
-                    
-                    <li>
                         <a href="EWSMaster.php">
                             <span class="ca-icon"><i class="fa fa-archive"></i></span>
                             <div class="ca-content">
@@ -115,9 +99,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
                             </div>
                         </a>
                     </li>
-                    
-                    <?php } ?>
-                    
+
                     <li>
                         <a href="EWSfiles.php">
                             <span class="ca-icon"><i class="fa fa-warning"></i></span>

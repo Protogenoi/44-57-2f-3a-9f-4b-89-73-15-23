@@ -119,7 +119,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     <ul class="ca-menu">
                         <?php if ($fflife == '1') { ?>			
                             <li>
-                                <a href="SearchPolicies.php?EXECUTE=Life">
+                                <a href="/Life/SearchPolicies.php?EXECUTE=Life">
                                     <span class="ca-icon"><i class="fa fa-search"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Search<br/>Policies</h2>

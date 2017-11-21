@@ -52,7 +52,7 @@ if ($ffanalytics == '1') {
 
     if ($ffgenemail=='0') {
         
-        header('Location: ../Emails.php'); die;
+        header('Location: ../email/Emails.php'); die;
     }
 
 if (isset($fferror)) {

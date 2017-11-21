@@ -62,7 +62,7 @@ if (isset($fferror)) {
 
 if ($ffintemails=='0') {
         
-        header('Location: ../Emails.php'); die;
+        header('Location: ../email/Emails.php'); die;
     }
 
 ?>

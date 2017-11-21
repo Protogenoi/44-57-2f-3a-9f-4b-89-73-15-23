@@ -29,27 +29,27 @@
  * 
 */  
 
-require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/includes/user_tracking.php');
+require_once(__DIR__ . '/../includes/user_tracking.php');
 
-require_once(__DIR__ . '/includes/time.php');
+require_once(__DIR__ . '/../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/includes/adl_features.php');
-require_once(__DIR__ . '/includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
 
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/php/analyticstracking.php');
+    require_once(__DIR__ . '/../php/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -60,8 +60,8 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/classes/database_class.php');
-        require_once(__DIR__ . '/class/login/login.php');
+        require_once(__DIR__ . '/../classes/database_class.php');
+        require_once(__DIR__ . '/../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -71,7 +71,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 3) {
             
-        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -89,7 +89,7 @@ if (isset($fferror)) {
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
 
     <div class="container">
 
@@ -99,7 +99,7 @@ if (isset($fferror)) {
 
                     <?php if ($ffkeyfactsemail == '1') { ?>
                         <li>
-                            <a href="email/KeyFactsEmail.php">
+                            <a href="KeyFactsEmail.php">
                                 <span class="ca-icon"><i class="fa fa-envelope"></i></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">Closers<br/></h2>
@@ -112,7 +112,7 @@ if (isset($fferror)) {
                     if ($ffgenemail == '1') {
                         ?>                       
                         <li>
-                            <a href="email/GenericEmail.php">
+                            <a href="GenericEmail.php">
                                 <span class="ca-icon"><i class="fa fa-envelope-o"></i></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">Generic<br/></h2>
@@ -125,7 +125,7 @@ if (isset($fferror)) {
                     if ($ffintemails == '1') {
                         ?>
                         <li>
-                            <a href="email/InternalEmail.php">
+                            <a href="InternalEmail.php">
                                 <span class="ca-icon"><i class="fa fa-envelope"></i></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">Internal<br/>Emails</h2>
@@ -139,7 +139,7 @@ if (isset($fferror)) {
         </div>
     </div>
 
-    <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

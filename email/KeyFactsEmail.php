@@ -62,7 +62,7 @@ if (isset($fferror)) {
 
 if ($ffkeyfactsemail == '0') {
 
-    header('Location: ../Emails.php');
+    header('Location: ../email/Emails.php');
     die;
 }
 

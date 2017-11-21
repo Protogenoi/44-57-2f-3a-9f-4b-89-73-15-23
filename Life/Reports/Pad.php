@@ -1158,10 +1158,10 @@ if (isset($datefrom)) {
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
+        require_once(__DIR__ . '/../models/pad/app/admin/TeamPAD.php');
         $TeamPad = new ADMINTeamPadModal($pdo);
         $TeamPadList = $TeamPad->ADMINgetTeamPad($datefrom);
-        require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
+        require_once(__DIR__ . '/../views/pad/app/admin/Team-PAD.php');
     }
 } if (!isset($datefrom)) {
 
@@ -1169,10 +1169,10 @@ if (isset($datefrom)) {
     $Team_PAD_CK->execute();
     if ($Team_PAD_CK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/pad/ADMIN/TeamPAD.php');
+        require_once(__DIR__ . '/../models/pad/app/admin/TeamPAD.php');
         $TeamPad = new ADMINTeamPadModal($pdo);
         $TeamPadList = $TeamPad->ADMINgetTeamPad();
-        require_once(__DIR__ . '/../views/pad/ADMIN/Team-PAD.php');
+        require_once(__DIR__ . '/../views/pad/app/admin/Team-PAD.php');
     }
 }
 ?>     
@@ -1190,10 +1190,10 @@ if (isset($datefrom)) {
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
+        require_once(__DIR__ . '/../models/pad/app/admin/TodayPAD.php');
         $TodayPad = new ADMINTodayPadModal($pdo);
         $TodayPadList = $TodayPad->ADMINgetTodayPad($datefrom);
-        require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
+        require_once(__DIR__ . '/../views/pad/app/admin/Today-PAD.php');
     }
 } if (!isset($datefrom)) {
 
@@ -1207,10 +1207,10 @@ WHERE
     $TODAY_PAD_CK->execute();
     if ($TODAY_PAD_CK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/pad/ADMIN/TodayPAD.php');
+        require_once(__DIR__ . '/../models/pad/app/admin/TodayPAD.php');
         $TodayPad = new ADMINTodayPadModal($pdo);
         $TodayPadList = $TodayPad->ADMINgetTodayPad($datefrom);
-        require_once(__DIR__ . '/../views/pad/ADMIN/Today-PAD.php');
+        require_once(__DIR__ . '/../views/pad/app/admin/Today-PAD.php');
     }
 }
 ?>  

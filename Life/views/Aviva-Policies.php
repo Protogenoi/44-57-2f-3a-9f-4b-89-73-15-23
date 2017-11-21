@@ -119,7 +119,7 @@
 
 
                 echo "<td>
-                                                                                        <form method='POST' action='/admin/deletepolicy.php?DeleteLifePolicy=1'>
+                                                                                        <form method='POST' action='/app/admin/deletepolicy.php?DeleteLifePolicy=1'>
                                                                                         <input type='hidden' id='policyID' name='policyID' value='$PID'>
                                                                                             <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
                                                                                             </form>

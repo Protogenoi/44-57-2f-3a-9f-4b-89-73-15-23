@@ -87,7 +87,7 @@ include('../includes/adlfunctions.php');
 			</li>
                     <?php } ?>
 			<li>
-                            <a href="/SearchClients.php">
+                            <a href="/app/SearchClients.php">
 			<span class="ca-icon"><i class="fa fa-search"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Search<br/>Employee Database</h2>

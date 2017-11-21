@@ -121,7 +121,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     <ul class="ca-menu">
 
                         <li>
-                            <a href="SearchClients.php">
+                            <a href="/app/SearchClients.php">
                                 <span class="ca-icon"><i class="fa fa-search"></i></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">Search<br/>Clients</h2>

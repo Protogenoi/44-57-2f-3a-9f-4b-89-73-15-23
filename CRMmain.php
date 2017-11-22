@@ -179,7 +179,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                         if (isset($ACCESS_LEVEL)) {
                             if ($ACCESS_LEVEL >= 3) { ?>
                             <li>
-                                <a href="/AddClient.php">
+                                <a href="/app/AddClient.php">
                                     <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Add New<br/> Client</h2>

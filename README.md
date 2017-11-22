@@ -1,6 +1,6 @@
 # ADL
 
-A Customer relationship management application built for the financial services sector (but not restricted to, new add-ons can be created and tailor made to specifications).
+A Customer relationship management application built for the financial services sector (but not restricted to. New add-ons can be created and tailor made to specifications).
 
 ## Authors
 

@@ -110,7 +110,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
 		<ul class="ca-menu">
                     <?php if (in_array($hello_name,$Level_3_Access, true)) { ?>
                     <li>
-			<a href="/AddClient.php">
+			<a href="/app/AddClient.php">
 			<span class="ca-icon"><i class="fa fa-user-plus"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Add New<br/> Client</h2>

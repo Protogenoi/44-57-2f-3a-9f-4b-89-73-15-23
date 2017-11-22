@@ -25,7 +25,7 @@ A Customer relationship management application built for the following purpose;
 
 ## Acknowledgments
 
- * ADL CRM makes use of the following third party open sourced software/tools:
+ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
  *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
  *  PHPMailer - https://github.com/PHPMailer/PHPMailer

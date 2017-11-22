@@ -1,14 +1,6 @@
-# ADL CRM
+# ADL
 
-A Customer relationship management application built for the following purpose;
- * Store client information, 
- * Financial information (payments incoming/outgoing/future projections), 
- * Insurance policies (Life, home, PBA's, mortgages etc...),
- * Employee information,
- * Inbound/outbound SMS and emails,
- * 3rd party API (see acknowledgments)
- * Call auditing/compliance
- * Asset management
+A Customer relationship management application built for the financial services sector (but not restricted to, new add-ons can be created and tailor made to specifications).
 
 ## Authors
 
@@ -20,12 +12,11 @@ A Customer relationship management application built for the following purpose;
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
  * Unauthorised modification of this code is strictly prohibited.
- * Proprietary and confidential
-
+ * Proprietary and confidential.
 
 ## Acknowledgments
 
-ADL CRM makes use of the following third party open sourced software/tools:
+ADL CRM makes use of the following third party open source software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
  *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
  *  PHPMailer - https://github.com/PHPMailer/PHPMailer

@@ -128,7 +128,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 </a>
                             </li>
                             <li>
-                                <a href="/AddClient.php">
+                                <a href="/app/AddClient.php">
                                     <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Add New<br/> Client</h2>

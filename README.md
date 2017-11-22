@@ -37,3 +37,8 @@ ADL CRM makes use of the following third party open sourced software/tools:
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+
+Further acknowledgments to individuals;
+
+ *  Aaron Trevallion - Helped build some early code for the Early Warning System and old client tasks code.
+ *  Matthew Jones - ADL built to requirements/specifications.

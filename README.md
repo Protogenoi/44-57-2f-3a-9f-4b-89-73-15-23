@@ -1,6 +1,14 @@
 # ADL CRM
 
-A Customer relationship management application to store client details, financial information, insurance policies etc...
+A Customer relationship management application built for the following purpose;
+ * Store client information, 
+ * Financial information (payments incoming/outgoing/future projections), 
+ * Insurance policies (Life, home, PBA's, mortgages etc...),
+ * Employee information,
+ * Inbound/outbound SMS and emails,
+ * 3rd party API (see acknowledgments)
+ * Call auditing/compliance
+ * Asset management
 
 ## Authors
 

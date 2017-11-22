@@ -67,6 +67,13 @@ if (empty($search)) {
     die;
 }
 
+
+if (isset($search) && $search < 0) {
+
+    header('Location: ../CRMmain.php?PARAMS');
+    die;
+}
+
 $ACCESS_ALLOW=array("Michael","Matt");
 if($search=='138583' && !(in_array($hello_name,$ACCESS_ALLOW))) {
     header('Location: ../app/SearchClients.php?ClientDeleted');

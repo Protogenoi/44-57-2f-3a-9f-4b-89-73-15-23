@@ -58,7 +58,7 @@ $error = $my_access->the_msg;
             }
 
             .card {
-                background-color: #F7F7F7;
+                //background-color: #F7F7F7;
                 padding: 20px 25px 30px;
                 margin: 0 auto 25px;
                 margin-top: 50px;
@@ -88,30 +88,6 @@ $error = $my_access->the_msg;
                 min-height: 1em;
             }
 
-            .reauth-email {
-                display: block;
-                color: #404040;
-                line-height: 2;
-                margin-bottom: 10px;
-                font-size: 14px;
-                text-align: center;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-            }
-
-            .form-signin #inputEmail,
-            .form-signin #inputPassword {
-                direction: ltr;
-                height: 44px;
-                font-size: 16px;
-            }
-
-
-
             .form-signin .form-control:focus {
                 border-color: rgb(104, 145, 162);
                 outline: 0;
@@ -139,16 +115,6 @@ $error = $my_access->the_msg;
             .btn.btn-signin:active,
             .btn.btn-signin:focus {
                 background-color: rgb(12, 97, 33);
-            }
-
-            .forgot-password {
-                color: rgb(104, 145, 162);
-            }
-
-            .forgot-password:hover,
-            .forgot-password:active,
-            .forgot-password:focus{
-                color: rgb(12, 97, 33);
             }
         </style>
     </head>
@@ -195,7 +161,13 @@ $error = $my_access->the_msg;
     }
     return $ip;
 }
-
+?>
+                <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <?php
 getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 if($TRACKED_IP=='81.145.167.66') {
@@ -219,5 +191,5 @@ if($TRACKED_IP=='81.145.167.66') {
         </script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
 
-<?php include('app/Holidays.php'); ?>
+<?php require_once(__DIR__ . '/app/Holidays.php'); ?>
 </html>                                		

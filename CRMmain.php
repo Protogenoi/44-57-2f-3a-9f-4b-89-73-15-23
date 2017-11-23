@@ -507,7 +507,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
     if (isset($hello_name)) {
 
-            if ($XMAS == 'December') {
+            if ($XMAS == 'December' || $XMAS=='November') {
                 $SANTA_TIME = date("H");
                 
                 ?>

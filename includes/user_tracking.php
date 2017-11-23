@@ -32,7 +32,7 @@
 $HTTP_PROTOCOL_CHK = ((!empty(filter_input(INPUT_SERVER,'HTTPS', FILTER_SANITIZE_SPECIAL_CHARS)) && filter_input(INPUT_SERVER,'HTTPS', FILTER_SANITIZE_SPECIAL_CHARS) != 'off') ||filter_input(INPUT_SERVER,'SERVER_PORT', FILTER_SANITIZE_NUMBER_INT) == 443) ? "https://" : "http://";
 $USER_TRACKING_GRAB_URL = $HTTP_PROTOCOL_CHK . filter_input(INPUT_SERVER,'HTTP_HOST', FILTER_SANITIZE_SPECIAL_CHARS) . filter_input(INPUT_SERVER,'REQUEST_URI', FILTER_SANITIZE_SPECIAL_CHARS);
      
-require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
     $SMS_QRY = $pdo->prepare("SELECT twilio_account_sid, AES_DECRYPT(twilio_account_token, UNHEX(:key)) AS twilio_account_token FROM twilio_account");
     $SMS_QRY->bindParam(':key', $EN_KEY, PDO::PARAM_STR, 500); 
@@ -43,7 +43,7 @@ require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
     $SMS_TOKEN=$SMS_RESULT['twilio_account_token'];
 
 use Twilio\Rest\Client;                
-require_once(__DIR__ . '../../resources/lib/twilio-php-master/Twilio/autoload.php');   
+require_once(__DIR__ . '/../resources/lib/twilio-php-master/Twilio/autoload.php');   
 
 function getRealIpAddr()
 {
@@ -66,7 +66,7 @@ getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 
 if($TRACKED_IP!='81.145.167.66') {
-    require_once(__DIR__ . '../../classes/database_class.php');
+    require_once(__DIR__ . '/../classes/database_class.php');
         $database = new Database();
         $database->beginTransaction();
 

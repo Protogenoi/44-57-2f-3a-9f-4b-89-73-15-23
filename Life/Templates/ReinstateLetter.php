@@ -286,6 +286,12 @@ if(isset($hello_name)) {
         case "Amy":
              $hello_name_full="Amy Clayfield";
              break;
+                  case "Ryan":
+             $hello_name_full="Ryan Lloyd";
+             break;
+                  case "Molly":
+             $hello_name_full="Molly Grove";
+             break;            
          default:
              $hello_name_full=$hello_name;
              

@@ -1300,5 +1300,6 @@ function yesnoCheckc3() {
 </form>
 
     </div>
+    <?php require_once(__DIR__ . '/../app/Holidays.php'); ?>
     </body>
 </html>

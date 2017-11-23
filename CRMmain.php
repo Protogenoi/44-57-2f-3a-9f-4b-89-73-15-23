@@ -122,7 +122,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-    <title>ADL CRM</title>
+    <title>ADL</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />

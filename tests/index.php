@@ -40,6 +40,7 @@ $error = $my_access->the_msg;
             body, html {
                 height: 100%;
                 background-repeat: no-repeat;
+                background-image: url("/img/xmas1.jpg");
             }
 
             .card-container.card {

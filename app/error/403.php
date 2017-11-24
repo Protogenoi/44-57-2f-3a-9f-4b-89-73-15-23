@@ -1,4 +1,4 @@
-<?php
+<?php 
 /*
  * ------------------------------------------------------------------------
  *                               ADL CRM
@@ -29,29 +29,8 @@
  * 
 */  
 
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
-$page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
-$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
-
-require_once(__DIR__ . '../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
-
-if ($ffanalytics == '1') {
-    require_once(__DIR__ . '../../php/analyticstracking.php');
-}
-
-if (isset($fferror)) {
-    if ($fferror == '1') {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-    }
-}
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+$access_denied = new Access_user;
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -61,7 +40,8 @@ if (isset($fferror)) {
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-<title>ADL | 500 Internal Server Error</title>
+<head>
+<title>ADL | Access denied!</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
@@ -72,19 +52,19 @@ if (isset($fferror)) {
 </head>
 <body>
 
-<?php include('../includes/navbar.php'); ?>
+<?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
 <div class="container">
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">500
-                    <small>Internal Server Error</small>
+                <h1 class="page-header">403
+                    <small>Access Denied</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="../CRMmain.php">Home</a>
+                    <li><a href="/CRMmain.php">Home</a>
                     </li>
-                    <li class="active">500</li>
+                    <li class="active">403</li>
                 </ol>
             </div>
         </div>
@@ -93,24 +73,15 @@ if (isset($fferror)) {
 
             <div class="col-lg-12">
                 <div class="jumbotron">
-<h1><span class="glyphicon glyphicon-fire red"></span> 500</h1>
+<h1><span class="glyphicon glyphicon-lock"></span> 403</h1>
 
-<p>Report this immediately to Michael.
+<p>Access to the page requested is restricted, higher user access level is required. Here are some helpful links to get you back on track:</p>
 
-
-            <center>
-                <p>Info Logged<br><?php echo $_SERVER['REMOTE_ADDR'] ?><br>
-<?php loggedhostnameip();?> 
-<br>
-<?php
-date_default_timezone_set("Europe/London");
-echo date('m/d/y h:i a', time());
-?> 
-</p>
-</center>
+            <?php logged_hostnameip();?> 
         </div>
     </div>
 </div>
+
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </body>

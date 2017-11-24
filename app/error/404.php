@@ -29,11 +29,15 @@
  * 
 */
 
-require_once(__DIR__ . '../../includes/adl_features.php');
+$USER_TRACKING=0;
 
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '../../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -63,8 +67,7 @@ if (isset($fferror)) {
 </head>
 <body>
 
-<?php include('../includes/navbar.php');
-include('../includes/adlfunctions.php'); ?>
+<?php require_once(__DIR__ . '/../../includes/navbar.php');  ?>
 
  <div class="container">
 
@@ -74,7 +77,7 @@ include('../includes/adlfunctions.php'); ?>
                     <small>Page Not Found</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="../CRMmain.php">Home</a>
+                    <li><a href="/CRMmain.php">Home</a>
                     </li>
                     <li class="active">404</li>
                 </ol>

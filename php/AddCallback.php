@@ -61,7 +61,7 @@ if(isset($fflife)) {
                                                     $query->bindParam(':callbackidyes', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                   
-                                                    header('Location: /calendar/calendar.php?callback=complete&callbackid'.$callbackcompletedid); die;
+                                                    header('Location: /app/calendar/calendar.php?callback=complete&callbackid'.$callbackcompletedid); die;
                                                     
                                                 }
                                                 
@@ -70,7 +70,7 @@ if(isset($fflife)) {
                                                     $query->bindParam(':callbackidno', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                 
-                                                    header('Location: /calendar/calendar.php?callback=incomplete'); die;
+                                                    header('Location: /app/calendar/calendar.php?callback=incomplete'); die;
                                                     
                                                 } 
                                                 

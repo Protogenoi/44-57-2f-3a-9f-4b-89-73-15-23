@@ -109,7 +109,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php }
                         }
                         if ($ffcalendar == '1') { ?>
-                        <li><a href="/calendar/calendar.php">Callbacks</a></li>
+                        <li><a href="/app/calendar/calendar.php">Callbacks</a></li>
                         <?php } ?>
                         <li class="divider"></li>   
                         <li><a href="/email/Emails.php">Emails</a></li>

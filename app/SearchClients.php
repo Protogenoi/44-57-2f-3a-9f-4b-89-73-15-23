@@ -251,23 +251,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             });
         </script>
-        <?php require_once(__DIR__ . '/../app/Holidays.php');
-    if (isset($hello_name)) {
-
-            if ($XMAS == 'December' || $XMAS=='November') {
-                $SANTA_TIME = date("H");
-                
-                ?>
-                <audio autoplay>
-                    <source src="/app/sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
-                </audio>  
-                <?php
-          
-            }
-            
-            }
-
-    ?>        
+        <?php require_once(__DIR__ . '/../app/Holidays.php'); ?>        
     </body>
 </html>
 <?php } else {    header('Location: /../../CRMmain.php?AccessDenied');

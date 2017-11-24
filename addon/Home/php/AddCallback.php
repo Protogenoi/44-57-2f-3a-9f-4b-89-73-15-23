@@ -61,7 +61,7 @@ $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
                                                     $query->bindParam(':callbackidyes', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                   
-                                                    header('Location: /calendar/calendar.php?callback=complete&callbackid'.$callbackcompletedid); die;
+                                                    header('Location: /app/calendar/calendar.php?callback=complete&callbackid'.$callbackcompletedid); die;
                                                     
                                                 }
                                                 
@@ -70,7 +70,7 @@ $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
                                                     $query->bindParam(':callbackidno', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                 
-                                                    header('Location: /calendar/calendar.php?callback=incomplete'); die;
+                                                    header('Location: /app/calendar/calendar.php?callback=incomplete'); die;
                                                     
                                                 } 
                                                 

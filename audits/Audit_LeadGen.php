@@ -1300,6 +1300,29 @@ function yesnoCheckc3() {
 </form>
 
     </div>
-    <?php require_once(__DIR__ . '/../app/Holidays.php'); ?>
+    <?php
+    require_once(__DIR__ . '/../app/Holidays.php');
+
+    if (isset($hello_name)) {
+
+            if ($XMAS == 'December' || $XMAS=='November') {
+                $SANTA_TIME = date("H");
+                
+                ?>
+                <audio autoplay>
+                    <source src="/app/sounds/<?php echo $XMAS_ARRAY[$RAND_XMAS_ARRAY[0]]; ?>" type="audio/mpeg">
+                </audio>  
+                <?php
+          
+            }
+            
+            if($HALLOWEEN=='31st of October') {  ?>
+
+                <audio autoplay>
+                    <source src="/app/sounds/halloween/<?php echo $RAND_HALLOWEEN_ARRAY; ?>" type="audio/mpeg">
+                </audio>    
+            <?php } }
+
+    ?>  
     </body>
 </html>

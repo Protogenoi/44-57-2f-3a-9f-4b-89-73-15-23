@@ -29,10 +29,6 @@
  * 
 */
 
-$USER_TRACKING=0;
-
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
 

@@ -38,7 +38,7 @@ $USER_TRACKING=0;
 
 require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();

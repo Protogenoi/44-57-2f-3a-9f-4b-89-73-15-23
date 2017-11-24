@@ -160,7 +160,7 @@ if (isset($fferror)) {
     <?php if ($ffcalendar == '1' && $ffcallbacks == '1') { ?>
 
                                 <li>
-                                    <a href="/calendar/calendar.php">
+                                    <a href="/app/calendar/calendar.php">
                                         <span class="ca-icon"><i class="fa  fa-calendar-check-o"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Call backs<br/></h2>

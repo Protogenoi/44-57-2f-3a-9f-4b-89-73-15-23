@@ -2881,6 +2881,11 @@ WHERE
                                         default:
                                             $TMicon = "fa-bomb";
                                     endswitch;
+                                    
+                                    
+                                    if($result['sent_by']=='Nicola') {
+                                        $result['sent_by']='Nippola';
+                                    }
 
                                     $TIMELINE_MESSAGE = html_entity_decode($result['message']);
                                     echo '<tr>';

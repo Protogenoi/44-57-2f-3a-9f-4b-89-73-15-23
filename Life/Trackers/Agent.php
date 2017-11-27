@@ -119,7 +119,7 @@ $Today_TIME = date("h:i:s");
                                 </div>
                                 
                                 <div class="col-md-4">
-                                    <input type="text" id="DATES" name="DATES" value="<?php if(isset($datefrom)) { echo "$datefrom"; } ?>" class="form-control">
+                                    <input type="text" id="DATES" name="DATES" value="<?php if(isset($datefrom)) { echo "$datefrom"; } else { echo date("Y-m-d"); } ?>" class="form-control">
                           </div>
                                  
                              <div class="col-md-4">

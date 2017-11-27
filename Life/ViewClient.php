@@ -2880,12 +2880,7 @@ WHERE
                                             break;
                                         default:
                                             $TMicon = "fa-bomb";
-                                    endswitch;
-                                    
-                                    
-                                    if($result['sent_by']=='Nicola') {
-                                        $result['sent_by']='Nippola';
-                                    }
+                                    endswitch;                                   
 
                                     $TIMELINE_MESSAGE = html_entity_decode($result['message']);
                                     echo '<tr>';

@@ -36,7 +36,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../includes/user_tracking.php'); 
 
 require_once(__DIR__ . '/../includes/time.php');
 
@@ -61,8 +61,8 @@ if (isset($fferror)) {
     }
 }
 
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
+    require_once(__DIR__ . '/../classes/database_class.php');
+    require_once(__DIR__ . '/../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         
@@ -83,7 +83,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 10) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -242,26 +242,16 @@ if (isset($fferror)) {
                                             </div>
                                         </div>
                                         
-                                        <?php 
-                                        
-                                        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                                                                                 <div class="col-sm-4">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Company</label>
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
                                                     <option value="Bluestone Protect">Bluestone Protect</option>
                                                     <option value="The Review Bureau">The Review Bureau</option>
-                                                    <option value="We Insure">We Insure</option>
-                                                    <option value="Protect Family Plans">Protect Family Plans</option>
-                                                    <option value="Protected Life Ltd">Protected Life Ltd</option>
-                                                    <option value="The Financial Assessment Centre">The Financial Assessment Centre</option>
-                                                    <option value="Assured Protect and Mortgages">Assured Protect and Mortgages</option>
                                                 </select>
                                             </div>
                                         </div>  
-                                      <?php  }
-                                        ?>
                                     
                                     </div>
                                     
@@ -469,11 +459,10 @@ if (isset($fferror)) {
                                             <div class="form-group">
                                                 <label class="control-label">ID Provided</label>
                                                 <select name="id_provided" class="form-control" required>
-                                                    <option value=""></option>
+                                                    <option value="None">None</option>
                                                     <option value="1">Passport Number</option>
                                                     <option value="2">Driving License Number</option>
                                                     <option value="3">Bank Card Check</option>
-                                                    <option value="None">None</option>
                                                 </select>
                                             </div>
                                         </div>

@@ -29,20 +29,37 @@
  * 
 */  
 
-require_once(__DIR__ . '../../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '../../../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: ../../index.php?AccessDenied'); die;
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
+require_once(__DIR__ . '/../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
 
-include('../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+
+require_once(__DIR__ . '/../../../classes/database_class.php');
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../../php/analyticstracking.php');
+}
 
 $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS);
 $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -50,7 +67,6 @@ $ASSETID= filter_input(INPUT_GET, 'ASSETID', FILTER_SANITIZE_SPECIAL_CHARS);
 $DEVICE= filter_input(INPUT_GET, 'DEVICE', FILTER_SANITIZE_SPECIAL_CHARS);
 $SEARCH= filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
 
-include('../../classes/database_class.php');
         $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
         
         if(isset($RETURN)) {
@@ -75,17 +91,8 @@ include('../../classes/database_class.php');
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
-    
-    <?php 
-    include('../../includes/navbar.php');
-     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-    
-?> 
+
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?> 
     
 <div class="container">
     
@@ -814,7 +821,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=1",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=1",
         "columns": [
             {
                 "className":      'details-control',
@@ -850,7 +857,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=2",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=2",
         "columns": [
             {
                 "className":      'details-control',
@@ -887,7 +894,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=3",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=3",
         "columns": [
             {
                 "className":      'details-control',
@@ -921,7 +928,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=4",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=4",
         "columns": [
             {
                 "className":      'details-control',
@@ -955,7 +962,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=5",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=5",
         "columns": [
             {
                 "className":      'details-control',
@@ -989,7 +996,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=6",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=6",
         "columns": [
             {
                 "className":      'details-control',
@@ -1023,7 +1030,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=7",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=7",
         "columns": [
             {
                 "className":      'details-control',
@@ -1059,7 +1066,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=8",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=8",
         "columns": [
             {
                 "className":      'details-control',
@@ -1095,7 +1102,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../Staff/datatables/Assets.php?EXECUTE=9",
+        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=9",
         "columns": [
             {
                 "className":      'details-control',

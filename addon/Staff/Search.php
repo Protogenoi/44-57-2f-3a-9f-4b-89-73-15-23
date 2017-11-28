@@ -29,28 +29,28 @@
  * 
 */  
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -61,8 +61,8 @@ if (isset($fferror)) {
     }
 }
 
-    require_once(__DIR__ . '/../classes/database_class.php');
-    require_once(__DIR__ . '/../class/login/login.php');
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         
@@ -83,7 +83,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 10) {
             
-        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -105,15 +105,14 @@ if (isset($fferror)) {
 </head>
 <body>
     
-<?php require_once(__DIR__ . '/../includes/navbar.php'); ?> 
+<?php require_once(__DIR__ . '/../../includes/navbar.php'); ?> 
     
 <div class="container">
     <div class="col-xs-12 .col-md-8">
         <div class="row">
             <div class="twelve columns">
                 <ul class="ca-menu">
-                    <?php if (in_array($hello_name,$Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { ?>
-                                      <li>
+                    <li>
                         <a data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
 			<span class="ca-icon"><i class="fa fa-user-plus"></i></span>
 			<div class="ca-content">
@@ -122,11 +121,7 @@ if (isset($fferror)) {
 			</div>
 			</a>
 			</li>
-                    <?php } ?>
-		
-
-                        
-		</ul>
+                </ul>
         
         </div>
 </div>

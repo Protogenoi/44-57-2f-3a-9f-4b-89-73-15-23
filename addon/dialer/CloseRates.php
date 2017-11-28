@@ -305,7 +305,5 @@ $Today_DATES = date("l jS \of F Y"); ?>
                     </div>          
         
     </div>    
-    
-<?php require_once(__DIR__ . '/../../app/Holidays.php'); ?>
 </body>
 </html>

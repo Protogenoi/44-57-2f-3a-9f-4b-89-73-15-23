@@ -29,21 +29,39 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) {
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '/../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../classes/database_class.php');
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+if (in_array($hello_name,$Level_10_Access, true)) {
     
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($EXECUTE)) {
-    
-    
-    include('../../classes/database_class.php');
     
     if($EXECUTE=='1') {
         
@@ -166,6 +184,6 @@ $database->execute();
 }
 
 } else {
- header('Location: ../../CRMmain'); die;
+ header('Location: /../../../../CRMmain'); die;
 }
 ?>

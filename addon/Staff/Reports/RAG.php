@@ -29,20 +29,36 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 9);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
- include('../../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (!in_array($hello_name,$Level_10_Access, true)) {
-    
-    header('Location: ../index.php?AccessDenied'); die;
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
+require_once(__DIR__ . '/../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
 
-include('../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../php/analyticstracking.php');
+}
 
 $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS);
 $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -73,16 +89,7 @@ $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
 </head>
 <body>
     
-    <?php 
-    include('../../includes/navbar.php');
-     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
-    
-    }
-    
-?> 
+<?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?> 
     
 <div class="container">
     
@@ -97,8 +104,7 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 }
 
-            
-            ?>
+?>
     
     <div class='notice notice-default' role='alert'><h1><strong> <center><?php if(isset($START_DATE)) { echo "RAG Week Stats search: $START_DATE - $END_DATE"; } ?></center></strong></h1> </div>
     <br>
@@ -115,8 +121,8 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                 </div>
             </div>
     <br>
-    <?php
     
+    <?php
 
 $RAG_WEEK_QRY = $pdo->prepare("SELECT SUM(lead_rag.cancels) AS cancels, CONCAT(employee_details.firstname, ' ', employee_details.lastname) AS NAME, SUM(lead_rag.sales) AS sales, SUM(lead_rag.hours) AS hours, SUM(lead_rag.minus) AS minus, SUM(lead_rag.leads) AS leads FROM lead_rag JOIN employee_details ON employee_details.employee_id = lead_rag.employee_id WHERE substr(lead_rag.date,5) between :START_DATE AND :END_DATE GROUP BY lead_rag.employee_id");
 $RAG_WEEK_QRY->bindParam(':START_DATE', $START_DATE, PDO::PARAM_STR);

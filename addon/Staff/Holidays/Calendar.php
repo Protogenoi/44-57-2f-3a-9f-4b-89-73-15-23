@@ -29,21 +29,37 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 9);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-$REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
+$USER_TRACKING=0;
 
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
-include('../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: ../../CRMmain.php'); die;
-
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
+
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../../php/analyticstracking.php');
+}
+
+$REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,24 +73,21 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+<style>
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+</style>
 
 <script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
 </head>
 <body>
-<?php include('../../includes/navbar.php'); ?>
+    
+<?php require_once(__DIR__ . '/../../includes/navbar.php'); ?> 
 
-
-    <style>
-
-
-	#calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
-
-</style>
 <script>
 
 	$(document).ready(function() {

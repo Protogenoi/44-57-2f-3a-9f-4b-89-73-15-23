@@ -73,7 +73,7 @@ if ($ffanalytics == '1') {
 </head>
 <body>
     
-<?php require_once(__DIR__ . '/../../includes/navbar.php'); ?> 
+<?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?> 
     
 <div class="container">
     <div class="col-xs-12 .col-md-8">

@@ -47,8 +47,6 @@ if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
 require_once(__DIR__ . '/../../../includes/adl_features.php');
 require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
-require_once(__DIR__ . '/../../../classes/database_class.php');
-
 if (isset($fferror)) {
     if ($fferror == '1') {
         ini_set('display_errors', 1);
@@ -60,6 +58,33 @@ if (isset($fferror)) {
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../php/analyticstracking.php');
 }
+
+    require_once(__DIR__ . '/../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 10) {
+            
+        header('Location: /../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS);
 $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -821,7 +846,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=1",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -857,7 +882,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=2",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=2&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -894,7 +919,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=3",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=3&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -928,7 +953,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=4",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=4&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -962,7 +987,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=5",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=5&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -996,7 +1021,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=6",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=6&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -1030,7 +1055,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=7",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -1066,7 +1091,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=8",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=8&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',
@@ -1102,7 +1127,7 @@ $(document).ready(function() {
         "language": {
             "processing": "<div></div><div></div><div></div><div></div><div></div>"
         },
-        "ajax": "../../addon/Staff/datatables/Assets.php?EXECUTE=9",
+        "ajax": "/../../../addon/Staff/datatables/Assets.php?EXECUTE=9&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

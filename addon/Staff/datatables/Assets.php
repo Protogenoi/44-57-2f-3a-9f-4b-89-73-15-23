@@ -77,6 +77,9 @@ if(isset($USER) && $TOKEN) {
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
+$USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_NUMBER_INT);
+$TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_NUMBER_INT);
+
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
         

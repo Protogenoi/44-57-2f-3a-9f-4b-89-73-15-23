@@ -11,7 +11,7 @@ include('../../../classes/database_class.php');
 include('../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    include('../../../php/analyticstracking.php');
+    include('../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {

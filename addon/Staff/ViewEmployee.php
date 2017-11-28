@@ -95,8 +95,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
-<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.css">
-<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pagesassets/css/github.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
     .label {
@@ -113,9 +111,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 }
 .outbox {
     background:#F8D053;
-}
-.clockpicker-popover {
-    z-index: 999999;
 }
 .clickable-row {
 	cursor:pointer
@@ -145,9 +140,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 color: green;
             }
         </style>
-<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/jquery.min.js"></script>
-<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
-<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 </head>
 <body>
     
@@ -1675,19 +1667,8 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
     </div>
 </div>        
     <?php } ?>
-    
-<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesdist/jquery-clockpicker.min.js"></script>  
-<script type="text/javascript">
-$('.clockpicker').clockpicker({
-	placement: 'top',
-	align: 'left',
-	donetext: 'Done'
-})
-	.find('input').change(function(){
-		console.log(this.value);
-	});
-</script>
-<script type="text/javascript" src="/resources/lib/clockpicker-gh-pagesassets/js/highlight.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script> 
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
     

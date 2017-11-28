@@ -61,7 +61,7 @@ if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
 }
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
+    require_once(__DIR__ . '/../app/analyticstracking.php');
 }
 
 if ($ffpost_code == '1') {

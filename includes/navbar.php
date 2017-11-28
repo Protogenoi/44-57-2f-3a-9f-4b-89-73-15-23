@@ -224,12 +224,12 @@ $companynamere = $companydetailsq['company_name'];
                                 <li><a href="/Life/Reports/EWS.php">EWS</a></li> 
                             <?php } 
                             if ($ffemployee == '1') { ?>    
-                                <li><a href="/Staff/Main_Menu.php">Staff Database</a></li> 
+                                <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
                             <?php } 
                             if ($ffemployee == '1') { ?>    
-                                <li><a  href="/Staff/Holidays/Calendar.php">Holidays</a></li> 
-                                <li><a  href="/Staff/Reports/RAG.php">Register</a></li> 
-                                <li><a  href="/Staff/Assets/Assets.php">Asset Management</a></li> 
+                                <li><a  href="/addon/Staff/Holidays/Calendar.php">Holidays</a></li> 
+                                <li><a  href="/addon/Staff/Reports/RAG.php">Register</a></li> 
+                                <li><a  href="/addon/Staff/Assets/Assets.php">Asset Management</a></li> 
                             <?php } ?>
                                  <li class="divider"></li> 
                                  <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>

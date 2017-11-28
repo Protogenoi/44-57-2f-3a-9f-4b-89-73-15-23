@@ -82,7 +82,7 @@ function textAreaAdjust(o) {
 <?php include('../../includes/navbar.php'); 
     if($ffanalytics=='1') {
     
-    include_once('../../php/analyticstracking.php'); 
+    include_once('../../app/analyticstracking.php'); 
     
     }
 ?>    

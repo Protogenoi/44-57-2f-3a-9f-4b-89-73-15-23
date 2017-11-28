@@ -86,7 +86,7 @@ include('../../includes/ADL_PDO_CON.php');
 <?php include('../../includes/navbar.php');
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
     
     }
     $QRY= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);

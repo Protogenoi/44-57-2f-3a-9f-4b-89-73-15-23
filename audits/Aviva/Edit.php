@@ -44,7 +44,7 @@ require_once(__DIR__ . '/../includes/adlfunctions.php');
 require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
+    require_once(__DIR__ . '/../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {

@@ -54,7 +54,7 @@ if(isset($fferror)) {
     
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
     
     }
     ?>

@@ -41,7 +41,7 @@ if (!in_array($hello_name,$Level_8_Access, true)) {
     
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
     
     }
     

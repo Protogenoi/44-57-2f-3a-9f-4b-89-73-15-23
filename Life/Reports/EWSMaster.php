@@ -63,7 +63,7 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
     
     }
 ?>

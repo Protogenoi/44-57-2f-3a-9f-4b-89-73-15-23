@@ -56,7 +56,7 @@ if (isset($fferror)) {
 }
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);

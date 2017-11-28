@@ -59,7 +59,7 @@ if (isset($fferror)) {
 }
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);

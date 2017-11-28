@@ -57,7 +57,7 @@ if (isset($fferror)) {
 }
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../php/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 $MONTH= filter_input(INPUT_GET, 'MONTH', FILTER_SANITIZE_SPECIAL_CHARS);

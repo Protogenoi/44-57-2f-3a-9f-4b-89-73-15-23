@@ -50,7 +50,7 @@ require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../php/analyticstracking.php');
+    require_once(__DIR__ . '/../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -258,7 +258,7 @@ if ($_FILES[csv][size] > 0) {
     
     if($ffanalytics=='1') {
     
-    include_once($_SERVER['DOCUMENT_ROOT'].'/php/analyticstracking.php'); 
+    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
     
     }
 ?>

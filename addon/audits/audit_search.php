@@ -48,8 +48,8 @@ require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
 require_once(__DIR__ . '/../../includes/adlfunctions.php');
 
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         

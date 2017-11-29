@@ -353,7 +353,6 @@ $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
         <a href="main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
         <a href="CloserAudit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Legal and General Audit</a>
         <a href="audit_search.php" class="btn btn-info "><span class="glyphicon glyphicon-search"></span> Search Audits</a>
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cats"><span class="glyphicon glyphicon-question-sign"></span></button>
     </div>
 </center>
 <br>

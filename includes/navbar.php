@@ -141,15 +141,15 @@ $companynamere = $companydetailsq['company_name'];
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Audits <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="/audits/main_menu.php">Main Menu</a></li>
+                            <li><a href="/addon/audits/main_menu.php">Main Menu</a></li>
                             <li class="divider"></li>
-                            <li><a href="/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
-                            <li><a href="/audits/auditor_menu.php">Legal and General Audits</a></li>
-                            <li><a href="/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
-                            <li><a href="/audits/Aviva/Menu.php">Aviva Audits</a></li>
-                            <li><a href="/audits/WOL/Menu.php">One Family Audits</a></li>
+                            <li><a href="/addon/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
+                            <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
+                            <li><a href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
+                            <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>
+                            <li><a href="/addon/audits/WOL/Menu.php">One Family Audits</a></li>
                             <li class="divider"></li>
-                            <li><a href="/audits/reports_main.php">Reports</a></li>
+                            <li><a href="/addon/audits/reports_main.php">Reports</a></li>
                         </ul>
                     </li>
                     

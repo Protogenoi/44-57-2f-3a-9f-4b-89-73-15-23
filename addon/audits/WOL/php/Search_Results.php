@@ -32,6 +32,7 @@
 $QRY= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($QRY)) {
+    require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
     if($QRY=='1') {         
 
         $query = $pdo->prepare("SELECT grade, closer, policy_number, added_by, added_date, wol_id FROM audit_wol");

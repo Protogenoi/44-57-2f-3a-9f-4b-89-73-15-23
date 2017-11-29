@@ -96,8 +96,8 @@ if ($ffanalytics == '1') {
         <center>
             <div class="btn-group">
                 <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> WOL Audits</a>
-                <a href="../audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
-                <a href="../lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
+                <a href="/addon/audits/audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
+                <a href="/addon/audits/lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
             </div>
         </center>
 <br>        

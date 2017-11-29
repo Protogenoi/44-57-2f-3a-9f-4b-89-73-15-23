@@ -124,7 +124,7 @@ if ($ffaudits=='0') {
 			</li>
 
 			<li>
-                            <a href="/audits/RoyalLondon/Menu.php">
+                            <a href="/addon/audits/RoyalLondon/Menu.php">
 			<span class="ca-icon"><i class="fa fa-folder"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Royal London<br/> Audits</h2>
@@ -134,7 +134,7 @@ if ($ffaudits=='0') {
 			</li>     
                         
 			<li>
-                            <a href="/audits/WOL/Menu.php">
+                            <a href="/addon/audits/WOL/Menu.php">
 			<span class="ca-icon"><i class="fa fa-folder"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">One Family<br/> Audits</h2>
@@ -144,7 +144,7 @@ if ($ffaudits=='0') {
 			</li>  
                         
 			<li>
-                            <a href="/audits/Aviva/Menu.php">
+                            <a href="/addon/audits/Aviva/Menu.php">
 			<span class="ca-icon"><i class="fa fa-folder"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Aviva<br/> Audits</h2>

@@ -74,15 +74,15 @@ $companynamere = $companydetailsq['company_name'];
       </li>
       <?php if($ffaudits=='1') { ?>      
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/audits/main_menu.php" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="/addon/audits/main_menu.php" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Audits
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/audits/lead_gen_reports.php?step=New">Legal and General Lead Audits</a>
-              <a class="dropdown-item" href="/audits/CloserAudit.php">Legal and General Audits</a>
-              <a class="dropdown-item" href="/audits/RoyalLondon/Menu.php">Royal London Audits</a>
-              <a class="dropdown-item" href="/audits/Aviva/Menu.php">Aviva Audits</a>
-              <a class="dropdown-item" href="/audits/WOL/Menu.php">One Family Audits</a>
+              <a class="dropdown-item" href="/addon/audits/lead_gen_reports.php?step=New">Legal and General Lead Audits</a>
+              <a class="dropdown-item" href="/addon/audits/CloserAudit.php">Legal and General Audits</a>
+              <a class="dropdown-item" href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a>
+              <a class="dropdown-item" href="/addon/audits/Aviva/Menu.php">Aviva Audits</a>
+              <a class="dropdown-item" href="/addon/audits/WOL/Menu.php">One Family Audits</a>
           </div>
       </li>
       

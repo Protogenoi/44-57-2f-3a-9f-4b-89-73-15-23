@@ -29,44 +29,45 @@
  * 
 */  
 
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php'); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2); 
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
-include('../../includes/adlfunctions.php'); 
+require_once(__DIR__ . '/../../../includes/time.php');
 
-include('../../includes/adl_features.php');
-
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        
-    }
-    
-    }
-
-if ($ffaudits=='0') {
-        
-        header('Location: ../../CRMmain.php'); die;
-    }
-    
-    include('../../includes/Access_Levels.php');
-
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: ../../CRMmain.php'); die;
-
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
 
-include('../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+}
+
+        require_once(__DIR__ . '/../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../class/login/login.php');
+        
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: /../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 ?>
 <!DOCTYPE html>
@@ -80,6 +81,7 @@ include('../../includes/ADL_PDO_CON.php');
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+
 <?php require_once(__DIR__ . '/../../../app/Holidays.php'); ?>
 </head>
 <body>
@@ -97,9 +99,9 @@ include('../../includes/ADL_PDO_CON.php');
         <center>
             <div class="btn-group">
                 <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Royal London Audits</a>
-                <a href="../Search.php" class="btn btn-info"><i class="fa fa-search"></i> WOL Audits</a>
-                <a href="../audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
-                <a href="../lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
+                <a href="/addon/audits/WOL/Search.php" class="btn btn-info"><i class="fa fa-search"></i> WOL Audits</a>
+                <a href="/addon/audits/audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
+                <a href="/addon/audits/lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
             </div>
         </center>
 <br>        

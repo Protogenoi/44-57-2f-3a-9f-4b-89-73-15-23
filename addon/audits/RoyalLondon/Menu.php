@@ -114,7 +114,7 @@ if ($ffanalytics == '1') {
         <br>
         <center>
             <div class="btn-group">
-                <a href="/audits/main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
+                <a href="/addon/audits/main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
                 <a href="Audit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Royal London Audit</a>
                 <a href="Search.php" class="btn btn-info "><i class="fa fa-search"></i> Search Audits</a>
             </div>

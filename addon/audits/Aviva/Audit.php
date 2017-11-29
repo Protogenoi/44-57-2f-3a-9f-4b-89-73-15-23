@@ -48,23 +48,33 @@ require_once(__DIR__ . '/../../../includes/adl_features.php');
 require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 require_once(__DIR__ . '/../../../includes/adlfunctions.php');
 
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
-        require_once(__DIR__ . '/../../../classes/database_class.php');
-        require_once(__DIR__ . '/../../../class/login/login.php');
-        
+    require_once(__DIR__ . '/../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../class/login/login.php');
+
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 2) {
+        if($ACCESS_LEVEL < 3) {
             
         header('Location: /../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    

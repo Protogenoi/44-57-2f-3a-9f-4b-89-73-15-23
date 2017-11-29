@@ -32,7 +32,7 @@
 $QRY= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($QRY)) {
-    include('../../../includes/ADL_PDO_CON.php');
+    require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
     if($QRY=='1') { 
         
 
@@ -46,5 +46,5 @@ echo json_encode($results);
 }
 
 if(!isset($QRY)) {
-header('Location: ../../../CRMmain.php'); die;
+header('Location: /../../../../../CRMmain.php'); die;
 }

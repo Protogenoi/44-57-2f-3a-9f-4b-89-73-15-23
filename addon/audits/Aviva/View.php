@@ -48,7 +48,7 @@ require_once(__DIR__ . '/../../../includes/adl_features.php');
 require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 require_once(__DIR__ . '/../../../includes/adlfunctions.php');
 
-    require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+    require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');

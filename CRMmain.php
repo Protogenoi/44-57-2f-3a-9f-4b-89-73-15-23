@@ -262,7 +262,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                             </li>
                             
                                 <li>
-                                    <a href="audits/main_menu.php">
+                                    <a href="/addon/audits/main_menu.php">
                                         <span class="ca-icon"><i class="fa fa-folder"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Call Audits<br/></h2>

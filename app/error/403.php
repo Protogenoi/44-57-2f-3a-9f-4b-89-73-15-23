@@ -77,7 +77,6 @@ $access_denied = new Access_user;
 
 <p>Access to the page requested is restricted, higher user access level is required. Here are some helpful links to get you back on track:</p>
 
-            <?php logged_hostnameip();?> 
         </div>
     </div>
 </div>

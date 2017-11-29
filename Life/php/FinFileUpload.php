@@ -189,7 +189,7 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                 
 $client = new Client($SID, $TOKEN);
 
-$MOB_ARRAY=array("07401434619","07917886451","07890567225");
+$MOB_ARRAY=array("07401434619","07917886451","07890567225","07712251335");
 $MOB_MSG="ADL Legal and General Raw COMMS Uploaded by $hello_name. Ready for upload!";
 
 foreach($MOB_ARRAY as $MESS_TO) {

@@ -444,52 +444,8 @@ switch( $result['grade'] )
 <button type='submit' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span> </button>
       </form>
    </td>";
-   echo "<td>
-      <form action='CloserPDFReport.php' method='POST' name='pdfformview'>
-	<input type='hidden' name='search' value='".$result['id']."' >
-<button type=\"submit\" class=\"btn btn-primary btn-xs\"><span class=\"glyphicon glyphicon-folder-open\"></span> </button>
-      </form>
-   </td>";
-   echo "<td>
-      <form action='closer_reports.php' method='POST' name='fname'>
-	<input type='hidden' name='closer' value='".$result['closer']."' >
-<button type=\"submit\" class=\"btn btn-success btn-xs\"><span class=\"glyphicon glyphicon-user\"></span> </button>
-      </form>
-   </td>";
 	echo "</tr>";
         ?>
-<script>
-        document.querySelector('#deleteauditconfirm<?php echo $i ?>').addEventListener('submit', function(e) {
-            var form = this;
-            e.preventDefault();
-            swal({
-                title: "Delete audit?",
-                text: "Audit cannot be recovered if deleted!",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: '#DD6B55',
-                confirmButtonText: 'Yes, I am sure!',
-                cancelButtonText: "No, cancel it!",
-                closeOnConfirm: false,
-                closeOnCancel: false
-            },
-            function(isConfirm) {
-                if (isConfirm) {
-                    swal({
-                        title: 'Deleted!',
-                        text: 'Audit deleted!',
-                        type: 'success'
-                    }, function() {
-                        form.submit();
-                    });
-                    
-                } else {
-                    swal("Cancelled", "Audit not deleted", "error");
-                }
-            });
-        });
-
-    </script>
     <?php
 	}
 } else {
@@ -510,8 +466,7 @@ echo "</table>";
       <div class="modal-body">
 <?php
 $query = $pdo->prepare("SELECT policy_number, id, date_submitted, closer, auditor, grade from closer_audits where auditor = :hello and grade = 'SAVED' ORDER BY date_submitted DESC");
-
-$query->bindParam(':hello', $hello_name, PDO::PARAM_STR, 12);
+$query->bindParam(':hello', $hello_name, PDO::PARAM_STR);
 echo "<table align=\"center\" class=\"table\">";
 
 echo 

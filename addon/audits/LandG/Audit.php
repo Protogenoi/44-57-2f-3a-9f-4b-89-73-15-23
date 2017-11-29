@@ -56,18 +56,26 @@ if ($ffanalytics == '1') {
         require_once(__DIR__ . '/../../../class/login/login.php');
         
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
         
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 2) {
+        if($ACCESS_LEVEL < 3) {
             
         header('Location: /../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
-        }
+        } 
 
 ?>
 <!DOCTYPE html>
@@ -90,13 +98,13 @@ if ($ffanalytics == '1') {
             o.style.height = (25 + o.scrollHeight) + "px";
         }
     </script>
-    <?php require_once(__DIR__ . '/../../app/Holidays.php'); ?>
+    <?php require_once(__DIR__ . '/../../../app/Holidays.php'); ?>
 
 </head>
 <body>
 
 
-    <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
 
 
     <div class="container">

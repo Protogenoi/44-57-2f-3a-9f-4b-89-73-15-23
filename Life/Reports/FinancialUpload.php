@@ -25,7 +25,7 @@ if (isset($fferror)) {
 }
 
 if($fffinancials=='0') {
-    header('Location: /../../CRMmain.php?FEATURE=FINANCIALS');
+    header('Location: /../../../CRMmain.php?FEATURE=FINANCIALS');
 }
 
 if ($companynamere == 'Bluestone Protect') {
@@ -33,16 +33,7 @@ if ($companynamere == 'Bluestone Protect') {
     $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
     if (!in_array($hello_name, $Level_2_Access, true)) {
 
-        header('Location: /../../CRMmain.php?AccessDenied');
-        die;
-    }
-}
-
-if ($companynamere == 'ADL_CUS') {
-    $Level_2_Access = array("Michael", "Dean", "Andrew", "Helen", "David");
-    if (!in_array($hello_name, $Level_2_Access, true)) {
-
-        header('Location: /../../CRMmain.php?AccessDenied');
+        header('Location: /../../../CRMmain.php?AccessDenied');
         die;
     }
 }

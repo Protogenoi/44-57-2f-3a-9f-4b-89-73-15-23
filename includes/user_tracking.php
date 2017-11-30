@@ -65,7 +65,10 @@ function getRealIpAddr()
 getRealIpAddr();
 $TRACKED_IP= getRealIpAddr();
 
-if($TRACKED_IP!='81.145.167.66') {
+
+$ALLOWED_IP_RANGE=array('81.145.167.66','80.229.0.67');
+
+if(!in_array($TRACKED_IP,$ALLOWED_IP_RANGE,true)) {
     require_once(__DIR__ . '/../classes/database_class.php');
         $database = new Database();
         $database->beginTransaction();

@@ -222,7 +222,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     $TRK_current_premium = $TRACKERresult['current_premium'];
                     $TRK_our_premium = $TRACKERresult['our_premium'];
                     $TRK_comments = $TRACKERresult['comments'];
-                    $TRK_sale = $TRACKERresult['sale'];
 
                     ?>
 

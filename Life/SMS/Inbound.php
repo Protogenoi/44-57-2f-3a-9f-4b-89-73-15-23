@@ -53,6 +53,16 @@ if(isset($fferror)) {
                          $SMS_INSERT->bindParam(':PHONE',$CALLID, PDO::PARAM_STR);
                          $SMS_INSERT->execute();     
                             
+                        } else {
+                            
+                            $UNKNOWN_NUMBER="UNKNOWN NUMBER | $NEW_MESSAGE";
+                            
+                         $SMS_INSERT = $pdo->prepare("INSERT INTO sms_inbound set sms_inbound_client_id=:CID, sms_inbound_phone=:PHONE, sms_inbound_type='Client SMS Reply', sms_inbound_msg=:MSG");
+                         $SMS_INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
+                         $SMS_INSERT->bindParam(':MSG',$UNKNOWN_NUMBER, PDO::PARAM_STR);
+                         $SMS_INSERT->bindParam(':PHONE',$CALLID, PDO::PARAM_STR);
+                         $SMS_INSERT->execute();                                
+                            
                         }
                         
                         }

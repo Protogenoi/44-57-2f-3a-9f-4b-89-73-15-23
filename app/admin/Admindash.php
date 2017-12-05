@@ -3129,7 +3129,7 @@ if ($settingsselect == 'y') {
     </script>
 <script type="text/JavaScript">
          var $select = $('#taskuser');
-         $.getJSON('../app/JSON/ADL_USERS.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+         $.getJSON('/app/JSON/ADL_USERS.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
              $select.html('agent_name');
              $.each(data, function(key, val){ 
                  $select.append('<option value="' + val.FULL_NAME + '">' + val.FULL_NAME + '</option>');

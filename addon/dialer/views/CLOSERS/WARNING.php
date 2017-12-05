@@ -124,10 +124,10 @@ $TRACKER_SUM_FORMAT= number_format((float)$TRACKER_SUM_TOTAL, 2, '.', '');
 
     <table class="table">
     <tr>
-        <td><strong><font color='white'><?php if(isset($TRACKER_SUM_FORMAT)) { echo "Total <br> $TRACKER_SUM_FORMAT%"; } else { echo "Total <br> 0%"; } ?></font></strong></td>
-        <td><strong><font color='white'><?php if(isset($TRACKER_QNQ_FORMAT)) { echo "No Quote <br> $TRACKER_QNQ_FORMAT%"; } else { echo "No Quote <br> 0%"; } ?></font></strong></td>
-        <td><strong><font color='white'><?php if(isset($TRACKER_HANGUP_FORMAT)) { echo "HANGUP <br> $TRACKER_HANGUP_FORMAT%"; } else { echo "HANGUP <br> 0%"; } ?></font></strong></td>
-        <td><strong><font color='white'><?php if(isset($TRACKER_INSURER_FORMAT)) { echo "INSURER <br> $TRACKER_INSURER_FORMAT%"; } else { echo "INSURER <br> 0%"; } ?></font></strong></td>
+        <td><strong style="font-size: 40px;"><font color='white'><?php if(isset($TRACKER_SUM_FORMAT)) { echo "Total <br> $TRACKER_SUM_FORMAT%"; } else { echo "Total <br> 0%"; } ?></font></strong></td>
+        <td><strong style="font-size: 40px;"><font color='white'><?php if(isset($TRACKER_QNQ_FORMAT)) { echo "No Quote <br> $TRACKER_QNQ_FORMAT%"; } else { echo "No Quote <br> 0%"; } ?></font></strong></td>
+        <td><strong style="font-size: 40px;"><font color='white'><?php if(isset($TRACKER_HANGUP_FORMAT)) { echo "HANGUP <br> $TRACKER_HANGUP_FORMAT%"; } else { echo "HANGUP <br> 0%"; } ?></font></strong></td>
+        <td><strong style="font-size: 40px;"><font color='white'><?php if(isset($TRACKER_INSURER_FORMAT)) { echo "INSURER <br> $TRACKER_INSURER_FORMAT%"; } else { echo "INSURER <br> 0%"; } ?></font></strong></td>
     </tr>
 </table>
          </div>

@@ -175,7 +175,13 @@ ORDER BY Sales, Leads");
             ?>
         </table>
 
-<?php        
+<?php      
+
+    require_once(__DIR__ . '/models/CLOSERS/WARNING.php');
+    $TRACKER_WARNING = new TRACKER_WARNINGModal($pdo);
+    $TRACKER_WARNINGList = $TRACKER_WARNING->getTRACKER_WARNING();
+    require_once(__DIR__ . '/views/CLOSERS/WARNING.php');  
+
 $NEWLEAD = $pdo->prepare("select agent,closer from dealsheet_call ");
 $NEWLEAD->execute();
 if ($NEWLEAD->rowCount()>0) {

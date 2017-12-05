@@ -3107,9 +3107,8 @@ if ($settingsselect == 'y') {
 
     </div>
     <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
-    <script src="/js/jquery-2.1.4.min.js"></script>
     <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
-    <script src="/js/jquery.min.js"></script>
+    <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
     <script>
                                     $("#menu-toggle").click(function (e) {

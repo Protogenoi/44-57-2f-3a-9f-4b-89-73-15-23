@@ -34,8 +34,8 @@ $TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if(isset($USER) && $TOKEN) {
     
-    require_once(__DIR__ . '/../../classes/database_class.php');
-    require_once(__DIR__ . '/../../class/login/login.php');
+    require_once(__DIR__ . '/../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../class/login/login.php');
 
         $CHECK_USER_TOKEN = new UserActions($USER,$TOKEN);
         $CHECK_USER_TOKEN->CheckToken();
@@ -48,13 +48,13 @@ if(isset($USER) && $TOKEN) {
         if(isset($OUT['TOKEN_CHECK']) && $OUT['TOKEN_CHECK']=='Good') {
 
 $hello_name=$USER;
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
 
 $ClientSearch= filter_input(INPUT_GET, 'ClientSearch', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ClientSearch)) {
-    require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+    require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
             
     if($ClientSearch=='4') { 
 
@@ -72,7 +72,7 @@ echo json_encode($results);
 
 } else {
 
-    header('Location: /../../../CRMmain.php');
+    header('Location: /../../../../../CRMmain.php');
     die;
     
 }

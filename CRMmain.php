@@ -293,7 +293,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 if ($ACCESS_LEVEL == 10 || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
                                 ?>
                                 <li>
-                                    <a href="Staff/Main_Menu.php">
+                                    <a href="/addon/Staff/Main_Menu.php">
                                         <span class="ca-icon"><i class="fa fa-database"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Employee<br/> Database</h2>

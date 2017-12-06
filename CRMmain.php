@@ -241,7 +241,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                         
                         if ($ffpba == '1' && $ACCESS_LEVEL == 10) { ?>
                             <li>
-                                <a href="/PBA/Main_Menu.php">
+                                <a href="/addon/PBA/Main_Menu.php">
                                     <span class="ca-icon"><i class="fa fa-credit-card"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">PBA<br/>Clients</h2>

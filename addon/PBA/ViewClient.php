@@ -29,14 +29,14 @@
  * 
 */  
 
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../includes/user_tracking.php'); 
 
 require_once(__DIR__ . '/../includes/time.php');
 
@@ -45,12 +45,12 @@ if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
 }
 
 
-require_once(__DIR__ . '../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
-require_once(__DIR__ . '../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../includes/Access_Levels.php');
+require_once(__DIR__ . '/../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -71,13 +71,13 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if($ffpba=='0') {
         
-        header('Location: /CRMmain.php'); die;
+        header('Location: /../../CRMmain.php'); die;
         
     }
 
 if(empty($search)) {
     
-    header('Location: ../CRMmain.php'); die;
+    header('Location: /../../CRMmain.php'); die;
     
 }
 
@@ -95,7 +95,7 @@ if(empty($search)) {
         
         if($ACCESS_LEVEL < 10) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }    
@@ -114,7 +114,7 @@ if(empty($search)) {
 
 <body>
     <?php
-    include('../includes/navbar.php');
+    require_once(__DIR__ . '/../includes/navbar.php');
 
  $database = new Database(); 
  

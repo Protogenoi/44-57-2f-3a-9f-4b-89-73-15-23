@@ -207,6 +207,7 @@ GROUP BY closer");
                                         <th>Standard</th>
                                         <th>CIC</th>
                                         <th>CFO</th>
+                                        <th>Lapsed</th>
                                         <th>CR</th>
                                         <th>View Profile</th>
                                     </tr>
@@ -237,7 +238,7 @@ GROUP BY closer");
                                     $STAT_CFO=$result['CFO'];
                                     }
                                     if(isset($result['Lapsed'])) {
-                                    $STAT_CR=$result['Lapsed'];
+                                    $STAT_LAPSED=$result['Lapsed'];
                                     }
                                     if(isset($result['employee_id'])) {
                                     $STAT_FK=$result['employee_id'];
@@ -253,6 +254,7 @@ GROUP BY closer");
                                     <td>$STAT_STAN</td>
                                     <td>$STAT_CIC</td>    
                                     <td>$STAT_CFO</td>
+                                    <td>$STAT_LAPSED</td>
                                     <td>$CR_PER%</td>    
                                     <td><a href='/addon/Staff/ViewEmployee.php?REF=$STAT_FK' target='_blank'><i class='fa fa-search'></i></a> </td>    
                                     ";

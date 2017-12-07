@@ -271,6 +271,7 @@ WHERE
                                 <p><a href="Compliance.php" class="btn btn-outline-primary">Read More</a>
                                 <a href="Compliance.php?SCID=FCA" class="btn btn-outline-primary">FCA</a>
                                 <a href="Compliance.php?SCID=ICO" class="btn btn-outline-primary">ICO</a>
+                                <a href="Compliance.php?SCID=HWIFS" class="btn btn-outline-primary">HWIFS</a>
                                 <a href="Compliance.php?SCID=LANDG" class="btn btn-outline-primary">Legal and General</a>
                                 <a href="Compliance.php?SCID=Vulnerable Clients" class="btn btn-outline-primary">Vulnerable Clients</a>
                                 <a href="Compliance.php?SCID=Money Laundering" class="btn btn-outline-primary">Money Laundering</a>
@@ -651,7 +652,7 @@ WHERE
 
         <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/resources/templates//bootstrap/js/bootstrap.min.js"></script>
+        <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script>
 
         <script>
             // Initialize tooltip component

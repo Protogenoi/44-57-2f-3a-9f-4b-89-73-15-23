@@ -54,12 +54,11 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <title>ADL | Compliance Documents</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-                <link rel="stylesheet" href="/styles/Notices.css">
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
+        <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/templates/ADL/Notices.css">
+        <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -90,9 +89,8 @@ Uploaded Documents
                 <?php } } ?>
 
 <p class="card-text">
-    <div class="btn-group"><?php if (in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-                                    <p><a data-toggle="modal" data-target="#mymodal" class="btn btn-outline-success"><i class="fa fa-cloud-upload"></i> Upload</a></p>      
-    <?php } ?>
+    <div class="btn-group">
+                           <p><a data-toggle="modal" data-target="#mymodal" class="btn btn-outline-success"><i class="fa fa-cloud-upload"></i> Upload</a></p>      
                                 </div>
     
 <h4 class="card-title"></h4>
@@ -197,8 +195,8 @@ ADL
 </div>
 </div>
 </div> 
-            <script src="/js/jquery/jquery-3.0.0.min.js"></script>
-                    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+            <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+            <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
                     
         <?php
 
@@ -238,11 +236,6 @@ ADL
     <select class="form-control" name='COMPANY_ENTITY'>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='N/A') { echo "selected"; }  ?> value='N/A'>For all</option>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Bluestone Protect') { echo "selected"; }  ?> value='Bluestone Protect'>Bluestone Protect</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protect Family Plans') { echo "selected"; }  ?> value='Protect Family Plans'>Protect Family Plans</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Protected Life Ltd') { echo "selected"; }  ?> value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='We Insure') { echo "selected"; }  ?> value='We Insure'>We Insure</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='The Financial Assessment Centre') { echo "selected"; }  ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Assured Protect and Mortgages') { echo "selected"; }  ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
     </select>
   </div>
  
@@ -282,10 +275,10 @@ ADL
         
         ?>                    
                     
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>  
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>  
+<script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script> 
         
         <script type="text/javascript" language="javascript" >
 
@@ -311,7 +304,7 @@ ADL
                         {"data": "compliance_uploads_company"},
                         {"data": "compliance_uploads_location",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/../' + data + '" target="_blank"><i class="fa fa-search"></i></a>';
+                                return '<a href="/' + data + '" target="_blank"><i class="fa fa-search"></i></a>';
                             }},
                         {"data": "compliance_uploads_id",
                             "render": function (data, type, full, meta) {

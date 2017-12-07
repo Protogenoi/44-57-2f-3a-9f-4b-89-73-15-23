@@ -169,21 +169,30 @@ WHERE
                                 
 <?php
       $QUERY = $pdo->prepare("SELECT 
-    compliance_sale_stats_id_fk,
-    SUM(compliance_sale_stats_sales) AS compliance_sale_stats_sales,
-    compliance_sale_stats_company,
-    SUM(compliance_sale_stats_cfo_pols) AS compliance_sale_stats_cfo_pols,
-    compliance_sale_stats_cancel_rate,
-    compliance_sale_stats_advisor
+    closer,
+    COUNT(IF(policystatus = 'Live', 1, NULL)) AS Live,
+    COUNT(IF(type = 'DTA', 1, NULL)) AS DTA,
+    COUNT(IF(type = 'LTA', 1, NULL)) AS LTA,
+    COUNT(IF(type = 'DTA CIC', 1, NULL)) AS DTA_CIC,
+    COUNT(IF(type = 'LTA CIC', 1, NULL)) AS LTA_CIC,
+    COUNT(IF(ews_status_status = 'CFO', 1, NULL)) AS CFO,
+    COUNT(IF(ews_status_status = 'Lapsed',
+        1,
+        NULL)) AS Lapsed,
+    employee_id
 FROM
-    compliance_sale_stats
+    client_policy
+        LEFT JOIN
+    ews_data ON client_policy.policy_number = ews_data.policy_number
+        JOIN
+    employee_details ON client_policy.closer = CONCAT(employee_details.firstname,
+            ' ',
+            employee_details.lastname)
 WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH
-    GROUP BY compliance_sale_stats_id_fk");
-     $QUERY->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
-     $QUERY->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
+    MONTH(sale_date) = MONTH(CURDATE())
+        AND YEAR(sale_date) = YEAR(CURDATE())
+        AND client_policy.insurer = 'Legal and General'
+GROUP BY closer");
      $QUERY->execute();
     
                                 if ($QUERY->rowCount() > 0) {
@@ -194,8 +203,9 @@ WHERE
                                 <thead>
                                     <tr>
                                         <th>Agent</th>
-                                        <th>Company</th>
                                         <th>Sales</th>
+                                        <th>Standard</th>
+                                        <th>CIC</th>
                                         <th>CFO</th>
                                         <th>CR</th>
                                         <th>View Profile</th>
@@ -205,33 +215,46 @@ WHERE
                                 
                                 while ($result = $QUERY->fetch(PDO::FETCH_ASSOC)) {
                                     
-                                    if(isset($result['compliance_sale_stats_advisor'] )) {
-                                    $STAT_ADVISOR=$result['compliance_sale_stats_advisor'] ;
+                                    if(isset($result['closer'] )) {
+                                    $STAT_ADVISOR=$result['closer'] ;
                                     }
-                                    if(isset($result['compliance_sale_stats_company'] )) {
-                                    $STAT_COMPANY=$result['compliance_sale_stats_company'] ;
+                                    if(isset($result['Live'])) {
+                                    $STAT_SALES=$result['Live'];
                                     }
-                                    if(isset($result['compliance_sale_stats_sales'])) {
-                                    $STAT_SALES=$result['compliance_sale_stats_sales'];
+                                    if(isset($result['LTA'])) {
+                                    $STAT_LTA=$result['LTA'];
+                                    }  
+                                    if(isset($result['LTA_CIC'])) {
+                                    $STAT_LTA_CIC=$result['LTA_CIC'];
+                                    } 
+                                    if(isset($result['DTA'])) {
+                                    $STAT_DTA=$result['DTA'];
+                                    }  
+                                    if(isset($result['DTA_CIC'])) {
+                                    $STAT_DTA_CIC=$result['DTA_CIC'];
+                                    }                                        
+                                    if(isset($result['CFO'])) {
+                                    $STAT_CFO=$result['CFO'];
                                     }
-                                    if(isset($result['compliance_sale_stats_cfo_pols'])) {
-                                    $STAT_CFO=$result['compliance_sale_stats_cfo_pols'];
+                                    if(isset($result['Lapsed'])) {
+                                    $STAT_CR=$result['Lapsed'];
                                     }
-                                    if(isset($result['compliance_sale_stats_cancel_rate'])) {
-                                    $STAT_CR=$result['compliance_sale_stats_cancel_rate'];
-                                    }
-                                    if(isset($result['compliance_sale_stats_id_fk'])) {
-                                    $STAT_FK=$result['compliance_sale_stats_id_fk'];
+                                    if(isset($result['employee_id'])) {
+                                    $STAT_FK=$result['employee_id'];
                                     }
                                     
                                     $CR_STAT=($STAT_CFO/$STAT_SALES)*100;
+                                    $CR_PER=number_format($CR_STAT, 2);
+                                    $STAT_STAN=$STAT_LTA+$STAT_DTA;
+                                    $STAT_CIC=$STAT_LTA_CIC+$STAT_DTA_CIC;
                                     
                                     echo "<tr><td>$STAT_ADVISOR</td>
-                                        <td>$STAT_COMPANY</td>
                                     <td>$STAT_SALES</td>
+                                    <td>$STAT_STAN</td>
+                                    <td>$STAT_CIC</td>    
                                     <td>$STAT_CFO</td>
-                                    <td>$CR_STAT%</td>    
-                                    <td><a href='/Staff/ViewEmployee.php?REF=$STAT_FK' target='_blank'><i class='fa fa-search'></i></a> </td>    
+                                    <td>$CR_PER%</td>    
+                                    <td><a href='/addon/Staff/ViewEmployee.php?REF=$STAT_FK' target='_blank'><i class='fa fa-search'></i></a> </td>    
                                     ";
                                 }
                                 

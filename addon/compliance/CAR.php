@@ -78,11 +78,19 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <title>ADL | Compliance Audit and Review</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-                <link rel="stylesheet" href="/styles/Notices.css">
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-       <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
+        <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/templates/ADL/Notices.css">
+        <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+        
+        <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+        <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>       
+        
 </head>
 <body>
 
@@ -101,8 +109,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?> Compliance Audit and Review
 </h3>
 <div class="card-block">
-    
-    <?php if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+
     
 <div class="alert alert-info alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -115,15 +122,9 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <select class="form-control" name='AGENCY' onchange="this.form.submit()" required>
         <option value="">Select...</option>
         <option <?php if(isset($AGENCY) && $AGENCY=='Bluestone Protect') { echo "selected"; } ?> value='Bluestone Protect'>Bluestone Protect</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='The Financial Assessment Centre') { echo "selected"; } ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option <?php if(isset($AGENCY) && $AGENCY=='Assured Protect and Mortgages') { echo "selected"; } ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
     </select>
   </div>
     </form>
-    <?php } ?>
     
     
     <ul class="nav nav-tabs nav-justified" role="tablist">
@@ -1772,12 +1773,8 @@ ADL
                 </div>
     </div>
 
-            <script src="/js/jquery/jquery-3.0.0.min.js"></script>
-                    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+        
         <script>
     $(function () {
         $("#ICO_RENEWAL_DATE").datepicker({

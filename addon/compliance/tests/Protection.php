@@ -97,8 +97,9 @@ $q=1;
     <head>
         <meta charset="UTF-8">
         <title>ADL | Protection Test</title>
-                <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
+        <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
@@ -318,9 +319,8 @@ No
           
    </div>
         
-        
-            <script src="/js/jquery/jquery-3.0.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>    
+            <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+            <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script>    
     </body>
 </html>

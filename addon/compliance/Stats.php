@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -52,12 +52,11 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <title>ADL | Sale Statistics</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-                <link rel="stylesheet" href="/styles/Notices.css">
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/styles/datatables/jquery.dataTables.min.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.responsive.css">
-        <link rel="stylesheet" type="text/css" href="/datatables/css/dataTables.customLoader.walker.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
+        <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/templates/ADL/Notices.css">
+        <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>        
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
@@ -89,9 +88,7 @@ Sale stats
                                 <thead>
                                     <tr>
                                         <th>Agent</th>
-                                        <?php if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
                                         <th>Company</th>
-                                        <?php } ?>
                                         <th>Sales</th>
                                         <th>Standard</th>
                                         <th>CIC</th>
@@ -109,9 +106,7 @@ Sale stats
      <option value="">Select Agent...</option>
  </select>
    </div>  </td>
-                                                                     <?php
-        
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
+
         
                                     <td><div class="form-group">
     <select class="form-control" name='COMPANY_ENTITY'>
@@ -123,9 +118,7 @@ Sale stats
         <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
     </select>
                                         </div></td>
- 
-            
-      <?php  }       ?>
+
                                         <td><input class='form-control' type='text' name='STAT_SALES' value="0"></td>
 
                                     <td><input class='form-control' type='text' name='STAT_STANDARD' value="0"></td>
@@ -288,12 +281,12 @@ ADL
                
     </div>
     
-            <script src="/js/jquery/jquery-3.0.0.min.js"></script>
-                    <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
-        <script type="text/javascript" language="javascript" src="/js/datatables/jquery.DATATABLES.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>  
+            <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+            <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+            <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>  
+            <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+            <script src="/resources/templates/bootstrap/js/bootstrap.min.js"></script> 
         
         <script type="text/javascript" language="javascript" >
 
@@ -306,7 +299,7 @@ ADL
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "datatables/Compliance.php?EXECUTE=1",
+                    "ajax": "addon/compliance/datatables/Compliance.php?EXECUTE=1",
                     "columns": [
                         {
                             "className": 'details-control',

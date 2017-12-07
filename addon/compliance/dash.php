@@ -50,8 +50,9 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
-        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
+        <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
@@ -299,7 +300,7 @@ WHERE
                             <div class="card-header p-b-0">
                                 <h5 class="card-title">
                                     <i class="fa fa-tachometer" aria-hidden="true"></i> 
-                                    Statistics
+                                    Statistics for this month
                                 </h5>
                             </div>
                             <div class="card-block">
@@ -310,53 +311,23 @@ WHERE
                              if(isset($AGENCY)) {
                                    $database = new Database();
                                    
-                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' AND type IN ('LTA','LTA CIC','DTA','DTA CIC')");
                         $SALE_COUNT = $database->single();
                         $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
      
-                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA','DTA')");
                         $STAN_COUNT = $database->single();
                         $STAT_STAN= htmlentities($STAN_COUNT['badge']);
                                                
-                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA CIC','DTA CIC')");
                         $CIC_COUNT = $database->single();
                         $STAT_CIC= htmlentities($CIC_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='CFO' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $CFO_COUNT = $database->single();
                         $STAT_CFO= htmlentities($CFO_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='Lapsed' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $LAP_COUNT = $database->single();
                         $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
                         
@@ -386,48 +357,23 @@ WHERE
                              
                              $database = new Database();
                              
-                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats   WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' AND type IN ('LTA','LTA CIC','DTA','DTA CIC')");
                         $SALE_COUNT = $database->single();
                         $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
      
-                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA','DTA')");
                         $STAN_COUNT = $database->single();
                         $STAT_STAN= htmlentities($STAN_COUNT['badge']);
                                                
-                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA CIC','DTA CIC')");
                         $CIC_COUNT = $database->single();
                         $STAT_CIC= htmlentities($CIC_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='CFO' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $CFO_COUNT = $database->single();
                         $STAT_CFO= htmlentities($CFO_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats WHERE
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='Lapsed' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $LAP_COUNT = $database->single();
                         $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
                         
@@ -455,55 +401,25 @@ WHERE
                              
                          $database = new Database();  
                          
-                        $database->query("SELECT SUM(compliance_sale_stats_sales) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' AND type IN ('LTA','LTA CIC','DTA','DTA CIC')");
                         $SALE_COUNT = $database->single();
                         $STAT_SALES= htmlentities($SALE_COUNT['badge']);                         
      
-                        $database->query("SELECT SUM(compliance_sale_stats_standard_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA','DTA')");
                         $STAN_COUNT = $database->single();
                         $STAT_STAN= htmlentities($STAN_COUNT['badge']);
                                                
-                        $database->query("SELECT SUM(compliance_sale_stats_cic_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT COUNT(id) AS badge FROM client_policy where insurer='Legal and General' AND MONTH(submitted_date) = MONTH(CURDATE()) AND YEAR(submitted_date) = YEAR(CURDATE()) AND policystatus='Live' and type IN ('LTA CIC','DTA CIC')");
                         $CIC_COUNT = $database->single();
                         $STAT_CIC= htmlentities($CIC_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_cfo_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='CFO' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $CFO_COUNT = $database->single();
                         $STAT_CFO= htmlentities($CFO_COUNT['badge']);
                         
-                        $database->query("SELECT SUM(compliance_sale_stats_lapsed_pols) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH");
-                        $database->bind(':YEAR', $YEAR);
-                        $database->bind(':MONTH', $MONTH);                        
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT COUNT(id) AS badge FROM ews_data where ews_Status_status='Lapsed' AND MONTH(policy_start_date) = MONTH(CURDATE()) AND YEAR(policy_start_date) = YEAR(CURDATE())");
                         $LAP_COUNT = $database->single();
-                        $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);  
+                        $STAT_LAPSED= htmlentities($LAP_COUNT['badge']);    
                         
                         $database->query("SELECT SUM(compliance_sale_stats_cancel_rate) AS badge FROM compliance_sale_stats where compliance_sale_stats_company=:COMPANY   AND
     compliance_sale_stats_year=:YEAR
@@ -561,34 +477,27 @@ WHERE
                             <div class="card-header p-b-0">
                                 <h5 class="card-title">
                                     <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                    Call Recordings
+                                    Legal and General Call Audits
                                 </h5>
                             </div>
                             <div class="card-block">
-                                <p class="card-text">Recording compliance grades for this month.</p>
+                                <p class="card-text">Audit grades for this week.</p>
                                
                              <?php 
                              
                          if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
                              if(isset($AGENCY)) {
-                                   $database = new Database();
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Graded'");
-                        $database->bind(':COMPANY', $AGENCY);
-                        $NO_AUDIT_COUNT = $database->single();
-                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+                                   $database = new Database();                      
      
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Green' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Amber'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Amber' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Red'");
-                        $database->bind(':COMPANY', $AGENCY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Red' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']); 
                              }
@@ -596,21 +505,17 @@ WHERE
                              if(!isset($AGENCY)) {
                                  
                              
-                             $database = new Database();
-                             
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Not Graded'");
-                        $NO_AUDIT_COUNT = $database->single();
-                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+                             $database = new Database();                
      
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Green'");
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Green' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Amber'");
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Amber' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_grade='Red'");
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Red' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']);                             
                              }
@@ -618,25 +523,17 @@ WHERE
                          
                          else {
                              
-                         $database = new Database();  
-                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Not Graded'");
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
-                        $NO_AUDIT_COUNT = $database->single();
-                        $NO_AUDIT= htmlentities($NO_AUDIT_COUNT['badge']);                         
+                         $database = new Database();                        
      
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Green'");
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Green' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $GREEN_COUNT = $database->single();
                         $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Amber'");
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Amber' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AMBER_COUNT = $database->single();
                         $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
-                        $database->query("SELECT count(compliance_recordings_id) AS badge FROM compliance_recordings where compliance_recordings_company=:COMPANY and compliance_recordings_grade='Red'");
-                        $database->bind(':COMPANY', $COMPANY_ENTITY);
+                        $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Red' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RED_COUNT = $database->single();
                         $RED_VAR= htmlentities($RED_COUNT['badge']);
                         
@@ -646,12 +543,8 @@ WHERE
                             <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($GREEN_VAR) && $GREEN_VAR>=1) { echo $GREEN_VAR; }  else { echo "0"; } ?>)</button>
                         <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($AMBER_VAR) && $AMBER_VAR>=1) { echo $AMBER_VAR; }  else { echo "0"; } ?>)</button>
                         <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($RED_VAR) && $RED_VAR>=1) { echo $RED_VAR; }  else { echo "0"; } ?>)</button></p>
-                        </center><center>
-                            <p> <button type="button" class="btn btn-secondary bg-info">Awaiting (<?php if(isset($NO_AUDIT) && $NO_AUDIT>=1) { echo $NO_AUDIT; }  else { echo "0"; } ?>)</button></p>
                         </center>
-                         
-                                <br>
-                                <p><a href="Recordings.php" class="btn btn-outline-info form-control"><i class="fa fa-headphones"></i> Call Recordings Audit</a></p>
+
                             </div>
                         </div>
                         
@@ -756,9 +649,9 @@ WHERE
             </div>
         </footer>
 
-        <script src="/js/jquery/jquery-3.0.0.min.js"></script>
+        <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
-        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/resources/templates//bootstrap/js/bootstrap.min.js"></script>
 
         <script>
             // Initialize tooltip component

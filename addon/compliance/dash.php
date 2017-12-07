@@ -249,17 +249,13 @@ WHERE
      
     if($EXECUTE=='1') { ?>
 
-             
-                        <!-- Articles -->
                         <div class="row">
                             <article class="col-12">
                                 <h2>Life Insurance</h2>
                                 <p>Put your knowledge to the test with this Life insurance test!</p>
                                 
                                     <p><a href="tests/Life.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
-                                
-                               <a href="tests/Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
-                               <a href="#" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> MORE TESTS</a></p>
+                                        <a href="tests/Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
 
                             </article>
                         </div>
@@ -278,15 +274,14 @@ WHERE
                                 <a href="Compliance.php?SCID=Data Protection" class="btn btn-outline-primary">Data Protection</a></p>
                             </article>
                         </div>                        
-                        <hr>
 
                         <hr>      
                         <div class="row">
                             <article class="col-12">
                                 <h2>Complaints</h2>
                                 <p>Log complaints to a client profile.</p>
-                                <p><a href="/AddClient.php" class="btn btn-outline-danger"><i class="fa fa-user-plus"></i> Add Compliant</a>
-                                <a href="/SearchClients.php" class="btn btn-outline-danger"><i class="fa fa-search"></i> Search Client</a></p>  
+                                <p><a href="/app/AddClient.php" class="btn btn-outline-danger"><i class="fa fa-user-plus"></i> Add Compliant</a>
+                                <a href="/app/SearchClients.php" class="btn btn-outline-danger"><i class="fa fa-search"></i> Search Client</a></p>  
                             </article>
                         </div>
                      
@@ -638,17 +633,7 @@ WHERE
 <?php } ?>
             </div>
         </div>
-        <!--/container-fluid-->
 
-        <footer>
-
-            <div class="small-print">
-                <div class="container">
-                    <p><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
-                    <p>Copyright &copy; ADL CRM 2017 </p>
-                </div>
-            </div>
-        </footer>
 
         <script src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
@@ -666,8 +651,6 @@ WHERE
             })
         </script> 
 
-        <!-- Placeholder Images -->
-        <script src="js/holder.min.js"></script>
 
     </body>
 

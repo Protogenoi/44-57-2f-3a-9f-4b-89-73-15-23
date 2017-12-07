@@ -108,6 +108,14 @@ if (isset($fferror)) {
 <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?> 
     
 <div class="container">
+    
+<div class="container">
+
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading">Employee search</div>
+      <div class="panel-body">
+    
     <div class="col-xs-12 .col-md-8">
         <div class="row">
             <div class="twelve columns">
@@ -116,7 +124,7 @@ if (isset($fferror)) {
                         <a data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false">
 			<span class="ca-icon"><i class="fa fa-user-plus"></i></span>
 			<div class="ca-content">
-				<h2 class="ca-main">Add New<br/> Employee</h2>
+				<h2 class="ca-main">Add Employee</h2>
 				<h3 class="ca-sub"></h3>
 			</div>
 			</a>
@@ -155,6 +163,8 @@ if (isset($fferror)) {
     </table>
     
 </div>
+    </div>
+  </div>
    
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>

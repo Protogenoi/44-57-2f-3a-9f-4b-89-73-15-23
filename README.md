@@ -13,6 +13,7 @@ A Customer relationship management application built for the financial services 
  * Email (only outbound currently)
  * SMS (inbound and outbound)
  * Internal messenger service
+ * Lead and sales management
 
 ## Authors
 

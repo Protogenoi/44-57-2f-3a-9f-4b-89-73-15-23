@@ -336,38 +336,17 @@ GROUP BY closer");
      
                         $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Green' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $GREEN_COUNT = $database->single();
-                        $GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
+                        $LG_GREEN_VAR= htmlentities($GREEN_COUNT['badge']);
                                                
                         $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Amber' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AMBER_COUNT = $database->single();
-                        $AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
+                        $LG_AMBER_VAR= htmlentities($AMBER_COUNT['badge']);
                         
                         $database->query("SELECT count(id) AS badge FROM closer_audits where grade='Red' AND YEARWEEK(`date_submitted`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RED_COUNT = $database->single();
-                        $RED_VAR= htmlentities($RED_COUNT['badge']); 
-                                   
-                        ?><center>
-                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($GREEN_VAR) && $GREEN_VAR>=1) { echo $GREEN_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($AMBER_VAR) && $AMBER_VAR>=1) { echo $AMBER_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($RED_VAR) && $RED_VAR>=1) { echo $RED_VAR; }  else { echo "0"; } ?>)</button></p>
-                        </center>
-
-                            </div>
-                        </div>
+                        $LG_RED_VAR= htmlentities($RED_COUNT['badge']); 
                         
-                        <div class="card">
-                            <div class="card-header p-b-0">
-                                <h5 class="card-title">
-                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                    Royal London Call Audits
-                                </h5>
-                            </div>
-                            <div class="card-block">
-                                <p class="card-text">Audit grades for this week.</p>
-                               
-                             <?php            
-     
-                        $database->query("SELECT count(audit_id) AS badge FROM RoyalLondon_Audit where grade='Green' AND YEARWEEK(`added_date`, 1) = YEARWEEK(CURDATE(), 1)");
+                         $database->query("SELECT count(audit_id) AS badge FROM RoyalLondon_Audit where grade='Green' AND YEARWEEK(`added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RL_GREEN_COUNT = $database->single();
                         $RL_GREEN_VAR= htmlentities($RL_GREEN_COUNT['badge']);
                                                
@@ -378,30 +357,7 @@ GROUP BY closer");
                         $database->query("SELECT count(audit_id) AS badge FROM RoyalLondon_Audit where grade='Red' AND YEARWEEK(`added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $RL_RED_COUNT = $database->single();
                         $RL_RED_VAR= htmlentities($RL_RED_COUNT['badge']);  
-
-                        ?>
-                                <center>
-                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($RL_GREEN_VAR) && $RL_GREEN_VAR>=1) { echo $RL_GREEN_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($RL_AMBER_VAR) && $RL_AMBER_VAR>=1) { echo $RL_AMBER_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($RL_RED_VAR) && $RL_RED_VAR>=1) { echo $RL_RED_VAR; }  else { echo "0"; } ?>)</button></p>
-                                </center>
-
-                            </div>
-                        </div>  
-                              
                         
-                        <div class="card">
-                            <div class="card-header p-b-0">
-                                <h5 class="card-title">
-                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                    One Family Call Audits
-                                </h5>
-                            </div>
-                            <div class="card-block">
-                                <p class="card-text">Audit grades for this week.</p>
-                               
-                             <?php 
-                             
                         $database->query("SELECT count(wol_id) AS badge FROM audit_wol where grade='Green' AND YEARWEEK(`added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $OF_GREEN_COUNT = $database->single();
                         $OF_GREEN_VAR= htmlentities($OF_GREEN_COUNT['badge']);
@@ -412,30 +368,8 @@ GROUP BY closer");
                         
                         $database->query("SELECT count(wol_id) AS badge FROM audit_wol where grade='Red' AND YEARWEEK(`added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $OF_RED_COUNT = $database->single();
-                        $OF_RED_VAR= htmlentities($OF_RED_COUNT['badge']);  
-
-                        ?>
-                                <center>
-                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($OF_GREEN_VAR) && $OF_GREEN_VAR>=1) { echo $OF_GREEN_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($OF_AMBER_VAR) && $OF_AMBER_VAR>=1) { echo $OF_AMBER_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($OF_RED_VAR) && $OF_RED_VAR>=1) { echo $OF_RED_VAR; }  else { echo "0"; } ?>)</button></p>
-                                </center>
-
-                            </div>
-                        </div>                           
+                        $OF_RED_VAR= htmlentities($OF_RED_COUNT['badge']);   
                         
-                        <div class="card">
-                            <div class="card-header p-b-0">
-                                <h5 class="card-title">
-                                    <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                    Aviva Call Audits
-                                </h5>
-                            </div>
-                            <div class="card-block">
-                                <p class="card-text">Audit grades for this week.</p>
-                               
-                             <?php 
-                             
                         $database->query("SELECT count(aviva_audit_id) AS badge FROM aviva_audit where aviva_audit_grade='Green' AND YEARWEEK(`aviva_audit_added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AV_GREEN_COUNT = $database->single();
                         $AV_GREEN_VAR= htmlentities($AV_GREEN_COUNT['badge']);
@@ -446,17 +380,20 @@ GROUP BY closer");
                         
                         $database->query("SELECT count(aviva_audit_id) AS badge FROM aviva_audit where aviva_audit_grade='Red' AND YEARWEEK(`aviva_audit_added_date`, 1) = YEARWEEK(CURDATE(), 1)");
                         $AV_RED_COUNT = $database->single();
-                        $AV_RED_VAR= htmlentities($AV_RED_COUNT['badge']);  
-
-                        ?>
-                                <center>
-                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($AV_GREEN_VAR) && $AV_GREEN_VAR>=1) { echo $AV_GREEN_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($AV_AMBER_VAR) && $AV_AMBER_VAR>=1) { echo $AV_AMBER_VAR; }  else { echo "0"; } ?>)</button>
-                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($AV_RED_VAR) && $AV_RED_VAR>=1) { echo $AV_RED_VAR; }  else { echo "0"; } ?>)</button></p>
-                                </center>
+                        $AV_RED_VAR= htmlentities($AV_RED_COUNT['badge']);    
+                        
+                        $GREEN_VAR=$LG_GREEN_VAR+$AV_GREEN_VAR+$OF_GREEN_VAR+$RL_GREEN_VAR;
+                        $AMBER_VAR=$LG_AMBER_VAR+$AV_AMBER_VAR+$OF_AMBER_VAR+$RL_AMBER_VAR;
+                        $RED_VAR=$LG_RED_VAR+$AV_RED_VAR+$OF_RED_VAR+$RL_RED_VAR;
+                                   
+                        ?><center>
+                            <p><button type="button" class="btn btn-secondary bg-success">Green (<?php if(isset($GREEN_VAR) && $GREEN_VAR>=1) { echo $GREEN_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-warning">Amber (<?php if(isset($AMBER_VAR) && $AMBER_VAR>=1) { echo $AMBER_VAR; }  else { echo "0"; } ?>)</button>
+                        <button type="button" class="btn btn-secondary bg-danger">Red (<?php if(isset($RED_VAR) && $RED_VAR>=1) { echo $RED_VAR; }  else { echo "0"; } ?>)</button></p>
+                        </center>
 
                             </div>
-                        </div>                           
+                        </div>                   
                         
                     </div>
 <?php } ?>

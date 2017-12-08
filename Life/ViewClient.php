@@ -2793,7 +2793,7 @@ WHERE
                                 while ($result = $clientnote->fetch(PDO::FETCH_ASSOC)) {
                                     
                                     
-                                    if(isset($result['client_name']) && $result['client_name']=='Compliant Logged') {
+                                    if(isset($result['client_name']) && $result['client_name']=='Compliant') {
                                        
                                     $result['note_type']="Compliant Logged";
                                         

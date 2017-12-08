@@ -308,10 +308,12 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                         <?php
                             if ($ffcompliance == '1') {
+                                if (in_array($hello_name, $Level_10_Access, true)) {
+                            
                                 ?>
                                 <li>
                                     <a href="/addon/compliance/dash.php?EXECUTE=1">
-                                        <span class="ca-icon"><i class="fa fa-support"></i></span>
+                                        <span class="ca-icon"><i class="fa fa-folder-open"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Compliance</h2>
                                             <h3 class="ca-sub"></h3>
@@ -319,6 +321,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                     </a>
                                 </li>
                                 <?php
+                            }
                             }
                         ?>
                                 

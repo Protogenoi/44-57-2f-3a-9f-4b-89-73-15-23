@@ -2743,9 +2743,10 @@ WHERE
                                 <div class="col-md-4">
                                     <select id="selectbasic" name="client_name" class="form-control" required>
                                         <option value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>"><?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?></option>
-<?php if (!empty($Single_Client['title2'])) { ?>
-                                            <option value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?></option>
-<?php } ?>
+                                        <?php if (!empty($Single_Client['title2'])) { ?>
+                                        <option value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?></option>
+                                        <?php } ?>
+                                        <option value="Compliant">Log Compliant</option>
                                     </select>
                                 </div>
                             </div>
@@ -2790,6 +2791,13 @@ WHERE
                             $clientnote->execute();
                             if ($clientnote->rowCount() > 0) {
                                 while ($result = $clientnote->fetch(PDO::FETCH_ASSOC)) {
+                                    
+                                    
+                                    if(isset($result['client_name']) && $result['client_name']=='Compliant Logged') {
+                                       
+                                    $result['note_type']="Compliant Logged";
+                                        
+                                        }
 
                                     switch ($result['note_type']):
 
@@ -2809,6 +2817,7 @@ WHERE
                                         case "EWS Status update":
                                         case"EWS Uploaded";
                                         case"SMS Failed";
+                                        case "Compliant Logged":
                                             $TMicon = "fa-exclamation-triangle";
                                             break;
                                         case "Deleted File Upload";
@@ -2883,6 +2892,7 @@ WHERE
                                     endswitch;                                   
 
                                     $TIMELINE_MESSAGE = html_entity_decode($result['message']);
+
                                     echo '<tr>';
                                     echo "<td>" . $result['date_sent'] . "</td>";
                                     echo "<td>" . $result['sent_by'] . "</td>";

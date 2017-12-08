@@ -280,7 +280,7 @@ GROUP BY closer");
                                 <p>Put your knowledge to the test with this Life insurance test!</p>
                                 
                                     <p><a href="tests/Life.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Insurance Test</a>
-                                        <a href="tests/Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
+                                    <a href="tests/Protection.php?AGENCY=<?php echo $COMPANY_ENTITY; ?>" class="btn btn-outline-success"><i class="fa fa-graduation-cap"></i> Protection Test</a>
 
                             </article>
                         </div>
@@ -289,14 +289,33 @@ GROUP BY closer");
                             <article class="col-12">
                                 <h2>Compliance</h2>
                                 <p>Upload or read through Compliance guidelines and documents.</p>
-                                <p><a href="Compliance.php" class="btn btn-outline-primary">Read More</a>
-                                <a href="Compliance.php?SCID=FCA" class="btn btn-outline-primary">FCA</a>
-                                <a href="Compliance.php?SCID=ICO" class="btn btn-outline-primary">ICO</a>
-                                <a href="Compliance.php?SCID=HWIFS" class="btn btn-outline-primary">HWIFS</a>
-                                <a href="Compliance.php?SCID=LANDG" class="btn btn-outline-primary">Legal and General</a>
-                                <a href="Compliance.php?SCID=Vulnerable Clients" class="btn btn-outline-primary">Vulnerable Clients</a>
-                                <a href="Compliance.php?SCID=Money Laundering" class="btn btn-outline-primary">Money Laundering</a>
-                                <a href="Compliance.php?SCID=Data Protection" class="btn btn-outline-primary">Data Protection</a></p>
+ <?php                               
+                                      $UP_CAT = $pdo->prepare("
+                                            SELECT
+                                                compliance_uploads_category
+                                            FROM
+                                                compliance_uploads
+                                            GROUP BY 
+                                                compliance_uploads_Category");
+                                      $UP_CAT->execute();
+    
+                                if ($UP_CAT->rowCount() > 0) { ?>
+                                <p>
+                                <a href="Compliance.php?SCID=1" class="btn btn-outline-primary">Read More</a>    
+                                    <?php
+                                    
+                                while ($result = $UP_CAT->fetch(PDO::FETCH_ASSOC)) {
+                                    
+                                    $UPLOAD_CAT=$result['compliance_uploads_category'];
+                                    
+                                    ?>                                
+
+                                <a href="Compliance.php?SCID=<?php echo $UPLOAD_CAT;?>" class="btn btn-outline-primary"><?php echo $UPLOAD_CAT;?></a>
+                                
+                                <?php } ?>
+                                </p> 
+                                <?php }  ?>
+                                
                             </article>
                         </div>                        
 

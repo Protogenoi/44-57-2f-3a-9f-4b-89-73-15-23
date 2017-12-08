@@ -238,9 +238,7 @@ GROUP BY closer");
                                 <a href="/app/SearchComplaints.php" class="btn btn-outline-danger"><i class="fa fa-search"></i> Search Complaints</a> 
                             </article>
                         </div>
-                     
-                   
-                
+
     <?php } ?>
                  </div>
                 

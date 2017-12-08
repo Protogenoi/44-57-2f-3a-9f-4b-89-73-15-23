@@ -179,7 +179,7 @@ if ($ACCESS_LEVEL < 3) {
                                      "language": {
                                          "processing": "<div></div><div></div><div></div><div></div><div></div>"
                                      },
-                                     "ajax": "../app/JSON/Uploads.php?EXECUTE=<?php if (isset($SEARCH)) {
+                                     "ajax": "/Life/JSON/Uploads.php?EXECUTE=<?php if (isset($SEARCH)) {
         if ($SEARCH == 'Insurer Keyfacts') {
             echo "1";
         } if ($SEARCH == 'Closer Recording') {

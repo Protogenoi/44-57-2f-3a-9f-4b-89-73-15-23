@@ -157,28 +157,15 @@ ADL
         <option value='Other'>Other</option>
     </select>
   </div>        
- 
-        <?php
-        
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
         
           <div class="form-group">
     <label for="DOC_COMPANY">Company:</label>
     <select class="form-control" name='DOC_COMPANY'>
         <option value='N/A'>For all</option>
         <option value='Bluestone Protect'>Bluestone Protect</option>
-        <option value='Protect Family Plans'>Protect Family Plans</option>
-        <option value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option value='We Insure'>We Insure</option>
-        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
     </select>
   </div>
  
-            
-      <?php  }
-        
-        ?>
   <div class="form-group">
     <label for="RECORDING_FILE">File:</label>
     <input type="file" class="form-control-file" id="file" name="file" aria-describedby="fileHelp" required>
@@ -226,10 +213,6 @@ ADL
     <p>If you have read and understood this document click "Mark as Read".</p>
     <p>If you have a question about the document click "Question"</p>
     <form action="php/Compliance.php?EXECUTE=1&COMID=<?php echo $COMID; ?>&TITLE=<?php echo $RESULT['compliance_uploads_title']; ?>" method="POST">
-
-   <?php
-        
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
         
           <div class="form-group">
     <label for="COMPANY_ENTITY">Company:</label>
@@ -238,11 +221,7 @@ ADL
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Bluestone Protect') { echo "selected"; }  ?> value='Bluestone Protect'>Bluestone Protect</option>
     </select>
   </div>
- 
-          
-      <?php  }
-        
-        ?>
+
 
   <button type="submit" class="btn btn-primary form-control" name="btn-upload">Mark as Read</button>
     </form>  <br>

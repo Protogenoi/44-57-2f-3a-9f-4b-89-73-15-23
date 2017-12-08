@@ -4,7 +4,7 @@ A Customer relationship management application built for the financial services 
 
 ## Current Addons
 
- * Life and Life Insurance (financial/policy/client etc..)
+ * Life and Home Insurance (financial/policy/client etc..)
  * Packaged Bank Accounts (PBAs)
  * Staff management (info, holidays, files etc..)
  * Call audits

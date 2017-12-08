@@ -326,7 +326,7 @@ GROUP BY closer");
                             <div class="card-header p-b-0">
                                 <h5 class="card-title">
                                     <i class="fa fa-bullhorn" aria-hidden="true"></i>
-                                    Legal and General Call Audits
+                                    Call Audits Grades
                                 </h5>
                             </div>
                             <div class="card-block">

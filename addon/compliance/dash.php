@@ -69,97 +69,7 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
                             <center><strong><?php if(isset($AGENCY)) { echo $AGENCY; } else { echo "$COMPANY_ENTITY Main Dashboard"; }  ?><br>
                         <?php if(isset($hello_name)) { echo $hello_name; } ?> </strong></center></div>	
 <?php if (isset($EXECUTE)) {
-    if($EXECUTE=='2') { ?>
-    
-    
-                        <div class="row">
-                            <article class="col-12">
-                                <h2>Agents Stats</h2>
-                                
-<?php
-      $QUERY = $pdo->prepare("SELECT 
-    compliance_sale_stats_id_fk,
-    SUM(compliance_sale_stats_sales) AS compliance_sale_stats_sales,
-    compliance_sale_stats_company,
-    SUM(compliance_sale_stats_cfo_pols) AS compliance_sale_stats_cfo_pols,
-    compliance_sale_stats_cancel_rate,
-    compliance_sale_stats_advisor
-FROM
-    compliance_sale_stats
-WHERE
-    compliance_sale_stats_company =:COMPANY
-    AND
-    compliance_sale_stats_year=:YEAR
-    AND
-    compliance_sale_stats_month=:MONTH
-    GROUP BY compliance_sale_stats_id_fk
-    ORDER BY compliance_sale_stats_company");
-     $QUERY->bindParam(':COMPANY', $AGENCY, PDO::PARAM_STR);
-     $QUERY->bindParam(':YEAR', $YEAR, PDO::PARAM_STR);
-     $QUERY->bindParam(':MONTH', $MONTH, PDO::PARAM_STR);
-     $QUERY->execute();
-    
-                                if ($QUERY->rowCount() > 0) {
 
-?>
-
-       <table id="ClientListTable" class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Agent</th>
-                                        <th>Company</th>
-                                        <th>Sales</th>
-                                        <th>CFO</th>
-                                        <th>CR</th>
-                                        <th>View Profile</th>
-                                    </tr>
-                                </thead>
-                                <?php 
-                                
-                                while ($result = $QUERY->fetch(PDO::FETCH_ASSOC)) {
-                                    
-                                    if(isset($result['compliance_sale_stats_advisor'] )) {
-                                    $STAT_ADVISOR=$result['compliance_sale_stats_advisor'] ;
-                                    }
-                                    if(isset($result['compliance_sale_stats_company'] )) {
-                                    $STAT_COMPANY=$result['compliance_sale_stats_company'] ;
-                                    }
-                                    if(isset($result['compliance_sale_stats_sales'])) {
-                                    $STAT_SALES=$result['compliance_sale_stats_sales'];
-                                    }
-                                    if(isset($result['compliance_sale_stats_cfo_pols'])) {
-                                    $STAT_CFO=$result['compliance_sale_stats_cfo_pols'];
-                                    }
-                                    if(isset($result['compliance_sale_stats_cancel_rate'])) {
-                                    $STAT_CR=$result['compliance_sale_stats_cancel_rate'];
-                                    }
-                                    if(isset($result['compliance_sale_stats_id_fk'])) {
-                                    $STAT_FK=$result['compliance_sale_stats_id_fk'];
-                                    }
-                                    
-                                    $CR_STAT=($STAT_CFO/$STAT_SALES)*100;
-                                    
-                                    echo "<tr><td>$STAT_ADVISOR</td>
-                                        <td>$STAT_COMPANY</td>
-                                    <td>$STAT_SALES</td>
-                                    <td>$STAT_CFO</td>
-                                    <td>$CR_STAT%</td>    
-                                    <td><a href='/Staff/ViewEmployee.php?REF=$STAT_FK' target='_blank'><i class='fa fa-search'></i></a> </td>    
-                                    ";
-                                }
-                                
-                                
-                                
-                              ?> </table> <?php } 
-                                ?>
-
-                            </article>
-                        </div>    
-    
-    
-        
- <?php   }
- if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) {
      if($EXECUTE=='3') { ?>
     
     
@@ -270,7 +180,7 @@ GROUP BY closer");
     
     
         
- <?php   } }
+ <?php   }
      
     if($EXECUTE=='1') { ?>
 

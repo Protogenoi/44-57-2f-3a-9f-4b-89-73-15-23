@@ -197,7 +197,7 @@ GROUP BY closer");
                         <hr>
                         <div class="row">
                             <article class="col-12">
-                                <h2>Compliance</h2>
+                                <h2>Documents</h2>
                                 <p>Upload or read through Compliance guidelines and documents.</p>
  <?php                               
                                       $UP_CAT = $pdo->prepare("

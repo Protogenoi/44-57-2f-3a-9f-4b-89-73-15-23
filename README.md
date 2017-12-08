@@ -2,6 +2,18 @@
 
 A Customer relationship management application built for the financial services sector (but not restricted to. New add-ons can be created and tailor made to specifications).
 
+## Current Addons
+
+ * Life and Life Insurance (financial/policy/client etc..)
+ * Packaged Bank Accounts (PBAs)
+ * Staff management (info, holidays, files etc..)
+ * Call audits
+ * Compliance management
+ * Dialler integration (Connex Solutions and BlueTelecoms)
+ * Email (only outbound currently)
+ * SMS (inbound and outbound)
+ * Internal messenger service
+
 ## Authors
 
 * **Michael Owen** - *Initial work* - [ADL CRM](https://github.com/Protogenoi)

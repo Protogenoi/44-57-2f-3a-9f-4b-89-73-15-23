@@ -37,22 +37,22 @@
 
                                         $TRK_EDIT_DATE = $TRACKER_EDIT_result['updated_date'];
 ?>
-                                    <form method="POST" <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>action="/Life/Trackers/php/Trackers.php?EXECUTE=2&TYPE=CLOSER" <?php } ?> >
+             <form method="POST" action="/addon/Trackers/php/Trackers.php?EXECUTE=2&TYPE=CLOSER">
                <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                     <tr>
-                                                                                                         <td><?php if (isset($i)) {
+                 <td><?php if (isset($i)) {
                     echo $i;
                 } ?></td>                                         
-                                                                <td><?php if (isset($TRK_EDIT_DATE)) {
+                     <td><?php if (isset($TRK_EDIT_DATE)) {
                     echo $TRK_EDIT_DATE;
                 } ?></td>    
                                         
-                                                                <td><input size="8" class="form-control" type="text" name="closer" id="closer" value="<?php if (isset($TRK_EDIT_closer)) {
+                       <td><input size="8" class="form-control" type="text" name="closer" id="closer" value="<?php if (isset($TRK_EDIT_closer)) {
                     echo $TRK_EDIT_closer;
-                } ?>"></td>     
-                                <td><input size="8" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                } ?>"></td> 
+                       <td><input size="8" class="form-control" type="text" name="agent_name" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
-                } ?>"></td>                      
+                } ?>"></td>                                            
                                 <td><input size="8" class="form-control" type="text" name="client" value="<?php if (isset($TRK_EDIT_client)) {
                     echo $TRK_EDIT_client;
                 } ?>"></td>
@@ -158,6 +158,5 @@
                                     </tr>
                                     </form>
 
-    <?php endforeach ?>
-         
+    <?php endforeach ?>       
 </table> 

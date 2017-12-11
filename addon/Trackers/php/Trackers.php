@@ -22,7 +22,7 @@ if (isset($fferror)) {
     }
 }
 
-if ($ffdealsheets == '0') {
+if ($fftrackers == '0') {
     header('Location: /../../../../CRMmain.php?Feature=NotEnabled');
     die;
 }
@@ -33,7 +33,7 @@ if ($ffdealsheets == '0') {
         if(isset($EXECUTE)){
             
         $tracker_id= filter_input(INPUT_POST, 'tracker_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);        
-        $agent= filter_input(INPUT_POST, 'agent_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $AGENT_NAME= filter_input(INPUT_POST, 'agent_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $closer= filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $client= filter_input(INPUT_POST, 'client', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $phone= filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -45,8 +45,8 @@ if ($ffdealsheets == '0') {
         
         $MTG= filter_input(INPUT_POST, 'MTG', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $LEAD_UP= filter_input(INPUT_POST, 'LEAD_UP', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-           $YEAR = date("Y");
+                
+    $YEAR = date("Y");
     $DAY = date("D");
     $MONTH = date("M");
     $DATE = date("D d-m-y");
@@ -76,7 +76,7 @@ FROM
     employee_details
 WHERE
     CONCAT(firstname, ' ', lastname) = :NAME");
-        $GET_EID->bindParam(':NAME', $agent, PDO::PARAM_STR);
+        $GET_EID->bindParam(':NAME', $AGENT_NAME, PDO::PARAM_STR);
         $GET_EID->execute();
         $EID_RESULT = $GET_EID->fetch(PDO::FETCH_ASSOC);
 
@@ -87,7 +87,7 @@ WHERE
             $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id AND closer=:closer");
             $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
-            $UPDATE->bindParam(':agent', $agent, PDO::PARAM_STR); 
+            $UPDATE->bindParam(':agent', $AGENT_NAME, PDO::PARAM_STR); 
             $UPDATE->bindParam(':client', $client, PDO::PARAM_STR); 
             $UPDATE->bindParam(':phone', $phone, PDO::PARAM_STR); 
             $UPDATE->bindParam(':curprem', $curprem, PDO::PARAM_STR); 
@@ -123,7 +123,7 @@ FROM
 
 WHERE
 date_added > DATE(NOW()) AND agent=:agent");
-        $GET_LS->bindParam(':agent', $agent, PDO::PARAM_STR);
+        $GET_LS->bindParam(':agent', $AGENT_NAME, PDO::PARAM_STR);
         $GET_LS->execute();
         $GL_RESULT = $GET_LS->fetch(PDO::FETCH_ASSOC);
    
@@ -203,6 +203,6 @@ WHERE
             }
         }
         
-       header('Location: /../../../../CRMmain.php'); die;
+      header('Location: /../../../../CRMmain.php'); die;
         
         ?>

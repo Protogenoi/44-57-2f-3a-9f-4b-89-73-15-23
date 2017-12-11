@@ -94,7 +94,6 @@ $Today_TIME = date("h:i:s");
                         <div class="col-md-4">
                                  <div class="btn-group">
                                      <a class="btn btn-default btn-sm" href="Agent.php?EXECUTE=1"><i class="fa fa-check-circle-o"></i> Agent Trackers</a>
-                                     <a class="btn btn-default btn-sm" href="Upsells.php?EXECUTE=DEFAULT"><i class="fa fa-check-circle-o"></i> Upsell Trackers</a>
                                  </div>   
                             
                         </div>

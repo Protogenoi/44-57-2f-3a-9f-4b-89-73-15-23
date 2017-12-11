@@ -90,7 +90,6 @@ $Today_TIME = date("h:i:s");
                         <div class="col-md-4">
                              <div class="btn-group">
                                      <a class="btn btn-default btn-sm" href="Closers.php?EXECUTE=1"><i class="fa fa-check-circle-o"></i> Closer Trackers</a>
-                                     <a class="btn btn-default btn-sm" href="Upsells.php?EXECUTE=DEFAULT"><i class="fa fa-check-circle-o"></i> Upsell Trackers</a>
                                  </div>
                         </div>
                         <div class="col-md-4"></div>
@@ -159,7 +158,7 @@ if (isset($datefrom)) {
     $AGT_CHK->execute();
     if ($AGT_CHK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/trackers/AGENT/AgentPAD.php');
+        require_once(__DIR__ . '/models/trackers/AGENT/AgentPAD.php');
         $AgentPad = new AgentPadModal($pdo);
         $AgentPadList = $AgentPad->getAgentPad($datefrom,$CLOSER);
         require_once(__DIR__ . '/../views/trackers/AGENT/Agent-PAD.php');
@@ -169,10 +168,10 @@ if (isset($datefrom)) {
     $AGT_CHK->execute();
     if ($AGT_CHK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/../models/trackers/AGENT/AgentALLPAD.php');
+        require_once(__DIR__ . '/models/trackers/AGENT/AgentALLPAD.php');
         $AgentPad = new AgentALLPadModal($pdo);
         $AgentPadList = $AgentPad->getAgentALLPad();
-        require_once(__DIR__ . '/../views/trackers/AGENT/Agent-PAD.php');
+        require_once(__DIR__ . '/views/trackers/AGENT/Agent-PAD.php');
     }
 }
 ?>  
@@ -199,7 +198,7 @@ if (isset($datefrom)) {
         });
     </script>
     <script>var options = {
-	url: "../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "/app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

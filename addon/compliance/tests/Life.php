@@ -575,33 +575,12 @@ $q=1;
 
     <div class="form-check">
         <textarea class="form-check" name="c14" rows="5" cols="100"><?php if(isset($C14)) { echo $C14; } ?></textarea>
-
     </div>
 
-        <?php
-        
-        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
-        
-         <div class="col-9"> <div class="form-group">
-    <label for="COMPANY_ENTITY">Company:</label>
-    <select class="form-control" name='COMPANY_ENTITY'>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Bluestone Protect') { echo "selected"; } ?> value='Bluestone Protect'>Bluestone Protect</option>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protect Family Plans') { echo "selected"; } ?> value='Protect Family Plans'>Protect Family Plans</option>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Protected Life Ltd') { echo "selected"; } ?> value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='We Insure') { echo "selected"; } ?> value='We Insure'>We Insure</option>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='The Financial Assessment Centre') { echo "selected"; } ?> value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option <?php if(isset($RID_COMPANY) && $RID_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } ?> value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
-    </select>
-  </div>
-         </div>
-            
-      <?php  }
-        
-        ?>  
-
-
 <?php if(!isset($EXECUTE)) { ?>
-<button type="submit" class="btn btn-primary">Finish</button>
+<div class="col-9">
+<button type="submit" class="btn btn-primary btn-block">Finish</button>
+</div>
 <?php } ?>
 
 </fieldset>

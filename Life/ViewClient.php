@@ -1627,7 +1627,7 @@ if (isset($fileuploadedfail)) {
                                 if (!empty($closeraudit)) { ?>
                                     <a class="list-group-item" href="/audits/closer_form_view.php?auditid=<?php echo $closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Closer Audit</a>
                                 <?php } if (!empty($leadaudit)) { ?>
-                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Lead Audit</a>
+                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LG Lead Audit</a>
 
                                     <?php
                                 }

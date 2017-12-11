@@ -4,10 +4,9 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('/../../includes/adl_features.php');
-include('/../../includes/Access_Levels.php');
-include('/../../includes/ADL_PDO_CON.php');
-include('/../../includes/ADL_MYSQLI_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if (!in_array($hello_name,$Level_8_Access, true)) {
     header('Location: /../../../../CRMmain.php'); die;

@@ -131,11 +131,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <style>
-        html { height: 100% }
-        body { height: 100% }
-        #map { height: 300px; width: 100% }
-    </style>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
@@ -274,20 +269,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                         
                         <?php }                             
                       
-                       } if ($fftwitter == '1') { ?>
-
-                            <li>
-                                <a href="#twitter" role="button" data-toggle="modal" data-target="#twitter">
-                                    <span class="ca-icon"><i class="fa fa-twitter"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">CRM Updates<br/>Tweet Suggestions</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php
+                       }
                         
                             if ($ffemployee == '1') {
                                 if ($ACCESS_LEVEL == 10 || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
@@ -351,51 +333,8 @@ if (in_array($hello_name, $Closer_Access, true)) {
                 </div>
             </div>
         </div>
-
-
-
-        <div id="twitter" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"></h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <a class="twitter-timeline"  href="https://twitter.com/ADL_CRM" data-widget-id="692375914194300928">Tweets by @ADL_CRM</a>
-                        <script>!function (d, s, id) {
-                                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                                if (!d.getElementById(id)) {
-                                    js = d.createElement(s);
-                                    js.id = id;
-                                    js.src = p + "://platform.twitter.com/widgets.js";
-                                    fjs.parentNode.insertBefore(js, fjs);
-                                }
-                            }(document, "script", "twitter-wjs");</script>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
-    <?php if ($ffgmaps == '1') { ?>
-
-        <div id="map" class="col-md-6"></div>
-
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ-TiUwPaHJKUPgtMKt1aa7JZPI35Gq1U&signed_in=true&callback=initMap"></script> 
-        <script src="/resources/lib/google/googlemapslocation.js"></script>
-
-    <?php } ?>
 
     <div id="pappoint" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">

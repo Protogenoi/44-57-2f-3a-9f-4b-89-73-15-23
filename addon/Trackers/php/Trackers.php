@@ -22,9 +22,8 @@ if (isset($fferror)) {
     }
 }
 
-
 if ($ffdealsheets == '0') {
-    header('Location: /../../../CRMmain.php?Feature=NotEnabled');
+    header('Location: /../../../../CRMmain.php?Feature=NotEnabled');
     die;
 }
     
@@ -145,7 +144,7 @@ WHERE
         $CHK_RAG->bindParam(':month', $MONTH, PDO::PARAM_STR);
         $CHK_RAG->execute();
         $CHK_RAGRESULT = $CHK_RAG->fetch(PDO::FETCH_ASSOC);     
-        if ($count = $CHK_RAG->rowCount()>=1) { 
+        if ($CHK_RAG->rowCount()>=1) { 
         
         $RAG_ID=$CHK_RAGRESULT['id'];    
             //IF YES UPDATE
@@ -189,13 +188,13 @@ WHERE
             
             if(isset($TYPE)) {
                 if($TYPE=='CLOSER'){
-                    header('Location: /Life/Trackers/Closers.php?EXECUTE=1&RETURN=UPDATED'); die;
+                    header('Location: /addon/Trackers/Closers.php?EXECUTE=1&RETURN=UPDATED'); die;
                 }
                 if($TYPE=='AGENT') {
-                    header('Location: /Life/Trackers/Agent.php?EXECUTE=1&RETURN=UPDATED'); die;
+                    header('Location: /addon/Trackers/Agent.php?EXECUTE=1&RETURN=UPDATED'); die;
                 }
                 if($TYPE=='UPSELL') {
-                    header('Location: /Life/Trackers/Upsell.php?EXECUTE=1&RETURN=UPDATED'); die;
+                    header('Location: /addon/Trackers/Upsell.php?EXECUTE=1&RETURN=UPDATED'); die;
                 }
             }
             
@@ -276,7 +275,7 @@ WHERE
         $CHK_RAG->bindParam(':month', $MONTH, PDO::PARAM_STR);
         $CHK_RAG->execute();
         $CHK_RAGRESULT = $CHK_RAG->fetch(PDO::FETCH_ASSOC);     
-        if ($count = $CHK_RAG->rowCount()>=1) { 
+        if ($CHK_RAG->rowCount()>=1) { 
         
         $RAG_ID=$CHK_RAGRESULT['id'];    
             //IF YES UPDATE
@@ -318,10 +317,10 @@ WHERE
         
         }                
             
-           header('Location: /Life/Trackers/Upsell.php?EXECUTE=DEFAULT&RETURN=UPDATED'); die;
+           header('Location: /addon/Trackers/Upsell.php?EXECUTE=DEFAULT&RETURN=UPDATED'); die;
             }
         }
         
-       header('Location: ../../CRMmain.php'); die;
+       header('Location: /../../../../CRMmain.php'); die;
         
         ?>

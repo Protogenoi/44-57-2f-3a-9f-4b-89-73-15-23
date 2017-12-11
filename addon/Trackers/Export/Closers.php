@@ -4,19 +4,14 @@ $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../../includes/adl_features.php');
-include('../../../includes/Access_Levels.php');
-include('../../../includes/ADL_PDO_CON.php');
-include('../../../includes/ADL_MYSQLI_CON.php');
-
-if($ffews=='0') {
-    header('Location: ../../../CRMmain.php?FEATURE=EWS');
-}
+include('/../../includes/adl_features.php');
+include('/../../includes/Access_Levels.php');
+include('/../../includes/ADL_PDO_CON.php');
+include('/../../includes/ADL_MYSQLI_CON.php');
 
 if (!in_array($hello_name,$Level_8_Access, true)) {
-    header('Location: ../../../CRMmain.php'); die;
+    header('Location: /../../../CRMmain.php'); die;
 }
-
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -24,16 +19,13 @@ if(isset($EXECUTE)) {
 
 $DATE= filter_input(INPUT_GET, 'DATE', FILTER_SANITIZE_SPECIAL_CHARS);
 
-
     $file="TRACKER_PANTS";
     $filename = $file."_".date("Y-m-d_H-i",time());
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename='.$filename.'.csv');    
 
     if($EXECUTE=='1') {
-        
-        
-if(isset($DATE)) {
+        if(isset($DATE)) {
     
      $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
                     $query = $pdo->prepare("SELECT 
@@ -52,11 +44,11 @@ WHERE
     DATE(date_added) = :DATE
 ORDER BY date_added DESC");
                     $query->bindParam(':DATE', $DATE, PDO::PARAM_STR);
-    
-} else {        
-        
-                        $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
-                    $query = $pdo->prepare("SELECT 
+                    
+        } else { 
+            
+            $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
+            $query = $pdo->prepare("SELECT 
     date_updated,
     closer,
     agent,

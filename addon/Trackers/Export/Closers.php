@@ -10,7 +10,7 @@ include('/../../includes/ADL_PDO_CON.php');
 include('/../../includes/ADL_MYSQLI_CON.php');
 
 if (!in_array($hello_name,$Level_8_Access, true)) {
-    header('Location: /../../../CRMmain.php'); die;
+    header('Location: /../../../../CRMmain.php'); die;
 }
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);

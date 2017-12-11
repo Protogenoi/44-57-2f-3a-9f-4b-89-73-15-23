@@ -78,7 +78,7 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />  
     <body>
 
         <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
@@ -116,19 +116,35 @@ $Today_TIME = date("h:i:s");
                             <div class="col-md-12">
                                 <div class="col-md-4">
                              <select class="form-control" name="CLOSER" id="CLOSER">
-                                <option value="All">All</option>
-                                <option value="carys">Carys</option>
-                                <option value="Corey">Corey</option>
-                                <option value="Mike">Mike</option>
-                                <option value="David">David</option>
-                                <option value="Sarah">Sarah</option>
-                                <option value="Hayley">Hayley</option>
-                                <option value="Richard">Richard</option>
-                                <option value="Gavin">Gavin</option>
-                                <option value="Kyle">Kyle</option>
-                                <option value="James">James</option>
-                                <option value="Martin">Martin</option>    
-                            </select>
+                                 <option value="All" <?php if($CLOSER=='All') { echo "selected"; } ?>>All</option>
+                                 <?php
+                                    $CLO_QRY = $pdo->prepare("SELECT 
+    firstname
+FROM
+    employee_details
+WHERE
+    position = 'Closer' AND employed = '1'
+        AND company = :COMPANY");
+                                    $CLO_QRY->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+                                    $CLO_QRY->execute();
+if ($CLO_QRY->rowCount() > 0) {
+                                    while ($result = $CLO_QRY->fetch(PDO::FETCH_ASSOC)) {   
+                                        
+                                        if(isset($result['firstname'])) {
+                                        $CLOSER_NAME=$result['firstname'];
+                                        
+                                        if($CLOSER_NAME=='Michael') {
+                                            $CLOSER_NAME='Mike';
+                                        }
+                                        
+                                        }
+                                        
+                                        
+                                 
+                                 ?>
+                                 <option value='<?php if(isset($CLOSER_NAME)) { echo $CLOSER_NAME; } ?>' <?php if($CLOSER_NAME==$CLOSER) { echo "selected"; } ?> ><?php if(isset($CLOSER_NAME)) { echo $CLOSER_NAME; } ?></option>
+<?php } } ?>       
+                             </select>
                                 </div>
                                 
                                 <div class="col-md-4">
@@ -237,7 +253,6 @@ if (!isset($datefrom)) {
      <?php   }
 }
 ?>
-
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
@@ -251,18 +266,6 @@ if (!isset($datefrom)) {
                 yearRange: "-100:-0"
             });
         });
-    </script>
-    <script>var options = {
-	url: "/app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
-                getValue: "full_name",
-
-	list: {
-		match: {
-			enabled: true
-		}
-	}
-};
-
-$("#provider-json").easyAutocomplete(options);</script>    
+    </script>          
 </body>
 </html>

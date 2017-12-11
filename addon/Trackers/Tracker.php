@@ -369,7 +369,7 @@ WHERE
 
                                 <input type="hidden" value="<?php echo $hello_name; ?>" name="closer">
                                 <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
-                                <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
+                                <td><input size="12" class="form-control" type="text" name="agent_name" id="edit_agent_name" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
                 } ?>"></td>                      
                                 <td><input size="12" class="form-control" type="text" name="client" value="<?php if (isset($TRK_EDIT_client)) {
@@ -678,7 +678,17 @@ WHERE
         })
     });
 </script>
-
+ <script>var options = {
+     url: "/app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+             getValue: "full_name",
+             list: {
+                 match: {
+                     enabled: true
+         }
+     }
+ };
+ $("#edit_agent_name").easyAutocomplete(options);
+</script>
 <script type="text/javascript">
      function CALLMANANGER() {
 

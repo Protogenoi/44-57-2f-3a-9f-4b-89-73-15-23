@@ -32,7 +32,7 @@ if ($fftrackers == '0') {
         
         if(isset($EXECUTE)){
             
-        $tracker_id= filter_input(INPUT_POST, 'tracker_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);        
+        $tracker_id= filter_input(INPUT_GET, 'tracker_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);        
         $AGENT_NAME= filter_input(INPUT_POST, 'agent_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $closer= filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $client= filter_input(INPUT_POST, 'client', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -84,7 +84,7 @@ WHERE
 
         //UPDATE TRACKERS
                 
-            $UPDATE = $pdo->prepare("UPDATE closer_trackers set mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id AND closer=:closer");
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set closer=:closer, mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
             $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $UPDATE->bindParam(':agent', $AGENT_NAME, PDO::PARAM_STR); 
@@ -192,9 +192,6 @@ WHERE
                 }
                 if($TYPE=='AGENT') {
                     header('Location: /addon/Trackers/Agent.php?EXECUTE=1&RETURN=UPDATED'); die;
-                }
-                if($TYPE=='UPSELL') {
-                    header('Location: /addon/Trackers/Upsell.php?EXECUTE=1&RETURN=UPDATED'); die;
                 }
             }
             

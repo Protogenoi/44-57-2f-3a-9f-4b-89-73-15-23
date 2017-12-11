@@ -161,7 +161,7 @@ if (isset($datefrom)) {
         require_once(__DIR__ . '/models/trackers/AGENT/AgentPAD.php');
         $AgentPad = new AgentPadModal($pdo);
         $AgentPadList = $AgentPad->getAgentPad($datefrom,$CLOSER);
-        require_once(__DIR__ . '/../views/trackers/AGENT/Agent-PAD.php');
+        require_once(__DIR__ . '/views/trackers/AGENT/Agent-PAD.php');
     }
 } if (!isset($datefrom)) {
     $AGT_CHK = $pdo->prepare("SELECT tracker_id from closer_trackers WHERE date_updated >=CURDATE()");

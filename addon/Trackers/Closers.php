@@ -182,15 +182,15 @@ if (isset($datefrom)) {
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
         
-        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsPAD.php');
+        require_once(__DIR__ . '/models/trackers/CLOSER/StatsPAD.php');
         $StatsPad = new STATSPadModal($pdo);
         $StatsPadList = $StatsPad->getSTATSPad($datefrom,$CLOSER);
-        require_once(__DIR__ . '/../views/trackers/CLOSER/Stats-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/Stats-PAD.php');
 
-        require_once(__DIR__ . '/../models/trackers/CLOSER/CloserPAD.php');
+        require_once(__DIR__ . '/models/trackers/CLOSER/CloserPAD.php');
         $CloserPad = new CLOSERPadModal($pdo);
         $CloserPadList = $CloserPad->getCLOSERPad($datefrom,$CLOSER);
-        require_once(__DIR__ . '/../views/trackers/CLOSER/Closer-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/Closer-PAD.php');
     }
 } 
 
@@ -200,15 +200,15 @@ if($CLOSER=='All') {
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
         
-       require_once(__DIR__ . '/../models/trackers/CLOSER/AllStatsPAD.php');
+       require_once(__DIR__ . '/models/trackers/CLOSER/AllStatsPAD.php');
         $AllStatsPad = new AllSTATSPadModal($pdo);
         $AllStatsPadList = $AllStatsPad->AllgetSTATSPad($datefrom);
-        require_once(__DIR__ . '/../views/trackers/CLOSER/AllStats-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/AllStats-PAD.php');
        
-        require_once(__DIR__ . '/../models/trackers/CLOSER/AllCloserPAD.php');
+        require_once(__DIR__ . '/models/trackers/CLOSER/AllCloserPAD.php');
         $CloserPad = new AllCLOSERPadModal($pdo);
         $CloserPadList = $CloserPad->AllgetCLOSERPad($datefrom);
-        require_once(__DIR__ . '/../views/trackers/CLOSER/AllCloser-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/AllCloser-PAD.php');
         
     }
 }
@@ -220,15 +220,15 @@ if (!isset($datefrom)) {
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
         
-        require_once(__DIR__ . '/../models/trackers/CLOSER/StatsALLPAD.php');
+        require_once(__DIR__ . '/models/trackers/CLOSER/StatsALLPAD.php');
         $StatsPad = new STATSALLPadModal($pdo);
         $StatsPadList = $StatsPad->getSTATSALLPad();
-        require_once(__DIR__ . '/../views/trackers/CLOSER/Stats-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/Stats-PAD.php');
 
-        require_once(__DIR__ . '/../models/trackers/CLOSER/CloserALLPAD.php');
+        require_once(__DIR__ . '/models/trackers/CLOSER/CloserALLPAD.php');
         $CloserPad = new CLOSERAllPadModal($pdo);
         $CloserPadList = $CloserPad->getCLOSERALLPad();
-        require_once(__DIR__ . '/../views/trackers/CLOSER/Closer-PAD.php');
+        require_once(__DIR__ . '/views/trackers/CLOSER/Closer-PAD.php');
     }
 }
 ?>  

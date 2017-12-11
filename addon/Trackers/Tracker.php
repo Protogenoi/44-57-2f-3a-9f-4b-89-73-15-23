@@ -29,28 +29,28 @@
  * 
 */  
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -67,12 +67,12 @@ $TRACKED_IP= getRealIpAddr();
 if(!in_array($hello_name, $ANYTIME_ACCESS,true)) {
 
 if($TRACKED_IP!='81.145.167.66') {
-    header('Location: http://google.com');
+    $page_protect->log_out();
 }
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
         
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         
@@ -93,14 +93,13 @@ if($TRACKED_IP!='81.145.167.66') {
         
         if($ACCESS_LEVEL < 1) {
             
-        header('Location: ../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
 
-
 if ($fftrackers == '0') {
-    header('Location: ../CRMmain.php?Feature=NotEnabled');
+    header('Location: /../../../CRMmain.php?Feature=NotEnabled');
     die;
 }
 
@@ -147,53 +146,6 @@ AND closer=:closer");
                     }
     
 }
-
-switch ($hello_name) {
-
-    case "511";
-        $real_name = 'Kyle';
-        break;
-    case "103";
-        $real_name = 'Sarah';
-        break;
-    case "5000";
-        $real_name = 'Mike';
-        break;
-    case "1312";
-        $real_name = 'Hayley';
-        break;
-    case "118";
-        $real_name = 'Gavin';
-        break;
-    case "104";
-        $real_name = 'Richard';
-        break;
-    case "201";
-        $real_name = 'Stavros';
-        break;
-    case "555";
-        $real_name = 'James';
-        break;
-
-    default;
-        $real_name = $hello_name;
-}
-
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
-        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->CheckAccessLevel();
-        
-        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
-        
-        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
-        
-        if($ACCESS_LEVEL < 1) {
-            
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
-        die;    
-            
-        }
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -240,10 +192,10 @@ switch ($hello_name) {
 
     <body <?php if(in_array($hello_name, $Closer_Access, true)) { if($CLO_CR>='1.5') { echo "bgcolor='#B00004'"; } else { echo "bgcolor='#16A53F'" ?>   <?php } } ?>>
 
-<?php     require_once(__DIR__ . '/../includes/navbar.php'); ?>
+<?php     require_once(__DIR__ . '/../../includes/navbar.php'); ?>
         
             <div class="container">
-                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $real_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
+                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
             <?php
             if (isset($QUERY)) {
@@ -339,26 +291,20 @@ WHERE
 <option value="David Bebee">David Bebee</option>
 <option value="Dewi Davies">Dewi Davies</option>
 <option value="Ffion Edwards">Ffion Edwards</option>
-<option value="Hayley Pearce">Hayley Pearce</option>
 <option value="Jared Morris">Jared Morris</option>
 <option value="Joanne Bailey">Joanne Bailey</option>
 <option value="Jordan Davies">Jordan Davies</option>
 <option value="Joshua Longhurst">Joshua Longhurst</option>
-<option value="Katie Guilfoyle">Katie Guilfoyle</option>
 <option value="Kieran Vye">Kieran Vye</option>
 <option value="Kieran Watson">Kieran Watson</option>
-<option value="Morgan Smith">Kieran Watson</option>
 <option value="Ricky Derrick">Ricky Derrick</option>
 <option value="Ryan Tidbal">Ryan Tidbal</option>
-<option value="Saskia Morgan">Saskia Morgan</option>
 <option value="Shaun Pearce">Shaun Pearce</option>
 <option value="Sophie Jones">Sophie Jones</option>
 <option value="Stavros">Stavros</option>
-<option value="Timothy Johnson">Timothy Johnson</option>
 <option value="Stephen Howard">Stephen Howard</option>
 <option value="Sharne Knight">Sharne Knight</option>
 <option value="Sophie Lloyd">Sophie Lloyd</option>
-<option value="Molly Grove">Molly Grove</option>
 <option disabled>-------------Web-------------</option>
 <option value="Andy Jones">Andy Jones</option>
 <option value="Jack Smith">Jack Smith</option>
@@ -367,17 +313,14 @@ WHERE
 <option value="Michael Hodge">Michael Hodge</option>
 <option value="Samuel Stenner">Samuel Stenner</option>
 <option value="Stephan Leyson">Stephan Leyson</option>
-
-
-
-                                </select>
+</select>
                     </form>
                 </div>
 
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $real_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
+                <span class="label label-primary"><?php echo $hello_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
                 <form method="post" action="<?php if (isset($TrackerEdit)) {
             echo 'php/Tracker.php?query=edit';
         } else {
@@ -403,7 +346,7 @@ WHERE
         if (isset($TrackerEdit)) {
 
             $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
-            $TRACKER_EDIT->bindParam(':closer', $real_name, PDO::PARAM_STR);
+            $TRACKER_EDIT->bindParam(':closer', $hello_name, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
             if ($TRACKER_EDIT->rowCount() > 0) {
@@ -424,7 +367,7 @@ WHERE
                 $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
                 ?>
 
-                                <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
+                                <input type="hidden" value="<?php echo $hello_name; ?>" name="closer">
                                 <input type="hidden" value="<?php echo $TRK_EDIT_tracker_id; ?>" name="tracker_id">
                                 <td><input size="12" class="form-control" type="text" name="agent_name" id="provider-json" value="<?php if (isset($TRK_EDIT_agent)) {
                     echo $TRK_EDIT_agent;
@@ -532,7 +475,7 @@ WHERE
             }
         } else {
             ?>
-                            <input type="hidden" value="<?php echo $real_name; ?>" name="closer">
+                            <input type="hidden" value="<?php echo $hello_name; ?>" name="closer">
                             <td> <select class="form-control" name="agent_name" id="agent_name">
                                                             <option value="">Select Agent...</option>
 
@@ -578,7 +521,7 @@ WHERE
                 </form>
         <?php
         $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
-        $TRACKER->bindParam(':closer', $real_name, PDO::PARAM_STR);
+        $TRACKER->bindParam(':closer', $hello_name, PDO::PARAM_STR);
         $TRACKER->execute();
         if ($TRACKER->rowCount() > 0) {
             ?>
@@ -707,7 +650,7 @@ WHERE
                                         <option <?php if(isset($TRK_MTG) && $TRK_MTG=='Yes') { echo "selected"; } ?> value="Yes">Yes</option>
                                     </select>
                                 </td>
-                                <td><a href='LifeDealSheet.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
+                                <td><a href='Tracker.php?query=CloserTrackers&TrackerEdit=<?php echo $TRK_tracker_id; ?>' class='btn btn-info btn-xs'><i class='fa fa-edit'></i> EDIT</a></td> </tr>
                 <?php }
             ?>          
                     </table>
@@ -728,7 +671,7 @@ WHERE
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
 <script type="text/JavaScript">
     var $select = $('#agent_name');
-    $.getJSON('../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+    $.getJSON('/app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
         $select.html('agent_name');
         $.each(data, function(key, val){
             $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
@@ -740,13 +683,13 @@ WHERE
      function CALLMANANGER() {
 
 
-         $.get("php/LifeDealSheetManager.php?query=1");
+         $.get("php/TrackerAlertManager.php?query=1");
          return false;
 
      }
      
      
 </script>
-<?php require_once(__DIR__ . '/../app/Holidays.php'); ?>
+<?php require_once(__DIR__ . '/../../app/Holidays.php'); ?>
 </body>
 </html>

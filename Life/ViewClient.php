@@ -2734,9 +2734,9 @@ WHERE
 
                 <div class='container'>
                     <div class="row">
-                        <form method="post" id="clientnotessubtab" action="../php/AddNotes.php?ViewClientNotes=1" class="form-horizontal">
+                        <form method="post" id="clientnotessubtab" action="/Life/php/AddNotes.php?EXECUTE=1" class="form-horizontal">
                             <legend><h3><span class="label label-info">Add notes</span></h3></legend>
-                            <input type="hidden" name="client_id" value="<?php echo $search ?>">
+                            <input type="hidden" name="CID" value="<?php echo $search ?>">
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="client_name"></label>

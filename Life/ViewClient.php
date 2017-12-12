@@ -2069,7 +2069,7 @@ WHERE
                                     ?>" target="_blank"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search"></span> </button></a></td>
                                                 <td>
 
-                                                    <form name="deletefileconfirm" id="deletefileconfirm<?php echo $i ?>" action="../php/DeleteUpload.php?deletefile=1" method="POST">
+                                                    <form name="deletefileconfirm" id="deletefileconfirm<?php echo $i ?>" action="/app/admin/php/DeleteUpload.php?deletefile=1" method="POST">
                                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                                                         <input type="hidden" name="file" value="<?php echo $FILElocation; ?>">
                                                         <input type="hidden" name="search" value="<?php echo $search; ?>">

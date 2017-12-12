@@ -195,7 +195,7 @@ AND closer=:closer");
 <?php     require_once(__DIR__ . '/../../includes/navbar.php'); ?>
         
             <div class="container">
-                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All dealsheets will be saved to this user, ensure that you are logged into your own account!</b></div>
+                <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>You are logged in as <font color="red"><?php echo $hello_name; ?></font>. All trackers will be saved to this user, ensure that you are logged into your own account!</b></div>
             </div>
             <?php
             if (isset($QUERY)) {

@@ -101,7 +101,7 @@ if ($ffpost_code == '1') {
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-        <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
+        <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
         
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
@@ -180,7 +180,7 @@ if ($ffpost_code == '1') {
                         <div class="panel panel-warning">
                             <div class="panel-heading">Edit Client</div>
                             <div class="panel-body">
-                                <form id="from1" class="AddClient" action="/php/EditClientSubmit.php?life=y" method="POST" autocomplete="off">
+                                <form id="from1" class="AddClient" action="/Life/php/EditClient.php?life=y" method="POST" autocomplete="off">
                                     <input  class="form-control" type="hidden" name="keyfield" value="<?php echo $search ?>">
                                     <input  class="form-control" type="hidden" name="edited" value="<?php echo $hello_name ?>">  
 

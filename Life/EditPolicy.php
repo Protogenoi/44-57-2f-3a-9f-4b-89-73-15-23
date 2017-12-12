@@ -37,6 +37,13 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 $USER_TRACKING=1;
 
 require_once(__DIR__ . '/../includes/adl_features.php');
+
+require_once(__DIR__ . '/../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 require_once(__DIR__ . '/../includes/adlfunctions.php');
 
@@ -157,7 +164,7 @@ if(empty($POST_NAME)) {
                     <div class="panel-heading">Edit Policy</div>
                     <div class="panel-body">
 
-                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life//php/EditPolicy.php">
+                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life/php/EditPolicy.php">
                             <input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
 
                             <input type="hidden" name="NAME2" value="<?php if(isset($NAME2)) { echo $NAME2; } ?>">

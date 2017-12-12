@@ -209,6 +209,11 @@ if(isset($EXECUTE)) {
         $USER_COMPANY= filter_input(INPUT_POST, 'USER_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
         $USER_ID= filter_input(INPUT_GET, 'USER_ID', FILTER_SANITIZE_NUMBER_INT);
         
+        
+        if($USER_ACTIVE=='n') {
+            $USER_ACCESS_LEVEL=0;
+        }
+        
         function updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE,$USER_COMPANY) {
 
                         $PASS_CHECK = $pdo->prepare("SELECT id from users WHERE id=:UID AND pw=:PASS");
@@ -225,7 +230,7 @@ if(isset($EXECUTE)) {
                             $HASH= password_hash($USER_PW, PASSWORD_BCRYPT, $options); 
                         
                         if ($PASS_CHECK->rowCount() >= 1) {
-                            echo "TEST";
+                            
                             $NO_PASS_QRY = $pdo->prepare("UPDATE users set company=:COMPANY, login=:LOGIN, real_name=:NAME, access_level=:ACCESS, active=:ACTIVE WHERE id=:UID");
                             $NO_PASS_QRY->bindParam(':LOGIN',$USER_LOGIN, PDO::PARAM_STR, 255);
                             $NO_PASS_QRY->bindParam(':NAME',$USER_USERNAME, PDO::PARAM_STR, 255);

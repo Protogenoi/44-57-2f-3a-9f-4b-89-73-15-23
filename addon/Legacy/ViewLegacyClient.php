@@ -485,7 +485,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
 	echo '<tr>';
         echo "<td>".$result['ews_id']."</td>";
         echo "<td>".$result['policy_number']."</td>";
-        echo "<td><form action='../php/ewsclientnotessubmit.php?Legacy=1' method='POST' autocomplete='off'>
+        echo "<td><form action='/php/ewsclientnotessubmit.php?Legacy=1' method='POST' autocomplete='off'>
 <select class='hook_to_change_colour' name='status' id='status' onchange='' required>
 <option value='$result[ews_status]'>$result[ews_status]</option>
 <option value='Sale'>Sale</option>

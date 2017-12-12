@@ -314,7 +314,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                             
                                 ?>
                                 <li>
-                                    <a href="/Life/Trackers/Closers.php?EXECUTE=1">
+                                    <a href="/addon/Trackers/Closers.php?EXECUTE=1">
                                         <span class="ca-icon"><i class="fa fa-bullseye"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Trackers<br/></h2>

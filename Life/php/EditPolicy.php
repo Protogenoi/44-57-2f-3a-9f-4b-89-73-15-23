@@ -29,31 +29,38 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT'] . "/classes/access_user/access_user_class.php");
+include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../includes/adl_features.php');
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
+}
 
 if (isset($fferror)) {
-    if ($fferror == '1') {
-
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
-}
-
-include('../includes/ADL_PDO_CON.php');
+}  
 
 $search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $callbackcompletedid = filter_input(INPUT_POST, 'callbackid', FILTER_SANITIZE_NUMBER_INT);
 
 $policyunid = filter_input(INPUT_POST, 'policyunid', FILTER_SANITIZE_SPECIAL_CHARS);
-$client_name = filter_input(INPUT_POST, 'client_name', FILTER_SANITIZE_SPECIAL_CHARS);
-$sale_date = filter_input(INPUT_POST, 'sale_date', FILTER_SANITIZE_SPECIAL_CHARS);
-$application_number = filter_input(INPUT_POST, 'application_number', FILTER_SANITIZE_SPECIAL_CHARS);
+$NAME = filter_input(INPUT_POST, 'client_name', FILTER_SANITIZE_SPECIAL_CHARS);
+$SALE_DATE = filter_input(INPUT_POST, 'sale_date', FILTER_SANITIZE_SPECIAL_CHARS);
+$APP_NUM = filter_input(INPUT_POST, 'application_number', FILTER_SANITIZE_SPECIAL_CHARS);
 $policy_number = filter_input(INPUT_POST, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
 $premium = filter_input(INPUT_POST, 'premium', FILTER_SANITIZE_SPECIAL_CHARS);
 $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -62,26 +69,26 @@ $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHA
 $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
 $PolicyStatus = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
 $edited = filter_input(INPUT_POST, 'edited', FILTER_SANITIZE_SPECIAL_CHARS);
-$keyfield = filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
+$CID = filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
 $policyID = filter_input(INPUT_POST, 'policyID', FILTER_SANITIZE_SPECIAL_CHARS);
 $comm_term = filter_input(INPUT_POST, 'comm_term', FILTER_SANITIZE_SPECIAL_CHARS);
 $drip = filter_input(INPUT_POST, 'drip', FILTER_SANITIZE_SPECIAL_CHARS);
 $soj = filter_input(INPUT_POST, 'soj', FILTER_SANITIZE_SPECIAL_CHARS);
-$closer = filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
-$lead = filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
+$CLOSER = filter_input(INPUT_POST, 'closer', FILTER_SANITIZE_SPECIAL_CHARS);
+$LEAD = filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera = filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if(strpos($client_name, ' and ') !== false) {
+if(strpos($NAME, ' and ') !== false) {
     $soj="Joint";
 } else {
     $soj="Single";
 }
 
 if ($PolicyStatus == "Awaiting") {
-    $sale_date = "TBC";
+    $SALE_DATE = "TBC";
     $policy_number = "TBC $policyunid";
 }
 
@@ -93,21 +100,21 @@ $row = $dupeck->fetch(PDO::FETCH_ASSOC);
 if ($count = $dupeck->rowCount() >= 1) {
     $dupepol = "$row[policy_number] DUPE";
 
-    $query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:origpolholder");
-    $query->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+    $query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:OCID");
+    $query->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $query->execute();
     $origdetails = $query->fetch(PDO::FETCH_ASSOC);
 
     $oname = $origdetails['orig_policy'];
 
-    $update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
-    $update->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+    $update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+    $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $update->bindParam(':covera', $covera, PDO::PARAM_INT);
     $update->bindParam(':sub', $submitted_date, PDO::PARAM_STR);
     $update->bindParam(':soj', $soj, PDO::PARAM_STR);
-    $update->bindParam(':client_name', $client_name, PDO::PARAM_STR);
-    $update->bindParam(':sale_date', $sale_date, PDO::PARAM_STR);
-    $update->bindParam(':application_number', $application_number, PDO::PARAM_STR);
+    $update->bindParam(':client_name', $NAME, PDO::PARAM_STR);
+    $update->bindParam(':sale_date', $SALE_DATE, PDO::PARAM_STR);
+    $update->bindParam(':application_number', $APP_NUM, PDO::PARAM_STR);
     $update->bindParam(':policy_number', $dupepol, PDO::PARAM_STR);
     $update->bindParam(':premium', $premium, PDO::PARAM_INT);
     $update->bindParam(':type', $type, PDO::PARAM_STR);
@@ -118,15 +125,13 @@ if ($count = $dupeck->rowCount() >= 1) {
     $update->bindParam(':edited', $hello_name, PDO::PARAM_STR);
     $update->bindParam(':comm_term', $comm_term, PDO::PARAM_INT);
     $update->bindParam(':drip', $drip, PDO::PARAM_INT);
-    $update->bindParam(':closer', $closer, PDO::PARAM_STR);
-    $update->bindParam(':lead', $lead, PDO::PARAM_STR);
+    $update->bindParam(':closer', $CLOSER, PDO::PARAM_STR);
+    $update->bindParam(':lead', $LEAD, PDO::PARAM_STR);
     $update->bindParam(':polterm', $polterm, PDO::PARAM_STR);
-    $update->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+    $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $update->execute();
 
-    $clientnamedata2 = $client_name;
-
-
+    $clientnamedata2 = $NAME;
 
     $queryTRKn = $pdo->prepare("INSERT INTO policy_number_tracking set new_policy_number=:newpolicyholder, policy_id =:origpolicyid, oldpolicy=:oldpolicyholder ");
     $queryTRKn->bindParam(':newpolicyholder', $policy_number, PDO::PARAM_STR, 500);
@@ -137,41 +142,34 @@ if ($count = $dupeck->rowCount() >= 1) {
     $notedata = "Policy Number Updated";
     $messagedata = "Policy number updated $dupepol duplicate of $policy_number";
 
-    $queryNote = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-    $queryNote->bindParam(':clientidholder', $keyfield, PDO::PARAM_INT);
-    $queryNote->bindParam(':sentbyholder', $hello_name, PDO::PARAM_STR, 100);
-    $queryNote->bindParam(':recipientholder', $client_name, PDO::PARAM_STR, 500);
-    $queryNote->bindParam(':noteholder', $notedata, PDO::PARAM_STR, 255);
-    $queryNote->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
+    $queryNote = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type=:NOTE, message=:MSG ");
+    $queryNote->bindParam(':CID', $CID, PDO::PARAM_INT);
+    $queryNote->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+    $queryNote->bindParam(':HOLDER', $NAME, PDO::PARAM_STR, 500);
+    $queryNote->bindParam(':NOTE', $notedata, PDO::PARAM_STR, 255);
+    $queryNote->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
     $queryNote->execute();
 
-
-    if (isset($fferror)) {
-        if ($fferror == '0') {
-
-            header('Location: ../Life/ViewClient.php?policyadded=y&search=' . $keyfield . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
+            header('Location: ../ViewClient.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
             die;
-        }
-    }
+            
 }
 
-
-
-$query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:origpolholder");
-$query->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+$query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:OCID");
+$query->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $query->execute();
 $origdetails = $query->fetch(PDO::FETCH_ASSOC);
 
 $oname = $origdetails['orig_policy'];
 
-$update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:origpolholder");
-$update->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+$update = $pdo->prepare("UPDATE client_policy SET submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+$update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $update->bindParam(':covera', $covera, PDO::PARAM_INT);
 $update->bindParam(':soj', $soj, PDO::PARAM_STR);
 $update->bindParam(':sub', $submitted_date, PDO::PARAM_STR);
-$update->bindParam(':client_name', $client_name, PDO::PARAM_STR);
-$update->bindParam(':sale_date', $sale_date, PDO::PARAM_STR);
-$update->bindParam(':application_number', $application_number, PDO::PARAM_STR);
+$update->bindParam(':client_name', $NAME, PDO::PARAM_STR);
+$update->bindParam(':sale_date', $SALE_DATE, PDO::PARAM_STR);
+$update->bindParam(':application_number', $APP_NUM, PDO::PARAM_STR);
 $update->bindParam(':policy_number', $policy_number, PDO::PARAM_STR);
 $update->bindParam(':premium', $premium, PDO::PARAM_INT);
 $update->bindParam(':type', $type, PDO::PARAM_STR);
@@ -182,68 +180,52 @@ $update->bindParam(':PolicyStatus', $PolicyStatus, PDO::PARAM_STR);
 $update->bindParam(':edited', $hello_name, PDO::PARAM_STR);
 $update->bindParam(':comm_term', $comm_term, PDO::PARAM_INT);
 $update->bindParam(':drip', $drip, PDO::PARAM_INT);
-$update->bindParam(':closer', $closer, PDO::PARAM_STR);
-$update->bindParam(':lead', $lead, PDO::PARAM_STR);
+$update->bindParam(':closer', $CLOSER, PDO::PARAM_STR);
+$update->bindParam(':lead', $LEAD, PDO::PARAM_STR);
 $update->bindParam(':polterm', $polterm, PDO::PARAM_STR);
-$update->bindParam(':origpolholder', $policyunid, PDO::PARAM_INT);
+$update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $update->execute();
 
-$clientnamedata2 = $client_name;
-
-
+$clientnamedata2 = $NAME;
 
 $changereason = filter_input(INPUT_POST, 'changereason', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($changereason)) {
 
     if ($changereason == 'Incorrect Policy Number') {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
 
-
-
-        $query = $pdo->prepare("INSERT INTO policy_number_tracking set new_policy_number=:newpolicyholder, policy_id =:origpolicyid, oldpolicy=:oldpolicyholder ");
-        $query->bindParam(':newpolicyholder', $policy_number, PDO::PARAM_STR, 500);
-        $query->bindParam(':oldpolicyholder', $oname, PDO::PARAM_STR, 500);
-        $query->bindParam(':origpolicyid', $policyunid, PDO::PARAM_STR, 500);
-        $query->execute();
+        $POL_TRK_QRY = $pdo->prepare("INSERT INTO policy_number_tracking set new_policy_number=:newpolicyholder, policy_id =:origpolicyid, oldpolicy=:oldpolicyholder ");
+        $POL_TRK_QRY->bindParam(':newpolicyholder', $policy_number, PDO::PARAM_STR, 500);
+        $POL_TRK_QRY->bindParam(':oldpolicyholder', $oname, PDO::PARAM_STR, 500);
+        $POL_TRK_QRY->bindParam(':origpolicyid', $policyunid, PDO::PARAM_STR, 500);
+        $POL_TRK_QRY->execute();
 
         $notedata = "Policy Number Updated";
         $clientnamedata = $policyunid . " - " . $policy_number;
         $messagedata = $oname . " changed to " . $policy_number;
 
-        $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-
-        $query->bindParam(':clientidholder', $keyfield, PDO::PARAM_INT);
-        $query->bindParam(':sentbyholder', $hello_name, PDO::PARAM_STR, 100);
-        $query->bindParam(':recipientholder', $clientnamedata, PDO::PARAM_STR, 500);
-        $query->bindParam(':noteholder', $notedata, PDO::PARAM_STR, 255);
-        $query->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
-        $query->execute();
+        $INSERT_NOTE = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type=:NOTE, message=:MSG ");
+        $INSERT_NOTE->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $INSERT_NOTE->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $INSERT_NOTE->bindParam(':HOLDER', $clientnamedata, PDO::PARAM_STR, 500);
+        $INSERT_NOTE->bindParam(':NOTE', $notedata, PDO::PARAM_STR, 255);
+        $INSERT_NOTE->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
+        $INSERT_NOTE->execute();
 
     }
-
-
 
     $clientnamedata = $policyunid . " - " . $policy_number;
     $notedata = "Policy Details Updated";
 
-    $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-
-    $query->bindParam(':clientidholder', $keyfield, PDO::PARAM_INT);
-    $query->bindParam(':sentbyholder', $hello_name, PDO::PARAM_STR, 100);
-    $query->bindParam(':recipientholder', $clientnamedata, PDO::PARAM_STR, 500);
-    $query->bindParam(':noteholder', $notedata, PDO::PARAM_STR, 255);
-    $query->bindParam(':messageholder', $changereason, PDO::PARAM_STR, 2500);
-    $query->execute();
+    $INSERT_NOTE = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type=:NOTE, message=:MSG ");
+    $INSERT_NOTE->bindParam(':CID', $CID, PDO::PARAM_INT);
+    $INSERT_NOTE->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+    $INSERT_NOTE->bindParam(':HOLDER', $clientnamedata, PDO::PARAM_STR, 500);
+    $INSERT_NOTE->bindParam(':NOTE', $notedata, PDO::PARAM_STR, 255);
+    $INSERT_NOTE->bindParam(':MSG', $changereason, PDO::PARAM_STR, 2500);
+    $INSERT_NOTE->execute();
 }
 
-if (isset($fferror)) {
-    if ($fferror == '0') {
-
-        header('Location: ../Life/ViewClient.php?policyedited=y&search=' . $keyfield);
+        header('Location: ../ViewClient.php?policyedited=y&search=' . $CID);
         die;
-    }
-}
 ?>

@@ -157,7 +157,7 @@ if(empty($POST_NAME)) {
                     <div class="panel-heading">Edit Policy</div>
                     <div class="panel-body">
 
-                        <form id="from1" id="form1" class="AddClient" method="post" action="../php/EditPolicySubmit.php" enctype="multipart/form-data">
+                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life//php/EditPolicy.php">
                             <input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
 
                             <input type="hidden" name="NAME2" value="<?php if(isset($NAME2)) { echo $NAME2; } ?>">
@@ -735,12 +735,6 @@ if(empty($POST_NAME)) {
         </div>
     </div>
 
-
-</div>
-</div>
-</div>
-</div>
-</div>
 <script>
     document.querySelector('#from1').addEventListener('submit', function (e) {
         var form = this;
@@ -775,7 +769,6 @@ if(empty($POST_NAME)) {
 </script>
 
 <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
-
 <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script>
     $(function () {

@@ -81,7 +81,7 @@ function validationcheck($password,$confirm,$email,$msg,$pdo,$login) {
        $checklogin->execute()or die(print_r($checklogin->errorInfo(), true));    
        if ($checklogin->rowCount()>=1) {
            
-       header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[0].','.$msg[2]); die;     
+       header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[0].','.$msg[2]); die;     
            
        }
               
@@ -90,11 +90,11 @@ function validationcheck($password,$confirm,$email,$msg,$pdo,$login) {
        $checkemail->execute()or die(print_r($checkemail->errorInfo(), true));    
        if ($checkemail->rowCount()>=1) {
 
-      header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[0].','.$msg[1]); die;  
+      header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[0].','.$msg[1]); die;  
         
     }
    
-    header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[0]); die;
+    header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[0]); die;
 }
 
 if($password==$confirm) {
@@ -104,16 +104,16 @@ if($password==$confirm) {
     
      if (strlen($password) < 8) {
             
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[3]); die; 
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[3]); die; 
     }
 
     if (!preg_match("#[0-9]+#", $password)) {
         
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[4]); die;
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[4]); die;
     }
 
     if (!preg_match("#[a-zA-Z]+#", $password)) {
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[5]); die;
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[1].','.$msg[5]); die;
     }     
     
     
@@ -123,16 +123,16 @@ if($password==$confirm) {
     
      if (strlen($password) < 8) {
             
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[3]); die; 
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[3]); die; 
     }
 
     if (!preg_match("#[0-9]+#", $password)) {
         
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[4]); die;
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[4]); die;
     }
 
     if (!preg_match("#[a-zA-Z]+#", $password)) {
-        header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[5]); die;
+        header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[2].','.$msg[5]); die;
     }     
     
     
@@ -146,7 +146,7 @@ if($password==$confirm) {
            
            passcheck_email($password,$msg);
            
-           header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[1]); die;  
+           header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[1]); die;  
         
     }
     
@@ -157,7 +157,7 @@ if($password==$confirm) {
            
            passcheck_login($password,$msg);  
            
-           header('Location: ../../Admindash.php?users=y&adduser=0&message='.$msg[2]); die;     
+           header('Location: ../Admindash.php?users=y&adduser=0&message='.$msg[2]); die;     
            
        }
     
@@ -187,7 +187,7 @@ $adduser->bindParam(':info',$info, PDO::PARAM_STR, 255);
 $adduser->bindParam(':email',$email, PDO::PARAM_STR, 255);
 $adduser->execute()or die(print_r($adduser->errorInfo(), true)); 
                 
-        header('Location: ../../Admindash.php?users=y&adduser=1&user='.$login); die;
+        header('Location: ../Admindash.php?users=y&adduser=1&user='.$login); die;
         
     }
     
@@ -252,7 +252,7 @@ if(isset($EXECUTE)) {
                             
                             }
                             
-                            header('Location: ../../Admindash.php?users=y&adduser=2&user='.$USER_LOGIN); die;
+                            header('Location: ../Admindash.php?users=y&adduser=2&user='.$USER_LOGIN); die;
                             
                         }
                         updateuser($pdo,$USER_USERNAME,$USER_LOGIN,$USER_PW,$USER_ACCESS_LEVEL,$USER_ID, $USER_ACTIVE,$USER_COMPANY); 

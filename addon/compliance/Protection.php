@@ -74,7 +74,7 @@ tr.Red td {
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../../includes/NAV.php'); ?> 
+    <?php require_once(__DIR__ . '/includes/NAV.php'); ?> 
 
     <div class="container-fluid"><br>
         

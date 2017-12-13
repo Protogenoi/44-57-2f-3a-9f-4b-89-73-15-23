@@ -115,7 +115,7 @@ $q=1;
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
-<?php require_once(__DIR__ . '/../../../includes/NAV.php'); ?> 
+<?php require_once(__DIR__ . '/../includes/NAV.php'); ?> 
         
         <div class="container">
             

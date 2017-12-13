@@ -56,7 +56,7 @@ $AGENCY = filter_input(INPUT_GET, 'AGENCY', FILTER_SANITIZE_SPECIAL_CHARS);
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     </head>
     <body>
-<?php require_once(__DIR__ . '/../../includes/NAV.php'); ?> 
+<?php require_once(__DIR__ . '/includes/NAV.php'); ?> 
         <br>
         <div class="container-fluid">
 

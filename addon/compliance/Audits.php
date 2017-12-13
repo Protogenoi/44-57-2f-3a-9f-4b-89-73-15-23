@@ -63,7 +63,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../../includes/NAV.php'); ?> 
+    <?php require_once(__DIR__ . '/includes/NAV.php'); ?> 
 
     <div class="container-fluid"><br>
                 <div class="row">

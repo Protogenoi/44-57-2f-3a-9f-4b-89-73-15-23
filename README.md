@@ -14,6 +14,7 @@ A Customer relationship management application built for the financial services 
  * SMS (inbound and outbound)
  * Internal messenger service
  * Lead and sales management
+ * Callback scheduler
 
 ## Authors
 

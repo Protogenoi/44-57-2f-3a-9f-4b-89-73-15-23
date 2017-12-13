@@ -29,25 +29,37 @@
  * 
 */  
 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 2);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-include('../classes/database_class.php');
-include('../includes/adl_features.php');
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../../includes/adl_features.php');
+
+require_once(__DIR__ . '/../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-
-include('../includes/ADL_PDO_CON.php');
+} 
 
 if(isset($fflife)) {
     if($fflife=='1') {
@@ -82,7 +94,7 @@ if(isset($fflife)) {
                                                     $query->bindParam(':callbackidyes', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                   
-                                                    header('Location: /Life/ViewClient.php?Addcallback=complete&callbackid'.$callbackcompletedid.'&search='.$search); die;
+                                                    header('Location: /ViewClient.php?Addcallback=complete&callbackid'.$callbackcompletedid.'&search='.$search); die;
                                                     
                                                 }
                                                 
@@ -94,7 +106,7 @@ if(isset($fflife)) {
                                                     $query->bindParam(':callbackidno', $callbackcompletedid, PDO::PARAM_INT);
                                                     $query->execute();
                                                 
-                                                    header('Location: /Life/ViewClient.php?Addcallback=incomplete&search='.$search); die;
+                                                    header('Location: /ViewClient.php?Addcallback=incomplete&search='.$search); die;
                                                     
                                                 } 
                                                 
@@ -107,11 +119,8 @@ if(isset($fflife)) {
           $callbacktype = filter_input(INPUT_POST, 'callbacktype', FILTER_SANITIZE_SPECIAL_CHARS);
                   
           $cb= filter_input(INPUT_GET, 'cb', FILTER_SANITIZE_SPECIAL_CHARS);
-
-
-
-
-   $callsub = filter_input(INPUT_POST, 'callsub', FILTER_SANITIZE_NUMBER_INT);
+          $callsub = filter_input(INPUT_POST, 'callsub', FILTER_SANITIZE_NUMBER_INT);
+          
    if(isset($callsub)){
 
         $database = new Database(); 
@@ -169,13 +178,13 @@ if(isset($fflife)) {
            
            if ($database->rowCount()>0) {
                
-               header('Location: ../Life/ViewClient.php?CallbackSet=1&search='.$search.'&CallbackTime='.$getcallback_time.'&CallbackDate='.$getcallback_date); die;
+               header('Location: ../ViewClient.php?CallbackSet=1&search='.$search.'&CallbackTime='.$getcallback_time.'&CallbackDate='.$getcallback_date); die;
                               
            }
            
            else {
                
-               header('Location: ../Life/ViewClient.php?CallbackSet=0&search='.$search); die;
+               header('Location: ../ViewClient.php?CallbackSet=0&search='.$search); die;
                
               
                }
@@ -184,4 +193,4 @@ if(isset($fflife)) {
 
 
           
-          header('Location: ../CRMmain.php'); die;
+          header('Location: /../../../CRMmain.php'); die;

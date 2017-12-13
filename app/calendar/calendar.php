@@ -324,8 +324,8 @@ if (isset($fferror)) {
                         
                         <div class="btn-group">
                         <button class="btn btn-primary"><i class='fa  fa-check-circle-o'></i> Save</button>
-                        <a href='/php/AddCallback.php?search=<?php echo "$search&callbackid=$callbackid&cb=y"; ?>' class="btn btn-success"><i class='fa fa-check'></i> Complete</a>
-                        <a href='/php/AddCallback.php?search=<?php echo "$search&callbackid=$callbackid&cb=n"; ?>' class="btn btn-warning"><i class='fa fa-times'></i> In-complete</a>
+                        <a href='/app/calendar/php/AddCallback.php?search=<?php echo "$search&callbackid=$callbackid&cb=y"; ?>' class="btn btn-success"><i class='fa fa-check'></i> Complete</a>
+                        <a href='/app/calendar/php/AddCallback.php?search=<?php echo "$search&callbackid=$callbackid&cb=n"; ?>' class="btn btn-warning"><i class='fa fa-times'></i> In-complete</a>
                         </div>
                     </fieldset>
                 </form> 

@@ -3042,7 +3042,7 @@ WHERE
                                     <div id="CB_ONE" class="tab-pane fade in active">
                                         <div class="col-lg-12 col-md-12">
 
-                                            <form class="form-horizontal" action='../php/AddCallback.php?setcall=y&search=<?php echo $search; ?>' method='POST'>                
+                                            <form class="form-horizontal" action='php/AddCallback.php?setcall=y&search=<?php echo $search; ?>' method='POST'>                
                                                 <fieldset>
 
                                                     <div class='container'>

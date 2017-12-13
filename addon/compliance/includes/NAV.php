@@ -58,30 +58,6 @@ $companynamere = $companydetailsq['company_name'];
       <li class="nav-item active">
           <a class="nav-link" href="/CRMmain.php"><i class="fa fa-home">  Home</i> <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/app/SearchClients.php"><i class="fa fa-user-plus">  Add Client</i></a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/Staff/Search.php"><i class="fa fa-user-plus">  Employee's</i></a>
-      </li>
-      <?php if($ffaudits=='1') { ?>      
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="/addon/audits/main_menu.php" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Audits
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/addon/audits/lead_gen_reports.php?step=New">Legal and General Lead Audits</a>
-              <a class="dropdown-item" href="/addon/audits/CloserAudit.php">Legal and General Audits</a>
-              <a class="dropdown-item" href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a>
-              <a class="dropdown-item" href="/addon/audits/Aviva/Menu.php">Aviva Audits</a>
-              <a class="dropdown-item" href="/addon/audits/WOL/Menu.php">One Family Audits</a>
-          </div>
-      </li>
-      
-      <?php } ?>
-            <li class="nav-item">
-        <a class="nav-link" href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a>
-      </li>
     </ul>
   </div>
 <?php if(in_array($hello_name, $Level_1_Access, true)) { ?>

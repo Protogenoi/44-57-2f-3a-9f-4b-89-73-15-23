@@ -65,10 +65,13 @@ if (isset($fferror)) {
 if(isset($fflife)) {
     if($fflife=='1') {
         
-                                            $cb= filter_input(INPUT_GET, 'cb', FILTER_SANITIZE_SPECIAL_CHARS);
-                                            if(isset($cb)){
-                                                $callbackcompletedyn= filter_input(INPUT_GET, 'cb', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                $callbackcompletedid= filter_input(INPUT_GET, 'callbackid', FILTER_SANITIZE_NUMBER_INT);
+        $cb= filter_input(INPUT_GET, 'cb', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        if(isset($cb)){
+            
+            $callbackcompletedyn= filter_input(INPUT_GET, 'cb', FILTER_SANITIZE_SPECIAL_CHARS);
+            $callbackcompletedid= filter_input(INPUT_GET, 'callbackid', FILTER_SANITIZE_NUMBER_INT);
+            
                                                 if ($callbackcompletedyn =='y') {
                                                     $query = $pdo->prepare("UPDATE scheduled_callbacks set complete='y' where id = :callbackidyes");
                                                     $query->bindParam(':callbackidyes', $callbackcompletedid, PDO::PARAM_INT);
@@ -149,7 +152,7 @@ if(isset($fflife)) {
        
        if(isset($ffcalendar)) { 
            if($ffcalendar=='1') {
-               
+
                $calendar_start= "$getcallback_date $getcallback_time";
                $calendar_name=" $getcallback_time - $getcallback_client ($search) - $getcallback_notes";
                
@@ -179,13 +182,13 @@ if(isset($fflife)) {
            
            if ($database->rowCount()>0) {
                
-               header('Location: ../ViewClient.php?CallbackSet=1&search='.$search.'&CallbackTime='.$getcallback_time.'&CallbackDate='.$getcallback_date); die;
+              // header('Location: ../ViewClient.php?CallbackSet=1&search='.$search.'&CallbackTime='.$getcallback_time.'&CallbackDate='.$getcallback_date); die;
                               
            }
            
            else {
                
-               header('Location: ../ViewClient.php?CallbackSet=0&search='.$search); die;
+               //header('Location: ../ViewClient.php?CallbackSet=0&search='.$search); die;
                
               
                }
@@ -194,4 +197,4 @@ if(isset($fflife)) {
 
 
           
-          header('Location: /../../../CRMmain.php'); die;
+         // header('Location: /../../../CRMmain.php'); die;

@@ -252,7 +252,7 @@ $companynamere = $companydetailsq['company_name'];
     <script>
         function refresh_div() {
             jQuery.ajax({
-                url: '/php/NavbarLiveResults.php',
+                url: '/app/NavbarLiveResults.php',
                 type: 'POST',
                 success: function (results) {
                     jQuery(".LIVERESULTS").html(results);

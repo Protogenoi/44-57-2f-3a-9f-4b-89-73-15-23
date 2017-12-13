@@ -102,9 +102,13 @@ if (isset($fferror)) {
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
+<link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
-     .clockpicker-popover {
+.clockpicker-popover {
     z-index: 999999;
 }
  #calendar {
@@ -134,7 +138,7 @@ if (isset($fferror)) {
         if(isset($callback)) {            
             $callbackid= filter_input(INPUT_GET, 'callbackid', FILTER_SANITIZE_NUMBER_INT);            
             if($callback=='complete') {                
-                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> Callback $callbackcompletedid completed!</div>";
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o fa-lg\"></i> Success:</strong> Callback completed!</div>";
                 
             }
             
@@ -152,6 +156,33 @@ if (isset($fferror)) {
 <div class="container">
     <div class="col-md-12">
     <div class="col-md-8">
+       
+<script>
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'listDay,listWeek,month'
+			},
+
+			views: {
+				listDay: { buttonText: 'list day' },
+				listWeek: { buttonText: 'list week' }
+			},
+
+			defaultView: 'month',
+			defaultDate: '<?php echo date("Y-m-d"); ?>',
+			navLinks: true, // can click day/week names to navigate views
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: '/app/calendar/JSON/GetEvents.php?EXECUTE=1'
+		});
+		
+	});
+</script>        
+        
 <div id='calendar'></div>
 
     </div>
@@ -352,107 +383,8 @@ if (isset($fferror)) {
     
     </div>
     </div>
-</div>
-   
-<script>
- $(document).ready(function() {
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
+</div>  
 
-  var calendar = $('#calendar').fullCalendar({
-   editable: true,
-   header: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'month,agendaWeek,agendaDay'
-   },
-   
-   events: "events.php",
-
-   eventRender: function(event, element, view) {
-    if (event.allDay === 'true') {
-     event.allDay = true;
-    } else {
-     event.allDay = false;
-    }
-   },
-   selectable: true,
-   selectHelper: true,
-   select: function(start, end, allDay) {
-   var title = prompt('Event Title:');
-   var url = prompt('Type Event url, if exits:');
-   if (title) {
-   var start = $.fullCalendar.moment(start).format();
-   var end = $.fullCalendar.moment(end).format();
-   $.ajax({
-   url: 'add_events.php',
-   data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
-   type: "POST",
-   success: function(json) {
-   alert('Added Successfully');
-   }
-   });
-   calendar.fullCalendar('renderEvent',
-   {
-   title: title,
-   start: start,
-   end: end,
-   allDay: allDay
-   },
-   true
-   );
-   }
-   calendar.fullCalendar('unselect');
-   },
-   
-   editable: true,
-   eventDrop: function(event, delta) {
-   var start = $.fullCalendar.moment(event.start).format();
-   var end = $.fullCalendar.moment(event.end).format();
-   $.ajax({
-   url: 'update_events.php',
-   data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-   type: "POST",
-   success: function(json) {
-    alert("Updated Successfully");
-   }
-   });
-   },
-   eventResize: function(event) {
-   var start = $.fullCalendar.moment(event.start).format();
-   var end = $.fullCalendar.moment(event.end).format();
-   $.ajax({
-    url: 'update_events.php',
-    data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-    type: "POST",
-    success: function(json) {
-     alert("Updated Successfully");
-    }
-   });
-
-},
-eventClick: function(event) {
-var decision = confirm("Delete callback?"); 
-if (decision) {
-$.ajax({
-type: "POST",
-url: "delete_events.php",
-
-data: "&id=" + event.id
-});
-$('#calendar2').fullCalendar('removeEvents', event.id);
-
-} else {
-}
-}
-   
-  });
-  
- });
-
-</script>    
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
 <script type="text/javascript">

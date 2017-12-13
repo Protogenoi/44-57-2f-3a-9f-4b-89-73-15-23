@@ -29,6 +29,10 @@
         $ADLSTATUS = $VITALITY_Policies['ADLSTATUS'];
         $EWSSTATUS = $VITALITY_Policies['warning'];
         
+        if(empty($Old_Policies['covera'])) {
+            $Old_Policies['covera']=0;
+        }        
+        
         $COVER_AMOUNT = number_format($VITALITY_Policies['covera'],2);
 
         echo '<tr>';

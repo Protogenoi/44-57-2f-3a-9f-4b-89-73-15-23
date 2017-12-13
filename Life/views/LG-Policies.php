@@ -31,6 +31,10 @@
         $ADLSTATUS = $LG_Policies['ADLSTATUS'];
         $EWSSTATUS = $LG_Policies['warning'];
         
+         if(empty($Old_Policies['covera'])) {
+            $Old_Policies['covera']=0;
+        }       
+        
         $COVER_AMOUNT = number_format($LG_Policies['covera'],2);
         
         /*

@@ -109,7 +109,7 @@ $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 			navLinks: true, // can click day/week names to navigate views
 			editable: true,
 			eventLimit: true, // allow "more" link when too many events
-			events: '/resources/lib/fullcalendar-3.0.0/json/GetEvents.php?EXECUTE=1'
+			events: '/addon/Staff/Holidays/JSON/GetEvents.php?EXECUTE=1'
 		});
 		
 	});

@@ -506,7 +506,7 @@ if ($_FILES[csv][size] > 0) {
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
-    return '<form action="../php/ewsclientnotessubmit.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    return '<form action="/addon/Legacy/php/SendEwsNote.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 
         '<tr>'+
 
@@ -627,7 +627,7 @@ $(document).ready(function() {
 
 var me = $(this);
 
-$.ajax({ url: '../php/getclientnotesews.php?Legacy=1',
+$.ajax({ url: '/addon/Legacy/php/GetEwsNote.php?Legacy=1',
          data: {
 cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
 pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()
@@ -690,7 +690,7 @@ tr.addClass('shown');
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
-    return '<form action="../php/ewsclientnotessubmit.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    return '<form action="/addon/Legacy/php/SendEwsNote.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 
         '<tr>'+
 
@@ -811,7 +811,7 @@ $(document).ready(function() {
 
 var me = $(this);
 
-$.ajax({ url: '../php/getclientnotesews.php?Legacy=1',
+$.ajax({ url: '/addon/Legacy/php/GetEwsNote.php?Legacy=1',
          data: {
 cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
 pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()
@@ -873,7 +873,7 @@ tr.addClass('shown');
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
-    return '<form action="../php/ewsclientnotessubmit.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    return '<form action="/addon/Legacy/php/SendEwsNote.php?Legacy=1" method="POST" autocomplete="off">'+'<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
 
         '<tr>'+
 
@@ -995,7 +995,7 @@ $(document).ready(function() {
 
 var me = $(this);
 
-$.ajax({ url: '../php/getclientnotesews.php?Legacy=1',
+$.ajax({ url: '/addon/Legacy/php/GetEwsNote.php?Legacy=1',
          data: {
 cid: $(this).closest('tr').next('tr').find("input[name='client_id']").val(),
 pid: $(this).closest('tr').next('tr').find("input[name='policy_number']").val()

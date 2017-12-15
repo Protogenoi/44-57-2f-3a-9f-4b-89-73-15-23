@@ -554,13 +554,10 @@ if ($ffpost_code == '1') {
                                         <br>
                                         <select class="form-control" name="changereason" required>
                                             <option value="">Select update reason...</option>
-                                            <option value="Incorrect Client Name">Incorrect client name (1)</option>
-                                            <option value="Incorrect DOB">Incorrect DOB (1)</option>
+                                            <option value="Incorrect Client Name">Incorrect client name</option>
+                                            <option value="Incorrect DOB">Incorrect DOB</option>
                                             <option value="Added Email Address">Added Email Address</option>
-                                            <option value="Incorrect email">Incorrect email address (1)</option>
-                                            <option value="Incorrect Client Name 2">Incorrect client name (2)</option>
-                                            <option value="Incorrect DOB 2">Incorrect DOB (2)</option>
-                                            <option value="Incorrect email 2">Incorrect email address (2)</option>
+                                            <option value="Incorrect email">Incorrect email address</option>
                                             <option value="Incorrect Contact number">Incorrect phone number(s)</option>
                                             <option value="Incorrect Contact address">Incorrect address</option>
                                             <option value="Moved address">Moved address</option>

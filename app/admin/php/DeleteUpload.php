@@ -67,7 +67,7 @@ if (isset($EXECUTE)) {
 
         $FILE_NAME = filter_input(INPUT_POST, 'file', FILTER_SANITIZE_SPECIAL_CHARS);
         $UPID = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $search = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
+        $CID = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
 
         $query = $pdo->prepare("DELETE FROM tbl_uploads where id = :id");
         $query->bindParam(':id', $UPID, PDO::PARAM_INT);
@@ -82,22 +82,22 @@ if (isset($EXECUTE)) {
                 unlink("../uploads/life/$FILE_NAME");
             }
             
-            if (file_exists("../uploads/life/$search/$FILE_NAME")) {
-                unlink("../uploads/life/$search/$FILE_NAME");
+            if (file_exists("../uploads/life/$CID/$FILE_NAME")) {
+                unlink("../uploads/life/$CID/$FILE_NAME");
             }            
             
             $count=1;
             
 $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name='ADL Alert', sent_by=:SENT, note_type='Deleted File Upload', message=:MSG ");
-$query->bindParam(':CID',$search, PDO::PARAM_INT);
+$query->bindParam(':CID',$CID, PDO::PARAM_INT);
 $query->bindParam(':SENT',$hello_name, PDO::PARAM_STR);
 $query->bindParam(':MSG',$FILE_NAME, PDO::PARAM_STR);
 $query->execute();            
 
-                    header('Location: /../../../../Life/ViewClient.php?DeleteUpload=1&search=' . $search . '&count=' . $count . '&file=' . $FILE_NAME . '#menu2');
+                    header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=3&search=' . $CID . '&CLIENT_FILE_COUNT=' . $count . 'CLIENT_FILE=' . $FILE_NAME . '#menu2');
                     die;
         } else {
-                    header('Location: /../../../../Life/ViewClient.php?DeleteUpload=0&search=' . $search . '#menu2');
+                    header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=4&search=' . $CID . 'CLIENT_FILE=' . $FILE_NAME . '#menu2');
                     die;
         }
     }

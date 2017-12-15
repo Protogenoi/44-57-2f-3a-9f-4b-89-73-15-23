@@ -584,7 +584,7 @@ if ($ffpost_code == '1') {
                                         <button class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
 
                                 </form>
-                                <a href="/Life/ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                                <a href="/app/Client.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                             </div>
                         </div>
                     </div>

@@ -1,29 +1,65 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2017 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ * 
+*/  
+
+include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adl_features.php');
-include('../../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (!in_array($hello_name,$Level_3_Access, true)) {
-    
-    header('Location: ../../CRMmain.php?AccessDenied'); die;
+require_once(__DIR__ . '/../../includes/adl_features.php');
+
+require_once(__DIR__ . '/../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
 
-if(isset($fferror)) {
-    if($fferror=='1') {
-        
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
-        
     }
-    
-    }
-
-include('../../includes/ADL_PDO_CON.php');
+}  
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
@@ -63,10 +99,10 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $qmaster->bindParam(':hello',$hello_name, PDO::PARAM_STR);
         $qmaster->execute()or die(print_r($qmaster->errorInfo(), true)); 
         
-        header('Location: /Life/ViewClient.php?search='.$client_id.'&Updated=EWS&policy_number='.$policy_number); die;
+        header('Location: /../../../../app/Client.php?search='.$client_id.'&CLIENT_EWS=1&CLIENT_POLICY_POL_NUM='.$policy_number); die;
     }
     
 }
 
-header('Location: ../CRMmain.php?AccessDenied'); die;
+header('Location: /../../../../CRMmain.php'); die;
 ?>

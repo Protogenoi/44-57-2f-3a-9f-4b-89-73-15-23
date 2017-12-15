@@ -345,20 +345,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                     }
                                     
                                     }
-                                    
-                                    $clientedited= filter_input(INPUT_GET, 'clientedited', FILTER_SANITIZE_SPECIAL_CHARS);
-                                    if(isset($clientedited)){
-                                        $clienteditedy= filter_input(INPUT_GET, 'clientedited', FILTER_SANITIZE_SPECIAL_CHARS);
-                                        if ($clienteditedy =='y') {
-                                            print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client details updated!</div>");
-                                            
-                                        }
-                                        if ($clienteditedy =='n') {
-                                            print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Client details not updated!</div>");
-                                            
-                                        }
-                                        
-                                        }
                                         
                                         $checklistupdated= filter_input(INPUT_GET, 'checklistupdated', FILTER_SANITIZE_SPECIAL_CHARS);
                                         if(isset($checklistupdated)){
@@ -393,67 +379,12 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                 
             }
             
-        }
-//NEW NOTIFICATIONS //        
-                                                $CLIENT_UPLOAD= filter_input(INPUT_GET, 'CLIENT_UPLOAD', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                if(isset($CLIENT_UPLOAD)){
-                                                    
-                                                    $CLIENT_FILE= filter_input(INPUT_GET, 'CLIENT_FILE', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                    $CLIENT_FILE_COUNT= filter_input(INPUT_GET, 'CLIENT_FILE_COUNT', FILTER_SANITIZE_NUMBER_INT);
-                                                    
-                                                    if($CLIENT_UPLOAD== 1) {
-                                                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-upload fa-lg\"></i> Success:</strong> $CLIENT_FILE uploaded!</div>");        
-                                                    }
-                                                    if($CLIENT_UPLOAD== 0) {
-                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> $CLIENT_FILE <b>upload failed!</b></div>");   
-                                                } 
-                                                    if($CLIENT_UPLOAD== 2) {
-                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-cloud-upload fa-lg\"></i> UPLOAD FAILED:</strong> $CLIENT_FILE <b>File size to big!</b></div>");   
-                                                }  
-                                                    if($CLIENT_UPLOAD== 3) {
-                                                echo("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> File ($CLIENT_FILE_COUNT) $CLIENT_FILE deleted</strong></div>\n");
-                                                    }          
-                                                    if($CLIENT_UPLOAD== 4) {
-                                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error file $CLIENT_FILE NOT deleted</strong></div>";
-                                                } 
-                                                
-                                                $CLIENT_TASK= filter_input(INPUT_GET, 'CLIENT_TASK', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                
-                                                if(isset($CLIENT_TASK)){  
-                                                    if ($CLIENT_TASK =='CYD') {
-                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> CYD Task Updated!</div>";   
-                                                        
-                                                    }
-                                                    if ($CLIENT_TASK =='5 day') { 
-                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 5 Day Task Updated!</div>";  
-                                                        
-                                                    }
-                                                    if ($CLIENT_TASK =='24 48') {
-                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 24-48 Day Task Updated!</div>";
-                                                        
-                                                    } 
-                                                    if ($CLIENT_TASK =='18 day') {
-                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>"; 
-                                                        
-                                                    }
-                                                    
-                                                    }   
-                
-                                                $CLIENT_POLICY= filter_input(INPUT_GET, 'CLIENT_POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                if(isset($CLIENT_POLICY)){
-                                                    if($CLIENT_POLICY==1){
-                                                    $CLIENT_POLICY_POL_NUM= filter_input(INPUT_GET, 'CLIENT_POLICY_POL_NUM', FILTER_SANITIZE_NUMBER_INT);
-                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM added<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
-                                                    }
-                                                }                
-                
-                                                
+        }              
+
                                                 $smssent= filter_input(INPUT_GET, 'smssent', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($smssent)){
                                                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS sent!</div>");
                                                     
-                                                }
-                                                
                                                 }
                                                 
                                                 $taskcompleted= filter_input(INPUT_GET, 'taskcompleted', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -539,4 +470,72 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
        
                                                                 }
                                                     }
+                                                    
+//NEW NOTIFICATIONS //        
+                                                $CLIENT_UPLOAD= filter_input(INPUT_GET, 'CLIENT_UPLOAD', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                if(isset($CLIENT_UPLOAD)){
+                                                    
+                                                    $CLIENT_FILE= filter_input(INPUT_GET, 'CLIENT_FILE', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                    $CLIENT_FILE_COUNT= filter_input(INPUT_GET, 'CLIENT_FILE_COUNT', FILTER_SANITIZE_NUMBER_INT);
+                                                    
+                                                    if($CLIENT_UPLOAD== 1) {
+                                                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-upload fa-lg\"></i> Success:</strong> $CLIENT_FILE uploaded!</div>");        
+                                                    }
+                                                    if($CLIENT_UPLOAD== 0) {
+                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> $CLIENT_FILE <b>upload failed!</b></div>");   
+                                                } 
+                                                    if($CLIENT_UPLOAD== 2) {
+                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-cloud-upload fa-lg\"></i> UPLOAD FAILED:</strong> $CLIENT_FILE <b>File size to big!</b></div>");   
+                                                }  
+                                                    if($CLIENT_UPLOAD== 3) {
+                                                echo("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> File ($CLIENT_FILE_COUNT) $CLIENT_FILE deleted</strong></div>\n");
+                                                    }          
+                                                    if($CLIENT_UPLOAD== 4) {
+                                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error file $CLIENT_FILE NOT deleted</strong></div>";
+                                                } 
+                                                
+                                                }
+                                                
+                                                $CLIENT_TASK= filter_input(INPUT_GET, 'CLIENT_TASK', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                
+                                                if(isset($CLIENT_TASK)){  
+                                                    if ($CLIENT_TASK =='CYD') {
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> CYD Task Updated!</div>";   
+                                                        
+                                                    }
+                                                    if ($CLIENT_TASK =='5 day') { 
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 5 Day Task Updated!</div>";  
+                                                        
+                                                    }
+                                                    if ($CLIENT_TASK =='24 48') {
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 24-48 Day Task Updated!</div>";
+                                                        
+                                                    } 
+                                                    if ($CLIENT_TASK =='18 day') {
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>"; 
+                                                        
+                                                    }
+                                                    
+                                                    }  
+                                                    
+                                    $CLIENT_EDIT= filter_input(INPUT_GET, 'CLIENT_EDIT', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    if(isset($CLIENT_EDIT)){
+                                        if ($CLIENT_EDIT == 1 ) {
+                                            print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client details updated!</div>");
+                                            
+                                        }
+                                        if ($CLIENT_EDIT == 0 ) {
+                                            print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Client details not updated!</div>");
+                                            
+                                        }
+                                        
+                                        }                                                   
+                
+                                                $CLIENT_POLICY= filter_input(INPUT_GET, 'CLIENT_POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                if(isset($CLIENT_POLICY)){
+                                                    if($CLIENT_POLICY==1){
+                                                    $CLIENT_POLICY_POL_NUM= filter_input(INPUT_GET, 'CLIENT_POLICY_POL_NUM', FILTER_SANITIZE_NUMBER_INT);
+                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM added<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
+                                                    }
+                                                }                                                      
                                                                 ?>

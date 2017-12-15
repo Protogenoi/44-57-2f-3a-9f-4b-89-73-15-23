@@ -163,29 +163,22 @@ client_id=:cid,
             $insert->bindParam(':polterm', $polterm, PDO::PARAM_STR);
             $insert->execute();
 
-
-            $notedata = "Policy Added";
             $messagedata = "Policy added $dupepol duplicate of $policy_number";
 
-            $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-            $query->bindParam(':clientidholder', $CID, PDO::PARAM_INT);
-            $query->bindParam(':sentbyholder', $hello_name, PDO::PARAM_STR, 100);
-            $query->bindParam(':recipientholder', $client_name, PDO::PARAM_STR, 500);
-            $query->bindParam(':noteholder', $notedata, PDO::PARAM_STR, 255);
-            $query->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
+            $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG ");
+            $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+            $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+            $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
+            $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
             $query->execute();
 
             $client_type = $pdo->prepare("UPDATE client_details set client_type='Life' WHERE client_id =:client_id");
             $client_type->bindParam(':client_id', $CID, PDO::PARAM_STR);
             $client_type->execute();
 
-            if (isset($fferror)) {
-                if ($fferror == '0') {
-
-                    header('Location: ../../Life/ViewClient.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
+                    header('Location: ../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
                     die;
-                }
-            }
+
         }
 
         $insert = $pdo->prepare("INSERT INTO client_policy set client_id=:cid, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
@@ -211,17 +204,14 @@ client_id=:cid,
         $insert->bindParam(':covera', $covera, PDO::PARAM_STR);
         $insert->bindParam(':polterm', $polterm, PDO::PARAM_STR);
         $insert->execute();
-
-
-        $notedata = "Policy Added";
+        
         $messagedata = "Policy $policy_number added";
 
-        $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
-        $query->bindParam(':clientidholder', $CID, PDO::PARAM_INT);
-        $query->bindParam(':sentbyholder', $hello_name, PDO::PARAM_STR, 100);
-        $query->bindParam(':recipientholder', $client_name, PDO::PARAM_STR, 500);
-        $query->bindParam(':noteholder', $notedata, PDO::PARAM_STR, 255);
-        $query->bindParam(':messageholder', $messagedata, PDO::PARAM_STR, 2500);
+        $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
+        $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
         $query->execute();
     }
 }
@@ -230,13 +220,13 @@ client_id=:cid,
 if (isset($fferror)) {
     if ($fferror == '0') {
 
-        header('Location: ../../Life/ViewClient.php?policyadded=y&search=' . $CID . '&policy_number=' . $policy_number);
+        header('Location: /../../../app/Client.php?CLIENT_POLICY=1&search=' . $CID . '&CLIENT_POLICY_POL_NUM=' . $policy_number);
         die;
     }
 }
 
 } else {
-     header('Location: ../../CRMmain.php?AccessDenied');
+     header('Location: /../../../CRMmain.php?AccessDenied');
     die;
 }
 ?>

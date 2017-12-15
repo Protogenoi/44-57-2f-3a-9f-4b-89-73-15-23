@@ -1,12 +1,12 @@
 <?php
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php'); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php'); 
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2); 
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../resources/lib/fpdf17/fpdf.php');
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../resources/lib/fpdf17/fpdf.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
 
 if (isset($fferror)) {
     if ($fferror == '1') {
@@ -183,8 +183,8 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
-if(file_exists("../../img/bluestone_protect_logo.png")){ 
-$pdf->Image('../../img/bluestone_protect_logo.png',80,6,40);
+if(file_exists("../../../img/bluestone_protect_logo.png")){ 
+$pdf->Image('../../../img/bluestone_protect_logo.png',80,6,40);
 }
 else{
  $pdf->Cell("COMPANY LOGO",140,6,40);   

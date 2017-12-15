@@ -219,7 +219,7 @@ if(isset($changereason)){
 }
     if(isset($fferror)) {
     if($fferror=='0') {
-   header('Location: ../ViewClient.php?clientedited=y&search='.$CID); die;
+   header('Location: /../../../app/Client.php?CLIENT_EDIT=1&search='.$CID); die;
     }
     }
     
@@ -229,7 +229,7 @@ if(isset($changereason)){
     if(isset($fferror)) {
     if($fferror=='0') {
     
-    header('Location: ../ViewClient.php?clientedited=n&search='.$CID); die;
+    header('Location: /../../../app/Client.php?CLIENT_EDIT=0&search='.$CID); die;
     }
     }
 }
@@ -237,6 +237,6 @@ if(isset($changereason)){
         }
     }
 
-header('Location: ../../../CRMmain.php?Clientadded=failed'); die;
+header('Location: /../../../CRMmain.php'); die;
 
 ?>

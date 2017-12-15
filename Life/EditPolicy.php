@@ -731,7 +731,7 @@ if(empty($POST_NAME)) {
 
 
 
-                                <a href="ViewClient.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                                <a href="/app/Client.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
 
                             </div>                                            
 

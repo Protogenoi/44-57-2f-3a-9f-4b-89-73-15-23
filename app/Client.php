@@ -96,10 +96,10 @@ if($search=='138583' && !(in_array($hello_name,$ACCESS_ALLOW))) {
         }
 
 if(in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-    require_once(__DIR__ . '/../Life/models/AllClientModel.php');
+    require_once(__DIR__ . '/models/AllClientModel.php');
     $ClientModel = new AllClientModel($pdo);
     $ClientList = $ClientModel->getAllSingleClient($search);
-    require_once(__DIR__ . '/../Life/views/Single-Client.php');
+    require_once(__DIR__ . '/views/Single-Client.php');
     
 } else {
     
@@ -325,11 +325,11 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Add Policy <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                        <li><a class="list-group-item" href="/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LANDG">Legal and General Policy</a></li>
-                        <li><a class="list-group-item" href="/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
-                        <li><a class="list-group-item" href="/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
-                        <li><a class="list-group-item" href="/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
-                        <li><a class="list-group-item" href="/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LANDG">Legal and General Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
                     <?php } ?>
 
                 </ul>
@@ -340,7 +340,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 <ul class="dropdown-menu">
                     <div class="list-group">
                         <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                            <li><a class="list-group-item" href="/Life/EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
+                            <li><a class="list-group-item" href="/addon/Life/EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
                         <?php } ?>
                         <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                             <li><a class="list-group-item" href="/app/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
@@ -391,7 +391,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             } else {
                                 ?>
-                                <a href="/Life/LifeDealSheet.php?REF=<?php echo $dealsheet_id; ?>&query=CompletedADL" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> ADL Dealsheet</a>
+                                <a href="/addon/Life/LifeDealSheet.php?REF=<?php echo $dealsheet_id; ?>&query=CompletedADL" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> ADL Dealsheet</a>
 
                                 <?php
                             }
@@ -605,57 +605,57 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
                         
                         if(isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/OldPoliciesModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/OldPoliciesModel.php');
                             $OldPolicies = new OldPoliciesModal($pdo);
                             $OldPoliciesList = $OldPolicies->getOldPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/Old-Policies.php');     
+                            require_once(__DIR__ . '/../addon/Life/views/Old-Policies.php');     
                             
                         } 
 
                         if(isset($HAS_NEW_LG_POL) && $HAS_NEW_LG_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/LGPoliciesModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/LGPoliciesModel.php');
                             $LGPolicies = new LGPoliciesModal($pdo);
                             $LGPoliciesList = $LGPolicies->getLGPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/LG-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/LG-Policies.php');
                         }
 
                         if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/VITALITYPoliciesModal.php');
+                            require_once(__DIR__ . '/../addon/Life/models/VITALITYPoliciesModal.php');
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/VITALITY-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/VITALITY-Policies.php');
 
                         }
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/WOLPoliciesModal.php');
+                            require_once(__DIR__ . '/../addon/Life/models/WOLPoliciesModal.php');
                             $WOLPolicies = new WOLPoliciesModal($pdo);
                             $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/WOL-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/WOL-Policies.php');
 
                         }
 
                         if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/RLPoliciesModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/RLPoliciesModel.php');
                             $RLPolicies = new RLPoliciesModal($pdo);
                             $RLPoliciesList = $RLPolicies->getRLPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/RL-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/RL-Policies.php');
                             
                         }
 
                         if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/AvivaPoliciesModal.php');
+                            require_once(__DIR__ . '/../addon/Life/models/AvivaPoliciesModal.php');
                             $AvivaPolicies = new AvivaPoliciesModal($pdo);
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/Aviva-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/Aviva-Policies.php');
                             
                         }
                         
                         if(isset($ENG_POL) && $ENG_POL == 1) {
-                            require_once(__DIR__ . '/../Life/models/EngageMutualPoliciesModal.php');
+                            require_once(__DIR__ . '/../addon/Life/models/EngageMutualPoliciesModal.php');
                             $EngageMutualPolicies = new EngageMutualPoliciesModal($pdo);
                             $EngageMutualPoliciesList = $EngageMutualPolicies->getEngageMutualPolicies($search);
-                            require_once(__DIR__ . '/../Life/views/EngageMutal-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/EngageMutal-Policies.php');
                         }                        
                         
                     } ?>
@@ -1081,29 +1081,29 @@ if (isset($fileuploadedfail)) {
                                 ?>
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
-                            <a class="list-group-item" href="/Life/Letters/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
-                            <a class="list-group-item" href="/Life/Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                
                             
                            
-                            <a class="list-group-item" href="/Life/Letters/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
                                 
-                            <a class="list-group-item" href="/Life/Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                
 
                                 
-                            <a class="list-group-item" href="/Life/Letters/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
                                 
-                            <a class="list-group-item" href="/Life/Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                
                                 
                             <a class="list-group-item confirmation" href="/addon/Life/Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
                                 
-                            <a class="list-group-item confirmation" href="/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                            <a class="list-group-item confirmation" href="/addon/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                
                             
                             <?php 
@@ -1112,7 +1112,7 @@ if (isset($fileuploadedfail)) {
                             <a class="list-group-item confirmation" href="/addon/Life/Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
                                 
-                            <a class="list-group-item confirmation" href="/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                            <a class="list-group-item confirmation" href="/addon/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>                                
                             
                                     <?php } ?>
@@ -1122,7 +1122,7 @@ if (isset($fileuploadedfail)) {
                                 <a class="list-group-item confirmation" href="/addon/Life/Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                     <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
                                     
-                                <a class="list-group-item confirmation" href="/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <a class="list-group-item confirmation" href="/addon/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                     <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                    
                                     
                                     
@@ -1132,24 +1132,24 @@ if (isset($fileuploadedfail)) {
                             <?php if (!empty($Single_Client['first_name2'])) { ?>
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
                                 
-                                <a class="list-group-item" href="/Life/Letters/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                    
                                 
                                 
-                                <a class="list-group-item" href="/Life/Letters/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                    
                                   
                                 
-                                <a class="list-group-item" href="/Life/Letters/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                    
                                
                                     <a class="list-group-item confirmation" href="/addon/Life/Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
@@ -1161,7 +1161,7 @@ if (isset($fileuploadedfail)) {
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
                                         
-                                    <a class="list-group-item confirmation" href="/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                    <a class="list-group-item confirmation" href="/addon/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
@@ -1180,7 +1180,7 @@ if (isset($fileuploadedfail)) {
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
                                 
-                                <a class="list-group-item confirmation" href="/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                <a class="list-group-item confirmation" href="/addon/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
@@ -1202,7 +1202,7 @@ if (isset($fileuploadedfail)) {
                         ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
                                         
-                                  <a class="list-group-item confirmation" href="/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                                  <a class="list-group-item confirmation" href="/addon/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
                         if (!empty($clienttwomail)) {
                             echo $clienttwomail;
                         } else {
@@ -1217,22 +1217,22 @@ if (isset($fileuploadedfail)) {
 
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 
-                                <a class="list-group-item" href="/Life/Letters/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Post Pack Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Post Pack Letter</a>                                    
 
-                                <a class="list-group-item" href="/Life/Letters/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Trust Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Trust Letter</a>                                    
                               
-                                <a class="list-group-item" href="/Life/Letters/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Reinstate Letter</a>
                                     
-                                <a class="list-group-item" href="/Life/Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; TRB Joint Reinstate Letter</a>                                    
                                     
                             <?php } ?>
@@ -1258,39 +1258,39 @@ if (isset($fileuploadedfail)) {
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
-                            <a class="list-group-item" href="/Life/<?php 
+                            <a class="list-group-item" href="/addon/Life/<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
                             if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                             
                            
-                            <a class="list-group-item" href="/Life/<?php 
+                            <a class="list-group-item" href="/addon/Life/<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
                             if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                             
 
                                 
-                            <a class="list-group-item" href="/Life/<?php 
+                            <a class="list-group-item" href="/addon/Life/<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                             if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                                 
-                            <a class="list-group-item confirmation" href="/Life/<?php 
+                            <a class="list-group-item confirmation" href="/addon/Life/<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
                             if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                             
                             <?php 
                             if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                            <a class="list-group-item confirmation" href="/Life/<?php 
+                            <a class="list-group-item confirmation" href="/addon/Life/<?php 
                             if($WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } 
                             if($WHICH_COMPANY=='The Review Bureau') { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                             <?php } ?>
                             
                             <?php if ($ffkeyfactsemail == '1') { ?>
-                                <a class="list-group-item confirmation" href="/Life/<?php 
+                                <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                     <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
@@ -1300,24 +1300,24 @@ if (isset($fileuploadedfail)) {
                             <?php if (!empty($Single_Client['first_name2'])) { ?>
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
                                 
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                                 
                                 
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                                   
                                 
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                                
-                                    <a class="list-group-item confirmation" href="/Life/<?php 
+                                    <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
                                     if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
@@ -1329,7 +1329,7 @@ if (isset($fileuploadedfail)) {
                                         <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                                 
                                 <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                                <a class="list-group-item confirmation" href="/Life/<?php 
+                                <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
@@ -1340,7 +1340,7 @@ if (isset($fileuploadedfail)) {
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                 
                                 <?php } if ($ffkeyfactsemail == '1') { ?>
-                                    <a class="list-group-item confirmation" href="/Life/<?php 
+                                    <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
                                     if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
                         if (!empty($clienttwomail)) {
@@ -1356,17 +1356,17 @@ if (isset($fileuploadedfail)) {
 
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
 
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                               
-                                <a class="list-group-item" href="/Life/<?php 
+                                <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
@@ -1902,10 +1902,10 @@ WHERE
           
           <?php
           
-                            require_once(__DIR__ . '/../Life/models/client/UserTrackingModel.php');
+                            require_once(__DIR__ . '/models/client/UserTrackingModel.php');
                             $UserTracking = new UserTrackingModal($pdo);
                             $UserTrackingList = $UserTracking->getUserTracking($search);
-                            require_once(__DIR__ . '/../Life/views/client/UserTracking.php'); 
+                            require_once(__DIR__ . '/views/client/UserTracking.php'); 
                             
                             
                             ?>
@@ -1926,46 +1926,46 @@ WHERE
 <?php
                             if(isset($HAS_NEW_LG_POL) && $HAS_NEW_LG_POL == 1 || isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1 ) {
 
-                            require_once(__DIR__ . '/../Life/models/financials/transactions/LGModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/LGModel.php');
                             $LGtrans = new LGtransModel($pdo);
                             $LGtransList = $LGtrans->getLGtrans($search);
-                            require_once(__DIR__ . '/../Life/views/financials/transactions/lg-view.php'); 
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/lg-view.php'); 
                             
                             }
                             
                             if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
                             
-                            require_once(__DIR__ . '/../Life/models/financials/transactions/VitModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/VitModel.php');
                             $VITtrans = new VITtransModel($pdo);
                             $VITtransList = $VITtrans->getVITtrans($search);
-                            require_once(__DIR__ . '/../Life/views/financials/transactions/vit-view.php');             
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/vit-view.php');             
                             
                             }
                             
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
                             
-                            require_once(__DIR__ . '/../Life/models/financials/transactions/RLModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/RLModel.php');
                             $RLtrans = new RLtransModel($pdo);
                             $RLtransList = $RLtrans->getRLtrans($search);
-                            require_once(__DIR__ . '/../Life/views/financials/transactions/rl-view.php');             
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/rl-view.php');             
                             
                             }   
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                             
-                            require_once(__DIR__ . '/../Life/models/financials/transactions/AVIModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/AVIModel.php');
                             $AVItrans = new AVItransModel($pdo);
                             $AVItransList = $AVItrans->getAVItrans($search);
-                            require_once(__DIR__ . '/../Life/views/financials/transactions/avi-view.php');             
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/avi-view.php');             
                             
                             }  
                             
                             if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                             
-                            require_once(__DIR__ . '/../Life/models/financials/transactions/WOLModel.php');
+                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/WOLModel.php');
                             $WOLtrans = new WOLtransModel($pdo);
                             $WOLtransList = $WOLtrans->getWOLtrans($search);
-                            require_once(__DIR__ . '/../Life/views/financials/transactions/wol-view.php');             
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/wol-view.php');             
                             
                             }                             
                        ?>                 </div>
@@ -2124,7 +2124,7 @@ WHERE
                         <br><br>
 
 
-                        <form name="ClientTaskForm" id="ClientTaskForm" class="form-horizontal" method="POST" action="/Life/php/ClientTaskPull.php?search=<?php echo "$search"; ?>">
+                        <form name="ClientTaskForm" id="ClientTaskForm" class="form-horizontal" method="POST" action="/addon/Life/php/ClientTaskPull.php?search=<?php echo "$search"; ?>">
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton"></label>

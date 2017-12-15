@@ -157,7 +157,7 @@ if ($count = $dupeck->rowCount() >= 1) {
     $queryNote->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
     $queryNote->execute();
 
-            header('Location: ../ViewClient.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
+            header('Location: /../../../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
             die;
             
 }
@@ -233,6 +233,6 @@ if (isset($changereason)) {
     $INSERT_NOTE->execute();
 }
 
-        header('Location: ../ViewClient.php?policyedited=y&search=' . $CID);
+        header('Location: /../../../../app/Client.php?CLIENT_POLICY=2&search=' . $CID .'&CLIENT_POLICY_POL_NUM='.$policy_number);
         die;
 ?>

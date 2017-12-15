@@ -539,5 +539,20 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                     
                 }
                  
-                }                                                
+                }    
+                
+                                                    $EMAIL_SENT= filter_input(INPUT_GET, 'EMAIL_SENT', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                    
+                                                    if(isset($EMAIL_SENT)){
+                                                        $CLIENT_EMAIL= filter_input(INPUT_GET, 'CLIENT_EMAIL', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                        $EMAIL_SENT_TO= filter_input(INPUT_GET, 'EMAIL_SENT_TO', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                        if($EMAIL_SENT == 1) {
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Email:</strong> $CLIENT_EMAIL sent to <b>$EMAIL_SENT_TO</b>!</div>";                                                            
+                                                        }
+                                                        if($EMAIL_SENT == 0) {
+                                                        echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Email:</strong> $CLIENT_EMAIL failed to <b>$EMAIL_SENT_TO</b>!</div>";                                                            
+                                                        }                                                        
+                                                    }
+                                                        
+                                                                    
                                                                 ?>

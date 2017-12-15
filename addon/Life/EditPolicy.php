@@ -29,25 +29,32 @@
  * 
 */  
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=1;
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -58,8 +65,8 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
         
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         
@@ -80,12 +87,12 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 2) {
             
-        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
         
-        require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+        require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -116,7 +123,7 @@ if (isset($fferror)) {
 <body>
 
     <?php
-    require_once(__DIR__ . '/../includes/navbar.php');
+    require_once(__DIR__ . '/../../includes/navbar.php');
 
         $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -145,7 +152,7 @@ if(empty($POST_NAME)) {
    
     ?>
     <div class="container">
-        <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+        <?php require_once(__DIR__ . '/../../includes/user_tracking.php');  ?>
         <div class="editpolicy">
             <div class="notice notice-warning">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -157,7 +164,7 @@ if(empty($POST_NAME)) {
                     <div class="panel-heading">Edit Policy</div>
                     <div class="panel-body">
 
-                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life//php/EditPolicy.php" enctype="multipart/form-data">
+                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life/php/EditPolicy.php">
                             <input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
 
                             <input type="hidden" name="NAME2" value="<?php if(isset($NAME2)) { echo $NAME2; } ?>">
@@ -628,7 +635,7 @@ if(empty($POST_NAME)) {
                                     <label for="closer">Closer:</label>
                                     <input type='text' id='closer' name='closer' style="width: 140px" value="<?php echo $data2["closer"]; ?>" required>
                                     <script>var options = {
-                                            url: "/../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -642,7 +649,7 @@ if(empty($POST_NAME)) {
                                     <label for="lead">Lead Gen:</label>
                                     <input type='text' id='lead' name='lead' style="width: 140px" value="<?php echo $data2["lead"]; ?>" required>
                                     <script>var options = {
-                                            url: "/../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            url: "/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                             getValue: "full_name",
                                             list: {
                                                 match: {
@@ -724,7 +731,7 @@ if(empty($POST_NAME)) {
 
 
 
-                                <a href="ViewClient.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                                <a href="/app/Client.php?search=<?php echo $search ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
 
                             </div>                                            
 
@@ -735,12 +742,6 @@ if(empty($POST_NAME)) {
         </div>
     </div>
 
-
-</div>
-</div>
-</div>
-</div>
-</div>
 <script>
     document.querySelector('#from1').addEventListener('submit', function (e) {
         var form = this;
@@ -775,7 +776,6 @@ if(empty($POST_NAME)) {
 </script>
 
 <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
-
 <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script>
     $(function () {

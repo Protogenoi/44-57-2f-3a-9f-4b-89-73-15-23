@@ -40,8 +40,8 @@ $companynamere = $companydetailsq['company_name'];
 $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 
 $ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
-$COM_MANAGER_ACCESS = array("Michael");
-$COM_LVL_10_ACCESS = array("Michael");
+$COM_MANAGER_ACCESS = array("Michmael");
+$COM_LVL_10_ACCESS = array("Michamel");
 $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $COMPANY_ENTITY_ID="1";

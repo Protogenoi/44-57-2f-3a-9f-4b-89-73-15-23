@@ -1,17 +1,26 @@
 <?php 
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php"); 
 $page_protect = new Access_user;
-$page_protect->access_page($_SERVER['PHP_SELF'], "", 3);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../classes/database_class.php');
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../../../includes/user_tracking.php');
+
+require_once(__DIR__ . '/../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -21,6 +30,22 @@ if (isset($fferror)) {
         error_reporting(E_ALL);
     }
 }
+
+        require_once(__DIR__ . '/../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../class/login/login.php');
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: /../../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 
 $option= filter_input(INPUT_POST, 'Taskoption', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -33,14 +58,14 @@ if(isset($option)) {
     $PitchTPS= filter_input(INPUT_POST, 'PitchTPS', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $PitchTrust= filter_input(INPUT_POST, 'PitchTrust', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $Upsells= filter_input(INPUT_POST, 'Upsells', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     $POST_ARRIVED = filter_input(INPUT_POST, 'PostArrived', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $POST_RETURNED = filter_input(INPUT_POST, 'PostReturned', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
-    $SELECTquery = $pdo->prepare("SELECT Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks WHERE client_id=:cid");
-    $SELECTquery->bindParam(':cid', $search, PDO::PARAM_INT); 
+    $SELECTquery = $pdo->prepare("SELECT Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks WHERE client_id=:CID");
+    $SELECTquery->bindParam(':CID', $CID, PDO::PARAM_INT); 
     $SELECTquery->execute();
     $result=$SELECTquery->fetch(PDO::FETCH_ASSOC);
     
@@ -144,7 +169,7 @@ if(isset($option)) {
         
     }
 
-        $query = $pdo->prepare("UPDATE Client_Tasks set post_returned=:RETURN, post_arrived=:ARRIVED, Upsells=:Upsells, PitchTrust=:PitchTrust, PitchTPS=:PitchTPS, RemindDD=:RemindDD, CYDReturned=:CYDReturned, DocsArrived=:DocsArrived, HappyPol=:HappyPol WHERE client_id=:cid");
+        $query = $pdo->prepare("UPDATE Client_Tasks set post_returned=:RETURN, post_arrived=:ARRIVED, Upsells=:Upsells, PitchTrust=:PitchTrust, PitchTPS=:PitchTPS, RemindDD=:RemindDD, CYDReturned=:CYDReturned, DocsArrived=:DocsArrived, HappyPol=:HappyPol WHERE client_id=:CID");
         $query->bindParam(':ARRIVED', $POST_ARRIVED, PDO::PARAM_STR);
         $query->bindParam(':RETURN', $POST_RETURNED, PDO::PARAM_STR);
         $query->bindParam(':HappyPol', $HappyPol, PDO::PARAM_STR);
@@ -154,37 +179,37 @@ if(isset($option)) {
         $query->bindParam(':PitchTPS', $PitchTPS, PDO::PARAM_STR);
         $query->bindParam(':PitchTrust', $PitchTrust, PDO::PARAM_STR);
         $query->bindParam(':Upsells', $Upsells, PDO::PARAM_STR);
-        $query->bindParam(':cid', $search, PDO::PARAM_INT); 
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT); 
         $query->execute();
         
     if($option=='24 48') {
     
-        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:cid AND Task IN('5 day','24 48','CYD')");
-        $complete->bindParam(':cid', $search, PDO::PARAM_INT); 
+        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:CID AND Task IN('5 day','24 48','CYD')");
+        $complete->bindParam(':CID', $CID, PDO::PARAM_INT); 
         $complete->execute();           
     }    
     
         if($option =='5 day') {
     
-        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:cid AND Task IN('5 day','24 48','CYD')");
-        $complete->bindParam(':cid', $search, PDO::PARAM_INT); 
+        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:CID AND Task IN('5 day','24 48','CYD')");
+        $complete->bindParam(':CID', $CID, PDO::PARAM_INT); 
         $complete->execute();    
         
     } 
         
    if($option !='5 day' || $option !='24 48') { 
         
-        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:cid AND Task=:Taskoption");        
+        $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:CID AND Task=:Taskoption");        
         $complete->bindParam(':Taskoption', $option, PDO::PARAM_STR);
-        $complete->bindParam(':cid', $search, PDO::PARAM_INT); 
+        $complete->bindParam(':CID', $CID, PDO::PARAM_INT); 
         $complete->execute();
         
    }
    
    if($CYDReturned=='Yes complete with Legal and General' || $CYDReturned=='Yes Legal and General not received' || $CYDReturned=='No') {
    
-       $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:cid AND Task='CYD'");
-       $complete->bindParam(':cid', $search, PDO::PARAM_INT); 
+       $complete = $pdo->prepare("UPDATE Client_Tasks set complete='1' WHERE client_id=:CID AND Task='CYD'");
+       $complete->bindParam(':CID', $CID, PDO::PARAM_INT); 
        $complete->execute(); 
        
        if($CYDnotes!="No changes") {
@@ -192,12 +217,12 @@ if(isset($option)) {
         $notetypedata= "Task CYD";
         $recept="Task Updated";
                 
-        $noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:hello_name, note_type=:noteholder, message=:message ");
-        $noteinsert->bindParam(':CID',$search, PDO::PARAM_INT);
-        $noteinsert->bindParam(':hello_name',$hello_name, PDO::PARAM_STR, 100);
+        $noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:HELLO, note_type=:NOTE, message=:MSG ");
+        $noteinsert->bindParam(':CID',$CID, PDO::PARAM_INT);
+        $noteinsert->bindParam('HELLO',$hello_name, PDO::PARAM_STR, 100);
         $noteinsert->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
-        $noteinsert->bindParam(':noteholder',$notetypedata, PDO::PARAM_STR, 255);
-        $noteinsert->bindParam(':message',$CYDnotes, PDO::PARAM_STR, 2500);
+        $noteinsert->bindParam(':NOTE',$notetypedata, PDO::PARAM_STR, 255);
+        $noteinsert->bindParam(':MSG',$CYDnotes, PDO::PARAM_STR, 2500);
         $noteinsert->execute();
         
    }
@@ -259,23 +284,23 @@ if(isset($option)) {
         
     }
     
-$noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:hello_name, note_type=:noteholder, message=:message ");
-$noteinsert->bindParam(':CID',$search, PDO::PARAM_INT);
-$noteinsert->bindParam(':hello_name',$hello_name, PDO::PARAM_STR, 100);
+$noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:HELLO, note_type=:NOTE, message=:MSG ");
+$noteinsert->bindParam(':CID',$CID, PDO::PARAM_INT);
+$noteinsert->bindParam('HELLO',$hello_name, PDO::PARAM_STR, 100);
 $noteinsert->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
-$noteinsert->bindParam(':noteholder',$notetypedata, PDO::PARAM_STR, 255);
-$noteinsert->bindParam(':message',$notes, PDO::PARAM_STR, 2500);
+$noteinsert->bindParam(':NOTE',$notetypedata, PDO::PARAM_STR, 255);
+$noteinsert->bindParam(':MSG',$notes, PDO::PARAM_STR, 2500);
 $noteinsert->execute();
 
 if(isset($EXECUTE)) {
     if($EXECUTE=='1') {
-      header('Location: ../Reports/Tasks.php?REF='.$search.'&TaskSelect='.$option); die;  
+      header('Location: ../Reports/Tasks.php?REF='.$CID.'&CLIENT_TASK='.$option); die;  
     }
 } else {
- header('Location: ../ViewClient.php?search='.$search.'&TaskSelect='.$option.'#menu4'); die;   
+ header('Location: /../../../../../app/Client.php?search='.$CID.'&CLIENT_TASK='.$option.'#menu4'); die;   
 }
  
     }
 
-         header('Location: ../../CRMmain.php'); die; 
-         
+         header('Location: /../../../../../CRMmain.php'); die; 
+?>

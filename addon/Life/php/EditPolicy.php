@@ -36,21 +36,21 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../../includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -157,7 +157,7 @@ if ($count = $dupeck->rowCount() >= 1) {
     $queryNote->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
     $queryNote->execute();
 
-            header('Location: ../ViewClient.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
+            header('Location: /../../../../../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
             die;
             
 }
@@ -233,6 +233,6 @@ if (isset($changereason)) {
     $INSERT_NOTE->execute();
 }
 
-        header('Location: ../ViewClient.php?policyedited=y&search=' . $CID);
+        header('Location: /../../../../../../app/Client.php?CLIENT_POLICY=2&search=' . $CID .'&CLIENT_POLICY_POL_NUM='.$policy_number);
         die;
 ?>

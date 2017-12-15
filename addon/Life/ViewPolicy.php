@@ -29,27 +29,27 @@
  * 
 */  
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=1;
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -60,8 +60,8 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -71,7 +71,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 3) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -169,11 +169,11 @@ if (isset($hello_name)) {
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
     
     <div class="container">
         
-         <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+         <?php require_once(__DIR__ . '/../../includes/user_tracking.php');  ?>
         
         <div class="policyview">
             <div class="notice notice-info fade in">
@@ -342,7 +342,7 @@ ews_data.policy_number
                                                     <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
                                                         <button id="button1id" name="button1id" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Update</button>
                                                     <?php } ?>
-                                                    <a href="ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
+                                                    <a href="/app/Client.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
                                                     <a href="EditPolicy.php?id=<?php echo $policyID; ?>&search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
                                                     <br><br>
                                                 </div>

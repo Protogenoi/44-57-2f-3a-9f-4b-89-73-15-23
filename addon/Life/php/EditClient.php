@@ -36,22 +36,22 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../../includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../classes/database_class.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../classes/database_class.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -219,7 +219,7 @@ if(isset($changereason)){
 }
     if(isset($fferror)) {
     if($fferror=='0') {
-   header('Location: ../ViewClient.php?clientedited=y&search='.$CID); die;
+   header('Location: /../../../../../app/Client.php?CLIENT_EDIT=1&search='.$CID); die;
     }
     }
     
@@ -229,7 +229,7 @@ if(isset($changereason)){
     if(isset($fferror)) {
     if($fferror=='0') {
     
-    header('Location: ../ViewClient.php?clientedited=n&search='.$CID); die;
+    header('Location: /../../../../../app/Client.php?CLIENT_EDIT=0&search='.$CID); die;
     }
     }
 }
@@ -237,6 +237,6 @@ if(isset($changereason)){
         }
     }
 
-header('Location: ../../../CRMmain.php?Clientadded=failed'); die;
+header('Location: /../../../../../CRMmain.php'); die;
 
 ?>

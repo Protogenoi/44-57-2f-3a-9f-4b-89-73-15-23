@@ -1,11 +1,14 @@
 <table id="ClientListTable" class="table table-hover">
     <thead>
         <tr>
-            <th colspan='7'>One Family Policies</th>
+            <th colspan='7'>Royal London Policies</th>
         </tr>
         <tr>
             <th>Client</th>
             <th>Policy</th>
+            <th>Type</th>
+            <th>Comm Type</th>
+            <th>Term</th>
             <th>Premium</th>
             <th>Cover</th>
             <th>Status</th>
@@ -14,25 +17,19 @@
             <th colspan="4">Options</th>
         </tr>
     </thead> 
-
-    <?php foreach ($WOLPoliciesList as $WOL_Policies): ?>
+    <?php foreach ($RLPoliciesList as $RL_Policies): ?>
 
 
         <?php
-        $PID = $WOL_Policies['id'];
-        $polref = $WOL_Policies['policy_number'];
-        $polcap[] = $WOL_Policies['id'];
-        $POL_HOLDER = $WOL_Policies['client_name'];
+        $PID = $RL_Policies['id'];
+        $polref = $RL_Policies['policy_number'];
+        $polcap[] = $RL_Policies['id'];
+        $POL_HOLDER = $RL_Policies['client_name'];
 
-        $ADLSTATUS = $WOL_Policies['ADLSTATUS'];
-        $EWSSTATUS = $WOL_Policies['warning'];
+        $ADLSTATUS = $RL_Policies['ADLSTATUS'];
+        $EWSSTATUS = $RL_Policies['warning'];
         
-        if(!empty($WOL_Policies['covera'])) {
-        $COVER_AMOUNT = number_format($WOL_Policies['covera'],2);
-        
-        } else {
-            $COVER_AMOUNT=0;
-        }
+        $COVER_AMOUNT = number_format($RL_Policies['covera'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -41,18 +38,20 @@
         } else {
             echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
         }
-
-        echo "<td>£" . $WOL_Policies['premium'] . "</td>";
+        echo "<td>" . $RL_Policies['type'] . "</td>";
+        echo "<td>" . $RL_Policies['CommissionType'] . "</td>";
+        echo "<td>" . $RL_Policies['polterm'] . "</td>";
+        echo "<td>£" . $RL_Policies['premium'] . "</td>";
         echo "<td>£$COVER_AMOUNT</td>";
 
-        if ($WOL_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $WOL_Policies['PolicyStatus'] == 'Declined') {
-            echo "<td><span class=\"label label-danger\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";
-        } elseif ($WOL_Policies['PolicyStatus'] == 'PENDING' || $WOL_Policies['PolicyStatus'] == 'Live Awaiting Policy Number' || $WOL_Policies['PolicyStatus'] == 'Awaiting Policy Number') {
-            echo "<td><span class=\"label label-warning\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";
-        } elseif ($WOL_Policies['PolicyStatus'] == 'SUBMITTED-LIVE' || $WOL_Policies['PolicyStatus'] == 'Live') {
-            echo "<td><span class=\"label label-success\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";
+        if ($RL_Policies['PolicyStatus'] == 'CLAWBACK' || ['PolicyStatus'] == 'CLAWBACK-LAPSE' || $RL_Policies['PolicyStatus'] == 'Declined') {
+            echo "<td><span class=\"label label-danger\">" . $RL_Policies['PolicyStatus'] . "</span></td>";
+        } elseif ($RL_Policies['PolicyStatus'] == 'PENDING' || $RL_Policies['PolicyStatus'] == 'Live Awaiting Policy Number' || $RL_Policies['PolicyStatus'] == 'Awaiting Policy Number') {
+            echo "<td><span class=\"label label-warning\">" . $RL_Policies['PolicyStatus'] . "</span></td>";
+        } elseif ($RL_Policies['PolicyStatus'] == 'SUBMITTED-LIVE' || $RL_Policies['PolicyStatus'] == 'Live') {
+            echo "<td><span class=\"label label-success\">" . $RL_Policies['PolicyStatus'] . "</span></td>";
         } else {
-            echo "<td><span class=\"label label-default\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";
+            echo "<td><span class=\"label label-default\">" . $RL_Policies['PolicyStatus'] . "</span></td>";
         }
 
         if ($ADLSTATUS != $EWSSTATUS) {
@@ -102,15 +101,15 @@
             }
         }
 
-        if (($WOL_Policies['financials_payment'])) {
+        if (($RL_Policies['financials_payment'])) {
             echo "<td><span class='label label-warning'>On Financial</span> </td>";
         } else {
 
-            echo "<td>" . $WOL_Policies['financials_payment'] . " </td>";
+            echo "<td> </td>";
         }
 
-        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
-        echo "<td><a href='EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
+        echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+        echo "<td><a href='/addon/Life/EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
 
         if ($companynamere == 'Bluestone Protect') {
             if (in_array($hello_name, $Level_10_Access, true)) {

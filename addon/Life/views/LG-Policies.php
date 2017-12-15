@@ -129,10 +129,8 @@
         if (file_exists("../uploads/LG/PolSummary/$TRIM_POL")) {
         echo "<td><a class='btn btn-default btn-xs' href='../uploads/LG/PolSummary/$TRIM_POL' target='_blank'> <i class='fa fa-file-pdf-o'></i> </a></td>";
         }
-        echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
-        echo "<td><a href='EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
-
-        if ($companynamere == 'Bluestone Protect') {
+        echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
+        echo "<td><a href='/addon/Life/EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
             if (in_array($hello_name, $Level_10_Access, true)) {
 
 
@@ -143,11 +141,9 @@
                                                                                             </form>
                                                                                             </td>";
             }
-        }
-
 
         if (!empty($EWSSTATUS)) {
-            echo "<td><a href='Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
+            echo "<td><a href='/addon/Life/Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
         }
         echo "</tr>";
         ?>

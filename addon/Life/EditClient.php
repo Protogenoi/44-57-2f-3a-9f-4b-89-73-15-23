@@ -29,27 +29,27 @@
  * 
 */  
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=1;
 
-require_once(__DIR__ . '/../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -68,8 +68,8 @@ if ($ffpost_code == '1') {
     $PostCodeKey = $PDre['api_key'];
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
+        require_once(__DIR__ . '/../../classes/database_class.php');
+        require_once(__DIR__ . '/../../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -79,7 +79,7 @@ if ($ffpost_code == '1') {
         
         if($ACCESS_LEVEL < 3) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -146,7 +146,7 @@ if ($ffpost_code == '1') {
 
     <body>
         <?php
-        require_once(__DIR__ . '/../includes/navbar.php');
+        require_once(__DIR__ . '/../../includes/navbar.php');
 
         $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
         
@@ -169,7 +169,7 @@ if ($ffpost_code == '1') {
 
 
             <div class="container">
-<?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+<?php require_once(__DIR__ . '/../../includes/user_tracking.php');  ?>
                 <div class="editclient">
                     <div class="notice notice-warning">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -554,13 +554,10 @@ if ($ffpost_code == '1') {
                                         <br>
                                         <select class="form-control" name="changereason" required>
                                             <option value="">Select update reason...</option>
-                                            <option value="Incorrect Client Name">Incorrect client name (1)</option>
-                                            <option value="Incorrect DOB">Incorrect DOB (1)</option>
+                                            <option value="Incorrect Client Name">Incorrect client name</option>
+                                            <option value="Incorrect DOB">Incorrect DOB</option>
                                             <option value="Added Email Address">Added Email Address</option>
-                                            <option value="Incorrect email">Incorrect email address (1)</option>
-                                            <option value="Incorrect Client Name 2">Incorrect client name (2)</option>
-                                            <option value="Incorrect DOB 2">Incorrect DOB (2)</option>
-                                            <option value="Incorrect email 2">Incorrect email address (2)</option>
+                                            <option value="Incorrect email">Incorrect email address</option>
                                             <option value="Incorrect Contact number">Incorrect phone number(s)</option>
                                             <option value="Incorrect Contact address">Incorrect address</option>
                                             <option value="Moved address">Moved address</option>
@@ -584,7 +581,7 @@ if ($ffpost_code == '1') {
                                         <button class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
 
                                 </form>
-                                <a href="/Life/ViewClient.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
+                                <a href="/app/Client.php?search=<?php echo $search; ?>" class="btn btn-warning"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
                             </div>
                         </div>
                     </div>

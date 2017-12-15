@@ -275,20 +275,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
 
          }
      }      
-
-                $Updated= filter_input(INPUT_GET, 'Updated', FILTER_SANITIZE_SPECIAL_CHARS);
-                
-                if(isset($Updated)){                  
-                if ($Updated =='EWS') {
-                    
-                    $policy_number= filter_input(INPUT_GET, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
-                    
-                    echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> EWS Updated for policy $policy_number!</div>";
-                    
-                }
-                 
-                }
-            
+           
             $Callback= filter_input(INPUT_GET, 'Callback', FILTER_SANITIZE_SPECIAL_CHARS);
             if(isset($Callback)){   
                 $Callback= filter_input(INPUT_GET, 'Callback', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -540,5 +527,17 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                     if($CLIENT_POLICY==2){
                                                     print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM updated!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
                                                     }                                                    
-                                                }                                                      
+                                                }    
+                                                
+
+                $CLIENT_EWS= filter_input(INPUT_GET, 'CLIENT_EWS', FILTER_SANITIZE_SPECIAL_CHARS);
+                
+                if(isset($CLIENT_EWS)){  
+                    $CLIENT_POLICY_POL_NUM= filter_input(INPUT_GET, 'CLIENT_POLICY_POL_NUM', FILTER_SANITIZE_NUMBER_INT);
+                if ($CLIENT_EWS =='1') {
+                    echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> EWS Updated for policy $CLIENT_POLICY_POL_NUM!</div>";
+                    
+                }
+                 
+                }                                                
                                                                 ?>

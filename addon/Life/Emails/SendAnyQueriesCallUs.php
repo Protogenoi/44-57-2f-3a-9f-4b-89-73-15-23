@@ -61,14 +61,7 @@ $emailsubjectdb="Any queries?";
         $emaildisplaynamedb=$queryr['displayname'];
         $passworddb=$queryr['password'];
         $emaildb=$queryr['email'];
-        $signat=html_entity_decode($queryr['sig']);
-        
-                $closerq = $pdo->prepare("SELECT closer FROM client_policy WHERE client_id=:CID LIMIT 1");
-                $closerq->bindParam(':CID', $CID, PDO::PARAM_STR);
-                $closerq->execute()or die(print_r($closerq->errorInfo(), true));
-                $closer_name=$closerq->fetch(PDO::FETCH_ASSOC);
-
-$CLOSER_NAME=$closer_name['closer'];
+        $signat=html_entity_decode($queryr['sig']);      
         
 if($companynamere=='Bluestone Protect') {
 

@@ -6,21 +6,21 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../../../../includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../../../../includes/user_tracking.php'); 
-require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
-require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -31,7 +31,7 @@ if (isset($fferror)) {
     }
 } 
 
-require_once(__DIR__ . '/../../../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
+require_once(__DIR__ . '/../../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 
 $CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
 
@@ -63,8 +63,8 @@ $emailsubjectdb="Any queries?";
         $emaildb=$queryr['email'];
         $signat=html_entity_decode($queryr['sig']);
         
-                $closerq = $pdo->prepare("select closer from client_policy where client_id=:id limit 1");
-                $closerq->bindParam(':id', $CID, PDO::PARAM_STR);
+                $closerq = $pdo->prepare("SELECT closer FROM client_policy WHERE client_id=:CID LIMIT 1");
+                $closerq->bindParam(':CID', $CID, PDO::PARAM_STR);
                 $closerq->execute()or die(print_r($closerq->errorInfo(), true));
                 $closer_name=$closerq->fetch(PDO::FETCH_ASSOC);
 
@@ -303,7 +303,6 @@ p, ul, ol {
 </body>
 </html>";
 
-
 $body = $message;
 $mail             = new PHPMailer();
 $mail->IsSMTP(); 
@@ -327,6 +326,15 @@ $mail->Body    = $body;
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
   
+   $message="for any queries call us email failed ($email)!";
+  
+                $noteq = $pdo->prepare("INSERT into client_note set client_id=:CID, note_type='Email Failed', client_name=:ref, message=:message, sent_by=:sent");
+                $noteq->bindParam(':CID', $CID, PDO::PARAM_STR);
+                $noteq->bindParam(':sent', $hello_name, PDO::PARAM_STR);
+                $noteq->bindParam(':message', $message, PDO::PARAM_STR);
+                $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);
+                $noteq->execute()or die(print_r($noteq->errorInfo(), true));  
+  
   header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=0&CLIENT_EMAIL=Any queries&EMAIL_SENT_TO='.$email); die;
   
 } 
@@ -335,8 +343,8 @@ if(!$mail->Send()) {
 
 $message="for any queries call us email sent ($email)";
 
-                $noteq = $pdo->prepare("INSERT into client_note set client_id=:id, note_type='Email Sent', client_name=:ref, message=:message, sent_by=:sent");
-                $noteq->bindParam(':id', $CID, PDO::PARAM_STR);
+                $noteq = $pdo->prepare("INSERT into client_note set client_id=:CID, note_type='Email Sent', client_name=:ref, message=:message, sent_by=:sent");
+                $noteq->bindParam(':CID', $CID, PDO::PARAM_STR);
                 $noteq->bindParam(':sent', $hello_name, PDO::PARAM_STR);
                 $noteq->bindParam(':message', $message, PDO::PARAM_STR);
                 $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);

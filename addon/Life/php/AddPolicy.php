@@ -62,7 +62,7 @@ if (isset($fferror)) {
     }
 } 
 
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+if (in_array($hello_name, $Level_3_Access, true)) { 
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -115,8 +115,6 @@ if (isset($EXECUTE)) {
         $row = $dupeck->fetch(PDO::FETCH_ASSOC);
         if ($count = $dupeck->rowCount() >= 1) {
             $dupepol = "$row[policy_number] DUPE";
-
-            echo "duepde $dupepol";
 
             $insert = $pdo->prepare("INSERT INTO client_policy set 
 client_id=:cid,
@@ -216,14 +214,8 @@ client_id=:cid,
     }
 }
 
-
-if (isset($fferror)) {
-    if ($fferror == '0') {
-
         header('Location: /../../../../../app/Client.php?CLIENT_POLICY=1&search=' . $CID . '&CLIENT_POLICY_POL_NUM=' . $policy_number);
         die;
-    }
-}
 
 } else {
      header('Location: /../../../../../CRMmain.php?AccessDenied');

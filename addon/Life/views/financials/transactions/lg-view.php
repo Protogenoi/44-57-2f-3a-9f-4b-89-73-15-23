@@ -24,7 +24,7 @@
 
                                     echo '<tr>';
                                     echo "<td>" . $LG_TRANS['insert_date'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $LG_TRANS['Policy'] . "</a></td>";
+                                    echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $LG_TRANS['Policy'] . "</a></td>";
                                     echo "<td>" . $LG_TRANS['CommissionType'] . "</td>";
                                     echo "<td>" . $LG_TRANS['policystatus'] . "</td>";
                                     echo "<td>" . $LG_TRANS['closer'] . "</td>";

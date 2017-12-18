@@ -24,7 +24,7 @@
 
                                     echo '<tr>';
                                     echo "<td>" . $RL_TRANS['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $RL_TRANS['policy_number'] . "</a></td>";
+                                    echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $RL_TRANS['policy_number'] . "</a></td>";
                                     echo "<td>" . $RL_TRANS['type'] . "</td>";
                                     echo "<td>" . $RL_TRANS['policystatus'] . "</td>";
                                     echo "<td>" . $RL_TRANS['closer'] . "</td>";

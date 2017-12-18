@@ -24,7 +24,7 @@
 
                                     echo '<tr>';
                                     echo "<td>" . $VIT_TRANS['financials_insert'] . "</td>";
-                                    echo "<td><a href='ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $VIT_TRANS['policy_number'] . "</a></td>";
+                                    echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY'>" . $VIT_TRANS['policy_number'] . "</a></td>";
                                     echo "<td>" . $VIT_TRANS['type'] . "</td>";
                                     echo "<td>" . $VIT_TRANS['policystatus'] . "</td>";
                                     echo "<td>" . $VIT_TRANS['closer'] . "</td>";

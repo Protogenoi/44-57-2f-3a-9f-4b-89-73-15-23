@@ -404,26 +404,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                         $emailaddress= filter_input(INPUT_GET, 'emailto', FILTER_SANITIZE_EMAIL);
                                                         print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> Email sent to <b>$emailaddress</b> !</div>");
                                                         }
-                                                    }
-                                                    
-                                                $EmailMAD= filter_input(INPUT_GET, 'EmailMAD', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                    
-                                                    if(isset($EmailMAD)){
-                                                        
-                                                        $emailaddress= filter_input(INPUT_GET, 'emailto', FILTER_SANITIZE_EMAIL);
-                                                        if($EmailMAD='1') {
-                                                            
-                                                        }
-                                                        
-                                                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> My Account Details email sent to <b>$emailaddress</b> !</div>");
-                                                        if($EmailMAD='0') {
-                                                            
-                                                        print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> My Account Details email failed!</div>");
-   
-                                                            
-                                                        }
-                                                    }   
-                                                    
+                                                    }                                                                                                      
                                                 
                                                 $workflow= filter_input(INPUT_GET, 'workflow', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($workflow)){

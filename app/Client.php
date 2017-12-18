@@ -2702,13 +2702,12 @@ WHERE
 <?php if ($ffclientemails == '1') { ?>
 
                             <form class="AddClient" method="post" action="<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails/"; } 
+                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Emails/TRB"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data">
 
-                                <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                <input type="hidden" name="search" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?>" readonly>
                                 <input type="hidden" name="email" value="<?php echo $Single_Client['email2']; ?>" readonly>
-                                <input type="hidden" name="note_type" value="Email Sent">
 
                                 <p>
                                     <label for="subject">Subject</label>
@@ -2753,13 +2752,12 @@ WHERE
 <?php if ($ffclientemails == '1') { ?>
 
                             <form class="AddClient" method="post" action="<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) {  echo "../email/php"; } ?>/ViewClientEmailSend.php?life=y" enctype="multipart/form-data" novalidate>
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails/"; } 
+                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) {  echo "Emails/TRB"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data" novalidate>
 
-                                <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                <input type="hidden" name="search" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?>" readonly>
                                 <input type="hidden" name="email" value="<?php echo $Single_Client['email']; ?>" readonly>
-                                <input type="hidden" name="note_type" value="Email Sent">
 
                                 <p>
                                     <label for="subject">Subject</label>

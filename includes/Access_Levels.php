@@ -50,8 +50,8 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
     $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola");
-    $Level_3_Access = array("Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Keith", "Ryan", "David","Richard","James Adams");
-    $Level_1_Access = array("Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Ryan", "Keith","David","Darryl","Gavin","James Adams");
+    $Level_3_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Keith", "Ryan", "David","Richard","James Adams");
+    $Level_1_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina", 'Heidy', 'Amy', "Audits", "Ryan", "Keith","David","Darryl","Gavin","James Adams");
     
     $Task_Access = array("Ciara","Jakob");
     
@@ -59,11 +59,11 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $Agent_Access = array("Bob Jones");
     $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey","Gavin");
-    $Manager_Access = array("Corey Divetta","Hayley Hutchinson","Sarah Wallace","Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Ryan","Amy","Jakob","James Adams");
+    $Manager_Access = array("Martin Smith","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Richard", "Keith", "Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Ryan","Amy","Jakob","James Adams");
 
     $EWS_SEARCH_ACCESS=array("");
     $ADMIN_EWS_SEARCH_ACCESS=array("carys","Nicola","Michael","Matt");
-    $OLD_CLIENT_SEARCH=array("Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
+    $OLD_CLIENT_SEARCH=array("Martin Smith","Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     
     ///Advanced Admin Search
     $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara");

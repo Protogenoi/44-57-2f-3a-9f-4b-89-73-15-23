@@ -727,7 +727,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         echo "SMS/Send.php";
                                     } ?>">
 
-                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                        <input type="hidden" name="search" value="<?php echo $search; ?>">
                                         <div class="form-group">
 
                                             <label for="selectsms">Message:</label>
@@ -823,7 +823,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 echo "SMS/CusSend.php?EXECUTE=1";
             } ?>">
 
-                                            <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                            <input type="hidden" name="search" value="<?php echo $search; ?>">
                                             <div class="form-group">
                                                 <label for="message">Custom MSG:</label>
                                                 <textarea class="form-control" name="message" required></textarea>

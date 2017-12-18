@@ -65,7 +65,7 @@ if (isset($fferror)) {
 $selectopt= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 $WHICH_COMPANY= filter_input(INPUT_POST, 'SMS_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$CID= filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_NUMBER_INT);
+$CID= filter_input(INPUT_POST, 'search', FILTER_SANITIZE_NUMBER_INT);
 
 $num= filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_SPECIAL_CHARS);
 $CLIENT_NAME= filter_input(INPUT_POST, 'FullName', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -196,7 +196,7 @@ if(isset($EXECUTE)) {
 }
 }
 
-require_once(__DIR__ . '/../../resources/lib/twilio-php-master/Twilio/autoload.php');
+require_once(__DIR__ . '/../../../resources/lib/twilio-php-master/Twilio/autoload.php');
 use Twilio\Rest\Client;
 
 $client = new Client($SID, $TOKEN);
@@ -222,8 +222,8 @@ $INSERT->bindParam(':REF',$NOTE_OPTION, PDO::PARAM_STR, 2500);
 $INSERT->bindParam(':MESSAGE',$SMS_MESSAGE, PDO::PARAM_STR, 2500);
 $INSERT->execute();
 
-header('Location: ../Client.php?CLIENT_SMS=1&search='.$CID); die;
+header('Location: /../../../../../app/Client.php?CLIENT_SMS=1&search='.$CID); die;
 
 }
- header('Location: /../../../../../RMmain.php'); die;    
+ header('Location: /../../../../../CRMmain.php'); die;    
     ?>

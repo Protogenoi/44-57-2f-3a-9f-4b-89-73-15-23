@@ -545,7 +545,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } else { echo "/email/php"; } ?>/SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
+                    <form method="POST" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails/php/"; } else { echo "Emails/php/TRB"; } ?>SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
 
 
                         <select class="form-control" name="email">  

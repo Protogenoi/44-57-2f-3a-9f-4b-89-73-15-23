@@ -100,11 +100,11 @@ if (isset($fferror)) {
  $file_size = $_FILES['file']['size'];
  $file_type = $_FILES['file']['type'];
  
- if (!file_exists("/uploads/life/$CID")) {
-    mkdir("/uploads/life/$CID", 0777, true);
+ if (!file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/life/$CID")) {
+    mkdir(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/life/$CID", 0777, true);
 }
 
- $folder="/uploads/life/$CID/";
+ $folder=filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/life/$CID/";
  
  $new_size = $file_size/1024;  
  $new_file_name = strtolower($file);

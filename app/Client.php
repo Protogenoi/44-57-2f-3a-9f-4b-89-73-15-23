@@ -724,7 +724,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
                                     } if ($CHK_NUM == '1') {
-                                        echo "SMS/Send.php";
+                                        echo "/addon/Life/SMS/Send.php";
                                     } ?>">
 
                                         <input type="hidden" name="search" value="<?php echo $search; ?>">
@@ -901,7 +901,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     <form class="AddClient" method="POST" action="<?php if ($CHK_NUM == '0') {
                                         echo "#";
                                     } if ($CHK_NUM == '1') {
-                                        echo "SMS/Send.php";
+                                        echo "/addon/Life/SMS/Send.php";
                                     } ?>">
 
                                         <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
@@ -996,7 +996,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
             <?php } ?>
             
             <!-- START TAB 3 -->
-
             <div id="menu2" class="tab-pane fade">
 
 <?php

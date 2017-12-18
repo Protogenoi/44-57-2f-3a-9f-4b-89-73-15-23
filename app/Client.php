@@ -172,8 +172,8 @@ $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal Lond
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
 
-        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:search");
-        $anquery->bindParam(':search', $search, PDO::PARAM_INT);
+        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID");
+        $anquery->bindParam(':CID', $search, PDO::PARAM_INT);
         $anquery->execute();
         $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
 
@@ -299,7 +299,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                         <?php
                         $database = new Database();
-                        $database->query("select count(note_id) AS badge from client_note where client_id ='$search'");
+                        $database->query("select count(note_id) AS badge from client_note where client_id =:CID");
+                        $database->bind(':CID', $search);
                         $row = $database->single();
                         echo htmlentities($row['badge']);
                         ?>
@@ -311,7 +312,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
             <li><a data-toggle="pill" href="#menu2">Files & Uploads <span class="badge alert-warning">
 
                         <?php
-                        $database->query("select count(id) AS badge from tbl_uploads where file like '$search%'");
+                        $database->query("select count(id) AS badge from tbl_uploads where file like :CID");
+                        $database->bind(':CID', $likesearch);
                         $filesuploaded = $database->single();
                         echo htmlentities($filesuploaded['badge']);
                         ?>
@@ -354,13 +356,11 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
         </ul>
 
-
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
                 <?php 
                 
                 require_once(__DIR__ . '/php/Notifications.php'); 
-
                 require_once(__DIR__ . '/views/ViewClient.php');
     
                 ?>
@@ -370,21 +370,20 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         <div class="btn-group">
 
                             <?php
-                            $search_file_var = "$search-%";
-
+                            
                             if (empty($dealsheet_id)) {
 
-                                    $Dealquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Dealsheet'");
-                                    $Dealquery->bindParam(':search', $search_file_var, PDO::PARAM_INT);
+                                    $Dealquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Dealsheet'");
+                                    $Dealquery->bindParam(':CID', $likesearch, PDO::PARAM_INT);
                                     $Dealquery->execute();
 
                                     while ($result = $Dealquery->fetch(PDO::FETCH_ASSOC)) {
                                         $DSFILE = $result['file'];
-                                        if (file_exists("../uploads/$DSFILE")) {
+                                        if (file_exists("/uploads/$DSFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
-                                        <?php } if (file_exists("../uploads/life/$search/$DSFILE")) { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
+                                            <a href="/uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
+                                        <?php } if (file_exists("/uploads/life/$search/$DSFILE")) { ?>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
                                             <?php
                                         }
                                     }
@@ -398,8 +397,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='TRB Archive') {
                                 
-                                    $PULLED_POLSUM = $pdo->prepare("SELECT policy_number FROM client_policy WHERE insurer='Legal and General' AND client_id= :search");
-                                    $PULLED_POLSUM->bindParam(':search', $search, PDO::PARAM_INT);
+                                    $PULLED_POLSUM = $pdo->prepare("SELECT policy_number FROM client_policy WHERE insurer='Legal and General' AND client_id= :CID");
+                                    $PULLED_POLSUM->bindParam(':CID', $search, PDO::PARAM_INT);
                                     $PULLED_POLSUM->execute();
 
                                     while ($result = $PULLED_POLSUM->fetch(PDO::FETCH_ASSOC)) {           
@@ -407,55 +406,55 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $POL_LOCATION = substr($result['policy_number'], 0, 9);
                                         $POL_NORMAL=$result['policy_number'];
                                        
-                                        if (file_exists("../uploads/LG/PolSummary/$POL_LOCATION")) { ?>
-        <a target="_blank" class="btn btn-default" href='../uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-folder-open'></i> LG Summary (<?php echo "<strong>$POL_LOCATION</strong>"; ?>)</a>
+                                        if (file_exists("/uploads/LG/PolSummary/$POL_LOCATION")) { ?>
+        <a target="_blank" class="btn btn-default" href='/uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-folder-open'></i> LG Summary (<?php echo "<strong>$POL_LOCATION</strong>"; ?>)</a>
       <?php  } 
-      if (file_exists("../uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
-        <a target="_blank" class="btn btn-default" href='../uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
+      if (file_exists("/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
+        <a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
       <?php  } 
                                     }                               
                                 
-                                    $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGPolicy Summary'");
-                                    $LG_SUM_SHEET->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGPolicy Summary'");
+                                    $LG_SUM_SHEET->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LG_SUM_SHEET->execute();
 
                                     while ($result = $LG_SUM_SHEET->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
                                             <?php
                                         }
                                     }                                 
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGpolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGpolicy'");
+                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='LGkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGkeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGFILE")) {
+                                        if (file_exists("/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -464,32 +463,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY=='Vitality') {
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitypolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Vitalitypolicy'");
+                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Vitalitykeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Vitalitykeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGFILE")) {
+                                        if (file_exists("/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -497,32 +496,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY=='Aviva') {
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivapolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Avivapolicy'");
+                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='Avivakeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Avivakeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGFILE")) {
+                                        if (file_exists("/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -530,32 +529,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY=='Royal London') {
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLpolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='RLpolicy'");
+                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='RLkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='RLkeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGFILE")) {
+                                        if (file_exists("/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -563,32 +562,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY=='One Family') {
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLpolicy'");
-                                    $LGquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLpolicy'");
+                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGquery->execute();
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGPOLFILE")) {
+                                        if (file_exists("/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :search and uploadtype ='WOLkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':search', $search_file_var, PDO::PARAM_STR);
+                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLkeyfacts'");
+                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
                                     $LGKeyfactsquery->execute();
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("../uploads/$LGFILE")) {
+                                        if (file_exists("/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="../uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="../uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -1653,7 +1652,7 @@ WHERE
                                         $newfileholder = str_replace("$search-", "", "$file"); //remove quote
                                         ?>
 
-                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="/uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                         <?php
                                     }
@@ -1662,139 +1661,139 @@ WHERE
                                         $newfileholderPDF = str_replace("$search-", "", "$file"); //remove quote
                                         ?>
 
-                                        <a class="list-group-item" href="../uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="/uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                         <?php
                                     }
                                     
                                      if ($row['uploadtype'] == 'Avivapolicy' || $row['uploadtype'] =='Avivakeyfacts') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }                                   
 
                                     if ($row['uploadtype'] == 'Other') {
                                         ?>
-                                        <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php
                                     }
 
                                     if ($row['uploadtype'] == 'Old Other') {
                                         ?>
-                                        <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php
                                     }
 
                                     if ($row['uploadtype'] == 'RECORDING' || $row['uploadtype'] == 'Closer Call Recording' || $row['uploadtype'] == 'Agent Call Recording' || $row['uploadtype'] == 'Admin Call Recording') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'lifenotes') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
                                    
                                     if ($row['uploadtype'] == 'Dealsheet') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'LGkeyfacts') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
                                     
                                     if ($row['uploadtype'] == 'LGPolicy Summary') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }                                     
                                     
                                     if ($row['uploadtype'] == 'LGpolicy') {
-                                        if (!file_exists("../uploads/$file")) {
+                                        if (!file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'L&G APP') {
-                                        if (!file_exists("../uploads/$file")) {
+                                        if (!file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'LifeCloserAudit') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'LifeLeadAudit') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'Recording') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
                                     }
 
                                     if ($row['uploadtype'] == 'Happy Call') {
-                                        if (file_exists("../uploads/$file")) {
+                                        if (file_exists("/uploads/$file")) {
                                             ?>
-                                            <a class="list-group-item" href="../uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                 <?php } else { ?>
-                                            <a class="list-group-item" href="../uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                     <?php
                 }
             }
@@ -1834,10 +1833,10 @@ WHERE
                                                 <td><?php echo $row['file'] ?></td>
                                                 <td><?php echo $row['uploadtype'] ?></td>
                                                 <td><a href="<?php
-                                    if (file_exists("../uploads/$FILElocation")) {
-                                        echo "../uploads/$FILElocation";
+                                    if (file_exists("/uploads/$FILElocation")) {
+                                        echo "/uploads/$FILElocation";
                                     } else {
-                                        echo "../uploads/life/$search/$FILElocation";
+                                        echo "/uploads/life/$search/$FILElocation";
                                     }
                                     ?>" target="_blank"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search"></span> </button></a></td>
                                                 <td>
@@ -2546,8 +2545,8 @@ WHERE
                 <h3><span class="label label-info">Client Timeline</span></h3>             
                     <?php
 
-                            $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :search ORDER BY date_sent DESC");
-                            $clientnote->bindParam(':search', $search, PDO::PARAM_INT);
+                            $clientnote = $pdo->prepare("select client_name, note_type, message, sent_by, date_sent from client_note where client_id = :CID ORDER BY date_sent DESC");
+                            $clientnote->bindParam(':CID', $search, PDO::PARAM_INT);
                             ?><br><br>	
 
                         <table class="table table-hover">

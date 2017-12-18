@@ -36,9 +36,9 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../../includes/user_tracking.php');
+require_once(__DIR__ . '/../../../includes/user_tracking.php');
 
-require_once(__DIR__ . '/../../../../includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
@@ -56,13 +56,13 @@ $UPLOAD_CHECK= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CH
             }
             }
 
-require_once(__DIR__ . '/../../../../includes/adl_features.php');
-require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -73,8 +73,8 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/../../../../classes/database_class.php');
-        require_once(__DIR__ . '/../../../../class/login/login.php');
+        require_once(__DIR__ . '/../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -139,7 +139,7 @@ $INSERT->execute();
 
 }
 
-header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=0&&search='.$CID.'#menu2'); die;
+header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=0&&search='.$CID.''); die;
           
             }
             header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=2&search='.$CID.'&CLIENT_FILE='.$UPLOAD_TYPE.'#menu2'); die;

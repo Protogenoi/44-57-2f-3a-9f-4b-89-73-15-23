@@ -6,21 +6,21 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
 
-require_once(__DIR__ . '/../../../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
-require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
 
-require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -31,7 +31,7 @@ if (isset($fferror)) {
     }
 } 
 
-require_once(__DIR__ . '/../../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
+require_once(__DIR__ . '/../../resources/lib/PHPMailer_5.2.0/class.phpmailer.php');
 
     $life= filter_input(INPUT_GET, 'life', FILTER_SANITIZE_SPECIAL_CHARS);
     
@@ -161,7 +161,7 @@ $NEW_MSG="Custom email failed ($email - $message)";
                 $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);
                 $noteq->execute()or die(print_r($noteq->errorInfo(), true));  
                 
-  header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=0&CLIENT_EMAIL=Send policy number&EMAIL_SENT_TO='.$email); die;       
+  header('Location: /../../../app/Client.php?search='.$CID.'&EMAIL_SENT=0&CLIENT_EMAIL=Send policy number&EMAIL_SENT_TO='.$email); die;       
   
 } else {
     
@@ -174,7 +174,7 @@ $NEW_MSG="Custom email sent ($email  - $message)";
                 $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);
                 $noteq->execute()or die(print_r($noteq->errorInfo(), true));
                 
-header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Custom Email&EMAIL_SENT_TO='.$email); die;
+header('Location: /../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Custom Email&EMAIL_SENT_TO='.$email); die;
 
 }
 

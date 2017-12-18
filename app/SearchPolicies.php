@@ -388,7 +388,7 @@ if ($EXECUTE == 'Home') {
                                 {"data": "status"},
                                 {"data": "client_id",
                                     "render": function (data, type, full, meta) {
-                                        return '<a href="/addon/Home/ViewClient.php?search=' + data + '">View</a>';
+                                        return '<a href="/addon/Home/ViewClient.php?CID=' + data + '">View</a>';
                                     }},
                                 {"data": "client_id",
                                     "render": function (data, type, full, meta) {

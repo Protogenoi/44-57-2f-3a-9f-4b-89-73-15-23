@@ -62,7 +62,7 @@ if (isset($fferror)) {
     }
 } 
 
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+if (in_array($hello_name, $Level_3_Access, true)) { 
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -116,8 +116,6 @@ if (isset($EXECUTE)) {
         if ($count = $dupeck->rowCount() >= 1) {
             $dupepol = "$row[policy_number] DUPE";
 
-            echo "duepde $dupepol";
-
             $insert = $pdo->prepare("INSERT INTO client_policy set 
 client_id=:cid,
  client_name=:name,
@@ -163,7 +161,6 @@ client_id=:cid,
             $insert->bindParam(':polterm', $polterm, PDO::PARAM_STR);
             $insert->execute();
 
-
             $notedata = "Policy Added";
             $messagedata = "Policy added $dupepol duplicate of $policy_number";
 
@@ -179,13 +176,9 @@ client_id=:cid,
             $client_type->bindParam(':client_id', $CID, PDO::PARAM_STR);
             $client_type->execute();
 
-            if (isset($fferror)) {
-                if ($fferror == '0') {
-
                     header('Location: ../../Life/ViewClient.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $policy_number);
                     die;
-                }
-            }
+
         }
 
         $insert = $pdo->prepare("INSERT INTO client_policy set client_id=:cid, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
@@ -226,14 +219,8 @@ client_id=:cid,
     }
 }
 
-
-if (isset($fferror)) {
-    if ($fferror == '0') {
-
         header('Location: ../../Life/ViewClient.php?policyadded=y&search=' . $CID . '&policy_number=' . $policy_number);
         die;
-    }
-}
 
 } else {
      header('Location: ../../CRMmain.php?AccessDenied');

@@ -62,8 +62,6 @@ $emailsubjectdb="Any queries?";
         $passworddb=$queryr['password'];
         $emaildb=$queryr['email'];
         $signat=html_entity_decode($queryr['sig']);      
-        
-if($companynamere=='Bluestone Protect') {
 
 if(isset($hello_name)) {  
      switch ($hello_name) {
@@ -76,14 +74,8 @@ if(isset($hello_name)) {
          case "leighton":
              $hello_name_full="Leighton Morris";
              break;
-         case "Roxy":
-             $hello_name_full="Roxanne Studholme";
-             break;
          case "Nicola":
              $hello_name_full="Nicola Griffiths";
-             break;
-         case "Abbiek":
-             $hello_name_full="Abbie Kenyon";
              break;
          case "carys":
              $hello_name_full="Carys Riley";
@@ -97,6 +89,9 @@ if(isset($hello_name)) {
          case "Nick":
              $hello_name_full="Nick Dennis";
              break;
+         case "Ryan":
+             $hello_name_full="Ryan Lloyd";
+             break;          
          default:
              $hello_name_full=$hello_name;
              
@@ -307,7 +302,7 @@ $mail->Port       = $emailsmtpportdb;
 $mail->Username   = "$emaildb"; 
 $mail->Password   = "$passworddb";  
 
-$mail->AddEmbeddedImage('../../img/bluestone_protect_logo.png', 'logo');
+$mail->AddEmbeddedImage(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/img/bluestone_protect_logo.png', 'logo');
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->Subject    = "$emailsubjectdb";
@@ -330,9 +325,7 @@ if(!$mail->Send()) {
   
   header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=0&CLIENT_EMAIL=Any queries&EMAIL_SENT_TO='.$email); die;
   
-} 
-
-}
+} else {
 
 $message="for any queries call us email sent ($email)";
 
@@ -344,4 +337,6 @@ $message="for any queries call us email sent ($email)";
                 $noteq->execute()or die(print_r($noteq->errorInfo(), true));
 
 header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Any queries&EMAIL_SENT_TO='.$email); die;
+
+}
 ?>

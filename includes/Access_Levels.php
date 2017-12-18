@@ -66,9 +66,9 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     $OLD_CLIENT_SEARCH=array("Martin Smith","Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     
     ///Advanced Admin Search
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara");
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara","Molly Grove",);
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Ciara");
+    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Ciara","Molly Grove",);
     //View Dealsheets awaiting QA
     $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina", "Amy","Ryan","Molly Grove","Ciara");
     

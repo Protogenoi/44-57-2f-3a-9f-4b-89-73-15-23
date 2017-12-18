@@ -367,13 +367,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
             }
             
         }              
-
-                                                $smssent= filter_input(INPUT_GET, 'smssent', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                if(isset($smssent)){
-                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS sent!</div>");
-                                                    
-                                                }
-                                                
+                   
                                                 $taskcompleted= filter_input(INPUT_GET, 'taskcompleted', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($taskcompleted)){
                                                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Task completed!</div>");
@@ -534,6 +528,12 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                         echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Email:</strong> $CLIENT_EMAIL failed to <b>$EMAIL_SENT_TO</b>!</div>";                                                            
                                                         }                                                        
                                                     }
-                                                        
+                                                    
+                                                 $CLIENT_SMS= filter_input(INPUT_GET, 'CLIENT_SMS', FILTER_SANITIZE_SPECIAL_CHARS);
+                                                if(isset($CLIENT_SMS)){
+                                                    if($CLIENT_SMS == 1 ) {
+                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS sent!</div>");
+                                                    }
+                                                }                                                       
                                                                     
                                                                 ?>

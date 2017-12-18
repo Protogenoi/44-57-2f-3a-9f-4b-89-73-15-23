@@ -375,7 +375,7 @@ $mail->Body    = $body;
 if(!$mail->Send()) {
   echo "Mailer Error: " . $mail->ErrorInfo;
   
-   $message="My Account details email sent ($email)!";
+   $message="My Account details email failed ($email)!";
   
                 $noteq = $pdo->prepare("INSERT into client_note set client_id=:CID, note_type='Email Failed', client_name=:ref, message=:message, sent_by=:sent");
                 $noteq->bindParam(':CID', $CID, PDO::PARAM_STR);

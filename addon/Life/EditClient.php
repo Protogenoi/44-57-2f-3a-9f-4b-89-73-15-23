@@ -180,7 +180,7 @@ if ($ffpost_code == '1') {
                         <div class="panel panel-warning">
                             <div class="panel-heading">Edit Client</div>
                             <div class="panel-body">
-                                <form id="from1" class="AddClient" action="/Life/php/EditClient.php?life=y" method="POST" autocomplete="off">
+                                <form id="from1" class="AddClient" action="/addon/Life/php/EditClient.php?life=y" method="POST" autocomplete="off">
                                     <input  class="form-control" type="hidden" name="keyfield" value="<?php echo $search ?>">
                                     <input  class="form-control" type="hidden" name="edited" value="<?php echo $hello_name ?>">  
 

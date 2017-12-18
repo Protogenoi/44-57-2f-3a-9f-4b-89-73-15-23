@@ -244,7 +244,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             }},
                         {"data": "client_id",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/Life/AddPolicy.php?EXECUTE=1&search=' + data + '">Add Policy</a>';
+                                return '<a href="/addon/Life/NewPolicy.php?EXECUTE=1&INSURER=LANDG&search=' + data + '">Add Policy</a>';
                             }}
                     ]
                 });

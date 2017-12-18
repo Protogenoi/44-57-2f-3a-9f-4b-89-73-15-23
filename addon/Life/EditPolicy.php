@@ -164,7 +164,7 @@ if(empty($POST_NAME)) {
                     <div class="panel-heading">Edit Policy</div>
                     <div class="panel-body">
 
-                        <form id="from1" id="form1" class="AddClient" method="post" action="/Life/php/EditPolicy.php">
+                        <form id="from1" id="form1" class="AddClient" method="post" action="/addon/Life/php/EditPolicy.php">
                             <input type="hidden" name="NAME1" value="<?php echo $NAME; ?>">
 
                             <input type="hidden" name="NAME2" value="<?php if(isset($NAME2)) { echo $NAME2; } ?>">

@@ -2590,6 +2590,7 @@ WHERE
                                         case"EWS Uploaded";
                                         case"SMS Failed";
                                         case "Compliant Logged":
+                                        Case "Email Failed";
                                             $TMicon = "fa-exclamation-triangle";
                                             break;
                                         case "Deleted File Upload";

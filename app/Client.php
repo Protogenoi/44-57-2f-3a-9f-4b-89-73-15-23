@@ -2690,6 +2690,7 @@ WHERE
             </div>
 
         </div>
+        <?php if ($ffclientemails == '1') { ?>
         <!-- START EMAIL BPOP2 -->
         <div id="email2pop" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -2699,7 +2700,6 @@ WHERE
                         <h4 class="modal-title">Email: <?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> <i>(<?php echo $Single_Client['email2']; ?>)</i></h4>
                     </div>
                     <div class="modal-body">
-<?php if ($ffclientemails == '1') { ?>
 
                             <form class="AddClient" method="post" action="<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails/"; } 
@@ -2732,7 +2732,6 @@ WHERE
                                 <br>
                                 <button type="submit" class="btn btn-warning "><span class="glyphicon glyphicon-envelope"></span> Send Email</button>
                             </form>
-<?php } ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span>Close</button>
@@ -2749,7 +2748,6 @@ WHERE
                         <h4 class="modal-title">Email: <?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> <i>(<?php echo $Single_Client['email']; ?>)</i></h4>
                     </div>
                     <div class="modal-body">
-<?php if ($ffclientemails == '1') { ?>
 
                             <form class="AddClient" method="post" action="<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails/"; } 
@@ -2784,7 +2782,7 @@ WHERE
                                 <br>
                                 <button type="submit" class="btn btn-warning "><span class="glyphicon glyphicon-envelope"></span> Send Email</button>
                             </form>
-<?php } ?>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><span class="glyphicon glyphicon-remove-sign"></span>Close</button>
@@ -2792,7 +2790,8 @@ WHERE
                 </div>
             </div>
         </div>
-<?php if($ffcallbacks==1) { ?>
+<?php } 
+if($ffcallbacks==1) { ?>
         <div id='CK_MODAL' class='modal fade' role='dialog'>
             <div class='modal-dialog modal-lg'>
                 <div class='modal-content'>
@@ -2981,9 +2980,7 @@ WHERE
                 </div>
             </div>
         </div>
-   <?php } ?>
-
-    <?php if($ffcallbacks==1) { ?>    
+ 
         <script type="text/javascript" src="/resources/lib//clockpicker-gh-pages/assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="/resources/lib//clockpicker-gh-pages/dist/jquery-clockpicker.min.js"></script>
         <script type="text/javascript">

@@ -379,10 +379,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $Dealquery->fetch(PDO::FETCH_ASSOC)) {
                                         $DSFILE = $result['file'];
-                                        if (file_exists("/uploads/$DSFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$DSFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
-                                        <?php } if (file_exists("/uploads/life/$search/$DSFILE")) { ?>
+                                        <?php } if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/life/$search/$DSFILE")) { ?>
                                             <a href="/uploads/life/<?php echo $search; ?>/<?php echo $DSFILE; ?>" target="_blank" class="btn btn-default"><span class="glyphicon glyphicon-file"></span> Dealsheet</a>
                                             <?php
                                         }
@@ -406,10 +406,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $POL_LOCATION = substr($result['policy_number'], 0, 9);
                                         $POL_NORMAL=$result['policy_number'];
                                        
-                                        if (file_exists("/uploads/LG/PolSummary/$POL_LOCATION")) { ?>
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/PolSummary/$POL_LOCATION")) { ?>
         <a target="_blank" class="btn btn-default" href='/uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-folder-open'></i> LG Summary (<?php echo "<strong>$POL_LOCATION</strong>"; ?>)</a>
       <?php  } 
-      if (file_exists("/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
+      if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
         <a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
       <?php  } 
                                     }                               
@@ -420,7 +420,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LG_SUM_SHEET->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
                                         <?php } else { ?>
@@ -435,7 +435,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
                                         <?php } else { ?>
@@ -450,7 +450,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
                                         <?php } else { ?>
@@ -469,7 +469,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
                                         <?php } else { ?>
@@ -484,7 +484,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
                                         <?php } else { ?>
@@ -502,7 +502,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
                                         <?php } else { ?>
@@ -517,7 +517,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
                                         <?php } else { ?>
@@ -535,7 +535,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Policy</a>
                                         <?php } else { ?>
@@ -550,7 +550,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Royal London Keyfacts</a> 
                                         <?php } else { ?>
@@ -568,7 +568,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGPOLFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGPOLFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
                                         <?php } else { ?>
@@ -583,7 +583,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                     while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
                                         $LGFILE = $result['file'];
-                                        if (file_exists("/uploads/$LGFILE")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
                                             <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
                                         <?php } else { ?>
@@ -1666,7 +1666,7 @@ WHERE
                                     }
                                     
                                      if ($row['uploadtype'] == 'Avivapolicy' || $row['uploadtype'] =='Avivakeyfacts') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1688,7 +1688,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'RECORDING' || $row['uploadtype'] == 'Closer Call Recording' || $row['uploadtype'] == 'Agent Call Recording' || $row['uploadtype'] == 'Admin Call Recording') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1698,7 +1698,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'lifenotes') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1708,7 +1708,7 @@ WHERE
                                     }
                                    
                                     if ($row['uploadtype'] == 'Dealsheet') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1718,7 +1718,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'LGkeyfacts') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1728,7 +1728,7 @@ WHERE
                                     }
                                     
                                     if ($row['uploadtype'] == 'LGPolicy Summary') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1738,7 +1738,7 @@ WHERE
                                     }                                     
                                     
                                     if ($row['uploadtype'] == 'LGpolicy') {
-                                        if (!file_exists("/uploads/$file")) {
+                                        if (!file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1748,7 +1748,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'L&G APP') {
-                                        if (!file_exists("/uploads/$file")) {
+                                        if (!file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1758,7 +1758,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'LifeCloserAudit') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1768,7 +1768,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'LifeLeadAudit') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1778,7 +1778,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'Recording') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                         <?php } else { ?>
@@ -1788,7 +1788,7 @@ WHERE
                                     }
 
                                     if ($row['uploadtype'] == 'Happy Call') {
-                                        if (file_exists("/uploads/$file")) {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
                                             ?>
                                             <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                 <?php } else { ?>
@@ -1832,7 +1832,7 @@ WHERE
                                                 <td><?php echo $row['file'] ?></td>
                                                 <td><?php echo $row['uploadtype'] ?></td>
                                                 <td><a href="<?php
-                                    if (file_exists("/uploads/$FILElocation")) {
+                                    if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$FILElocation")) {
                                         echo "/uploads/$FILElocation";
                                     } else {
                                         echo "/uploads/life/$search/$FILElocation";

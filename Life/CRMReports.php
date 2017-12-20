@@ -122,7 +122,7 @@ if (isset($fferror)) {
                             </li>
 
                             <li>
-                                <a href="PolicyStatuses.php">
+                                <a href="Reports/PolicyStatuses.php">
                                     <span class="ca-icon"><i class="fa fa-list-alt"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Policy<br/>Statuses</h2>

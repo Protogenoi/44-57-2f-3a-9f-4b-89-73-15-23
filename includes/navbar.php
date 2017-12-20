@@ -119,7 +119,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php } ?>    
                            <li class="divider"></li>
                         <?php if ($ffcompliance == '1') { ?>   
-                            <li><a href="/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
+                            <li><a href="/addon/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
                             <li class="divider"></li>
                         <?php } ?>    
                     <li><a href="/app/messenger/Main.php"> Internal Messages</a></li> 

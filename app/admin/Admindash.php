@@ -579,6 +579,22 @@ $companynamere = $companydetailsq['company_name'];
                             <ul class="nav nav-pills">
                                 <li class="active"><a data-toggle="pill" href="#"><i class="fa  fa-envelope-o"></i></a></li>
                                 <li><a data-toggle="pill" href="#SMSTemplates">SMS Templates</a></li>
+                                <?php
+                                $SMS_TAB_QRY = $pdo->prepare("SELECT company from sms_templates GROUP BY company");
+                                $SMS_TAB_QRY->execute();
+                                if ($SMS_TAB_QRY->rowCount() > 0) {
+                                    $SMS_INSURER_ARRAY=array();
+                                    while ($result = $SMS_TAB_QRY->fetch(PDO::FETCH_ASSOC)) { 
+                                        $SMS_COMPANY_VAR=preg_replace('/\s+/', '', $result['company']);
+                                        array_push($SMS_INSURER_ARRAY,$SMS_COMPANY_VAR);
+                                        
+                                        ?>
+                                <li><a data-toggle="pill" href="#SMS_<?php echo $SMS_COMPANY_VAR; ?>"><?php echo $result['company']; ?></a></li>
+                                <?php
+                                }
+                                }
+                                
+                                ?>
                                 <li><a data-toggle="pill" href="#SMSAddmessage">Add message</a></li>
                                 <li><a data-toggle="pill" href="#TwilioSettings">Twilio</a></li>
 
@@ -586,6 +602,123 @@ $companynamere = $companydetailsq['company_name'];
                             <br>
 
                             <div class="tab-content">
+                                
+                                <?php 
+foreach($SMS_INSURER_ARRAY as $SMS_COMPANY) {  ?>
+    <div id="SMS_<?php echo $SMS_COMPANY; ?>" class="tab-pane fade"> <?php
+                                        $query = $pdo->prepare("SELECT id, title, message, insurer, company from sms_templates WHERE REPLACE(`company`, ' ', '') =:COMPANY");
+                                    $query->bindParam(':COMPANY', $SMS_COMPANY, PDO::PARAM_STR);
+                                    $query->execute();
+                                    if ($query->rowCount() > 0) { ?>
+
+
+                                    <?php
+                                        $i = 0; ?>
+        <table class="table table-hover">
+        <thead>
+	<tr>
+	<th colspan='4'>SMS Templates</th>
+	</tr>
+    	<tr>
+	<th>ID</th>
+	<th>Title</th>
+	<th>Message</th>
+        <th>Insurer</th>
+        <th>Company</th>
+	<th></th>
+	</tr>
+	</thead>             
+        <?php
+                                        while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+                                            $i++;
+                                            echo '<tr>';
+                                            echo "<td>" . $result['id'] . "</td>";
+                                            echo "<td>" . $result['title'] . "</td>";
+                                            echo "<td>" . $result['message'] . "</td>";
+                                            echo "<td>" . $result['insurer'] . "</td>";
+                                            echo "<td>" . $result['company'] . "</td>";
+                                            echo "<td>
+<button data-toggle='modal' data-target='#editsms$SMS_COMPANY$i' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </button>
+
+
+<div id=\"editsms$SMS_COMPANY$i\" class=\"modal fade\" role=\"dialog\">
+  <div class=\"modal-dialog\">
+
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+      <h4 class='modal-title'>SMS Template</h4>
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
+      </div>
+      <div class=\"modal-body\">
+        <form action=\"php/SMSupdate.php?updatesms=y\" name=\"updatesms\" class=\"form-horizontal\" method=\"POST\">
+                
+<fieldset>
+
+<legend>SMS Edit</legend>
+
+<input type=\"hidden\" name=\"id\" value='" . $result['id'] . "'>
+
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='title'></label>  
+  <div class='col-sm-10'>
+  <input id='title' name='title' placeholder='' value='" . $result['title'] . "' class='form-control input-md' required='' type='readonly'>
+    
+  </div>
+</div>
+
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='insurer'></label>  
+  <div class='col-sm-10'>
+  <input id='insurer' name='insurer' placeholder='' value='" . $result['insurer'] . "' class='form-control input-md' required='' type='text'>
+    
+  </div>
+</div>
+
+
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='message'></label>
+  <div class='col-sm-10'>                     
+    <textarea class='form-control' style='min-width: 100%' id='message' name='message'>" . $result['message'] . "</textarea>
+  </div>
+</div>
+
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='Company'></label>
+  <div class='col-sm-10'>                     
+    <textarea class='form-control' style='min-width: 100%' id='company' name='company'>" . $result['company'] . "</textarea>
+  </div>
+</div>
+
+<div class='form-group'>
+  <label class='col-sm-2 control-label' for='singlebutton'></label>
+  <div class='col-sm-10'>
+    <button id='singlebutton' name='singlebutton' class='btn btn-primary'>Submit changes</button>
+  </div>
+</div>
+
+</fieldset>
+
+
+        </form>
+      </div>
+      <div class=\"modal-footer\">
+        <button type=\"button\" class=\"btn btn-warning\" data-dismiss=\"modal\">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>   
+   </td>";
+                                            echo "</tr>";
+                                            echo "\n";
+                                        } ?>
+                             </table> 
+
+    <?php } ?> </div>  <?php
+    
+                                        } 
+                                        
+                                        ?>
 
                                 <div id="SMSTemplates" class="tab-pane fade">
 
@@ -701,9 +834,6 @@ $companynamere = $companydetailsq['company_name'];
                                     ?>
 
                                 </div>
-
-
-
 
                                 <div id="SMSAddmessage" class="tab-pane fade">
 
@@ -866,10 +996,10 @@ $companynamere = $companydetailsq['company_name'];
                                     <?php
                                     $emailaccid = "account1";
 
-                                    $query = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccidholder");
-                                    $query->bindParam(':emailaccidholder', $emailaccid, PDO::PARAM_STR);
-                                    $query->execute()or die(print_r($query->errorInfo(), true));
-                                    $emailacc1 = $query->fetch(PDO::FETCH_ASSOC);
+                                    $E_ACT_ONE = $pdo->prepare("SELECT imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password FROM email_accounts WHERE emailaccount=:emailaccidholder");
+                                    $E_ACT_ONE->bindParam(':emailaccidholder', $emailaccid, PDO::PARAM_STR);
+                                    $E_ACT_ONE->execute()or die(print_r($E_ACT_ONE->errorInfo(), true));
+                                    $emailacc1 = $E_ACT_ONE->fetch(PDO::FETCH_ASSOC);
 
                                     $emailfromdb = $emailacc1['emailfrom'];
                                     $emailbccdb = $emailacc1['emailbcc'];
@@ -1029,10 +1159,10 @@ $companynamere = $companydetailsq['company_name'];
     <?php
     $emailaccid2 = "account2";
 
-    $query = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid2holder");
-    $query->bindParam(':emailaccid2holder', $emailaccid2, PDO::PARAM_STR);
-    $query->execute()or die(print_r($query->errorInfo(), true));
-    $emailacc2 = $query->fetch(PDO::FETCH_ASSOC);
+    $E_ACT_TWO = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid2holder");
+    $E_ACT_TWO->bindParam(':emailaccid2holder', $emailaccid2, PDO::PARAM_STR);
+    $E_ACT_TWO->execute()or die(print_r($E_ACT_TWO->errorInfo(), true));
+    $emailacc2 = $E_ACT_TWO->fetch(PDO::FETCH_ASSOC);
 
     $emailfromdb2 = $emailacc2['emailfrom'];
     $emailbccdb2 = $emailacc2['emailbcc'];
@@ -1193,10 +1323,10 @@ $companynamere = $companydetailsq['company_name'];
     <?php
     $emailaccid3 = "account3";
 
-    $query = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid3holder");
-    $query->bindParam(':emailaccid3holder', $emailaccid3, PDO::PARAM_STR);
-    $query->execute()or die(print_r($query->errorInfo(), true));
-    $emailacc3 = $query->fetch(PDO::FETCH_ASSOC);
+    $E_ACT_THREE = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid3holder");
+    $E_ACT_THREE->bindParam(':emailaccid3holder', $emailaccid3, PDO::PARAM_STR);
+    $E_ACT_THREE->execute()or die(print_r($E_ACT_THREE->errorInfo(), true));
+    $emailacc3 = $E_ACT_THREE->fetch(PDO::FETCH_ASSOC);
 
     $emailfromdb3 = $emailacc3['emailfrom'];
     $emailbccdb3 = $emailacc3['emailbcc'];
@@ -1357,10 +1487,10 @@ $companynamere = $companydetailsq['company_name'];
     <?php
     $emailaccid4 = "account4";
 
-    $query = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid4holder");
-    $query->bindParam(':emailaccid4holder', $emailaccid4, PDO::PARAM_STR);
-    $query->execute()or die(print_r($query->errorInfo(), true));
-    $emailacc4 = $query->fetch(PDO::FETCH_ASSOC);
+    $E_ACT_FOUR = $pdo->prepare("select imap, imapport, popport, pop, emailtype, email, emailfrom, emailreply, emailbcc, emailsubject, smtp, smtpport, displayname, password from email_accounts where emailaccount=:emailaccid4holder");
+    $E_ACT_FOUR->bindParam(':emailaccid4holder', $emailaccid4, PDO::PARAM_STR);
+    $E_ACT_FOUR->execute()or die(print_r($E_ACT_FOUR->errorInfo(), true));
+    $emailacc4 = $E_ACT_FOUR->fetch(PDO::FETCH_ASSOC);
 
     $emailfromdb4 = $emailacc4['emailfrom'];
     $emailbccdb4 = $emailacc4['emailbcc'];
@@ -1591,9 +1721,6 @@ $companynamere = $companydetailsq['company_name'];
 
                                 if ($AssignTasksselect == 'y') {
 
-
-
-
                                     $TaskAssigned = filter_input(INPUT_GET, 'TaskAssigned', FILTER_SANITIZE_SPECIAL_CHARS);
 
                                     if (isset($TaskAssigned)) {
@@ -1675,7 +1802,7 @@ $companynamere = $companydetailsq['company_name'];
                                         <div class="form-group">
                                             <label class="control-label" for="taskuser">Assign To</label>
                                             <select id="taskuser" name="taskuser" class="form-control">
-<option value="">Select Agent...</option>
+                                            <option value="">Select Agent...</option>
                                             </select>
                                         </div>
 
@@ -1724,11 +1851,7 @@ $companynamere = $companydetailsq['company_name'];
 }
 
 if ($EWS_SELECT == 'y') {
-
-
-
-
-                                    $EWSAssigned = filter_input(INPUT_GET, 'EWSAssigned', FILTER_SANITIZE_SPECIAL_CHARS);
+    $EWSAssigned = filter_input(INPUT_GET, 'EWSAssigned', FILTER_SANITIZE_SPECIAL_CHARS);
 
                                     if (isset($EWSAssigned)) {
 
@@ -2316,16 +2439,12 @@ if ($vicidialselect == 'y') {
 
 if ($providerselect == 'y') {
     ?>
-
                             <h1><i class="fa fa-bank"></i> Provider List</h1>
 
     <?php
     $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (isset($RETURN)) {
-
-
-
         if ($RETURN == 'UPDATED') {
 
             print("<br><div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa  fa-check-circle-o fa-lg\"></i> Success:</strong> Company details have been updated!</div><br>");

@@ -208,12 +208,12 @@ if ($ACT_CBS['badge'] > 0) { ?>
             if (in_array($hello_name, $Level_8_Access, true)) { 
             if ($RPY_stmtresult['badge'] >= '1') {
                 ?>
-                <li><a href="/Life/SMS/Report.php?SEARCH_BY=Responses"> <span class="badge alert-success"> <i class='fa fa-commenting-o'></i> <?php echo $RPY_stmtresult['badge']; ?> </span></a></li>
+                <li><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> <span class="badge alert-success"> <i class='fa fa-commenting-o'></i> <?php echo $RPY_stmtresult['badge']; ?> </span></a></li>
 
                 <?php
             }
             if ($RPY_stmtresult2['badge'] >= '1') {
-                ?>                <li><a href="/Life/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-danger"> <i class='fa fa-comment-o'></i> <?php echo $RPY_stmtresult2['badge']; ?> </span> </a></li>
+                ?>                <li><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-danger"> <i class='fa fa-comment-o'></i> <?php echo $RPY_stmtresult2['badge']; ?> </span> </a></li>
 
                 <?php
             }

@@ -100,7 +100,7 @@ if(isset($ffsms) && $ffsms == 0) {
                 <ul class="ca-menu">
                     
                     <li>
-                        <a href="Report.php">
+                        <a href="Report.phpSEARCH_BY=Sent">
                                     <span class="ca-icon"><i class="fa fa-info"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">SMS<br/> Traffic Responses</h2>

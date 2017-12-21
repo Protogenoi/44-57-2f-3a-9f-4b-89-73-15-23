@@ -138,6 +138,14 @@ if(isset($ffsms) && $ffsms == 0) {
                         </fieldset>
                     </form>
         <?php
+        
+        if (isset($SEARCH_BY)) {
+            if ($SEARCH_BY == 'Sent') { ?>
+            <div class="col-md-2"><a class="btn btn-default btn-sm" href="Update.php?EXECUTE=2"><i class="fa fa-check-circle-o"></i> Check all</a></div>
+                
+        <?php    }
+        }
+        
         if (isset($SEARCH_BY)) {
             try {
 

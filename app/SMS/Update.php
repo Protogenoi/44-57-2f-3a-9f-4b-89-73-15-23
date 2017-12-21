@@ -99,7 +99,56 @@ if(isset($ffsms) && $ffsms == 0) {
                           
                         }
     }
+    if($EXECUTE=='2') {
+        
+        $i=0;
+        
+            $SELECT_SMS = $pdo->prepare("SELECT 
+    sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_type
+FROM
+    sms_inbound
+WHERE
+    sms_inbound_type = 'SMS Delivered'");
+            $SELECT_SMS->execute();
+            if ($SELECT_SMS->rowCount() >= 1) {  
+            while ($result=$SELECT_SMS->fetch(PDO::FETCH_ASSOC)){ 
+            
+            $SMS_ID=$result['sms_inbound_id'];
+            $CID=$result['sms_inbound_client_id'];
+            $PHONE=$result['sms_inbound_phone'];
+            $MESSAGE=$result['sms_inbound_msg'];
+            $TYPE=$result['sms_inbound_type'];
+                    
+                $CHK_MATCH = $pdo->prepare("SELECT client_id FROM client_details where client_id =:CID AND phone_number=:PHONE");
+                $CHK_MATCH->bindParam(':CID', $CID, PDO::PARAM_INT);
+                $CHK_MATCH->bindParam(':PHONE', $PHONE, PDO::PARAM_STR);
+                $CHK_MATCH->execute();
+                $row=$CHK_MATCH->fetch(PDO::FETCH_ASSOC);   
+                if ($CHK_MATCH->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                $MESSAGE="Viewed $TYPE for $PHONE";
+                    
+                $INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:PHONE, sent_by=:hello, note_type='SMS Update', message=:MSG");
+                $INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
+                $INSERT->bindParam(':hello',$hello_name, PDO::PARAM_STR);
+                $INSERT->bindParam(':MSG',$MESSAGE, PDO::PARAM_STR);
+                $INSERT->bindParam(':PHONE',$PHONE, PDO::PARAM_STR);
+                $INSERT->execute();
+
+                $SMS_DELETE = $pdo->prepare("DELETE FROM sms_inbound WHERE sms_inbound_id=:NID LIMIT 1");
+                $SMS_DELETE->bindParam(':NID',$SMS_ID, PDO::PARAM_INT);
+                $SMS_DELETE->execute();  
+                       
+                }
+                    
+                }
+            }
+           
+                                        header('Location: /Report.php?UPDATED='.$i); die;            
+        
+    }
 
     }         
-        
 ?>

@@ -197,7 +197,7 @@ if ($ACT_CBS['badge'] > 0) { ?>
             if (in_array($hello_name, $Level_8_Access, true)) { 
             if ($KFS_stmtresult['badge'] >= '1') {
                 ?>
-        <li><a href="/Life/Reports/Keyfacts.php?SEARCH=NotSent"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
+        <li><a href="/addon/Life/Reports/Keyfacts.php?SEARCH=NotSent"> <span class="badge alert-info"> <i class='fa fa-envelope'></i> <?php echo $KFS_stmtresult['badge']; ?> </span></a></li>
 
                 <?php
             }          

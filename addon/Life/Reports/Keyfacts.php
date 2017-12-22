@@ -206,7 +206,7 @@ if ($fflife=='0') {
                         {"data": "closer"},
                                                 {"data": "client_id",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/addpn/Life/Client.php?search=' + data + ' " target="_blank">View</a>';
+                                return '<a href="/app/Client.php?search=' + data + ' " target="_blank">View</a>';
                             }},
                                                 {"data": "email",
                             "render": function (data, type, full, meta) {

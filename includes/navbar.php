@@ -98,14 +98,15 @@ $companynamere = $companydetailsq['company_name'];
                         <li><a href="/app/AddClient.php">Add Client</a></li>
                         <li><a href="/app/SearchClients.php">Search Clients</a></li>
                         <li><a href="/app/SearchPolicies.php?EXECUTE=Life">Search Policies</a></li>
+                        <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
+                        <li><a href="/Life/SaleSearch.php">Search Sales (by closer and date range)</a></li>    
+                        <?php } ?>
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
                         <li><a href="/Life/CRMReports.php">Reports</a></li>                        
                         <li><a href="/Life/Reports/AllTasks.php">Tasks</a></li>
                         <?php if ($ffsms == '1') { ?>
                         <li><a href="/app/SMS/Menu.php">SMS Report</a></li>
-                        <?php } if(in_array($hello_name, $Level_8_Access, true)) { ?>
-                        <li><a href="/Life/SaleSearch.php">Search Sales (by closer and date range)</a></li>    
                         <?php }
                         }
                         if ($ffcalendar == '1') { ?>

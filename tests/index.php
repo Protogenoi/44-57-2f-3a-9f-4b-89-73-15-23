@@ -40,7 +40,7 @@ $error = $my_access->the_msg;
             body, html {
                 height: 100%;
                 background-repeat: no-repeat;
-                background-image: url("/img/xmas1.jpg");
+                //background-image: url("/img/xmas1.jpg");
             }
 
             .card-container.card {
@@ -58,7 +58,7 @@ $error = $my_access->the_msg;
             }
 
             .card {
-                //background-color: #F7F7F7;
+                background-color: #F7F7F7;
                 padding: 20px 25px 30px;
                 margin: 0 auto 25px;
                 margin-top: 50px;

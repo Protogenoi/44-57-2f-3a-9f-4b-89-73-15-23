@@ -118,11 +118,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php if ($ffkeyfactsemail == '1') { ?>
                             <li><a href="/addon/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
                         <?php } ?>    
-                           <li class="divider"></li>
-                        <?php if ($ffcompliance == '1') { ?>   
-                            <li><a href="/addon/compliance/dash.php?EXECUTE=1"> Compliance</a></li>
-                            <li class="divider"></li>
-                        <?php } ?>    
+                           <li class="divider"></li>  
                     <li><a href="/app/messenger/Main.php"> Internal Messages</a></li> 
                     <?php if ($ffews == '1' && in_array($hello_name, $Level_8_Access, true)) { ?>
                     <li class="divider"></li>
@@ -137,24 +133,28 @@ $companynamere = $companydetailsq['company_name'];
                 
                 <?php } ?>
                 
-                <?php if(in_array($hello_name, $Level_3_Access, true) && $ffaudits == '1') { ?>
+                <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
 
                     <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Audits <b class="caret"></b></a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Compliance <b class="caret"></b></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="/addon/audits/main_menu.php">Main Menu</a></li>
+                        <?php if (in_array($hello_name, $Level_10_Access, true) && $ffcompliance == '1') { ?>   
+                            <li><a href="/addon/compliance/dash.php?EXECUTE=1"> Compliance Hub</a></li>
+                            <li><a href="/addon/compliance/dash.php?EXECUTE=3"> Sale Stats</a></li>
+                            <li><a href="/addon/compliance/CAR.php"> Compliance Audit and Review</a></li>
+                            <li><a href="/addon/compliance/Compliance.php?SCID=1"> Uploaded Docs</a></li>
                             <li class="divider"></li>
+                        <?php } if($ffaudits == 1) { ?>  
+                            <li><a href="/addon/audits/main_menu.php">Audit Menu</a></li>
                             <li><a href="/addon/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
                             <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
                             <li><a href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
                             <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>
                             <li><a href="/addon/audits/WOL/Menu.php">One Family Audits</a></li>
-                            <li class="divider"></li>
-                            <li><a href="/addon/audits/reports_main.php">Reports</a></li>
                         </ul>
                     </li>
                     
-                <?php } 
+                <?php }  }
                 if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Closer_Access, true)) { ?>
 
             <li class="dropdown">
@@ -162,13 +162,6 @@ $companynamere = $companydetailsq['company_name'];
           Dialler
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
-            <?php
-            if ($ffdealsheets == '1') { ?>
-            <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
-            <li><a href="/Life/Dealsheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
-            <li><a href="/Life/Dealsheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
-            <?php } ?>
-            <li class="divider"></li>
 <li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Tracker.php?query=CloserTrackers'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
 <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Dealsheet.php?query=CloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>

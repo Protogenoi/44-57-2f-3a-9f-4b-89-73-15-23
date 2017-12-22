@@ -32,7 +32,7 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
     
     else {
 
-        $query = $pdo->prepare("SELECT compliance_uploads_id, compliance_uploads_category, compliance_uploads_company, compliance_uploads_location, compliance_uploads_title, compliance_uploads_uploaded_by FROM compliance_uploads WHERE ORDER BY compliance_uploads_date DESC");
+        $query = $pdo->prepare("SELECT compliance_uploads_id, compliance_uploads_category, compliance_uploads_company, compliance_uploads_location, compliance_uploads_title, compliance_uploads_uploaded_by FROM compliance_uploads ORDER BY compliance_uploads_date DESC");
         $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);

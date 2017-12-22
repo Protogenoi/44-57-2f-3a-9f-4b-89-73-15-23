@@ -67,7 +67,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 
     <div class="container-fluid"><br>
         
-        <?php require_once(__DIR__ . '/../../compliance/php/notifications.php'); ?> 
+        <?php require_once(__DIR__ . '/../../addon/compliance/php/notifications.php'); ?> 
         
                 <div class="row">
             <?php require_once(__DIR__ . '/includes/LeftSide.html'); ?> 

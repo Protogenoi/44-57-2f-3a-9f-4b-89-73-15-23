@@ -52,7 +52,7 @@ $UPLOAD_CHECK= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CH
 
             if(isset($_FILES['file'])) {
             if($_FILES['file']['size'] > 40000000) {
-                header('Location: ../Client.php?CLIENT_UPLOAD=2&search='.$CID.'&CLIENT_FILE='.$UPLOAD_TYPE.'#menu2'); die;
+                header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=2&search='.$CID.'&CLIENT_FILE='.$UPLOAD_TYPE.''); die;
             }
             }
 

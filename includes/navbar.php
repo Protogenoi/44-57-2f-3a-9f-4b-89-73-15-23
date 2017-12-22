@@ -98,8 +98,8 @@ $companynamere = $companydetailsq['company_name'];
                         <li><a href="/app/AddClient.php">Add Client</a></li>
                         <li><a href="/app/SearchClients.php">Search Clients</a></li>
                         <li><a href="/app/SearchPolicies.php?EXECUTE=Life">Search Policies</a></li>
-                        <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
-                        <li><a href="/Life/SaleSearch.php">Search Sales (by closer and date range)</a></li>    
+                        <?php if(in_array($hello_name, $Level_8_Access, true) && $fflife == 1) { ?>
+                        <li><a href="/addon/Life/SaleSearch.php">Search Sales</a></li>    
                         <?php } ?>
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>

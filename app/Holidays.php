@@ -33,7 +33,7 @@ date_default_timezone_set('UTC');
 $XMAS= date("F");
 $HALLOWEEN= date("jS \of F");
 
-if($XMAS=='December' || $XMAS=='November') {
+if($XMAS=='December') {
     
 $XMAS_ARRAY = array("merrychristmas.mp3","christmas.mp3","cheer.mp3","He got two.mp3","elf  call me elf one more time.mp3","Put That Cookie Down NOW.mp3","santascoming.mp3", "ninnymuggins.mp3", "arnold_reindeer.mp3", "youstink.mp3", "sonofanut.mp3","workshop.mp3","ChristmasScat.mp3","Buzz-your-girl-friend-Woof.mp3","snakes_money.mp3","jack_snowballs.mp3");
 $RAND_XMAS_ARRAY = array_rand($XMAS_ARRAY, 2);

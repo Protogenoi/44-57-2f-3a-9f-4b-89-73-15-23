@@ -829,7 +829,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
     </div>
 
         <?php 
-    if (in_array($hello_name,$Level_10_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true)) { ?>
+    if (in_array($hello_name,$Level_10_Access, true)) { ?>
  
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -880,10 +880,6 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                 </select>
                                             </div>
                                         </div>  
-                                                        
-                                         <?php 
-                                        
-                                        if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { ?>
                                                                                  <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label class="control-label">Company</label>
@@ -898,9 +894,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Assured Protect and Mortgages') { echo "selected"; } } ?> value="Assured Protect and Mortgages">Assured Protect and Mortgages</option>
                                                 </select>
                                             </div>
-                                        </div>  
-                                      <?php  }
-                                        ?>                                                       
+                                        </div>                                                     
                                     
                                     </div>
                 

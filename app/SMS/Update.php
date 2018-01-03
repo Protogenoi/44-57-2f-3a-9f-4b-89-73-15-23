@@ -146,7 +146,7 @@ WHERE
                 }
             }
            
-                                        header('Location: /Report.php?UPDATED='.$i); die;            
+                                        header('Location: Report.php?SEARCH_BY=Sent&UPDATED='.$i); die;            
         
     }
 

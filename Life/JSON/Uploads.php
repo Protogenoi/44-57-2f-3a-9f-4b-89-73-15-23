@@ -47,6 +47,8 @@ FROM
     client_details
         JOIN
     client_note ON client_note.client_id = client_details.client_id
+        JOIN
+    client_policy on client_policy.client_id = client_details.client_id
 WHERE
     client_details.client_id NOT IN (SELECT 
             client_id
@@ -54,7 +56,7 @@ WHERE
             client_note
         WHERE
             note_type like '%keyfacts')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_policy.insurer != 'One Family'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));

@@ -5,7 +5,7 @@ $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$AGENT= filter_input(INPUT_GET, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
+$AGENT= filter_input(INPUT_GET, 'AGENT', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
@@ -25,7 +25,7 @@ $query->execute();
 $results=$query->fetchAll(PDO::FETCH_ASSOC);
 
 header("content-type:application/json");
-echo $json=json_encode($results);
+echo $json=json_encode($results);  
 
 }
 

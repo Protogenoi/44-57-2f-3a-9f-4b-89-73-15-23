@@ -187,9 +187,9 @@ if ($ACT_CBS['badge'] > 0) { ?>
             if(in_array($hello_name,$Task_Access,true)) {
 
         if ($navbarresult['badge'] > 0) {
-            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i> <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
+            ?>    <li><a href="/addon/Life/Tasks/Tasks.php"><span class="badge alert-success"><i class="fa fa-tasks"></i> <?php echo $navbarresult['badge']; ?> </span></a></li> <?php }
     if ($navbarresult2['badge'] > 0) {
-            ?>    <li><a href="/Life/Reports/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
+            ?>    <li><a href="/addon/Life/Tasks/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $navbarresult2['badge']; ?> </span></a></li> <?php
         }
             }
             

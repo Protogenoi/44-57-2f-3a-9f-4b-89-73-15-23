@@ -29,20 +29,21 @@
  * 
 */  
 
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php'); 
 
-require_once(__DIR__ . '../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -53,8 +54,8 @@ if (isset($fferror)) {
     }
 }
 
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
+    require_once(__DIR__ . '/../../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
@@ -65,7 +66,7 @@ if (isset($fferror)) {
         
         if($ACCESS_LEVEL < 10) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -73,7 +74,6 @@ if (isset($fferror)) {
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($EXECUTE)) {
-    include('../includes/ADL_PDO_CON.php');
     if($EXECUTE=='1') {
 
     if ($_FILES[csv][size] > 0) {
@@ -301,7 +301,7 @@ if($CHK_POLICY_HAS_ZERO != 0) {
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /Financial_Reports.php?success=1'); die;
+    header('Location: /../FinancialUploads.php?success=1'); die;
 }
 
 }
@@ -483,7 +483,7 @@ $DUPECHK->bindParam(':wol_type', $wol_type , PDO::PARAM_STR, 200);
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /Financial_Reports.php?success=1&FiancialType=WOL'); die;
+    header('Location: /../FinancialUploads.php?success=1&FiancialType=WOL'); die;
 }    
     
     
@@ -671,7 +671,7 @@ if ($query->rowCount() == 0) {
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /Financial_Reports.php?success=1&FiancialType=RoyalLondon'); die;
+    header('Location: /../FinancialUploads.php?success=1&FiancialType=RoyalLondon'); die;
 }    
     
     
@@ -867,7 +867,7 @@ $DUPECHK = $pdo->prepare("SELECT vitality_id from vitality_financials WHERE vita
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /Financial_Reports.php?success=1&FiancialType=RoyalLondon'); die;
+    header('Location: /../FinancialUploads.php?success=1&FiancialType=RoyalLondon'); die;
 }    
     
     
@@ -1035,7 +1035,7 @@ if ($query->rowCount() <= 0) {
     } 
     
     while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /Financial_Reports.php?success=1'); die;
+    header('Location: /../FinancialUploads.php?success=1'); die;
 }
 
 }

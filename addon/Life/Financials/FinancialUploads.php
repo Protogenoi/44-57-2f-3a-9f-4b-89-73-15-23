@@ -29,28 +29,28 @@
  * 
 */  
 
-require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/includes/user_tracking.php');
+require_once(__DIR__ . '/../../../includes/user_tracking.php');
 
-require_once(__DIR__ . '/includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/includes/adl_features.php');
-require_once(__DIR__ . '/includes/Access_Levels.php');
-require_once(__DIR__ . '/includes/adlfunctions.php');
-require_once(__DIR__ . '/includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -63,15 +63,15 @@ if (isset($fferror)) {
 
 if ($fflife == '0') {
 
-    header('Location: /CRMmain.php');
+    header('Location: /../../../../CRMmain.php');
     die;
 }
 
 $datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        require_once(__DIR__ . '/classes/database_class.php');
-        require_once(__DIR__ . '/class/login/login.php');
+        require_once(__DIR__ . '/../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -105,7 +105,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
 
     <div class="container">
         
@@ -146,8 +146,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload Legal & General financials</h3>
 
-                                        <form action="/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
                                             <input type="hidden" name="Processor" value="<?php echo $hello_name ?>">
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
@@ -158,8 +158,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         <h3>Upload WOL financials</h3>
 
 
-                                        <form action="/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
@@ -168,8 +168,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         <h3>Upload other Insurers Financials</h3>
 
 
-                                        <form action="/upload/finrupload.php?EXECUTE=8" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=8" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
@@ -178,8 +178,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         <h3>Upload Royal London financials</h3>
 
 
-                                        <form action="/upload/finrupload.php?EXECUTE=3" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=3" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
@@ -188,8 +188,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         <h3>Upload Vitality financials</h3>
 
 
-                                        <form action="/upload/finrupload.php?EXECUTE=4" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required/>
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=4" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
@@ -278,7 +278,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 
                                     echo '<tr class=' . $class . '>';
                                     echo "<td>" . $row['insert_date'] . "</td>";
-                                    echo "<td><a target='_blank' href='/ViewPolicy.php?&policyID=" . $row['POLID'] . "'>" . $row['Policy'] . "</a></td>";
+                                    echo "<td><a target='_blank' href='/../../../ViewPolicy.php?&policyID=" . $row['POLID'] . "'>" . $row['Policy'] . "</a></td>";
                                     echo "<td>" . $row['CommissionType'] . "</td>";
                                     echo "<td>" . $row['policystatus'] . "</td>";
                                     echo "<td>" . $row['closer'] . "</td>";

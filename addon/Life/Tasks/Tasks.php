@@ -147,7 +147,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         $.ajax({
             'async': false,
             'global': false,
-            'url': '/addon/Life/JSON/TaskChart.php?EXECUTE=2',
+            'url': '/addon/Life/JSON/TaskChart.php<?php if(isset($hello_name) && $ACCESS_LEVEL <= 3) { echo "?EXECUTE=1&AGENT=$hello_name"; } elseif($ACCESS_LEVEL > 3) { echo "?EXECUTE=2"; } ?>>',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -207,7 +207,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "/addon/Life/JSON/Tasks.php",
+        "ajax": "/addon/Life/JSON/Tasks.php<?php if(isset($hello_name) && $ACCESS_LEVEL <= 3) { echo "?EXECUTE=1&AGENT=$hello_name"; } elseif($ACCESS_LEVEL > 3) { echo "?EXECUTE=2"; } ?>",
         "columns": [
             {
                 "className":      'details-control',

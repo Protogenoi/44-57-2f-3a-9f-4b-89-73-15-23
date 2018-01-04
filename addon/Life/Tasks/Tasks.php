@@ -182,7 +182,7 @@ function format ( d ) {
     return '<form action="/addon/Life/php/Tasks.php?EXECUTE=1" method="post"><table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
             '<td>Re-assigned to:</td>'+
-            '<td><input type="hidden" name="taskid" value="'+d.id+'"><select name="assigned"><option value="'+d.assigned+'">'+d.assigned+'</option><option value="Roxy">Roxy</option><option value="Jakob">Jakob</option><option value="Nicola">Nicola</option><option value="Amelia">Amelia</option><option value="Abbiek">Abbiek</option><option value="carys">Carys</option><option value="Michael">Michael</option></select><button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Assign</button></form></td>'+
+            '<td><input type="hidden" name="taskid" value="'+d.id+'"><select name="assigned"><option value="'+d.assigned+'">'+d.assigned+'</option></select><button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Assign</button></form></td>'+
         '</tr>'+
     '</table>';
 }

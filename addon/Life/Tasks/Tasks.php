@@ -1,27 +1,64 @@
 <?php 
-include($_SERVER['DOCUMENT_ROOT']."/classes/access_user/access_user_class.php"); 
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 7);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-include('../../includes/adl_features.php'); 
-include('../../includes/Access_Levels.php');
+$USER_TRACKING=0;
 
-if (!in_array($hello_name,$Level_8_Access, true)) {
-    
-    header('Location: ../../CRMmain.php'); die;
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
+require_once(__DIR__ . '/../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
 }
 
-if ($fflife=='0') {
-        
-        header('Location: ../../CRMmain.php'); die;
-    }
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+}
+
+if (isset($fferror)) {
+    if ($fferror == '1') {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+    }
+}
+
+    require_once(__DIR__ . '/../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: /../../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>All Tasks</title>
+<title>ADL | Tasks</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
@@ -33,19 +70,8 @@ if ($fflife=='0') {
 </head>
 <body>
     
-    <?php
-    include('../../includes/navbar.php');
-    include('../../includes/ADL_PDO_CON.php');
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
     
-    if($ffanalytics=='1') {
-    
-    include_once($_SERVER['DOCUMENT_ROOT'].'/app/analyticstracking.php'); 
-    
-    }
-    ?>
-    
-     
-
       <div class="container">
           
           <?php
@@ -121,7 +147,7 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
         $.ajax({
             'async': false,
             'global': false,
-            'url': '../app/JSON/GetAllTasks.php',
+            'url': '/addon/Life/JSON/TaskChart.php?EXECUTE=2',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -153,7 +179,7 @@ Morris.Bar(config);
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
-    return '<form action="../php/assigntask.php?assign=1" method="post"><table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+    return '<form action="/addon/Life/php/Tasks.php?EXECUTE=1" method="post"><table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
         '<tr>'+
             '<td>Re-assigned to:</td>'+
             '<td><input type="hidden" name="taskid" value="'+d.id+'"><select name="assigned"><option value="'+d.assigned+'">'+d.assigned+'</option><option value="Roxy">Roxy</option><option value="Jakob">Jakob</option><option value="Nicola">Nicola</option><option value="Amelia">Amelia</option><option value="Abbiek">Abbiek</option><option value="carys">Carys</option><option value="Michael">Michael</option></select><button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok"></span> Assign</button></form></td>'+
@@ -181,7 +207,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "../app/JSON/gettask.php",
+        "ajax": "/addon/Life/JSON/Tasks.php",
         "columns": [
             {
                 "className":      'details-control',
@@ -192,13 +218,12 @@ $(document).ready(function() {
             { "data": "date_added" },
             { "data": "client_id",
             "render": function(data, type, full, meta) {
-                return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                return '<a href="/app/Client.php?search=' + data + '">View</a>';
             } },
             { "data": "name" },
             { "data": "assigned" },
             { "data": "Task" },
-            { "data": "deadline" },
-
+            { "data": "deadline" }
          ],
         "order": [[6, 'asc']]
     } ); $('#min, #max').keyup( function() {

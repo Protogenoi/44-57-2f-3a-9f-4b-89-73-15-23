@@ -85,12 +85,12 @@ $companynamere = $companydetailsq['company_name'];
         
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/CRMmain.php"><i class="fa fa-home">  Home</i></a></li>
+                <li class="active"><a href="/CRMmain.php"><i class="fa fa-home"> Home</i></a></li>
                 
                 <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
                 
-                <li><a href="/app/AddClient.php"><i class="fa fa-user-plus">  Add</i></a></li>
-                <li><a href="/app/SearchClients.php"><i class="fa fa-search">  Search</i></a></li>
+                <li><a href="/app/AddClient.php"><i class="fa fa-user-plus"> Add</i></a></li>
+                <li><a href="/app/SearchClients.php"><i class="fa fa-search"> Search</i></a></li>
 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">CRM <b class="caret"></b></a>
@@ -104,7 +104,7 @@ $companynamere = $companydetailsq['company_name'];
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
                         <li><a href="/Life/CRMReports.php">Reports</a></li>                        
-                        <li><a href="/Life/Reports/AllTasks.php">Tasks</a></li>
+                        <li><a href="/addon/Life/Tasks/Tasks.php">Tasks</a></li>
                         <?php if ($ffsms == '1') { ?>
                         <li><a href="/app/SMS/Menu.php">SMS Report</a></li>
                         <?php }
@@ -131,9 +131,9 @@ $companynamere = $companydetailsq['company_name'];
                     </ul>
                 </li>
                 
-                <?php } ?>
+                <?php } 
                 
-                <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
+                if(in_array($hello_name, $Level_3_Access, true)) { ?>
 
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Compliance <b class="caret"></b></a>

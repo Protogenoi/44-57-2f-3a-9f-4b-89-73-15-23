@@ -175,7 +175,6 @@ WHERE
 }
 ?>
 
-<ul class="nav navbar-nav navbar-right">
     <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT)) { ?>
 <li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
    
@@ -229,5 +228,3 @@ if ($ACT_CBS['badge'] > 0) { ?>
 
         
  ?>
-
-</ul>

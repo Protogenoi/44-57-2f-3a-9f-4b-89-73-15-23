@@ -72,9 +72,6 @@ if ($ffpost_code == '1') {
     $PDre = $PostcodeQuery->fetch(PDO::FETCH_ASSOC);
     $PostCodeKey = $PDre['api_key'];
 }
-
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -350,7 +347,3 @@ if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_M
     </div>
 </body>
 </html>
-<?php } else {
-     header('Location: /../../CRMmain.php?NOACCESS');
-    die;
-}

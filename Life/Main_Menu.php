@@ -145,7 +145,7 @@ if (isset($fferror)) {
                             <li>
                                 <a href="<?php
                                 if ($fflife == '1') {
-                                    echo "Reports/AllTasks.php";
+                                    echo "/addon/Life/Tasks/Tasks.php";
                                 } else {
                                     echo "#";
                                 }

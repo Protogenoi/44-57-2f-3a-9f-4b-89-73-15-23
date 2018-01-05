@@ -143,6 +143,8 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 echo json_encode($results);
        
    }   
+   
+   }
   
    if($EXECUTE==10) {
        

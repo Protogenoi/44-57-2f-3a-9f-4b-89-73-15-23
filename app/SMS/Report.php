@@ -140,8 +140,8 @@ if(isset($ffsms) && $ffsms == 0) {
         <?php
         
         if (isset($SEARCH_BY)) {
-            if ($SEARCH_BY == 'Sent') { ?>
-            <div class="col-md-2"><a class="btn btn-default btn-sm" href="Update.php?EXECUTE=2"><i class="fa fa-check-circle-o"></i> Check all</a></div>
+            if ($SEARCH_BY == 'Sent' || 'Failed') { ?>
+            <div class="col-md-2"><a class="btn btn-default btn-sm" href="Update.php?EXECUTE=2&TYPE=<?php if(isset($SEARCH_BY)) { if($SEARCH_BY=='Sent') { echo "SMS Delivered"; } elseif($SEARCH_BY=='Failed') { echo "SMS Failed"; } } ?>"><i class="fa fa-check-circle-o"></i> Check all</a></div>
                 
         <?php    }
         }

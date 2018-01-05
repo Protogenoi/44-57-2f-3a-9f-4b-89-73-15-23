@@ -234,7 +234,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                        }
                         
                             if ($ffemployee == '1') {
-                                if ($ACCESS_LEVEL == 10 || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+                                if ($ACCESS_LEVEL == 10) { 
                                 ?>
                                 <li>
                                     <a href="/addon/Staff/Main_Menu.php">

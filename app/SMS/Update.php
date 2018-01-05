@@ -100,6 +100,7 @@ if(isset($ffsms) && $ffsms == 0) {
                         }
     }
     if($EXECUTE=='2') {
+        $TYPE= filter_input(INPUT_GET, 'TYPE', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $i=0;
         
@@ -108,7 +109,8 @@ if(isset($ffsms) && $ffsms == 0) {
 FROM
     sms_inbound
 WHERE
-    sms_inbound_type = 'SMS Delivered'");
+    sms_inbound_type = :TYPE");
+            $SELECT_SMS->bindParam(':TYPE', $TYPE, PDO::PARAM_STR);
             $SELECT_SMS->execute();
             if ($SELECT_SMS->rowCount() >= 1) {  
             while ($result=$SELECT_SMS->fetch(PDO::FETCH_ASSOC)){ 

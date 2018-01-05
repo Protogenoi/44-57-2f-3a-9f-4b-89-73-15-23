@@ -193,7 +193,7 @@ if(isset($EXECUTE)) {
     $id_provided= filter_input(INPUT_POST, 'id_provided', FILTER_SANITIZE_SPECIAL_CHARS);
     $id_details= filter_input(INPUT_POST, 'id_details', FILTER_SANITIZE_SPECIAL_CHARS);
     
-    $company= filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
+    $COMPANY= filter_input(INPUT_POST, 'company', FILTER_SANITIZE_SPECIAL_CHARS);
 
     $database = new Database();
     $database->beginTransaction();

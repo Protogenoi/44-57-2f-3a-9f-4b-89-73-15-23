@@ -192,21 +192,8 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 </div>
                             </a>
                         </li>
-                        
-                        <?php if ($ACCESS_LEVEL >= 6) { ?>
-                        
-                        <li>
-                            <a href="/Life/SaleSearch.php">
-                                <span class="ca-icon"><i class="fa fa-line-chart"></i></span>
-                                <div class="ca-content">
-                                    <h2 class="ca-main">Search<br/>Sales</h2>
-                                    <h3 class="ca-sub"></h3>
-                                </div>
-                            </a>
-                        </li>                        
 
-                        <?php }
-                        if ($fflife == '1') {
+                       <?php if($fflife == '1') {
                                 ?>
                                 <li>
                                     <a href="Life/Main_Menu.php">

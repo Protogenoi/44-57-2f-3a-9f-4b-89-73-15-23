@@ -64,9 +64,6 @@ if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
     header('Location: /../../Life/Search.php');
 }
 
-if (in_array($hello_name, $Level_3_Access, true) || in_array($hello_name, $COM_MANAGER_ACCESS, true) || in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
-
-
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     require_once(__DIR__ . '/../classes/database_class.php');
@@ -111,23 +108,12 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
         <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
 
-
         <div class="container">
 
             <div class="row">
                 <div class="twelve columns">
                     <ul class="ca-menu">
-                        <?php if ($fflife == '1') { ?>			
-                            <li>
-                                <a href="/app/SearchPolicies.php?EXECUTE=Life">
-                                    <span class="ca-icon"><i class="fa fa-search"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Search<br/>Policies</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
+                        <li>
                                 <a href="/app/AddClient.php">
                                     <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
                                     <div class="ca-content">
@@ -136,8 +122,39 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </div>
                                 </a>
                             </li>
-                        <?php } ?> 
-
+                        <?php if ($fflife == '1') { ?>			
+                            <li>
+                                <a href="/app/SearchPolicies.php?EXECUTE=Life">
+                                    <span class="ca-icon"><i class="fa fa-search"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Search<br/>Life Policies</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                        <?php }
+                        if($ffhome == '1') { ?>
+                                <a href="/addon/Home/Search.php">
+                                    <span class="ca-icon"><i class="fa fa-home"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Search<br/>Home Clients</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+                        <?php } 
+                        if ($ffpba == '1' && $ACCESS_LEVEL == 10) { ?>
+                            <li>
+                                <a href="/addon/PBA/SearchClients.php?client=PBA">
+                                    <span class="ca-icon"><i class="fa fa-credit-card"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Search<br/>PBA Clients</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>  
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -254,6 +271,3 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <?php require_once(__DIR__ . '/../app/Holidays.php'); ?>        
     </body>
 </html>
-<?php } else {    header('Location: /../../CRMmain.php?AccessDenied');
-    die;
-}

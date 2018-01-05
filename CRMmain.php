@@ -220,32 +220,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                                 <?php
                             }
-                        if ($ffhome == '1') {
-                            ?>
-
-                            <li>
-                                <a href="/addon/Home/Main_Menu.php">
-                                    <span class="ca-icon"><i class="fa fa-home"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">Home<br/>Insurance</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-                        <?php }
-                        
-                        if ($ffpba == '1' && $ACCESS_LEVEL == 10) { ?>
-                            <li>
-                                <a href="/addon/PBA/Main_Menu.php">
-                                    <span class="ca-icon"><i class="fa fa-credit-card"></i></span>
-                                    <div class="ca-content">
-                                        <h2 class="ca-main">PBA<br/>Clients</h2>
-                                        <h3 class="ca-sub"></h3>
-                                    </div>
-                                </a>
-                            </li>
-
-                        <?php } if(in_array($hello_name, $QA_Access,true)) { ?>
+                            if(in_array($hello_name, $QA_Access,true)) { ?>
                             <li>
                                 <a href="https://164.39.13.58/ConnexReports/dashboard.php" target="_blank">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>

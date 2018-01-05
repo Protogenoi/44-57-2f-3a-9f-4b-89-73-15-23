@@ -115,7 +115,21 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     require_once(__DIR__ . '/../../includes/navbar.php');
      ?>
         <div class="container">
-            
+ <div class="row">
+                <div class="twelve columns">
+                    <ul class="ca-menu">
+                        <li>
+                                <a href="AddNewClient.php">
+                                    <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Add New<br/> Client</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>            
             
                 <?php 
     

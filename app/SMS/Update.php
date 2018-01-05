@@ -102,6 +102,15 @@ if(isset($ffsms) && $ffsms == 0) {
     if($EXECUTE=='2') {
         $TYPE= filter_input(INPUT_GET, 'TYPE', FILTER_SANITIZE_SPECIAL_CHARS);
         
+        if(isset($TYPE)) {
+            if($TYPE == 'SMS Failed') {
+                $SMS_REDIRECT='Failed';
+                
+            } elseif($TYPE =='SMS Delivered') {
+                $SMS_REDIRECT='Sent';
+            }
+        }
+        
         $i=0;
         
             $SELECT_SMS = $pdo->prepare("SELECT 
@@ -148,7 +157,7 @@ WHERE
                 }
             }
            
-                                        header('Location: Report.php?SEARCH_BY=Sent&UPDATED='.$i); die;            
+                                        header('Location: Report.php?SEARCH_BY='.$SMS_REDIRECT.'&UPDATED='.$i); die;            
         
     }
 

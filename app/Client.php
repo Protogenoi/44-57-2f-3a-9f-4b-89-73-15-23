@@ -731,8 +731,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <div class="form-group">
 
                                             <label for="selectsms">Message:</label>
-                                            <select class="form-control" name="selectopt" id="selectopt">
-                                                <option value=" ">Select message...</option>
+                                            <select class="form-control" name="selectopt" id="selectopt" required>
+                                                <option value="">Select message...</option>
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
@@ -908,8 +908,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <div class="form-group">
 
                                             <label for="selectsms">Message:</label>
-                                            <select class="form-control" name="selectopt" id="selectopt">
-                                                <option value=" ">Select message...</option>
+                                            <select class="form-control" name="selectopt" id="selectopt" required>
+                                                <option value="">Select message...</option>
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {

@@ -29,26 +29,26 @@
  * 
 */  
 
-require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(__DIR__ . '/../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/adl_features.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -61,8 +61,8 @@ if (isset($fferror)) {
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         
@@ -83,7 +83,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
         if($ACCESS_LEVEL < 3) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: /../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -109,7 +109,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     </head>
     <body>
 
-        <?php require_once(__DIR__ . '../../includes/navbar.php'); ?>
+        <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
 
         <div class="container">
@@ -151,11 +151,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         </tfoot>
                     </table>
             
-            
-              <?php } else {?>
-
-                                     
-            
+              <?php } else { ?>
             
                 <table id="clients" class="display" width="auto" cellspacing="0">
                     <thead>
@@ -182,10 +178,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     </tfoot>
                 </table>  
             <?php }
-            
-            
-            
-            
+
               }
             ?>
           
@@ -196,7 +189,6 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script type="text/javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
         <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
-
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -226,9 +218,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         </div>    
       <?php if (in_array($hello_name, $OLD_CLIENT_SEARCH,true)) { ?>  
      <script type="text/javascript" language="javascript" >
-                    /* Formatting function for row details - modify as you need */
                     function format(d) {
-                        // `d` is the original data object for the row
                         return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                                 '<tr>' +
                                 '<td>Insurer:</td>' +
@@ -255,7 +245,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                             },
-                            "ajax": "/Life/JSON/ClientSearch.php?ClientSearch=8&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                            "ajax": "/addon/Life/JSON/Search.php?EXECUTE=8&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                             "columns": [
                                 {
                                     "className": 'details-control',
@@ -270,36 +260,30 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 {"data": "PolicyStatus"},
                                 {"data": "client_id",
                                     "render": function (data, type, full, meta) {
-                                        return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                                        return '<a href="/app/Client.php?search=' + data + '">View</a>';
                                     }},
                                 {"data": "client_id",
                                     "render": function (data, type, full, meta) {
                                         return '<a href="Home/AddPolicy.php?Home=y&CID=' + data + '">Add Policy</a>';
-                                    }},
+                                    }}
                             ],
                             "order": [[1, 'asc']]
                         });
-
-                        // Add event listener for opening and closing details
                         $('#policy tbody').on('click', 'td.details-control', function () {
                             var tr = $(this).closest('tr');
                             var row = table.row(tr);
 
                             if (row.child.isShown()) {
-                                // This row is already open - close it
                                 row.child.hide();
                                 tr.removeClass('shown');
                             } else {
-                                // Open this row
                                 row.child(format(row.data())).show();
                                 tr.addClass('shown');
                             }
                         });
                     });
                 </script>
-                
                 <?php } else { ?>
-
         <script type="text/javascript" language="javascript" >
 
             $(document).ready(function () {
@@ -311,7 +295,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                    "ajax": "/Life/JSON/ClientSearch.php?ClientSearch=<?php if(in_array($hello_name,$AUDIT_SEARCH_ACCESS)) { echo "9"; } else { echo "6"; } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                    "ajax": "/addon/Life/JSON/Search.php?EXECUTE=<?php if(in_array($hello_name,$AUDIT_SEARCH_ACCESS)) { echo "9"; } else { echo "6"; } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',
@@ -326,14 +310,13 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                         {"data": "company"},
                         {"data": "client_id",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                                return '<a href="/app/Client.php?search=' + data + '">View</a>';
                             }}
                     ]
                 });
 
             });
         </script>
-        
                 <?php } ?>
     </body>
 </html>

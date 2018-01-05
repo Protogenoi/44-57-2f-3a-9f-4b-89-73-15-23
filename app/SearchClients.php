@@ -61,7 +61,7 @@ if (isset($fferror)) {
 }
 
 if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
-    header('Location: /../../Life/Search.php');
+    header('Location: /../../addon/Life/Search.php');
 }
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);

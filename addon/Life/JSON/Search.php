@@ -117,7 +117,7 @@ $query = $pdo->prepare("SELECT
 FROM
     client_policy
 WHERE
-    DATE(submitted_date) >= '2013-01-01''");
+    DATE(submitted_date) >= '2013-01-01'");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));  
 

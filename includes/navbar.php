@@ -231,9 +231,7 @@ $companynamere = $companydetailsq['company_name'];
                         </ul>  
                     </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
-            </ul>
+            
 <?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
                 <div class="LIVERESULTS">
 

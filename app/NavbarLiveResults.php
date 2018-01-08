@@ -153,6 +153,8 @@ FROM
     client_note
         JOIN
     client_details ON client_note.client_id = client_details.client_id
+        JOIN
+    client_policy on client_policy.client_id = client_note.client_id    
 WHERE
     client_details.client_id NOT IN (SELECT
             client_id
@@ -160,7 +162,7 @@ WHERE
             client_note
         WHERE
             note_type like '%keyfacts' )
-        AND DATE(client_details.submitted_date) >= CURDATE()
+        AND DATE(client_details.submitted_date) >= CURDATE() AND client_policy.insurer != 'One Family'
         GROUP by client_details.client_id");
     $KF_UP_stmt->execute();
     

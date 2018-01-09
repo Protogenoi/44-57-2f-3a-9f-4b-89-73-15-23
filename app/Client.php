@@ -114,6 +114,10 @@ if(empty($ClientList)) {
     header('Location: /../../CRMmain.php?NO_COMPANY');
 }
 
+if(empty($Single_Client)) {
+    header('Location: /../../CRMmain.php');
+}
+
 if (isset($Single_Client['company'])) {
     $WHICH_COMPANY = $Single_Client['company'];
 }

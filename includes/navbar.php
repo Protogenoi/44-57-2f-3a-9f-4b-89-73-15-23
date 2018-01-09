@@ -232,7 +232,7 @@ $companynamere = $companydetailsq['company_name'];
                     </li>
             </ul>
             
-<?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
+<?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
                 <div class="LIVERESULTS">
 
                 </div>
@@ -240,7 +240,7 @@ $companynamere = $companydetailsq['company_name'];
         </div>
     </nav>
 
-<?php if(in_array($hello_name, $Level_1_Access, true)) { ?>
+<?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
     <script>
         function refresh_div() {
             jQuery.ajax({

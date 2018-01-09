@@ -1,21 +1,21 @@
 <?php
-require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../../includes/adl_features.php');
-require_once(__DIR__ . '/../../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../../classes/database_class.php');
+require_once(__DIR__ . '/../../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../../classes/database_class.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -98,23 +98,35 @@ $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 
                     if(isset($INSURER)) {
                         if($INSURER=='Aviva') {
-                        header('Location: ../Aviva.php?RECHECK=y'); die;     
+                        header('Location: /addon/Life/Financials/Aviva.php?RECHECK=y'); die;     
                         }
                         if($INSURER=='RoyalLondon') {
-                         header('Location: ../RoyalLondon.php?RECHECK=y'); die;    
+                         header('Location: /addon/Life/Financials/RoyalLondon.php?RECHECK=y'); die;    
                         }
                         if($INSURER=='WOL') {
-                        header('Location: ../OneFamily.php?RECHECK=y'); die;     
+                        header('Location: /addon/Life/Financials/OneFamily.php?RECHECK=y'); die;     
                         }
                         if($INSURER=='Vitality') {
-                        header('Location: ../Vitality.php?RECHECK=y'); die;     
+                        header('Location: /addon/Life/Financials/Vitality.php?RECHECK=y'); die;     
                         }
                     }                        
                         
  
-                        } else {
-                            header('Location: ../Aviva.php?RECHECK=n'); die;  
+                        } 
+                    if(isset($INSURER)) {
+                        if($INSURER=='Aviva') {
+                        header('Location: /addon/Life/Financials/Aviva.php?RECHECK=n'); die;     
                         }
+                        if($INSURER=='RoyalLondon') {
+                         header('Location: /addon/Life/Financials/RoyalLondon.php?RECHECK=n'); die;    
+                        }
+                        if($INSURER=='WOL') {
+                        header('Location: /addon/Life/Financials/OneFamily.php?RECHECK=n'); die;     
+                        }
+                        if($INSURER=='Vitality') {
+                        header('Location: /addon/Life/Financials/Vitality.php?RECHECK=n'); die;     
+                        }
+                    }                           
                  
 }
-                        ?>
+?>

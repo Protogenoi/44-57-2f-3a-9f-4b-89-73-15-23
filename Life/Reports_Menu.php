@@ -125,10 +125,10 @@ if($fffinancials=='0' || $ffews=='0') {
                             ?>
 
                             <li>
-                                <a href="Financials.php">
+                                <a href="/addon/Life/Financials/Financials.php">
                                     <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">New<br/> Financial Report</h2>
+                                        <h2 class="ca-main">Financial<br/> Report</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>

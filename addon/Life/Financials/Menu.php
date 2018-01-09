@@ -1,20 +1,20 @@
 <?php
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -26,23 +26,8 @@ if (isset($fferror)) {
 }
 
 if($fffinancials=='0') {
-    header('Location: /../../CRMmain.php?FEATURE=FINANCIALS');
+    header('Location: /../../../../CRMmain.php?FEATURE=FINANCIALS');
 }
-
-$cnquery = $pdo->prepare("select company_name from company_details limit 1");
-$cnquery->execute()or die(print_r($query->errorInfo(), true));
-$companydetailsq = $cnquery->fetch(PDO::FETCH_ASSOC);
-$companynamere = $companydetailsq['company_name'];
-
-if ($companynamere == 'Bluestone Protect') {
-    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
-    if (!in_array($hello_name, $Level_2_Access, true)) {
-
-        header('Location: /../../CRMmain.php?AccessDenied');
-        die;
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,18 +42,15 @@ if ($companynamere == 'Bluestone Protect') {
 </head>
 <body>
 
-    <?php
-    if ($hello_name != 'Jade') {
-        require_once(__DIR__ . '/../../includes/navbar.php');
-    }
-    ?> 
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
+    
     <div class="container">        
         <div class="row">
             <div class="twelve columns">
                 <ul class="ca-menu">
                     
                     <li>
-                        <a href="/Life/Financials.php">
+                        <a href="Financials.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Legal and General<br/>Financials</h2>

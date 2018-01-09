@@ -284,7 +284,7 @@ if (isset($fferror)) {
     <div class="container">
         <div class="column-left">
 
-            <form class="AddClient" action="/export/Export.php?query=LIFE" method="post">
+            <form class="AddClient" action="/addon/Life/export/Export.php?query=LIFE" method="post">
                 <h3>Export Business Register</h3>
                 <p>
                     <label for="Select" required>Select Policies that</label>
@@ -310,7 +310,7 @@ if (isset($fferror)) {
                 </p>
             </form>
             
-            <form class="AddClient" action="/export/Export.php?query=BYUSER" method="post">
+            <form class="AddClient" action="/addon/Life/export/Export.php?query=BYUSER" method="post">
                 <h3>Export Business Register by user:</h3>
                                         <select id="USER" name="USER" class="form-control">
                     <?php
@@ -330,7 +330,7 @@ if (isset($fferror)) {
                 </p>
             </form>            
 
-                      <form class="AddClient" action="/export/Export.php?query=JUSTLIFE" method="post">
+                      <form class="AddClient" action="/addon/Life/export/Export.php?query=JUSTLIFE" method="post">
                 <h3>Legal and General Business Register</h3>
                 <p>
                     <label for="Select" required>Select Policies that</label>
@@ -356,7 +356,7 @@ if (isset($fferror)) {
                 </p>
             </form>
        
-                      <form class="AddClient" action="/export/Export.php?query=OTHER" method="post">
+                      <form class="AddClient" action="/addon/Life/export/Export.php?query=OTHER" method="post">
                 <h3>Vitailty/Aviva/One Family/Royal London Business Register</h3>
                 <p>
                     <label for="Select" required>Select Policies that</label>

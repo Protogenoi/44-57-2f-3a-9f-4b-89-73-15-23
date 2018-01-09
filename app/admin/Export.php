@@ -389,7 +389,7 @@ if (isset($fferror)) {
         </div>
 
         <div class="column-right">
-            <form class="AddClient" action="export/Export.php?query=LIFEFINANCIALS" method="post">
+            <form class="AddClient" action="/addon/Life/export/Export.php?query=LIFEFINANCIALS" method="post">
                 <h3>Export Financial Database</h3>
 
                 <p>

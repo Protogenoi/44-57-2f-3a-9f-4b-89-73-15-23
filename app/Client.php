@@ -171,28 +171,6 @@ if(isset($Single_Client['alt_number'])) {
 $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
-
-        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID");
-        $anquery->bindParam(':CID', $search, PDO::PARAM_INT);
-        $anquery->execute();
-        $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
-
-        $an_number = $ansearch['application_number'];
-        
-        if(!empty($an_number)) {
-
-        $auditquery = $pdo->prepare("select closer_audits.id AS CLOSER, closer_audits.grade AS CGRADE, Audit_LeadGen.id AS LEAD, Audit_LeadGen.grade AS LGRADE from closer_audits LEFT JOIN Audit_LeadGen on closer_audits.an_number=Audit_LeadGen.an_number where closer_audits.an_number=:annum");
-        $auditquery->bindParam(':annum', $an_number, PDO::PARAM_STR);
-        $auditquery->execute();
-        $auditre = $auditquery->fetch(PDO::FETCH_ASSOC);
-
-        $closeraudit = $auditre['CLOSER'];
-        $leadaudit = $auditre['LEAD'];
-        $CGRADE = $auditre['CGRADE'];
-        $LGRADE = $auditre['LGRADE'];
-        
-        }
-
                         $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");
                         $Old_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $Old_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
@@ -247,7 +225,30 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $EngageMutual_CHECK->execute();
                         if ($EngageMutual_CHECK->rowCount() > 0) {
                             $HAS_ENG_POL = "1";
-                        }         
+                        }   
+                        
+        if(isset($LANG_POL) && $LANG_POL == 1) {               
+                        
+        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID");
+        $anquery->bindParam(':CID', $search, PDO::PARAM_INT);
+        $anquery->execute();
+        $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
+
+        $an_number = $ansearch['application_number'];
+        
+        if(!empty($an_number)) {
+
+        $auditquery = $pdo->prepare("SELECT closer_audits.id AS CLOSER, Audit_LeadGen.id AS LEAD FROM closer_audits LEFT JOIN Audit_LeadGen on closer_audits.an_number=Audit_LeadGen.an_number where closer_audits.an_number=:annum");
+        $auditquery->bindParam(':annum', $an_number, PDO::PARAM_STR);
+        $auditquery->execute();
+        $auditre = $auditquery->fetch(PDO::FETCH_ASSOC);
+
+        $closeraudit = $auditre['CLOSER'];
+        $leadaudit = $auditre['LEAD'];
+        
+        }
+        
+                        }
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -293,25 +294,26 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                         <?php
                         $database = new Database();
-                        $database->query("select count(note_id) AS badge from client_note where client_id =:CID");
+                        $database->query("SELECT count(note_id) AS badge FROM client_note WHERE client_id =:CID");
                         $database->bind(':CID', $search);
                         $row = $database->single();
                         echo htmlentities($row['badge']);
                         ?>
-
-                    </span></a></li>
+                    </span></a>
+            </li>
                     <?php if($ffcallbacks==1) { ?>
             <li><a data-toggle='modal' data-target='#CK_MODAL'>Callbacks</a></li>
                     <?php } ?>
             <li><a data-toggle="pill" href="#menu2">Files & Uploads <span class="badge alert-warning">
 
                         <?php
-                        $database->query("select count(id) AS badge from tbl_uploads where file like :CID");
+                        $database->query("SELECT count(id) AS badge FROM tbl_uploads WHERE file LIKE :CID");
                         $database->bind(':CID', $likesearch);
                         $filesuploaded = $database->single();
                         echo htmlentities($filesuploaded['badge']);
                         ?>
-                    </span></a></li>
+                    </span></a>
+            </li>
             <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                 <li><a data-toggle="pill" href="#menu3">Financial</a></li>
                 <li><a data-toggle="pill" href="#TRACKING">Tracking</a></li>
@@ -389,69 +391,27 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 <?php
                             }
 
-                            if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='TRB Archive') {
+                            if(isset($LANG_POL) && $LANG_POL  == 1) {
                                 
-                                    $PULLED_POLSUM = $pdo->prepare("SELECT policy_number FROM client_policy WHERE insurer='Legal and General' AND client_id= :CID");
-                                    $PULLED_POLSUM->bindParam(':CID', $search, PDO::PARAM_INT);
-                                    $PULLED_POLSUM->execute();
-
-                                    while ($result = $PULLED_POLSUM->fetch(PDO::FETCH_ASSOC)) {           
-                                        
-                                        $POL_LOCATION = substr($result['policy_number'], 0, 9);
-                                        $POL_NORMAL=$result['policy_number'];
-                                       
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/PolSummary/$POL_LOCATION")) { ?>
-        <a target="_blank" class="btn btn-default" href='/uploads/LG/PolSummary/<?php echo $POL_LOCATION; ?>' > <i class='fa fa-folder-open'></i> LG Summary (<?php echo "<strong>$POL_LOCATION</strong>"; ?>)</a>
-      <?php  } 
-      if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
-        <a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
-      <?php  } 
-                                    }                               
-                                
-                                    $LG_SUM_SHEET = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGPolicy Summary'");
-                                    $LG_SUM_SHEET->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LG_SUM_SHEET->execute();
-
-                                    while ($result = $LG_SUM_SHEET->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGPOLFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy Summary</a>
-                                            <?php
-                                        }
-                                    }                                 
-
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGpolicy'");
-                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGquery->execute();
-
-                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGPOLFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Policy</a>
-                                            <?php
-                                        }
-                                    }
-
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LGkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGKeyfactsquery->execute();
-
-                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> L&G Keyfacts</a> 
-                                            <?php
-                                        }
-                                    }
+                            require_once(__DIR__ . '/../addon/Life/models/LandG/OLP_Summary-model.php');
+                            $OLP_SUM = new OLP_SUMModal($pdo);
+                            $OLP_SUMList = $OLP_SUM->getOLP_SUM($search);
+                            require_once(__DIR__ . '/../addon/Life/views/LandG/OLP_Summary-view.php');       
+                            
+                            require_once(__DIR__ . '/../addon/Life/models/LandG/Summary-model.php');
+                            $LG_SUM = new LG_SUMModal($pdo);
+                            $LG_SUMList = $LG_SUM->getLG_SUM($search);
+                            require_once(__DIR__ . '/../addon/Life/views/LandG/Summary-view.php'); 
+                            
+                            require_once(__DIR__ . '/../addon/Life/models/LandG/Policy-model.php');
+                            $LG_POL_SUM = new LG_POL_SUMModal($pdo);
+                            $LG_POL_SUMList = $LG_POL_SUM->getLG_POL_SUM($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/LandG/Policy-view.php');    
+                            
+                            require_once(__DIR__ . '/../addon/Life/models/LandG/Keyfacts-model.php');
+                            $LG_KF = new LG_KFModal($pdo);
+                            $LG_KFList = $LG_KF->getLG_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/LandG/Keyfacts-view.php');                              
 
                             }
 
@@ -488,7 +448,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     }
                             }
                             
-                            if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY=='Aviva') {
+                            if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Avivapolicy'");
                                     $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
@@ -594,8 +554,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     <br>
 
                     <?php
-                    
-                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
                         
                         if(isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/OldPoliciesModel.php');
@@ -650,8 +608,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $EngageMutualPoliciesList = $EngageMutualPolicies->getEngageMutualPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/EngageMutal-Policies.php');
                         }                        
-                        
-                    } ?>
+?>
 
                 </div>
             </div>

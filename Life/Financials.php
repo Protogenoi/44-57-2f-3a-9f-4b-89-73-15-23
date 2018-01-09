@@ -627,7 +627,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate ORDER by financ
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['Policy_Name'] . "</td>";
                                 if (intval($row['payment_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
@@ -710,7 +710,7 @@ WHERE
                                 $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
 
                                 echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
                                     echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
@@ -773,7 +773,7 @@ WHERE DATE(sale_date) BETWEEN '2017-01-01' AND :dateto AND policy_number NOT IN(
 
                                 echo '<tr>';
                                 echo "<td>" . $row['SALE_DATE'] . "</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
                                     echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
@@ -843,7 +843,7 @@ WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND client_pol
 
                                 echo '<tr>';
                                 echo "<td>" . $row['SALE_DATE'] . "</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
                                     echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
@@ -915,7 +915,7 @@ WHERE DATE(client_policy.submitted_date) between :datefrom AND :dateto AND clien
 
                                 echo '<tr>';
                                 echo "<td>$AWAITING_SUB_DATE</td>";
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>$AWAITING_APP</td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($EXP_COMMISSION) > 0) {
@@ -986,7 +986,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($row['payment_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
@@ -1084,7 +1084,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($row['payment_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
@@ -1137,7 +1137,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 echo '<tr>';
-                                echo "<td><a href='/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 if (intval($row['payment_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['payment_amount'] . "</span></td>";
@@ -1207,7 +1207,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                                echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
                                 if (intval($PAY_AMOUNT) > 0) {
                                     echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
                                 } else if (intval($PAY_AMOUNT) < 0) {
@@ -1273,7 +1273,7 @@ WHERE DATE(financial_statistics_history.insert_date) = :commdate AND client_poli
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                echo "<td><a href='/Life/ViewClient.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                                echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
                                 if (intval($PAY_AMOUNT) > 0) {
                                     echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
                                 } else if (intval($PAY_AMOUNT) < 0) {

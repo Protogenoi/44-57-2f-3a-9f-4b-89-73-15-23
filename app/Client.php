@@ -199,7 +199,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $Old_CHECK->execute();
                         if ($Old_CHECK->rowCount() > 0) {
                             $LANG_POL = "1";
-                            $OLD_POLICY_DOCS='1';
                             $HAS_OLD_LG_POL='1';
                             
                         } 
@@ -210,7 +209,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $LG_CHECK->execute();
                         if ($LG_CHECK->rowCount() > 0) {
                             $LANG_POL = "1";
-                            $NEW_POLICY_DOCS='1';
                             $HAS_NEW_LG_POL='1';
                         }
 
@@ -218,7 +216,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $VIT_CHECK->execute();
                         if ($VIT_CHECK->rowCount() > 0) {
-                            $VITALITY_POL = "1";
                             $HAS_VIT_POL='1';
                         }
 
@@ -226,7 +223,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $WOL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $WOL_CHECK->execute();
                         if ($WOL_CHECK->rowCount() > 0) {
-                            $WOL_POL = "1";
                             $HAS_WOL_POL='1';
                         }
 
@@ -234,7 +230,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $RL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $RL_CHECK->execute();
                         if ($RL_CHECK->rowCount() > 0) {
-                            $RL_POL = "1";
                             $HAS_RL_POL='1';
                             
                         }
@@ -243,7 +238,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $Aviva_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $Aviva_CHECK->execute();
                         if ($Aviva_CHECK->rowCount() > 0) {
-                            $AVIVA_POL = "1";
                             $HAS_AVI_POL='1';
                             
                         }
@@ -252,7 +246,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $EngageMutual_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $EngageMutual_CHECK->execute();
                         if ($EngageMutual_CHECK->rowCount() > 0) {
-                            $ENG_POL = "1";
+                            $HAS_ENG_POL = "1";
                         }         
 ?>
 <!DOCTYPE html>
@@ -461,7 +455,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             }
 
-                            if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY=='Vitality') {
+                            if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Vitalitypolicy'");
                                     $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
@@ -527,7 +521,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     }
                             }
 
-                            if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY=='Royal London') {
+                            if(isset($HAS_RL_POL) && $HAS_RL_POL == 1 ) {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='RLpolicy'");
                                     $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
@@ -560,7 +554,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     }
                             }  
                             
-                            if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY=='One Family') {
+                            if (isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLpolicy'");
                                     $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
@@ -650,7 +644,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                         }
                         
-                        if(isset($ENG_POL) && $ENG_POL == 1) {
+                        if(isset($HAS_ENG_POL) && $HAS_ENG_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/EngageMutualPoliciesModal.php');
                             $EngageMutualPolicies = new EngageMutualPoliciesModal($pdo);
                             $EngageMutualPoliciesList = $EngageMutualPolicies->getEngageMutualPolicies($search);
@@ -1068,14 +1062,14 @@ if (isset($fileuploadedfail)) {
 
                         <?php 
                         
-                        if(isset($OLD_POLICY_DOCS) && isset($NEW_POLICY_DOCS) || $WHICH_COMPANY=='The Review Bureau') {
-                            if(empty($OLD_POLICY_DOCS)) {
-                                $OLD_POLICY_DOCS=0;
+                        if(isset($HAS_OLD_LG_POL) && isset($HAS_NEW_LG_POL) || $WHICH_COMPANY=='The Review Bureau') {
+                            if(empty($HAS_OLD_LG_POL)) {
+                                $HAS_OLD_LG_POL=0;
                             }
-                            if(empty($NEW_POLICY_DOCS)) {
-                                $NEW_POLICY_DOCS=0;
+                            if(empty($HAS_NEW_LG_POL)) {
+                                $HAS_NEW_LG_POL=0;
                             }                            
-                            if($OLD_POLICY_DOCS=='1' && $NEW_POLICY_DOCS=='1' || $WHICH_COMPANY=='The Review Bureau') {
+                            if($HAS_OLD_LG_POL=='1' && $HAS_NEW_LG_POL=='1' || $WHICH_COMPANY=='The Review Bureau') {
                                 ?>
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
@@ -1402,7 +1396,9 @@ if (isset($fileuploadedfail)) {
 
                                     <?php
                                 }
-                            } if($WHICH_COMPANY=='One Family') {
+                            } 
+                            
+        if($WHICH_COMPANY=='One Family') {
                                 
         $WOL_AUDIT_QRY = $pdo->prepare("SELECT wol_id FROM audit_wol WHERE policy_number=:POL");
         $WOL_AUDIT_QRY->bindParam(':POL', $Single_Client['phone_number'], PDO::PARAM_STR);

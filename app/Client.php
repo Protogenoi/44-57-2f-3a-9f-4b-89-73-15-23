@@ -420,69 +420,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             }
 
                             if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Vitality/Policy-model.php');
+                            $VIT_POL = new VIT_POL_Modal($pdo);
+                            $VIT_POLList = $VIT_POL->getVIT_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Vitality/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Vitality/Keyfacts-model.php');
+                            $VI_KF = new VI_KFModal($pdo);
+                            $VI_KFList = $VI_KF->getVI_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Vitality/Keyfacts-view.php');                                       
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Vitalitypolicy'");
-                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGquery->execute();
-
-                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGPOLFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Policy</a>
-                                            <?php
-                                        }
-                                    }
-
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Vitalitykeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGKeyfactsquery->execute();
-
-                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Vitality Keyfacts</a> 
-                                            <?php
-                                        }
-                                    }
+ 
                             }
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Aviva/Policy-model.php');
+                            $AVI_POL = new AVI_POL_Modal($pdo);
+                            $AVI_POLList = $AVI_POL->getAVI_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Aviva/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Aviva/Keyfacts-model.php');
+                            $AVI_KF = new AVI_KFModal($pdo);
+                            $AVI_KFList = $AVI_KF->getAVI_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Aviva/Keyfacts-view.php');                                   
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Avivapolicy'");
-                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGquery->execute();
-
-                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGPOLFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Policy</a>
-                                            <?php
-                                        }
-                                    }
-
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='Avivakeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGKeyfactsquery->execute();
-
-                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
-                                            ?>
-                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
-                                        <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> Aviva Keyfacts</a> 
-                                            <?php
-                                        }
-                                    }
                             }
 
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1 ) {

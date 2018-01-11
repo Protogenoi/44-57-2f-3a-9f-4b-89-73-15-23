@@ -162,6 +162,11 @@ $companynamere = $companydetailsq['company_name'];
           Dialler
         <b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
+            <?php 
+            if(isset($fftrackers) && $fftrackers == '1') {
+            if (in_array($hello_name, $Agent_Access, true) || in_array($hello_name, $Manager_Access, true)) {  ?>
+            <li><a href="/addon/Trackers/Survey.php">Survey Trackers</a></li> 
+            <?php } } ?>
 <li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Tracker.php?query=CloserTrackers'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
 <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Dealsheet.php?query=CloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>

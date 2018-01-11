@@ -155,12 +155,11 @@ $companynamere = $companydetailsq['company_name'];
                     </li>
                     
                 <?php }  }
+                
                 if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Closer_Access, true)) { ?>
 
             <li class="dropdown">
-        <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
-          Dialler
-        <b class='caret'></b></a>
+        <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Dialler<b class='caret'></b></a>
         <ul role='menu' class='dropdown-menu'>
             <?php 
             if(isset($fftrackers) && $fftrackers == '1') {
@@ -193,58 +192,50 @@ $companynamere = $companydetailsq['company_name'];
             <li><a href="/Life/Dealsheet.php?query=CompletedDeals">Completed Dealsheets</a></li>
             <?php } } ?>
       </ul>
-      <?php
-
-                }
-                
-                if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Agent_Access, true)) { ?>
-
+      <?php } 
+      
+      if(isset($ffdealsheets) && $ffdealsheets == '1') { 
+          if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Agent_Access, true)) { ?>
+            
             <li class="dropdown">
-        <a data-toggle='dropdown' class='dropdown-toggle' href='#'>
-          Agents
-        <b class='caret'></b></a>
-        <ul role='menu' class='dropdown-menu'>
-          <?php  if ($ffdealsheets == '1') { ?>
+                <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Agents<b class='caret'></b></a>
+                <ul role='menu' class='dropdown-menu'>
             <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
             <li><a href="/Life/Dealsheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
             <li><a href="/Life/Dealsheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
-            <?php } ?>
       </ul>
-      <?php
-
-                }                
+      <?php } }           
       
       if($ffkeyfactsemail=='1' && in_array($hello_name, $Closer_Access, true)) { ?>
              <li><a href="/email/KeyFactsEmail.php" target="_blank">Send Keyfacts</a></li>      
                 
-      <?php }
-
-    ?>
-
-                    <li class='dropdown'>
-                        <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
-                        <ul role='menu' class='dropdown-menu'>
-                            <li><a href="https://www20.landg.com/PolicyEnquiriesIFACentre/ENTRY_POINT_RESOURCE?domain=adviser" target="_blank">LG Policy Summary Search</a></li>
+      <?php } ?>
+             
+             <li class='dropdown'>
+                 <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
+                 <ul role='menu' class='dropdown-menu'>
+                     <li><a href="https://www20.landg.com/PolicyEnquiriesIFACentre/ENTRY_POINT_RESOURCE?domain=adviser" target="_blank">LG Policy Summary Search</a></li>
                             <?php if(in_array($hello_name, $Level_10_Access, true)) { 
-                            if ($fffinancials == '1') {  ?>
-                            <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li> 
-                            <?php }
-                            if ($ffews == '1') { ?>
-                                <li><a href="/Life/Reports/EWS.php">EWS</a></li> 
+                                if ($ffinancials == '1') { ?>
+                     <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li>
+                         <?php }
+                         if ($ffews == '1') { ?>
+                     <li><a href="/Life/Reports/EWS.php">EWS</a></li> 
                             <?php } 
                             if ($ffemployee == '1') { ?>    
-                                <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
+                     <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
                             <?php } 
                             if ($ffemployee == '1') { ?>    
-                                <li><a  href="/addon/Staff/Holidays/Calendar.php">Holidays</a></li> 
-                                <li><a  href="/addon/Staff/Reports/RAG.php">Register</a></li> 
-                                <li><a  href="/addon/Staff/Assets/Assets.php">Asset Management</a></li> 
+                     <li><a  href="/addon/Staff/Holidays/Calendar.php">Holidays</a></li> 
+                     <li><a  href="/addon/Staff/Reports/RAG.php">Register</a></li> 
+                     <li><a  href="/addon/Staff/Assets/Assets.php">Asset Management</a></li> 
                             <?php } ?>
-                                 <li class="divider"></li> 
-                                 <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>
+                     <li class="divider"></li> 
+                     <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php } ?>
-                        </ul>  
-                    </li>
+                 </ul>  
+             </li>
+             
             </ul>
             
 <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>

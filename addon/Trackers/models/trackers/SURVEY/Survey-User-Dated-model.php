@@ -1,6 +1,6 @@
 <?php
 
-    class SURVEY_MODAL {
+    class SURVEY_USER_DATED_MODAL {
 
         protected $pdo;
 
@@ -8,9 +8,10 @@
             $this->pdo = $pdo;
         }
 
-        public function getSurveyData($hello_name,$DATES) {
+        public function getSurveyUserDatedData($AGENT_NAME,$DATES) {
             $stmt = $this->pdo->prepare("SELECT 
     survey_tracker_id,
+    survey_tracker_agent,
     survey_tracker_number,
     survey_tracker_notes,
     survey_tracker_status,
@@ -25,8 +26,8 @@ WHERE
         DATE(survey_tracker_added_date) = :DATES
         AND
         survey_tracker_agent = :HELLO2");
-            $stmt->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
-            $stmt->bindParam(':HELLO2', $hello_name, PDO::PARAM_STR);
+            $stmt->bindParam(':HELLO', $AGENT_NAME, PDO::PARAM_STR);
+            $stmt->bindParam(':HELLO2', $AGENT_NAME, PDO::PARAM_STR);
             $stmt->bindParam(':DATE', $DATES, PDO::PARAM_STR);
             $stmt->bindParam(':DATES', $DATES, PDO::PARAM_STR);
             $stmt->execute();

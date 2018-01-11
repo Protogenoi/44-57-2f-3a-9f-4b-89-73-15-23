@@ -172,6 +172,11 @@ $companynamere = $companydetailsq['company_name'];
  <li class="divider"></li>
               
 <li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Closers.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Closer Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
+            <?php 
+            if(isset($fftrackers) && $fftrackers == '1') {
+            if (in_array($hello_name, $Manager_Access, true)) {  ?>
+            <li><a href="/addon/Trackers/SearchSurvey.php">Search Survey Trackers</a></li> 
+            <?php } } ?>
 <li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Agent.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Agent Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
 <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Dealsheet.php?query=AllCloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Search Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
  <li class="divider"></li>

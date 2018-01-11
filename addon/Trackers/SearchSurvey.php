@@ -105,6 +105,7 @@ if ($fftrackers == '0') {
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 $DATES = filter_input(INPUT_POST, 'DATES', FILTER_SANITIZE_SPECIAL_CHARS);
+$AGENT_NAME = filter_input(INPUT_POST, 'AGENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $Today_DATE = date("d-M-Y");
 $Today_DATES = date("l jS \of F Y");
@@ -118,7 +119,7 @@ $Today_TIME = date("h:i:s");
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-    <title>ADL | Survey Trackers</title>
+    <title>ADL | Search Survey Trackers</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -157,7 +158,32 @@ $Today_TIME = date("h:i:s");
 
                             <div class="col-md-12">
                                 <form action="?EXECUTE=1" method="post"> 
-                                
+                                  <div class="col-md-4">  
+                             <select class="form-control" name="AGENT_NAME" id="AGENT_NAME">
+                                 <option value="All" <?php if($AGENT_NAME=='All') { echo "selected"; } ?>>All</option>
+                                 <option value="Michael" <?php if($AGENT_NAME=='Michael') { echo "selected"; } ?>>Michael</option>
+                                 <?php
+                                    $CLO_QRY = $pdo->prepare("SELECT 
+    CONCAT(firstname, ' ', lastname) AS firstname
+FROM
+    employee_details
+WHERE
+    position = 'Life Lead Gen' AND employed = '1'
+        AND company = 'The Review Bureau'");
+                                    $CLO_QRY->execute();
+if ($CLO_QRY->rowCount() > 0) {
+                                    while ($result = $CLO_QRY->fetch(PDO::FETCH_ASSOC)) {   
+                                        
+                                        if(isset($result['firstname'])) {
+                                        $AGENT=$result['firstname'];
+                                        
+                                        }
+
+                                 ?>
+                                 <option value='<?php if(isset($AGENT)) { echo $AGENT; } ?>' <?php if($AGENT==$AGENT_NAME) { echo "selected"; } ?> ><?php if(isset($AGENT)) { echo $AGENT; } ?></option>
+<?php } } ?>       
+                             </select>                                    
+                                  </div>
                                 <div class="col-md-4">
                                     <input type="text" id="DATES" name="DATES" value="<?php if(isset($DATES)) { echo "$DATES"; } else { echo date("Y-m-d"); } ?>" class="form-control">
                           </div>
@@ -165,19 +191,27 @@ $Today_TIME = date("h:i:s");
                              <div class="col-md-4">
                                  <div class="btn-group">
                                  <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search old data</button> 
+                                 <a href="SearchSurvey.php" class="btn btn-danger btn-sm"><i class="fa fa-refresh"></i> Reset</a>
                                  </div>
                                  </form>  
                             </div>
-            
+                            </div>
+            <div class="col-md-12">
                                 <div class="col-md-4">
-
+                                    <br><br>
+            <?php if(isset($ACCESS_LEVEL) && $ACCESS_LEVEL >= 10) { ?>
+                                <form action="/addon/Trackers/php/Survey.php?EXECUTE=2" method="POST" enctype="multipart/form-data">
+                                    <input class="form-control" name="csv" type="file" id="csv">
+                                    <button class="form-control" type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload New Data</button>
+                                </form>                                   
+            <?php } ?>
                                 </div>
                     
         </div> 
         <?php
         
-        if(isset($DATES)) {
-            
+        if(isset($DATES) && isset($AGENT_NAME) && $AGENT_NAME != 'All') {
+
             $QRY_CHK = $pdo->prepare("SELECT 
                 survey_tracker_id 
             FROM 
@@ -188,37 +222,53 @@ $Today_TIME = date("h:i:s");
                 DATE(survey_tracker_updated_date) = :DATE
             OR  
                 DATE(survey_tracker_added_date) = :DATES");
-            $QRY_CHK->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+            $QRY_CHK->bindParam(':HELLO', $AGENT_NAME, PDO::PARAM_STR);
             $QRY_CHK->bindParam(':DATE', $DATES, PDO::PARAM_STR);
             $QRY_CHK->bindParam(':DATES', $DATES, PDO::PARAM_STR);
     $QRY_CHK->execute();
     if ($QRY_CHK->rowCount() > 0) {
         
-        require_once(__DIR__ . '/models/trackers/SURVEY/Survey-Dated-model.php');
-        $SURVEY_DATA_LIST = new SURVEY_MODAL($pdo);
-        $SURVEY_DATA_LIST_R = $SURVEY_DATA_LIST->getSurveyData($hello_name,$DATES);
-        require_once(__DIR__ . '/views/trackers/SURVEY/Survey-view.php'); 
+        require_once(__DIR__ . '/models/trackers/SURVEY/Survey-User-Dated-model.php');
+        $SURVEY_USER_DATED_DATA_LIST = new SURVEY_USER_DATED_MODAL($pdo);
+        $SURVEY_USER_DATED_DATA_LIST_R = $SURVEY_USER_DATED_DATA_LIST->getSurveyUserDatedData($AGENT_NAME,$DATES);
+        require_once(__DIR__ . '/views/trackers/SURVEY/Survey-User-Dated-view.php'); 
         
-    }            
-            
-        } else {
-        
+        }    }      elseif(isset($DATES) && ($AGENT_NAME == 'All')) {  
+
             $QRY_CHK = $pdo->prepare("SELECT 
                 survey_tracker_id 
             FROM 
                 survey_tracker 
             WHERE 
-                survey_tracker_agent = :HELLO
-            AND 
-                DATE(survey_tracker_updated_date) >= CURDATE()");
-            $QRY_CHK->bindParam(':HELLO', $hello_name, PDO::PARAM_STR);
+                DATE(survey_tracker_updated_date) = :DATE
+            OR  
+                DATE(survey_tracker_added_date) = :DATES");
+            $QRY_CHK->bindParam(':DATE', $DATES, PDO::PARAM_STR);
+            $QRY_CHK->bindParam(':DATES', $DATES, PDO::PARAM_STR);
     $QRY_CHK->execute();
     if ($QRY_CHK->rowCount() > 0) {
         
-        require_once(__DIR__ . '/models/trackers/SURVEY/Survey-model.php');
-        $SURVEY_DATA_LIST = new SURVEY_MODAL($pdo);
-        $SURVEY_DATA_LIST_R = $SURVEY_DATA_LIST->getSurveyData($hello_name);
-        require_once(__DIR__ . '/views/trackers/SURVEY/Survey-view.php'); 
+        require_once(__DIR__ . '/models/trackers/SURVEY/Survey-No-User-Dated-model.php');
+        $SURVEY_NOUSER_DATED_DATA_LIST = new SURVEY_NOUSER_DATED_MODAL($pdo);
+        $SURVEY_USER_DATED_DATA_LIST_R = $SURVEY_NOUSER_DATED_DATA_LIST->getSurveyNoUserDatedData($DATES);
+        require_once(__DIR__ . '/views/trackers/SURVEY/Survey-User-Dated-view.php'); 
+        
+    }        
+        
+    }   else {
+            $QRY_CHK = $pdo->prepare("SELECT 
+                survey_tracker_id 
+            FROM 
+                survey_tracker 
+            WHERE 
+                DATE(survey_tracker_updated_date) >= CURDATE()");
+    $QRY_CHK->execute();
+    if ($QRY_CHK->rowCount() > 0) {
+        
+        require_once(__DIR__ . '/models/trackers/SURVEY/Survey-No-User-model.php');
+        $SURVEY_DATA_LIST = new SURVEY_NoUSER_MODAL($pdo);
+        $SURVEY_USER_DATED_DATA_LIST_R = $SURVEY_DATA_LIST->getSURVEY_NoUSER_MODAL();
+        require_once(__DIR__ . '/views/trackers/SURVEY/Survey-User-Dated-view.php');         
         
     }
     

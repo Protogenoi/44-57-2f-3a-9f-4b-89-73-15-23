@@ -164,7 +164,7 @@ if ($_FILES["csv"]["size"] > 0) {
     
     while ($data = fgetcsv($handle,1000,",",'"'));
     
-header('Location: ../Survey.php?EXECUTE=1&TRACKER=UPLOADED'); 
+header('Location: ../SearchSurvey.php?EXECUTE=1&TRACKER=UPLOADED'); 
 die;
     
     

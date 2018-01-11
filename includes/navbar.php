@@ -119,7 +119,10 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/addon/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
                         <?php } ?>    
                            <li class="divider"></li>  
-                    <li><a href="/app/messenger/Main.php"> Internal Messages</a></li> 
+                    <li><a href="/app/messenger/Main.php"> Internal Messages</a></li>
+                    <?php if(in_array($hello_name, $Level_10_Access, true)) { ?>
+                    <li><a href="/app/docs/DocStore.php"> Doc Store</a></li>
+                    <?php } ?>
                     <?php if ($ffews == '1' && in_array($hello_name, $Level_8_Access, true)) { ?>
                     <li class="divider"></li>
                     <li><a href="/Life/Reports/EWS.php"> Early Warning System</a></li>

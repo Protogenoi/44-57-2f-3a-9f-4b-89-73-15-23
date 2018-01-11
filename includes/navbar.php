@@ -166,27 +166,32 @@ $companynamere = $companydetailsq['company_name'];
             if(isset($fftrackers) && $fftrackers == '1') {
             if (in_array($hello_name, $Agent_Access, true) || in_array($hello_name, $Manager_Access, true)) {  ?>
             <li><a href="/addon/Trackers/Survey.php">Survey Trackers</a></li> 
+            <?php } } if ($fftrackers == '1') {  ?>
+            <li><a href="/addon/Trackers/Tracker.php?query=CloserTrackers"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers</a></li>
+            <?php } if ($ffdealsheets == '1') { 
+                if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?>
+            <li><a href="/Life/Dealsheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
             <?php } } ?>
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $fftrackers == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Tracker.php?query=CloserTrackers'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Closer_Access, true) || $ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Dealsheet.php?query=CloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
- <li class="divider"></li>
-              
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Closers.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Closer Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-            <?php 
-            if(isset($fftrackers) && $fftrackers == '1') {
-            if (in_array($hello_name, $Manager_Access, true)) {  ?>
-            <li><a href="/addon/Trackers/SearchSurvey.php">Search Survey Trackers</a></li> 
+            <li class="divider"></li> 
+            <?php if(isset($fftrackers) && $fftrackers == '1') { 
+                if(in_array($hello_name, $Manager_Access, true)) { ?>
+            <li><a href="/addon/Trackers/Closers.php?EXECUTE=1">Search Closer Trackers</a></li>
+            <li><a href="/addon/Trackers/SearchSurvey.php">Search Survey Trackers</a></li>
+            <li><a href="/addon/Trackers/Agent.php?EXECUTE=1">Search Agent Trackers</a></li>
+            <?php } } 
+            if(isset($ffdealsheets) && $ffdealsheets == '1') { 
+                if(in_array($hello_name, $Manager_Access, true)) { ?> 
+            <li><a href="/Life/Dealsheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
+            <?php } } 
+            if(isset($ffdealsheets) && $ffdealsheets == '1') {  ?>
+            <li class="divider"></li>
+            <?php if(in_array($hello_name, $Level_9_Access, true)) { ?>
+            <li><a href="/Life/Reports/Pad.php">PAD</a></li>
+            <?php } if(in_array($hello_name, $QA_Access) || in_array($hello_name, $Level_9_Access, true)) { ?>
+            <li class="divider"></li>
+            <li><a href="/Life/Dealsheet.php?query=QADealSheets">Dealsheets for QA</a></li>
+            <li><a href="/Life/Dealsheet.php?query=CompletedDeals">Completed Dealsheets</a></li>
             <?php } } ?>
-<li><a <?php if ($fftrackers == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/addon/Trackers/Agent.php?EXECUTE=1'; } else { echo '/CRMmain.php?FEATURE=TRACKERS'; } ?>">Search Agent Trackers <?php if ($fftrackers == '0') { echo "(not enabled)"; } ?></a></li>
-<li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Manager_Access, true)) { echo '/Life/Dealsheet.php?query=AllCloserDealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Search Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
- <li class="divider"></li>
- 
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Reports/Pad.php'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">PAD <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-           <li class="divider"></li>
-           
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Dealsheet.php?query=QADealSheets'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Dealsheets for QA <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-          <li><a <?php if ($ffdealsheets == '0') { echo "class='btn-warning'"; } else { } ?> href="<?php if ($ffdealsheets == '1' && in_array($hello_name, $QA_Access) || $ffdealsheets == '1' && in_array($hello_name, $Level_9_Access, true)) { echo '/Life/Dealsheet.php?query=CompletedDeals'; } else { echo '/CRMmain.php?FEATURE=DEALSHEETS'; } ?>">Completed Dealsheets <?php if ($ffdealsheets == '0') { echo "(not enabled)"; } ?></a></li>
-
       </ul>
       <?php
 

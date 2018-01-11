@@ -216,7 +216,7 @@ $companynamere = $companydetailsq['company_name'];
                  <ul role='menu' class='dropdown-menu'>
                      <li><a href="https://www20.landg.com/PolicyEnquiriesIFACentre/ENTRY_POINT_RESOURCE?domain=adviser" target="_blank">LG Policy Summary Search</a></li>
                             <?php if(in_array($hello_name, $Level_10_Access, true)) { 
-                                if ($ffinancials == '1') { ?>
+                                if ($fffinancials == '1') { ?>
                      <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li>
                          <?php }
                          if ($ffews == '1') { ?>

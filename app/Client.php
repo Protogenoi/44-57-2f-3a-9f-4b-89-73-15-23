@@ -231,6 +231,22 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $HAS_ENG_POL = "1";
                         }   
                         
+                        $Zurich_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Zurich' AND client_id=:CID");
+                        $Zurich_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $Zurich_CHECK->execute();
+                        if ($Zurich_CHECK->rowCount() > 0) {
+                            $HAS_ZURICH_POL='1';
+                            
+                        }  
+                        
+                        $ScottishWidows_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Scottish Widows' AND client_id=:CID");
+                        $ScottishWidows_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $ScottishWidows_CHECK->execute();
+                        if ($ScottishWidows_CHECK->rowCount() > 0) {
+                            $HAS_SCOTTISH_WIDOWS_POL='1';
+                            
+                        }                        
+                        
         if(isset($LANG_POL) && $LANG_POL == 1) {               
                         
         $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID");

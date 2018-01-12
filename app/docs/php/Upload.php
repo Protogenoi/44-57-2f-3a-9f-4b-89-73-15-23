@@ -107,6 +107,12 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             
  if(move_uploaded_file($file_loc,$folder.$final_file)) {
      
+     $ALLOWED_CATS=array("Training","Compliance","Scripts","Other");
+     
+     if(!in_array($DOC_CAT, $ALLOWED_CATS)) {
+         $DOC_CAT="Other";
+     }
+     
 $UPLOAD = $pdo->prepare("INSERT INTO docstore_uploads set docstore_uploads_cat=:CAT, docstore_uploads_title=:TITLE, docstore_uploads_company=:COMPANY, docstore_uploads_uploaded_by=:HELLO, docstore_uploads_location=:LOCATION");
 $UPLOAD->bindParam(':LOCATION',$LOCATION, PDO::PARAM_STR);
 $UPLOAD->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);

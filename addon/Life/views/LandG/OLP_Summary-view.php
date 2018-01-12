@@ -9,5 +9,11 @@
       if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
 <a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
       <?php  }
+      if (file_exists("/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
+<a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
+      <?php  }   
+      if ((filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/LG/OLPSummary/$POL_NORMAL")) { ?>
+<a target="_blank" class="btn btn-default" href='/uploads/LG/OLPSummary/<?php echo $POL_NORMAL; ?>' > <i class='fa fa-folder-open-o'></i> OLP Status (<?php echo "<strong>$POL_NORMAL</strong>"; ?>)</a>
+      <?php }
       
       endforeach ?>

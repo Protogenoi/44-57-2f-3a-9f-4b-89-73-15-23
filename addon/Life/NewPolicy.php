@@ -286,14 +286,14 @@ if (isset($EXECUTE)) {
                                             ?>>Legal & General</option>
                                              <option value="Zurich" <?php
                                             if (isset($INSURER)) {
-                                                if ($INSURER == 'Zurich') {
+                                                if ($INSURER == 'ZURICH') {
                                                     echo "selected";
                                                 }
                                             }
                                             ?>>Zurich</option>
                                             <option value="Scottish Widows" <?php
                                             if (isset($INSURER)) {
-                                                if ($INSURER == 'Scottish Widows') {
+                                                if ($INSURER == 'SCOTTISH WIDOWS') {
                                                     echo "selected";
                                                 }
                                             }

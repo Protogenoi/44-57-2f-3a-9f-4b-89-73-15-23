@@ -2611,8 +2611,14 @@ WHERE
                                         case"LGPolicy Summary";
                                         case "Dealsheet":
                                         case"LGpolicy";
+                                            case"Zurichpolicy";
+                                                case"Vitalitypolicy";
+                                                    case"SWpolicy";
+                                                        case"SWkeyfacts";
                                         case"LGkeyfacts";
                                             case"Avivakeyfacts";
+                                                case"Zurichkeyfacts";
+                                                    case"Vitalitykeyfacts";
                                                 case"Avivapolicy";
                                         case"Recording";
                                         case"Closer Call Recording";

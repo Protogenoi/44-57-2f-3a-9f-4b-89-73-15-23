@@ -284,7 +284,20 @@ if (isset($EXECUTE)) {
                                                 }
                                             }
                                             ?>>Legal & General</option>
-                                            
+                                             <option value="Zurich" <?php
+                                            if (isset($INSURER)) {
+                                                if ($INSURER == 'Zurich') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>Zurich</option>
+                                            <option value="Scottish Widows" <?php
+                                            if (isset($INSURER)) {
+                                                if ($INSURER == 'Scottish Widows') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>Scottish Widows</option>                                             
                                             <option value="Vitality" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'VITALITY') {

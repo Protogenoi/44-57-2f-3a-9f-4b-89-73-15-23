@@ -973,6 +973,12 @@ if (isset($fileuploadedfail)) {
                                     <option value="Avivapolicy">Aviva App</option>
                                     <option value="Avivakeyfacts">Aviva Keyfacts</option>
                                     <option disabled>──────────</option>
+                                    <option value="Zurichpolicy">Zurich App</option>
+                                    <option value="Zurichkeyfacts">Zurich Keyfacts</option> 
+                                    <option disabled>──────────</option>
+                                    <option value="SWpolicy">Scottish Widows App</option>
+                                    <option value="SWkeyfacts">Scottish Widows Keyfacts</option>                                     
+                                    <option disabled>──────────</option>
                                     <option value="lifenotes">Notes</option>
                                     <option value="Other">Other</option>
                                     <option disabled>──────────</option>

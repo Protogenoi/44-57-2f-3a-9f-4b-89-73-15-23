@@ -172,7 +172,7 @@ if(isset($Single_Client['alt_number'])) {
     $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive");
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
                         $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");
@@ -466,6 +466,34 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                             }
 
+                            if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Zurich/Policy-model.php');
+                            $ZURICH_POL = new ZURICH_POL_Modal($pdo);
+                            $ZURICH_POLList = $ZURICH_POL->getZURICH_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Zurich/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Zurich/Keyfacts-model.php');
+                            $ZURICH_KF = new ZURICH_KFModal($pdo);
+                            $ZURICH_KFList = $ZURICH_KF->getZURICH_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Zurich/Keyfacts-view.php');                                   
+
+                            }      
+                            
+                            if(isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/ScottishWidows/Policy-model.php');
+                            $SW_POL = new SW_POL_Modal($pdo);
+                            $SW_POLList = $SW_POL->getSW_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/ScottishWidows/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/ScottishWidows/Keyfacts-model.php');
+                            $SW_KF = new SW_KFModal($pdo);
+                            $SW_KFList = $SW_KF->getSW_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/ScottishWidows/Keyfacts-view.php');                                   
+
+                            }                              
+                            
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1 ) {
 
                                     $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='RLpolicy'");
@@ -712,7 +740,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_INSURER">Insurer:</label>
                                             <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
                                                 <option value="">Select insurer...</option> 
-                                                <option value="Legal and General">Legal and General</option>                                                
+                                                <option value="Legal and General">Legal and General</option>
+                                                <option value="Zurich">Zurich</option>
+                                                <option value="Scottish Widows">Scottish Widows</option>
                                                 <option value="Aviva">Aviva</option>                                              
                                                 <option value="Vitality">Vitality</option>                                             
                                                 <option value="Royal London">Royal London</option>                                          
@@ -889,7 +919,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_INSURER">Insurer:</label>
                                             <select class="form-control" name="SMS_INSURER" id="SMS_INSURER" required>
                                                 <option value="">Select insurer...</option> 
-                                                <option value="Legal and General">Legal and General</option>                                                
+                                                <option value="Legal and General">Legal and General</option>
+                                                <option value="Zurich">Zurich</option>
+                                                <option value="Scottish Widows">Scottish Widows</option>                                                
                                                 <option value="Aviva">Aviva</option>                                              
                                                 <option value="Vitality">Vitality</option>                                             
                                                 <option value="Royal London">Royal London</option>                                          

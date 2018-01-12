@@ -132,21 +132,6 @@ if(isset($WHICH_COMPANY)){
 
 }
 
-$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
-$TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
-                            $TSK_QRY->execute();
-                            if ($TSK_QRY->rowCount()>0) { 
-                            while ($result=$TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>
-
-         
-    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Tasks To Do:</strong> <?php 
-foreach ($result as $value) {
-    echo "$value ";
-}
-?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
-         
-                          <?php  }   } 
-
  if(empty($closeraudit)) {
      echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
 
@@ -193,8 +178,17 @@ foreach ($result as $value) {
          
      }      
      
-     }  
+     }      
      
+}
+    }
+//END TRB
+
+
+}
+
+if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
+    
           if($client_date_added >= "2017-04-24 11:55:00") {
          
          $database->query("select keyfactsemail_email from keyfactsemail where keyfactsemail_email=:email");
@@ -209,15 +203,6 @@ foreach ($result as $value) {
      }      
      
      }    
-     
-}
-    }
-//END TRB
-
-
-}
-
-if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
 
     
      if($client_date_added <= "2017-03-07 16:25:00") {
@@ -535,5 +520,97 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS sent!</div>");
                                                     }
                                                 }                                                       
-                                                                    
+                                                
+$TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");
+$TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $TSK_QRY->execute();
+                            if ($TSK_QRY->rowCount()>0) { 
+                            while ($result=$TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>
+
+         
+    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Tasks To Do:</strong> <?php 
+foreach ($result as $value) {
+    echo "$value ";
+}
+?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
+         
+                          <?php  }   }      
+                          
+if($WHICH_COMPANY=='Zurich') {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='Zurichkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Zurich Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Zurichpolicy' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Zurich App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }    
+}  
+
+if($WHICH_COMPANY=='Scottish Widows') {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='SWkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Scottish Widows Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='SWpolicy' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Scottish Widows App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }    
+}
+
+if($WHICH_COMPANY=='Vitality') {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Vitality Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Vitality App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }    
+}
                                                                 ?>

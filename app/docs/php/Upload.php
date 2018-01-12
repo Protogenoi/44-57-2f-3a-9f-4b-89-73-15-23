@@ -88,7 +88,7 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             $uploadtype="DocStore";
             $date=date("y-m-d-G:i:s");
             
-            $file = $date."-".$hello_name."-".$_FILES['file']['name'];
+            $file = $date.$_FILES['file']['name'];
             $file_loc = $_FILES['file']['tmp_name'];
             $file_size = $_FILES['file']['size'];
             $file_type = $_FILES['file']['type'];

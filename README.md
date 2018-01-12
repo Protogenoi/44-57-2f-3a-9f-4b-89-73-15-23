@@ -15,6 +15,7 @@ A Customer relationship management application built for the financial services 
  * Internal messenger service
  * Lead and sales management
  * Callback scheduler
+ * Cloud storage
 
 ## Authors
 

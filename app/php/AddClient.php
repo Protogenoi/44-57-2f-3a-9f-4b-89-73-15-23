@@ -405,7 +405,7 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
     
     <?php if(isset($DUPE_CLIENT_EXISTS) && $DUPE_CLIENT_EXISTS==1) { ?>
     
-    <div class="notice notice-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> Duplicate address details found<br><br>Existing client name: <?php echo "$first $last"; ?><br> Address: <?php echo "$add1 $post"; ?>.<br><br><a href='/Life/ViewClient.php?search=<?php echo $dupeclientid; ?>' class="btn btn-default"><i class='fa fa-eye'> View Client</a></i></div>
+    <div class="notice notice-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><strong>Error!</strong> Duplicate address details found<br><br>Existing client name: <?php echo "$first $last"; ?><br> Address: <?php echo "$add1 $post"; ?>.<br><br><a href='/app/Client.php?search=<?php echo $dupeclientid; ?>' class="btn btn-default"><i class='fa fa-eye'> View Client</a></i></div>
         
         <?php } else { ?>
     

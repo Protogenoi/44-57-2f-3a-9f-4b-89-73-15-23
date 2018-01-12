@@ -93,14 +93,14 @@ if ($ffanalytics == '1') {
     $INSURER= filter_input(INPUT_POST, 'custype', FILTER_SANITIZE_SPECIAL_CHARS);
     $INSURER_ARRAY_ONE=array("Bluestone Protect","The Review Bureau","TRB Archive","TRB Vitality","Vitality","TRB Aviva","Aviva","TRB WOL","One Family","TRB Royal London","Royal London");
 
-        $title= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TITLE= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         $first= filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS);
         $last= filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS);
         $dob= filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_SPECIAL_CHARS);
         $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $phone= filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_NUMBER_INT);
         $alt= filter_input(INPUT_POST, 'alt_number', FILTER_SANITIZE_NUMBER_INT);
-        $title2= filter_input(INPUT_POST, 'title2', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TITLE2= filter_input(INPUT_POST, 'title2', FILTER_SANITIZE_SPECIAL_CHARS);
         $first2= filter_input(INPUT_POST, 'first_name2', FILTER_SANITIZE_SPECIAL_CHARS);
         $last2= filter_input(INPUT_POST, 'last_name2', FILTER_SANITIZE_SPECIAL_CHARS);
         $dob2= filter_input(INPUT_POST, 'dob2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -110,6 +110,18 @@ if ($ffanalytics == '1') {
         $add3= filter_input(INPUT_POST, 'address3', FILTER_SANITIZE_SPECIAL_CHARS);
         $town= filter_input(INPUT_POST, 'town', FILTER_SANITIZE_SPECIAL_CHARS);
         $post= filter_input(INPUT_POST, 'post_code', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $TITLE_ARRAY=array("Mr","Dr","Miss","Ms","Mrs","Other");
+        
+        if(!in_array($TITLE,$TITLE_ARRAY)) {
+            $TITLE="Other";
+        }
+        
+        if(!empty($TITLE2)) {
+        if(!in_array($TITLE2,$TITLE_ARRAY)) {
+            $TITLE2="Other";
+        }            
+        }
         
         $correct_dob = date("Y-m-d" , strtotime($dob)); 
         if(!empty($dob2)) {
@@ -142,14 +154,14 @@ if ($ffanalytics == '1') {
             $database->query("INSERT into client_details set owner=:OWNER, company=:company, title=:title, first_name=:first, last_name=:last, dob=:dob, email=:email, phone_number=:phone, alt_number=:alt, title2=:title2, first_name2=:first2, last_name2=:last2, dob2=:dob2, email2=:email2, address1=:add1, address2=:add2, address3=:add3, town=:town, post_code=:post, submitted_by=:hello, recent_edit=:hello2");
             $database->bind(':OWNER', $COMPANY_ENTITY);
             $database->bind(':company', $INSURER);
-            $database->bind(':title', $title);
+            $database->bind(':title', $TITLE);
             $database->bind(':first',$first);
             $database->bind(':last',$last);
             $database->bind(':dob',$correct_dob);
             $database->bind(':email',$email);
             $database->bind(':phone',$phone);
             $database->bind(':alt',$alt);
-            $database->bind(':title2', $title2);
+            $database->bind(':title2', $TITLE2);
             $database->bind(':first2',$first2);
             $database->bind(':last2',$last2);
             $database->bind(':dob2',$correct_dob2);
@@ -167,7 +179,7 @@ if ($ffanalytics == '1') {
             if ($database->rowCount()>=0) { 
                 
                 $notedata= "Client Added";
-                $INSURERnamedata= $title ." ". $first ." ". $last;
+                $INSURERnamedata= $TITLE ." ". $first ." ". $last;
                 $messagedata="Client Uploaded";
                 
                 $database->query("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
@@ -408,10 +420,10 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                         <div class="alert alert-info"><strong>Client Name:</strong> 
                                     Naming one person will create a single policy. Naming two person's will create a joint policy. <br><br>
                                     <select class='form-control' name='client_name' id='client_name' style='width: 170px' required>
-                                            <option value="<?php echo $title; ?> <?php echo $first; ?> <?php echo $last; ?>"><?php echo $title; ?> <?php echo $first; ?> <?php echo $last; ?></option>
-                                            <?php if (!empty($title2)) { ?>
-                                            <option value="<?php echo $title2; ?> <?php echo $first2; ?> <?php echo $last2; ?>"><?php echo $title2; ?> <?php echo $first2; ?> <?php echo $last2; ?></option>
-                                            <option value="<?php echo "$title $first $last and $title2 $first2 $last2"; ?>"><?php echo "$title $first $last and $title2 $first2 $last2"; ?></option>
+                                            <option value="<?php echo $TITLE; ?> <?php echo $first; ?> <?php echo $last; ?>"><?php echo $TITLE; ?> <?php echo $first; ?> <?php echo $last; ?></option>
+                                            <?php if (!empty($TITLE2)) { ?>
+                                            <option value="<?php echo $TITLE2; ?> <?php echo $first2; ?> <?php echo $last2; ?>"><?php echo $TITLE2; ?> <?php echo $first2; ?> <?php echo $last2; ?></option>
+                                            <option value="<?php echo "$TITLE $first $last and $TITLE2 $first2 $last2"; ?>"><?php echo "$TITLE $first $last and $TITLE2 $first2 $last2"; ?></option>
                                             <?php } ?>    
                                     </select>
                                        </div>  

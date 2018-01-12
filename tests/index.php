@@ -179,8 +179,10 @@ if($TRACKED_IP=='81.145.167.66') {
                     <a class="btn btn-success btn-sm" href="https://protection.royallondon.com/extranet/do/rlLogin" target="_blank">Royal London</a> 
                     <a class="btn btn-success btn-sm" href="https://portal.onefamilyadviser.com/Intermediaries/Portal/WebLogin.aspx" target="_blank">One Family</a> 
                     <a class="btn btn-success btn-sm" href="https://www.aviva-for-advisers.co.uk" target="_blank">Aviva</a> 
-                    <a class="btn btn-success btn-sm" href="https://login.vitality.co.uk/medical/" target="_blank">Vitality</a>
-                    <a class="btn btn-success btn-sm" href="mailto:michael@adl-crm.uk?Subject=ADL"> <strong>ADL Email Support</strong> </a>
+                    <a class="btn btn-success btn-sm" href="https://adviser.vitality.co.uk/life/online/manualLogin" target="_blank">Vitality Life</a>
+                    <a class="btn btn-success btn-sm" href="https://login.vitality.co.uk/medical/" target="_blank">Vitality Health</a>
+                    <a class="btn btn-success btn-sm" href="https://extranet.secure.scottishwidows.co.uk/login" target="_blank">Scottish Widows</a>
+                    <a class="btn btn-success btn-sm" href="https://exweb.exchange.uk.com/public/login/lognewsletter.aspx?redirect=sponsorship_010814_IRESS_ProtPack_email_internal" target="_blank">Exchange</a>
                 </center>
             </div>            
 <?php } ?>

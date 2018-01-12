@@ -1593,6 +1593,12 @@ WHERE
                                         case "TONIC PDF":
                                             case "Avivapolicy":
                                                 case "Avivakeyfacts":
+                                            case "Zurichpolicy":
+                                                case "Zurichkeyfacts":           
+                                            case "Vitalitypolicy":
+                                                case "Vitalitykeyfacts":        
+                                            case "SWpolicy":
+                                                case "SWkeyfacts":                                                    
                                             $typeimage = "fa-file-pdf-o";
                                             break;
                                         case "Happy Call":
@@ -1632,6 +1638,24 @@ WHERE
                                          case "Avivapolicy":
                                             $uploadtype = "Aviva Policy";
                                             break;
+                                        case "Vitalitykeyfacts":
+                                            $uploadtype = "Vitality Keyfacts";
+                                            break;
+                                         case "Vitalitypolicy":
+                                            $uploadtype = "Vitality Policy";
+                                            break;   
+                                        case "SWkeyfacts":
+                                            $uploadtype = "SW Keyfacts";
+                                            break;
+                                         case "SWpolicy":
+                                            $uploadtype = "SW Policy";
+                                            break;   
+                                        case "Zurichkeyfacts":
+                                            $uploadtype = "Zurich Keyfacts";
+                                            break;
+                                         case "Zurichpolicy":
+                                            $uploadtype = "Zurich Policy";
+                                            break;                                        
                                         case "LGkeyfacts":
                                             $uploadtype = "L&G Keyfacts";
                                             break;
@@ -1677,8 +1701,38 @@ WHERE
                                             <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
-                                    }                                   
+                                    } 
+                                    
+                                     if ($row['uploadtype'] == 'Vitalitypolicy' || $row['uploadtype'] =='Vitalitykeyfacts') {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    }                                      
 
+                                     if ($row['uploadtype'] == 'Zurichpolicy' || $row['uploadtype'] =='Zurichkeyfacts') {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    } 
+                                    
+                                     if ($row['uploadtype'] == 'SWpolicy' || $row['uploadtype'] =='SWkeyfacts') {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    }                                     
+                                    
                                     if ($row['uploadtype'] == 'Other') {
                                         ?>
                                         <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>

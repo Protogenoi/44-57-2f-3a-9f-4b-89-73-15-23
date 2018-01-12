@@ -74,16 +74,16 @@ $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS)
 $SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London");
+$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London","Zurich","Scottish Widows");
 $COMPANY_ARRAY=array("The Review Bureau","Bluestone Protect");
 
 if(!in_array($WHICH_COMPANY, $COMPANY_ARRAY)) {
-    header('Location: ../Client.php?search='.$CID); die;
+    header('Location: /../../../app/Client.php?search='.$CID); die;
 
 }
 
 if(!in_array($SMS_INSURER, $INSURER_ARRAY)) {
-    header('Location: ../Client.php?search='.$CID); die;
+    header('Location: /../../../app/Client.php?search='.$CID); die;
 
 }
 
@@ -137,6 +137,16 @@ if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Royal London') {
 
 if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Vitality') {
     $WHICH_COMPANY="Vitality";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Zurich') {
+    $WHICH_COMPANY="Zurich";
+    
+}
+
+if($WHICH_COMPANY=="Bluestone Protect" && $SMS_INSURER=='Scottish Widows') {
+    $WHICH_COMPANY="Scottish Widows";
     
 }
 

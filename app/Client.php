@@ -615,6 +615,22 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                         }
                         
+                        if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1) {
+                            require_once(__DIR__ . '/../addon/Life/models/Zurich-pol-model.php');
+                            $ZurichPolicies = new ZurichPoliciesModal($pdo);
+                            $ZurichPoliciesList = $ZurichPolicies->getZurichPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Zurich-pol-view.php');
+                            
+                        }   
+                        
+                        if(isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1) {
+                            require_once(__DIR__ . '/../addon/Life/models/SW-pol-model.php');
+                            $SWPolicies = new SWPoliciesModal($pdo);
+                            $SWPoliciesList = $SWPolicies->getSWPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/SW-pol-view.php');
+                            
+                        }                        
+                        
                         if(isset($HAS_ENG_POL) && $HAS_ENG_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/EngageMutualPoliciesModal.php');
                             $EngageMutualPolicies = new EngageMutualPoliciesModal($pdo);

@@ -56,8 +56,16 @@ if ($ffanalytics == '1') {
         require_once(__DIR__ . '/../../../class/login/login.php');
         
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
         
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
@@ -577,12 +585,14 @@ $database->query("SELECT ODT1, ODT2, ODT3, ODT4, ODT5, CIT1, CIT2, CIT3, CIT4, C
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script>
 <script>
 function textAreaAdjust(o) {
     o.style.height = "1px";
@@ -623,39 +633,21 @@ function textAreaAdjust(o) {
 <label for='CLOSER'>Closer:</label>
 <select class='form-control' name='CLOSER' id='CLOSER' required> 
     <option value="">Select...</option>
-    <?php if($companynamere=='Bluestone Protect') { ?>
-    <option value="Carys" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Carys') { echo "selected"; } } ?> >Carys</option>
-    <option value="David" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='David') { echo "selected"; } } ?> >David</option>
-    <option value="Hayley" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Hayley') { echo "selected"; } } ?> >Hayley</option>
-    <option value="James" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='James') { echo "selected"; } } ?> >James</option>
-    <option value="Kyle" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Kyle') { echo "selected"; } } ?> >Kyle</option>  
-    <option value="Mike" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Mike') { echo "selected"; } } ?> >Mike</option> 
-    <option value="Richard" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Richard') { echo "selected"; } } ?>>Richard</option>
-    <option value="Sarah" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Sarah') { echo "selected"; } } ?> >Sarah</option>
-    <option value="Nicola" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Nicola') { echo "selected"; } } ?> >Nicola</option>  
-    <option value="Gavin" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Gavin') { echo "selected"; } } ?> >Gavin</option>
-    <option value="Martin" <?php if(isset($RL_CLOSER)) { if($RL_CLOSER=='Martin') { echo "selected"; } } ?> >Martin</option>
-    <?php } ?>  
+                                <script type="text/JavaScript"> 
+                                    var $select = $('#CLOSER');
+                                    $.getJSON('/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+                                    $select.html('full_name');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
+                                    })
+                                    });
+                                </script> 
 </select>
 </div>
 
 <div class='form-group'>
-<label for='CLOSER2'>Closer (optional):</label>
-<select class='form-control' name='CLOSER2' id='CLOSER2' >    
-<option value="None">None</option>    
-    <?php if($companynamere=='Bluestone Protect') { ?>
-    <option value="Carys" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Carys') { echo "selected"; } } ?> >Carys</option>
-    <option value="Hayley" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Hayley') { echo "selected"; } } ?> >Hayley</option>
-    <option value="James" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='James') { echo "selected"; } } ?> >James</option>
-    <option value="Kyle" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Kyle') { echo "selected"; } } ?> >Kyle</option>  
-    <option value="Mike" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Mike') { echo "selected"; } } ?> >Mike</option> 
-    <option value="Richard" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Richard') { echo "selected"; } } ?>>Richard</option>
-    <option value="Sarah" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Sarah') { echo "selected"; } } ?> >Sarah</option>
-    <option value="Nicola" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Nicola') { echo "selected"; } } ?> >Nicola</option>  
-    <option value="Gavin" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Gavin') { echo "selected"; } } ?> >Gavin</option>
-    <option value="Martin" <?php if(isset($RL_CLOSER2)) { if($RL_CLOSER2=='Martin') { echo "selected"; } } ?> >Martin</option>
-    <?php } ?> 
-</select>
+<label for='CLOSER2'>Closer (optional):</label>   
+<input type="text" class='form-control' name='CLOSER2' id='CLOSER2' style="width: 520px">    
 </div>
 
 <label for="PLAN_NUMBER">Plan Number</label>

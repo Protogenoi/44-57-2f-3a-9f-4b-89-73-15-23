@@ -189,7 +189,7 @@ $TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$nav
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'><span class="badge alert-info"><i class="fa fa-exclamation"><strong> <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { echo $TOTAL_NOTIFICATIONS; } ?></strong></i></span></a>
                         <ul role='menu' class='dropdown-menu'>
                             <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
-                            <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-file-pdf-o"></i> Uploads:</strong> <a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"><?php echo $UPLOAD_COUNT; ?> Keyfacts not uploaded!</a></div></li>
+                            <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-file-pdf-o"></i> Uploads:</strong> <a href="/addon/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"><?php echo $UPLOAD_COUNT; ?> Keyfacts not uploaded!</a></div></li>
                             <?php } } 
                             if ($ffcallbacks == '1') { 
                                 if ($ACT_CBS['badge'] > 0) { ?>
@@ -228,7 +228,7 @@ $TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$nav
 
 <ul class="nav navbar-nav navbar-right">
     <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
-<li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
+<li><a href="/addon/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
    
     <?php } } if ($ffcallbacks == '1') {
 if ($ACT_CBS['badge'] > 0) { ?>

@@ -114,7 +114,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php } ?>
                         <li class="divider"></li>   
                         <li><a href="/email/Emails.php">Emails</a></li>
-                            <li><a href="/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts">Missing Uploads</a></li>
+                            <li><a href="/addon//Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts">Missing Uploads</a></li>
                         <?php if ($ffkeyfactsemail == '1') { ?>
                             <li><a href="/addon/Life/Reports/Keyfacts.php">KeyFact Email Report</a></li>
                         <?php } ?>    

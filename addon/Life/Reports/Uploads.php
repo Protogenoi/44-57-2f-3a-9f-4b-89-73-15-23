@@ -1,17 +1,17 @@
 <?php
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../classes/database_class.php');
-require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../classes/database_class.php');
+require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -23,19 +23,19 @@ if (isset($fferror)) {
 }
 if (!in_array($hello_name, $Level_3_Access, true)) {
 
-    header('Location: /../../CRMmain.php');
+    header('Location: /../../../CRMmain.php');
     die;
 }
 
 if ($fflife == '0') {
 
-    header('Location: /../../CRMmain.php?FeatureDisabled');
+    header('Location: /../../../CRMmain.php?FeatureDisabled');
     die;
 }
 
 $SEARCH = filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
 
-require_once(__DIR__ . '/../../class/login/login.php');
+require_once(__DIR__ . '/../../../class/login/login.php');
 
 $CHECK_USER_LOGIN = new UserActions($hello_name, "NoToken");
 $CHECK_USER_LOGIN->SelectToken();
@@ -53,7 +53,7 @@ $ACCESS_LEVEL = $USER_ACCESS_LEVEL['ACCESS_LEVEL'];
 
 if ($ACCESS_LEVEL < 3) {
 
-    header('Location: index.php?AccessDenied&USER=' . $hello_name . '&COMPANY=' . $COMPANY_ENTITY);
+    header('Location: /../../../index.php?AccessDenied&USER=' . $hello_name . '&COMPANY=' . $COMPANY_ENTITY);
     die;
 }
 ?>
@@ -73,7 +73,7 @@ if ($ACCESS_LEVEL < 3) {
 <body>
 
     <?php
-    require_once(__DIR__ . '/../../includes/navbar.php');
+    require_once(__DIR__ . '/../../../includes/navbar.php');
     ?>
 
     <div class="container">
@@ -119,7 +119,16 @@ if ($ACCESS_LEVEL < 3) {
         } ?> value="Agent Recording">Agent Recording</option>
                         <option <?php if ($SEARCH == 'LG App') {
             echo "selected";
-        } ?> value="LG App">Legal and General App</option>   
+        } ?> value="LG App">Legal and General App</option>  
+                        <option <?php if ($SEARCH == 'Zurich App') {
+            echo "selected";
+        } ?> value="Zurich App">Zurich App</option>  
+                        <option <?php if ($SEARCH == 'SW App') {
+            echo "selected";
+        } ?> value="SW App">Scottish Widows App</option>  
+                        <option <?php if ($SEARCH == 'Vitality App') {
+            echo "selected";
+        } ?> value="Vitality App">Vitality App</option>                          
                         <option <?php if ($SEARCH == 'Welcome SMS') {
             echo "selected";
         } ?> value="Welcome SMS">Welcome SMS</option> 
@@ -179,7 +188,7 @@ if ($ACCESS_LEVEL < 3) {
                                      "language": {
                                          "processing": "<div></div><div></div><div></div><div></div><div></div>"
                                      },
-                                     "ajax": "/Life/JSON/Uploads.php?EXECUTE=<?php if (isset($SEARCH)) {
+                                     "ajax": "/addon/Life/JSON/Uploads.php?EXECUTE=<?php if (isset($SEARCH)) {
         if ($SEARCH == 'Insurer Keyfacts') {
             echo "1";
         } if ($SEARCH == 'Closer Recording') {
@@ -192,6 +201,15 @@ if ($ACCESS_LEVEL < 3) {
         if ($SEARCH == 'LG App') {
             echo "5";
         } 
+        if ($SEARCH == 'Vitality App') {
+            echo "8";
+        }  
+        if ($SEARCH == 'SW App') {
+            echo "9";
+        } 
+        if ($SEARCH == 'Zurich App') {
+            echo "10";
+        }         
         if ($SEARCH == 'Welcome SMS') {
             echo "6";
         }   
@@ -213,7 +231,7 @@ if ($ACCESS_LEVEL < 3) {
                                          {"data": "company"},
                                          {"data": "client_id",
                                              "render": function (data, type, full, meta) {
-                                                 return '<a href="/Life/ViewClient.php?search=' + data + '">View</a>';
+                                                 return '<a href="/app/Client.php?search=' + data + '">View</a>';
                                              }}
 
                                      ]
@@ -222,6 +240,5 @@ if ($ACCESS_LEVEL < 3) {
                              });
         </script>
 <?php } ?>
-
 </body>
 </html>

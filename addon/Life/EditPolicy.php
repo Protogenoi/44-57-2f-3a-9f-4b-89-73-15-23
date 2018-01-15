@@ -205,7 +205,11 @@ if(empty($POST_NAME)) {
 
 
                                 </div>                                   
+<?php
 
+$AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows")
+
+?>
                                 <div class="alert alert-info"><strong>Application Number:</strong> 
                                             <?php if (isset($data2["insurer"])) {
                                                 if ($data2["insurer"] == 'Legal and General') {
@@ -213,7 +217,7 @@ if(empty($POST_NAME)) {
                                                 }
                                             }
                                             if (isset($data2["insurer"])) {
-                                                if ($data2['insurer'] != 'Legal and General') {
+                                                if (!in_array($data2['insurer'],$AN_NUMBER_ARRAY)) {
                                                     ?>
                                             <p>
                                             <div class="form-group">
@@ -260,7 +264,7 @@ if(empty($POST_NAME)) {
         <?php
     }
 
-    if ($data2['insurer'] == 'Legal and General' || $data2['insurer'] == 'Zurich' || $data2['insurer'] == 'Scottish Widows') {
+    if (in_array($data2['insurer'],$AN_NUMBER_ARRAY)) {
         ?>
 
                                             <input  class="form-control"type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"] ?>" class="form-control" style="width: 170px" required>

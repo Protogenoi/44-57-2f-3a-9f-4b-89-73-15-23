@@ -260,7 +260,7 @@ if(empty($POST_NAME)) {
         <?php
     }
 
-    if ($data2['insurer'] == 'Legal and General') {
+    if ($data2['insurer'] == 'Legal and General' || $data2['insurer'] == 'Zurich' || $data2['insurer'] == 'Scottish Widows') {
         ?>
 
                                             <input  class="form-control"type="text" id="application_number" name="application_number" value="<?php echo $data2["application_number"] ?>" class="form-control" style="width: 170px" required>

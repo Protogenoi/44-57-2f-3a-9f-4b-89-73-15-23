@@ -135,6 +135,8 @@ if ($CLO_QRY->rowCount() > 0) {
                                         
                                         if($CLOSER_NAME=='Michael') {
                                             $CLOSER_NAME='Mike';
+                                        } elseif($CLOSER_NAME == 'Martin') {
+                                            $CLOSER_NAME="Martin Smith";
                                         }
                                         
                                         }

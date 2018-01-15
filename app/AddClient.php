@@ -135,11 +135,12 @@ if ($ffpost_code == '1') {
                             <div class="form-group">
                                 <label for="custtype">Product:</label>
                                 <select class="form-control" name="custype" id="custype" style="width: 170px" required>
-                                    <option value="">Select...</option>
                                     <?php
                                     $COMP_QRY = $pdo->prepare("SELECT insurance_company_name from insurance_company where insurance_company_active='1' ORDER BY insurance_company_id DESC");
                                     $COMP_QRY->execute();
-                                    if ($COMP_QRY->rowCount() > 0) {
+                                    if ($COMP_QRY->rowCount() > 0) { ?>
+                                    <option value="">Select...</option>
+                                    <?php
                                         while ($result = $COMP_QRY->fetch(PDO::FETCH_ASSOC)) {
 
                                             $CUSTYPE = $result['insurance_company_name'];
@@ -185,7 +186,7 @@ if ($ffpost_code == '1') {
                                             if (isset($CUSTYPE)) {
                                                 echo $CUSTYPE;
                                             }
-                                            ?>" <?php if(isset($DISPLAY_CUS) && $DISPLAY_CUS=="Legal and General") { echo "selected"; }?>><?php
+                                            ?>"><?php
                                                         if (isset($CUSTYPE)) {
                                                             echo $DISPLAY_CUS;
                                                         }

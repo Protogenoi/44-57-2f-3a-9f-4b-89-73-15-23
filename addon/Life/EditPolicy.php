@@ -307,6 +307,16 @@ if(empty($POST_NAME)) {
                                                 echo "selected";
                                             }
                                             ?> value="Royal London">Royal London</option>
+                                                                               <option <?php
+                                            if ($data2["insurer"] == 'Zurich') {
+                                                echo "selected";
+                                            }
+                                            ?> value="Zurich">Zurich</option>
+                                        <option <?php
+                                            if ($data2["insurer"] == 'Scottish Widows') {
+                                                echo "selected";
+                                            }
+                                            ?> value="Scottish Widows">Scottish Widows</option>                                                                              
                                         <option <?php
                                             if ($data2["insurer"] == 'Legal and General') {
                                                 echo "selected";

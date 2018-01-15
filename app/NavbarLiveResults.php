@@ -184,7 +184,7 @@ if(!isset($MSG_stmtresult['badge'])) {
 $TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
 ?>
             <ul class="nav navbar-nav navbar-right">
-                
+                <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { ?>
                     <li class='dropdown'>
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'><span class="badge alert-info"><i class="fa fa-exclamation"><strong> <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { echo $TOTAL_NOTIFICATIONS; } ?></strong></i></span></a>
                         <ul role='menu' class='dropdown-menu'>
@@ -220,7 +220,8 @@ $TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$nav
                             <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-inbox"></i> Messages:</strong><a href="/app/messenger/Main.php"> You have <?php echo $MSG_stmtresult['badge']; ?> private messages!</a></div></li>
                             <?php } ?>
                         </ul>  
-                    </li>                
+                    </li> 
+                        <?php } ?>
                 
                 <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>

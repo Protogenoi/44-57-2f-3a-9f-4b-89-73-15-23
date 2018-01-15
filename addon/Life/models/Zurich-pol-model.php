@@ -41,9 +41,7 @@ class ZurichPoliciesModal {
             WHERE 
                 client_policy.client_id =:CID
             AND 
-                insurer='Zurich' 
-            GROUP BY 
-                client_policy.policy_number");
+                insurer='Zurich'");
         $stmt->bindParam(':CID', $search, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

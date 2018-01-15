@@ -1275,7 +1275,7 @@ function yesnoCheckICT1() {
 
 <p>
 <label for="IC2">Q<?php $i++; echo $i; ?>. Did the closer mention waiver, indexation, or TPD?</label>
-<input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT2();" value="1" id="yesCheckICT2">Yes
+<input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT2();" value="1" id="yesCheckICT2" required>Yes
 <input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICT2();" value="0" id="noCheckICT2">No
 <input type="radio" name="IC2" <?php if (isset($RL_IC2) && $RL_IC2=="3") { echo "checked"; } ?> value="3" >N/A
 </p>

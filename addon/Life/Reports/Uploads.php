@@ -123,6 +123,9 @@ if ($ACCESS_LEVEL < 3) {
                         <option <?php if ($SEARCH == 'Zurich App') {
             echo "selected";
         } ?> value="Zurich App">Zurich App</option>  
+                        <option <?php if ($SEARCH == 'Royal London App') {
+            echo "selected";
+        } ?> value="Royal London App">Royal London App</option>                          
                         <option <?php if ($SEARCH == 'SW App') {
             echo "selected";
         } ?> value="SW App">Scottish Widows App</option>  
@@ -209,6 +212,9 @@ if ($ACCESS_LEVEL < 3) {
         } 
         if ($SEARCH == 'Zurich App') {
             echo "10";
+        } 
+        if ($SEARCH == 'Royal London App') {
+            echo "11";
         }         
         if ($SEARCH == 'Welcome SMS') {
             echo "6";

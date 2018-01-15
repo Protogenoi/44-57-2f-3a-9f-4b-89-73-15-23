@@ -208,8 +208,10 @@ if (isset($EXECUTE)) {
                                             <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php
                                             if ($INSURER == 'ONEFAMILY') {
                                                 echo "WOL";
-                                            } if ($INSURER == 'ROYALLONDON') {
+                                            } elseif ($INSURER == 'ROYALLONDON') {
                                                 echo "Royal London";
+                                            } elseif ($INSURER == 'VITALITY') {
+                                                echo "Vitality";
                                             }
                                             ?>" required>
                                                <?php } ?>

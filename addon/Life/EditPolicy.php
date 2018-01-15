@@ -286,6 +286,7 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows")
                                         <option value="<?php echo $data2["type"]; ?>"><?php echo $data2["type"]; ?></option>
                                         <option value="LTA">LTA</option>
                                         <option value="LTA SIC">LTA SIC (Vitality)</option>
+                                        <option value="DTA SIC">DTA SIC (Vitality)</option>
                                         <option value="LTA CIC">LTA + CIC</option>
                                         <option value="DTA">DTA</option>
                                         <option value="DTA CIC">DTA + CIC</option>

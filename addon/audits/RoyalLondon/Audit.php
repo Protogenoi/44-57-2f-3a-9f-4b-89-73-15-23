@@ -1461,7 +1461,7 @@ function yesnoCheckICT5() {
 
 <p>
 <label for="CD1">Q<?php $i++; echo $i; ?>. Were all clients titles and names recorded correctly?</label>
-<input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="1" id="yesCheckCDT1">Yes
+<input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="1" id="yesCheckCDT1" required>Yes
 <input type="radio" name="CD1" <?php if (isset($RL_CD1) && $RL_CD1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDT1();" value="0" id="noCheckCDT1">No
 </p>
 

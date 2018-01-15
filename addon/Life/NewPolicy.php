@@ -241,6 +241,7 @@ if (isset($EXECUTE)) {
                                                         if ($INSURER == 'VITALITY') {
                                                             ?>
                                                     <option value="LTA SIC">LTA SIC (Vitality)</option>
+                                                    <option value="DTA SIC">DTA SIC (Vitality)</option>
                                                     <?php
                                                 }
                                             }

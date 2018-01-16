@@ -287,13 +287,14 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows")
                                         <option value="LTA">LTA</option>
                                         <option value="LTA SIC">LTA SIC (Vitality)</option>
                                         <option value="DTA SIC">DTA SIC (Vitality)</option>
+                                        <option value="VITALITY WOL">Whole of Life (Vitality)</option>
                                         <option value="LTA CIC">LTA + CIC</option>
                                         <option value="DTA">DTA</option>
                                         <option value="DTA CIC">DTA + CIC</option>
                                         <option value="CIC">CIC</option>
                                         <option value="FPIP">FPIP</option>
                                         <option value="Income Protection">Income Protection</option>
-                                        <option value="WOL">WOL</option>
+                                        <option value="WOL">WOL (One Family)</option>
                                     </select>
                                 </div>
                                 </p>

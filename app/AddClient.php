@@ -229,7 +229,7 @@ if ($ffpost_code == '1') {
                             </p>
                             <p>
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" class="form-control" style="width: 170" name="email" placeholder="Use no@email.no for no email address" title="Use no@email.no for no email address">                            
+                                <input type="email" id="email" class="form-control" style="width: 170px" name="email" placeholder="Use no@email.no for no email address" title="Use no@email.no for no email address">                            
                             </p>
 
                             <br>

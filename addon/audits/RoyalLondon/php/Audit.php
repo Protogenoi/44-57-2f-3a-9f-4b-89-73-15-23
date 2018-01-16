@@ -782,7 +782,7 @@ $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
     $RL_COM_ETX->bindParam(':QCT7',$QCT7,PDO::PARAM_STR,100);
     $RL_COM_ETX->execute()or die(print_r($RL_COM_ETX->errorInfo(), true)); 
     
-    header('Location: /../../../../../Menu.php?RETURN=ADDED'); die;
+    header('Location: ../Menu.php?RETURN=ADDED'); die;
     
     }
     
@@ -790,5 +790,5 @@ $AUDITID= filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
         
     }
         
-        header('Location: /../../../../../Menu.php?RETURN=ERROR'); die;
+        header('Location: ../Menu.php?RETURN=ERROR'); die;
         ?>

@@ -207,7 +207,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                                 <?php
                             }
-                            if ($ACCESS_LEVEL == 10) {  ?>
+                            if(isset($ffdialer) && $ACCESS_LEVEL == 10) {  ?>
                             <li>
                                 <a href="https://164.39.13.58/ConnexReports/dashboard.php" target="_blank">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>
@@ -217,6 +217,9 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                     </div>
                                 </a>
                             </li>
+                            
+                         
+                        <?php if(isset($ffaudits) && $ffaudits == 1 ) { ?>    
                             
                                 <li>
                                     <a href="/addon/audits/main_menu.php">
@@ -229,7 +232,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 </li>                            
                             
                         
-                        <?php }                             
+                            <?php }  }                           
                       
                        }
                         

@@ -244,6 +244,7 @@ if (isset($EXECUTE)) {
                                                             ?>
                                                     <option value="LTA SIC">LTA SIC (Vitality)</option>
                                                     <option value="DTA SIC">DTA SIC (Vitality)</option>
+                                                    <option value="VITALITY WOL">Whole of Life (Vitality)</option>
                                                     <?php
                                                 }
                                             }
@@ -269,7 +270,7 @@ if (isset($EXECUTE)) {
                                                     echo "selected";
                                                 }
                                             }
-                                            ?> >WOL</option>
+                                            ?> >WOL (One Family)</option>
                                             <?php } ?>
                                         </select>
                                     </div>

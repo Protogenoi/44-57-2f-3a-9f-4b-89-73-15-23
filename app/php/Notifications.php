@@ -189,6 +189,8 @@ if(isset($WHICH_COMPANY)){
 
 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
     
+    
+    if($ffkeyfactsemail=='1') {
           if($client_date_added >= "2017-04-24 11:55:00") {
          
          $database->query("select keyfactsemail_email from keyfactsemail where keyfactsemail_email=:email");
@@ -203,7 +205,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
      }      
      
      }    
-
+    }
     
      if($client_date_added <= "2017-03-07 16:25:00") {
         if(empty($leadid1)) {

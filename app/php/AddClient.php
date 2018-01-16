@@ -455,44 +455,17 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                         <select class="form-control" name="type" id="type" style="width: 170px" required>
                                             <option value="">Select...</option>
                                             <option value="LTA">LTA</option>
-                                            <option value="TRB Archive" <?php
-                                            if (isset($INSURER)) {
-                                                if ($INSURER == 'TRB Archive') {
-                                                    echo "selected";
-                                                }
-                                            }
-                                            ?> >TRB Archive</option>
-                                                    <?php
-                                                    if (isset($INSURER)) {
-                                                        if ($INSURER == 'Vitality' || $INSURER=='TRB Vitality') {
-                                                            ?>
-                                                    <option value="LTA SIC">LTA SIC (Vitality)</option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
+                                            <option value="TRB Archive">TRB Archive</option>
+                                            <option value="LTA SIC">LTA SIC (Vitality)</option>
+                                            <option value="DTA SIC">DTA SIC (Vitality)</option>
+                                            <option value="VITALITY WOL">Whole of Life (Vitality)</option>        
                                             <option value="LTA CIC">LTA + CIC</option>
                                             <option value="DTA">DTA</option>
                                             <option value="DTA CIC">DTA + CIC</option>
                                             <option value="CIC">CIC</option>
                                             <option value="FPIP">FPIP</option>
-                                            <?php
-                                            if (isset($INSURER)) {
-                                                if ($INSURER == 'Aviva' || $INSURER =="TRB Aviva") {
-                                                    ?> 
-                                                    <option value="Income Protection">Income Protection</option>
-                                                <?php }
-                                            }
-                                            if(isset($INSURER) && $INSURER =='TRB WOL' || $INSURER=='One Family') { ?>
-                                                    
-                                            <option value="WOL" <?php
-                                            if (isset($INSURER)) {
-                                                if ($INSURER == 'TRB WOL' || $INSURER=="One Family"){
-                                                    echo "selected";
-                                                }
-                                            }
-                                            ?> >WOL</option>
-                                            <?php } ?>
+                                            <option value="Income Protection">Income Protection</option>
+                                            <option value="WOL">WOL (One Family)</option>
                                         </select>
                                     </div>
                                     </p>
@@ -572,6 +545,14 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                             ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
                                         </div> 
                                         </p>
+                                        
+                                        <p>
+                                        <label for="EXTRA_CHARGE">Extra Charges:</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="EXTRA_CHARGE" name="EXTRA_CHARGE" required/>
+                                        </div> 
+                                        </p>                                       
 
                                         <p>
 

@@ -357,6 +357,14 @@ if (isset($EXECUTE)) {
                                             ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="premium" name="premium" required/>
                                         </div> 
                                         </p>
+                                        
+                                    <p>
+                                        <label for="EXTRA_CHARGE">Extra Charges:</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input value="0" style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="EXTRA_CHARGE" name="EXTRA_CHARGE" required/>
+                                        </div> 
+                                        </p>                                        
 
 
                                         <p>

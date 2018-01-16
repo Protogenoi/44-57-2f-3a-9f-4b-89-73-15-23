@@ -127,7 +127,7 @@ if (isset($hello_name)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
+    $query = $pdo->prepare("SELECT extra_charge, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
     $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
     $query->bindParam(':CID', $search, PDO::PARAM_INT);
     $query->execute();
@@ -202,7 +202,6 @@ if (isset($hello_name)) {
 
                         <?php
                             if (in_array($hello_name, $Level_8_Access, true)) {
-
 
                                 $polid = $data2['id'];
                                 $policy_number = $data2["policy_number"];
@@ -458,6 +457,14 @@ ews_data.policy_number
                                     <input style="width: 170px" type="number" value="<?php echo $data2['premium']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="premium" name="premium" class="form-control" readonly style="width: 200px"/>
                                 </div> 
                                 </p>
+                                
+                            <p>
+                                <label for="EXTRA_CHARGE">Extra Charge:</label>
+                                <div class="input-group"> 
+                                    <span class="input-group-addon">£</span>
+                                    <input style="width: 170px" type="number" value="<?php if(isset($data2['extra_charge'])) { echo $data2['extra_charge']; } ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="EXTRA_CHARGE" name="EXTRA_CHARGE" class="form-control" readonly style="width: 200px"/>
+                                </div> 
+                                </p>                                
 
                                 <p>
                                 <div class="form-row">

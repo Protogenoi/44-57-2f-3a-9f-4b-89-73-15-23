@@ -135,7 +135,7 @@ $companynamere = $companydetailsq['company_name'];
                 </li>
                 
                 <?php } 
-                
+                if(isset($fftrackers) && $fftrackers == 1 || isset($ffcompliance) && $ffcompliance == 1 || isset($ffaudits) && $ffaudits == 1 ) {
                 if(in_array($hello_name, $Level_3_Access, true)) { ?>
 
                     <li class="dropdown">
@@ -154,11 +154,12 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
                             <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>
                             <li><a href="/addon/audits/WOL/Menu.php">One Family Audits</a></li>
+                        <?php } ?>
                         </ul>
                     </li>
                     
-                <?php }  }
-                
+                <?php  } }
+                if(isset($fftrackers) && $fftrackers == 1 || isset($ffdealsheets) && $ffcompliance == 1) {
                 if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Closer_Access, true)) { ?>
 
             <li class="dropdown">
@@ -195,7 +196,7 @@ $companynamere = $companydetailsq['company_name'];
             <li><a href="/Life/Dealsheet.php?query=CompletedDeals">Completed Dealsheets</a></li>
             <?php } } ?>
       </ul>
-      <?php } 
+                <?php } }
       
       if(isset($ffdealsheets) && $ffdealsheets == '1') { 
           if(in_array($hello_name, $Manager_Access, true) || in_array($hello_name, $Agent_Access, true)) { ?>

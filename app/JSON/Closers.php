@@ -61,9 +61,10 @@ FROM
     employee_details
 WHERE
     position IN('Closer','Admin')
-        AND company = 'Bluestone Protect'
+        AND company = :COMPANY
         AND employed = '1'
 ORDER BY full_name");
+        $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results= $query->fetchAll(PDO::FETCH_ASSOC));
 

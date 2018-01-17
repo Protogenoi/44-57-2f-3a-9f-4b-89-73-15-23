@@ -78,8 +78,6 @@ if (isset($fferror)) {
 
 if (isset($hello_name)) {
 
-    if ($companynamere == 'Bluestone Protect') {
-
         switch ($hello_name) {
             case "Michael":
                 $hello_name_full = "Michael Owen";
@@ -108,14 +106,12 @@ if (isset($hello_name)) {
             case "Nick":
                 $hello_name_full = "Nick Dennis";
                 break;
-            case "Amy":
-                $hello_name_full = "Amy Clayfield";
+            case "Ryan":
+                $hello_name_full = "Ryan Lloyd";
                 break;
             default:
                 $hello_name_full = $hello_name;
         }
-    }
-
 }
 
     $WHICH_COMPANY = filter_input(INPUT_GET, 'WHICH_COMPANY', FILTER_SANITIZE_SPECIAL_CHARS);

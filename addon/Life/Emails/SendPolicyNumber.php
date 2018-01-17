@@ -81,17 +81,8 @@ require_once(__DIR__ . '/../../../resources/lib/PHPMailer_5.2.0/class.phpmailer.
         $cnquery = $pdo->prepare("select company_name from company_details limit 1");
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
                             $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-                            $companynamere=$companydetailsq['company_name'];       
+                            $companynamere=$companydetailsq['company_name'];   
                             
-if(isset($companynamere))  {       
-
-$CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
-$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
-$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
-
-if($companynamere=='Bluestone Protect') {
-
 if(isset($hello_name)) {
     
      switch ($hello_name) {
@@ -110,15 +101,6 @@ if(isset($hello_name)) {
          case "Nicola":
              $hello_name_full="Nicola Griffiths";
              break;
-         case "Rhibayliss":
-             $hello_name_full="Rhiannon Bayliss";
-             break;
-         case "Amelia":
-             $hello_name_full="Amelia Pike";
-             break;
-         case "Abbiek":
-             $hello_name_full="Abbie Kenyon";
-             break;
          case "carys":
              $hello_name_full="Carys Riley";
              break;
@@ -131,21 +113,24 @@ if(isset($hello_name)) {
          case "Nick":
              $hello_name_full="Nick Dennis";
              break;
-         case "Amy":
-             $hello_name_full="Amy Clayfield";
-             break;
-        case "Georgia":
-             $hello_name_full="Georgia Davies";
-             break;
-         case "Mike":
-             $hello_name_full="Michael Lloyd";
-             break;
+         case "Ryan":
+             $hello_name_full="Ryan Lloyd";
+             break;         
          default:
              $hello_name_full=$hello_name;
              
      }
      
-     }
+     }                             
+                            
+if(isset($companynamere))  {       
+
+$CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
+$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if($companynamere=='Bluestone Protect') {
 
 $subject = "Bluestone Protect - Policy Number" ;
 $sig = "<br>-- \n
@@ -168,6 +153,33 @@ Please could you complete this section at your earliest convenience.
           Kind regards,<br>
 $hello_name_full
           </p>";
+
+}
+
+if(isset($COMPANY_ENTITY) && $COMPANY_ENTITY == 'First Priority Group') {
+$subject = "$COMPANY_ENTITY - Policy Number" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+$signat";
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+Following our recent phone conversation I have resent the 'My Account' email so you can create your personal online account with Legal and General. 
+In order to do this you'll need the policy number which is: <strong>$policy</strong>. </p>
+
+          <p>
+Once this has been completed you'll be able to access all the policy information, terms and conditions as well as the 'Check Your Details' form. 
+Please could you complete this section at your earliest convenience.
+          </p>
+          <p>If you require any further information please call our customer care team on 03300 100 035. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+
+          Kind regards,<br>
+$hello_name_full
+          </p>";    
+}
+    
 $body .= $sig;
 
 $mail             = new PHPMailer();
@@ -216,7 +228,5 @@ $message="Policy Number $policy for My Account Details sent ($email)";
 header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Send policy number&EMAIL_SENT_TO='.$email); die;
 
 }
-}
-
 }
 ?>

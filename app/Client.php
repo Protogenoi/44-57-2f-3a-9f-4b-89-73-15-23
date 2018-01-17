@@ -172,7 +172,7 @@ if(isset($Single_Client['alt_number'])) {
     $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows");
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
                         $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");
@@ -200,6 +200,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         if ($VIT_CHECK->rowCount() > 0) {
                             $HAS_VIT_POL='1';
                         }
+                        
+                        $LV_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='LV' AND client_id=:CID");
+                        $LV_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $LV_CHECK->execute();
+                        if ($LV_CHECK->rowCount() > 0) {
+                            $HAS_LV_POL='1';
+                        }                        
 
                         $WOL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='One Family' AND client_id=:CID");
                         $WOL_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -452,6 +459,21 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
  
                             }
                             
+                            if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/LV/Policy-model.php');
+                            $LV_POL = new LV_POL_Modal($pdo);
+                            $LV_POLList = $LV_POL->getLV_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/LV/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/LV/Keyfacts-model.php');
+                            $LV_KF = new LV_KFModal($pdo);
+                            $LV_KFList = $LV_KF->getLV_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/LV/Keyfacts-view.php');                                       
+
+ 
+                            }                            
+                            
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                                 
                             require_once(__DIR__ . '/../addon/Life/models/Aviva/Policy-model.php');
@@ -590,6 +612,14 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             require_once(__DIR__ . '/../addon/Life/views/VITALITY-Policies.php');
 
                         }
+                        
+                        if(isset($HAS_LVT_POL) && $HAS_LVT_POL == 1) {
+                            require_once(__DIR__ . '/../addon/Life/models/LVPoliciesModal.php');
+                            $LVPolicies = new LVPoliciesModal($pdo);
+                            $LVPoliciesList = $LVPolicies->getLVPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/LV-Policies.php');
+
+                        }                        
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/WOLPoliciesModal.php');

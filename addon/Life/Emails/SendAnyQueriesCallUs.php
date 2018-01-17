@@ -49,20 +49,15 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
         $emailbccdb=$queryr['emailbcc'];
         $emailreplydb=$queryr['emailreply'];
         
- if($companynamere=='Bluestone Protect') {       
-        $emailsubjectdb="Bluestone Protect - Any queries?";
- }
-  else {
-$emailsubjectdb="Any queries?";
- }
-        
         $emailsmtpdb=$queryr['smtp'];
         $emailsmtpportdb=$queryr['smtpport'];
         $emaildisplaynamedb=$queryr['displayname'];
         $passworddb=$queryr['password'];
         $emaildb=$queryr['email'];
         $signat=html_entity_decode($queryr['sig']);      
-
+        
+      $emailsubjectdb="$COMPANY_ENTITY - Any queries?";
+        
 if(isset($hello_name)) {  
      switch ($hello_name) {
          case "Michael":
@@ -74,8 +69,14 @@ if(isset($hello_name)) {
          case "leighton":
              $hello_name_full="Leighton Morris";
              break;
+         case "Roxy":
+             $hello_name_full="Roxanne Studholme";
+             break;
          case "Nicola":
              $hello_name_full="Nicola Griffiths";
+             break;
+         case "Abbiek":
+             $hello_name_full="Abbie Kenyon";
              break;
          case "carys":
              $hello_name_full="Carys Riley";
@@ -89,9 +90,6 @@ if(isset($hello_name)) {
          case "Nick":
              $hello_name_full="Nick Dennis";
              break;
-         case "Ryan":
-             $hello_name_full="Ryan Lloyd";
-             break;          
          default:
              $hello_name_full=$hello_name;
              
@@ -116,6 +114,8 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
 }
 $email= filter_input(INPUT_GET, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if($COMPANY_ENTITY=='Bluestone Protect') {
 
 $message ="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml'>
@@ -291,6 +291,186 @@ p, ul, ol {
 </body>
 </html>";
 
+}
+
+if($COMPANY_ENTITY=='First Priority Group') {
+
+$message ="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <meta name='viewport' content='width=device-width'/>
+
+
+    <style type='text/css'>
+    {
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font-family: 'Avenir Next', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+  line-height: 1.65; }
+
+img {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block; }
+
+body,
+.body-wrap {
+  width: 100% !important;
+  height: 100%;
+  background: #efefef;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none; }
+
+a {
+  color: #3399ff;
+  text-decoration: none; }
+
+.text-center {
+  text-align: center; }
+
+.text-right {
+  text-align: right; }
+
+.text-left {
+  text-align: left; }
+
+.button {
+  display: inline-block;
+  color: black;
+  background: #f0f0f5;
+  border: solid #f0f0f5;
+  border-width: 10px 20px 8px;
+  font-weight: bold;
+  border-radius: 4px; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 20px;
+  line-height: 1.25; }
+
+h1 {
+  font-size: 32px; }
+
+h2 {
+  font-size: 28px; }
+
+h3 {
+  font-size: 24px; }
+
+h4 {
+  font-size: 20px; }
+
+h5 {
+  font-size: 16px; }
+
+p, ul, ol {
+  font-size: 16px;
+  font-weight: normal;
+  margin-bottom: 20px; }
+
+.container {
+  display: block !important;
+  clear: both !important;
+  margin: 0 auto !important;
+  max-width: 580px !important; }
+  .container table {
+    width: 100% !important;
+    border-collapse: collapse; }
+  .container .masthead {
+    padding: 80px 0;
+    background: #ffffff;
+    color: black; }
+    .container .masthead h1 {
+      margin: 0 auto !important;
+      max-width: 90%;
+      text-transform: uppercase; }
+  .container .content {
+    background: white;
+    padding: 30px 35px; }
+    .container .content.footer {
+      background: none; }
+      .container .content.footer p {
+        margin-bottom: 0;
+        color: #888;
+        text-align: center;
+        font-size: 14px; }
+      .container .content.footer a {
+        color: #888;
+        text-decoration: none;
+        font-weight: bold; }
+.bs-wizard {margin-top: 40px;}
+
+.bs-wizard {border-bottom: solid 1px #e0e0e0; padding: 0 0 10px 0;}
+.bs-wizard > .bs-wizard-step {padding: 0; position: relative;}
+.bs-wizard > .bs-wizard-step + .bs-wizard-step {}
+.bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 16px; margin-bottom: 5px;}
+.bs-wizard > .bs-wizard-step .bs-wizard-info {color: #999; font-size: 14px;}
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;} 
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
+.bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
+.bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #fbe8aa;}
+.bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;}
+.bs-wizard > .bs-wizard-step.active > .progress > .progress-bar {width:50%;}
+.bs-wizard > .bs-wizard-step:first-child.active > .progress > .progress-bar {width:0%;}
+.bs-wizard > .bs-wizard-step:last-child.active > .progress > .progress-bar {width: 100%;}
+.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {background-color: #f5f5f5;}
+.bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {opacity: 0;}
+.bs-wizard > .bs-wizard-step:first-child  > .progress {left: 50%; width: 50%;}
+.bs-wizard > .bs-wizard-step:last-child  > .progress {width: 50%;}
+.bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot{ pointer-events: none; }
+    </style>
+</head>
+<body>
+<table class='body-wrap'>
+    <tr>
+        <td class='container'>
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td align='center' class='masthead'>
+<img src='cid:logo' >
+                        <h1>$COMPANY_ENTITY</h1>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class='content'>
+
+                        <h2>Hi $recipient,</h2>
+
+                        <p>Regarding your life insurance policy with us, should you have an questions or queries please do not hesitate too contact us on 03300 100 035 or via email $emaildb.</p>
+                        <p><em>– $hello_name_full</em></p>
+
+                        <center><strong>$COMPANY_ENTITY</strong><center>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td class='container'>
+
+            <table>
+                <tr>
+                    <td class='content footer' align='center'>
+                        <p>Sent by <a href='#'>$COMPANY_ENTITY</a>. $COMPANY_ENTITY FCA number 737871.  Registered Office: 5 Prospect Place, Swansea, SA1 1QP. $COMPANY_ENTITY may monitor outgoing and incoming e-mails and other telecommunications on its e-mail and telecommunications systems. By replying to this e-mail you give your consent to such monitoring.
+</p>
+                        <p><a href='mailto:'>$emaildb</a> </p>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>";
+
+}
+
 $body = $message;
 $mail             = new PHPMailer();
 $mail->IsSMTP(); 
@@ -301,8 +481,12 @@ $mail->SMTPSecure = "ssl";
 $mail->Port       = $emailsmtpportdb;    
 $mail->Username   = "$emaildb"; 
 $mail->Password   = "$passworddb";  
-
+if($COMPANY_ENTITY=='Bluestone Protect') {
 $mail->AddEmbeddedImage(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/img/bluestone_protect_logo.png', 'logo');
+}
+if($COMPANY_ENTITY=='First Priority Group') {
+$mail->AddEmbeddedImage(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/img/fpg_logo.png', 'logo');
+}
 $mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
 $mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
 $mail->Subject    = "$emailsubjectdb";

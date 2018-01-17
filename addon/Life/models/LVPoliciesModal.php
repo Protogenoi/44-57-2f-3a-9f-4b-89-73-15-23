@@ -40,7 +40,7 @@ class LVPoliciesModal {
             WHERE 
                 client_policy.client_id =:CID
             AND 
-                insurer='Vitality' 
+                insurer='LV' 
             GROUP BY 
                 client_policy.policy_number");
         $stmt->bindParam(':CID', $search, PDO::PARAM_INT);

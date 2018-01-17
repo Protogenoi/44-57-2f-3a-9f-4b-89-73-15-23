@@ -295,6 +295,13 @@ if (isset($EXECUTE)) {
                                                 }
                                             }
                                             ?>>Zurich</option>
+                                            <option value="LV" <?php
+                                            if (isset($INSURER)) {
+                                                if ($INSURER == 'LV') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>LV</option>                                           
                                             <option value="Scottish Widows" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'SCOTTISH WIDOWS') {

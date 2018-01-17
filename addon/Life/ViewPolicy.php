@@ -548,7 +548,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Policy Number <i>(My Account email follow-up)</i></h4>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
+                    <form method="POST" action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { echo "Emails/"; } elseif($COMPANY_ENTITY=='First Priority Group') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendPolicyNumber.php?search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>">
 
 
                         <select class="form-control" name="email">  
@@ -590,7 +590,7 @@ ews_data.policy_number
                 </div>
                 <div class="modal-body">
                     
-                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Vitality') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Vitality') { echo "Emails/"; } elseif($COMPANY_ENTITY=='First Priority Group') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendUncontactable.php?EXECUTE=1&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>
@@ -626,7 +626,7 @@ ews_data.policy_number
                     <h4 class="modal-title">Email Awaiting uncontactable client</h4>
                 </div>
                 <div class="modal-body">
-                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Vitality') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
+                    <form action="<?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Vitality') { echo "Emails/"; } elseif($COMPANY_ENTITY=='First Priority Group') { echo "Emails/"; } else { echo "Emails/TRB"; } ?>SendUncontactable.php?EXECUTE=2&search=<?php echo $search; ?>&insurer=<?php echo $data2["insurer"]; ?>&recipient=<?php echo $data2['client_name']; ?>&policy=<?php echo $data2['policy_number']; ?>" method="POST">                         
                         <select class="form-control" name="email">  
                             <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
                             <?php if (!empty($data3['email2'])) { ?>

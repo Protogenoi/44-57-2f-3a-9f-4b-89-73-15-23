@@ -80,7 +80,7 @@ $companynamere = $companydetailsq['company_name'];
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/index.php" class="navbar-brand"> ADL</a>
+            <a href="/index.php" class="navbar-brand"> <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></a>
         </div>
         
         <div id="navbarCollapse" class="collapse navbar-collapse">

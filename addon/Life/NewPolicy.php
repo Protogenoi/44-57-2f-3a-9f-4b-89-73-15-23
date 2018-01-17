@@ -213,6 +213,9 @@ if (isset($EXECUTE)) {
                                             } elseif ($INSURER == 'VITALITY') {
                                                 echo "Vitality";
                                             }
+                                            elseif ($INSURER == 'LV') {
+                                                echo "LV";
+                                            }
                                             ?>" required>
                                                <?php } ?>
                                         <label for="application_number"></label>

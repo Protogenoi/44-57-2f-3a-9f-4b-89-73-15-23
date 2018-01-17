@@ -2745,6 +2745,7 @@ WHERE
                                                 case"LVkeyfacts";
                                                 case"Zurichkeyfacts";
                                                     case"Vitalitykeyfacts";
+                                                        case"RLkeyfacts";
                                                 case"Avivapolicy";
                                         case"Recording";
                                         case"Closer Call Recording";

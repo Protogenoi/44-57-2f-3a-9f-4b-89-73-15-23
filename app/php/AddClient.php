@@ -438,6 +438,12 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                             } if ($INSURER == 'Royal London' || $INSURER =='TRB Royal London') {
                                                 echo "Royal London";
                                             }
+                                            if ($INSURER == 'Vitality') {
+                                                echo "Vitality";
+                                            }
+                                            if ($INSURER == 'LV') {
+                                                echo "LV";
+                                            }
                                             ?>" required>
                                                <?php } ?>
                                         <label for="application_number"></label>

@@ -66,8 +66,6 @@ $subject= filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);
     $SMTP_PASS=$queryr['password'];
     $SMTP_USER=$queryr['email'];
     $signat=  html_entity_decode($queryr['sig']);
-
-                if($companynamere=="Bluestone Protect") {
                     
                     $target_dir = filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/";
                     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -177,8 +175,6 @@ $NEW_MSG="Custom email sent ($email  - $message)";
 header('Location: /../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Custom Email&EMAIL_SENT_TO='.$email); die;
 
 }
-
-    } 
 
 }
 

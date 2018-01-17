@@ -1,6 +1,6 @@
 <?php
 
-class LVT_POL_Modal {
+class LV_POL_Modal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class LVT_POL_Modal {
         $this->pdo = $pdo;
     }
 
-    public function getLVT_POL($likesearch) {
+    public function getLV_POL($likesearch) {
 
         $stmt = $this->pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='LVpolicy'");
         $stmt->bindParam(':CID', $likesearch, PDO::PARAM_INT);

@@ -82,18 +82,7 @@ require_once(__DIR__ . '/../../../resources/lib/PHPMailer_5.2.0/class.phpmailer.
                             $cnquery->execute()or die(print_r($query->errorInfo(), true));
                             $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
                             $companynamere=$companydetailsq['company_name'];       
-                            
-if(isset($companynamere))  {      
-
-$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-$CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
-$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
-$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
-$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
-$INSURER= filter_input(INPUT_GET, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
-
-if($companynamere=='Bluestone Protect') {
-    
+ 
 if(isset($hello_name)) {
     
      switch ($hello_name) {
@@ -124,9 +113,6 @@ if(isset($hello_name)) {
          case "Nick":
              $hello_name_full="Nick Dennis";
              break;
-         case "Amy":
-             $hello_name_full="Amy Clayfield";
-             break;
          case "Ryan":
              $hello_name_full="Ryan Lloyd";
              break;         
@@ -135,7 +121,18 @@ if(isset($hello_name)) {
              
      }
      
-     }
+     }                            
+                            
+if(isset($companynamere))  {      
+
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$CID= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$policy= filter_input(INPUT_GET, 'policy', FILTER_SANITIZE_SPECIAL_CHARS);
+$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
+$recipient= filter_input(INPUT_GET, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);
+$INSURER= filter_input(INPUT_GET, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
+
+if($companynamere=='Bluestone Protect') {
      
      if(isset($EXECUTE)) {
          if($EXECUTE=='1') {
@@ -234,6 +231,108 @@ header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIEN
 }
 }
 }
+
+if($companynamere=='First Priority Group') {
+     
+     if(isset($EXECUTE)) {
+         if($EXECUTE=='1') {
+
+$subject = "$COMPANY_ENTITY - Direct Debit" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+$signat";
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+There is an issue with your $INSURER direct debit <strong>$policy</strong>. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 03300 100 035 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          Many thanks,<br>
+$hello_name_full<br>$COMPANY_ENTITY
+          </p>";
+
+         }
+         
+         if($EXECUTE=='2') {
+
+$subject = "$COMPANY_ENTITY Life Insurance Application" ;
+$sig = "<br>-- \n
+<br>
+<br>
+<br>
+$signat";
+
+$body = "<p>Dear $recipient,</p>
+          <p>           
+There is an issue with your $INSURER life insurance application. </p>
+
+          <p>
+We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+          </p>
+          <p>Please contact us on 03300 100 035 or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+          Many thanks,<br>
+$hello_name_full<br>$COMPANY_ENTITY
+          </p>";
+
+         }         
+         
+$body .= $sig;
+
+$mail             = new PHPMailer();
+$mail->IsSMTP(); 
+$mail->CharSet = 'UTF-8';
+$mail->Host       = "$SMTP_HOST"; 
+$mail->SMTPAuth   = true;                 
+$mail->SMTPSecure = "ssl"; 
+$mail->Port       = $SMTP_PORT;                   
+$mail->Username   = "$SMTP_USER"; 
+$mail->Password   = "$SMTP_PASS";     
+$mail->SetFrom("$emailfromdb", "$emaildisplaynamedb");
+$mail->AddReplyTo("$emailreplydb","$emaildisplaynamedb");
+$mail->Subject    = $subject;
+$mail->IsHTML(true); 
+$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!";
+$address = $email;
+$mail->AddAddress($address, $recipient);
+$mail->Body    = $body;
+
+if(!$mail->Send()) {
+  echo "Mailer Error: " . $mail->ErrorInfo;
+  
+$message="Uncontactable email failed ($email)";  
+  
+                $noteq = $pdo->prepare("INSERT into client_note set client_id=:CID, note_type='Email Failed', client_name=:ref, message=:message, sent_by=:sent");
+                $noteq->bindParam(':CID', $CID, PDO::PARAM_STR);
+                $noteq->bindParam(':sent', $hello_name, PDO::PARAM_STR);
+                $noteq->bindParam(':message', $message, PDO::PARAM_STR);
+                $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);
+                $noteq->execute()or die(print_r($noteq->errorInfo(), true));  
+                
+  header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=0&CLIENT_EMAIL=Send policy number&EMAIL_SENT_TO='.$email); die;    
+  
+} else {
+    
+$message="Uncontactable email sent ($email)";
+
+                $noteq = $pdo->prepare("INSERT into client_note set client_id=:CID, note_type='Email Sent', client_name=:ref, message=:message, sent_by=:sent");
+                $noteq->bindParam(':CID', $CID, PDO::PARAM_STR);
+                $noteq->bindParam(':sent', $hello_name, PDO::PARAM_STR);
+                $noteq->bindParam(':message', $message, PDO::PARAM_STR);
+                $noteq->bindParam(':ref', $recipient, PDO::PARAM_STR);
+                $noteq->execute()or die(print_r($noteq->errorInfo(), true));
+                
+header('Location: /../../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Send policy number&EMAIL_SENT_TO='.$email); die;
+
+}
+}
+}
+
+
 
 }
 ?>

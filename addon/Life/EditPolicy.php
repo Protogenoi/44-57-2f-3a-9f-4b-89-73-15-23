@@ -239,7 +239,7 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows");
                                                             echo "selected";
                                                         }
                                                     }
-                                                    ?> value="One Family">One Family</option>                                                   
+                                                    ?> value="LV">LV</option>                                                   
                                                     <option <?php
                                                     if ($data2['application_number'] == 'Royal London') {
                                                         echo "selected";

@@ -1117,8 +1117,15 @@ if (isset($fileuploadedfail)) {
                                 
                             <a class="list-group-item confirmation" href="/addon/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>                                
-                            
-                                    <?php } ?>
+                                    <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>                            
+                                    <?php } 
+                                
+                                if(isset($COMPANY_ENTITY) && $COMPANY_ENTITY == 'First Priority Group') { ?>
+                                    
+                            <?php    }
+                                    
+                                    ?>
                             
                             <?php if ($ffkeyfactsemail == '1') { ?>
                             
@@ -1192,6 +1199,16 @@ if (isset($fileuploadedfail)) {
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>
                                                                 
                                 <?php } 
+                                
+                                if(isset($COMPANY_ENTITY) && $COMPANY_ENTITY == 'First Priority Group') { ?>
+                                <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>                                    
+                            <?php    }
                                 
                                 
                                 if ($ffkeyfactsemail == '1') { ?>
@@ -1290,9 +1307,14 @@ if (isset($fileuploadedfail)) {
                             if($WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } 
                             if($WHICH_COMPANY=='The Review Bureau') { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
-                            <?php } ?>
+                            <?php } 
                             
-                            <?php if ($ffkeyfactsemail == '1') { ?>
+                            if($COMPANY_ENTITY=='First Priority Group') { ?>
+                             <a class="list-group-item confirmation" href="/addon/Life/Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                <i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
+                                                     
+                            <?php } 
+                            if ($ffkeyfactsemail == '1') { ?>
                                 <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
@@ -1342,7 +1364,20 @@ if (isset($fileuploadedfail)) {
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                 
-                                <?php } if ($ffkeyfactsemail == '1') { ?>
+                                <?php } 
+    
+                                if($COMPANY_ENTITY == 'First Priority Group') { ?>
+                                <a class="list-group-item confirmation" href="/addon/Life/Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
+                                if (!empty($clienttwomail)) {
+                                    echo $clienttwomail;
+                                } else {
+                                    echo $clientonemail;
+                                }
+                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>                                    
+                            <?php    }
+                                
+                                
+                                if ($ffkeyfactsemail == '1') { ?>
                                     <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
                                     if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php

@@ -207,7 +207,7 @@ if(empty($POST_NAME)) {
                                 </div>                                   
 <?php
 
-$AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
+$AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows");
 
 ?>
                                 <div class="alert alert-info"><strong>Application Number:</strong> 
@@ -231,6 +231,15 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                                         }
                                                     }
                                                     ?> value="One Family">One Family</option>
+                                                    <option <?php
+                                                    if ($data2['application_number'] == 'LV') {
+                                                        echo "selected";
+                                                    } else {
+                                                        if ($data2['insurer'] == 'LV') {
+                                                            echo "selected";
+                                                        }
+                                                    }
+                                                    ?> value="One Family">One Family</option>                                                   
                                                     <option <?php
                                                     if ($data2['application_number'] == 'Royal London') {
                                                         echo "selected";

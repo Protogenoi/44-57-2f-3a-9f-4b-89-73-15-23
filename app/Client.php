@@ -351,6 +351,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 <ul class="dropdown-menu">
                     <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LANDG">Legal and General Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LV">LV Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
@@ -613,7 +614,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                         }
                         
-                        if(isset($HAS_LVT_POL) && $HAS_LVT_POL == 1) {
+                        if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/LVPoliciesModal.php');
                             $LVPolicies = new LVPoliciesModal($pdo);
                             $LVPoliciesList = $LVPolicies->getLVPolicies($search);
@@ -2731,14 +2732,17 @@ WHERE
                                             $TMicon = "fa-gbp";
                                             break;
                                         case"LGPolicy Summary";
+                                            case"LVPolicy Summary";
                                         case "Dealsheet":
                                         case"LGpolicy";
                                             case"Zurichpolicy";
                                                 case"Vitalitypolicy";
+                                                    case"LVpolicy";
                                                     case"SWpolicy";
                                                         case"SWkeyfacts";
                                         case"LGkeyfacts";
                                             case"Avivakeyfacts";
+                                                case"LVkeyfacts";
                                                 case"Zurichkeyfacts";
                                                     case"Vitalitykeyfacts";
                                                 case"Avivapolicy";

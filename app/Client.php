@@ -1053,7 +1053,10 @@ if (isset($fileuploadedfail)) {
                                     <option value="Zurichkeyfacts">Zurich Keyfacts</option> 
                                     <option disabled>──────────</option>
                                     <option value="SWpolicy">Scottish Widows App</option>
-                                    <option value="SWkeyfacts">Scottish Widows Keyfacts</option>                                     
+                                    <option value="SWkeyfacts">Scottish Widows Keyfacts</option>
+                                    <option disabled>──────────</option>
+                                    <option value="LVpolicy">LV App</option>
+                                    <option value="LVkeyfacts">LV Keyfacts</option>                                     
                                     <option disabled>──────────</option>
                                     <option value="lifenotes">Notes</option>
                                     <option value="Other">Other</option>

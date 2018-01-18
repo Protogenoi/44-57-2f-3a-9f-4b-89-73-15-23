@@ -72,7 +72,7 @@ if ($ffanalytics == '1') {
 ?>
 <!DOCTYPE html>
 <html>
-<title>ADL | Search Royal London Audits</title>
+<title>ADL | Search Vitality Audits</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
@@ -93,12 +93,12 @@ if ($ffanalytics == '1') {
 ?>
     
     <div class="container">
-        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search Whole of Life Audits</center></strong></div>
+        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search Vitality Audits</center></strong></div>
         
         <br>
         <center>
             <div class="btn-group">
-                <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Royal London Audits</a>
+                <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Vitality Audits</a>
                 <a href="/addon/audits/WOL/Search.php" class="btn btn-info"><i class="fa fa-search"></i> WOL Audits</a>
                 <a href="/addon/audits/audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
                 <a href="/addon/audits/lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
@@ -162,7 +162,7 @@ if ($ffanalytics == '1') {
                 <div class="text-center">
                     <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
                     <br>
-                    <h3>Searching Royal London Audits... </h3>
+                    <h3>Searching Vitality Audits... </h3>
                 </div>
             </div>
         </div>
@@ -175,16 +175,16 @@ if ($ffanalytics == '1') {
 $(document).ready(function() {
     var table = $('#clients').DataTable( {
 "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-   if ( aData["grade"] == "Red" )  {
+   if ( aData["vitality_audit_grade"] == "Red" )  {
           $(nRow).addClass( 'Red' );
 }
-   else  if ( aData["grade"] == "Amber" )  {
+   else  if ( aData["vitality_audit_grade"] == "Amber" )  {
           $(nRow).addClass( 'Amber' );
     }
-   else if ( aData["grade"] == "Green" )  {
+   else if ( aData["vitality_audit_grade"] == "Green" )  {
           $(nRow).addClass( 'Green' );
     }
-   else if ( aData["grade"] == "SAVED" )  {
+   else if ( aData["vitality_audit_grade"] == "Saved" )  {
           $(nRow).addClass( 'Purple' );
     }
 },
@@ -205,20 +205,20 @@ $(document).ready(function() {
                 "data":           null,
                 "defaultContent": ''
             },
-            { "data": "added_date" },
-            { "data": "audit_id"},
-            { "data": "plan_number"},
-            { "data": "closer" },
-            { "data": "added_by" },
-            { "data": "grade" },
-  { "data": "audit_id",
+            { "data": "vitality_audit_added_date" },
+            { "data": "vitality_audit_id"},
+            { "data": "vitality_audit_plan_number"},
+            { "data": "vitality_audit_closer" },
+            { "data": "vitality_audit_auditor" },
+            { "data": "vitality_audit_grade" },
+  { "data": "vitality_audit_id",
             "render": function(data, type, full, meta) {
-                return '<a href="Audit.php?EXECUTE=EDIT&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
+                return '<a href="Edit.php?EXECUTE=EDIT&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
             } },
- { "data": "audit_id",
+ { "data": "vitality_audit_id",
             "render": function(data, type, full, meta) {
                 return '<a href="View.php?EXECUTE=VIEW&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
-            } },
+            } }
         ],
         "order": [[1, 'desc']]
     } );

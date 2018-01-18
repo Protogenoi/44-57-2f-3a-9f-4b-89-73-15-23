@@ -1430,6 +1430,7 @@ $QUESTION_NUMBER=1;
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Identifying Clients Needs</h3>
+                    </div>
                         <div class="panel-body">
                             
                         <p>
@@ -1677,7 +1678,6 @@ $QUESTION_NUMBER=1;
 
                         </script>
                     </div>
-                </div>
                 </div>
 
                 <div class="panel panel-info">

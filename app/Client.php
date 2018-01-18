@@ -1928,7 +1928,7 @@ WHERE
 ?>
                     </div>
 
-                            <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                            <?php if (in_array($hello_name, $Level_10_Access, true) || $hello_name=='Tina') { ?>
 
                         <table class="table table-hover">
                             <thead>
@@ -1966,6 +1966,7 @@ WHERE
                                     }
                                     ?>" target="_blank"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-search"></span> </button></a></td>
                                                 <td>
+                                                    <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
 
                                                     <form name="DELETE_FILE_FORM" id="DELETE_FILE_FORM<?php echo $i ?>" action="/app/admin/php/DeleteUpload.php?deletefile=1" method="POST">
                                                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
@@ -1973,7 +1974,6 @@ WHERE
                                                         <input type="hidden" name="search" value="<?php echo $search; ?>">
                                                         <button type="submit" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> </button>
                                                     </form>
-                                                    
                                     <script>
                                         document.querySelector('#DELETE_FILE_FORM<?php echo $i ?>').addEventListener('submit', function (e) {
                                             var form = this;
@@ -2006,7 +2006,7 @@ WHERE
                                         });
                                     </script>                                                    
 
-            <?php } ?>
+                                                <?php } }?>
 
                                             </td>
                                         </tr>

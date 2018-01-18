@@ -215,7 +215,7 @@ if ($ffanalytics == '1') {
                                 echo "<td>".$result['vitality_audit_grade']."</td>";
                                 echo "<td>".$result['vitality_audit_updated_by']."</td>";
                                 echo "<td>".$result['vitality_audit_updated_date']."</td>";
-   echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=$AUDIT_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+   echo "<td><a href='Edit.php?EXECUTE=EDIT&AUDITID=$AUDIT_ID' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
    echo "<td><a href='View.php?EXECUTE=VIEW&AUDITID=$AUDIT_ID' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
     echo "</tr>";
 
@@ -279,7 +279,7 @@ switch( $result['vitality_audit_grade'] )
 	echo "<td>".$result['vitality_audit_closer']."</td>";
 	echo "<td>".$result['vitality_audit_auditor']."</td>";
 	echo "<td>".$result['vitality_audit_grade']."</td>";
-	   echo "<td><a href='Audit.php?EXECUTE=EDIT&AUDITID=".$result['vitality_audit_id'] ."' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
+	   echo "<td><a href='Edit.php?EXECUTE=EDIT&AUDITID=".$result['vitality_audit_id'] ."' class='btn btn-warning btn-xs'><span class='glyphicon glyphicon-pencil'></span></a></td>";
    echo "<td><a href='View.php?EXECUTE=VIEW&AUDITID=".$result['vitality_audit_id']."' class='btn btn-info btn-xs'><span class='glyphicon glyphicon-eye-open'></span></a></td>";
 	echo "</tr>";
     }
@@ -296,51 +296,6 @@ echo "</table>";
     </div>
 
   </div>
-  <section class="pfblock pfblock-gray" id="skills">
-		
-			<div class="container">
-			
-				<div class="row skills">
-					
-					<div class="row">
-
-                        <div class="col-sm-6 col-sm-offset-3">
-
-                            <div class="pfblock-header wow fadeInUp">
-                                <h2 class="pfblock-title">My Skills</h2>
-                                <div class="pfblock-line"></div>
-                                <div class="pfblock-subtitle">
-                                    BLAH
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-					
-					<div class="col-sm-6 col-md-3 text-center">
-						<span data-percent="80" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
-                            <span class="percent">80</span>
-                        </span>
-						<h3 class="text-center">Green</h3>
-					</div>
-					<div class="col-sm-6 col-md-3 text-center">
-						<span data-percent="90" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
-                            <span class="percent">90</span>
-                        </span>
-						<h3 class="text-center">Amber</h3>
-					</div>
-					<div class="col-sm-6 col-md-3 text-center">
-						<span data-percent="95" class="chart easyPieChart" style="width: 140px; height: 140px; line-height: 140px;">
-                            <span class="percent">95</span>
-                        </span>
-						<h3 class="text-center">Red</h3>
-					</div>	
-				</div>
-			
-			</div>
-		
-    </section>
   
 </div>
    

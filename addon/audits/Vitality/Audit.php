@@ -1585,23 +1585,23 @@ $QUESTION_NUMBER=1;
 
                         <p>
                             <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
-                            <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C14();">
+                            <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();">
                                 <option value="NA">Select...</option>
                                 <option value="More than sufficient">More than sufficient</option>
                                 <option value="Sufficient">Sufficient</option>
                                 <option value="Adaquate">Adequate</option>
-                                <option value="Poor" onclick="javascript:yesnoCheckICN_C14a();" id="yesCheckICN_C14">Poor</option>
+                                <option value="Poor" onclick="javascript:yesnoCheckICN_C4a();" id="yesCheckICN_C4">Poor</option>
                             </select>
                         </p>
 
 
-                        <div id="ifYesICN_C14" style="display:none">
-                            <textarea class="form-control"id="ICN_C14" name="ICN_C14" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C4" style="display:none">
+                            <textarea class="form-control"id="ICN_C4" name="ICN_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft15" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#characterLeft15').text('500 characters left');
-                                $('#ICN_C14').keydown(function () {
+                                $('#ICN_C4').keydown(function () {
                                     var max = 500;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1619,11 +1619,11 @@ $QUESTION_NUMBER=1;
                         </script>
                         <script type="text/javascript">
 
-                            function yesnoCheckICN_C14() {
-                                if (document.getElementById('yesCheckICN_C14').checked) {
-                                    document.getElementById('ifYesICN_C14').style.display = 'none';
+                            function yesnoCheckICN_C4() {
+                                if (document.getElementById('yesCheckICN_C4').checked) {
+                                    document.getElementById('ifYesICN_C4').style.display = 'none';
                                 } else
-                                    document.getElementById('ifYesICN_C14').style.display = 'block';
+                                    document.getElementById('ifYesICN_C4').style.display = 'block';
 
                             }
 

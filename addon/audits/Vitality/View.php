@@ -418,7 +418,7 @@ if(isset($VIT_CM_AUDIT['vitality_questions_extra_cd1'])) {
                             vitality_comments_id_fk=:AUDITID");
     $database->bind(':AUDITID', $AUDITID);
     $database->execute();
-    $VIT_COM_AUDIT=$database->single(); 
+    $VIT_C_COM_AUDIT=$database->single(); 
     
     if(isset($VIT_C_COM_AUDIT['vitality_comments_od1'])) {
         $VIT_C_OD1=$VIT_C_COM_AUDIT['vitality_comments_od1'];
@@ -488,20 +488,20 @@ if(isset($VIT_CM_AUDIT['vitality_questions_extra_cd1'])) {
        $VIT_C_P8=$VIT_C_COM_AUDIT['vitality_comments_p8']; 
     }  
     
-     if(isset($VIT_C_QS_AUDIT['vitality_comments_ci1'])) {
-        $VIT_C_CI1=$VIT_C_QS_AUDIT['vitality_comments_ci1'];
+     if(isset($VIT_C_COM_AUDIT['vitality_comments_ci1'])) {
+        $VIT_C_CI1=$VIT_C_COM_AUDIT['vitality_comments_ci1'];
     }
-     if(isset($VIT_C_QS_AUDIT['vitality_comments_ci2'])) {
-        $VIT_C_CI2=$VIT_C_QS_AUDIT['vitality_comments_ci2'];
+     if(isset($VIT_C_COM_AUDIT['vitality_comments_ci2'])) {
+        $VIT_C_CI2=$VIT_C_COM_AUDIT['vitality_comments_ci2'];
     }   
-    if(isset($VIT_C_QS_AUDIT['vitality_comments_ci3'])) {
-        $VIT_C_CI3=$VIT_C_QS_AUDIT['vitality_comments_ci3'];
+    if(isset($VIT_C_COM_AUDIT['vitality_comments_ci3'])) {
+        $VIT_C_CI3=$VIT_C_COM_AUDIT['vitality_comments_ci3'];
     }
-    if(isset($VIT_C_QS_AUDIT['vitality_comments_ci4'])) {
-       $VIT_C_CI4=$VIT_C_QS_AUDIT['vitality_comments_ci4'];
+    if(isset($VIT_C_COM_AUDIT['vitality_comments_ci4'])) {
+       $VIT_C_CI4=$VIT_C_COM_AUDIT['vitality_comments_ci4'];
     }
-    if(isset($VIT_C_QS_AUDIT['vitality_comments_ci5'])) {
-       $VIT_C_CI5=$VIT_C_QS_AUDIT['vitality_comments_ci5']; 
+    if(isset($VIT_C_COM_AUDIT['vitality_comments_ci5'])) {
+       $VIT_C_CI5=$VIT_C_COM_AUDIT['vitality_comments_ci5']; 
     }     
     
      if(isset($VIT_C_COM_AUDIT['vitality_comments_icn1'])) {
@@ -572,7 +572,7 @@ $database->query("SELECT
        $VIT_CE_E4=$VIT_CE_AUDIT['vitality_comments_extra_e4']; 
     }  
     if(isset($VIT_CE_AUDIT['vitality_comments_extra_e5'])) {
-       $VIT_CE_E7=$VIT_CE_AUDIT['vitality_comments_extra_e5']; 
+       $VIT_CE_E5=$VIT_CE_AUDIT['vitality_comments_extra_e5']; 
     }
     if(isset($VIT_CE_AUDIT['vitality_comments_extra_e6'])) {
        $VIT_CE_E6=$VIT_CE_AUDIT['vitality_comments_extra_e6']; 
@@ -589,7 +589,69 @@ $database->query("SELECT
     } 
     if(isset($VIT_CE_AUDIT['vitality_comments_extra_di2'])) {
        $VIT_CE_DI2=$VIT_CE_AUDIT['vitality_comments_extra_di2']; 
-    }        
+    } 
+   if(isset($VIT_CE_AUDIT['vitality_comments_extra_pi1'])) {
+       $VIT_CE_PI1=$VIT_CE_AUDIT['vitality_comments_extra_pi1']; 
+    } 
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_pi2'])) {
+       $VIT_CE_PI2=$VIT_CE_AUDIT['vitality_comments_extra_pi2']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_pi3'])) {
+       $VIT_CE_PI3=$VIT_CE_AUDIT['vitality_comments_extra_pi3']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_pi4'])) {
+       $VIT_CE_PI4=$VIT_CE_AUDIT['vitality_comments_extra_pi4']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_pi5'])) {
+       $VIT_CE_PI5=$VIT_CE_AUDIT['vitality_comments_extra_pi5']; 
+    }  
+    
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd1'])) {
+       $VIT_CE_CD1=$VIT_CE_AUDIT['vitality_comments_extra_cd1']; 
+    } 
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd2'])) {
+       $VIT_CE_CD2=$VIT_CE_AUDIT['vitality_comments_extra_cd2']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd3'])) {
+       $VIT_CE_CD3=$VIT_CE_AUDIT['vitality_comments_extra_cd3']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd4'])) {
+       $VIT_CE_CD4=$VIT_CE_AUDIT['vitality_comments_extra_cd4']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd5'])) {
+       $VIT_CE_CD5=$VIT_CE_AUDIT['vitality_comments_extra_cd5']; 
+    }
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd6'])) {
+       $VIT_CE_CD6=$VIT_CE_AUDIT['vitality_comments_extra_cd6']; 
+    }
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd7'])) {
+       $VIT_CE_CD7=$VIT_CE_AUDIT['vitality_comments_extra_cd7']; 
+    } 
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_cd8'])) {
+       $VIT_CE_CD8=$VIT_CE_AUDIT['vitality_comments_extra_cd8']; 
+    }   
+    
+   if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc1'])) {
+       $VIT_CE_QC1=$VIT_CE_AUDIT['vitality_comments_extra_qc1']; 
+    } 
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc2'])) {
+       $VIT_CE_QC2=$VIT_CE_AUDIT['vitality_comments_extra_qc2']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc3'])) {
+       $VIT_CE_QC3=$VIT_CE_AUDIT['vitality_comments_extra_qc3']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc4'])) {
+       $VIT_CE_QC4=$VIT_CE_AUDIT['vitality_comments_extra_qc4']; 
+    }  
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc5'])) {
+       $VIT_CE_QC5=$VIT_CE_AUDIT['vitality_comments_extra_qc5']; 
+    }
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc6'])) {
+       $VIT_CE_QC6=$VIT_CE_AUDIT['vitality_comments_extra_qc6']; 
+    }
+    if(isset($VIT_CE_AUDIT['vitality_comments_extra_qc7'])) {
+       $VIT_CE_QC7=$VIT_CE_AUDIT['vitality_comments_extra_qc7']; 
+    }    
     
       $database->endTransaction();  
     }
@@ -696,7 +758,7 @@ $database->query("SELECT
 
 
             <div class="phpcomments">
-                <?php if(isset($VIT_CM_ODT1)) { echo $VIT_CM_ODT1; } ?>
+                <?php if(isset($VIT_C_OD1)) { echo $VIT_C_OD1; } ?>
             </div>
             </p>
 
@@ -706,7 +768,7 @@ $database->query("SELECT
                 <input type="radio" name="q2" value="No" onclick="return false" <?php if(isset($VIT_OD2)) { if ($VIT_OD2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php if(isset($VIT_CM_ODT2)) { echo $VIT_CM_ODT2; } ?>
+                <?php if(isset($VIT_C_OD2)) { echo $VIT_C_OD2; } ?>
             </div>
             </p>
 
@@ -716,7 +778,7 @@ $database->query("SELECT
                 <input type="radio" name="q3" value="No" onclick="return false" <?php if(isset($VIT_OD3)) { if ($VIT_OD3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php if(isset($VIT_CM_ODT3)) { echo $VIT_CM_ODT3; } ?>
+                <?php if(isset($VIT_C_OD3)) { echo $VIT_C_OD3; } ?>
             </div>
             </p>
 
@@ -728,7 +790,7 @@ $database->query("SELECT
                 <input type="radio" name="q4" value="No" onclick="return false" <?php if(isset($VIT_OD4)) { if ($VIT_OD4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php if(isset($VIT_CM_ODT4)) { echo $VIT_CM_ODT4; } ?>
+                <?php if(isset($VIT_C_OD4)) { echo $VIT_C_OD4; } ?>
             </div>
             </p>
 
@@ -739,7 +801,7 @@ $database->query("SELECT
                 <input type="radio" name="q5" value="No" onclick="return false" <?php if(isset($VIT_OD5)) {  if ($VIT_OD5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 
             <div class="phpcomments">
-                <?php if(isset($VIT_CM_ODT5)) { echo $VIT_CM_ODT5; } ?>
+                <?php if(isset($VIT_C_OD5)) { echo $VIT_C_OD5; } ?>
             </div>
             </p>  
             
@@ -965,7 +1027,7 @@ $database->query("SELECT
 <p>
     <label for="ICN1">Q<?php $i++; echo $i; ?>. Did the closer check all details of what the client has with their existing life insurance policy?</label><br>
 <input type="radio" name="ICN1" <?php if (isset($VIT_ICN1) && $VIT_ICN1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN1();" value="1" id="yesCheckICN1">Yes
-<input type="radio" name="ICN1" <?php if (isset($VIT_ICN1) && $VIT_ICN1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN1();" value="0" id="noCheckICN1">No
+<input type="radio" name="ICN1" <?php if (isset($VIT_ICN1) && $VIT_ICN1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN1();" value="0" id="noCheckICN1"><label for="No">No</label>
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_C_ICN1)) { echo $VIT_C_ICN1; } ?></div>
@@ -973,7 +1035,7 @@ $database->query("SELECT
 <p>
 <label for="ICN2">Q<?php $i++; echo $i; ?>. Did the vitality_audit_closer mention waiver, indexation, or TPD?</label><br>
 <input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="1" id="yesCheckICN2">Yes
-<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="0" id="noCheckICN2">No
+<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="0" id="noCheckICN2"><label for="No">No</label>
 <input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="3") { echo "checked"; } ?> value="3" >N/A
 </p>
 
@@ -982,7 +1044,7 @@ $database->query("SELECT
 <p>
 <label for="ICN3">Q<?php $i++; echo $i; ?>. Did the vitality_audit_closer ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label><br>
 <input type="radio" name="ICN3" <?php if (isset($VIT_ICN3) && $VIT_ICN3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN3();" value="1" id="yesCheckICN3">Yes
-<input type="radio" name="ICN3" <?php if (isset($VIT_ICN3) && $VIT_ICN3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN3();" value="0" id="noCheckICN3">No
+<input type="radio" name="ICN3" <?php if (isset($VIT_ICN3) && $VIT_ICN3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN3();" value="0" id="noCheckICN3"><label for="No">No</label>
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_C_ICN3)) { echo $VIT_C_ICN3; } ?></div>
@@ -1004,7 +1066,7 @@ $database->query("SELECT
 <p>
 <label for="ICN5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with Vitality?</label><br>
 <input type="radio" name="ICN5" <?php if (isset($VIT_ICN5) && $VIT_ICN5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="1" id="yesCheckICN5">Yes
-<input type="radio" name="ICN5" <?php if (isset($VIT_ICN5) && $VIT_ICN5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="0" id="noCheckICN5">No
+<input type="radio" name="ICN5" <?php if (isset($VIT_ICN5) && $VIT_ICN5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="0" id="noCheckICN5"><label for="No">No</label>
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_C_ICN5)) { echo $VIT_C_ICN5; } ?></div>
@@ -1014,63 +1076,63 @@ $database->query("SELECT
 <p>
     <label for="E1">Q<?php $i++; echo $i; ?>. Important customer information declaration?</label><br>
 <input type="radio" name="E1" <?php if (isset($VIT_CM_E1) && $VIT_CM_E1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="1" id="yesCheckET1">Yes
-<input type="radio" name="E1" <?php if (isset($VIT_CM_E1) && $VIT_CM_E1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="0" id="noCheckET1">No
+<input type="radio" name="E1" <?php if (isset($VIT_CM_E1) && $VIT_CM_E1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET1();" value="0" id="noCheckET1"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET1)) { echo $VIT_CEM_ET1; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E1)) { echo $VIT_CE_E1; } ?></div>
 
 
 <p>
 <label for="E2">Q<?php $i++; echo $i; ?>. Were all clients contact details recorded correctly?</label><br>
 <input type="radio" name="E2" <?php if (isset($VIT_CM_E2) && $VIT_CM_E2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="1" id="yesCheckET2">Yes
-<input type="radio" name="E2" <?php if (isset($VIT_CM_E2) && $VIT_CM_E2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="0" id="noCheckET2">No
+<input type="radio" name="E2" <?php if (isset($VIT_CM_E2) && $VIT_CM_E2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET2();" value="0" id="noCheckET2"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET2)) { echo $VIT_CEM_ET2; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E2)) { echo $VIT_CE_E2; } ?></div>
 
 
 <p>
 <label for="E3">Q<?php $i++; echo $i; ?>. Were all clients address details recorded correctly?</label><br>
 <input type="radio" name="E3" <?php if (isset($VIT_CM_E3) && $VIT_CM_E3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="1" id="yesCheckET3">Yes
-<input type="radio" name="E3" <?php if (isset($VIT_CM_E3) && $VIT_CM_E3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="0" id="noCheckET3">No
+<input type="radio" name="E3" <?php if (isset($VIT_CM_E3) && $VIT_CM_E3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET3();" value="0" id="noCheckET3"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET3)) { echo $VIT_CEM_ET3; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E3)) { echo $VIT_CE_E3; } ?></div>
 
 
 <p>
 <label for="E4">Q<?php $i++; echo $i; ?>. Were all the doctors details recorded correctly?</label><br>
 <input type="radio" name="E4" <?php if (isset($VIT_CM_E4) && $VIT_CM_E4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="1" id="yesCheckET4">Yes
-<input type="radio" name="E4" <?php if (isset($VIT_CM_E4) && $VIT_CM_E4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="0" id="noCheckET4">No
+<input type="radio" name="E4" <?php if (isset($VIT_CM_E4) && $VIT_CM_E4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET4();" value="0" id="noCheckET4"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET4)) { echo $VIT_CEM_ET4; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E4)) { echo $VIT_CE_E4; } ?></div>
 
 
 <p>
 <label for="E5">Q<?php $i++; echo $i; ?>. Did the CLOSER ask and accurately record the height and weight details correctly?</label><br>
 <input type="radio" name="E5" <?php if (isset($VIT_CM_E5) && $VIT_CM_E5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="1" id="yesCheckET5">Yes
-<input type="radio" name="E5" <?php if (isset($VIT_CM_E5) && $VIT_CM_E5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5">No
+<input type="radio" name="E5" <?php if (isset($VIT_CM_E5) && $VIT_CM_E5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET5)) { echo $VIT_CEM_ET5; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E5)) { echo $VIT_CE_E5; } ?></div>
 
 <p>
 <label for="E6">Q<?php $i++; echo $i; ?>. Did the CLOSER ask and accurately record the smoking details correctly?</label><br>
 <input type="radio" name="E6" <?php if (isset($VIT_CM_E6) && $VIT_CM_E6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="1" id="yesCheckET5">Yes
-<input type="radio" name="E6" <?php if (isset($VIT_CM_E6) && $VIT_CM_E6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5">No
+<input type="radio" name="E6" <?php if (isset($VIT_CM_E6) && $VIT_CM_E6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET5)) { echo $VIT_CEM_ET5; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E6)) { echo $VIT_CE_E6; } ?></div>
 
 
 <p>
 <label for="E7">Q<?php $i++; echo $i; ?>. Did the CLOSER ask and accurately record the drug use details correctly?</label><br>
 <input type="radio" name="E7" <?php if (isset($VIT_CM_E7) && $VIT_CM_E7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="1" id="yesCheckET5">Yes
-<input type="radio" name="E7" <?php if (isset($VIT_CM_E7) && $VIT_CM_E7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5">No
+<input type="radio" name="E7" <?php if (isset($VIT_CM_E7) && $VIT_CM_E7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET5)) { echo $VIT_CEM_ET5; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E7)) { echo $VIT_CE_E7; } ?></div>
 
 
 <p>
@@ -1079,210 +1141,210 @@ $database->query("SELECT
   <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='0') { echo "selected"; } ?> value="0">Select...</option>
   <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client provided details') { echo "selected"; } ?> value="1">Client Provided Details</option>
   <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client failed to provide details') { echo "selected"; } ?> value="2">Client failed to provide details</option>
-  <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Not existing Vitality customer') { echo "selected"; } ?> value="3">Not existing Vitality customer</option>
+  <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='<label for="No">No</label>t existing Vitality customer') { echo "selected"; } ?> value="3"><label for="No">No</label>t existing Vitality customer</option>
   <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Obtained from Term4Term service') { echo "selected"; } ?> value="4">Obtained from Term4Term service</option>
   <option <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Existing Vitality Policy, no attempt to get policy number') { echo "selected"; } ?> value="5">Existing Vitality Policy, no attempt to get policy number</option>
 </select>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_ET6)) { echo $VIT_CEM_ET6; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_E8)) { echo $VIT_CE_E8; } ?></div>
 
 <h3 class="panel-title">Declarations of Insurance</h3>
 
 <p>
     <label for="DI1">Q<?php $i++; echo $i; ?>. Customer declaration read out?</label><br>
 <input type="radio" name="DI1" <?php if (isset($VIT_CM_DI1) && $VIT_CM_DI1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT1();" value="1" id="yesCheckDIT1">Yes
-<input type="radio" name="DI1" <?php if (isset($VIT_CM_DI1) && $VIT_CM_DI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT1();" value="0" id="noCheckDIT1">No
+<input type="radio" name="DI1" <?php if (isset($VIT_CM_DI1) && $VIT_CM_DI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT1();" value="0" id="noCheckDIT1"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CDIM_DIT1)) { echo $VIT_CDIM_DIT1; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_DI1)) { echo $VIT_CE_DI1; } ?></div>
 
 
 <p>
 <label for="DI2">Q<?php $i++; echo $i; ?>. If appropriate did the CLOSER confirm the exclusions on the policy?</label><br>
 <input type="radio" name="DI2" <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT2();" value="1" id="yesCheckDIT2">Yes
-<input type="radio" name="DI2" <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT2();" value="0" id="noCheckDIT2">No
+<input type="radio" name="DI2" <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT2();" value="0" id="noCheckDIT2"><label for="No">No</label>
 <input type="radio" name="DI2" <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2=="3") { echo "checked"; } ?> onclick="javascript:yesnoCheckDIT2();" value="3" id="noCheckDIT2">N/A
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CDIM_DIT2)) { echo $VIT_CDIM_DIT2; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_DI2)) { echo $VIT_CE_DI2; } ?></div>
 
 <h3 class="panel-title">Payment Information</h3>
 
 <p>
     <label for="PI1">Q<?php $i++; echo $i; ?>. Was the clients policy start date accurately recorded?</label><br>
 <input type="radio" name="PI1" <?php if (isset($VIT_CM_PI1) && $VIT_CM_PI1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="1" id="yesCheckPIT1">Yes
-<input type="radio" name="PI1" <?php if (isset($VIT_CM_PI1) && $VIT_CM_PI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="0" id="noCheckPIT1">No
+<input type="radio" name="PI1" <?php if (isset($VIT_CM_PI1) && $VIT_CM_PI1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT1();" value="0" id="noCheckPIT1"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_PIT1)) { echo $VIT_CEM_PIT1; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_PI1)) { echo $VIT_CE_PI1; } ?></div>
 
 
 <p>
 <label for="PI2">Q<?php $i++; echo $i; ?>. Did the closer offer to read the direct debit guarantee?</label><br>
 <input type="radio" name="PI2" <?php if (isset($VIT_CM_PI2) && $VIT_CM_PI2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="1" id="yesCheckPIT2">Yes
-<input type="radio" name="PI2" <?php if (isset($VIT_CM_PI2) && $VIT_CM_PI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="0" id="noCheckPIT2">No
+<input type="radio" name="PI2" <?php if (isset($VIT_CM_PI2) && $VIT_CM_PI2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT2();" value="0" id="noCheckPIT2"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_PIT2)) { echo $VIT_CEM_PIT2; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_PI2)) { echo $VIT_CE_PI2; } ?></div>
 
 
 <p>
 <label for="PI3">Q<?php $i++; echo $i; ?>. Did the closer offer a preferred premium collection date?</label><br>
 <input type="radio" name="PI3" <?php if (isset($VIT_CM_PI3) && $VIT_CM_PI3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="1" id="yesCheckPIT3">Yes
-<input type="radio" name="PI3" <?php if (isset($VIT_CM_PI3) && $VIT_CM_PI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="0" id="noCheckPIT3">No
+<input type="radio" name="PI3" <?php if (isset($VIT_CM_PI3) && $VIT_CM_PI3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT3();" value="0" id="noCheckPIT3"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_PIT3)) { echo $VIT_CEM_PIT3; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_PI3)) { echo $VIT_CE_PI3; } ?></div>
 
 
 <p>
 <label for="PI4">Q<?php $i++; echo $i; ?>. Did the closer record the bank details correctly?</label><br>
 <input type="radio" name="PI4" <?php if (isset($VIT_CM_PI4) && $VIT_CM_PI4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="1" id="yesCheckPIT4">Yes
-<input type="radio" name="PI4" <?php if (isset($VIT_CM_PI4) && $VIT_CM_PI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="0" id="noCheckPIT4">No
+<input type="radio" name="PI4" <?php if (isset($VIT_CM_PI4) && $VIT_CM_PI4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT4();" value="0" id="noCheckPIT4"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_PIT4)) { echo $VIT_CEM_PIT4; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_PI4)) { echo $VIT_CE_PI4; } ?></div>
 
 
 <p>
 <label for="PI5">Q<?php $i++; echo $i; ?>. Did they have consent off the premium payer?</label><br>
 <input type="radio" name="PI5" <?php if (isset($VIT_CM_PI5) && $VIT_CM_PI5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="1" id="yesCheckPIT5">Yes
-<input type="radio" name="PI5" <?php if (isset($VIT_CM_PI5) && $VIT_CM_PI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="0" id="noCheckPIT5">No
+<input type="radio" name="PI5" <?php if (isset($VIT_CM_PI5) && $VIT_CM_PI5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckPIT5();" value="0" id="noCheckPIT5"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_PIT5)) { echo $VIT_CEM_PIT5; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_PI5)) { echo $VIT_CE_PI5; } ?></div>
 
 <h3 class="panel-title">Consolidation Declaration</h3>
 
 <p>
     <label for="CDE1">Q<?php $i++; echo $i; ?>. Closer confirmed the customers right to cancel the policy at any time and if the customer changes their mind within the first 30 days of starting there will be a refund of premiums?</label><br>
 <input type="radio" name="CDE1" <?php if (isset($VIT_CM_CD1) && $VIT_CM_CD1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="1" id="yesCheckCDET1">Yes
-<input type="radio" name="CDE1" <?php if (isset($VIT_CM_CD1) && $VIT_CM_CD1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="0" id="noCheckCDET1">No
+<input type="radio" name="CDE1" <?php if (isset($VIT_CM_CD1) && $VIT_CM_CD1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET1();" value="0" id="noCheckCDET1"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET1)) { echo $VIT_CEM_CDET1; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD1)) { echo $VIT_CE_CD1; } ?></div>
 
 
 
 <p>
 <label for="CDE2">Q<?php $i++; echo $i; ?>. Closer confirmed if the policy is cancelled at any other time the cover will end and no refund will be made and that the policy has no cash in value?</label><br>
 <input type="radio" name="CDE2" <?php if (isset($VIT_CM_CD2) && $VIT_CM_CD2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="1" id="yesCheckCDET2">Yes
-<input type="radio" name="CDE2" <?php if (isset($VIT_CM_CD2) && $VIT_CM_CD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="0" id="noCheckCDET2">No
+<input type="radio" name="CDE2" <?php if (isset($VIT_CM_CD2) && $VIT_CM_CD2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET2();" value="0" id="noCheckCDET2"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET2)) { echo $VIT_CEM_CDET2; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD2)) { echo $VIT_CE_CD2; } ?></div>
 
 
 <p>
 <label for="CDE3">Q<?php $i++; echo $i; ?>. Like mentioned earlier did the closer make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label><br>
 <input type="radio" name="CDE3" <?php if (isset($VIT_CM_CD3) && $VIT_CM_CD3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="1" id="yesCheckCDET3">Yes
-<input type="radio" name="CDE3" <?php if (isset($VIT_CM_CD3) && $VIT_CM_CD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="0" id="noCheckCDET3">No
+<input type="radio" name="CDE3" <?php if (isset($VIT_CM_CD3) && $VIT_CM_CD3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET3();" value="0" id="noCheckCDET3"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET3)) { echo $VIT_CEM_CDET3; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD3)) { echo $VIT_CE_CD3; } ?></div>
 
 
 <p>
 <label for="CDE4">Q<?php $i++; echo $i; ?>. Closer confirmed that the client will be emailed the following: A policy booklet, quote, policy summary, and a keyfact document.</label><br>
 <input type="radio" name="CDE4" <?php if (isset($VIT_CM_CD4) && $VIT_CM_CD4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="1" id="yesCheckCDET4">Yes
-<input type="radio" name="CDE4" <?php if (isset($VIT_CM_CD4) && $VIT_CM_CD4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="0" id="noCheckCDET4">No
+<input type="radio" name="CDE4" <?php if (isset($VIT_CM_CD4) && $VIT_CM_CD4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET4();" value="0" id="noCheckCDET4"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET4)) { echo $VIT_CEM_CDET4; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD4)) { echo $VIT_CE_CD4; } ?></div>
 
 <p>
 <label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label><br>
 <input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
-<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6">No
+<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET6)) { echo $VIT_CEM_CDET6; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD6)) { echo $VIT_CE_CD6; } ?></div>
 
 
 
 <p>
 <label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Vitality will write to them with a more specific date?</label><br>
 <input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
-<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7">No
+<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7"><label for="No">No</label>
 
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET7)) { echo $VIT_CEM_CDET7; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD7)) { echo $VIT_CE_CD7; } ?></div>
 
 
 <p>
 <label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
 <input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
-<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8">No
+<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8"><label for="No">No</label>
 <input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="3") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="3" id="yesCheckCDET8">N/A
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_CDET8)) { echo $VIT_CEM_CDET8; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_CD8)) { echo $VIT_CE_CD8; } ?></div>
 
  <h3 class="panel-title">Quality Control</h3>
  
  <p>
      <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Vitality with client information?</label><br>
 <input type="radio" name="QC1" <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="1" id="yesCheckQCT1">Yes
-<input type="radio" name="QC1" <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1">No
+<input type="radio" name="QC1" <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT1)) { echo $VIT_CEM_QCT1; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC1)) { echo $VIT_CE_QC1; } ?></div>
 
 
 <p>
 <label for="QC2">Q<?php $i++; echo $i; ?>. Closer confirmed length of policy in years with client confirmation?</label><br>
 <input type="radio" name="QC2" <?php if (isset($VIT_CM_QC2) && $VIT_CM_QC2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="1" id="yesCheckQCT2">Yes
-<input type="radio" name="QC2" <?php if (isset($VIT_CM_QC2) && $VIT_CM_QC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="0" id="noCheckQCT2">No
+<input type="radio" name="QC2" <?php if (isset($VIT_CM_QC2) && $VIT_CM_QC2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT2();" value="0" id="noCheckQCT2"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT2)) { echo $VIT_CEM_QCT2; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC2)) { echo $VIT_CE_QC2; } ?></div>
 
 
 <p>
 <label for="QC3">Q<?php $i++; echo $i; ?>. Closer confirmed the amount of cover on the policy with client confirmation?</label><br>
 <input type="radio" name="QC3" <?php if (isset($VIT_CM_QC3) && $VIT_CM_QC3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="1" id="yesCheckQCT3">Yes
-<input type="radio" name="QC3" <?php if (isset($VIT_CM_QC3) && $VIT_CM_QC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="0" id="noCheckQCT3">No
+<input type="radio" name="QC3" <?php if (isset($VIT_CM_QC3) && $VIT_CM_QC3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT3();" value="0" id="noCheckQCT3"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT3)) { echo $VIT_CEM_QCT3; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC3)) { echo $VIT_CE_QC3; } ?></div>
 
 
 <p>
 <label for="QC4">Q<?php $i++; echo $i; ?>. Closer confirmed with the client that they have understood everything today with client confirmation?</label><br>
 <input type="radio" name="QC4" <?php if (isset($VIT_CM_QC4) && $VIT_CM_QC4=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="1" id="yesCheckQCT4">Yes
-<input type="radio" name="QC4" <?php if (isset($VIT_CM_QC4) && $VIT_CM_QC4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="0" id="noCheckQCT4">No
+<input type="radio" name="QC4" <?php if (isset($VIT_CM_QC4) && $VIT_CM_QC4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT4();" value="0" id="noCheckQCT4"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT4)) { echo $VIT_CEM_QCT4; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC4)) { echo $VIT_CE_QC4; } ?></div>
 
 
 <p>
 <label for="QC5">Q<?php $i++; echo $i; ?>. Did the customer give their explicit consent for the policy to be set up?</label><br>
 <input type="radio" name="QC5" <?php if (isset($VIT_CM_QC5) && $VIT_CM_QC5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="1" id="yesCheckQCT5">Yes
-<input type="radio" name="QC5" <?php if (isset($VIT_CM_QC5) && $VIT_CM_QC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="0" id="noCheckQCT5">No
+<input type="radio" name="QC5" <?php if (isset($VIT_CM_QC5) && $VIT_CM_QC5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT5();" value="0" id="noCheckQCT5"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT5)) { echo $VIT_CEM_QCT5; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC5)) { echo $VIT_CE_QC5; } ?></div>
 
 
 <p>
 <label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for First Priority Group?</label><br>
 <input type="radio" name="QC6" <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="1" id="yesCheckQCT6">Yes
-<input type="radio" name="QC6" <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6">No
+<input type="radio" name="QC6" <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT6)) { echo $VIT_CEM_QCT6; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC6)) { echo $VIT_CE_QC6; } ?></div>
 
 
 <p>
 <label for="QC7">Q<?php $i++; echo $i; ?>. Did the closer keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label><br>
 <input type="radio" name="QC7" <?php if (isset($VIT_CM_QC7) && $VIT_CM_QC7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="1" id="yesCheckQCT7">Yes
-<input type="radio" name="QC7" <?php if (isset($VIT_CM_QC7) && $VIT_CM_QC7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="0" id="noCheckQCT7">No
+<input type="radio" name="QC7" <?php if (isset($VIT_CM_QC7) && $VIT_CM_QC7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT7();" value="0" id="noCheckQCT7"><label for="No">No</label>
 </p>
 
-<div class="phpcomments"><?php if(isset($VIT_CEM_QCT7)) { echo $VIT_CEM_QCT7; } ?></div>
+<div class="phpcomments"><?php if(isset($VIT_CE_QC7)) { echo $VIT_CE_QC7; } ?></div>
 
 
 

@@ -2818,7 +2818,7 @@ $QUESTION_NUMBER=1;
                         <script type="text/javascript">
 
                             function yesnoCheckQC_C1() {
-                                if (document.getElementById('yesCheckQC_C1').checked) {
+                                if (document.getElementById('yesCheckQC_Q2').checked) {
                                     document.getElementById('ifYesQC_C1').style.display = 'none';
                                 } else
                                     document.getElementById('ifYesQC_C1').style.display = 'block';

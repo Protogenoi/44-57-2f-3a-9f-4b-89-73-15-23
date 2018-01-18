@@ -203,8 +203,6 @@ if (isset($EXECUTE)) {
                                     
                                     <p>
                                         <label for="application_number">Application Number:</label>
-                                        <?php if (isset($INSURER)) { ?>
-
                                             <input type="text" id="application_number" name="application_number"  class="form-control" style="width: 170px" value="<?php
                                             if ($INSURER == 'ONEFAMILY') {
                                                 echo "WOL";
@@ -217,7 +215,6 @@ if (isset($EXECUTE)) {
                                                 echo "LV";
                                             }
                                             ?>" required>
-                                               <?php } ?>
                                         <label for="application_number"></label>
                                     </p>
                                     <br>

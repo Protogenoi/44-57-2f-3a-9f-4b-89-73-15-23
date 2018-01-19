@@ -74,8 +74,8 @@ $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS)
 $SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London","Zurich","Scottish Widows");
-$COMPANY_ARRAY=array("The Review Bureau","Bluestone Protect");
+$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London","Zurich","Scottish Widows","LV");
+$COMPANY_ARRAY=array("The Review Bureau","Bluestone Protect","First Priority Group");
 
 if(!in_array($WHICH_COMPANY, $COMPANY_ARRAY)) {
     header('Location: /../../../app/Client.php?search='.$CID); die;
@@ -93,6 +93,10 @@ if(!isset($MESSAGE_OPTION)) {
 
 
 if(isset($WHICH_COMPANY)) {
+    
+    if($WHICH_COMPANY == 'First Priority Group') {
+        $WHICH_COMPANY = $SMS_INSURER;
+    }
     
 if($WHICH_COMPANY=="The Review Bureau" && $SMS_INSURER=='Legal and General') {
     $WHICH_COMPANY="The Review Bureau";
@@ -216,7 +220,7 @@ $client->messages->create(
     array(
         'from' => '+441792720471',
         'body' => "$SMS_MESSAGE",
-        'statusCallback' => "https://review.adlcrm.com/app/SMS/Status.php?EXECUTE=1"
+        'statusCallback' => "https://fpg.adl-crm.uk/app/SMS/Status.php?EXECUTE=1"
     )
 );
 

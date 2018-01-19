@@ -1678,7 +1678,7 @@ function textAreaAdjust(o) {
     echo "checked";
 } ?> value="0" id="noCheckICN_C2">No
                             <input type="radio" name="ICN_Q2" 
-<?php if (isset($VIT_ICN2) && $VIT_ICN2 == "N/A") {
+<?php if (isset($VIT_ICN2) && $VIT_ICN2='N/A') {
     echo "checked";
 } ?>
                                    value="N/A" >N/A
@@ -1740,7 +1740,7 @@ function textAreaAdjust(o) {
                         <p>
                             <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
                             <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();">
-                                <option value="NA">Select...</option>
+                                <option value="N/A">Select...</option>
                                 <option value="More than sufficient" <?php if(isset($VIT_ICN4)) { if($VIT_ICN4=='More than sufficient') { echo "selected"; } } ?>>More than sufficient</option>
                                 <option value="Sufficient" <?php if(isset($VIT_ICN4)) { if($VIT_ICN4=='Sufficient') { echo "selected"; } } ?>>Sufficient</option>
                                 <option value="Adaquate" <?php if(isset($VIT_ICN4)) { if($VIT_ICN4=='Adaquate') { echo "selected"; } } ?>>Adequate</option>
@@ -1919,9 +1919,9 @@ function textAreaAdjust(o) {
     echo "checked";
 } ?> value="0" id="noCheckE_C4">No
                             <input type="radio" name="E_Q4"
-<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "NA") {
+<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "N/A") {
     echo "checked";
-} ?> value="NA" id="noCheckE_C4">NA                            
+} ?> value="N/A" id="noCheckE_C4">N/A                            
                         </p>
 
                             <textarea class="form-control"id="E_C4" name="E_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E4)) { echo $VIT_CE_E4; } ?></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
@@ -2043,7 +2043,7 @@ function textAreaAdjust(o) {
                        <p>
                             <label for="E_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Were term for term details recorded correctly?</label>
                             <select class="form-control" name="E_Q8" >
-                                <option value="NA">Select...</option>
+                                <option value="N/A">Select...</option>
                                 <option value="Client provided details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client provided details') { echo "selected"; } ?>>Client Provided Details</option>
                                 <option value="Client failed to provide details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client failed to provide details') { echo "selected"; } ?>>Client failed to provide details</option>
                                 <option value="Not existing Vitality customer" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Not existing Vitality customer') { echo "selected"; } ?>>Not existing legal and general customer</option>

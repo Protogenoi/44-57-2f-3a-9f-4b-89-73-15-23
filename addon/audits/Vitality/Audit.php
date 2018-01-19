@@ -1587,7 +1587,7 @@ $QUESTION_NUMBER=1;
                         <p>
                             <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
                             <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();">
-                                <option value="NA">Select...</option>
+                                <option value="N/A">Select...</option>
                                 <option value="More than sufficient">More than sufficient</option>
                                 <option value="Sufficient">Sufficient</option>
                                 <option value="Adaquate">Adequate</option>
@@ -1843,10 +1843,10 @@ $QUESTION_NUMBER=1;
 } ?> onclick="javascript:yesnoCheckE_C4();"
                                    value="0" id="noCheckE_C4">No
                             <input type="radio" name="E_Q4"
-<?php if (isset($E_Q4) && $E_Q4 == "NA") {
+<?php if (isset($E_Q4) && $E_Q4 == "N/A") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C4();"
-                                   value="NA" id="noCheckE_C4">NA                            
+                                   value="N/A" id="noCheckE_C4">N/A                            
                         </p>
 
                         <div id="ifYesE_C4" style="display:none">
@@ -2030,7 +2030,7 @@ $QUESTION_NUMBER=1;
                        <p>
                             <label for="E_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Were term for term details recorded correctly?</label>
                             <select class="form-control" name="E_Q8" >
-                                <option value="NA">Select...</option>
+                                <option value="N/A">Select...</option>
                                 <option value="Client provided details">Client Provided Details</option>
                                 <option value="Client failed to provide details">Client failed to provide details</option>
                                 <option value="Not existing Vitality customer">Not existing legal and general customer</option>

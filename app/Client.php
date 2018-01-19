@@ -764,7 +764,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                     if ($WHICH_COMPANY == 'Zurich') {
                                                         $SMS_INSURER = 'Zurich';
-                                                    }                                                    
+                                                    }   
+                                                    if ($WHICH_COMPANY == 'LV') {
+                                                        $SMS_INSURER = 'LV';
+                                                    }                                                       
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
@@ -798,7 +801,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 <option value="Scottish Widows">Scottish Widows</option>
                                                 <option value="Aviva">Aviva</option>                                              
                                                 <option value="Vitality">Vitality</option>                                             
-                                                <option value="Royal London">Royal London</option>                                          
+                                                <option value="Royal London">Royal London</option>
+                                                <option value="LV">LV</option>
                                                 <option value="One Family">One Family</option>
                                                
                                             </select>
@@ -808,6 +812,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
                                                 <option value="">Select company...</option>
+                                                <option value="First Priority Group">First Priority Group</option>
                                                 <option value="Bluestone Protect">Bluestone Protect</option>
                                                 <option value="The Review Bureau">The Review Bureau</option>
                                             </select>
@@ -949,7 +954,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                     if ($WHICH_COMPANY == 'Zurich') {
                                                         $SMS_INSURER = 'Zurich';
-                                                    }                                                      
+                                                    }   
+                                                    if ($WHICH_COMPANY == 'LV') {
+                                                        $SMS_INSURER = 'LV';
+                                                    }   
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
@@ -983,7 +991,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 <option value="Scottish Widows">Scottish Widows</option>                                                
                                                 <option value="Aviva">Aviva</option>                                              
                                                 <option value="Vitality">Vitality</option>                                             
-                                                <option value="Royal London">Royal London</option>                                          
+                                                <option value="Royal London">Royal London</option>  
+                                                <option value="LV">LV</option>
                                                 <option value="One Family">One Family</option>
                                                
                                             </select>
@@ -993,6 +1002,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
                                                 <option value="">Select company...</option>
+                                                <option value="First Priority Group">First Priority Group</option>
                                                 <option value="Bluestone Protect">Bluestone Protect</option>
                                                 <option value="The Review Bureau">The Review Bureau</option>
                                             </select>

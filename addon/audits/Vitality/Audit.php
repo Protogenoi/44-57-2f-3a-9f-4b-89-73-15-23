@@ -402,6 +402,255 @@ $QUESTION_NUMBER=1;
                     </div>
                 </div>
                 
+  <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Customer Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <p>
+                            <label for="CI_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients titles and names recorded correctly?</label>
+                            <input type="radio" name="CI_Q1" 
+<?php if (isset($CI_Q1) && $CI_Q1 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C1();"
+                                   value="1" id="yesCheckCI_C1">Yes
+                            <input type="radio" name="CI_Q1"
+<?php if (isset($CI_Q1) && $CI_Q1 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C1();"
+                                   value="0" id="noCheckCI_C1">No
+                        </p>
+
+                        <div id="ifYesCI_C1" style="display:none">
+                            <textarea class="form-control"id="CI_C1" name="CI_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft6').text('500 characters left');
+                                $('#CI_C1').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft6').text('You have reached the limit');
+                                        $('#characterLeft6').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft6').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft6').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckCI_C1() {
+                                if (document.getElementById('yesCheckCI_C1').checked) {
+                                    document.getElementById('ifYesCI_C1').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesCI_C1').style.display = 'block';
+
+                            }
+
+                        </script>
+
+                        <p>
+                            <label for="CI_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients gender accurately recorded?</label>
+                            <input type="radio" name="CI_Q2" 
+<?php if (isset($CI_Q2) && $CI_Q2 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C2();"
+                                   value="1" id="yesCheckCI_C2">Yes
+                            <input type="radio" name="CI_Q2"
+<?php if (isset($CI_Q2) && $CI_Q2 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C2();"
+                                   value="0" id="noCheckCI_C2">No
+                        </p>
+
+                        <div id="ifYesCI_C2" style="display:none">
+                            <textarea class="form-control"id="CI_C2" name="CI_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft7').text('500 characters left');
+                                $('#CI_C2').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft7').text('You have reached the limit');
+                                        $('#characterLeft7').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft7').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft7').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckCI_C2() {
+                                if (document.getElementById('yesCheckCI_C2').checked) {
+                                    document.getElementById('ifYesCI_C2').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesCI_C2').style.display = 'block';
+
+                            }
+
+                        </script>
+
+
+                        <p>
+                            <label for="CI_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients date of birth accurately recorded?</label>
+                            <input type="radio" name="CI_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($CI_Q3) && $CI_Q3 == "1") {
+    echo "checked";
+} ?>
+                                   value="1" id="yesCheck">Yes
+                            <input type="radio" name="CI_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($CI_Q3) && $CI_Q3 == "0") {
+    echo "checked";
+} ?>
+                                   value="0" id="noCheck">No
+                        </p>
+                        <div id="ifYes" style="display:none">
+                            <textarea class="form-control"id="CI_C3" name="CI_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft8').text('500 characters left');
+                                $('#CI_C3').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft8').text('You have reached the limit');
+                                        $('#characterLeft8').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft8').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft8').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheck() {
+                                if (document.getElementById('yesCheck').checked) {
+                                    document.getElementById('ifYes').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYes').style.display = 'block';
+
+                            }
+
+                        </script>
+
+
+                        <p>
+                            <label for="CI_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients smoking status recorded correctly?</label>
+                            <input type="radio" name="CI_Q4" 
+<?php if (isset($CI_Q4) && $CI_Q4 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C4();"
+                                   value="1" id="yesCheckCI_C4">Yes
+                            <input type="radio" name="CI_Q4"
+<?php if (isset($CI_Q4) && $CI_Q4 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C4();"
+                                   value="0" id="noCheckCI_C4">No
+                        </p>
+
+                        <div id="ifYesCI_C4" style="display:none">
+                            <textarea class="form-control"id="CI_C4" name="CI_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft9').text('500 characters left');
+                                $('#CI_C4').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft9').text('You have reached the limit');
+                                        $('#characterLeft9').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft9').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft9').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckCI_C4() {
+                                if (document.getElementById('yesCheckCI_C4').checked) {
+                                    document.getElementById('ifYesCI_C4').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesCI_C4').style.display = 'block';
+
+                            }
+
+                        </script>
+
+                        <p>
+                            <label for="CI_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER confirm the policy was a single or a joint application?</label>
+                            <input type="radio" name="CI_Q5" 
+<?php if (isset($CI_Q5) && $CI_Q5 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C5();"
+                                   value="1" id="yesCheckCI_C5">Yes
+                            <input type="radio" name="CI_Q5"
+<?php if (isset($CI_Q5) && $CI_Q5 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckCI_C5();"
+                                   value="0" id="noCheckCI_C5">No
+                        </p>
+
+                        <div id="ifYesCI_C5" style="display:none">
+                            <textarea class="form-control"id="CI_C5" name="CI_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft11').text('500 characters left');
+                                $('#CI_C5').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft11').text('You have reached the limit');
+                                        $('#characterLeft11').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft11').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft11').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckCI_C5() {
+                                if (document.getElementById('yesCheckCI_C5').checked) {
+                                    document.getElementById('ifYesCI_C5').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesCI_C5').style.display = 'block';
+
+                            }
+
+                        </script>
+                    </div>
+                </div>               
+                
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">About you</h3>
@@ -1175,255 +1424,6 @@ $QUESTION_NUMBER=1;
 
                         </script>                         
                         
-                    </div>
-                </div>
-                
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Customer Information</h3>
-                    </div>
-                    <div class="panel-body">
-                        
-                        <p>
-                            <label for="CI_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients titles and names recorded correctly?</label>
-                            <input type="radio" name="CI_Q1" 
-<?php if (isset($CI_Q1) && $CI_Q1 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C1();"
-                                   value="1" id="yesCheckCI_C1">Yes
-                            <input type="radio" name="CI_Q1"
-<?php if (isset($CI_Q1) && $CI_Q1 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C1();"
-                                   value="0" id="noCheckCI_C1">No
-                        </p>
-
-                        <div id="ifYesCI_C1" style="display:none">
-                            <textarea class="form-control"id="CI_C1" name="CI_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft6" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft6').text('500 characters left');
-                                $('#CI_C1').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft6').text('You have reached the limit');
-                                        $('#characterLeft6').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft6').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft6').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCI_C1() {
-                                if (document.getElementById('yesCheckCI_C1').checked) {
-                                    document.getElementById('ifYesCI_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCI_C1').style.display = 'block';
-
-                            }
-
-                        </script>
-
-                        <p>
-                            <label for="CI_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients gender accurately recorded?</label>
-                            <input type="radio" name="CI_Q2" 
-<?php if (isset($CI_Q2) && $CI_Q2 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C2();"
-                                   value="1" id="yesCheckCI_C2">Yes
-                            <input type="radio" name="CI_Q2"
-<?php if (isset($CI_Q2) && $CI_Q2 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C2();"
-                                   value="0" id="noCheckCI_C2">No
-                        </p>
-
-                        <div id="ifYesCI_C2" style="display:none">
-                            <textarea class="form-control"id="CI_C2" name="CI_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft7" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft7').text('500 characters left');
-                                $('#CI_C2').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft7').text('You have reached the limit');
-                                        $('#characterLeft7').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft7').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft7').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCI_C2() {
-                                if (document.getElementById('yesCheckCI_C2').checked) {
-                                    document.getElementById('ifYesCI_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCI_C2').style.display = 'block';
-
-                            }
-
-                        </script>
-
-
-                        <p>
-                            <label for="CI_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients date of birth accurately recorded?</label>
-                            <input type="radio" name="CI_Q3" onclick="javascript:yesnoCheck();"
-<?php if (isset($CI_Q3) && $CI_Q3 == "1") {
-    echo "checked";
-} ?>
-                                   value="1" id="yesCheck">Yes
-                            <input type="radio" name="CI_Q3" onclick="javascript:yesnoCheck();"
-<?php if (isset($CI_Q3) && $CI_Q3 == "0") {
-    echo "checked";
-} ?>
-                                   value="0" id="noCheck">No
-                        </p>
-                        <div id="ifYes" style="display:none">
-                            <textarea class="form-control"id="CI_C3" name="CI_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft8" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft8').text('500 characters left');
-                                $('#CI_C3').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft8').text('You have reached the limit');
-                                        $('#characterLeft8').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft8').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft8').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheck() {
-                                if (document.getElementById('yesCheck').checked) {
-                                    document.getElementById('ifYes').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYes').style.display = 'block';
-
-                            }
-
-                        </script>
-
-
-                        <p>
-                            <label for="CI_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Was the clients smoking status recorded correctly?</label>
-                            <input type="radio" name="CI_Q4" 
-<?php if (isset($CI_Q4) && $CI_Q4 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C4();"
-                                   value="1" id="yesCheckCI_C4">Yes
-                            <input type="radio" name="CI_Q4"
-<?php if (isset($CI_Q4) && $CI_Q4 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C4();"
-                                   value="0" id="noCheckCI_C4">No
-                        </p>
-
-                        <div id="ifYesCI_C4" style="display:none">
-                            <textarea class="form-control"id="CI_C4" name="CI_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft9" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft9').text('500 characters left');
-                                $('#CI_C4').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft9').text('You have reached the limit');
-                                        $('#characterLeft9').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft9').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft9').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCI_C4() {
-                                if (document.getElementById('yesCheckCI_C4').checked) {
-                                    document.getElementById('ifYesCI_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCI_C4').style.display = 'block';
-
-                            }
-
-                        </script>
-
-                        <p>
-                            <label for="CI_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER confirm the policy was a single or a joint application?</label>
-                            <input type="radio" name="CI_Q5" 
-<?php if (isset($CI_Q5) && $CI_Q5 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C5();"
-                                   value="1" id="yesCheckCI_C5">Yes
-                            <input type="radio" name="CI_Q5"
-<?php if (isset($CI_Q5) && $CI_Q5 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckCI_C5();"
-                                   value="0" id="noCheckCI_C5">No
-                        </p>
-
-                        <div id="ifYesCI_C5" style="display:none">
-                            <textarea class="form-control"id="CI_C5" name="CI_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="characterLeft11" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft11').text('500 characters left');
-                                $('#CI_C5').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft11').text('You have reached the limit');
-                                        $('#characterLeft11').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft11').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft11').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCI_C5() {
-                                if (document.getElementById('yesCheckCI_C5').checked) {
-                                    document.getElementById('ifYesCI_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCI_C5').style.display = 'block';
-
-                            }
-
-                        </script>
                     </div>
                 </div>
                 

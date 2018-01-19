@@ -153,6 +153,16 @@ if ($ffaudits=='0') {
 			</a>
 			</li>                        
 
+<li>
+                            <a href="/addon/audits/Vitality/Menu.php">
+			<span class="ca-icon"><i class="fa fa-folder"></i></span>
+			<div class="ca-content">
+				<h2 class="ca-main">Vitality<br/> Audits</h2>
+				<h3 class="ca-sub"></h3>
+			</div>
+			</a>
+			</li>                        
+                        
 			<li>
 			<a href="reports_main.php">
 			<span class="ca-icon"><i class="fa fa-bar-chart"></i></span>

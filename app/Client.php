@@ -199,8 +199,38 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $VIT_CHECK->execute();
                         if ($VIT_CHECK->rowCount() > 0) {
                             $HAS_VIT_POL='1';
-                        }
-                        
+                            
+                            $GET_VIT_AN = $pdo->prepare("select policy_number from client_policy where client_id=:CID AND insurer='Vitality'");
+                            $GET_VIT_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_VIT_AN->execute();
+                            $GET_VIT_row = $GET_VIT_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $VIT_POL_number = $GET_VIT_row['policy_number'];   
+                            
+                            $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN");
+                            $GET_VIT_CLOSER_AUDIT->bindParam(':AN', $VIT_POL_number, PDO::PARAM_STR);
+                            $GET_VIT_CLOSER_AUDIT->execute();
+                            $GET_VIT_CLOSERrow = $GET_VIT_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_VIT_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_VIT_CLOSE_AUDIT=1;
+                                $VIT_closeraudit = $GET_VIT_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_VIT_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_VIT_LEAD_AUDIT->execute();
+                                $GET_VIT_LEADrow = $GET_VIT_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_VIT_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_VIT_LEAD_AUDIT=1;
+                                    $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
+                                    
+                                }  
+                                
+                                }
+                                
+                                
                         $LV_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='LV' AND client_id=:CID");
                         $LV_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $LV_CHECK->execute();
@@ -256,7 +286,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         
         if(isset($LANG_POL) && $LANG_POL == 1) {               
                         
-        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID");
+        $anquery = $pdo->prepare("select application_number from client_policy where client_id=:CID AND insurer='Legal and General'");
         $anquery->bindParam(':CID', $search, PDO::PARAM_INT);
         $anquery->execute();
         $ansearch = $anquery->fetch(PDO::FETCH_ASSOC);
@@ -274,8 +304,8 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
         $leadaudit = $auditre['LEAD'];
         
         }
-        
-                        }
+
+                        }                       
 ?>
 <!DOCTYPE html>
 <!-- 
@@ -1518,6 +1548,19 @@ WHERE
                                     
         <?php                }      
                             }
+                            
+        if(isset($HAS_VIT_CLOSE_AUDIT) && $HAS_VIT_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/Vitality/View.php?EXECUTE=VIEW&AUDITID=<?php echo $VIT_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Closer Audit</a>                                    
+            
+        <?php }
+        
+        
+        if(isset($HAS_VIT_LEAD_AUDIT) && $HAS_VIT_LEAD_AUDIT == 1) {  ?>
+
+<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $VIT_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Lead Audit</a>
+        
+       <?php }               
                             
 if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {
                                 

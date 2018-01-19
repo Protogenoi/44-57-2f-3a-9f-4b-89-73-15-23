@@ -639,6 +639,14 @@ if($WHICH_COMPANY=='Vitality') {
     echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Vitality App not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
-     }    
+     }   
+
+if(empty($HAS_VIT_CLOSE_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Vitality Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+} 
+if(empty($HAS_VIT_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Vitality Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}    
+     
 }
                                                                 ?>

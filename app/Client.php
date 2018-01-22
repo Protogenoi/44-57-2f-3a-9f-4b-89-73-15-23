@@ -1711,6 +1711,7 @@ WHERE
                                         case "LGPolicy Summary":
                                         case "Dealsheet":
                                         case "LGpolicy":
+                                            case "RLpolicy":
                                         case "LGkeyfacts":
                                         case "TONIC PDF":
                                             case "Avivapolicy":
@@ -1751,6 +1752,8 @@ WHERE
                                     endswitch;
 
                                     switch ($uploadtype):
+                                        case "RLpolicy":
+                                            $uploadtype = "Royal London Policy";
                                         case "LGPolicy Summary";
                                             $uploadtype = "L&G Policy Summary";
                                             break;
@@ -2785,6 +2788,7 @@ WHERE
                                             $TMicon = "fa-gbp";
                                             break;
                                         case"LGPolicy Summary";
+                                            case "RLpolicy":
                                             case"LVPolicy Summary";
                                         case "Dealsheet":
                                         case"LGpolicy";

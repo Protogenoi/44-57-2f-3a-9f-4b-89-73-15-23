@@ -220,7 +220,7 @@ $client->messages->create(
     array(
         'from' => '+441792720471',
         'body' => "$SMS_MESSAGE",
-        'statusCallback' => "https://fpg.adl-crm.uk/app/SMS/Status.php?EXECUTE=1"
+        'statusCallback' => "https://review.adlcrm.com/app/SMS/Status.php?EXECUTE=1"
     )
 );
 

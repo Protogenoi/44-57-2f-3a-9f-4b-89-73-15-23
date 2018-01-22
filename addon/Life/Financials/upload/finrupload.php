@@ -1035,7 +1035,7 @@ if ($query->rowCount() <= 0) {
     } 
     
     while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../FinancialUploads.php?success=1'); die;
+    header('Location: /../../../../../addon/Life/FinancialUploads.php?success=1'); die;
 }
 
 }

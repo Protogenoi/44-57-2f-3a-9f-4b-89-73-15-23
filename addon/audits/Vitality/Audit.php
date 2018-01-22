@@ -2033,7 +2033,7 @@ $QUESTION_NUMBER=1;
                                 <option value="N/A">Select...</option>
                                 <option value="Client provided details">Client Provided Details</option>
                                 <option value="Client failed to provide details">Client failed to provide details</option>
-                                <option value="Not existing Vitality customer">Not existing legal and general customer</option>
+                                <option value="Not existing Vitality customer">Not existing Vitality customer</option>
                                 <option value="Obtained from Term4Term service">Obtained from Term4Term service</option>
                                 <option value="Existing Vitality Policy, no attempt to get policy number">Existing Vitality Policy, no attempt to get policy number</option>
                             </select>

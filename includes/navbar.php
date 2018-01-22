@@ -150,6 +150,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php } if($ffaudits == 1) { ?>  
                             <li><a href="/addon/audits/main_menu.php">Audit Menu</a></li>
                             <li><a href="/addon/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
+                            <li><a href="/addon/audits/LV/Menu.php">LV Audits</a></li>
                             <li><a href="/addon/audits/Vitality/Menu.php">Vitality Audits</a></li>
                             <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
                             <li><a href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>

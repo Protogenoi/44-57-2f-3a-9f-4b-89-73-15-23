@@ -136,7 +136,7 @@ $QUESTION_NUMBER=1;
                             </select>
                         </div>
 
-                        <label for="POLICY">Plan Number</label>
+                        <label for="POLICY">Reference ID</label>
                         <input type="text" class="form-control" name="PLAN_NUMBER" style="width: 520px">
 
                         </p>

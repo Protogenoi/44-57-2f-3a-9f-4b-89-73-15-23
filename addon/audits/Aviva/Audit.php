@@ -575,7 +575,7 @@ WHERE
                 </div>        <br>                             
              
                 <div class="form-group row">
-                    <label for="POLICY" class="col-2 col-form-label">Policy:</label>
+                    <label for="POLICY" class="col-2 col-form-label">Reference ID:</label>
                     <div class="col-8">
                         <input class="form-control" type="text" id="POLICY" name="POLICY" value="<?php if(isset($POLICY)) { echo $POLICY; } ?>">
                     </div>

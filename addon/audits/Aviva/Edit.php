@@ -83,7 +83,7 @@ if (isset($_GET["auditid"])) {
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-    <title>ADL | L&G Closer Audit Edit</title>
+    <title>ADL | Aviva Closer Audit Edit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
@@ -153,31 +153,17 @@ if (isset($_GET["auditid"])) {
                                 <div class='col-md-4'>
                                     <select class='form-control' name='closer' id='full_name' required>
                                         <?php echo "<option value='" . $result['closer'] . "'>" . $result['closer'] . "</option>"; ?>
-<?php if ($companynamere == 'Bluestone Protect') { ?>
-
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Nathan">Nathan</option> 
+                                            <option value="Martin">Martin</option> 
                                             <option value="Richard">Richard</option>
                                             <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Stavros">Stavros</option>
                                             <option value="Nicola">Nicola</option>  
                                             <option value="Gavin">Gavin</option>
-                                            <option value="Rhys">Rhys</option> 
-                                            <option value="David">David</option> 
-<?php } if ($companynamere == 'ADL_CUS') { ?>
-                                            <option value="Dan Matthews">Dan Matthews</option>
-                                            <option value="Joe Rimmell">Joe Rimmell</option>
-                                            <option value="Jordan Davies">Jordan Davies</option>
-                                            <option value="Matthew Brace">Matthew Brace</option>  
-                                            <option value="Sam Morris">Sam Morris</option> 
-                                            <option value="Steve Pattin">Steve Pattin</option> 
-                                            <option value="James Keen">James Keen</option> 
-<?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -188,36 +174,23 @@ if (isset($_GET["auditid"])) {
                                 <div class='col-md-4'>
                                     <select class='form-control' name='closer2' id='closer2' > 
                                         <?php echo "<option value='" . $result['closer2'] . "'>" . $result['closer2'] . "</option>"; ?>
-<?php if ($companynamere == 'Bluestone Protect') { ?>
-
                                             <option value="Carys">Carys</option>
                                             <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Nathan">Nathan</option> 
+                                            <option value="Martin">Martin</option> 
                                             <option value="Richard">Richard</option>
                                             <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Stavros">Stavros</option>
                                             <option value="Nicola">Nicola</option>  
                                             <option value="Gavin">Gavin</option>
-                                            <option value="Rhys">Rhys</option> 
-                                            <option value="David">David</option> 
-<?php } if ($companynamere == 'ADL_CUS') { ?>
-                                            <option value="Dan Matthews">Dan Matthews</option>
-                                            <option value="Joe Rimmell">Joe Rimmell</option>
-                                            <option value="Jordan Davies">Jordan Davies</option>
-                                            <option value="Matthew Brace">Matthew Brace</option>  
-                                            <option value="Sam Morris">Sam Morris</option> 
-                                            <option value="Steve Pattin">Steve Pattin</option> 
-<?php } ?>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="policy_number">Policy Number</label>  
+                                <label class="col-md-4 control-label" for="policy_number">Reference ID</label>  
                                 <div class="col-md-4">
                                     <input type="text" name="policy_number" class="form-control input-md" style="width: 220px"  value="<?php echo $result['policy_number']; ?>" > 
                                 </div>
@@ -1437,15 +1410,15 @@ if (isset($_GET["auditid"])) {
                                     <option value="Client failed to provide details" <?php if ($result['q29'] == "Client failed to provide details") {
     echo "selected";
 } ?> >Client failed to provided details</option>
-                                    <option value="Not existing L&G customer" <?php if ($result['q29'] == "Not existing L&G customer") {
+                                    <option value="Not existing Aviva customer" <?php if ($result['q29'] == "Not existing Aviva customer") {
     echo "selected";
 } ?> >Not existing legal and general customer</option>
                                     <option value="Obtained from Term4Term service" <?php if ($result['q29'] == "Obtained from Term4Term service") {
     echo "selected";
 } ?> >Obtained from Term4Term service</option>
-                                    <option value="Existing L&G Policy, no attempt to get policy number" <?php if ($result['q29'] == "Existing L&G Policy, no attempt to get policy number") {
+                                    <option value="Existing Aviva Policy, no attempt to get policy number" <?php if ($result['q29'] == "Existing Aviva Policy, no attempt to get policy number") {
     echo "selected";
-} ?> >Existing L&G Policy, no attempt to get policy number</option>
+} ?> >Existing Aviva Policy, no attempt to get policy number</option>
                                 </select>
 
                             </p>

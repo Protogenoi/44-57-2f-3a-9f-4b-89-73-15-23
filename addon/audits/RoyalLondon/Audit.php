@@ -650,7 +650,7 @@ function textAreaAdjust(o) {
 <input type="text" class='form-control' name='CLOSER2' id='CLOSER2' style="width: 520px">    
 </div>
 
-<label for="PLAN_NUMBER">Plan Number</label>
+<label for="PLAN_NUMBER">Reference ID</label>
 <input type="text" class="form-control" name="PLAN_NUMBER" style="width: 520px" VALUE="<?php if(isset($RL_PLAN_NUMBER)) { echo $RL_PLAN_NUMBER; } ?>" required>
 </p>
 

@@ -407,7 +407,7 @@ function textAreaAdjust(o) {
                             </select>
                         </div>
                         
-                        <label for="policy_number">Policy Number</label>
+                        <label for="policy_number">Reference ID</label>
                         <input type="text" class="form-control" name="policy_number" value="<?php if(isset($policy_number)) { echo $policy_number; } ?>" style="width: 520px" required>
                         
                         <div class="form-group">

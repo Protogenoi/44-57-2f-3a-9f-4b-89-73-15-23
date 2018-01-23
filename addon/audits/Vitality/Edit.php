@@ -756,7 +756,7 @@ function textAreaAdjust(o) {
                         <p>
                             <label for="OD_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label>
                             <input type="radio" name="OD_Q1" 
-                                   <?php if(isset($VIT_OD1)) { if ($VIT_OD1 == "1") { echo "checked"; } } ?> value="1" id="yesCheckOD_C1">Yes
+                                   <?php if(isset($VIT_OD1)) { if ($VIT_OD1 == "1") { echo "checked"; } } ?> value="1" id="yesCheckOD_C1" required >Yes
                             <input type="radio" name="OD_Q1"
 <?php if(isset($VIT_OD1)) { if ($VIT_OD1 == "0") { echo "checked"; } } ?> value="0" id="noCheckOD_C1">No
                         </p>
@@ -786,7 +786,7 @@ function textAreaAdjust(o) {
                         <p>
                             <label for="OD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the customer informed that general insurance is regulated by the FCA?</label>
                             <input type="radio" name="OD_Q2" 
-<?php if(isset($VIT_OD2)) { if ($VIT_OD2 == "1") { echo "checked"; } } ?> value="1" id="yesCheckOD_C2">Yes
+<?php if(isset($VIT_OD2)) { if ($VIT_OD2 == "1") { echo "checked"; } } ?> value="1" id="yesCheckOD_C2" required >Yes
                             <input type="radio" name="OD_Q2"
 <?php if(isset($VIT_OD2)) { if ($VIT_OD2 == "0") { echo "checked"; } } ?> value="0" id="noCheckOD_C2">No
                         </p>
@@ -817,7 +817,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="OD_Q3" 
 <?php if (isset($VIT_OD3) && $VIT_OD3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckOD_C3">Yes
+} ?> value="1" id="yesCheckOD_C3" required >Yes
                             <input type="radio" name="OD_Q3"
 <?php if (isset($VIT_OD3) && $VIT_OD3 == "0") {
     echo "checked";
@@ -850,7 +850,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="OD_Q4" 
 <?php if (isset($VIT_OD4) && $VIT_OD4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckOD_C4">Yes
+} ?> value="1" id="yesCheckOD_C4" required >Yes
                             <input type="radio" name="OD_Q4"
 <?php if (isset($VIT_OD4) && $VIT_OD4 == "0") {
     echo "checked";
@@ -884,7 +884,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="OD_Q5" 
 <?php if (isset($VIT_OD5) && $VIT_OD5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckOD_C5">Yes
+} ?> value="1" id="yesCheckOD_C5" required >Yes
                             <input type="radio" name="OD_Q5"
 <?php if (isset($VIT_OD5) && $VIT_OD5 == "0") {
     echo "checked";
@@ -925,7 +925,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CI_Q1" 
 <?php if (isset($VIT_CI1) && $VIT_CI1 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCI_C1">Yes
+} ?> value="1" id="yesCheckCI_C1" required >Yes
                             <input type="radio" name="CI_Q1"
 <?php if (isset($VIT_CI1) && $VIT_CI1 == "0") {
     echo "checked";
@@ -958,7 +958,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CI_Q2" 
 <?php if (isset($VIT_CI2) && $VIT_CI2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCI_C2">Yes
+} ?> value="1" id="yesCheckCI_C2" required >Yes
                             <input type="radio" name="CI_Q2"
 <?php if (isset($VIT_CI2) && $VIT_CI2 == "0") {
     echo "checked";
@@ -992,7 +992,7 @@ function textAreaAdjust(o) {
 <?php if (isset($VIT_CI3) && $VIT_CI3 == "1") {
     echo "checked";
 } ?>
-                                   value="1" id="yesCheck">Yes
+                                   value="1" id="yesCheck" required >Yes
                             <input type="radio" name="CI_Q3"
 <?php if (isset($VIT_CI3) && $VIT_CI3 == "0") {
     echo "checked";
@@ -1025,7 +1025,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CI_Q4" 
 <?php if (isset($VIT_CI4) && $VIT_CI4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCI_C4">Yes
+} ?> value="1" id="yesCheckCI_C4" required >Yes
                             <input type="radio" name="CI_Q4"
 <?php if (isset($VIT_CI4) && $VIT_CI4 == "0") {
     echo "checked";
@@ -1057,7 +1057,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CI_Q5" 
 <?php if (isset($VIT_CI5) && $VIT_CI5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCI_C5">Yes
+} ?> value="1" id="yesCheckCI_C5" required >Yes
                             <input type="radio" name="CI_Q5"
 <?php if (isset($VIT_CI5) && $VIT_CI5 == "0") {
     echo "checked";
@@ -1099,7 +1099,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q1" 
                                    <?php if (isset($VIT_AY1) && $VIT_AY1 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckAY_C1">Yes
+                                   } ?> value="1" id="yesCheckAY_C1" required >Yes
                             <input type="radio" name="AY_Q1"
 <?php if(isset($VIT_AY1)) {  if ($VIT_AY1 == "0") { echo "checked"; } } ?> value="0" id="noCheckAY_C1">No
                         </p>
@@ -1130,7 +1130,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q2" 
 <?php if (isset($VIT_AY2) && $VIT_AY2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C2">Yes
+} ?> value="1" id="yesCheckAY_C2" required >Yes
                             <input type="radio" name="AY_Q2"
 <?php if (isset($VIT_AY2) && $VIT_AY2 == "0") {
     echo "checked";
@@ -1163,7 +1163,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q3" 
 <?php if (isset($VIT_AY3) && $VIT_AY3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C3">Yes
+} ?> value="1" id="yesCheckAY_C3" required >Yes
                             <input type="radio" name="AY_Q3"
 <?php if (isset($VIT_AY3) && $VIT_AY3 == "0") {
     echo "checked";
@@ -1197,7 +1197,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q4" 
 <?php if (isset($VIT_AY4) && $VIT_AY4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C4">Yes
+} ?> value="1" id="yesCheckAY_C4" required >Yes
                             <input type="radio" name="AY_Q4"
 <?php if (isset($VIT_AY4) && $VIT_AY4 == "0") {
     echo "checked";
@@ -1229,7 +1229,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q5" 
 <?php if (isset($VIT_AY5) && $VIT_AY5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C5">Yes
+} ?> value="1" id="yesCheckAY_C5" required >Yes
                             <input type="radio" name="AY_Q5"
 <?php if (isset($VIT_AY5) && $VIT_AY5 == "0") {
     echo "checked";
@@ -1262,7 +1262,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q6" 
 <?php if (isset($VIT_AY6) && $VIT_AY6 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C6">Yes
+} ?> value="1" id="yesCheckAY_C6" required >Yes
                             <input type="radio" name="AY_Q6"
 <?php if (isset($VIT_AY6) && $VIT_AY6 == "0") {
     echo "checked";
@@ -1294,7 +1294,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q7" 
 <?php if (isset($VIT_AY7) && $VIT_AY7 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C7">Yes
+} ?> value="1" id="yesCheckAY_C7" required >Yes
                             <input type="radio" name="AY_Q7"
 <?php if (isset($VIT_AY7) && $VIT_AY7 == "0") {
     echo "checked";
@@ -1327,7 +1327,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="AY_Q8" 
 <?php if (isset($VIT_AY8) && $VIT_AY8 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckAY_C8">Yes
+} ?> value="1" id="yesCheckAY_C8" required >Yes
                             <input type="radio" name="AY_Q8"
 <?php if (isset($VIT_AY8) && $VIT_AY8 == "0") {
     echo "checked";
@@ -1368,7 +1368,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q1" 
                                    <?php if (isset($VIT_P1) && $VIT_P1 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckP_C1">Yes
+                                   } ?> value="1" id="yesCheckP_C1" required >Yes
                             <input type="radio" name="P_Q1"
 <?php if (isset($VIT_P1) && $VIT_P1 == "0") {
     echo "checked";
@@ -1401,7 +1401,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q2" 
 <?php if (isset($VIT_P2) && $VIT_P2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C2">Yes
+} ?> value="1" id="yesCheckP_C2" required >Yes
                             <input type="radio" name="P_Q2"
 <?php if (isset($VIT_P2) && $VIT_P2 == "0") {
     echo "checked";
@@ -1434,7 +1434,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q3" 
 <?php if (isset($VIT_P3) && $VIT_P3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C3">Yes
+} ?> value="1" id="yesCheckP_C3" required >Yes
                             <input type="radio" name="P_Q3"
 <?php if (isset($VIT_P3) && $VIT_P3 == "0") {
     echo "checked";
@@ -1467,7 +1467,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q4" 
 <?php if (isset($VIT_P4) && $VIT_P4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C4">Yes
+} ?> value="1" id="yesCheckP_C4" required >Yes
                             <input type="radio" name="P_Q4"
 <?php if (isset($VIT_P4) && $VIT_P4 == "0") {
     echo "checked";
@@ -1500,7 +1500,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q5" 
 <?php if (isset($VIT_P5) && $VIT_P5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C5">Yes
+} ?> value="1" id="yesCheckP_C5" required >Yes
                             <input type="radio" name="P_Q5"
 <?php if (isset($VIT_P5) && $VIT_P5 == "0") {
     echo "checked";
@@ -1533,7 +1533,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q6" 
 <?php if (isset($VIT_P6) && $VIT_P6 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C6">Yes
+} ?> value="1" id="yesCheckP_C6" required >Yes
                             <input type="radio" name="P_Q6"
 <?php if (isset($VIT_P6) && $VIT_P6 == "0") {
     echo "checked";
@@ -1566,7 +1566,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q7" 
 <?php if (isset($VIT_P7) && $VIT_P7 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C7">Yes
+} ?> value="1" id="yesCheckP_C7" required >Yes
                             <input type="radio" name="P_Q7"
 <?php if (isset($VIT_P7) && $VIT_P7 == "0") {
     echo "checked";
@@ -1597,7 +1597,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="P_Q8" 
 <?php if (isset($VIT_P8) && $VIT_P8 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckP_C8">Yes
+} ?> value="1" id="yesCheckP_C8" required >Yes
                             <input type="radio" name="P_Q8"
 <?php if (isset($VIT_P8) && $VIT_P8 == "0") {
     echo "checked";
@@ -1641,7 +1641,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="ICN_Q1" 
                                    <?php if (isset($VIT_ICN1) && $VIT_ICN1 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckICN_C1">Yes
+                                   } ?> value="1" id="yesCheckICN_C1" required >Yes
                             <input type="radio" name="ICN_Q1"
 <?php if (isset($VIT_ICN1) && $VIT_ICN1 == "0") {
     echo "checked";
@@ -1674,7 +1674,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="ICN_Q2" 
                                    <?php if (isset($VIT_ICN2) && $VIT_ICN2 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckICN_C2">Yes
+                                   } ?> value="1" id="yesCheckICN_C2" required >Yes
                             <input type="radio" name="ICN_Q2"
 <?php if (isset($VIT_ICN2) && $VIT_ICN2 == "0") {
     echo "checked";
@@ -1711,7 +1711,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="ICN_Q3" 
 <?php if (isset($VIT_ICN3) && $VIT_ICN3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckICN_C3">Yes
+} ?> value="1" id="yesCheckICN_C3" required >Yes
                             <input type="radio" name="ICN_Q3"
 <?php if (isset($VIT_ICN3) && $VIT_ICN3 == "0") {
     echo "checked";
@@ -1776,7 +1776,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="ICN_Q5" 
 <?php if (isset($VIT_ICN5) && $VIT_ICN5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckICN_C5">Yes
+} ?> value="1" id="yesCheckICN_C5" required >Yes
                             <input type="radio" name="ICN_Q5"
 <?php if (isset($VIT_ICN5) && $VIT_ICN5 == "0") {
     echo "checked";
@@ -1818,7 +1818,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q1" 
 <?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C1">Yes
+} ?> value="1" id="yesCheckE_C1" required >Yes
                             <input type="radio" name="E_Q1"
 <?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "0") {
     echo "checked";
@@ -1851,7 +1851,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q2" 
 <?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C2">Yes
+} ?> value="1" id="yesCheckE_C2" required >Yes
                             <input type="radio" name="E_Q2"
 <?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "0") {
     echo "checked";
@@ -1883,7 +1883,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q3" 
 <?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C3">Yes
+} ?> value="1" id="yesCheckE_C3" required >Yes
                             <input type="radio" name="E_Q3"
 <?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "0") {
     echo "checked";
@@ -1915,7 +1915,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q4" 
 <?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C4">Yes
+} ?> value="1" id="yesCheckE_C4" required >Yes
                             <input type="radio" name="E_Q4"
 <?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "0") {
     echo "checked";
@@ -1951,7 +1951,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q5" 
 <?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C5">Yes
+} ?> value="1" id="yesCheckE_C5" required >Yes
                             <input type="radio" name="E_Q5"
                                    <?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "0") {
                                        echo "checked";
@@ -1983,7 +1983,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q6" 
                                    <?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckE_C6">Yes
+                                   } ?> value="1" id="yesCheckE_C6" required >Yes
                             <input type="radio" name="E_Q6"
 <?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "0") {
     echo "checked";
@@ -2015,7 +2015,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="E_Q7" 
 <?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckE_C7">Yes
+} ?> value="1" id="yesCheckE_C7" required >Yes
                             <input type="radio" name="E_Q7"
 <?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "0") {
     echo "checked";
@@ -2089,7 +2089,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="DI_Q1" 
 <?php if (isset($VIT_CM_DI1) && $VIT_CM_DI1 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckDI_C1">Yes
+} ?> value="1" id="yesCheckDI_C1" required >Yes
                             <input type="radio" name="DI_Q1"
 <?php if (isset($VIT_CM_DI1) && $VIT_CM_DI1 == "0") {
     echo "checked";
@@ -2121,7 +2121,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="DI_Q2" 
 <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckDI_C2">Yes
+} ?> value="1" id="yesCheckDI_C2" required >Yes
                             <input type="radio" name="DI_Q2"
 <?php if (isset($VIT_CM_DI2) && $VIT_CM_DI2 == "0") {
     echo "checked";
@@ -2167,7 +2167,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="PI_Q1" 
                                    <?php if (isset($VIT_CM_PI1) && $VIT_CM_PI1 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckPI_C1">Yes
+                                   } ?> value="1" id="yesCheckPI_C1" required >Yes
                             <input type="radio" name="PI_Q1"
 <?php if (isset($VIT_CM_PI1) && $VIT_CM_PI1 == "0") {
     echo "checked";
@@ -2199,7 +2199,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="PI_Q2" 
 <?php if (isset($VIT_CM_PI2) && $VIT_CM_PI2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckPI_C2">Yes
+} ?> value="1" id="yesCheckPI_C2" required >Yes
                             <input type="radio" name="PI_Q2"
 <?php if (isset($VIT_CM_PI2) && $VIT_CM_PI2 == "0") {
     echo "checked";
@@ -2231,7 +2231,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="PI_Q3" 
 <?php if (isset($VIT_CM_PI3) && $VIT_CM_PI3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckPI_C3">Yes
+} ?> value="1" id="yesCheckPI_C3" required >Yes
                             <input type="radio" name="PI_Q3"
                                    <?php if (isset($VIT_CM_PI3) && $VIT_CM_PI3 == "0") {
                                        echo "checked";
@@ -2263,7 +2263,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="PI_Q4" 
 <?php if (isset($VIT_CM_PI4) && $VIT_CM_PI4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckPI_C4">Yes
+} ?> value="1" id="yesCheckPI_C4" required >Yes
                             <input type="radio" name="PI_Q4"
                                    <?php if (isset($VIT_CM_PI4) && $VIT_CM_PI4 == "0") {
                                        echo "checked";
@@ -2296,7 +2296,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="PI_Q5" 
                                    <?php if (isset($VIT_CM_PI5) && $VIT_CM_PI5 == "1") {
                                        echo "checked";
-                                   } ?> value="1" id="yesCheckPI_C5">Yes
+                                   } ?> value="1" id="yesCheckPI_C5" required >Yes
                             <input type="radio" name="PI_Q5"
 <?php if (isset($VIT_CM_PI5) && $VIT_CM_PI5 == "0") {
     echo "checked";
@@ -2338,7 +2338,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q1" 
 <?php if (isset($VIT_CM_CD1) && $VIT_CM_CD1 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCD_C1">Yes
+} ?> value="1" id="yesCheckCD_C1" required >Yes
                             <input type="radio" name="CD_Q1"
 <?php if (isset($VIT_CM_CD1) && $VIT_CM_CD1 == "0") {
     echo "checked";
@@ -2371,7 +2371,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q2" 
 <?php if (isset($VIT_CM_CD2) && $VIT_CM_CD2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCD_C2">Yes
+} ?> value="1" id="yesCheckCD_C2" required >Yes
                             <input type="radio" name="CD_Q2"
 <?php if (isset($VIT_CM_CD2) && $VIT_CM_CD2 == "0") {
     echo "checked";
@@ -2404,7 +2404,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q3" 
 <?php if (isset($VIT_CM_CD3) && $VIT_CM_CD3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCD_C3">Yes
+} ?> value="1" id="yesCheckCD_C3" required >Yes
                             <input type="radio" name="CD_Q3"
 <?php if (isset($VIT_CM_CD3) && $VIT_CM_CD3 == "0") {
     echo "checked";
@@ -2437,7 +2437,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q4" 
 <?php if (isset($VIT_CM_CD4) && $VIT_CM_CD4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCD_C4">Yes
+} ?> value="1" id="yesCheckCD_C4" required >Yes
                             <input type="radio" name="CD_Q4"
 <?php if (isset($VIT_CM_CD4) && $VIT_CM_CD4 == "0") {
     echo "checked";
@@ -2470,7 +2470,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q6" 
 <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckCD_C6">Yes
+} ?> value="1" id="yesCheckCD_C6" required >Yes
                             <input type="radio" name="CD_Q6"
 <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6 == "0") {
     echo "checked";
@@ -2503,7 +2503,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q7" 
 <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7 == "1") {
     echo "checked";
-} ?>  value="1" id="yesCheckCD_C7">Yes
+} ?>  value="1" id="yesCheckCD_C7" required >Yes
                             <input type="radio" name="CD_Q7"
 <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7 == "0") {
     echo "checked";
@@ -2536,7 +2536,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="CD_Q8" 
 <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8 == "1") {
     echo "checked";
-} ?>  value="1" id="yesCheckCD_C8">Yes
+} ?>  value="1" id="yesCheckCD_C8" required >Yes
                             <input type="radio" name="CD_Q8"
 <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8 == "0") {
     echo "checked";
@@ -2582,7 +2582,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q1" 
 <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_Q2">Yes
+} ?> value="1" id="yesCheckQC_Q2" required >Yes
                             <input type="radio" name="QC_Q1"
 <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1 == "0") {
     echo "checked";
@@ -2615,7 +2615,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q2" 
 <?php if (isset($VIT_CM_QC2) && $VIT_CM_QC2 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C2">Yes
+} ?> value="1" id="yesCheckQC_C2" required >Yes
                             <input type="radio" name="QC_Q2"
 <?php if (isset($VIT_CM_QC2) && $VIT_CM_QC2 == "0") {
     echo "checked";
@@ -2648,7 +2648,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q3" 
 <?php if (isset($VIT_CM_QC3) && $VIT_CM_QC3 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C3">Yes
+} ?> value="1" id="yesCheckQC_C3" required >Yes
                             <input type="radio" name="QC_Q3"
 <?php if (isset($VIT_CM_QC3) && $VIT_CM_QC3 == "0") {
     echo "checked";
@@ -2680,7 +2680,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q4" 
 <?php if (isset($VIT_CM_QC4) && $VIT_CM_QC4 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C4">Yes
+} ?> value="1" id="yesCheckQC_C4" required >Yes
                             <input type="radio" name="QC_Q4"
 <?php if (isset($VIT_CM_QC4) && $VIT_CM_QC4 == "0") {
     echo "checked";
@@ -2712,7 +2712,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q5" 
 <?php if (isset($VIT_CM_QC5) && $VIT_CM_QC5 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C5">Yes
+} ?> value="1" id="yesCheckQC_C5" required >Yes
                             <input type="radio" name="QC_Q5"
 <?php if (isset($VIT_CM_QC5) && $VIT_CM_QC5 == "0") {
     echo "checked";
@@ -2744,7 +2744,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q6" 
 <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C6">Yes
+} ?> value="1" id="yesCheckQC_C6" required >Yes
                             <input type="radio" name="QC_Q6"
 <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6 == "0") {
     echo "checked";
@@ -2776,7 +2776,7 @@ function textAreaAdjust(o) {
                             <input type="radio" name="QC_Q7" 
 <?php if (isset($VIT_CM_QC7) && $VIT_CM_QC7 == "1") {
     echo "checked";
-} ?> value="1" id="yesCheckQC_C7">Yes
+} ?> value="1" id="yesCheckQC_C7" required >Yes
                             <input type="radio" name="QC_Q7"
 <?php if (isset($VIT_CM_QC7) && $VIT_CM_QC7 == "0") {
     echo "checked";

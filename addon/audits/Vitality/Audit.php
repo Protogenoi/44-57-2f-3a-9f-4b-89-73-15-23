@@ -167,7 +167,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($OD_Q1) && $OD_Q1 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckOD_C1();"
-                                   value="1" id="yesCheckOD_C1">Yes
+                                   value="1" id="yesCheckOD_C1" required >Yes
                             <input type="radio" name="OD_Q1"
 <?php if (isset($OD_Q1) && $OD_Q1 == "0") {
     echo "checked";
@@ -214,7 +214,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($OD_Q2) && $OD_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckOD_C2();"
-                                   value="1" id="yesCheckOD_C2">Yes
+                                   value="1" id="yesCheckOD_C2" required >Yes
                             <input type="radio" name="OD_Q2"
 <?php if (isset($OD_Q2) && $OD_Q2 == "0") {
     echo "checked";
@@ -262,7 +262,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($OD_Q3) && $OD_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckOD_C3();"
-                                   value="1" id="yesCheckOD_C3">Yes
+                                   value="1" id="yesCheckOD_C3" required >Yes
                             <input type="radio" name="OD_Q3"
 <?php if (isset($OD_Q3) && $OD_Q3 == "0") {
     echo "checked";
@@ -310,7 +310,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($OD_Q4) && $OD_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckOD_C4();"
-                                   value="1" id="yesCheckOD_C4">Yes
+                                   value="1" id="yesCheckOD_C4" required >Yes
                             <input type="radio" name="OD_Q4"
 <?php if (isset($OD_Q4) && $OD_Q4 == "0") {
     echo "checked";
@@ -358,7 +358,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($OD_Q5) && $OD_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckOD_C5();"
-                                   value="1" id="yesCheckOD_C5">Yes
+                                   value="1" id="yesCheckOD_C5" required >Yes
                             <input type="radio" name="OD_Q5"
 <?php if (isset($OD_Q5) && $OD_Q5 == "0") {
     echo "checked";
@@ -414,7 +414,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CI_Q1) && $CI_Q1 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCI_C1();"
-                                   value="1" id="yesCheckCI_C1">Yes
+                                   value="1" id="yesCheckCI_C1" required >Yes
                             <input type="radio" name="CI_Q1"
 <?php if (isset($CI_Q1) && $CI_Q1 == "0") {
     echo "checked";
@@ -462,7 +462,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CI_Q2) && $CI_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCI_C2();"
-                                   value="1" id="yesCheckCI_C2">Yes
+                                   value="1" id="yesCheckCI_C2" required >Yes
                             <input type="radio" name="CI_Q2"
 <?php if (isset($CI_Q2) && $CI_Q2 == "0") {
     echo "checked";
@@ -511,7 +511,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CI_Q3) && $CI_Q3 == "1") {
     echo "checked";
 } ?>
-                                   value="1" id="yesCheck">Yes
+                                   value="1" id="yesCheck" required >Yes
                             <input type="radio" name="CI_Q3" onclick="javascript:yesnoCheck();"
 <?php if (isset($CI_Q3) && $CI_Q3 == "0") {
     echo "checked";
@@ -559,7 +559,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CI_Q4) && $CI_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCI_C4();"
-                                   value="1" id="yesCheckCI_C4">Yes
+                                   value="1" id="yesCheckCI_C4" required >Yes
                             <input type="radio" name="CI_Q4"
 <?php if (isset($CI_Q4) && $CI_Q4 == "0") {
     echo "checked";
@@ -607,7 +607,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CI_Q5) && $CI_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCI_C5();"
-                                   value="1" id="yesCheckCI_C5">Yes
+                                   value="1" id="yesCheckCI_C5" required >Yes
                             <input type="radio" name="CI_Q5"
 <?php if (isset($CI_Q5) && $CI_Q5 == "0") {
     echo "checked";
@@ -663,7 +663,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($AY_Q1) && $AY_Q1 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckAY_C1();"
-                                   value="1" id="yesCheckAY_C1">Yes
+                                   value="1" id="yesCheckAY_C1" required >Yes
                             <input type="radio" name="AY_Q1"
 <?php if (isset($AY_Q1) && $AY_Q1 == "0") {
     echo "checked";
@@ -710,7 +710,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q2) && $AY_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C2();"
-                                   value="1" id="yesCheckAY_C2">Yes
+                                   value="1" id="yesCheckAY_C2" required >Yes
                             <input type="radio" name="AY_Q2"
 <?php if (isset($AY_Q2) && $AY_Q2 == "0") {
     echo "checked";
@@ -757,7 +757,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q3) && $AY_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C3();"
-                                   value="1" id="yesCheckAY_C3">Yes
+                                   value="1" id="yesCheckAY_C3" required >Yes
                             <input type="radio" name="AY_Q3"
 <?php if (isset($AY_Q3) && $AY_Q3 == "0") {
     echo "checked";
@@ -804,7 +804,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q4) && $AY_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C4();"
-                                   value="1" id="yesCheckAY_C4">Yes
+                                   value="1" id="yesCheckAY_C4" required >Yes
                             <input type="radio" name="AY_Q4"
 <?php if (isset($AY_Q4) && $AY_Q4 == "0") {
     echo "checked";
@@ -851,7 +851,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q5) && $AY_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C5();"
-                                   value="1" id="yesCheckAY_C5">Yes
+                                   value="1" id="yesCheckAY_C5" required >Yes
                             <input type="radio" name="AY_Q5"
 <?php if (isset($AY_Q5) && $AY_Q5 == "0") {
     echo "checked";
@@ -898,7 +898,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q6) && $AY_Q6 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C6();"
-                                   value="1" id="yesCheckAY_C6">Yes
+                                   value="1" id="yesCheckAY_C6" required >Yes
                             <input type="radio" name="AY_Q6"
 <?php if (isset($AY_Q6) && $AY_Q6 == "0") {
     echo "checked";
@@ -945,7 +945,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q7) && $AY_Q7 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C7();"
-                                   value="1" id="yesCheckAY_C7">Yes
+                                   value="1" id="yesCheckAY_C7" required >Yes
                             <input type="radio" name="AY_Q7"
 <?php if (isset($AY_Q7) && $AY_Q7 == "0") {
     echo "checked";
@@ -992,7 +992,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($AY_Q8) && $AY_Q8 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckAY_C8();"
-                                   value="1" id="yesCheckAY_C8">Yes
+                                   value="1" id="yesCheckAY_C8" required >Yes
                             <input type="radio" name="AY_Q8"
 <?php if (isset($AY_Q8) && $AY_Q8 == "0") {
     echo "checked";
@@ -1048,7 +1048,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($P_Q1) && $P_Q1 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckP_C1();"
-                                   value="1" id="yesCheckP_C1">Yes
+                                   value="1" id="yesCheckP_C1" required >Yes
                             <input type="radio" name="P_Q1"
 <?php if (isset($P_Q1) && $P_Q1 == "0") {
     echo "checked";
@@ -1095,7 +1095,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q2) && $P_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C2();"
-                                   value="1" id="yesCheckP_C2">Yes
+                                   value="1" id="yesCheckP_C2" required >Yes
                             <input type="radio" name="P_Q2"
 <?php if (isset($P_Q2) && $P_Q2 == "0") {
     echo "checked";
@@ -1143,7 +1143,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q3) && $P_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C3();"
-                                   value="1" id="yesCheckP_C3">Yes
+                                   value="1" id="yesCheckP_C3" required >Yes
                             <input type="radio" name="P_Q3"
 <?php if (isset($P_Q3) && $P_Q3 == "0") {
     echo "checked";
@@ -1191,7 +1191,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q4) && $P_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C4();"
-                                   value="1" id="yesCheckP_C4">Yes
+                                   value="1" id="yesCheckP_C4" required >Yes
                             <input type="radio" name="P_Q4"
 <?php if (isset($P_Q4) && $P_Q4 == "0") {
     echo "checked";
@@ -1239,7 +1239,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q5) && $P_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C5();"
-                                   value="1" id="yesCheckP_C5">Yes
+                                   value="1" id="yesCheckP_C5" required >Yes
                             <input type="radio" name="P_Q5"
 <?php if (isset($P_Q5) && $P_Q5 == "0") {
     echo "checked";
@@ -1287,7 +1287,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q6) && $P_Q6 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C6();"
-                                   value="1" id="yesCheckP_C6">Yes
+                                   value="1" id="yesCheckP_C6" required >Yes
                             <input type="radio" name="P_Q6"
 <?php if (isset($P_Q6) && $P_Q6 == "0") {
     echo "checked";
@@ -1334,7 +1334,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q7) && $P_Q7 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C7();"
-                                   value="1" id="yesCheckP_C7">Yes
+                                   value="1" id="yesCheckP_C7" required >Yes
                             <input type="radio" name="P_Q7"
 <?php if (isset($P_Q7) && $P_Q7 == "0") {
     echo "checked";
@@ -1382,7 +1382,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($P_Q8) && $P_Q8 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckP_C8();"
-                                   value="1" id="yesCheckP_C8">Yes
+                                   value="1" id="yesCheckP_C8" required >Yes
                             <input type="radio" name="P_Q8"
 <?php if (isset($P_Q8) && $P_Q8 == "0") {
     echo "checked";
@@ -1439,7 +1439,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($ICN_Q1) && $ICN_Q1 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckICN_C1();"
-                                   value="1" id="yesCheckICN_C1">Yes
+                                   value="1" id="yesCheckICN_C1" required >Yes
                             <input type="radio" name="ICN_Q1"
 <?php if (isset($ICN_Q1) && $ICN_Q1 == "0") {
     echo "checked";
@@ -1488,7 +1488,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($ICN_Q2) && $ICN_Q2 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckICN_C2();"
-                                   value="1" id="yesCheckICN_C2">Yes
+                                   value="1" id="yesCheckICN_C2" required >Yes
                             <input type="radio" name="ICN_Q2"
 <?php if (isset($ICN_Q2) && $ICN_Q2 == "0") {
     echo "checked";
@@ -1542,7 +1542,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($ICN_Q3) && $ICN_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckICN_C3();"
-                                   value="1" id="yesCheckICN_C3">Yes
+                                   value="1" id="yesCheckICN_C3" required >Yes
                             <input type="radio" name="ICN_Q3"
 <?php if (isset($ICN_Q3) && $ICN_Q3 == "0") {
     echo "checked";
@@ -1636,7 +1636,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($ICN_Q5) && $ICN_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckICN_C5();"
-                                   value="1" id="yesCheckICN_C5">Yes
+                                   value="1" id="yesCheckICN_C5" required >Yes
                             <input type="radio" name="ICN_Q5"
 <?php if (isset($ICN_Q5) && $ICN_Q5 == "0") {
     echo "checked";
@@ -1692,7 +1692,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q1) && $E_Q1 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C1();"
-                                   value="1" id="yesCheckE_C1">Yes
+                                   value="1" id="yesCheckE_C1" required >Yes
                             <input type="radio" name="E_Q1"
 <?php if (isset($E_Q1) && $E_Q1 == "0") {
     echo "checked";
@@ -1740,7 +1740,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q2) && $E_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C2();"
-                                   value="1" id="yesCheckE_C2">Yes
+                                   value="1" id="yesCheckE_C2" required >Yes
                             <input type="radio" name="E_Q2"
 <?php if (isset($E_Q2) && $E_Q2 == "0") {
     echo "checked";
@@ -1788,7 +1788,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q3) && $OD_Q15 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C3();"
-                                   value="1" id="yesCheckE_C3">Yes
+                                   value="1" id="yesCheckE_C3" required >Yes
                             <input type="radio" name="E_Q3"
 <?php if (isset($E_Q3) && $E_Q3 == "0") {
     echo "checked";
@@ -1836,7 +1836,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q4) && $E_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C4();"
-                                   value="1" id="yesCheckE_C4">Yes
+                                   value="1" id="yesCheckE_C4" required >Yes
                             <input type="radio" name="E_Q4"
 <?php if (isset($E_Q4) && $E_Q4 == "0") {
     echo "checked";
@@ -1889,7 +1889,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q5) && $E_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C5();"
-                                   value="1" id="yesCheckE_C5">Yes
+                                   value="1" id="yesCheckE_C5" required >Yes
                             <input type="radio" name="E_Q5"
                                    <?php if (isset($E_Q5) && $E_Q5 == "0") {
                                        echo "checked";
@@ -1937,7 +1937,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($E_Q6) && $E_Q6 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckE_C6();"
-                                   value="1" id="yesCheckE_C6">Yes
+                                   value="1" id="yesCheckE_C6" required >Yes
                             <input type="radio" name="E_Q6"
 <?php if (isset($E_Q6) && $E_Q6 == "0") {
     echo "checked";
@@ -1985,7 +1985,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($E_Q7) && $E_Q7 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckE_C7();"
-                                   value="1" id="yesCheckE_C7">Yes
+                                   value="1" id="yesCheckE_C7" required >Yes
                             <input type="radio" name="E_Q7"
 <?php if (isset($E_Q7) && $E_Q7 == "0") {
     echo "checked";
@@ -2075,7 +2075,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($DI_Q1) && $DI_Q1 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckDI_C1();"
-                                   value="1" id="yesCheckDI_C1">Yes
+                                   value="1" id="yesCheckDI_C1" required >Yes
                             <input type="radio" name="DI_Q1"
 <?php if (isset($DI_Q1) && $DI_Q1 == "0") {
     echo "checked";
@@ -2123,7 +2123,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($DI_Q2) && $DI_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckDI_C2();"
-                                   value="1" id="yesCheckDI_C2">Yes
+                                   value="1" id="yesCheckDI_C2" required >Yes
                             <input type="radio" name="DI_Q2"
 <?php if (isset($DI_Q2) && $DI_Q2 == "0") {
     echo "checked";
@@ -2184,7 +2184,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($PI_Q1) && $PI_Q1 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckPI_C1();"
-                                   value="1" id="yesCheckPI_C1">Yes
+                                   value="1" id="yesCheckPI_C1" required >Yes
                             <input type="radio" name="PI_Q1"
 <?php if (isset($PI_Q1) && $PI_Q1 == "0") {
     echo "checked";
@@ -2232,7 +2232,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($PI_Q2) && $PI_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckPI_C2();"
-                                   value="1" id="yesCheckPI_C2">Yes
+                                   value="1" id="yesCheckPI_C2" required >Yes
                             <input type="radio" name="PI_Q2"
 <?php if (isset($PI_Q2) && $PI_Q2 == "0") {
     echo "checked";
@@ -2280,7 +2280,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($PI_Q3) && $PI_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckPI_C3();"
-                                   value="1" id="yesCheckPI_C3">Yes
+                                   value="1" id="yesCheckPI_C3" required >Yes
                             <input type="radio" name="PI_Q3"
                                    <?php if (isset($PI_Q3) && $PI_Q3 == "0") {
                                        echo "checked";
@@ -2328,7 +2328,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($PI_Q4) && $PI_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckPI_C4();"
-                                   value="1" id="yesCheckPI_C4">Yes
+                                   value="1" id="yesCheckPI_C4" required >Yes
                             <input type="radio" name="PI_Q4"
                                    <?php if (isset($PI_Q4) && $PI_Q4 == "0") {
                                        echo "checked";
@@ -2376,7 +2376,7 @@ $QUESTION_NUMBER=1;
                                    <?php if (isset($PI_Q5) && $PI_Q5 == "1") {
                                        echo "checked";
                                    } ?> onclick="javascript:yesnoCheckPI_C5();"
-                                   value="1" id="yesCheckPI_C5">Yes
+                                   value="1" id="yesCheckPI_C5" required >Yes
                             <input type="radio" name="PI_Q5"
 <?php if (isset($PI_Q5) && $PI_Q5 == "0") {
     echo "checked";
@@ -2433,7 +2433,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q1) && $CD_Q1 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C1();"
-                                   value="1" id="yesCheckCD_C1">Yes
+                                   value="1" id="yesCheckCD_C1" required >Yes
                             <input type="radio" name="CD_Q1"
 <?php if (isset($CD_Q1) && $CD_Q1 == "0") {
     echo "checked";
@@ -2482,7 +2482,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q2) && $CD_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C2();"
-                                   value="1" id="yesCheckCD_C2">Yes
+                                   value="1" id="yesCheckCD_C2" required >Yes
                             <input type="radio" name="CD_Q2"
 <?php if (isset($CD_Q2) && $CD_Q2 == "0") {
     echo "checked";
@@ -2530,7 +2530,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q3) && $CD_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C3();"
-                                   value="1" id="yesCheckCD_C3">Yes
+                                   value="1" id="yesCheckCD_C3" required >Yes
                             <input type="radio" name="CD_Q3"
 <?php if (isset($CD_Q3) && $CD_Q3 == "0") {
     echo "checked";
@@ -2578,7 +2578,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q4) && $CD_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C4();"
-                                   value="1" id="yesCheckCD_C4">Yes
+                                   value="1" id="yesCheckCD_C4" required >Yes
                             <input type="radio" name="CD_Q4"
 <?php if (isset($CD_Q4) && $CD_Q4 == "0") {
     echo "checked";
@@ -2626,7 +2626,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q6) && $CD_Q6 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C6();"
-                                   value="1" id="yesCheckCD_C6">Yes
+                                   value="1" id="yesCheckCD_C6" required >Yes
                             <input type="radio" name="CD_Q6"
 <?php if (isset($CD_Q6) && $CD_Q6 == "0") {
     echo "checked";
@@ -2674,7 +2674,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q7) && $CD_Q7 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C7();"
-                                   value="1" id="yesCheckCD_C7">Yes
+                                   value="1" id="yesCheckCD_C7" required >Yes
                             <input type="radio" name="CD_Q7"
 <?php if (isset($CD_Q7) && $CD_Q7 == "0") {
     echo "checked";
@@ -2723,7 +2723,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($CD_Q8) && $CD_Q8 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckCD_C8();"
-                                   value="1" id="yesCheckCD_C8">Yes
+                                   value="1" id="yesCheckCD_C8" required >Yes
                             <input type="radio" name="CD_Q8"
 <?php if (isset($CD_Q8) && $CD_Q8 == "0") {
     echo "checked";
@@ -2785,7 +2785,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q1) && $QC_Q1 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_Q2();"
-                                   value="1" id="yesCheckQC_Q2">Yes
+                                   value="1" id="yesCheckQC_Q2" required >Yes
                             <input type="radio" name="QC_Q1"
 <?php if (isset($QC_Q1) && $QC_Q1 == "0") {
     echo "checked";
@@ -2833,7 +2833,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q2) && $QC_Q2 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C2();"
-                                   value="1" id="yesCheckQC_C2">Yes
+                                   value="1" id="yesCheckQC_C2" required >Yes
                             <input type="radio" name="QC_Q2"
 <?php if (isset($QC_Q2) && $QC_Q2 == "0") {
     echo "checked";
@@ -2881,7 +2881,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q3) && $QC_Q3 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C3();"
-                                   value="1" id="yesCheckQC_C3">Yes
+                                   value="1" id="yesCheckQC_C3" required >Yes
                             <input type="radio" name="QC_Q3"
 <?php if (isset($QC_Q3) && $QC_Q3 == "0") {
     echo "checked";
@@ -2929,7 +2929,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q4) && $QC_Q4 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C4();"
-                                   value="1" id="yesCheckQC_C4">Yes
+                                   value="1" id="yesCheckQC_C4" required >Yes
                             <input type="radio" name="QC_Q4"
 <?php if (isset($QC_Q4) && $QC_Q4 == "0") {
     echo "checked";
@@ -2977,7 +2977,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q5) && $QC_Q5 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C5();"
-                                   value="1" id="yesCheckQC_C5">Yes
+                                   value="1" id="yesCheckQC_C5" required >Yes
                             <input type="radio" name="QC_Q5"
 <?php if (isset($QC_Q5) && $QC_Q5 == "0") {
     echo "checked";
@@ -3025,7 +3025,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q6) && $QC_Q6 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C6();"
-                                   value="1" id="yesCheckQC_C6">Yes
+                                   value="1" id="yesCheckQC_C6" required >Yes
                             <input type="radio" name="QC_Q6"
 <?php if (isset($QC_Q6) && $QC_Q6 == "0") {
     echo "checked";
@@ -3073,7 +3073,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($QC_Q7) && $QC_Q7 == "1") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckQC_C7();"
-                                   value="1" id="yesCheckQC_C7">Yes
+                                   value="1" id="yesCheckQC_C7" required >Yes
                             <input type="radio" name="QC_Q7"
 <?php if (isset($QC_Q7) && $QC_Q7 == "0") {
     echo "checked";

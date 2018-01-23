@@ -237,6 +237,36 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $LV_CHECK->execute();
                         if ($LV_CHECK->rowCount() > 0) {
                             $HAS_LV_POL='1';
+                            
+                        $GET_LV_AN = $pdo->prepare("select policy_number from client_policy where client_id=:CID AND insurer='LV'");
+                            $GET_LV_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_LV_AN->execute();
+                            $GET_LV_row = $GET_LV_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $LV_POL_number = $GET_LV_row['policy_number'];   
+                            
+                            $GET_LV_CLOSER_AUDIT = $pdo->prepare("SELECT lv_audit_id AS CLOSER FROM lv_audit where lv_audit_ref=:AN OR lv_audit_ref=:PHONE");
+                            $GET_LV_CLOSER_AUDIT->bindParam(':AN', $LV_POL_number, PDO::PARAM_STR);
+                            $GET_LV_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_LV_CLOSER_AUDIT->execute();
+                            $GET_LV_CLOSERrow = $GET_LV_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_LV_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_LV_CLOSE_AUDIT=1;
+                                $LV_closeraudit = $GET_LV_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_LV_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_LV_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_LV_LEAD_AUDIT->execute();
+                                $GET_LV_LEADrow = $GET_LV_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_LV_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_LV_LEAD_AUDIT=1;
+                                    $LV_leadaudit = $GET_LV_LEADrow['LEAD']; 
+                                    
+                                }                            
+                            
                         }                        
 
                         $WOL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='One Family' AND client_id=:CID");
@@ -1579,6 +1609,19 @@ WHERE
                                     
         <?php                }      
                             }
+                            
+        if(isset($HAS_LV_CLOSE_AUDIT) && $HAS_LV_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/LV/View.php?EXECUTE=VIEW&AUDITID=<?php echo $LV_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Closer Audit</a>                                    
+            
+        <?php }
+        
+        
+        if(isset($HAS_LV_LEAD_AUDIT) && $HAS_LV_LEAD_AUDIT == 1) {  ?>
+
+<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $LV_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Lead Audit</a>
+        
+       <?php }                              
                             
         if(isset($HAS_VIT_CLOSE_AUDIT) && $HAS_VIT_CLOSE_AUDIT == 1) {   ?>
                                     

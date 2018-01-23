@@ -495,6 +495,13 @@ if(in_array($INSURER,$INSURER_ARRAY_TWO)) {
                                                 }
                                             }
                                             ?>>Zurich</option>
+                                            <option value="LV" <?php
+                                            if (isset($INSURER)) {
+                                                if ($INSURER == 'LV') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>LV</option>
                                             <option value="Scottish Widows" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'Scottish Widows') {

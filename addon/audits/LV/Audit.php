@@ -107,9 +107,6 @@ $QUESTION_NUMBER=1;
     <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
 
     <div class="container">
-        
-         <div class="notice notice-danger" role="alert"><strong><center><span class="label label-warning"></span> NOT READY DO NOT USE!</center></strong></div>
-    
 
         <form action="php/Audit.php?EXECUTE=1" method="POST" id="AUDIT_FORM" name="AUDIT_FORM" autocomplete="off">
 

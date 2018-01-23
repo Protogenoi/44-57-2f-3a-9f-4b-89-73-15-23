@@ -308,6 +308,7 @@ $database->query("SELECT
                                             lv_questions_extra_cd2,
                                             lv_questions_extra_cd3,
                                             lv_questions_extra_cd4,
+                                            lv_questions_extra_cd5,
                                             lv_questions_extra_cd6,
                                             lv_questions_extra_cd7,
                                             lv_questions_extra_qc1,
@@ -376,13 +377,19 @@ $database->query("SELECT
     }  
     if(isset($VIT_CM_AUDIT['lv_questions_extra_cd4'])) {
        $VIT_CM_CD4=$VIT_CM_AUDIT['lv_questions_extra_cd4']; 
-    }  
+    } 
+    if(isset($VIT_CM_AUDIT['lv_questions_extra_cd5'])) {
+       $VIT_CM_CD5=$VIT_CM_AUDIT['lv_questions_extra_cd5']; 
+    }      
     if(isset($VIT_CM_AUDIT['lv_questions_extra_cd6'])) {
        $VIT_CM_CD6=$VIT_CM_AUDIT['lv_questions_extra_cd6']; 
     }
     if(isset($VIT_CM_AUDIT['lv_questions_extra_cd7'])) {
        $VIT_CM_CD7=$VIT_CM_AUDIT['lv_questions_extra_cd7']; 
     } 
+    if(isset($VIT_CM_AUDIT['lv_questions_extra_cd8'])) {
+       $VIT_CM_CD8=$VIT_CM_AUDIT['lv_questions_extra_cd8']; 
+    }     
 
     
  if(isset($VIT_CM_AUDIT['lv_questions_extra_qc1'])) {
@@ -408,7 +415,7 @@ $database->query("SELECT
     }    
     
     $database->query("SELECT
-                            lv_comments_od1                                            
+                            lv_comments_od1,                                            
                             lv_comments_od2, 
                                             lv_comments_od3,
                                             lv_comments_od4,
@@ -487,7 +494,7 @@ $database->query("SELECT
     } 
     
     if(isset($VIT_C_COM_AUDIT['lv_comments_h1'])) {
-        $VIT_C_PH1=$VIT_C_COM_AUDIT['lv_comments_h1'];
+        $VIT_C_H1=$VIT_C_COM_AUDIT['lv_comments_h1'];
     }
      if(isset($VIT_C_COM_AUDIT['lv_comments_h2'])) {
         $VIT_C_H2=$VIT_C_COM_AUDIT['lv_comments_h2'];
@@ -509,7 +516,7 @@ $database->query("SELECT
     if(isset($VIT_C_COM_AUDIT['lv_comments_l4'])) {
        $VIT_C_L4=$VIT_C_COM_AUDIT['lv_comments_l4'];
     }
-    if(isset($VIT_C_COM_AUDIT['lv_comments_pl'])) {
+    if(isset($VIT_C_COM_AUDIT['lv_comments_l5'])) {
        $VIT_C_L5=$VIT_C_COM_AUDIT['lv_comments_l5']; 
     } 
     if(isset($VIT_C_COM_AUDIT['lv_comments_l6'])) {
@@ -555,6 +562,7 @@ $database->query("SELECT
                                             lv_comments_extra_cd2,
                                             lv_comments_extra_cd3,
                                             lv_comments_extra_cd4,
+                                            lv_comments_extra_cd5,
                                             lv_comments_extra_cd6,
                                             lv_comments_extra_cd7,
                                             lv_comments_extra_qc1,
@@ -624,6 +632,9 @@ $database->query("SELECT
     if(isset($VIT_CE_AUDIT['lv_comments_extra_cd4'])) {
        $VIT_CE_CD4=$VIT_CE_AUDIT['lv_comments_extra_cd4']; 
     }  
+    if(isset($VIT_CE_AUDIT['lv_comments_extra_cd5'])) {
+       $VIT_CE_CD5=$VIT_CE_AUDIT['lv_comments_extra_cd5']; 
+    }      
     if(isset($VIT_CE_AUDIT['lv_comments_extra_cd6'])) {
        $VIT_CE_CD6=$VIT_CE_AUDIT['lv_comments_extra_cd6']; 
     }
@@ -666,7 +677,7 @@ $database->query("SELECT
  Written by Michael Owen <michael@adl-crm.uk>, 2017
 -->
 <html lang="en">
-    <title>ADL | View Vitality Audit</title>
+    <title>ADL | View LV Audit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -710,7 +721,7 @@ $database->query("SELECT
                 <thead>
 
                     <tr>
-                        <td colspan=2><b>Vitality Call Audit ID: <?php echo $AUDITID ?></b></td>
+                        <td colspan=2><b>LV Call Audit ID: <?php echo $AUDITID ?></b></td>
                     </tr>
 
                     <tr>
@@ -1016,9 +1027,9 @@ $database->query("SELECT
 
 <p>
 <label for="ICN2">Q<?php $i++; echo $i; ?>. Did the closer mention waiver, indexation, or TPD?</label><br>
-<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="1" id="yesCheckICN2">Yes
-<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="0" id="noCheckICN2"><label for="No">No</label>
-<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2=="N/A") { echo "checked"; } ?> value="N/A" >N/A
+<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2 == "1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="1" id="yesCheckICN2">Yes
+<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2 == "0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="0" id="noCheckICN2"><label for="No">No</label>
+<input type="radio" name="ICN2" <?php if (isset($VIT_ICN2) && $VIT_ICN2 == "N/A") { echo "checked"; } ?> value="N/A" >N/A
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_C_ICN2)) { echo $VIT_C_ICN2; } ?></div>
@@ -1046,7 +1057,7 @@ $database->query("SELECT
 
 
 <p>
-<label for="ICN5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with Vitality?</label><br>
+<label for="ICN5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with LV?</label><br>
 <input type="radio" name="ICN5" <?php if (isset($VIT_ICN5) && $VIT_ICN5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="1" id="yesCheckICN5">Yes
 <input type="radio" name="ICN5" <?php if (isset($VIT_ICN5) && $VIT_ICN5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="0" id="noCheckICN5"><label for="No">No</label>
 </p>
@@ -1096,9 +1107,9 @@ $database->query("SELECT
   <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='0') { echo "selected"; } ?> value="0">Select...</option>
   <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Client provided details') { echo "selected"; } ?> value="1">Client Provided Details</option>
   <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Client failed to provide details') { echo "selected"; } ?> value="2">Client failed to provide details</option>
-  <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Not existing Vitality customer') { echo "selected"; } ?> value="3"><label for="No">No</label>Not existing Vitality customer</option>
+  <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Not existing LV customer') { echo "selected"; } ?> value="3"><label for="No">No</label>Not existing LV customer</option>
   <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Obtained from Term4Term service') { echo "selected"; } ?> value="4">Obtained from Term4Term service</option>
-  <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Existing Vitality Policy, no attempt to get policy number') { echo "selected"; } ?> value="5">Existing Vitality Policy, no attempt to get policy number</option>
+  <option <?php if(isset($VIT_CM_E5) && $VIT_CM_E5=='Existing LV Policy, no attempt to get policy number') { echo "selected"; } ?> value="5">Existing LV Policy, no attempt to get policy number</option>
 </select>
 </p>
 
@@ -1216,37 +1227,37 @@ $database->query("SELECT
 
 <p>
 <label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label><br>
-<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
-<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6"><label for="No">No</label>
+<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD5) && $VIT_CM_CD5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
+<input type="radio" name="CDE6" <?php if (isset($VIT_CM_CD5) && $VIT_CM_CD5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6"><label for="No">No</label>
+</p>
+
+<div class="phpcomments"><?php if(isset($VIT_CE_CD5)) { echo $VIT_CE_CD5; } ?></div>
+
+
+
+<p>
+<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but LV will write to them with a more specific date?</label><br>
+<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
+<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD6) && $VIT_CM_CD6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7"><label for="No">No</label>
+
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_CE_CD6)) { echo $VIT_CE_CD6; } ?></div>
 
 
-
 <p>
-<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Vitality will write to them with a more specific date?</label><br>
-<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
-<input type="radio" name="CDE7" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7"><label for="No">No</label>
-
+<label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
+<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
+<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8"><label for="No">No</label>
+<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD7) && $VIT_CM_CD7=="N/A") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="N/A" id="yesCheckCDET8">N/A
 </p>
 
 <div class="phpcomments"><?php if(isset($VIT_CE_CD7)) { echo $VIT_CE_CD7; } ?></div>
 
-
-<p>
-<label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
-<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
-<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8"><label for="No">No</label>
-<input type="radio" name="CDE8" <?php if (isset($VIT_CM_CD8) && $VIT_CM_CD8=="N/A") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="N/A" id="yesCheckCDET8">N/A
-</p>
-
-<div class="phpcomments"><?php if(isset($VIT_CE_CD8)) { echo $VIT_CE_CD8; } ?></div>
-
  <h3 class="panel-title">Quality Control</h3>
  
  <p>
-     <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Vitality with client information?</label><br>
+     <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with LV with client information?</label><br>
 <input type="radio" name="QC1" <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="1" id="yesCheckQCT1">Yes
 <input type="radio" name="QC1" <?php if (isset($VIT_CM_QC1) && $VIT_CM_QC1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1"><label for="No">No</label>
 </p>

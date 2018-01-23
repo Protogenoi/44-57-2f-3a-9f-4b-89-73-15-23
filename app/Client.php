@@ -274,6 +274,36 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $WOL_CHECK->execute();
                         if ($WOL_CHECK->rowCount() > 0) {
                             $HAS_WOL_POL='1';
+                            
+                            $GET_WOL_AN = $pdo->prepare("select policy_number from client_policy where client_id=:CID AND insurer='One Family'");
+                            $GET_WOL_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_WOL_AN->execute();
+                            $GET_WOL_row = $GET_WOL_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $WOL_POL_number = $GET_WOL_row['policy_number'];   
+                            
+                            $GET_WOL_CLOSER_AUDIT = $pdo->prepare("SELECT wol_id AS CLOSER FROM audit_wol where policy_number=:AN OR policy_number=:PHONE");
+                            $GET_WOL_CLOSER_AUDIT->bindParam(':AN', $WOL_POL_number, PDO::PARAM_STR);
+                            $GET_WOL_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_WOL_CLOSER_AUDIT->execute();
+                            $GET_WOL_CLOSERrow = $GET_WOL_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_WOL_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_WOL_CLOSE_AUDIT=1;
+                                $WOL_closeraudit = $GET_WOL_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_WOL_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_WOL_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_WOL_LEAD_AUDIT->execute();
+                                $GET_WOL_LEADrow = $GET_WOL_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_WOL_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_WOL_LEAD_AUDIT=1;
+                                    $WOL_leadaudit = $GET_WOL_LEADrow['LEAD']; 
+                                    
+                                }                            
+                            
                         }
 
                         $RL_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Royal London' AND client_id=:CID");
@@ -1576,40 +1606,6 @@ if (isset($fileuploadedfail)) {
                                 }
                             } 
                             
-        if($WHICH_COMPANY=='One Family') {
-                                
-        $WOL_AUDIT_QRY = $pdo->prepare("SELECT wol_id FROM audit_wol WHERE policy_number=:POL");
-        $WOL_AUDIT_QRY->bindParam(':POL', $Single_Client['phone_number'], PDO::PARAM_STR);
-        $WOL_AUDIT_QRY->execute();
-        $WOL_AUDIT_ROW = $WOL_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
-        
-        if ($WOL_AUDIT_QRY->rowCount() > 0) {
-
-        $WOL_AUDIT_ID = $WOL_AUDIT_ROW['wol_id'];   ?>
-        
-                                    <a class="list-group-item" href="/audits/WOL/View.php?query=View&WOLID=<?php echo $WOL_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Closer Audit</a>
-       <?php }
-       
-         $LEAD_AUDIT_QRY = $pdo->prepare("SELECT 
-    id
-FROM
-    Audit_LeadGen
-WHERE
-    an_number =:PHONE");
-        $LEAD_AUDIT_QRY->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
-        $LEAD_AUDIT_QRY->execute();
-        $LEAD_AUDIT_ROW = $LEAD_AUDIT_QRY->fetch(PDO::FETCH_ASSOC);
-        
-        if ($LEAD_AUDIT_QRY->rowCount() > 0) {
-
-        $LEAD_LEAD_ID = $LEAD_AUDIT_ROW['id'];     ?>                                  
-                                    
-                                    <a class="list-group-item" href="/audits/LandG/View.php?EXECUTE=1&AID<?php echo $LEAD_LEAD_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
-                                    
-                                    
-        <?php                }      
-                            }
-                            
         if(isset($HAS_LV_CLOSE_AUDIT) && $HAS_LV_CLOSE_AUDIT == 1) {   ?>
                                     
 <a class="list-group-item" href="/addon/audits/LV/View.php?EXECUTE=VIEW&AUDITID=<?php echo $LV_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Closer Audit</a>                                    
@@ -1647,7 +1643,20 @@ WHERE
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $RL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Lead Audit</a>
         
-       <?php }       
+       <?php }  
+       
+        if(isset($HAS_WOL_CLOSE_AUDIT) && $HAS_WOL_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/WOL/View.php?query=View&WOLID=<?php echo $WOL_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Closer Audit</a>                                    
+            
+        <?php }
+        
+        
+        if(isset($HAS_WOL_LEAD_AUDIT) && $HAS_WOL_LEAD_AUDIT == 1) {  ?>
+
+<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $WOL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
+        
+       <?php }        
                             
 if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {
                                 

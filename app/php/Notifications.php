@@ -691,4 +691,38 @@ if(empty($HAS_LV_LEAD_AUDIT)) {
 }    
      
 }
+
+if($WHICH_COMPANY=='One Family') {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='WOLkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> One Family Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='WOLkeyfacts' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> One Family App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }   
+
+if(empty($HAS_WOL_CLOSE_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No One Family Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+} 
+if(empty($HAS_WOL_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No One Family Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}    
+     
+}
                                                                 ?>

@@ -91,6 +91,19 @@ if(!isset($MESSAGE_OPTION)) {
     $MESSAGE_OPTION=$SMS_MESSAGE;
 }
 
+if(isset($COMPANY_ENTITY)) {
+    if($COMPANY_ENTITY == 'Bluestone Protect') {
+        
+        $SMS_URL='review.adlcrm.com';
+        $SMS_PHONE='+441792720471';
+        
+    } elseif($COMPANY_ENTITY == 'First Priority Group') {
+        
+        $SMS_URL='fpg.adl-crm.uk';
+        $SMS_PHONE='+441792720972';
+        
+    }
+}
 
 if(isset($WHICH_COMPANY)) {
     
@@ -218,9 +231,9 @@ $client = new Client($SID, $TOKEN);
 $client->messages->create(
     "$newNumber",
     array(
-        'from' => '+441792720471',
+        'from' => $SMS_PHONE,
         'body' => "$SMS_MESSAGE",
-        'statusCallback' => "https://review.adlcrm.com/app/SMS/Status.php?EXECUTE=1"
+        'statusCallback' => "https://$SMS_URL/app/SMS/Status.php?EXECUTE=1"
     )
 );
 

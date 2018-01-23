@@ -587,7 +587,15 @@ if($WHICH_COMPANY=='Royal London') {
     echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Royal London App not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
-     }    
+     }
+     
+if(empty($HAS_RL_CLOSE_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Royal London Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+} 
+if(empty($HAS_RL_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Royal London Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}       
+     
 }
 
 if($WHICH_COMPANY=='Scottish Widows') {

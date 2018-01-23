@@ -207,8 +207,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             $VIT_POL_number = $GET_VIT_row['policy_number'];   
                             
-                            $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN");
+                            $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN OR vitality_audit_plan_number=:PHONE");
                             $GET_VIT_CLOSER_AUDIT->bindParam(':AN', $VIT_POL_number, PDO::PARAM_STR);
+                            $GET_VIT_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
                             $GET_VIT_CLOSER_AUDIT->execute();
                             $GET_VIT_CLOSERrow = $GET_VIT_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
                             
@@ -250,6 +251,36 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $RL_CHECK->execute();
                         if ($RL_CHECK->rowCount() > 0) {
                             $HAS_RL_POL='1';
+                            
+                            $GET_RL_AN = $pdo->prepare("select policy_number from client_policy where client_id=:CID AND insurer='Royal London'");
+                            $GET_RL_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_RL_AN->execute();
+                            $GET_RL_row = $GET_RL_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $RL_POL_number = $GET_RL_row['policy_number'];   
+                            
+                            $GET_RL_CLOSER_AUDIT = $pdo->prepare("SELECT audit_id AS CLOSER FROM RoyalLondon_Audit where plan_number=:AN OR plan_number=:PHONE");
+                            $GET_RL_CLOSER_AUDIT->bindParam(':AN', $RL_POL_number, PDO::PARAM_STR);
+                            $GET_RL_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_RL_CLOSER_AUDIT->execute();
+                            $GET_RL_CLOSERrow = $GET_RL_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_RL_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_RL_CLOSE_AUDIT=1;
+                                $RL_closeraudit = $GET_RL_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_RL_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_RL_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_RL_LEAD_AUDIT->execute();
+                                $GET_RL_LEADrow = $GET_RL_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_RL_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_RL_LEAD_AUDIT=1;
+                                    $RL_leadaudit = $GET_RL_LEADrow['LEAD']; 
+                                    
+                                }                             
+                            
                             
                         }
 
@@ -1560,7 +1591,20 @@ WHERE
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $VIT_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Lead Audit</a>
         
-       <?php }               
+       <?php }         
+       
+        if(isset($HAS_RL_CLOSE_AUDIT) && $HAS_RL_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/RoyalLondon/View.php?EXECUTE=VIEW&AUDITID=<?php echo $RL_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Closer Audit</a>                                    
+            
+        <?php }
+        
+        
+        if(isset($HAS_RL_LEAD_AUDIT) && $HAS_RL_LEAD_AUDIT == 1) {  ?>
+
+<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $RL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Lead Audit</a>
+        
+       <?php }       
                             
 if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {
                                 

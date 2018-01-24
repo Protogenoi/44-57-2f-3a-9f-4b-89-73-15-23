@@ -15,10 +15,10 @@ class TotalAwaitingWithDatesModal {
 FROM
     client_policy
         LEFT JOIN
-    vitality_financial ON vitality_financial.vitality_financial_policy_number = client_policy.policy_number
+    financials ON financials.financials_policy = client_policy.policy_number
 WHERE
     DATE(client_policy.submitted_date) BETWEEN :datefrom AND :dateto
-        AND client_policy.insurer = 'Vitality'
+        AND client_policy.insurer = 'Royal London'
         AND client_policy.policystatus = 'Awaiting'");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);

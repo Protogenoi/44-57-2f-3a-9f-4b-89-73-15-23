@@ -1,6 +1,6 @@
 <?php
 
-class TotalAwaitingWithDatesModal {
+class TotalMissingWithDatesModal {
 
     protected $pdo;
 
@@ -8,18 +8,22 @@ class TotalAwaitingWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalAwaitingWithDates($datefrom, $dateto) {
+    public function getTotalMissingWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(client_policy.commission) AS commission
 FROM
     client_policy
         LEFT JOIN
-    vitality_financial ON vitality_financial.vitality_financial_policy_number = client_policy.policy_number
+    financials ON financials.financials_policy = client_policy.policy_number
 WHERE
-    DATE(client_policy.submitted_date) BETWEEN :datefrom AND :dateto
+    DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
+        AND client_policy.policy_number NOT IN (SELECT 
+            financials.financials_policy
+        FROM
+            financials)
         AND client_policy.insurer = 'Vitality'
-        AND client_policy.policystatus = 'Awaiting'");
+        AND client_policy.policystatus = 'Live'");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
         $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
         $stmt->execute();

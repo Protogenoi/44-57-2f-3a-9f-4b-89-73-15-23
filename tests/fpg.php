@@ -161,7 +161,7 @@
     <td class="tg-698h" colspan="3"></td>
   </tr>
   <tr>
-    <td class="tg-wsi6" colspan="3">If you wish to register a complaint, please contact us:<br><br>...in writing,First Priority Group Limited 5 Prospect Place, Swansea SA1 1QP<br><br>...by phone 01639 262100<br><br>If you cannot settle your complaint with us, you may be entitled to refer it to the Financial Ombudsman Service.</td>
+    <td class="tg-wsi6" colspan="3">If you wish to register a complaint, please contact us:<br><br>...in writing,First Priority Group Limited 5 Prospect Place, Swansea SA1 1QP<br><br>...by phone 03300 100 035<br><br>If you cannot settle your complaint with us, you may be entitled to refer it to the Financial Ombudsman Service.</td>
   </tr>
   <tr>
     <td class="tg-698h" colspan="3"></td>

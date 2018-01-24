@@ -70,7 +70,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
       
         
         <?php
-        } 
+        }
         
         $RECHECK = filter_input(INPUT_GET, 'RECHECK', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -125,7 +125,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
             <div class="container"> 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Royal London Financial Statistics</h3>
+                        <h3 class="panel-title">Vitality Financial Statistics</h3>
                     </div>
                     <div class="panel-body">
                         
@@ -188,29 +188,29 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                         </form>   
                         
                         <?php
-                        $simply_biz = "18.75";
+                        $simply_biz = "25.00";
                         
                         if (isset($datefrom)) {
                                                      
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/BEDROCK/ROYAL/TotalMissingWithDates.php');
+    require_once(__DIR__ . '/models/financials/VITALITY/TotalMissingWithDates.php');
     $TotalMissingWithDates = new TotalMissingWithDatesModal($pdo);
     $TotalMissingWithDatesList = $TotalMissingWithDates->getTotalMissingWithDates($datefrom, $dateto);
-    require_once(__DIR__ . '/views/financials/BEDROCK/ROYAL/Total-Missing-With-Dates.php');
+    require_once(__DIR__ . '/views/financials/VITALITY/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/BEDROCK/ROYAL/TotalAwaitingWithDates.php');
+    require_once(__DIR__ . '/models/financials/VITALITY/TotalAwaitingWithDates.php');
     $TotalAwaitingWithDates = new TotalAwaitingWithDatesModal($pdo);
     $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($datefrom, $dateto);
-    require_once(__DIR__ . '/views/financials/BEDROCK/ROYAL/Total-Awaiting-With-Dates.php');                            
+    require_once(__DIR__ . '/views/financials/VITALITY/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/BEDROCK/ROYAL/TotalExpectedWithDates.php');
+    require_once(__DIR__ . '/models/financials/VITALITY/TotalExpectedWithDates.php');
     $TotalExpectedWithDates = new TotalExpectedWithDatesModal($pdo);
     $TotalExpectedWithDatesList = $TotalExpectedWithDates->getTotalExpectedWithDates($datefrom, $dateto);
-    require_once(__DIR__ . '/views/financials/BEDROCK/ROYAL/Total-Expected-With-Dates.php');  
+    require_once(__DIR__ . '/views/financials/VITALITY/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -223,7 +223,7 @@ FROM
     client_policy
 WHERE
     DATE(submitted_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Royal London'
+        AND insurer = 'Vitality'
         AND client_policy.policystatus NOT LIKE '%CANCELLED%'
         AND client_policy.policystatus NOT IN ('Clawback' , 'SUBMITTED-NOT-LIVE',
         'DECLINED',
@@ -248,7 +248,7 @@ WHERE
     WHERE 
         DATE(financials_insert)=:commdate
     AND
-        financials_provider ='Royal London'");
+        financials_provider ='Vitality'");
                             $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
 
 
@@ -265,7 +265,7 @@ WHERE
     WHERE 
         DATE(financials.financials_insert) = :commdate
     AND
-        financials_provider='Royal London'
+        financials_provider='Vitality'
     AND 
         client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto)");
                             $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -290,7 +290,7 @@ WHERE
                                 WHERE 
                                     DATE(financials.financials_insert) = :commdate 
                                 AND
-                                    financials.financials_provider='Royal London'
+                                    financials.financials_provider='Vitality'
                                 AND 
                                     client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto)");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -311,7 +311,7 @@ WHERE
                                     AND 
                                         policy_number NOT IN(select financials_policy from financials)
                                     AND 
-                                        insurer='Royal London'
+                                        insurer='Vitality'
                                     AND 
                                         policystatus NOT like '%CANCELLED%'
                                     AND 
@@ -507,7 +507,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                     WHERE 
                         DATE(financials.financials_insert) = :commdate
                     AND
-                        financials.financials_provider='Royal London'
+                        financials.financials_provider='Vitality'
                     ORDER BY 
                         financials.financials_payment DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -580,10 +580,10 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Royal London'
+        AND insurer = 'Vitality'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Royal London'
+        AND client_policy.insurer = 'Vitality'
         AND policystatus = 'Awaiting'");
                     $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
                     $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
@@ -660,7 +660,7 @@ WHERE
                             AND
                                 policy_number NOT IN(select financials_policy FROM financials) 
                             AND
-                                insurer='Royal London'
+                                insurer='Vitality'
                             AND
                                 policystatus NOT like '%CANCELLED%' 
                             AND
@@ -759,7 +759,7 @@ WHERE
                         AND
                             client_policy.policy_number NOT IN(select financials.financials_policy from financials)
                         AND 
-                            client_policy.insurer='Royal London'
+                            client_policy.insurer='Vitality'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
@@ -853,7 +853,7 @@ WHERE
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
-                            client_policy.insurer='Royal London'
+                            client_policy.insurer='Vitality'
                         AND 
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
@@ -962,7 +962,7 @@ WHERE
                         WHERE 
                             DATE(financials.financials_insert) = :commdate
                         AND
-                            financials.financials_provider='Royal London'
+                            financials.financials_provider='Vitality'
                         AND
                             client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto)");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -1044,7 +1044,7 @@ WHERE
                         WHERE 
                             DATE(financials.financials_insert) = :commdate
                         AND
-                            financials.financials_provider='Royal London'
+                            financials.financials_provider='Vitality'
                         AND
                             client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto)");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -1119,7 +1119,7 @@ WHERE
                             AND 
                                 DATE(financials.financials_insert) =:commdate 
                             AND 
-                                financials.financials_provider ='Royal London'");
+                                financials.financials_provider ='Vitality'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -1147,7 +1147,7 @@ WHERE
                         AND 
                             DATE(financials.financials_insert) =:commdate
                         AND 
-                            financials.financials_provider='Royal London'");
+                            financials.financials_provider='Vitality'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -1220,7 +1220,7 @@ WHERE
                             AND 
                                 DATE(financials.financials_insert) =:commdate
                             AND 
-                                financials.financials_provider='Royal London'");
+                                financials.financials_provider='Vitality'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -1245,7 +1245,7 @@ WHERE
                             WHERE 
                                 financials.financials_payment < 0 AND DATE(financials.financials_insert) =:commdate
                             AND 
-                                financials.financials_provider='Royal London'");
+                                financials.financials_provider='Vitality'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -1299,7 +1299,7 @@ WHERE
 
         </div>  
 
-          <div id="NOMATCH" class="tab-pane fade">   
+        <div id="NOMATCH" class="tab-pane fade">   
             <div class="container">
                 <?php
                 $query = $pdo->prepare("
@@ -1349,7 +1349,7 @@ WHERE
                             } else {
                                 echo "<td>" . $row['financials_nomatch_payment'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=RoyalLondon&BRID=$BRID&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$BRID&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                  
                             echo "</tr>";
                             echo "\n";

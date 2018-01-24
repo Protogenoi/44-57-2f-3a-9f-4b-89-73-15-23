@@ -63,7 +63,7 @@ if($fffinancials=='0') {
                         <a href="OneFamily.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">One Family<br/>Financials</h2>
+                                <h2 class="ca-main">Bedrock One Family<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
@@ -73,7 +73,7 @@ if($fffinancials=='0') {
                         <a href="Aviva.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">Aviva<br/>Financials</h2>
+                                <h2 class="ca-main">Bedrock Aviva<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
@@ -83,7 +83,7 @@ if($fffinancials=='0') {
                         <a href="RoyalLondon.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">Royal London<br/>Financials</h2>
+                                <h2 class="ca-main">Bedrock Royal London<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
@@ -93,11 +93,21 @@ if($fffinancials=='0') {
                         <a href="Vitality.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">Vitality<br/>Financials</h2>
+                                <h2 class="ca-main">Bedrock Vitality<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
                     </li>                    
+                    
+                    <li>
+                        <a href="Vitality_Financials.php">
+                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">Vitality<br/>Financials</h2>
+                                <h3 class="ca-sub"></h3>
+                            </div>
+                        </a>
+                    </li>                      
                     
                 </ul>
             </div>

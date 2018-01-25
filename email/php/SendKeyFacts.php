@@ -77,7 +77,12 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 if(isset($companynamere))  {       
     
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-$recipient= filter_input(INPUT_POST, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);    
+$recipient= filter_input(INPUT_POST, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS); 
+
+
+if(empty($email)) {
+    header('Location: ../../email/KeyFactsEmail.php?emailfailed'); die;
+}
 
 if($companynamere=='Bluestone Protect') {
     $EMAIL_IDD="idd@bluestoneprotect.com";

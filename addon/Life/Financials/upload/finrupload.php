@@ -1111,7 +1111,20 @@ if ($AMOUNT > 0) {
         $update->bindParam(':STATUS', $POLICY_STATUS, PDO::PARAM_STR);
         $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
         $update->execute();
+                 
         
+}
+
+if ($query->rowCount() <= 0) { // NO MATCH
+
+   $insert = $pdo->prepare("INSERT INTO vitality_financial_nomatch SET vitality_financial_nomatch_amount=:pay, vitality_financial_nomatch_policy_number=:pol, vitality_financial_nomatch_uploader=:hello");
+    $insert->bindParam(':pay', $AMOUNT, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $POLICY_NUMBER, PDO::PARAM_STR, 250);
+    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();        
+    
+}
+
         $VIT_INSERT = $pdo->prepare("INSERT INTO
                                         vitality_financial
                                     SET 
@@ -1149,19 +1162,7 @@ if ($AMOUNT > 0) {
         $VIT_INSERT->bindParam(':SETTLEMENT_DATE', $SETTLEMENT_DATE_NEW , PDO::PARAM_STR, 200);
         $VIT_INSERT->bindParam(':SETTLEMENT_REFERENCE_NUMBER', $SETTLEMENT_REFERENCE_NUMBER , PDO::PARAM_STR);
         $VIT_INSERT->bindParam(':UPLOADER', $hello_name , PDO::PARAM_STR, 50);
-        $VIT_INSERT->execute();          
-        
-}
-
-if ($query->rowCount() <= 0) { // NO MATCH
-
-   $insert = $pdo->prepare("INSERT INTO vitality_financial_nomatch SET vitality_financial_nomatch_amount=:pay, vitality_financial_nomatch_policy_number=:pol, vitality_financial_nomatch_uploader=:hello");
-    $insert->bindParam(':pay', $AMOUNT, PDO::PARAM_STR, 250);
-    $insert->bindParam(':pol', $POLICY_NUMBER, PDO::PARAM_STR, 250);
-    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
-    $insert->execute();        
-    
-}
+        $VIT_INSERT->execute();
       
         }
     }

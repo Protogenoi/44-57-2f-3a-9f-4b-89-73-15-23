@@ -106,9 +106,9 @@
         }
 
         if (($VITALITY_Policies['vitality_financial_amount'] >= 0)) {
-            echo "<td><span class='label label-warning'>PAID</span> </td>";
+            echo "<td><span class='label label-success'>PAID</span> </td>";
         } elseif (($VITALITY_Policies['vitality_financial_amount'] < 0)) {
-            echo "<td><span class='label label-warning'>CLAWBACK</span> </td>";
+            echo "<td><span class='label label-danger'>CLAWBACK</span> </td>";
         } else {
 
             echo "<td> </td>";

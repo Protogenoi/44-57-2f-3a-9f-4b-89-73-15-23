@@ -2223,11 +2223,22 @@ WHERE
                             }
                             
                             if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
+                                
+                                if($COMPANY_ENTITY=='First Priority Group') {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/Vitality/Financial-model.php');
+                            $VITtrans = new VITtransModel($pdo);
+                            $VITtransList = $VITtrans->getVITtrans($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/Vitality/Financial-view.php');                                      
+                                    
+                                } else {
                             
                             require_once(__DIR__ . '/../addon/Life/models/financials/transactions/VitModel.php');
                             $VITtrans = new VITtransModel($pdo);
                             $VITtransList = $VITtrans->getVITtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/transactions/vit-view.php');             
+                            
+                                }
                             
                             }
                             

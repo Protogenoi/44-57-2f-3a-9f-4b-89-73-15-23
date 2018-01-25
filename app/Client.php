@@ -728,10 +728,22 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         }
 
                         if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
+                            
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Vitality/Policies-modal.php');
+                            $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
+                            $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Vitality/Policies-view.php');        
+                                
+                            } else {
+                            
                             require_once(__DIR__ . '/../addon/Life/models/VITALITYPoliciesModal.php');
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/VITALITY-Policies.php');
+                            
+                            }
 
                         }
                         

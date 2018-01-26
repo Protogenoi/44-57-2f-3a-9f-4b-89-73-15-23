@@ -1,6 +1,6 @@
 <?php
 
-class TotalExpectedWithDatesModal {
+class RL_TotalExpectedWithDatesModal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class TotalExpectedWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalExpectedWithDates($datefrom, $dateto) {
+    public function RL_getTotalExpectedWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(commission) AS commission

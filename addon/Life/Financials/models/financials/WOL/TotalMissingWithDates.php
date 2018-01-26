@@ -1,6 +1,6 @@
 <?php
 
-class TotalMissingWithDatesModal {
+class WOL_TotalMissingWithDatesModal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class TotalMissingWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalMissingWithDates($datefrom, $dateto) {
+    public function WOL_getTotalMissingWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(client_policy.commission) AS commission

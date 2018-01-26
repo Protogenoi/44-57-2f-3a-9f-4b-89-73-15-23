@@ -1,6 +1,6 @@
 <?php
 
-class WOL_TotalExpectedWithDatesModal {
+class LV_TotalExpectedWithDatesModal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class WOL_TotalExpectedWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function WOL_getTotalExpectedWithDates($datefrom, $dateto) {
+    public function LV_getTotalExpectedWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -16,10 +16,10 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'One Family'
+        AND insurer = 'Royal London'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'One Family'
+        AND client_policy.insurer = 'LV'
         AND policystatus = 'Awaiting'
         ");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);

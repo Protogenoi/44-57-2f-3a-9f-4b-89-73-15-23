@@ -1,9 +1,9 @@
 
-    <?php foreach ($TotalAwaitingWithDatesList as $TotalAwaitingWithDatesList_Resuts): ?>
+    <?php foreach ($AVI_TotalAwaitingWithDatesList as $AVI_TotalAwaitingWithDatesList_Resuts): ?>
 
 
         <?php
-                $AWAITING_WITH_DATES_COMMISSION = $TotalAwaitingWithDatesList_Resuts['commission'];
+                $AWAITING_WITH_DATES_COMMISSION = $AVI_TotalAwaitingWithDatesList_Resuts['commission'];
                 
                             $simply_AWAITING_SUM = ($simply_biz / 100) * $AWAITING_WITH_DATES_COMMISSION;
                             $ADL_AWAITING_SUM = $AWAITING_WITH_DATES_COMMISSION - $simply_AWAITING_SUM;

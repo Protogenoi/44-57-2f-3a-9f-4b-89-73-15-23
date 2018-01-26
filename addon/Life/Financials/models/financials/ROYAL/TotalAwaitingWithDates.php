@@ -1,6 +1,6 @@
 <?php
 
-class TotalAwaitingWithDatesModal {
+class RL_TotalAwaitingWithDatesModal {
 
     protected $pdo;
 
@@ -8,7 +8,7 @@ class TotalAwaitingWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function getTotalAwaitingWithDates($datefrom, $dateto) {
+    public function RL_getTotalAwaitingWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(client_policy.commission) AS commission

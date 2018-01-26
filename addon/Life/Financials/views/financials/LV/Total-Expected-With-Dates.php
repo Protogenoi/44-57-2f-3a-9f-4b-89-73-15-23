@@ -1,9 +1,9 @@
 
-    <?php foreach ($RL_TotalExpectedWithDatesList as $RL_TotalExpectedWithDatesList_Resuts): ?>
+    <?php foreach ($LV_TotalExpectedWithDatesList as $LV_TotalExpectedWithDatesList_Resuts): ?>
 
 
         <?php
-                $EXPECTED_WITH_DATES_COMMISSION = $RL_TotalExpectedWithDatesList_Resuts['commission'];
+                $EXPECTED_WITH_DATES_COMMISSION = $LV_TotalExpectedWithDatesList_Resuts['commission'];
                 
                             $simply_EXPECTED_SUM = ($simply_biz / 100) * $EXPECTED_WITH_DATES_COMMISSION;
                             $ADL_EXPECTED_SUM = $EXPECTED_WITH_DATES_COMMISSION - $simply_EXPECTED_SUM;

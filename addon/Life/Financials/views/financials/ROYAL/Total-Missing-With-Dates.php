@@ -1,9 +1,9 @@
 
-    <?php foreach ($TotalMissingWithDatesList as $TotalMissingWithDatesList_Resuts): ?>
+    <?php foreach ($RL_TotalMissingWithDatesList as $RL_TotalMissingWithDatesList_Resuts): ?>
 
 
         <?php
-                $MISSING_WITH_DATES_COMMISSION = $TotalMissingWithDatesList_Resuts['commission'];
+                $MISSING_WITH_DATES_COMMISSION = $RL_TotalMissingWithDatesList_Resuts['commission'];
                 
                                             $simply_MISSING_SUM = ($simply_biz / 100) * $MISSING_WITH_DATES_COMMISSION;
                             $ADL_MISSING_SUM = $MISSING_WITH_DATES_COMMISSION - $simply_MISSING_SUM;

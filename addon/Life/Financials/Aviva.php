@@ -28,7 +28,7 @@ if (isset($fferror)) {
 
 if ($fffinancials == '0') {
 
-    /views/('Location: /../../../../CRMmain.php');
+    header('Location: /../../../../CRMmain.php');
     die;
 }
 

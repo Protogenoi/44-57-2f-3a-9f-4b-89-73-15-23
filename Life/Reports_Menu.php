@@ -123,12 +123,22 @@ if($fffinancials=='0' || $ffews=='0') {
                         if (in_array($hello_name, $Level_10_Access, true)) {
                             if($fffinancials=='1') {
                             ?>
+                    
+                            <li>
+                                <a href="/addon/Life/Financials/Financial.php">
+                                    <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">All Financial<br/> Reports</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>                    
 
                             <li>
                                 <a href="/addon/Life/Financials/Financials.php">
                                     <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">Financial<br/> Report</h2>
+                                        <h2 class="ca-main">OLD Financials<br/> Bedrock and LG</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>

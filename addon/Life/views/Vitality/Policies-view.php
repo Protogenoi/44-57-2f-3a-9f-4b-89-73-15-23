@@ -104,11 +104,18 @@
                     echo "<td><span class='label label-info'>$ADLSTATUS</td>";
             }
         }
-
-        if (($VITALITY_Policies['vitality_financial_amount'] >= 0)) {
+        if (!empty($VITALITY_Policies['vitality_financial_amount'])) {
+            
+        if ($VITALITY_Policies['vitality_financial_amount'] >= 0) {
+            
             echo "<td><span class='label label-success'>PAID</span> </td>";
-        } elseif (($VITALITY_Policies['vitality_financial_amount'] < 0)) {
+            
+        } elseif ($VITALITY_Policies['vitality_financial_amount'] < 0) {
+            
             echo "<td><span class='label label-danger'>CLAWBACK</span> </td>";
+            
+        } 
+        
         } else {
 
             echo "<td> </td>";
@@ -117,7 +124,6 @@
         echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
         echo "<td><a href='/addon/Life/EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
 
-        if ($companynamere == 'Bluestone Protect') {
             if (in_array($hello_name, $Level_10_Access, true)) {
 
 
@@ -128,9 +134,7 @@
                                                                                             </form>
                                                                                             </td>";
             }
-        }
-
-
+            
         if (!empty($EWSSTATUS)) {
             echo "<td><a href='/addon/Life/Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
         }

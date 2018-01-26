@@ -32,8 +32,23 @@ if ($fffinancials == '0') {
     die;
 }
 
+$DATE_FROM=date("Y-m-d");
+
 $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 $datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$RL_DATE_FROM = filter_input(INPUT_GET, 'RL_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$RL_DATE_TO = filter_input(INPUT_GET, 'RL_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$WOL_DATE_FROM = filter_input(INPUT_GET, 'WOL_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$WOL_DATE_TO = filter_input(INPUT_GET, 'WOL_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$AVI_DATE_FROM = filter_input(INPUT_GET, 'AVI_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$AVI_DATE_TO = filter_input(INPUT_GET, 'AVI_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
+$LV_DATE_FROM = filter_input(INPUT_GET, 'LV_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$LV_DATE_TO = filter_input(INPUT_GET, 'LV_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+
 $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
@@ -95,30 +110,44 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
         } echo "<br>";
         ?>
          
-             <form action=" " method="GET">                    
-
+         <div class="panel panel-primary">
+             <div class="panel-heading">
+                 <h3 class="panel-title"><a data-toggle="collapse" href="#DATEScollapse1">Dates</a></h3>
+             </div>
+             <div id="DATEScollapse1" class="panel-collapse collapse">
+                 <div class="panel-body">
+                     
+                     <form action=" " method="GET" class="">
+                         <fieldset>
+                             
+                         <div class="col-md-12">
+                             
+                             <div class="form-group">
+                                 <label>Vitality</label>
+                             </div>
+                             
                             <div class="form-group">
-                                <div class="col-xs-2">
+                                <div class="col-xs-4">
                                     <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
                                     if (isset($datefrom)) {
                                         echo $datefrom;
-                                    }
+                                    } else { echo $DATE_FROM; }
                                     ?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-xs-2">
+                                <div class="col-xs-4">
                                     <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php
                                     if (isset($dateto)) {
                                         echo $dateto;
-                                    }
+                                    } else { echo $DATE_FROM; }
                                     ?>" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-xs-2">
+                                <div class="col-xs-4">
                                     <select class="form-control" name="commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
@@ -143,18 +172,246 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                         ?>   
                                     </select>
                                 </div>
-                            </div>       
-
+                            </div>
+                         </div>
+                             
+                 <div class="col-md-12">
+                     
+                      <div class="form-group">
+                          <label>Royal London</label>
+                             </div>
+                     
                             <div class="form-group">
-                                <div class="col-xs-2">
-                                    <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+                                <div class="col-xs-4">
+                                    <input type="text" id="RL_datefrom" name="RL_datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($RL_DATE_FROM)) {
+                                        echo $RL_DATE_FROM;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="RL_dateto" name="RL_dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($RL_DATE_TO)) {
+                                        echo $RL_DATE_TO;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>                 
+                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="commdate">
+                                        <?php
+                                        $COM_DATE_query = $pdo->prepare("SELECT 
+                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                                    FROM 
+                                                        vitality_financial 
+                                                    group by 
+                                                        DATE(vitality_financial_uploaded_date) 
+                                                    ORDER BY 
+                                                        vitality_financial_uploaded_date DESC");
+                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($COM_DATE_query->rowCount() > 0) {
+                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>                    
+                 </div>
+                             
+ <div class="col-md-12">
+     
+      <div class="form-group">
+          <label>One Family</label>
+                             </div>
+     
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="WOL_datefrom" name="WOL_datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($WOL_DATE_FROM)) {
+                                        echo $WOL_DATE_FROM;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="WOL_dateto" name="WOL_dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($WOL_DATE_TO)) {
+                                        echo $WOL_DATE_TO;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>                 
+                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="commdate">
+                                        <?php
+                                        $COM_DATE_query = $pdo->prepare("SELECT 
+                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                                    FROM 
+                                                        vitality_financial 
+                                                    group by 
+                                                        DATE(vitality_financial_uploaded_date) 
+                                                    ORDER BY 
+                                                        vitality_financial_uploaded_date DESC");
+                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($COM_DATE_query->rowCount() > 0) {
+                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>                    
+                 </div>  
+                             
+ <div class="col-md-12">
+     
+      <div class="form-group">
+          <label>Aviva</label>
+                             </div>
+     
+     
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="AVI_datefrom" name="AVI_datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($AVI_DATE_FROM)) {
+                                        echo $AVI_DATE_FROM;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="AVI_dateto" name="AVI_dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($AVI_DATE_TO)) {
+                                        echo $AVI_DATE_TO;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>                 
+                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="commdate">
+                                        <?php
+                                        $COM_DATE_query = $pdo->prepare("SELECT 
+                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                                    FROM 
+                                                        vitality_financial 
+                                                    group by 
+                                                        DATE(vitality_financial_uploaded_date) 
+                                                    ORDER BY 
+                                                        vitality_financial_uploaded_date DESC");
+                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($COM_DATE_query->rowCount() > 0) {
+                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>                    
+                 </div> 
+                             
+                             <div class="col-md-12">
+                                 
+                                 
+                                  <div class="form-group">
+                                      <label>LV</label>
+                             </div>
+                                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="LV_datefrom" name="LV_datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($LV_DATE_FROM)) {
+                                        echo $LV_DATE_FROM;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="LV_dateto" name="LV_dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($LV_DATE_TO)) {
+                                        echo $LV_DATE_TO;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>                 
+                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="commdate">
+                                        <?php
+                                        $COM_DATE_query = $pdo->prepare("SELECT 
+                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                                    FROM 
+                                                        vitality_financial 
+                                                    group by 
+                                                        DATE(vitality_financial_uploaded_date) 
+                                                    ORDER BY 
+                                                        vitality_financial_uploaded_date DESC");
+                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($COM_DATE_query->rowCount() > 0) {
+                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>                    
+                 </div>                             
+                         
+                         <div class="col-md-12">
+                             
+                             <br><br>
+                             
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-info btn-block"><span class="glyphicon glyphicon-search"></span></button>
+                                </div>
+                         </div>
+
                             </fieldset>
                         </form>  
-
-         <br><br>
+             </div>
+             </div>
+                  </div>
+                      <br><br>
          
         <?php if(isset($datefrom)) { ?> 
          
@@ -1415,21 +1672,21 @@ WHERE
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/ROYAL/TotalMissingWithDates.php');
     $RL_TotalMissingWithDates = new RL_TotalMissingWithDatesModal($pdo);
-    $RL_TotalMissingWithDatesList = $RL_TotalMissingWithDates->RL_getTotalMissingWithDates($datefrom, $dateto);
+    $RL_TotalMissingWithDatesList = $RL_TotalMissingWithDates->RL_getTotalMissingWithDates($RL_DATE_FROM, $RL_DATE_TO);
     require_once(__DIR__ . '/views/financials/ROYAL/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/ROYAL/TotalAwaitingWithDates.php');
     $RL_TotalAwaitingWithDates = new RL_TotalAwaitingWithDatesModal($pdo);
-    $RL_TotalAwaitingWithDatesList = $RL_TotalAwaitingWithDates->RL_getTotalAwaitingWithDates($datefrom, $dateto);
+    $RL_TotalAwaitingWithDatesList = $RL_TotalAwaitingWithDates->RL_getTotalAwaitingWithDates($RL_DATE_FROM, $RL_DATE_TO);
     require_once(__DIR__ . '/views/financials/ROYAL/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/ROYAL/TotalExpectedWithDates.php');
     $RL_TotalExpectedWithDates = new RL_TotalExpectedWithDatesModal($pdo);
-    $RL_TotalExpectedWithDatesList = $RL_TotalExpectedWithDates->RL_getTotalExpectedWithDates($datefrom, $dateto);
+    $RL_TotalExpectedWithDatesList = $RL_TotalExpectedWithDates->RL_getTotalExpectedWithDates($RL_DATE_FROM, $RL_DATE_TO);
     require_once(__DIR__ . '/views/financials/ROYAL/Total-Expected-With-Dates.php');  
     
 
@@ -1450,8 +1707,8 @@ WHERE
         'On hold')
         AND client_policy.policy_number NOT LIKE '%DU%'
         ");
-                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                            $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
@@ -1493,11 +1750,11 @@ WHERE
                                         AND 
                                             :dateto 
                                         AND 
-                                            client_policy.insurer='Vitality')
+                                            client_policy.insurer='Royal London')
                                             ");
                             $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
                             $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -1517,10 +1774,10 @@ WHERE
                                 WHERE 
                                     DATE(vitality_financial_uploaded_date) = :commdate 
                                 AND 
-                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -1536,13 +1793,13 @@ WHERE
                                     AND 
                                         policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
                                     AND 
-                                        insurer='Vitality'
+                                        insurer='Royal London'
                                     AND 
                                         policystatus NOT like '%CANCELLED%'
                                     AND 
                                         policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                                     AND policy_number NOT like '%DU%'");
-                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -1562,22 +1819,22 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$RL_DATE_FROM - $RL_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$RL_DATE_FROM - $RL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($RL_DATE_FROM)) { echo "within 2017-01-01 - $RL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($RL_DATE_FROM)) { echo "within $RL_DATE_FROM - $RL_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -1720,7 +1977,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                     WHERE 
                         DATE(vitality_financial_uploaded_date) = :commdate
                     AND
-                        client_policy.insurer='Vitality'
+                        client_policy.insurer='Royal London'
                     ORDER BY 
                         vitality_financial.vitality_financial_amount DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -1787,15 +2044,15 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Vitality'
+        AND insurer = 'Royal London'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Vitality'
+        AND client_policy.insurer = 'Royal London'
         AND policystatus = 'Awaiting'");
-                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $RL_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $RL_DATE_TO, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
@@ -1865,7 +2122,7 @@ WHERE
                             AND
                                 policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
                             AND
-                                insurer='Vitality'
+                                insurer='Royal London'
                             AND
                                 policystatus NOT like '%CANCELLED%' 
                             AND
@@ -1873,7 +2130,7 @@ WHERE
                             AND
                                 policy_number NOT like '%DU%' 
                             ORDER BY commission DESC");
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1884,7 +2141,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $RL_DATE_TO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -1958,15 +2215,15 @@ WHERE
                         AND
                             client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='Royal London'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
                             client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                         AND 
                             client_policy.policy_number NOT like '%DU%'");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2046,13 +2303,13 @@ WHERE
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='Royal London'
                         AND 
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
                             DATE(client_policy.sale_date)");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2124,10 +2381,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Royal London')");
                     $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
@@ -2151,10 +2408,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Royal London')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR);
+                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2165,7 +2422,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -2224,10 +2481,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2238,7 +2495,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -2291,7 +2548,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate 
                             AND 
-                                client_policy.insurer ='Vitality'");
+                                client_policy.insurer ='Royal London'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -2319,7 +2576,7 @@ WHERE
                         AND 
                             DATE(vitality_financial_uploaded_date) =:commdate
                         AND 
-                            client_policy.insurer='Vitality'");
+                            client_policy.insurer='Royal London'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -2388,7 +2645,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='Royal London'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -2413,7 +2670,7 @@ WHERE
                             WHERE 
                                 vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='Royal London'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -2511,8 +2768,8 @@ WHERE
                             } else {
                                 echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Royal London&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Royal London' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -2530,7 +2787,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
@@ -2540,7 +2797,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
                                         </div>
                                     </div>
                                     <br>
@@ -2549,7 +2806,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
@@ -2559,7 +2816,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>
@@ -2568,7 +2825,7 @@ WHERE
 
                                 <div class="col-md-12"><br>
                                     <div class="col-xs-4">
-                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
                                     </div>
                                     <div class="col-xs-4">
@@ -2628,21 +2885,21 @@ WHERE
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/WOL/TotalMissingWithDates.php');
     $WOL_TotalMissingWithDates = new WOL_TotalMissingWithDatesModal($pdo);
-    $WOL_TotalMissingWithDatesList = $WOL_TotalMissingWithDates->WOL_getTotalMissingWithDates($datefrom, $dateto);
+    $WOL_TotalMissingWithDatesList = $WOL_TotalMissingWithDates->WOL_getTotalMissingWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
     require_once(__DIR__ . '/views/financials/WOL/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/WOL/TotalAwaitingWithDates.php');
     $WOL_TotalAwaitingWithDates = new WOL_TotalAwaitingWithDatesModal($pdo);
-    $WOL_TotalAwaitingWithDatesList = $WOL_TotalAwaitingWithDates->WOL_getTotalAwaitingWithDates($datefrom, $dateto);
+    $WOL_TotalAwaitingWithDatesList = $WOL_TotalAwaitingWithDates->WOL_getTotalAwaitingWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
     require_once(__DIR__ . '/views/financials/WOL/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/WOL/TotalExpectedWithDates.php');
     $WOL_TotalExpectedWithDates = new WOL_TotalExpectedWithDatesModal($pdo);
-    $WOL_TotalExpectedWithDatesList = $WOL_TotalExpectedWithDates->WOL_getTotalExpectedWithDates($datefrom, $dateto);
+    $WOL_TotalExpectedWithDatesList = $WOL_TotalExpectedWithDates->WOL_getTotalExpectedWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
     require_once(__DIR__ . '/views/financials/WOL/Total-Expected-With-Dates.php');  
     
 
@@ -2663,8 +2920,8 @@ WHERE
         'On hold')
         AND client_policy.policy_number NOT LIKE '%DU%'
         ");
-                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                            $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
@@ -2706,11 +2963,11 @@ WHERE
                                         AND 
                                             :dateto 
                                         AND 
-                                            client_policy.insurer='Vitality')
+                                            client_policy.insurer='One Family')
                                             ");
                             $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
                             $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -2730,10 +2987,10 @@ WHERE
                                 WHERE 
                                     DATE(vitality_financial_uploaded_date) = :commdate 
                                 AND 
-                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='One Family')");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -2749,13 +3006,13 @@ WHERE
                                     AND 
                                         policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
                                     AND 
-                                        insurer='Vitality'
+                                        insurer='One Family'
                                     AND 
                                         policystatus NOT like '%CANCELLED%'
                                     AND 
                                         policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                                     AND policy_number NOT like '%DU%'");
-                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -2775,22 +3032,22 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($WOL_DATE_FROM)) { echo "within 2017-01-01 - $WOL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($WOL_DATE_FROM)) { echo "within $WOL_DATE_FROM - $WOL_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -2933,7 +3190,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                     WHERE 
                         DATE(vitality_financial_uploaded_date) = :commdate
                     AND
-                        client_policy.insurer='Vitality'
+                        client_policy.insurer='One Family'
                     ORDER BY 
                         vitality_financial.vitality_financial_amount DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -3000,15 +3257,15 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Vitality'
+        AND insurer = 'One Family'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Vitality'
+        AND client_policy.insurer = 'One Family'
         AND policystatus = 'Awaiting'");
-                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $WOL_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $WOL_DATE_TO, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
@@ -3078,7 +3335,7 @@ WHERE
                             AND
                                 policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
                             AND
-                                insurer='Vitality'
+                                insurer='One Family'
                             AND
                                 policystatus NOT like '%CANCELLED%' 
                             AND
@@ -3086,7 +3343,7 @@ WHERE
                             AND
                                 policy_number NOT like '%DU%' 
                             ORDER BY commission DESC");
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -3097,7 +3354,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $WOL_DATE_TO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -3171,15 +3428,15 @@ WHERE
                         AND
                             client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='One Family'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
                             client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                         AND 
                             client_policy.policy_number NOT like '%DU%'");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -3259,13 +3516,13 @@ WHERE
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='One Family'
                         AND 
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
                             DATE(client_policy.sale_date)");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -3337,10 +3594,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='One Family')");
                     $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
@@ -3364,10 +3621,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='One Family')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR);
+                    $query->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -3378,7 +3635,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$WOL_DATE_TO - $WOL_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -3437,10 +3694,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='One Family')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $WOL_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $WOL_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -3451,7 +3708,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$WOL_DATE_TO - $WOL_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -3504,7 +3761,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate 
                             AND 
-                                client_policy.insurer ='Vitality'");
+                                client_policy.insurer ='One Family'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -3532,7 +3789,7 @@ WHERE
                         AND 
                             DATE(vitality_financial_uploaded_date) =:commdate
                         AND 
-                            client_policy.insurer='Vitality'");
+                            client_policy.insurer='One Family'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -3601,7 +3858,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='One Family'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -3626,7 +3883,7 @@ WHERE
                             WHERE 
                                 vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='One Family'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -3724,8 +3981,8 @@ WHERE
                             } else {
                                 echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=One Family&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=One Family' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -3743,7 +4000,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
@@ -3753,7 +4010,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
                                         </div>
                                     </div>
                                     <br>
@@ -3762,7 +4019,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
@@ -3772,7 +4029,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>
@@ -3781,7 +4038,7 @@ WHERE
 
                                 <div class="col-md-12"><br>
                                     <div class="col-xs-4">
-                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
                                     </div>
                                     <div class="col-xs-4">
@@ -3841,21 +4098,21 @@ WHERE
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/AVIVA/TotalMissingWithDates.php');
     $AVI_TotalMissingWithDates = new AVI_TotalMissingWithDatesModal($pdo);
-    $AVI_TotalMissingWithDatesList = $AVI_TotalMissingWithDates->AVI_getTotalMissingWithDates($datefrom, $dateto);
+    $AVI_TotalMissingWithDatesList = $AVI_TotalMissingWithDates->AVI_getTotalMissingWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
     require_once(__DIR__ . '/views/financials/AVIVA/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/AVIVA/TotalAwaitingWithDates.php');
     $AVI_TotalAwaitingWithDates = new AVI_TotalAwaitingWithDatesModal($pdo);
-    $AVI_TotalAwaitingWithDatesList = $AVI_TotalAwaitingWithDates->AVI_getTotalAwaitingWithDates($datefrom, $dateto);
+    $AVI_TotalAwaitingWithDatesList = $AVI_TotalAwaitingWithDates->AVI_getTotalAwaitingWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
     require_once(__DIR__ . '/views/financials/AVIVA/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/AVIVA/TotalExpectedWithDates.php');
     $AVI_TotalExpectedWithDates = new AVI_TotalExpectedWithDatesModal($pdo);
-    $AVI_TotalExpectedWithDatesList = $AVI_TotalExpectedWithDates->AVI_getTotalExpectedWithDates($datefrom, $dateto);
+    $AVI_TotalExpectedWithDatesList = $AVI_TotalExpectedWithDates->AVI_getTotalExpectedWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
     require_once(__DIR__ . '/views/financials/AVIVA/Total-Expected-With-Dates.php');  
     
 
@@ -3876,8 +4133,8 @@ WHERE
         'On hold')
         AND client_policy.policy_number NOT LIKE '%DU%'
         ");
-                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                            $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
@@ -3919,11 +4176,11 @@ WHERE
                                         AND 
                                             :dateto 
                                         AND 
-                                            client_policy.insurer='Vitality')
+                                            client_policy.insurer='Aviva')
                                             ");
                             $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
                             $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -3943,10 +4200,10 @@ WHERE
                                 WHERE 
                                     DATE(vitality_financial_uploaded_date) = :commdate 
                                 AND 
-                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Aviva')");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -3962,13 +4219,13 @@ WHERE
                                     AND 
                                         policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
                                     AND 
-                                        insurer='Vitality'
+                                        insurer='Aviva'
                                     AND 
                                         policystatus NOT like '%CANCELLED%'
                                     AND 
                                         policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                                     AND policy_number NOT like '%DU%'");
-                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -3988,22 +4245,22 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -4146,7 +4403,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                     WHERE 
                         DATE(vitality_financial_uploaded_date) = :commdate
                     AND
-                        client_policy.insurer='Vitality'
+                        client_policy.insurer='Aviva'
                     ORDER BY 
                         vitality_financial.vitality_financial_amount DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -4213,15 +4470,15 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Vitality'
+        AND insurer = 'Aviva'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Vitality'
+        AND client_policy.insurer = 'Aviva'
         AND policystatus = 'Awaiting'");
-                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $AVI_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $AVI_DATE_TO, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
@@ -4291,7 +4548,7 @@ WHERE
                             AND
                                 policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
                             AND
-                                insurer='Vitality'
+                                insurer='Aviva'
                             AND
                                 policystatus NOT like '%CANCELLED%' 
                             AND
@@ -4299,7 +4556,7 @@ WHERE
                             AND
                                 policy_number NOT like '%DU%' 
                             ORDER BY commission DESC");
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4310,7 +4567,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $AVI_DATE_TO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -4384,15 +4641,15 @@ WHERE
                         AND
                             client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='Aviva'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
                             client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                         AND 
                             client_policy.policy_number NOT like '%DU%'");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4472,13 +4729,13 @@ WHERE
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='Aviva'
                         AND 
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
                             DATE(client_policy.sale_date)");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4550,10 +4807,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Aviva')");
                     $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
@@ -4577,10 +4834,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Aviva')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR);
+                    $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4591,7 +4848,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -4650,10 +4907,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Aviva')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4664,7 +4921,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -4717,7 +4974,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate 
                             AND 
-                                client_policy.insurer ='Vitality'");
+                                client_policy.insurer ='Aviva'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -4745,7 +5002,7 @@ WHERE
                         AND 
                             DATE(vitality_financial_uploaded_date) =:commdate
                         AND 
-                            client_policy.insurer='Vitality'");
+                            client_policy.insurer='Aviva'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -4814,7 +5071,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='Aviva'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -4839,7 +5096,7 @@ WHERE
                             WHERE 
                                 vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='Aviva'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -4937,8 +5194,8 @@ WHERE
                             } else {
                                 echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Aviva&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Aviva' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -4956,7 +5213,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
@@ -4966,7 +5223,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
                                         </div>
                                     </div>
                                     <br>
@@ -4975,7 +5232,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
@@ -4985,7 +5242,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>
@@ -4994,7 +5251,7 @@ WHERE
 
                                 <div class="col-md-12"><br>
                                     <div class="col-xs-4">
-                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
                                     </div>
                                     <div class="col-xs-4">
@@ -5054,21 +5311,21 @@ WHERE
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/LV/TotalMissingWithDates.php');
     $LV_TotalMissingWithDates = new LV_TotalMissingWithDatesModal($pdo);
-    $LV_TotalMissingWithDatesList = $LV_TotalMissingWithDates->LV_getTotalMissingWithDates($datefrom, $dateto);
+    $LV_TotalMissingWithDatesList = $LV_TotalMissingWithDates->LV_getTotalMissingWithDates($LV_DATE_FROM, $LV_DATE_TO);
     require_once(__DIR__ . '/views/financials/LV/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/LV/TotalAwaitingWithDates.php');
     $LV_TotalAwaitingWithDates = new LV_TotalAwaitingWithDatesModal($pdo);
-    $LV_TotalAwaitingWithDatesList = $LV_TotalAwaitingWithDates->LV_getTotalAwaitingWithDates($datefrom, $dateto);
+    $LV_TotalAwaitingWithDatesList = $LV_TotalAwaitingWithDates->LV_getTotalAwaitingWithDates($LV_DATE_FROM, $LV_DATE_TO);
     require_once(__DIR__ . '/views/financials/LV/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/LV/TotalExpectedWithDates.php');
     $LV_TotalExpectedWithDates = new LV_TotalExpectedWithDatesModal($pdo);
-    $LV_TotalExpectedWithDatesList = $LV_TotalExpectedWithDates->LV_getTotalExpectedWithDates($datefrom, $dateto);
+    $LV_TotalExpectedWithDatesList = $LV_TotalExpectedWithDates->LV_getTotalExpectedWithDates($LV_DATE_FROM, $LV_DATE_TO);
     require_once(__DIR__ . '/views/financials/LV/Total-Expected-With-Dates.php');  
     
 
@@ -5089,8 +5346,8 @@ WHERE
         'On hold')
         AND client_policy.policy_number NOT LIKE '%DU%'
         ");
-                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                            $EXPECTED_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
+                           $EXPECTED_SUM_QRY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
@@ -5132,11 +5389,11 @@ WHERE
                                         AND 
                                             :dateto 
                                         AND 
-                                            client_policy.insurer='Vitality')
+                                            client_policy.insurer='LV')
                                             ");
                             $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
                             $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -5156,10 +5413,10 @@ WHERE
                                 WHERE 
                                     DATE(vitality_financial_uploaded_date) = :commdate 
                                 AND 
-                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='LV')");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -5181,7 +5438,7 @@ WHERE
                                     AND 
                                         policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                                     AND policy_number NOT like '%DU%'");
-                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -5201,22 +5458,22 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$LV_DATE_FROM - $LV_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$LV_DATE_FROM - $LV_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($LV_DATE_FROM)) { echo "within 2017-01-01 - $LV_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($LV_DATE_FROM)) { echo "within $LV_DATE_FROM - $LV_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -5359,7 +5616,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                     WHERE 
                         DATE(vitality_financial_uploaded_date) = :commdate
                     AND
-                        client_policy.insurer='Vitality'
+                        client_policy.insurer='LV'
                     ORDER BY 
                         vitality_financial.vitality_financial_amount DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -5429,12 +5686,12 @@ WHERE
         AND insurer = 'Vitality'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Vitality'
+        AND client_policy.insurer = 'LV'
         AND policystatus = 'Awaiting'");
-                    $EXPECTED_QUERY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':dateto2', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $LV_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $LV_DATE_TO, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
@@ -5504,7 +5761,7 @@ WHERE
                             AND
                                 policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
                             AND
-                                insurer='Vitality'
+                                insurer='LV'
                             AND
                                 policystatus NOT like '%CANCELLED%' 
                             AND
@@ -5512,7 +5769,7 @@ WHERE
                             AND
                                 policy_number NOT like '%DU%' 
                             ORDER BY commission DESC");
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5523,7 +5780,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $LV_DATE_TO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -5597,15 +5854,15 @@ WHERE
                         AND
                             client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='LV'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
                             client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                         AND 
                             client_policy.policy_number NOT like '%DU%'");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5685,13 +5942,13 @@ WHERE
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
-                            client_policy.insurer='Vitality'
+                            client_policy.insurer='LV'
                         AND 
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
                             DATE(client_policy.sale_date)");
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5763,10 +6020,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
                     $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
@@ -5790,10 +6047,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR);
+                    $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5804,7 +6061,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$LV_DATE_TO - $LV_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -5863,10 +6120,10 @@ WHERE
                         WHERE 
                             DATE(vitality_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Vitality')");
+                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='LV')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':datefrom', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5877,7 +6134,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$LV_DATE_TO - $LV_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -5930,7 +6187,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate 
                             AND 
-                                client_policy.insurer ='Vitality'");
+                                client_policy.insurer ='LV'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -5958,7 +6215,7 @@ WHERE
                         AND 
                             DATE(vitality_financial_uploaded_date) =:commdate
                         AND 
-                            client_policy.insurer='Vitality'");
+                            client_policy.insurer='LV'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -6027,7 +6284,7 @@ WHERE
                             AND 
                                 DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='LV'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -6052,7 +6309,7 @@ WHERE
                             WHERE 
                                 vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
                             AND 
-                                client_policy.insurer='Vitality'");
+                                client_policy.insurer='LV'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -6169,7 +6426,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
@@ -6179,7 +6436,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
                                         </div>
                                     </div>
                                     <br>
@@ -6188,7 +6445,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
@@ -6198,7 +6455,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>
@@ -6207,7 +6464,7 @@ WHERE
 
                                 <div class="col-md-12"><br>
                                     <div class="col-xs-4">
-                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
                                     </div>
                                     <div class="col-xs-4">
@@ -6264,6 +6521,70 @@ WHERE
                 yearRange: "-100:+1"
             });
         });
+        $(function () {
+            $("#RL_datefrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+        $(function () {
+            $("#RL_dateto").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        }); 
+        $(function () {
+            $("#LV_datefrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+        $(function () {
+            $("#LV_dateto").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });   
+        $(function () {
+            $("#AVI_datefrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+        $(function () {
+            $("#AVI_dateto").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });    
+        $(function () {
+            $("#WOL_datefrom").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });
+        $(function () {
+            $("#WOL_dateto").datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-100:+1"
+            });
+        });         
     </script>  
 </body>
 </html>

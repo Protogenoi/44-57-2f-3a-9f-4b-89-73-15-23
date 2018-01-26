@@ -36,7 +36,8 @@ $DATE= filter_input(INPUT_GET, 'DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     current_premium,
     our_premium,
     comments,
-    sale
+    sale,
+    insurer
 FROM
     closer_trackers
 WHERE
@@ -46,7 +47,7 @@ ORDER BY date_added DESC");
                     
         } else { 
             
-            $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments\n";
+            $output = "Date, closer, agent, client, phone, current_premium, our_premium, sale, comments, insurer\n";
             $query = $pdo->prepare("SELECT 
     date_updated,
     closer,
@@ -56,6 +57,7 @@ ORDER BY date_added DESC");
     current_premium,
     our_premium,
     comments,
+    insurer
     sale
 FROM
     closer_trackers
@@ -77,9 +79,10 @@ ORDER BY date_added DESC");
                         $our_premium=filter_var($rs['our_premium'],FILTER_SANITIZE_NUMBER_FLOAT); 
                         $comments=filter_var($rs['comments'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $comments_edited = str_replace(',', ' ', $comments);
+                        $INSURER=filter_var($rs['insurer'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
                         $sale=filter_var($rs['sale'],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
     
-                        $output .= $DATE.",".$closer.",".$agent.",".$client.",".$phone.",".$current_premium.",".$our_premium.",".$sale.",".$comments_edited."\n";
+                        $output .= $DATE.",".$closer.",".$agent.",".$client.",".$phone.",".$current_premium.",".$our_premium.",".$sale.",".$comments_edited.",".$INSURER."\n";
                         
                     }
                     echo $output;

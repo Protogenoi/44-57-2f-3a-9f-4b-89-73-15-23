@@ -201,7 +201,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
 }
 }        
 
-        $TRACKER = $pdo->prepare("SELECT date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added DESC LIMIT 5");
+        $TRACKER = $pdo->prepare("SELECT insurer, date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() ORDER BY date_added DESC LIMIT 5");
         $TRACKER->execute();
 
         if ($TRACKER->rowCount() > 0) {
@@ -216,6 +216,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         <th>Current Premium</th>
                         <th>Our Premium</th>
                         <th>Notes</th>
+                        <th>Insurer</th>
                         <th>DISPO</th>
                     </tr>
                 </thead> <?php
@@ -230,6 +231,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     $TRK_our_premium = $TRACKERresult['our_premium'];
                     $TRK_comments = $TRACKERresult['comments'];
                     $TRK_sale = $TRACKERresult['sale'];
+                    $TRK_INSURER = $TRACKERresult['insurer'];
 
                     switch ($TRK_sale) {
                         case "QCBK":
@@ -289,6 +291,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         <td bgcolor="#ffffff"><strong><?php echo $TRK_current_premium; ?></strong></td>
                         <td bgcolor="#ffffff"><strong><?php echo $TRK_our_premium; ?></strong></td>
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_comments; ?></strong></td>
+                        <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_INSURER; ?></strong></td>
                         <td bgcolor="<?php echo $TRK_BG; ?>"><strong style="font-size: 40px;"><?php echo $TRK_sale; ?></strong></td>
 
                     <?php

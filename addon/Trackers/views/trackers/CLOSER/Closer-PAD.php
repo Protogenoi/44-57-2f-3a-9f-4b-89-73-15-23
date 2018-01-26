@@ -10,6 +10,7 @@
                                             <th>Current Premium</th>
                                             <th>Our Premium</th>
                                             <th>Comments</th>
+                                            <th>Insurer</th>
                                             <th>DISPO</th>
                                             <th>DEC?</th>
                                             <th>MTG</th>
@@ -31,6 +32,7 @@
                                         $TRK_EDIT_our_premium = $TRACKER_EDIT_result['our_premium'];
                                         $TRK_EDIT_comments = $TRACKER_EDIT_result['comments'];
                                         $TRK_EDIT_sale = $TRACKER_EDIT_result['sale'];
+                                        $TRK_EDIT_INSURER = $TRACKER_EDIT_result['insurer'];
 
                                         $TRK_EDIT_MTG = $TRACKER_EDIT_result['mtg'];
                                         $TRK_EDIT_LEAD_UP = $TRACKER_EDIT_result['lead_up'];
@@ -69,6 +71,17 @@
                 } ?>"><?php if (isset($TRK_EDIT_comments)) {
                     echo $TRK_EDIT_comments;
                 } ?></textarea></td>
+<td><select name="INSURER" class="form-control" required>
+                                                <option value="NA">N/A</option>
+                                                <option value="Royal London" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
+                                                <option value="LV" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "LV") { echo "selected"; } ?> >LV</option>
+                                                <option value="Vitality" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>
+                                                <option value="Scottish Widows" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Scottish Widows") { echo "selected"; } ?> >Scottish Widows</option>
+                                                <option value="Aviva" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Aviva") { echo "selected"; } ?> >Aviva</option>
+                                                <option value="Zurich" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Zurich") { echo "selected"; } ?> >Zurich</option>
+                                                <option value="One Family" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "One Family") { echo "selected"; } ?> >One Family</option>
+                                                <option value="Legal and General" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Legal and General") { echo "selected"; } ?> >Legal and General</option>
+                                    </select></td>                                    
                                 <td>
                                     <select name="sale" class="form-control" required>
                                         <option value="">DISPO</option>

@@ -289,14 +289,10 @@ WHERE
 <option value="Craig Davies">Craig Davies</option>
 <option value="Daniel Holden">Daniel Holden</option>
 <option value="David Bebee">David Bebee</option>
-<option value="Dewi Davies">Dewi Davies</option>
 <option value="Ffion Edwards">Ffion Edwards</option>
 <option value="Jared Morris">Jared Morris</option>
 <option value="Joanne Bailey">Joanne Bailey</option>
 <option value="Jordan Davies">Jordan Davies</option>
-<option value="Joshua Longhurst">Joshua Longhurst</option>
-<option value="Kieran Vye">Kieran Vye</option>
-<option value="Kieran Watson">Kieran Watson</option>
 <option value="Ricky Derrick">Ricky Derrick</option>
 <option value="Ryan Tidbal">Ryan Tidbal</option>
 <option value="Shaun Pearce">Shaun Pearce</option>
@@ -310,9 +306,6 @@ WHERE
 <option value="Jack Smith">Jack Smith</option>
 <option value="Lee McDonaugh">Lee McDonaugh</option>
 <option value="Lois Taylor">Lois Taylor</option>
-<option value="Michael Hodge">Michael Hodge</option>
-<option value="Samuel Stenner">Samuel Stenner</option>
-<option value="Stephan Leyson">Stephan Leyson</option>
 </select>
                     </form>
                 </div>
@@ -335,6 +328,7 @@ WHERE
                                 <th>Current Premium</th>
                                 <th>Our Premium</th>
                                 <th>Notes</th>
+                                <th>Insurer</th>
                                 <th>DISPO</th>
                                 <th>DEC READ?</th>
                                 <th>MTG</th>
@@ -345,7 +339,7 @@ WHERE
         <?php
         if (isset($TrackerEdit)) {
 
-            $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
+            $TRACKER_EDIT = $pdo->prepare("SELECT tracker_id, insurer, agent, client, phone, current_premium, our_premium, comments, sale, mtg, lead_up FROM closer_trackers WHERE closer=:closer AND tracker_id=:id");
             $TRACKER_EDIT->bindParam(':closer', $hello_name, PDO::PARAM_STR);
             $TRACKER_EDIT->bindParam(':id', $TrackerEdit, PDO::PARAM_INT);
             $TRACKER_EDIT->execute();
@@ -357,6 +351,7 @@ WHERE
                 $TRK_EDIT_client = $TRACKER_EDIT_result['client'];
                 $TRK_EDIT_phone = $TRACKER_EDIT_result['phone'];
                 $TRK_EDIT_current_premium = $TRACKER_EDIT_result['current_premium'];
+                $TRK_EDIT_INSURER = $TRACKER_EDIT_result['insurer'];
 
                 $TRK_EDIT_our_premium = $TRACKER_EDIT_result['our_premium'];
                 $TRK_EDIT_comments = $TRACKER_EDIT_result['comments'];
@@ -387,6 +382,17 @@ WHERE
                                 <td><input type="text" class="form-control" name="comments" value="<?php if (isset($TRK_EDIT_comments)) {
                     echo $TRK_EDIT_comments;
                 } ?>"></td>
+                                        <td><select name="INSURER" class="form-control" required>
+                                                <option value="NA">N/A</option>
+                                                <option value="Royal London" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
+                                                <option value="LV" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "LV") { echo "selected"; } ?> >LV</option>
+                                                <option value="Vitality" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>
+                                                <option value="Scottish Widows" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Scottish Widows") { echo "selected"; } ?> >Scottish Widows</option>
+                                                <option value="Aviva" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Aviva") { echo "selected"; } ?> >Aviva</option>
+                                                <option value="Zurich" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Zurich") { echo "selected"; } ?> >Zurich</option>
+                                                <option value="One Family" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "One Family") { echo "selected"; } ?> >One Family</option>
+                                                <option value="Legal and General" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Legal and General") { echo "selected"; } ?> >Legal and General</option>
+                                    </select></td>
                                 <td>                            <select name="sale" class="form-control" required>
                                         <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_EDIT_sale)) {
@@ -486,6 +492,17 @@ WHERE
                             <td><input size="8" class="form-control" type="text" name="current_premium"></td>
                             <td><input size="8" class="form-control" type="text" name="our_premium"></td>
                             <td><input type="text" class="form-control" name="comments"></td>
+                             <td><select name="INSURER" class="form-control" required>
+                                                <option value="NA">N/A</option>
+                                                <option value="Royal London">Royal London</option>
+                                                <option value="LV">LV</option>
+                                                <option value="Vitality">Vitality</option>
+                                                <option value="Scottish Widows">Scottish Widows</option>
+                                                <option value="Aviva">Aviva</option>
+                                                <option value="Zurich">Zurich</option>
+                                                <option value="One Family">One Family</option>
+                                                <option value="Legal and General">Legal and General</option>
+                                    </select></td>
                             <td> <select name="sale" class="form-control" required>
                                     <option value="">DISPO</option>
                                     <option value="SALE">Sale</option>
@@ -520,7 +537,7 @@ WHERE
                     </table>
                 </form>
         <?php
-        $TRACKER = $pdo->prepare("SELECT mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
+        $TRACKER = $pdo->prepare("SELECT insurer, mtg, lead_up, date_updated, tracker_id, agent, closer, client, phone, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE closer=:closer AND date_updated >= CURDATE() ORDER BY date_added");
         $TRACKER->bindParam(':closer', $hello_name, PDO::PARAM_STR);
         $TRACKER->execute();
         if ($TRACKER->rowCount() > 0) {
@@ -536,6 +553,7 @@ WHERE
                                 <th>Current Premium</th>
                                 <th>Our Premium</th>
                                 <th>Comments</th>
+                                <th>Insurer</th>
                                 <th>DISPO</th>
                                 <th>DEC READ?</th>
                                 <th>MTG</th>
@@ -561,6 +579,7 @@ WHERE
                 $TRK_sale = $TRACKERresult['sale'];
                 $TRK_LEAD_UP = $TRACKERresult['lead_up'];
                 $TRK_MTG = $TRACKERresult['mtg'];
+                $TRK_INSURER = $TRACKERresult['insurer'];
                 ?>
 
                             <tr><td><?php echo $i; ?></td>
@@ -570,6 +589,17 @@ WHERE
                                 <td><?php echo $TRK_current_premium; ?></td>                                    
                                 <td><?php echo $TRK_our_premium; ?></td>
                                 <td><?php echo $TRK_comments; ?></td>
+<td><select name="INSURER" class="form-control" required>
+                                                <option value="NA">N/A</option>
+                                                <option value="Royal London" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
+                                                <option value="LV" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "LV") { echo "selected"; } ?> >LV</option>
+                                                <option value="Vitality" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>
+                                                <option value="Scottish Widows" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Scottish Widows") { echo "selected"; } ?> >Scottish Widows</option>
+                                                <option value="Aviva" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Aviva") { echo "selected"; } ?> >Aviva</option>
+                                                <option value="Zurich" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Zurich") { echo "selected"; } ?> >Zurich</option>
+                                                <option value="One Family" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "One Family") { echo "selected"; } ?> >One Family</option>
+                                                <option value="Legal and General" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Legal and General") { echo "selected"; } ?> >Legal and General</option>
+                                    </select></td>                                
                                 <td><select name="sale" class="form-control" required>
                                         <option value="">DISPO</option>
                                         <option <?php if (isset($TRK_sale)) {

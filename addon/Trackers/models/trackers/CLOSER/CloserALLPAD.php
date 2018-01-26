@@ -22,7 +22,8 @@
     current_premium,
     our_premium,
     comments,
-    sale
+    sale,
+    insurer
 FROM
     closer_trackers
 WHERE

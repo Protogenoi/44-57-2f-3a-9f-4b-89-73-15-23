@@ -42,6 +42,7 @@ if ($fftrackers == '0') {
         $comments= filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $sale= filter_input(INPUT_POST, 'sale', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $dec= filter_input(INPUT_POST, 'dec', FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+        $INSURER = filter_input(INPUT_POST, 'INSURER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
         $MTG= filter_input(INPUT_POST, 'MTG', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $LEAD_UP= filter_input(INPUT_POST, 'LEAD_UP', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -84,8 +85,9 @@ WHERE
 
         //UPDATE TRACKERS
                 
-            $UPDATE = $pdo->prepare("UPDATE closer_trackers set closer=:closer, mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
-            $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT); 
+            $UPDATE = $pdo->prepare("UPDATE closer_trackers set insurer=:INSURER, closer=:closer, mtg=:mtg, lead_up=:up, agent=:agent, client=:client, phone=:phone, current_premium=:curprem, our_premium=:ourprem, comments=:comments, sale=:sale WHERE tracker_id=:id");
+            $UPDATE->bindParam(':id', $tracker_id, PDO::PARAM_INT);
+            $UPDATE->bindParam(':INSURER', $INSURER, PDO::PARAM_STR); 
             $UPDATE->bindParam(':closer', $closer, PDO::PARAM_STR); 
             $UPDATE->bindParam(':agent', $AGENT_NAME, PDO::PARAM_STR); 
             $UPDATE->bindParam(':client', $client, PDO::PARAM_STR); 

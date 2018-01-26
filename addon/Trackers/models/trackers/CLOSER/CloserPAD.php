@@ -22,6 +22,7 @@
     current_premium,
     our_premium,
     comments,
+    insurer,
     sale
 FROM
     closer_trackers

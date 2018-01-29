@@ -158,7 +158,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
-    <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($SALES) && isset($LEADS)) { if($LEADS > 0) { $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); } } ?>" name="CR"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $MINUS; ?>" name="MINUS"></td>
@@ -227,7 +227,7 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
-    <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($SALES) && isset($LEADS)) { if($LEADS > 0) { $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); } } ?>" name="CR"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $MINUS; ?>" name="MINUS"></td>
@@ -316,14 +316,14 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     
     <div class="row">
         <div class="col-sm-6">
-            <th><a href="?MONTH=JAN&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JAN <br>2017</a></th>
-            <th><a href="?MONTH=FEB&YEAR=<?php echo date(Y); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> FEB <br>2017</a></th>
-            <th><a href="?MONTH=MAR&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> MAR <br>2017</a></th>
+            <th><a href="?MONTH=JAN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JAN <br>2017</a></th>
+            <th><a href="?MONTH=FEB&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> FEB <br>2017</a></th>
+            <th><a href="?MONTH=MAR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> MAR <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
-            <th><a href="?MONTH=JUL&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUL <br>2017</a></th>
-            <th><a href="?MONTH=AUG&YEAR=<?php echo date(Y); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> AUG <br>2017</a></th>            
-            <th><a href="?MONTH=SEP&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> SEP <br>2017</a></th>
+            <th><a href="?MONTH=JUL&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUL <br>2017</a></th>
+            <th><a href="?MONTH=AUG&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> AUG <br>2017</a></th>            
+            <th><a href="?MONTH=SEP&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> SEP <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
 
@@ -331,14 +331,14 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <th><a href="?MONTH=APR&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> APR <br>2017</a></th>
-            <th><a href="?MONTH=MAY&YEAR=<?php echo date(Y); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> MAY <br>2017</a></th>
-            <th><a href="?MONTH=JUN&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUN <br>2017</a></th>
+            <th><a href="?MONTH=APR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> APR <br>2017</a></th>
+            <th><a href="?MONTH=MAY&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> MAY <br>2017</a></th>
+            <th><a href="?MONTH=JUN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUN <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
-                    <th><a href="?MONTH=OCT&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> OCT <br>2017</a></th>
-                    <th><a href="?MONTH=NOV&YEAR=<?php echo date(Y); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> NOV <br>2017</a></th>
-                    <th><a href="?MONTH=DEC&YEAR=<?php echo date(Y); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> DEC <br>2017</a></th>
+                    <th><a href="?MONTH=OCT&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> OCT <br>2017</a></th>
+                    <th><a href="?MONTH=NOV&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> NOV <br>2017</a></th>
+                    <th><a href="?MONTH=DEC&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> DEC <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
             
@@ -622,7 +622,7 @@ while ($result=$RAG_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
     <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
-    <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($SALES) && isset($LEADS)) { if($LEADS > 0) { $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); } } ?>" name="CR"></td>
     <td><input type="text" class="form-control" value="<?php echo $CANCELS; ?>" name="CANCELS"></td>
     <td><input type="text" class="form-control" value="<?php echo $HOURS; ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" value="<?php echo $MINUS; ?>" name="MINUS"></td>
@@ -856,12 +856,12 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
 
      
     <tr> 
-    <td><input type="text" class="form-control" readonly value="<?php echo $NAME; ?>" name="EMPLOYEE"></td>
-    <td><input type="text" class="form-control" readonly value="<?php echo $SALES; ?>" name="SALES"></td>
-    <td><input type="text" class="form-control" readonly value="<?php echo $LEADS; ?>" name="LEADS"></td>
-    <td><input type="text" class="form-control" readonly value="<?php $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); ?>" name="CR"></td>
-    <td><input type="text" class="form-control" value="<?php echo $HOURS; ?>" name="HOURS"></td>
-    <td><input type="text" class="form-control" value="<?php echo $MINUS; ?>" name="MINUS"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($NAME)) { echo $NAME; } ?>" name="EMPLOYEE"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($SALES)) { echo $SALES; } ?>" name="SALES"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($LEADS)) { echo $LEADS; } ?>" name="LEADS"></td>
+    <td><input type="text" class="form-control" readonly value="<?php if(isset($LEADS) && isset($SALES)) { if($LEADS > 0) { $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); } } ?>" name="CR"></td>
+    <td><input type="text" class="form-control" value="<?php if(isset($HOURS)) { echo $HOURS; } ?>" name="HOURS"></td>
+    <td><input type="text" class="form-control" value="<?php if(isset($MINUS)) { echo $MINUS; }?>" name="MINUS"></td>
     <td><button type="submit" class="btn btn-success btn-md"><i class="fa fa-check-circle-o"></i> Update</button></td>     
     </tr> 
 
@@ -887,6 +887,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
         <script src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+        <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
 <script>
   $(function() {
     $( "#START_DATE" ).datepicker({

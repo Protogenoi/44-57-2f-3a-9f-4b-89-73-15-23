@@ -172,7 +172,7 @@ if(isset($Single_Client['alt_number'])) {
     $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV");
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
                         $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");

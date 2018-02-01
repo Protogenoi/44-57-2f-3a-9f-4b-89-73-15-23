@@ -60,9 +60,14 @@ if(isset($EXECUTE)) {
 FROM
     employee_details
 WHERE
-   company IN ('The Review Bureau','Bluestone Protect')
+   company =:COMPANY
         AND employed = '1'
+    OR
+   company =:COMPANYS
+        AND employed = '1'    
 ORDER BY full_name");
+        $query->bindParam(':COMPANY', $COMPANY_ENTITY, PDO::PARAM_STR);
+        $query->bindParam(':COMPANYS', $COMPANY_ENTITY_LEAD_GENS, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results= $query->fetchAll(PDO::FETCH_ASSOC));
 

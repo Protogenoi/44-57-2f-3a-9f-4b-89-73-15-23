@@ -211,7 +211,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                  
                             <div class="form-group">
                                 <div class="col-xs-4">
-                                    <select class="form-control" name="commdate">
+                                    <select class="form-control" name="RL_commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
                                                         DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
@@ -266,7 +266,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                  
                             <div class="form-group">
                                 <div class="col-xs-4">
-                                    <select class="form-control" name="commdate">
+                                    <select class="form-control" name="WOL_commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
                                                         DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
@@ -322,7 +322,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                  
                             <div class="form-group">
                                 <div class="col-xs-4">
-                                    <select class="form-control" name="commdate">
+                                    <select class="form-control" name="AVI_commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
                                                         DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
@@ -378,7 +378,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                  
                             <div class="form-group">
                                 <div class="col-xs-4">
-                                    <select class="form-control" name="commdate">
+                                    <select class="form-control" name="LV_commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
                                                         DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date

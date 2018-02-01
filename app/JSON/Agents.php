@@ -61,9 +61,10 @@ FROM
     employee_details
 WHERE
     position = 'Life Lead Gen'
-        AND company = 'The Review Bureau'
+        AND company = :COMPANY
         AND employed = '1'
 ORDER BY full_name");
+        $query->bindParam(':COMPANY', $COMPANY_ENTITY_LEAD_GENS, PDO::PARAM_STR);
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results= $query->fetchAll(PDO::FETCH_ASSOC));
 

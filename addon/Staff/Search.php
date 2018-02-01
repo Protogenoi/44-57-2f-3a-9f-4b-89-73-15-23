@@ -253,6 +253,7 @@ if (isset($fferror)) {
                                                 <select name="company" class="form-control" required>
                                                     <option value=""></option>
                                                     <option value="Bluestone Protect">Bluestone Protect</option>
+                                                    <option value="Life Assured">Life Assured</option>
                                                     <option value="The Review Bureau">The Review Bureau</option>
                                                     <option value="First Priority Group">First Priority Group</option>
                                                 </select>

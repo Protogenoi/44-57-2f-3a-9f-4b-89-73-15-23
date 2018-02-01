@@ -36,7 +36,7 @@ FROM
     client_details
     LEFT JOIN client_policy ON client_details.client_id=client_policy.client_id
 WHERE
-    DATE(client_details.submitted_date) >= '2017-08-31'
+    DATE(client_details.submitted_date) >= '2017-08-31' AND client_details.company !='FPG Paul'
         AND client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM

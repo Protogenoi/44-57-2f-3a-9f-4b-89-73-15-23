@@ -50,6 +50,16 @@ if($fffinancials=='0') {
                 <ul class="ca-menu">
                     
                     <li>
+                        <a href="Financial.php">
+                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <div class="ca-content">
+                                <h2 class="ca-main">FPG<br/>Financials</h2>
+                                <h3 class="ca-sub"></h3>
+                            </div>
+                        </a>
+                    </li>                       
+                    
+                    <li>
                         <a href="Financials.php">
                             <span class="ca-icon"><i class="fa fa-gbp"></i></span>
                             <div class="ca-content">

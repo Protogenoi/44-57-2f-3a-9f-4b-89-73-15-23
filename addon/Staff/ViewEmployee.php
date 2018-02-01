@@ -887,6 +887,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
                                                     <option value=""></option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='First Priority Group') { echo "selected"; } } ?> value="First Priority Group">First Priority Group</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Bluestone Protect') { echo "selected"; } } ?> value="Bluestone Protect">Bluestone Protect</option>
+                                                    <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Life Assured') { echo "selected"; } } ?> value="Life Assured">Life Assured</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='The Review Bureau') { echo "selected"; } } ?> value="The Review Bureau">The Review Bureau</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='We Insure') { echo "selected"; } } ?> value="We Insure">We Insure</option>
                                                     <option <?php if(isset($EMP_COMPANY)) { if($EMP_COMPANY=='Protect Family Plans') { echo "selected"; } } ?> value="Protect Family Plans">Protect Family Plans</option>

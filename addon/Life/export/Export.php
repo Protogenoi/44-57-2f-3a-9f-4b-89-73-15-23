@@ -77,10 +77,115 @@ if (isset($fferror)) {
         require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
 
 $query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
-$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+
+if(isset($EXECUTE)) {
+    
+                if($COMPANY_ENTITY=='Bluestone Protect') {
+                    $simply_biz = "2.5";
+                } elseif($COMPANY_ENTITY=='First Priority Group') {
+                    $simply_biz = "5.0";
+                } else{
+                    $simply_biz = "0.0";
+                }
+    
+    $DATE_FROM= filter_input(INPUT_POST, 'DATE_FROM', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DATE_TO= filter_input(INPUT_POST, 'DATE_TO', FILTER_SANITIZE_SPECIAL_CHARS);
+    $INSURER= filter_input(INPUT_POST, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $file="export";
+    $filename = $file."_".date("Y-m-d_H-i",time());
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename='.$filename.'.csv');       
+    
+           if($EXECUTE=='1') {
+            
+         if(isset($INSURER)) {
+             if($INSURER == 'Vitality') {
+            
+            $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,Email,Address_1,Address_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $query = $pdo->prepare("SELECT 
+    vitality_financial.vitality_financial_amount AS FIN_AMOUNT,
+    client_policy.application_number,
+    client_policy.policy_number AS POLICY_NUMBER,
+    CONCAT(DATE(client_policy.submitted_date), ' - ',
+    DATE(client_policy.sale_date)) as sale_sub,
+    client_policy.commission,
+    DATE(vitality_financial.vitality_financial_uploaded_date) AS insert_date,
+    '' AS empty_col,
+    client_policy.client_name,
+    '' AS empty_col,
+    client_details.phone_number,
+    client_details.alt_number,
+    CONCAT(client_details.dob,
+            ' - ',
+            client_details.dob2) AS CDOB,
+    client_details.email,
+    client_details.address1,
+    client_details.address2,
+    CONCAT(client_details.address3,
+            ' ',
+            client_details.town) AS TOWN,
+    client_details.post_code,
+    client_policy.premium,
+    client_policy.type,
+    client_policy.commission,
+    '' AS empty_col,
+    '' AS empty_col2,
+    CONCAT(client_policy.lead,
+            '/',
+            client_policy.closer) AS AGENTS,
+    client_policy.policystatus,
+    client_policy.insurer,
+    client_policy.submitted_by,
+    client_details.company,
+    client_details.submitted_date
+FROM
+    client_policy
+        LEFT JOIN
+    client_details ON client_policy.client_id = client_details.client_id
+        LEFT JOIN
+    vitality_financial ON vitality_financial.vitality_financial_policy_number = client_policy.policy_number
+WHERE
+    DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto AND client_policy.insurer='Vitality'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2 AND client_policy.insurer='Vitality'");
+            $query->bindParam(':datefrom', $DATE_FROM, PDO::PARAM_STR);
+            $query->bindParam(':dateto', $DATE_TO, PDO::PARAM_STR);
+            $query->bindParam(':datefrom2', $DATE_FROM, PDO::PARAM_STR);
+            $query->bindParam(':dateto2', $DATE_TO, PDO::PARAM_STR);
+            $query->execute();
+            $list = $query->fetchAll();
+            foreach ($list as $rs) {
+                
+            $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
+            $pipe=$rs['commission']-$ADL_AMOUNT;  
+            $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
+
+            if(empty($rs['FIN_AMOUNT'])) {
+                $rs['FIN_AMOUNT']='NOT PAID';
+            }
+
+                
+                $output .= $rs['application_number'].",".$rs['POLICY_NUMBER'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['FIN_AMOUNT'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                
+            }
+            echo $output;
+            exit;
+            } 
+}           
+}
+}
 
 
 if(isset($query)) {
+    
+                    if($COMPANY_ENTITY=='Bluestone Protect') {
+                    $simply_biz = "2.5";
+                } elseif($COMPANY_ENTITY=='First Priority Group') {
+                    $simply_biz = "5.0";
+                } else{
+                    $simply_biz = "0.0";
+                }
     
     $datefrom= filter_input(INPUT_POST, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
     $dateto= filter_input(INPUT_POST, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -88,9 +193,10 @@ if(isset($query)) {
     $filename = $file."_".date("Y-m-d_H-i",time());
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename='.$filename.'.csv');    
+       
         
         if($query=='LIFE') {
-            $simply_biz = "2.5";
+            
             
             $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 
@@ -150,6 +256,7 @@ WHERE
                 $pipe=$rs['commission']-$ADL_AMOUNT;  
                 $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
 
+
                 
                 $output .= $rs['application_number'].",".$rs['policy_number'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,".$rs['payment_amount'].",".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
                 
@@ -162,7 +269,6 @@ WHERE
         
             $USER= filter_input(INPUT_POST, 'USER', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $simply_biz = "2.5";
             
             $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 
@@ -227,7 +333,6 @@ WHERE
             }
             
         if($query=='JUSTLIFE') {
-            $simply_biz = "2.5";
             
             $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 
@@ -359,25 +464,7 @@ WHERE
             $list = $query->fetchAll();
             foreach ($list as $rs) {
                 
-                $INSURER=$rs['insurer'];
-                
-                
-                
-                if($INSURER=='Royal London') {
-                    $simply_biz = "18.75";
-                }
-                if($INSURER=='Aviva') {
-                    $simply_biz = "18.75";
-                }
-                if($INSURER=='Vitality') {
-                    $simply_biz = "25.00";
-                }
-                if($INSURER=='One Family') {
-                    $simply_biz = "17.50";
-                }
-                if($INSURER=='Engage Mutual') {
-                    $simply_biz = "17.50";
-                }                
+                $INSURER=$rs['insurer'];             
                 
                  $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
                 $pipe=$rs['commission']-$ADL_AMOUNT;  
@@ -392,7 +479,6 @@ WHERE
             }        
             
         if($query=='LIFECOMM') {
-            $simply_biz = "2.5";
             
             $output = "Application_Number,Policy_Number, Sale_Date, COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,EMail,Address_Line_1,Address_Line_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,COMM_NAME,Closer,Status,Insurer,Owner,Company,Date_Added\n";
             $query = $pdo->prepare("SELECT 

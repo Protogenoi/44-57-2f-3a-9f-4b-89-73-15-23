@@ -98,13 +98,15 @@ FROM
     client_details
 WHERE
     DATE(submitted_date) >='2017-08-31'
+    AND 
+    client_details.company !='FPG Paul'
     AND
     client_details.email !=''
  AND
     client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM
-            keyfactsemail)");
+            keyfactsemail) AND client_details.owner !='FPG Paul'");
     $KFS_stmt->execute();
     $KFS_stmtresult = $KFS_stmt->fetch(PDO::FETCH_ASSOC);
 }

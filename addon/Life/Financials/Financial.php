@@ -50,6 +50,14 @@ $LV_DATE_FROM = filter_input(INPUT_GET, 'LV_datefrom', FILTER_SANITIZE_SPECIAL_C
 $LV_DATE_TO = filter_input(INPUT_GET, 'LV_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                    if($COMPANY_ENTITY=='Bluestone Protect') {
+                    $simply_biz = "2.5";
+                } elseif($COMPANY_ENTITY=='First Priority Group') {
+                    $simply_biz = "5.0";
+                } else{
+                    $simply_biz = "0.0";
+                }
 ?>
 <!DOCTYPE html>
 <html>
@@ -163,7 +171,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                             while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
                                                 if (isset($row['vitality_financial_uploaded_date'])) {
                                                     ?>
-                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>" <?php if($COMM_DATE == $row['vitality_financial_uploaded_date'] ) { echo "selected"; } ?> ><?php echo $row['vitality_financial_uploaded_date']; ?></option>
 
                                                     <?php
                                                 }
@@ -453,8 +461,6 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
                 
                         <?php
-                        $simply_biz = "5.00";
-
                                                      
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/VITALITY/TotalMissingWithDates.php');
@@ -1667,7 +1673,6 @@ WHERE
 
                 
                         <?php
-                        $simply_biz = "5.00";
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/ROYAL/TotalMissingWithDates.php');
@@ -2880,7 +2885,7 @@ WHERE
 
                 
                         <?php
-                        $simply_biz = "5.00";
+
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/WOL/TotalMissingWithDates.php');
@@ -4093,7 +4098,6 @@ WHERE
 
                 
                         <?php
-                        $simply_biz = "5.00";
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/AVIVA/TotalMissingWithDates.php');
@@ -5306,7 +5310,6 @@ WHERE
 
                 
                         <?php
-                        $simply_biz = "5.00";
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/LV/TotalMissingWithDates.php');

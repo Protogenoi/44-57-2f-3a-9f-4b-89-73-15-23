@@ -310,6 +310,39 @@ if (isset($fferror)) {
                 </p>
             </form>
             
+            <form class="AddClient" action="/addon/Life/export/Export.php?EXECUTE=1" method="post">
+                <h3>Export Business Register</h3>
+                <p>
+                    <label for="Select" required>Select Policies that</label>
+                    <select name="Select">
+                        <option value="submitted_date">Were Added</option>
+                        <option value="sale_date">Were Sold</option>
+                    </select>
+                </p>
+                <br>
+                
+                <p>
+                    <select name="INSURER">
+                        <option value="Vitality">Vitality</option>
+                        <option value="Royal London">Royal London</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label for="datefrom">From:</label>
+                    <input type="text" id="VITfrom" name="DATE_FROM" value="<?php if(isset($DATE_FROM)) { echo $DATE_FROM; } ?>" required>
+                </p>
+
+                <p>
+                    <label for="dateto">To:</label>
+                    <input type="text" id="VITto" name="DATE_TO" value="<?php if(isset($DATE_TO)) { echo $DATE_TO; } ?>" required>
+                </p>
+
+                <p>
+                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-save"></span> Export</button>
+                </p>
+            </form>            
+            
             <form class="AddClient" action="/addon/Life/export/Export.php?query=BYUSER" method="post">
                 <h3>Export Business Register by user:</h3>
                                         <select id="USER" name="USER" class="form-control">

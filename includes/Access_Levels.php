@@ -46,6 +46,7 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $COMPANY_ENTITY_ID="1";
     $COMPANY_ENTITY = 'Bluestone Protect';
+    $COMPANY_ENTITY_LEAD_GENS="The Review Bureau";
     
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");

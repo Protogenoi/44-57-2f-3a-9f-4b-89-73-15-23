@@ -445,6 +445,77 @@ echo "INSERT<br>";
     
 }
 
+if($EXECUTE== '4') {    
+    echo "EXECUTE 4";
+if ($_FILES["csv"]["size"] > 0) {
+
+    
+    $file = $_FILES["csv"]["tmp_name"];
+    $handle = fopen($file,"r");
+    
+            $date=date("y-m-d-G:i:s");
+            
+            $fileup = $date."-".$hello_name."-EWS";
+            $file_loc = $_FILES["csv"]["tmp_name"];
+            $file_size = $_FILES["csv"]["size"];
+            $file_type = $_FILES["csv"]["type"];
+            $folder="../Life/EWS/uploads/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($fileup);
+            $final_file=str_replace("'","",$new_file_name);
+ 
+
+    do {
+        
+        if(isset($data[0])){
+            $CID=filter_var($data[0],FILTER_SANITIZE_NUMBER_INT); 
+        }
+        
+        if(isset($data[1])){
+            $NAME=filter_var($data[1],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+        }
+        
+        if(isset($data[2])){
+            $NOTE=filter_var($data[2],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+        }
+
+
+// CHECK THERE IS DATA            
+            if(isset($data[0])) {
+
+ // INSERT THE REST
+
+echo "INSERT<br>";
+        $INSERT_MASTER = $pdo->prepare('INSERT INTO 
+                                            client_note 
+                                        SET
+                                            client_id=:CID, 
+                                            client_name=:NAME, 
+                                            note_type="FPG PAUL Recordings", 
+                                            message=:MESSAGE, 
+                                            sent_by="ADL"
+                                         ');     
+        $INSERT_MASTER->bindParam(':CID',$CID, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':NAME',$NAME, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':MESSAGE',$NOTE, PDO::PARAM_STR);
+        $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true)); 
+
+        
+        } // END CHECK IF THERES DATA
+        
+    } 
+    
+    while ($data = fgetcsv($handle,1000,",",'"'));
+    
+
+ //header('Location: ../CRMmain.php?UPLOADED'); die;   
+ 
+    
+}    
+    
+}
+
 }
 
 ?>

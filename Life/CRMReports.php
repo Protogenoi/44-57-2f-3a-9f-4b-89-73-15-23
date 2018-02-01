@@ -105,7 +105,7 @@ if (isset($fferror)) {
                                 <a href="Reports_Menu.php">
                                     <span class="ca-icon"><i class="fa fa-warning"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">Bluestone Protect<br/>EWS/Financials</h2>
+                                        <h2 class="ca-main">EWS/Financials<br/></h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>

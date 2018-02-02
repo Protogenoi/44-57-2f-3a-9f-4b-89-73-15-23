@@ -8,7 +8,7 @@ class RL_TotalExpectedWithDatesModal {
         $this->pdo = $pdo;
     }
 
-    public function RL_getTotalExpectedWithDates($datefrom, $dateto) {
+    public function RL_getTotalExpectedWithDates($RL_DATE_FROM, $RL_DATE_TO) {
 
         $stmt = $this->pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -22,10 +22,10 @@ WHERE
         AND client_policy.insurer = 'Royal London'
         AND policystatus = 'Awaiting'
         ");
-        $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-        $stmt->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto2', $dateto, PDO::PARAM_STR);       
+        $stmt->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR);
+        $stmt->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR);
+        $stmt->bindParam(':datefrom2', $RL_DATE_FROM, PDO::PARAM_STR);
+        $stmt->bindParam(':dateto2', $RL_DATE_TO, PDO::PARAM_STR);       
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

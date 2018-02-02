@@ -50,6 +50,7 @@ $LV_DATE_FROM = filter_input(INPUT_GET, 'LV_datefrom', FILTER_SANITIZE_SPECIAL_C
 $LV_DATE_TO = filter_input(INPUT_GET, 'LV_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+$RL_COMM_DATE = filter_input(INPUT_GET, 'RL_commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
                     if($COMPANY_ENTITY=='Bluestone Protect') {
                     $simply_biz = "2.5";
@@ -213,20 +214,20 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                 <div class="col-xs-4">
                                     <select class="form-control" name="RL_commdate">
                                         <?php
-                                        $COM_DATE_query = $pdo->prepare("SELECT 
-                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                        $RL_COM_DATE_query = $pdo->prepare("SELECT 
+                                                        DATE(royal_london_financial_uploaded_date) AS royal_london_financial_uploaded_date
                                                     FROM 
-                                                        vitality_financial 
+                                                        royal_london_financial 
                                                     group by 
-                                                        DATE(vitality_financial_uploaded_date) 
+                                                        DATE(royal_london_financial_uploaded_date) 
                                                     ORDER BY 
-                                                        vitality_financial_uploaded_date DESC");
-                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
-                                        if ($COM_DATE_query->rowCount() > 0) {
-                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
-                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                        royal_london_financial_uploaded_date DESC");
+                                        $RL_COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($RL_COM_DATE_query->rowCount() > 0) {
+                                            while ($row = $RL_COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['royal_london_financial_uploaded_date'])) {
                                                     ?>
-                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+                                                    <option value="<?php echo $row['royal_london_financial_uploaded_date']; ?>" <?php if($RL_COMM_DATE == $row['royal_london_financial_uploaded_date']) { echo "selected"; } ?> ><?php echo $row['royal_london_financial_uploaded_date']; ?></option>
 
                                                     <?php
                                                 }
@@ -1658,9 +1659,9 @@ WHERE
                      <li><a data-toggle="pill" href="#RL_EXPORT">Export</a></li>
                      <li><a data-toggle="pill" href="#RL_NOMATCH">Unmatched Policies <span class="badge alert-warning">
                         <?php
-                        $nomatchbadge = $pdo->query("SELECT COUNT(financials_nomatch_id) AS badge from financials_nomatch");
-                        $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
-                        echo htmlentities($row['badge']);
+                        $RL_nomatchbadge = $pdo->query("SELECT COUNT(royal_london_financial_nomatch_id) AS badge from royal_london_financial_nomatch");
+                        $RL_row = $RL_nomatchbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($RL_row['badge']);
                         ?>
                     </span></a></li>
                  </ul>
@@ -1724,25 +1725,26 @@ WHERE
                             
 
                             $query = $pdo->prepare("SELECT 
-    SUM(CASE WHEN vitality_financial_amount < 0 THEN vitality_financial_amount ELSE 0 END) as totalloss,
-    SUM(CASE WHEN vitality_financial_amount >= 0 THEN vitality_financial_amount ELSE 0 END) as totalgross
-    FROM vitality_financial 
-    WHERE 
-        DATE(vitality_financial_uploaded_date)=:commdate");
-                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-
-
-                            $POL_ON_TM_QRY = $pdo->prepare("select 
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_PLUS,
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_LOSS 
+    SUM(royal_london_financial_commission_debits_amount) as totalloss,
+    SUM(royal_london_financial_commission_credit_amount) as totalgross
     FROM 
-        vitality_financial 
+        royal_london_financial 
+    WHERE 
+        DATE(royal_london_financial_uploaded_date)=:commdate");
+                            $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
+
+
+                            $POL_ON_TM_QRY = $pdo->prepare("SELECT 
+    SUM(royal_london_financial_commission_credit_amount) as PAID_TOTAL_PLUS,
+    SUM(royal_london_financial_commission_debits_amount) as PAID_TOTAL_LOSS 
+    FROM 
+        royal_london_financial 
     LEFT JOIN 
         client_policy 
     ON 
-        vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+        royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number 
     WHERE 
-        DATE(vitality_financial_uploaded_date) = :commdate
+        DATE(royal_london_financial_uploaded_date) = :commdate
     AND 
         client_policy.policy_number IN(SELECT 
                                             client_policy.policy_number 
@@ -1757,7 +1759,7 @@ WHERE
                                         AND 
                                             client_policy.insurer='Royal London')
                                             ");
-                            $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
@@ -1768,19 +1770,21 @@ WHERE
 
                             $POL_NOT_TM_QRY = $pdo->prepare("
                                 SELECT
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
+                                    SUM(royal_london_financial_commission_credit_amount) as NOT_PAID_TOTAL_PLUS,
+                                    SUM(royal_london_financial_commission_debits_amount) as NOT_PAID_TOTAL_LOSS   
                                 FROM 
-                                    vitality_financial
+                                    royal_london_financial
                                 LEFT JOIN 
                                     client_policy 
                                 ON 
-                                    vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                    royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                                 WHERE 
-                                    DATE(vitality_financial_uploaded_date) = :commdate 
+                                    DATE(royal_london_financial_uploaded_date) = :commdate 
                                 AND 
-                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
-                            $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                                    client_policy.policy_number 
+                                IN
+                                    (select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
+                            $POL_NOT_TM_QRY->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
@@ -1796,7 +1800,7 @@ WHERE
                                     WHERE 
                                         DATE(sale_date) BETWEEN '2017-01-01' AND :dateto
                                     AND 
-                                        policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
+                                        policy_number NOT IN(select royal_london_financial_plan_number FROM royal_london_financial)
                                     AND 
                                         insurer='Royal London'
                                     AND 
@@ -1822,7 +1826,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
+                                    <th colspan="8"><?php echo "ADL Projections for $RL_COMM_DATE";?></th>
                                 </tr>
                                 <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$RL_DATE_FROM - $RL_DATE_TO"; ?>.
                                                    
@@ -1880,22 +1884,22 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                 <table  class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th colspan="8"><?php echo "RAW COMMS statistics for $COMM_DATE";?></th>
+                                            <th colspan="8"><?php echo "RAW COMMS statistics for $RL_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
                                     <th>HWIFS <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - HWIFS for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
+                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - HWIFS for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$RL_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_MISSING_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_MISSING_SUM_FORMAT; ?>"
-></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
                                     </tr>
                                     </thead>
                                     
@@ -1937,7 +1941,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "RAW COMMS breakdown $COMM_DATE"; ?></th>
+                                    <th colspan="8"><?php echo "RAW COMMS breakdown $RL_COMM_DATE"; ?></th>
                                 </tr>
                                 <tr>
                                     <th>Payments on Time</th> 
@@ -1969,23 +1973,24 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                         client_policy.policy_number, 
                         client_policy.commission, 
                         DATE(client_policy.sale_date) AS SALE_DATE, 
-                        vitality_financial.vitality_financial_life_assured_name, 
-                        vitality_financial.vitality_financial_policy_number, 
-                        vitality_financial.vitality_financial_amount, 
-                        DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                        royal_london_financial.royal_london_financial_plan_owner, 
+                        royal_london_financial.royal_london_financial_plan_number, 
+                        royal_london_financial.royal_london_financial_commission_credit_amount,
+                        royal_london_financial.royal_london_financial_commission_debits_amount,
+                        DATE(royal_london_financial_uploaded_date) AS COMM_DATE
                     FROM
-                        vitality_financial
+                        royal_london_financial
                     LEFT JOIN 
                         client_policy
                     ON 
-                        vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                        royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                     WHERE 
-                        DATE(vitality_financial_uploaded_date) = :commdate
+                        DATE(royal_london_financial.royal_london_financial_uploaded_date) = :COMM_DATE
                     AND
                         client_policy.insurer='Royal London'
                     ORDER BY 
-                        vitality_financial.vitality_financial_amount DESC");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
+                        royal_london_financial.royal_london_financial_commission_credit_amount DESC");
+                    $query->bindParam(':COMM_DATE', $RL_COMM_DATE, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1997,11 +2002,12 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>RAW COMMS for <?php echo "$COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>RAW COMMS for <?php echo "$RL_COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
-                            <th>COMM Amount</th>
+                            <th>Credit</th>
+                            <th>Debit</th>
                             </tr>
                             </thead>
                             <?php
@@ -2009,14 +2015,21 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
 
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['vitality_financial_life_assured_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                echo "<td>" . $row['royal_london_financial_plan_owner'] . "</td>";
+                                if (intval($row['royal_london_financial_commission_credit_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_credit_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 }
+                                if (intval($row['royal_london_financial_commission_debits_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_debits_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                }                                
 
 
                                 echo "</tr>";
@@ -2067,7 +2080,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$RL_COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -2113,7 +2126,7 @@ WHERE
 
                 <?php
 
-                    $query = $pdo->prepare("
+                    $RL_PENDING = $pdo->prepare("
                         SELECT 
                             DATE(sale_date) AS SALE_DATE, 
                             policystatus, client_name, 
@@ -2125,7 +2138,7 @@ WHERE
                             WHERE 
                                 DATE(sale_date) BETWEEN '2017-01-01' AND :dateto 
                             AND
-                                policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
+                                policy_number NOT IN(select royal_london_financial_plan_number FROM royal_london_financial) 
                             AND
                                 insurer='Royal London'
                             AND
@@ -2135,10 +2148,10 @@ WHERE
                             AND
                                 policy_number NOT like '%DU%' 
                             ORDER BY commission DESC");
-                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
+                    $RL_PENDING->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $RL_PENDING->execute()or die(print_r($RL_PENDING->errorInfo(), true));
+                    if ($RL_PENDING->rowCount() > 0) {
+                        $count = $RL_PENDING->rowCount();
                         ?>
 
                         <table  class="table table-hover table-condensed">
@@ -2156,7 +2169,7 @@ WHERE
                             </tr>
                             </thead>
                             <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $RL_PENDING->fetch(PDO::FETCH_ASSOC)) {
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
 
@@ -2194,7 +2207,7 @@ WHERE
         <div id="RL_MISSING" class="tab-pane fade">
                 <?php
                 
-                    $query = $pdo->prepare("
+                    $RL_MISSING = $pdo->prepare("
                         SELECT
                             DATE(client_policy.sale_date) AS SALE_DATE,
                             client_policy.policystatus,
@@ -2204,21 +2217,20 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            royal_london_financial.royal_london_financial_plan_number,
+                            royal_london_financial.royal_london_financial_commission_credit_amount,
+                            royal_london_financial.royal_london_financial_commission_debits_amount,
+                            DATE(royal_london_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            royal_london_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
                         AND 
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial) 
-                        AND
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
+                            client_policy.policy_number NOT IN(SELECT royal_london_financial.royal_london_financial_plan_number FROM royal_london_financial) 
                         AND 
                             client_policy.insurer='Royal London'
                         AND 
@@ -2227,11 +2239,11 @@ WHERE
                             client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
                         AND 
                             client_policy.policy_number NOT like '%DU%'");
-                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
+                    $RL_MISSING->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $RL_MISSING->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $RL_MISSING->execute()or die(print_r($RL_MISSING->errorInfo(), true));
+                    if ($RL_MISSING->rowCount() > 0) {
+                        $count = $RL_MISSING->rowCount();
                         ?>
 
                         <table  class="table table-hover table-condensed">
@@ -2239,7 +2251,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Missing for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Missing for <?php echo "$RL_COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -2249,7 +2261,7 @@ WHERE
                             </tr>
                             </thead>
                             <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $RL_MISSING->fetch(PDO::FETCH_ASSOC)) {
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
 
@@ -2286,7 +2298,7 @@ WHERE
         <div id="RL_AWAITING" class="tab-pane fade">
                 <?php
 
-                    $query = $pdo->prepare("
+                    $RL_AWAITING = $pdo->prepare("
                         SELECT
                             client_policy.application_number,
                             DATE(client_policy.submitted_date) AS submitted_date,
@@ -2296,15 +2308,16 @@ WHERE
                             client_policy.client_id AS CID,
                             client_policy.policy_number,
                             client_policy.commission,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            royal_london_financial.royal_london_financial_plan_number,
+                            royal_london_financial.royal_london_financial_commission_credit_amount,
+                            royal_london_financial.royal_london_financial_commission_debits_amount,
+                            DATE(royal_london_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            royal_london_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
@@ -2313,11 +2326,11 @@ WHERE
                             client_policy.policystatus ='Awaiting' 
                         ORDER BY 
                             DATE(client_policy.sale_date)");
-                    $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
-                    $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
+                    $RL_AWAITING->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $RL_AWAITING->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $RL_AWAITING->execute()or die(print_r($RL_AWAITING->errorInfo(), true));
+                    if ($RL_AWAITING->rowCount() > 0) {
+                        $count = $RL_AWAITING->rowCount();
                         ?>
 
                         <table  class="table table-hover table-condensed">
@@ -2325,7 +2338,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$RL_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -2336,7 +2349,7 @@ WHERE
                             </tr>
                             </thead>
                             <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $RL_AWAITING->fetch(PDO::FETCH_ASSOC)) {
 
                                 $ORIG_EXP_COMMISSION = $row['commission'];
                                 $AWAITING_SUB_DATE = $row['submitted_date'];
@@ -2376,24 +2389,26 @@ WHERE
 
                 <?php
                 
-                    $POLIN_SUM_QRY = $pdo->prepare("
+                    $RL_POLIN_SUM = $pdo->prepare("
                         SELECT 
-                            sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                            sum(royal_london_financial.royal_london_financial_commission_credit_amount) AS PLUS_AMOUNT 
                         FROM 
-                            vitality_financial
+                            royal_london_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(royal_london_financial.royal_london_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Royal London')");
-                    $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
-                    $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                            client_policy.policy_number 
+                        IN
+                            (select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Royal London')");
+                    $RL_POLIN_SUM->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
+                    $RL_POLIN_SUM->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
+                    $RL_POLIN_SUM->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
+                    $RL_POLIN_SUM->execute()or die(print_r($RL_POLIN_SUM->errorInfo(), true));
+                    $RL_POLIN_SUM_RS = $RL_POLIN_SUM->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_POLIN_SUM = $RL_POLIN_SUM_RS['PLUS_AMOUNT'];
 
                     $query = $pdo->prepare("
                         SELECT 
@@ -2403,18 +2418,21 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            royal_london_financial.royal_london_financial_plan_number,
+                            royal_london_financial.royal_london_financial_commission_credit_amount,
+                            royal_london_financial.royal_london_financial_commission_debits_amount,
+                            DATE(royal_london_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            royal_london_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(royal_london_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Royal London')");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
+                            client_policy.policy_number 
+                        IN
+                            (SELECT client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
+                    $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR);
                     $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR);
                     $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -2427,11 +2445,12 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $RL_COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
-                            <th>COMM Amount</th>
+                            <th>Credits</th>
+                            <th>Debits</th>
                             </tr>
                             </thead>
                             <?php
@@ -2440,13 +2459,21 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['royal_london_financial_commission_credit_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_credit_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 }
+            
+                                if (intval($row['royal_london_financial_commission_debits_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_debits_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                }                   
 
 
                                 echo "</tr>";
@@ -2473,21 +2500,24 @@ WHERE
                             client_policy.client_id AS CID, 
                             client_policy.policy_number, 
                             client_policy.commission, 
-                            DATE(client_policy.sale_date) AS SALE_DATE, 
-                            vitality_financial.vitality_financial_policy_number, 
-                            vitality_financial.vitality_financial_amount, 
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            DATE(client_policy.sale_date) AS SALE_DATE,
+                            royal_london_financial.royal_london_financial_commission_credit_amount,
+                            royal_london_financial.royal_london_financial_commission_debits_amount,
+                            royal_london_financial.royal_london_financial_plan_number, 
+                            DATE(royal_london_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            royal_london_financial
                         LEFT JOIN 
                             client_policy
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(royal_london_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                            client_policy.policy_number 
+                        IN
+                            (SELECT client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Royal London')");
+                    $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $RL_DATE_TO, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $RL_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -2500,11 +2530,12 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$RL_DATE_TO - $RL_DATE_FROM with COMM date of $RL_COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
-                            <th>COMM Amount</th>
+                            <th>Credit</th>
+                            <th>Debits</th>
                             </tr>
                             </thead>
                             <?php
@@ -2513,12 +2544,19 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['royal_london_financial_commission_credit_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_credit_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
+                                }
+                                if (intval($row['royal_london_financial_commission_debits_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else if (intval($row["royal_london_financial_commission_debits_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
                                 }
 
 
@@ -2541,48 +2579,48 @@ WHERE
 
                     $COMMIN_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount
+                                sum(royal_london_financial_commission_credit_amount) AS PAID
                             FROM 
-                                vitality_financial 
+                                royal_london_financial 
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount >= 0 
+                                royal_london_financial_commission_credit_amount >= 0 
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate 
+                                DATE(royal_london_financial_uploaded_date) =:commdate 
                             AND 
                                 client_policy.insurer ='Royal London'");
-                    $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMIN_SUM_QRY->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['PAID'];
                     $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
                     $query = $pdo->prepare("
                         SELECT
-                            vitality_financial.vitality_financial_amount, 
+                            royal_london_financial_commission_credit_amount, 
                             client_policy.CommissionType, 
                             DATE(client_policy.sale_date) AS sale_date, 
                             client_policy.policy_number, 
-                            vitality_financial.vitality_financial_policy_number, 
+                            royal_london_financial.royal_london_financial_plan_number, 
                             client_policy.client_name, 
                             client_policy.client_id 
                         FROM 
-                            vitality_financial 
+                            royal_london_financial 
                         LEFT JOIN
                             client_policy 
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                            royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number 
                         WHERE 
-                            vitality_financial.vitality_financial_amount >= 0 
+                            royal_london_financial.royal_london_financial_commission_credit_amount >= 0 
                         AND 
-                            DATE(vitality_financial_uploaded_date) =:commdate
+                            DATE(royal_london_financial_uploaded_date) =:commdate
                         AND 
                             client_policy.insurer='Royal London'");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2593,19 +2631,19 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $RL_COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
                             <th>Policy</th>
-                            <th>COMM Amount</th>
+                            <th>Credits</th>
                             </tr>
                             </thead>
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['royal_london_financial_plan_number'];
+                                $PAY_AMOUNT = number_format($row['royal_london_financial_commission_credit_amount'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -2638,45 +2676,46 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                                sum(royal_london_financial_commission_debits_amount) AS DEBITS 
                             FROM 
-                                vitality_financial 
+                                royal_london_financial 
                             LEFT JOIN 
                                 client_policy 
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0
+                                royal_london_financial_commission_credit_amount < 0
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate
+                                DATE(royal_london_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Royal London'");
-                    $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMOUT_SUM_QRY->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['vitality_financial_amount'];
+                    
+                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['DEBITS'];
                     $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
 
                     $query = $pdo->prepare("
                             SELECT 
-                                vitality_financial.vitality_financial_amount, 
+                                royal_london_financial_commission_debits_amount, 
                                 client_policy.CommissionType, 
                                 DATE(client_policy.sale_date) AS sale_date, 
                                 client_policy.policy_number, 
-                                vitality_financial.vitality_financial_policy_number, 
+                                royal_london_financial_plan_number, 
                                 client_policy.client_name, 
                                 client_policy.client_id 
                             FROM 
-                                vitality_financial
+                                royal_london_financial
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                                royal_london_financial.royal_london_financial_commission_debits_amount=client_policy.policy_number 
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
+                                royal_london_financial_commission_debits_amount < 0 AND DATE(royal_london_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Royal London'");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -2687,19 +2726,19 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $RL_COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
                             <th>Policy</th>
-                            <th>COMM Amount</th>
+                            <th>Debits</th>
                             </tr>
                             </thead>
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['royal_london_financial_plan_number'];
+                                $PAY_AMOUNT = number_format($row['royal_london_financial_commission_debits_amount'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -2730,12 +2769,13 @@ WHERE
                 <?php
                 $query = $pdo->prepare("
                         SELECT
-                            vitality_financial_nomatch_id, 
-                            vitality_financial_nomatch_amount, 
-                            vitality_financial_nomatch_uploaded_date, 
-                            vitality_financial_nomatch_policy_number
+                            royal_london_financial_nomatch_id, 
+                            royal_london_financial_nomatch_commission_debits_amount,
+                            royal_london_financial_nomatch_commission_credit_amount
+                            royal_london_financial_nomatch_uploaded_date, 
+                            royal_london_financial_nomatch_plan_number
                         FROM
-                            vitality_financial_nomatch");
+                            royal_london_financial_nomatch");
                 ?>
                 <table class="table table-hover">
                     <thead>
@@ -2745,7 +2785,8 @@ WHERE
                     <th>Row</th>
                     <th>Entry Date</th>
                     <th>Policy</th>
-                    <th>Premium</th>
+                    <th>Credits</th>
+                    <th>Debits</th>
                     <th>Re-check ADL</th>
                     <th>Re-check all</th>
                     </thead>
@@ -2757,22 +2798,30 @@ WHERE
                             
                             $i++;
 
-                            $policy = $row['vitality_financial_nomatch_policy_number'];
-                            $paytype = $row['vitality_financial_nomatch_amount'];
-                            $iddd = $row['vitality_financial_nomatch_id'];
+                            $policy = $row['royal_london_financial_nomatch_plan_number'];
+                            $RL_CREDITS = $row['royal_london_financial_nomatch_commission_credit_amount'];
+                            $RL_DEBITS = $row['royal_london_financial_nomatch_commission_debits_amount'];
+                            $iddd = $row['royal_london_financial_nomatch_id'];
                             echo "<tr>
                             <td>$i</td>
                             ";
                             
-                            echo"<td>" . $row['vitality_financial_nomatch_uploaded_date'] . "</td>";
+                            echo"<td>" . $row['royal_london_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
-                            if (intval($row['vitality_financial_nomatch_policy_number']) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['vitality_financial_nomatch_policy_number'] . "</span></td>";
-                            } else if (intval($row["vitality_financial_nomatch_amount"]) < 0) {
-                                echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_nomatch_amount'] . "</span></td>";
+                            if (intval($RL_CREDITS) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_policy_number'] . "</span></td>";
+                            } else if (intval($RL_CREDITS) < 0) {
+                                echo "<td><span class=\"label label-danger\">$RL_CREDITS</span></td>";
                             } else {
-                                echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
+                                echo "<td>$RL_CREDITS</td>";
                             }
+                           if (intval($RL_DEBITS) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_policy_number'] . "</span></td>";
+                            } else if (intval($RL_DEBITS) < 0) {
+                                echo "<td><span class=\"label label-danger\">$RL_DEBITS</span></td>";
+                            } else {
+                                echo "<td>$RL_DEBITS</td>";
+                            }                          
                             echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Royal London&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Royal London' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
@@ -2792,12 +2841,12 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$RL_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=2<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=2<?php echo "&commdate=$RL_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
                                         </div>
 
 
@@ -2811,12 +2860,12 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO&commdate=$RL_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=5<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=5<?php echo "&commdate=$RL_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
                                         </div>
 
 

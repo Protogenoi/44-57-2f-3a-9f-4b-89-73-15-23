@@ -2547,16 +2547,17 @@ WHERE
                                 if (intval($row['royal_london_financial_commission_credit_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 } else if (intval($row["royal_london_financial_commission_credit_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
-                                } else {
                                     echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-default\">" . $row['royal_london_financial_commission_credit_amount'] . "</span></td>";
                                 }
+                                
                                 if (intval($row['royal_london_financial_commission_debits_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
                                 } else if (intval($row["royal_london_financial_commission_debits_amount"]) < 0) {
                                     echo "<td><span class=\"label label-danger\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-default\">" . $row['royal_london_financial_commission_debits_amount'] . "</span></td>";
                                 }
 
 
@@ -2587,8 +2588,6 @@ WHERE
                             ON 
                                 royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                             WHERE 
-                                royal_london_financial_commission_credit_amount >= 0 
-                            AND 
                                 DATE(royal_london_financial_uploaded_date) =:commdate 
                             AND 
                                 client_policy.insurer ='Royal London'");
@@ -2615,7 +2614,7 @@ WHERE
                         ON 
                             royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number 
                         WHERE 
-                            royal_london_financial.royal_london_financial_commission_credit_amount >= 0 
+                            royal_london_financial.royal_london_financial_commission_credit_amount > 0 
                         AND 
                             DATE(royal_london_financial_uploaded_date) =:commdate
                         AND 
@@ -2651,7 +2650,7 @@ WHERE
                                 echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
                                 if (intval($PAY_AMOUNT) > 0) {
                                     echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
-                                } else if (intval($PAY_AMOUNT) < 0) {
+                                } else if (intval($PAY_AMOUNT) <= 0) {
                                     echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
                                 } else {
                                     echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
@@ -2684,8 +2683,6 @@ WHERE
                             ON 
                                 royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number
                             WHERE 
-                                royal_london_financial_commission_credit_amount < 0
-                            AND 
                                 DATE(royal_london_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Royal London'");
@@ -2696,7 +2693,7 @@ WHERE
                     $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['DEBITS'];
                     $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
 
-                    $query = $pdo->prepare("
+                    $RL_CLAWBACKS = $pdo->prepare("
                             SELECT 
                                 royal_london_financial_commission_debits_amount, 
                                 client_policy.CommissionType, 
@@ -2710,15 +2707,17 @@ WHERE
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                royal_london_financial.royal_london_financial_commission_debits_amount=client_policy.policy_number 
+                                royal_london_financial.royal_london_financial_plan_number=client_policy.policy_number 
                             WHERE 
-                                royal_london_financial_commission_debits_amount < 0 AND DATE(royal_london_financial_uploaded_date) =:commdate
+                                royal_london_financial_commission_debits_amount > 0 
+                            AND 
+                                DATE(royal_london_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Royal London'");
-                    $query->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->execute()or die(print_r($query->errorInfo(), true));
-                    if ($query->rowCount() > 0) {
-                        $count = $query->rowCount();
+                    $RL_CLAWBACKS->bindParam(':commdate', $RL_COMM_DATE, PDO::PARAM_STR, 100);
+                    $RL_CLAWBACKS->execute()or die(print_r($RL_CLAWBACKS->errorInfo(), true));
+                    if ($RL_CLAWBACKS->rowCount() > 0) {
+                        $count = $RL_CLAWBACKS->rowCount();
                         ?>
 
                         <table  class="table table-hover table-condensed">
@@ -2735,7 +2734,7 @@ WHERE
                             </tr>
                             </thead>
                             <?php
-                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            while ($row = $RL_CLAWBACKS->fetch(PDO::FETCH_ASSOC)) {
 
                                 $policy = $row['royal_london_financial_plan_number'];
                                 $PAY_AMOUNT = number_format($row['royal_london_financial_commission_debits_amount'], 2);
@@ -2745,7 +2744,7 @@ WHERE
                                 echo "<td>" . $row['client_name'] . "</td>";
                                 echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
                                 if (intval($PAY_AMOUNT) > 0) {
-                                    echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                                    echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
                                 } else if (intval($PAY_AMOUNT) < 0) {
                                     echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
                                 } else {
@@ -2759,7 +2758,7 @@ WHERE
 
                         <?php
                     } else {
-                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Clawbacks</div>";
                     }
                 ?>
             </div>                                
@@ -2771,7 +2770,7 @@ WHERE
                         SELECT
                             royal_london_financial_nomatch_id, 
                             royal_london_financial_nomatch_commission_debits_amount,
-                            royal_london_financial_nomatch_commission_credit_amount
+                            royal_london_financial_nomatch_commission_credit_amount,
                             royal_london_financial_nomatch_uploaded_date, 
                             royal_london_financial_nomatch_plan_number
                         FROM
@@ -2809,14 +2808,14 @@ WHERE
                             echo"<td>" . $row['royal_london_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
                             if (intval($RL_CREDITS) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_policy_number'] . "</span></td>";
+                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_plan_number'] . "</span></td>";
                             } else if (intval($RL_CREDITS) < 0) {
                                 echo "<td><span class=\"label label-danger\">$RL_CREDITS</span></td>";
                             } else {
                                 echo "<td>$RL_CREDITS</td>";
                             }
                            if (intval($RL_DEBITS) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_policy_number'] . "</span></td>";
+                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_plan_number'] . "</span></td>";
                             } else if (intval($RL_DEBITS) < 0) {
                                 echo "<td><span class=\"label label-danger\">$RL_DEBITS</span></td>";
                             } else {

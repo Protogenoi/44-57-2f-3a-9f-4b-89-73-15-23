@@ -764,11 +764,23 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         }
 
                         if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
+                            
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/RoyalLondon/Policies-modal.php');
+                            $RLPolicies = new RLPoliciesModal($pdo);
+                            $RLPoliciesList = $RLPolicies->getRLPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/RoyalLondon/Policies-view.php');        
+                                
+                            } else {                            
+                            
                             require_once(__DIR__ . '/../addon/Life/models/RLPoliciesModel.php');
                             $RLPolicies = new RLPoliciesModal($pdo);
                             $RLPoliciesList = $RLPolicies->getRLPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/RL-Policies.php');
                             
+                        }
+                        
                         }
 
                         if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
@@ -2243,6 +2255,15 @@ WHERE
                             }
                             
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
+                                
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/RoyalLondon/Financial-model.php');
+                            $RLtrans = new RLtransModel($pdo);
+                            $RLtransList = $RLtrans->getRLtrans($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/RoyalLondon/Financial-view.php');                                      
+                                    
+                                } else {                                
                             
                             require_once(__DIR__ . '/../addon/Life/models/financials/transactions/RLModel.php');
                             $RLtrans = new RLtransModel($pdo);
@@ -2250,6 +2271,8 @@ WHERE
                             require_once(__DIR__ . '/../addon/Life/views/financials/transactions/rl-view.php');             
                             
                             }   
+                            
+                            }
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                             

@@ -12,9 +12,8 @@
             <th>Premium</th>
             <th>Cover</th>
             <th>Status</th>
-            <th>EWS</th>
             <th>Financial</th>
-            <th colspan="4">Options</th>
+            <th colspan="3">Options</th>
         </tr>
     </thead> 
     <?php foreach ($VITALITYPoliciesList as $VITALITY_Policies): ?>
@@ -25,9 +24,6 @@
         $polref = $VITALITY_Policies['policy_number'];
         $polcap[] = $VITALITY_Policies['id'];
         $POL_HOLDER = $VITALITY_Policies['client_name'];
-
-        $ADLSTATUS = $VITALITY_Policies['ADLSTATUS'];
-        $EWSSTATUS = $VITALITY_Policies['warning'];
         
         if(empty($Old_Policies['covera'])) {
             $Old_Policies['covera']=0;
@@ -40,8 +36,15 @@
         if (empty($polref)) {
             echo "<td>TBC</td>";
         } else {
-            echo "<td><form target='_blank' action='#' method='post'><input type='hidden' value='$polref'><input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='B'><input type='hidden' name='searchCriteria.includeLife' value='true' ><button type='submit' value='Search' name='command' class='btn btn-default btn-sm'><i class='fa fa-search'></i> $polref</button></form></td>";
-        }
+            echo "<td>
+                    <form target='_blank' id='searchForm' name='searchForm' action='https://adviser.vitality.co.uk/life/online/online/dashboard' method='POST'>
+                    <button class='btn btn-info btn-sm'><i class='fa fa-search'></i> $polref</button>
+                        <input id='searchForm:prugleSearchValue' type='hidden' name='searchForm:prugleSearchValue' value='$polref'>
+                        <input type='hidden' autocomplete='off' name='searchForm' value='searchForm'>
+                        <input type='hidden' autocomplete='off' name='autoScroll' value=''>
+                        <input type='hidden' name='javax.faces.ViewState' id='javax.faces.ViewState' value='j_id5' autocomplete='off'>
+                    </form>
+                  </td>"; }
         echo "<td>" . $VITALITY_Policies['type'] . "</td>";
         echo "<td>" . $VITALITY_Policies['CommissionType'] . "</td>";
         echo "<td>" . $VITALITY_Policies['polterm'] . "</td>";
@@ -56,53 +59,6 @@
             echo "<td><span class=\"label label-success\">" . $VITALITY_Policies['PolicyStatus'] . "</span></td>";
         } else {
             echo "<td><span class=\"label label-default\">" . $VITALITY_Policies['PolicyStatus'] . "</span></td>";
-        }
-
-        if ($ADLSTATUS != $EWSSTATUS) {
-            switch ($EWSSTATUS) {
-                case "RE-INSTATED":
-                    echo "<td><span class='label label-success'>$EWSSTATUS</span></td>";
-                    break;
-                case "WILL CANCEL":
-                    echo "<td><span class='label label-warning'>$EWSSTATUS</span></td>";
-                    break;
-                case "REDRAWN":
-                case "WILL REDRAW":
-                    echo "<td><span class='label label-purple'>$EWSSTATUS</td>";
-                    break;
-                case "CANCELLED":
-                case "CFO":
-                case "LAPSED":
-                case "CANCELLED DD":
-                case "BOUNCED DD":
-                    echo "<td><span class='label label-danger'>$EWSSTATUS</td>";
-                    break;
-                default:
-                    echo "<td><span class='label label-info'>$EWSSTATUS</td>";
-            }
-        } else {
-
-            switch ($ADLSTATUS) {
-                case "RE-INSTATED":
-                    echo "<td><span class='label label-success'>$ADLSTATUS</span></td>";
-                    break;
-                case "WILL CANCEL":
-                    echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>";
-                    break;
-                case "REDRAWN":
-                case "WILL REDRAW":
-                    echo "<td><span class='label label-purple'>$ADLSTATUS</td>";
-                    break;
-                case "CANCELLED":
-                case "CFO":
-                case "LAPSED":
-                case "CANCELLED DD":
-                case "BOUNCED DD":
-                    echo "<td><span class='label label-danger'>$ADLSTATUS</td>";
-                    break;
-                default:
-                    echo "<td><span class='label label-info'>$ADLSTATUS</td>";
-            }
         }
         if (!empty($VITALITY_Policies['vitality_financial_amount'])) {
             
@@ -134,10 +90,6 @@
                                                                                             </form>
                                                                                             </td>";
             }
-            
-        if (!empty($EWSSTATUS)) {
-            echo "<td><a href='/addon/Life/Reports/EWSPolicySearch.php?EWSView=1&search=$search&policy_number=$polref' class='btn btn-success btn-xs'><i class='fa fa-warning'></i> </a></td>";
-        }
         echo "</tr>";
         ?>
 

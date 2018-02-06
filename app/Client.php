@@ -591,7 +591,12 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             require_once(__DIR__ . '/../addon/Life/models/LV/Keyfacts-model.php');
                             $LV_KF = new LV_KFModal($pdo);
                             $LV_KFList = $LV_KF->getLV_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/LV/Keyfacts-view.php');                                       
+                            require_once(__DIR__ . '/../addon/Life/views/LV/Keyfacts-view.php');    
+                            
+                            require_once(__DIR__ . '/../addon/Life/models/LV/dash-model.php');
+                            $LV_DASH = new LV_DASH_Modal($pdo);
+                            $LV_DASHList = $LV_DASH->getLV_DASH($search);
+                            require_once(__DIR__ . '/../addon/Life/views/LV/dash-view.php');                             
 
  
                             }                            

@@ -48,13 +48,6 @@ if (isset($LOGOUT_ACTION) && $LOGOUT_ACTION == "log_out") {
 }
 
 if(isset($hello_name)) {
-$Level_2_Access = array("Jade");
-
-if (in_array($hello_name, $Level_2_Access, true)) {
-
-    header('Location: /Life/Financial_Menu.php');
-    die;
-}
 
 $cnquery = $pdo->prepare("select company_name from company_details limit 1");
 $cnquery->execute()or die(print_r($query->errorInfo(), true));

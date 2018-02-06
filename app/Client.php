@@ -748,12 +748,24 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         }
                         
                         if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
+                            
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/LV/Policies-modal.php');
+                            $LVPolicies = new LVPoliciesModal($pdo);
+                            $LVPoliciesList = $LVPolicies->getLVPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/LV/Policies-view.php');        
+                                
+                            } else {                            
+                            
                             require_once(__DIR__ . '/../addon/Life/models/LVPoliciesModal.php');
                             $LVPolicies = new LVPoliciesModal($pdo);
                             $LVPoliciesList = $LVPolicies->getLVPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/LV-Policies.php');
 
-                        }                        
+                        }      
+                        
+                        }
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/WOLPoliciesModal.php');

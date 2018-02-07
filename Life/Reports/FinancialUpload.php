@@ -130,6 +130,11 @@ if ($companynamere == 'Bluestone Protect') {
                 echo "selected";
             }
         } ?> value="RoyalLondon">Royal London Financials</option>
+             <option <?php if (isset($query)) {
+            if ($query == 'LV') {
+                echo "selected";
+            }
+        } ?> value="LV">LV Financials</option>                
 
 
                         </select>
@@ -193,6 +198,8 @@ if ($companynamere == 'Bluestone Protect') {
                                 break;
                             case "RoyalLondon":
                                 $type = "Royal London Financials";
+                            case "LV":
+                                $type = "LV Financials";    
                                 break;
                             default:
                                 $type = "Financial Comms";
@@ -257,6 +264,12 @@ if ($companynamere == 'Bluestone Protect') {
 
                     <?php
                     }
+                    if ($query == 'LV') {
+                        ?>
+                                    <a class="list-group-item" href="../FinUploads/LV/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+
+                    <?php
+                    }                    
                 } else {
                     ?>
 

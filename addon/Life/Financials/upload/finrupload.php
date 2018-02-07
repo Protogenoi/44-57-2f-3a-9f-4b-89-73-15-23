@@ -1047,7 +1047,7 @@ if($EXECUTE=='9') {
     
     do {
         if (isset($data[0])) {
-            if ($data[0] != 'Agency Number' && $data[0] != 'Agency_Number' ) {
+            if ($data[0] != 'Agency Number') {
             
 $AGENCY_NUMBER=$data[0];
 $AGENCY_NAME=$data[1];
@@ -1059,16 +1059,16 @@ $COMMISSION_TYPE=$data[6];
 $TRANSACTION_TYPE=$data[7];
 $POLICY_NUMBER=filter_var($data[8], FILTER_SANITIZE_NUMBER_INT);
 $LICENSE_INDICATOR=$data[9];
-
-$POLICY_DOC = DateTime::createFromFormat("d/m/Y", $data[10]);
-$POLICY_DOC_NEW=$POLICY_DOC->format('Y-m-d');
+echo $data[10];
+$POLICY_DOC = $data[10];
+$POLICY_DOC_NEW= Datetime::createFromFormat('d/m/Y', $POLICY_DOC)->format('Y-m-d');
 
 $LIFE_ASSURED_NAME=$data[11];
 $AMOUNT=$data[12];
 $BENEFIT_PREMIUM=$data[13];
 
-$SETTLEMENT_DATE = DateTime::createFromFormat("d/m/Y", $data[14]);
-$SETTLEMENT_DATE_NEW=$SETTLEMENT_DATE->format('Y-m-d');
+$SETTLEMENT_DATE = $data[14];
+$SETTLEMENT_DATE_NEW= Datetime::createFromFormat('d/m/Y', $SETTLEMENT_DATE)->format('Y-m-d');
 
 $SETTLEMENT_REFERENCE_NUMBER=$data[15];
 

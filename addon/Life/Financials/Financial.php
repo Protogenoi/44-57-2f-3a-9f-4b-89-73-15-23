@@ -159,7 +159,7 @@ $RL_COMM_DATE = filter_input(INPUT_GET, 'RL_commdate', FILTER_SANITIZE_SPECIAL_C
                                 <div class="col-xs-4">
                                     <select class="form-control" name="commdate">
                                         <?php
-                                        $COM_DATE_query = $pdo->prepare("SELECT 
+                                        $VIT_COM_DATE = $pdo->prepare("SELECT 
                                                         DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
                                                     FROM 
                                                         vitality_financial 
@@ -167,9 +167,9 @@ $RL_COMM_DATE = filter_input(INPUT_GET, 'RL_commdate', FILTER_SANITIZE_SPECIAL_C
                                                         DATE(vitality_financial_uploaded_date) 
                                                     ORDER BY 
                                                         vitality_financial_uploaded_date DESC");
-                                        $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
-                                        if ($COM_DATE_query->rowCount() > 0) {
-                                            while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
+                                        $VIT_COM_DATE->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($VIT_COM_DATE->rowCount() > 0) {
+                                            while ($row = $VIT_COM_DATE->fetch(PDO::FETCH_ASSOC)) {
                                                 if (isset($row['vitality_financial_uploaded_date'])) {
                                                     ?>
                                                     <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>" <?php if($COMM_DATE == $row['vitality_financial_uploaded_date'] ) { echo "selected"; } ?> ><?php echo $row['vitality_financial_uploaded_date']; ?></option>
@@ -1555,8 +1555,8 @@ WHERE
                             
                             echo"<td>" . $row['vitality_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
-                            if (intval($row['vitality_financial_nomatch_policy_number']) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['vitality_financial_nomatch_policy_number'] . "</span></td>";
+                            if (intval($row['vitality_financial_nomatch_amount']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['vitality_financial_nomatch_amount'] . "</span></td>";
                             } else if (intval($row["vitality_financial_nomatch_amount"]) < 0) {
                                 echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_nomatch_amount'] . "</span></td>";
                             } else {

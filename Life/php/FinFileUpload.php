@@ -36,16 +36,6 @@ if(isset($fferror)) {
     
     }
 
-    if($companynamere=='Bluestone Protect') {
-$Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
-
-if (!in_array($hello_name,$Level_2_Access, true)) {
-    
-    header('Location: ../../CRMmain.php?AccessDenied'); die;
-
-}
-    }  
-
 $query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if(isset($query)) {
@@ -149,6 +139,47 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
             header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Vitality'); die;
             
             }
+            
+        if($query=='LV') {
+            
+            $uploadtype="LV Financials";
+            $date=date("y-m-d-G:i:s");
+            
+            $file = $date."-".$hello_name."-".$_FILES['file']['name'];
+            $file_loc = $_FILES['file']['tmp_name'];
+            $file_size = $_FILES['file']['size'];
+            $file_type = $_FILES['file']['type'];
+            $folder="../FinUploads/LV/";
+            
+            $new_size = $file_size/1024;  
+            $new_file_name = strtolower($file);
+            $final_file=str_replace("'","",$new_file_name);
+            
+            if(move_uploaded_file($file_loc,$folder.$final_file)) {
+
+                try {
+                
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype=:uploadtype");
+                $query->bindParam(':file',$final_file, PDO::PARAM_STR);
+                $query->bindParam(':type',$file_type, PDO::PARAM_STR);
+                $query->bindParam(':size',$new_size, PDO::PARAM_STR);
+                $query->bindParam(':uploadtype',$uploadtype, PDO::PARAM_STR); 
+                $query->execute(); 
+                
+                }
+                
+                catch (PDOException $e) {
+                    echo 'Connection failed: ' . $e->getMessage();
+                    
+                }
+                
+                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=LV'); die;
+                
+            }
+            
+            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=LV'); die;
+            
+            }            
 
         if($query=='Life') {
             

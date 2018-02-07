@@ -229,7 +229,7 @@ if(isset($EXECUTE) && $EXECUTE==10) {
                 }
             }
            
-                                        header('Location: /addon/Life/Financials/Vitality_Financials.php?UPDATED='.$i); die;    
+                                        header('Location: /addon/Life/Financials/Financial.php?UPDATED='.$i); die;    
 
         
     }    

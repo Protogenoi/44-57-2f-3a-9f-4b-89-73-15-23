@@ -139,13 +139,14 @@ ORDER BY Sales, Leads");
                             $LEADS = $Leads - 0;
                             $SALES = $Sales + 0;
                             break;
-                        case("David"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0;
                         case("Hayley"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0;
                             break;
+                        case("Martin Smith"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $CLOSER_NAME = "Martin";                        
                         default:
                             $LEADS = $Leads;
                             $SALES = $Sales;
@@ -281,6 +282,10 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         default:
                             $TRK_sale = $TRK_sale;
                             $TRK_BG = "#ffffff";
+                    }
+                    
+                    if($TRK_closer == 'Martin Smith') {
+                        $TRK_closer = 'Martin';
                     }
                     ?>
 

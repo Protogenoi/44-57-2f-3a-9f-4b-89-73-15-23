@@ -132,9 +132,10 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </div>
                                 </a>
                             </li>
-                            <li>
+                            
                         <?php }
                         if($ffhome == '1') { ?>
+                            <li>
                                 <a href="/addon/Home/Search.php">
                                     <span class="ca-icon"><i class="fa fa-home"></i></span>
                                     <div class="ca-content">

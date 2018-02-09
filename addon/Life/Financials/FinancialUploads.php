@@ -143,27 +143,6 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-xs-6 col-md-6">
-                                        <h3>Upload Legal & General financials</h3>
-
-                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required>
-                                            <input type="hidden" name="Processor" value="<?php echo $hello_name ?>">
-                                            <br>
-                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                        </form>
-
-                                    </div>
-                                    <div class="col-xs-6 col-md-6">
-                                        <h3>Upload Bedrock WOL financials</h3>
-
-
-                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                            <input class="form-control" name="csv" type="file" id="csv" required>
-                                            <br>
-                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                        </form>
-                                    </div>
                                     
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload LV Financials</h3>
@@ -196,9 +175,35 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
-                                    </div>                                   
+                                    </div>                                     
                                     
-                                     <div class="col-xs-6 col-md-6">
+                                    
+                                    <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Legal & General financials</h3>
+
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
+                                            <input type="hidden" name="Processor" value="<?php echo $hello_name ?>">
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+
+                                    </div>
+                                    
+                                    <?php if($COMPANY_ENTITY == 'Bluestone Protect') { ?>
+                                    
+                                    <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Bedrock WOL financials</h3>
+
+
+                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="col-xs-6 col-md-6">
                                         <h3>Upload Bedrock other Insurers Financials</h3>
 
 
@@ -208,6 +213,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
                                     </div>
+                                    
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload Bedrock Royal London financials</h3>
 
@@ -217,7 +223,8 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
-                                    </div>   
+                                    </div>
+                                    
                                     <div class="col-xs-6 col-md-6">
                                         <h3>Upload Bedrock Vitality financials</h3>
 
@@ -227,7 +234,10 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                         </form>
-                                    </div>                                      
+                                    </div>                                    
+                                    
+                                    <?php } ?>
+                                   
                                 </div>
                             </div>
                         </div>

@@ -1167,7 +1167,7 @@ WHERE
                 
                     $POLIN_SUM_QRY = $pdo->prepare("
                         SELECT 
-                            sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                            SUM(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
                         FROM 
                             vitality_financial
                         LEFT JOIN 
@@ -3639,7 +3639,7 @@ WHERE
                 
                     $POLIN_SUM_QRY = $pdo->prepare("
                         SELECT 
-                            sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                            SUM(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
                         FROM 
                             vitality_financial
                         LEFT JOIN 
@@ -5111,7 +5111,7 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                                SUM(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
                             FROM 
                                 vitality_financial 
                             LEFT JOIN 
@@ -5409,19 +5409,7 @@ WHERE
                             $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
                             $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
     //END OF CALCULATION          
-                            
-
-                            $query = $pdo->prepare("SELECT 
-                                                    SUM
-                                                        (CASE WHEN lv_financial_indemnity < 0 THEN lv_financial_indemnity ELSE 0 END) AS totalloss,
-                                                    SUM
-                                                        (CASE WHEN lv_financial_indemnity >= 0 THEN lv_financial_indemnity ELSE 0 END) as totalgross
-                                                    FROM 
-                                                        lv_financial
-                                                    WHERE
-                                                        DATE(vitality_financial_uploaded_date)=:commdate");
-                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
-
+                           
 
                             $POL_ON_TM_QRY = $pdo->prepare("SELECT 
     SUM(CASE WHEN lv_financial.lv_financial_indemnity >= 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as PAID_TOTAL_PLUS,
@@ -5535,6 +5523,16 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                             </thead>
 
                             <?php
+                             $query = $pdo->prepare("SELECT 
+                                                    SUM(CASE WHEN lv_financial_indemnity < 0 THEN lv_financial_indemnity ELSE 0 END) AS totalloss,
+                                                    SUM(CASE WHEN lv_financial_indemnity >= 0 THEN lv_financial_indemnity ELSE 0 END) as totalgross
+                                                    FROM 
+                                                        lv_financial
+                                                    WHERE
+                                                        DATE(lv_financial_uploaded_date)=:commdate");
+                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                           
+                            
                             $query->execute()or die(print_r($query->errorInfo(), true));
                             if ($query->rowCount() > 0) {
                                 while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -6065,7 +6063,7 @@ WHERE
                 
                     $POLIN_SUM_QRY = $pdo->prepare("
                         SELECT 
-                            sum(lv_financial.lv_financial_indemnity) AS lv_financial_amount 
+                            sum(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity 
                         FROM 
                             lv_financial
                         LEFT JOIN 
@@ -6082,7 +6080,7 @@ WHERE
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['lv_financial_amount'];
+                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['lv_financial_indemnity'];
 
                     $query = $pdo->prepare("
                         SELECT 
@@ -6234,7 +6232,7 @@ WHERE
 
                     $COMMIN_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(lv_financial.lv_financial_indemnity) AS lv_financial_amount
+                                SUM(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity
                             FROM 
                                 lv_financial 
                             LEFT JOIN 
@@ -6251,7 +6249,7 @@ WHERE
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['lv_financial_amount'];
+                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['lv_financial_indemnity'];
                     $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
                     $query = $pdo->prepare("
@@ -6331,7 +6329,7 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(lv_financial.lv_financial_amount) AS lv_financial_amount 
+                                sum(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity 
                             FROM 
                                 lv_financial 
                             LEFT JOIN 
@@ -6426,7 +6424,7 @@ WHERE
                 $query = $pdo->prepare("
                         SELECT
                             lv_financial_nomatch_id, 
-                            lv_financial_indemnity, 
+                            lv_financial_nomatch_indemnity, 
                             lv_financial_nomatch_uploaded_date, 
                             lv_financial_nomatch_policy_number
                         FROM
@@ -6452,7 +6450,7 @@ WHERE
                             $i++;
 
                             $policy = $row['lv_financial_nomatch_policy_number'];
-                            $paytype = $row['lv_financial_indemnity'];
+                            $paytype = $row['lv_financial_nomatch_indemnity'];
                             $iddd = $row['lv_financial_nomatch_id'];
                             echo "<tr>
                             <td>$i</td>

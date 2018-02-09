@@ -16,10 +16,9 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Royal London'
+        AND insurer = 'LV'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'LV'
         AND policystatus = 'Awaiting'
         ");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);

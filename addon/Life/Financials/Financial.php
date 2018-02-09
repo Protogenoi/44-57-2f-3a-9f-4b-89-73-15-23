@@ -5343,9 +5343,12 @@ WHERE
                      <li><a data-toggle="pill" href="#LV_EXPORT">Export</a></li>
                      <li><a data-toggle="pill" href="#LV_NOMATCH">Unmatched Policies <span class="badge alert-warning">
                         <?php
-                        $nomatchbadge = $pdo->query("SELECT COUNT(financials_nomatch_id) AS badge from financials_nomatch");
-                        $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
-                        echo htmlentities($row['badge']);
+                        $LV_nomatchbadge = $pdo->query("SELECT 
+                                                        COUNT(lv_financial_nomatch_id) AS badge
+                                                        FROM 
+                                                            lv_financial_nomatch");
+                        $LV_NO_MATCH_row = $LV_nomatchbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($LV_NO_MATCH_row['badge']);
                         ?>
                     </span></a></li>
                  </ul>
@@ -5409,25 +5412,28 @@ WHERE
                             
 
                             $query = $pdo->prepare("SELECT 
-    SUM(CASE WHEN vitality_financial_amount < 0 THEN vitality_financial_amount ELSE 0 END) as totalloss,
-    SUM(CASE WHEN vitality_financial_amount >= 0 THEN vitality_financial_amount ELSE 0 END) as totalgross
-    FROM vitality_financial 
-    WHERE 
-        DATE(vitality_financial_uploaded_date)=:commdate");
+                                                    SUM
+                                                        (CASE WHEN lv_financial_indemnity < 0 THEN lv_financial_indemnity ELSE 0 END) AS totalloss,
+                                                    SUM
+                                                        (CASE WHEN lv_financial_indemnity >= 0 THEN lv_financial_indemnity ELSE 0 END) as totalgross
+                                                    FROM 
+                                                        lv_financial
+                                                    WHERE
+                                                        DATE(vitality_financial_uploaded_date)=:commdate");
                             $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
 
 
-                            $POL_ON_TM_QRY = $pdo->prepare("select 
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_PLUS,
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_LOSS 
+                            $POL_ON_TM_QRY = $pdo->prepare("SELECT 
+    SUM(CASE WHEN lv_financial.lv_financial_indemnity >= 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as PAID_TOTAL_PLUS,
+    SUM(CASE WHEN lv_financial.lv_financial_indemnity < 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as PAID_TOTAL_LOSS 
     FROM 
-        vitality_financial 
+        lv_financial 
     LEFT JOIN 
         client_policy 
     ON 
-        vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+        lv_financial.lv_financial_policy_number=client_policy.policy_number 
     WHERE 
-        DATE(vitality_financial_uploaded_date) = :commdate
+        DATE(lv_financial_uploaded_date) = :commdate
     AND 
         client_policy.policy_number IN(SELECT 
                                             client_policy.policy_number 
@@ -5453,16 +5459,16 @@ WHERE
 
                             $POL_NOT_TM_QRY = $pdo->prepare("
                                 SELECT
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
+                                    SUM(CASE WHEN lv_financial.lv_financial_indemnity >= 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
+                                    SUM(CASE WHEN lv_financial.lv_financial_indemnity < 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
                                 FROM 
-                                    vitality_financial
+                                    lv_financial
                                 LEFT JOIN 
                                     client_policy 
                                 ON 
-                                    vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                    lv_financial.lv_financial_policy_number=client_policy.policy_number
                                 WHERE 
-                                    DATE(vitality_financial_uploaded_date) = :commdate 
+                                    DATE(lv_financial_uploaded_date) = :commdate 
                                 AND 
                                     client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='LV')");
                             $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -5481,14 +5487,13 @@ WHERE
                                     WHERE 
                                         DATE(sale_date) BETWEEN '2017-01-01' AND :dateto
                                     AND 
-                                        policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
+                                        policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial)
                                     AND 
-                                        insurer='Vitality'
+                                        insurer='LV'
                                     AND 
                                         policystatus NOT like '%CANCELLED%'
                                     AND 
-                                        policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
-                                    AND policy_number NOT like '%DU%'");
+                                        policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')");
                             $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
@@ -5654,22 +5659,22 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                         client_policy.policy_number, 
                         client_policy.commission, 
                         DATE(client_policy.sale_date) AS SALE_DATE, 
-                        vitality_financial.vitality_financial_life_assured_name, 
-                        vitality_financial.vitality_financial_policy_number, 
-                        vitality_financial.vitality_financial_amount, 
-                        DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                        lv_financial.lv_financial_name, 
+                        lv_financial.lv_financial_policy_number, 
+                        lv_financial.lv_financial_indemnity, 
+                        DATE(lv_financial_uploaded_date) AS COMM_DATE
                     FROM
-                        vitality_financial
+                        lv_financial
                     LEFT JOIN 
                         client_policy
                     ON 
-                        vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                        lv_financial.lv_financial_policy_number=client_policy.policy_number
                     WHERE 
-                        DATE(vitality_financial_uploaded_date) = :commdate
+                        DATE(lv_financial_uploaded_date) = :commdate
                     AND
                         client_policy.insurer='LV'
                     ORDER BY 
-                        vitality_financial.vitality_financial_amount DESC");
+                        lv_financial.lv_financial_indemnity DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -5694,13 +5699,13 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
 
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['vitality_financial_life_assured_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                echo "<td>" . $row['vitality_financial_name'] . "</td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 }
 
 
@@ -5734,7 +5739,7 @@ FROM
     client_policy
 WHERE
     DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Vitality'
+        AND insurer = 'LV'
         AND policystatus = 'Live'
         OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
         AND client_policy.insurer = 'LV'
@@ -5817,9 +5822,8 @@ WHERE
                                 policystatus NOT like '%CANCELLED%' 
                             AND
                                 policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') 
-                            AND
-                                policy_number NOT like '%DU%' 
-                            ORDER BY commission DESC");
+                            ORDER BY 
+                                commission DESC");
                     $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -5889,29 +5893,27 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            lv_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
                         AND 
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial) 
+                            client_policy.policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial) 
                         AND
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
+                            client_policy.policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial)
                         AND 
                             client_policy.insurer='LV'
                         AND 
                             client_policy.policystatus NOT like '%CANCELLED%'
                         AND
-                            client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')
-                        AND 
-                            client_policy.policy_number NOT like '%DU%'");
+                            client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')");
                     $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -5981,15 +5983,15 @@ WHERE
                             client_policy.client_id AS CID,
                             client_policy.policy_number,
                             client_policy.commission,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            lv_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
@@ -6063,22 +6065,24 @@ WHERE
                 
                     $POLIN_SUM_QRY = $pdo->prepare("
                         SELECT 
-                            sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                            sum(lv_financial.lv_financial_indemnity) AS lv_financial_amount 
                         FROM 
-                            vitality_financial
+                            lv_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON lv_financial.lv_financial_policy_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(lv_financial_uploaded_date) = :commdate
                         AND 
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
+                            client_policy.policy_number 
+                        IN
+                            (select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
                     $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['lv_financial_amount'];
 
                     $query = $pdo->prepare("
                         SELECT 
@@ -6088,17 +6092,19 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            lv_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON lv_financial.lv_financial_policy_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(lv_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
+                            client_policy.policy_number 
+                        IN
+                            (select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='LV')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
                     $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR);
                     $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR);
@@ -6125,12 +6131,12 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 }
 
 
@@ -6159,19 +6165,21 @@ WHERE
                             client_policy.policy_number, 
                             client_policy.commission, 
                             DATE(client_policy.sale_date) AS SALE_DATE, 
-                            vitality_financial.vitality_financial_policy_number, 
-                            vitality_financial.vitality_financial_amount, 
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            lv_financial.lv_financial_policy_number, 
+                            lv_financial.lv_financial_indemnity, 
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            lv_financial
                         LEFT JOIN 
                             client_policy
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(lv_financial_uploaded_date) = :commdate
                         AND
-                            client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='LV')");
+                            client_policy.policy_number 
+                        IN
+                            (SELECT client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='LV')");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $LV_DATE_TO, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $LV_DATE_FROM, PDO::PARAM_STR, 100);
@@ -6198,12 +6206,12 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
                                 }
 
 
@@ -6226,45 +6234,45 @@ WHERE
 
                     $COMMIN_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount
+                                sum(lv_financial.lv_financial_indemnity) AS lv_financial_amount
                             FROM 
-                                vitality_financial 
+                                lv_financial 
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount >= 0 
+                                lv_financial.lv_financial_indemnity >= 0 
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate 
+                                DATE(lv_financial_uploaded_date) =:commdate 
                             AND 
                                 client_policy.insurer ='LV'");
                     $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['lv_financial_amount'];
                     $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
                     $query = $pdo->prepare("
                         SELECT
-                            vitality_financial.vitality_financial_amount, 
+                            lv_financial.lv_financial_indemnity, 
                             client_policy.CommissionType, 
                             DATE(client_policy.sale_date) AS sale_date, 
                             client_policy.policy_number, 
-                            vitality_financial.vitality_financial_policy_number, 
+                            lv_financial.lv_financial_policy_number, 
                             client_policy.client_name, 
                             client_policy.client_id 
                         FROM 
-                            vitality_financial 
+                            lv_financial 
                         LEFT JOIN
                             client_policy 
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number 
                         WHERE 
-                            vitality_financial.vitality_financial_amount >= 0 
+                            lv_financial.lv_financial_indemnity >= 0 
                         AND 
-                            DATE(vitality_financial_uploaded_date) =:commdate
+                            DATE(lv_financial_uploaded_date) =:commdate
                         AND 
                             client_policy.insurer='LV'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -6289,8 +6297,8 @@ WHERE
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['lv_financial_policy_number'];
+                                $PAY_AMOUNT = number_format($row['lv_financial_indemnity'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -6323,42 +6331,44 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                                sum(lv_financial.lv_financial_amount) AS lv_financial_amount 
                             FROM 
-                                vitality_financial 
+                                lv_financial 
                             LEFT JOIN 
                                 client_policy 
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0
+                                lv_financial.lv_financial_indemnity < 0
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate
+                                DATE(lv_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='LV'");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['lv_financial_indemnity'];
                     $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
 
                     $query = $pdo->prepare("
                             SELECT 
-                                vitality_financial.vitality_financial_amount, 
+                                lv_financial.lv_financial_indemnity, 
                                 client_policy.CommissionType, 
                                 DATE(client_policy.sale_date) AS sale_date, 
                                 client_policy.policy_number, 
-                                vitality_financial.vitality_financial_policy_number, 
+                                lv_financial.lv_financial_policy_number, 
                                 client_policy.client_name, 
                                 client_policy.client_id 
                             FROM 
-                                vitality_financial
+                                lv_financial
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number 
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
+                                lv_financial.lv_financial_indemnity < 0 
+                            AND 
+                                DATE(lv_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='LV'");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
@@ -6383,8 +6393,8 @@ WHERE
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['lv_financial_policy_number'];
+                                $PAY_AMOUNT = number_format($row['lv_financial_indemnity'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -6415,12 +6425,12 @@ WHERE
                 <?php
                 $query = $pdo->prepare("
                         SELECT
-                            vitality_financial_nomatch_id, 
-                            vitality_financial_nomatch_amount, 
-                            vitality_financial_nomatch_uploaded_date, 
-                            vitality_financial_nomatch_policy_number
+                            lv_financial_nomatch_id, 
+                            lv_financial_indemnity, 
+                            lv_financial_nomatch_uploaded_date, 
+                            lv_financial_nomatch_policy_number
                         FROM
-                            vitality_financial_nomatch");
+                            lv_financial_nomatch");
                 ?>
                 <table class="table table-hover">
                     <thead>
@@ -6442,24 +6452,24 @@ WHERE
                             
                             $i++;
 
-                            $policy = $row['vitality_financial_nomatch_policy_number'];
-                            $paytype = $row['vitality_financial_nomatch_amount'];
-                            $iddd = $row['vitality_financial_nomatch_id'];
+                            $policy = $row['lv_financial_nomatch_policy_number'];
+                            $paytype = $row['lv_financial_indemnity'];
+                            $iddd = $row['lv_financial_nomatch_id'];
                             echo "<tr>
                             <td>$i</td>
                             ";
                             
-                            echo"<td>" . $row['vitality_financial_nomatch_uploaded_date'] . "</td>";
+                            echo"<td>" . $row['lv_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
-                            if (intval($row['vitality_financial_nomatch_policy_number']) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['vitality_financial_nomatch_policy_number'] . "</span></td>";
-                            } else if (intval($row["vitality_financial_nomatch_amount"]) < 0) {
-                                echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_nomatch_amount'] . "</span></td>";
+                            if (intval($paytype) > 0) {
+                                echo "<td><span class=\"label label-success\">$paytype</span></td>";
+                            } else if (intval($paytype) < 0) {
+                                echo "<td><span class=\"label label-danger\">$paytype</span></td>";
                             } else {
-                                echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
+                                echo "<td>$paytype</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=LV&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LV' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }

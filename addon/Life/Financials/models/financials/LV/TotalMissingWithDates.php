@@ -15,13 +15,13 @@ class LV_TotalMissingWithDatesModal {
 FROM
     client_policy
         LEFT JOIN
-    financials ON financials.financials_policy = client_policy.policy_number
+    lv_financial ON lv_financial.lv_financial_policy_number = client_policy.policy_number
 WHERE
     DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
         AND client_policy.policy_number NOT IN (SELECT 
-            financials.financials_policy
+            lv_financial.lv_financial_policy_number
         FROM
-            financials)
+            lv_financial)
         AND client_policy.insurer = 'LV'
         AND client_policy.policystatus = 'Live'");
         $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);

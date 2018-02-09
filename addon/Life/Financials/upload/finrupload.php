@@ -1310,8 +1310,130 @@ if ($query->rowCount() <= 0) { // NO MATCH
     } while ($data = fgetcsv($handle,1000,",","'"));
     header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=Royal London'); die;
 }    
+      
+}
+
+if($EXECUTE=='11') {
+
+    if ($_FILES['csv']['size'] > 0) {
+
+    $file = $_FILES['csv']['tmp_name'];
+    $handle = fopen($file,"r");
+    
+    do {
+        if (isset($data[0])) {
+            if ($data[0] != 'Name') {
+            
+$NAME=$data[0];
+$POLICY_NUMBER=$data[1];
+$TYPE=$data[2];
+$STATUS=$data[3];
+$COMMISSION_FROM=$data[4];
+$COMMISSION_TO=$data[5];
+$COMMISSION_MONTH=$data[6];
+$PREMIUMS=$data[7];
+$INDEMNITY=$data[8];
+$INITIAL=$data[9];
+$RENEWAL=$data[10];
+$LEVEL = $data[11];
+$TOTAL=$data[12];
+
+$POLICY_NUMBER_CHECK=filter_var($data[1], FILTER_SANITIZE_NUMBER_INT);
+
+$POLICY_NUMBER_NEW = "%$POLICY_NUMBER_CHECK%";
+
+if ($INDEMNITY > 0) {
+    $POLICY_STATUS="Live";
+    
+} elseif ($INDEMNITY < 0) {
+    $POLICY_STATUS="Clawback";
+    }
+     
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number like :POL AND insurer='LV'");
+    $query->bindParam(':POL', $POLICY_NUMBER_NEW, PDO::PARAM_STR);
+    $query->execute();
+    $result=$query->fetch(PDO::FETCH_ASSOC);
+    
+    if ($query->rowCount() >= 1) { //IF THERES A MATCH ELSE GO TO NO MATCH
+    
+    $clientid=$result['client_id'];
+    $polid=$result['id'];
+    $policynumber=$result['policy_number'];
+    $ref= "$policynumber ($polid)";
+    $polstat=$result['policystatus'];
+     
+    $note="LV Financial Uploaded";
+    $message="COMM (Status changed from $polstat to $POLICY_STATUS)";
+    
+    
+    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+    $insert->bindParam(':clientid', $clientid, PDO::PARAM_INT);
+    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();
+    
+        $update = $pdo->prepare("UPDATE client_policy set policystatus=:STATUS, edited=:sent WHERE id=:polid");
+        $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+        $update->bindParam(':STATUS', $POLICY_STATUS, PDO::PARAM_STR);
+        $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+        $update->execute();
+                 
+        
+}
+
+if ($query->rowCount() <= 0) { // NO MATCH
+
+   $insert = $pdo->prepare("INSERT INTO lv_financial_nomatch SET lv_financial_nomatch_indemnity=:pay, lv_financial_nomatch_policy_number=:pol, lv_financial_nomatch_uploader=:hello");
+    $insert->bindParam(':pay', $INDEMNITY, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $POLICY_NUMBER, PDO::PARAM_STR, 250);
+    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();        
+    
+}
+
+        $LV_INSERT = $pdo->prepare("INSERT INTO
+                                        lv_financial
+                                    SET 
+                                        lv_financial_name=:NAME,  
+                                        lv_financial_policy_number=:POLICY_NUMBER,  
+                                        lv_financial_type=:TYPE,  
+                                        lv_financial_status=:STATUS,  
+                                        lv_financial_commission_period_from=:COMM_FROM,  
+                                        lv_financial_commission_period_to=:COMM_TO,  
+                                        lv_financial_commission_period_months=:MONTHS,  
+                                        lv_financial_premiums=:PREMIUMS,  
+                                        lv_financial_indemnity=:INDEMNITY,  
+                                        lv_financial_initial=:INITIAL,  
+                                        lv_financial_renewal=:RENEWAL,  
+                                        lv_financial_level=:LEVEL,  
+                                        lv_financial_total=:TOTAL,  
+                                        lv_financial_uploader=:UPLOADER");
+        $LV_INSERT->bindParam(':NAME', $NAME , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':POLICY_NUMBER', $POLICY_NUMBER , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':TYPE', $TYPE , PDO::PARAM_STR);
+        $LV_INSERT->bindParam(':STATUS', $STATUS , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':COMM_FROM', $COMMISSION_FROM , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':COMM_TO', $COMMISSION_TO , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':MONTHS', $COMMISSION_MONTH , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':PREMIUMS', $PREMIUMS , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':INDEMNITY', $INDEMNITY , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':INITIAL', $INITIAL , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':RENEWAL', $RENEWAL , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':LEVEL', $LEVEL , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':TOTAL', $TOTAL , PDO::PARAM_STR, 200);
+        $LV_INSERT->bindParam(':UPLOADER', $hello_name , PDO::PARAM_STR, 50);
+        $LV_INSERT->execute();
+      
+        }
+    }
+    } while ($data = fgetcsv($handle,1000,",","'"));
+    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=LV'); die;
+}    
     
     
 }
+
 }
 ?>

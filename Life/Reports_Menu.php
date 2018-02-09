@@ -132,7 +132,9 @@ if($fffinancials=='0' || $ffews=='0') {
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>
-                            </li>                    
+                            </li>   
+                            
+                            <?php if($COMPANY_ENTITY == 'Bluestone Protect') { ?>
 
                             <li>
                                 <a href="/addon/Life/Financials/Financials.php">
@@ -143,20 +145,8 @@ if($fffinancials=='0' || $ffews=='0') {
                                     </div>
                                 </a>
                             </li>
-                            <?php
-                            
-                                    ?>
-                                    <li>
-                                        <a href="/addon/Life/Financials/FinancialUploads.php">
-                                            <span class="ca-icon"><i class="fa fa-upload"></i></span>
-                                            <div class="ca-content">
-                                                <h2 class="ca-main">Upload<br/>RAW COMMS</h2>
-                                                <h3 class="ca-sub"></h3>
-                                            </div>
-                                        </a>
-                                    </li>
 
-                                    <?php
+                            <?php }
                              
                         } }
                         }

@@ -138,26 +138,6 @@ if (isset($fferror)) {
                                 ?>
 
                                 <li>
-                                    <a href="Reports/FinancialUpload.php">
-                                        <span class="ca-icon"><i class="fa fa-upload"></i></span>
-                                        <div class="ca-content">
-                                            <h2 class="ca-main">Financial<br/>Uploads</h2>
-                                            <h3 class="ca-sub"></h3>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="Financial_Menu.php">
-                                        <span class="ca-icon"><i class="fa  fa-database"></i></span>
-                                        <div class="ca-content">
-                                            <h2 class="ca-main">Jade Financial<br/>Menu</h2>
-                                            <h3 class="ca-sub"></h3>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <li>
                                     <a href="/app/admin/Export.php">
                                         <span class="ca-icon"><i class="fa fa-cloud-download"></i></span>
                                         <div class="ca-content">

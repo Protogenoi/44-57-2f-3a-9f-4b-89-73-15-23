@@ -6441,7 +6441,6 @@ WHERE
                     <th>Entry Date</th>
                     <th>Policy</th>
                     <th>Premium</th>
-                    <th>Re-check ADL</th>
                     <th>Re-check all</th>
                     </thead>
                     <?php
@@ -6468,7 +6467,6 @@ WHERE
                             } else {
                                 echo "<td>$paytype</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=LV&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LV' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";

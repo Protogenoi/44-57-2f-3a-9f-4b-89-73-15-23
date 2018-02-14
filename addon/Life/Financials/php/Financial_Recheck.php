@@ -67,15 +67,15 @@ $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $AMOUNT= filter_input(INPUT_GET, 'AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
-$INSURER_ARRAY=array('LG','OneFamily','RoyalLondon','Aviva','Vitality');
+$INSURER_ARRAY=array('LG','OneFamily','Royal London','Aviva','Vitality');
 
 if(!in_array($INSURER, $INSURER_ARRAY)) {
     
     if(isset($datefrom)) {
-        header('Location: /addon/Life/Financials/Financials.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;
+        header('Location: /addon/Life/Financials/Financial.php?RECHECK=y&datefrom='.$datefrom.'&dateto='.$dateto.'&commdate='.$commdate); die;
         
     } else {
-        header('Location: /addon/Life/Financials/Financial_Reports.php?INVALID'); die;
+        header('Location: /addon/Life/Financials/Financial.php?INVALID'); die;
         
     }
     
@@ -296,6 +296,83 @@ if(isset($EXECUTE) && $EXECUTE==10) {
                     $update->execute();
                         
                        $delete = $pdo->prepare("DELETE FROM vitality_financial_nomatch WHERE vitality_financial_nomatch_policy_number=:pol AND vitality_financial_nomatch_id=:ID LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
+                       $delete->execute();  
+                       
+                }
+                    
+                }
+            }
+           
+                                        header('Location: /addon/Life/Financials/Financial.php?UPDATED='.$i); die;    
+
+        
+    } 
+    
+     if($INSURER=='Royal London') {
+        
+        $i=0;
+        
+            $Icheck = $pdo->prepare("SELECT royal_london_financial_nomatch_id, royal_london_financial_nomatch_plan_number, royal_london_financial_nomatch_commission_credit_amount, royal_london_financial_nomatch_commission_debits_amount FROM royal_london_financial_nomatch");
+            $Icheck->execute();
+            if ($Icheck->rowCount() >= 1) {  
+            while ($result=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
+            
+            $POL_NUM=$result['royal_london_financial_nomatch_plan_number'];
+            $FID=$result['royal_london_financial_nomatch_id'];
+            $CREDIT=$result['royal_london_financial_nomatch_commission_credit_amount'];
+            $DEBITS=$result['royal_london_financial_nomatch_commission_debits_amount'];
+                    
+                $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
+                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $SELECT_Q->execute();
+                $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
+                if ($SELECT_Q->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
+                    $policynumber=$result['policy_number'];
+                    $ref= "$policynumber ($PID)";
+                    $polstat=$result['policystatus'];     
+                    
+                    $note="Royal London Financial Uploaded";
+                    
+                    if($CREDIT > $DEBITS) {  
+                    
+                    $message="COMM (Status changed from $polstat to Live)";
+                    $POL_STATUS='Live';
+                    
+                    } elseif($DEBITS > $CREDIT) { 
+                        
+                        $message="COMM (Status changed from $polstat to Clawback)";
+                        $POL_STATUS='Clawback';
+                        
+                    } else {
+                        
+                        $message="ERROR";
+                        $POL_STATUS='ERROR';                        
+                        
+                    }
+                        
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE client_policy set policystatus=:policystatus, edited=:sent WHERE id=:PID");
+                    $update->bindParam(':PID', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $update->bindParam(':policystatus', $POL_STATUS, PDO::PARAM_STR, 50);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM royal_london_financial_nomatch WHERE royal_london_financial_nomatch_plan_number=:pol AND royal_london_financial_nomatch_id=:ID LIMIT 1");
                        $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
                        $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
                        $delete->execute();  

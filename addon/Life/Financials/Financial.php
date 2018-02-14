@@ -2786,7 +2786,6 @@ WHERE
                     <th>Policy</th>
                     <th>Credits</th>
                     <th>Debits</th>
-                    <th>Re-check ADL</th>
                     <th>Re-check all</th>
                     </thead>
                     <?php
@@ -2807,21 +2806,16 @@ WHERE
                             
                             echo"<td>" . $row['royal_london_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
-                            if (intval($RL_CREDITS) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_plan_number'] . "</span></td>";
-                            } else if (intval($RL_CREDITS) < 0) {
-                                echo "<td><span class=\"label label-danger\">$RL_CREDITS</span></td>";
+                            if ($RL_CREDITS) {
+                                echo "<td><span class=\"label label-success\">$RL_CREDITS</span></td>";
                             } else {
                                 echo "<td>$RL_CREDITS</td>";
                             }
-                           if (intval($RL_DEBITS) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['royal_london_financial_nomatch_plan_number'] . "</span></td>";
-                            } else if (intval($RL_DEBITS) < 0) {
+                           if ($RL_DEBITS) {
                                 echo "<td><span class=\"label label-danger\">$RL_DEBITS</span></td>";
                             } else {
                                 echo "<td>$RL_DEBITS</td>";
                             }                          
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Royal London&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Royal London' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";

@@ -47,7 +47,7 @@ if ($ffanalytics == '1') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '1') {
+    if ($fferror == '0') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -1185,25 +1185,29 @@ if($EXECUTE=='10') {
             if ($data[0] != 'IFA ID' && !empty($data[0])) {
             
 $IFA_ID= filter_var($data[0], FILTER_SANITIZE_NUMBER_INT);
-$IFA_NAME=$data[1];
-$ASSIGNED_REP_ID=$data[2];
-$ASSIGNED_REP_NAME=$data[3];
+$IFA_NAME=filter_var($data[1], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$ASSIGNED_REP_ID=filter_var($data[2], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$ASSIGNED_REP_NAME=filter_var($data[3], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $PLAN_NUMBER= filter_var($data[4], FILTER_SANITIZE_NUMBER_INT);
-$PLAN_OWNER=$data[5];
-$REFERENCE=$data[6];
+$PLAN_OWNER=filter_var($data[5], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$REFERENCE=filter_var($data[6], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $PREMIUM=str_replace("£","",$data[7]);
-$FREQUENCY=$data[8];
+$FREQUENCY=filter_var($data[8], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-$DUE_DATE = DateTime::createFromFormat("d/m/Y", $data[9]);
-$DUE_DATE_NEW=$DUE_DATE->format('Y-m-d');
+$DUE_DATE = $data[9];
+$DUE_DATE_NEW= Datetime::createFromFormat('d/m/Y', $DUE_DATE)->format('Y-m-d');
 
 $CREDIT=str_replace("£","",$data[10]);
-$TYPE=$data[11];
-$DEBIT=str_replace("£","",$data[12]);
-$REASON=$data[13];
 
-$PAID_DATE = DateTime::createFromFormat("d/m/Y", $data[14]);
-$PAID_DATE_NEW=$PAID_DATE->format('Y-m-d');
+echo "11 $data[11]";
+
+$TYPE=filter_var($data[11], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$DEBIT=str_replace("£","",$data[12]);
+$REASON=filter_var($data[13], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+$PAID_DATE = $data[14];
+
+$PAID_DATE_NEW= Datetime::createFromFormat('d/m/Y', $PAID_DATE)->format('Y-m-d');
 
 $PLAN_NUMBER_NEW = "%$PLAN_NUMBER%";
 

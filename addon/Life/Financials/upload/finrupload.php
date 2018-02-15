@@ -47,7 +47,7 @@ if ($ffanalytics == '1') {
 }
 
 if (isset($fferror)) {
-    if ($fferror == '0') {
+    if ($fferror == '1') {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -1329,6 +1329,9 @@ if($EXECUTE=='11') {
             if ($data[0] != 'Name') {
             
 $NAME=$data[0];
+
+echo "NAME $NAME<br>";
+
 $POLICY_NUMBER=$data[1];
 $TYPE=$data[2];
 $STATUS=$data[3];
@@ -1338,9 +1341,28 @@ $COMMISSION_MONTH=$data[6];
 $PREMIUMS=$data[7];
 $INDEMNITY=$data[8];
 $INITIAL=$data[9];
+
+
+if(empty($INITIAL)) {
+    $INITIAL=0;
+}
 $RENEWAL=$data[10];
+
+if(empty($RENEWAL)) {
+    $RENEWAL=0;
+}
+
 $LEVEL = $data[11];
+
+if(empty($LEVEL)) {
+    $LEVEL=0;
+}
+
 $TOTAL=$data[12];
+
+if(empty($TOTAL)) {
+    $TOTAL=0;
+}
 
 $POLICY_NUMBER_CHECK=filter_var($data[1], FILTER_SANITIZE_NUMBER_INT);
 
@@ -1368,7 +1390,6 @@ if ($INDEMNITY > 0) {
      
     $note="LV Financial Uploaded";
     $message="COMM (Status changed from $polstat to $POLICY_STATUS)";
-    
     
     $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
     $insert->bindParam(':clientid', $clientid, PDO::PARAM_INT);
@@ -1405,8 +1426,8 @@ if ($query->rowCount() <= 0) { // NO MATCH
                                         lv_financial_type=:TYPE,  
                                         lv_financial_status=:STATUS,  
                                         lv_financial_commission_period_from=:COMM_FROM,  
-                                        lv_financial_commission_period_to=:COMM_TO,  
-                                        lv_financial_commission_period_months=:MONTHS,  
+                                        lv_financial_commision_period_to=:COMM_TO,  
+                                        lv_financial_months=:MONTHS,  
                                         lv_financial_premiums=:PREMIUMS,  
                                         lv_financial_indemnity=:INDEMNITY,  
                                         lv_financial_initial=:INITIAL,  

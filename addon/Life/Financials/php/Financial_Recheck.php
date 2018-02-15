@@ -67,7 +67,7 @@ $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $AMOUNT= filter_input(INPUT_GET, 'AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
-$INSURER_ARRAY=array('LG','OneFamily','Royal London','Aviva','Vitality');
+$INSURER_ARRAY=array('LG','OneFamily','Royal London','Aviva','Vitality','LV');
 
 if(!in_array($INSURER, $INSURER_ARRAY)) {
     
@@ -162,17 +162,20 @@ if(isset($EXECUTE) && $EXECUTE==10) {
         
         $i=0;
         
-            $Icheck = $pdo->prepare("SELECT lv_financial_nomatch_id, lv_financial_nomatch_policy_number, lv_financial_nomatch_idemnity FROM lv_financial_nomatch");
+            $Icheck = $pdo->prepare("SELECT lv_financial_nomatch_id, lv_financial_nomatch_policy_number, lv_financial_nomatch_indemnity FROM lv_financial_nomatch");
             $Icheck->execute();
             if ($Icheck->rowCount() >= 1) {  
             while ($result=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
             
             $POL_NUM=$result['lv_financial_nomatch_policy_number'];
             $FID=$result['lv_financial_nomatch_id'];
-            $AMOUNT=$result['lv_financial_nomatch_idemnity'];
+            $AMOUNT=$result['lv_financial_nomatch_indemnity'];
+            
+            
+            $POLICY_NUMBER_CHECK=substr($POL_NUM, 0, -6);
                     
                 $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
-                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $SELECT_Q->bindParam(':polhold', $POLICY_NUMBER_CHECK, PDO::PARAM_STR);
                 $SELECT_Q->execute();
                 $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
                 if ($SELECT_Q->rowCount() >= 1) {  
@@ -220,7 +223,7 @@ if(isset($EXECUTE) && $EXECUTE==10) {
                     $update->execute();
                         
                        $delete = $pdo->prepare("DELETE FROM lv_financial_nomatch WHERE lv_financial_nomatch_policy_number=:pol AND lv_financial_nomatch_id=:ID LIMIT 1");
-                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':pol', $POL_NUM, PDO::PARAM_STR, 250);
                        $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
                        $delete->execute();  
                        

@@ -2291,6 +2291,19 @@ WHERE
                             
                             }
                             
+                            if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
+                                
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/LV/Financial-model.php');
+                            $LVtrans = new LVtransModel($pdo);
+                            $LVtransList = $LVtrans->getLVtrans($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/LV/Financial-view.php');                                      
+                                    
+                                } 
+                            
+                            }                            
+                            
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                             
                             require_once(__DIR__ . '/../addon/Life/models/financials/transactions/AVIModel.php');

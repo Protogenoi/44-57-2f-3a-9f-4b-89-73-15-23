@@ -50,11 +50,11 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","Martin Smith","Ciara");
-    $Level_3_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan", "David","Richard","James Adams","Christopher Griffiths");
-    $Level_1_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","David","Darryl","Gavin","James Adams","Christopher Griffiths");
+    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","Martin Smith","Ciara","David Bebee");
+    $Level_3_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan", "David","Richard","James Adams","Christopher Griffiths","David Bebee");
+    $Level_1_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","David","Darryl","Gavin","James Adams","Christopher Griffiths","David Bebee");
     
-    $Task_Access = array("Ciara","Jakob");
+    $Task_Access = array("Ciara","Jakob","David Bebee");
     
     $SECRET = array("Michael", "carys", "Jakob", "Nicola", "Tina");
     
@@ -67,11 +67,11 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     $OLD_CLIENT_SEARCH=array("Martin Smith","Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
     
     ///Advanced Admin Search
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara","Molly Grove",);
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara","Molly Grove","David Bebee");
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Ciara","Molly Grove",);
+    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Ciara","Molly Grove","David Bebee");
     //View Dealsheets awaiting QA
-    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Ciara","Christopher Griffiths");
+    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Ciara","Christopher Griffiths","David Bebee");
     
     $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths");
 ?>

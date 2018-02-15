@@ -16,11 +16,9 @@ class LVPoliciesModal {
                 client_policy.application_number, 
                 client_policy.CommissionType, 
                 client_policy.polterm, 
-                vitality_financial_amount, 
-                ews_data.ews_status_status AS ADLSTATUS, 
+                lv_financial_indemnity, 
                 client_policy.id, 
                 client_policy.polterm, 
-                ews_data.warning, 
                 client_policy.covera, 
                 client_policy.client_id, 
                 client_policy.client_name, 
@@ -31,13 +29,9 @@ class LVPoliciesModal {
             FROM 
                 client_policy
             LEFT JOIN 
-                vitality_financial
+                lv_financial
             ON 
-                client_policy.policy_number = vitality_financial.vitality_financial_policy_number
-            LEFT JOIN 
-                ews_data
-            ON 
-                client_policy.policy_number = ews_data.policy_number 
+                client_policy.policy_number = lv_financial.lv_financial_policy
             WHERE 
                 client_policy.client_id =:CID
             AND 

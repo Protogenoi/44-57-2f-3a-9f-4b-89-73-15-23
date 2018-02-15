@@ -21,7 +21,7 @@
 
         <?php
         $PID = $LV_Policies['id'];
-        $polref = $LV_Policies['policy_number'];
+        $polref = $LV_Policies['policy'];
         $polcap[] = $LV_Policies['id'];
         $POL_HOLDER = $LV_Policies['client_name'];
         $LV_MODAL_APP = $LV_Policies['application_number'];
@@ -55,13 +55,13 @@
         } else {
             echo "<td><span class=\"label label-default\">" . $LV_Policies['PolicyStatus'] . "</span></td>";
         }
-        if (!empty($LV_Policies['vitality_financial_amount'])) {
+        if (!empty($LV_Policies['lv_financial_indemnity'])) {
             
-        if ($LV_Policies['vitality_financial_amount'] >= 0) {
+        if ($LV_Policies['lv_financial_indemnity'] >= 0) {
             
             echo "<td><span class='label label-success'>PAID</span> </td>";
             
-        } elseif ($LV_Policies['vitality_financial_amount'] < 0) {
+        } elseif ($LV_Policies['lv_financial_indemnity'] < 0) {
             
             echo "<td><span class='label label-danger'>CLAWBACK</span> </td>";
             

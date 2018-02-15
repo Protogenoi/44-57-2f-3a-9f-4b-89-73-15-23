@@ -1329,9 +1329,6 @@ if($EXECUTE=='11') {
             if ($data[0] != 'Name') {
             
 $NAME=$data[0];
-
-echo "NAME $NAME<br>";
-
 $POLICY_NUMBER=$data[1];
 $TYPE=$data[2];
 $STATUS=$data[3];
@@ -1364,9 +1361,7 @@ if(empty($TOTAL)) {
     $TOTAL=0;
 }
 
-$POLICY_NUMBER_CHECK=filter_var($data[1], FILTER_SANITIZE_NUMBER_INT);
-
-$POLICY_NUMBER_NEW = "%$POLICY_NUMBER_CHECK%";
+$POLICY_NUMBER_CHECK=substr($data[1], 0, -6);
 
 if ($INDEMNITY > 0) {
     $POLICY_STATUS="Live";
@@ -1375,8 +1370,8 @@ if ($INDEMNITY > 0) {
     $POLICY_STATUS="Clawback";
     }
      
-    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number like :POL AND insurer='LV'");
-    $query->bindParam(':POL', $POLICY_NUMBER_NEW, PDO::PARAM_STR);
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number =:POL AND insurer='LV'");
+    $query->bindParam(':POL', $POLICY_NUMBER_CHECK, PDO::PARAM_INT);
     $query->execute();
     $result=$query->fetch(PDO::FETCH_ASSOC);
     
@@ -1412,7 +1407,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
 
    $insert = $pdo->prepare("INSERT INTO lv_financial_nomatch SET lv_financial_nomatch_indemnity=:pay, lv_financial_nomatch_policy_number=:pol, lv_financial_nomatch_uploader=:hello");
     $insert->bindParam(':pay', $INDEMNITY, PDO::PARAM_STR, 250);
-    $insert->bindParam(':pol', $POLICY_NUMBER, PDO::PARAM_STR, 250);
+    $insert->bindParam(':pol', $POLICY_NUMBER_CHECK, PDO::PARAM_INT);
     $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
     $insert->execute();        
     
@@ -1421,6 +1416,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
         $LV_INSERT = $pdo->prepare("INSERT INTO
                                         lv_financial
                                     SET 
+                                        lv_financial_policy=:POLICY
                                         lv_financial_name=:NAME,  
                                         lv_financial_policy_number=:POLICY_NUMBER,  
                                         lv_financial_type=:TYPE,  
@@ -1435,6 +1431,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
                                         lv_financial_level=:LEVEL,  
                                         lv_financial_total=:TOTAL,  
                                         lv_financial_uploader=:UPLOADER");
+        $LV_INSERT->bindParam(':POLICY', $POLICY_NUMBER_CHECK , PDO::PARAM_INT);
         $LV_INSERT->bindParam(':NAME', $NAME , PDO::PARAM_STR, 200);
         $LV_INSERT->bindParam(':POLICY_NUMBER', $POLICY_NUMBER , PDO::PARAM_STR, 200);
         $LV_INSERT->bindParam(':TYPE', $TYPE , PDO::PARAM_STR);

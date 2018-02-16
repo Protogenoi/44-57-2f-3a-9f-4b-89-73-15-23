@@ -94,14 +94,6 @@ if($TRACKED_IP!='81.145.167.66') {
             
         }  
 
-$Level_2_Access = array("Jade");
-
-if (in_array($hello_name, $Level_2_Access, true)) {
-
-    header('Location: /Life/Financial_Menu.php');
-    die;
-}
-
 if (in_array($hello_name, $Agent_Access, true)) {
 
     header('Location: /Life/Dealsheet.php');

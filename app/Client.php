@@ -2952,6 +2952,7 @@ WHERE
                                             break;
                                         case "Financial Uploaded":
                                         case "Legal and General Financial Uploaded":
+                                            case "LV Financial Uploaded":
                                         case "Royal London Financial Uploaded":
                                         case "Aviva Financial Uploaded":
                                         case "Vitality Financial Uploaded":

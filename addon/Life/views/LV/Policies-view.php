@@ -21,7 +21,7 @@
 
         <?php
         $PID = $LV_Policies['id'];
-        $polref = $LV_Policies['policy'];
+        $polref = $LV_Policies['policy_number'];
         $polcap[] = $LV_Policies['id'];
         $POL_HOLDER = $LV_Policies['client_name'];
         $LV_MODAL_APP = $LV_Policies['application_number'];

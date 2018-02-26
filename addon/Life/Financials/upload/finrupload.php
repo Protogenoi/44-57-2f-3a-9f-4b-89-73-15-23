@@ -1416,7 +1416,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
         $LV_INSERT = $pdo->prepare("INSERT INTO
                                         lv_financial
                                     SET 
-                                        lv_financial_policy=:POLICY
+                                        lv_financial_policy=:POLICY,
                                         lv_financial_name=:NAME,  
                                         lv_financial_policy_number=:POLICY_NUMBER,  
                                         lv_financial_type=:TYPE,  

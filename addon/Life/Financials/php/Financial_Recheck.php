@@ -172,7 +172,15 @@ if(isset($EXECUTE) && $EXECUTE==10) {
             $AMOUNT=$result['lv_financial_nomatch_indemnity'];
             
             
+            
+            if(strlen($POLICY_NUMBER_CHECK) > 7) {
             $POLICY_NUMBER_CHECK=substr($POL_NUM, 0, -6);
+            
+            }
+            
+            else {
+                $POLICY_NUMBER_CHECK =$POL_NUM;
+            }
                     
                 $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
                 $SELECT_Q->bindParam(':polhold', $POLICY_NUMBER_CHECK, PDO::PARAM_STR);

@@ -32,9 +32,7 @@ require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
-
 require_once(__DIR__ . '/../../includes/adl_features.php');
-
 if(isset($fferror)) {
     if($fferror=='1') {
         
@@ -48,17 +46,12 @@ if(isset($fferror)) {
     
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
 require_once(__DIR__ . '/../../includes/adlfunctions.php');    
-
 $USER_TRACKING=0;
-
 require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-
 require_once(__DIR__ . '/../../includes/time.php');
-
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
-
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
@@ -92,7 +85,6 @@ if ($ffanalytics == '1') {
     
     $INSURER= filter_input(INPUT_POST, 'custype', FILTER_SANITIZE_SPECIAL_CHARS);
     $INSURER_ARRAY_ONE=array("Bluestone Protect","The Review Bureau","TRB Archive","TRB Vitality","Vitality","TRB Aviva","Aviva","TRB WOL","One Family","TRB Royal London","Royal London");
-
         $TITLE= filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
         $first= filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_SPECIAL_CHARS);
         $last= filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -189,11 +181,14 @@ if ($ffanalytics == '1') {
                 $database->bind(':noteholder',$notedata);
                 $database->bind(':messageholder',$messagedata);
                 $database->execute();                       
-
+                
+                
+        
+        
      }  
      
         }
-     
+     $database->endTransaction();
      ?>
 <!DOCTYPE html>
 <html lang="en">

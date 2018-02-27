@@ -218,7 +218,7 @@ extra_charge=:CHARGE,
 $database = new Database(); 
         $database->beginTransaction();    
                 
-        $database->query("SELECT client_id client_note WHERE client_id=:CID");
+        $database->query("SELECT client_id FROM Client_Tasks WHERE client_id=:CID");
         $database->bind(':CID', $CID);
         $database->execute();
         
@@ -363,7 +363,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':task', $taskCYD, PDO::PARAM_STR);
         $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadlineCYD, PDO::PARAM_STR); 
-        $database->bind(':cid', $lastid); 
+        $database->bind(':cid', $CID); 
         $database->execute();
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
@@ -371,7 +371,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':task', $task24, PDO::PARAM_STR);
         $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline24, PDO::PARAM_STR); 
-        $database->bind(':cid', $lastid); 
+        $database->bind(':cid', $CID); 
         $database->execute();
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
@@ -379,7 +379,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':task', $task5, PDO::PARAM_STR);
         $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline5, PDO::PARAM_STR); 
-        $database->bind(':cid', $lastid); 
+        $database->bind(':cid', $CID); 
         $database->execute();
         
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
@@ -387,7 +387,7 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $database->bind(':task', $task18, PDO::PARAM_STR);
         $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
-        $database->bind(':cid', $lastid); 
+        $database->bind(':cid', $CID); 
         $database->execute();
         
         $notedata= "Tasks added!";

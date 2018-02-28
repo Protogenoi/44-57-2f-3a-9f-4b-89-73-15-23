@@ -1457,5 +1457,148 @@ if ($query->rowCount() <= 0) { // NO MATCH
     
 }
 
+if($EXECUTE=='12') {
+
+    if ($_FILES['csv']['size'] > 0) {
+
+    $file = $_FILES['csv']['tmp_name'];
+    $handle = fopen($file,"r");
+    
+    do {
+        if (isset($data[0])) {
+            
+$PRODUCT_CODE=$data[0];
+$TRANSACTION_DATE=$data[1];
+$TRANSACTION_TYPE=$data[2];
+$IFA_NAME=$data[3];
+$IFA_ONEFAMILY_AGENCY_ID=$data[4];
+$BRANCH_NAME=$data[5];
+$POLICY_HOLDER_NAME=$data[6];
+$POLICY_ID=$data[7];
+$POLICY_START_DATE=$data[8];
+$POLICY_API_PREMIUM=$data[9];
+
+
+if(empty($POLICY_API_PREMIUM)) {
+    $POLICY_API_PREMIUM=0;
+}
+$POLICY_API_GROSS=$data[10];
+
+if(empty($POLICY_API_GROSS)) {
+    $POLICY_API_GROSS=0;
+}
+
+$POLICY_INITIAL_INVESTMENT = $data[11];
+
+if(empty($POLICY_INITIAL_INVESTMENT)) {
+    $POLICY_INITIAL_INVESTMENT=0;
+}
+
+$COMMISSION_AMOUNT=$data[12];
+
+if(empty($COMMISSION_AMOUNT)) {
+    $COMMISSION_AMOUNT=0;
+}
+
+$COMMISSION_SPLIT=$data[13];
+$SPLIT_PERCENTAGE=$data[14];
+
+$POLICY_NUMBER_CHECK=substr($data[7], 0, -1);
+
+if ($COMMISSION_AMOUNT >= 0) {
+    $POLICY_STATUS="Live";
+    
+} elseif ($COMMISSION_AMOUNT < 0) {
+    $POLICY_STATUS="Clawback";
+    }
+     
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number =:POL AND insurer='LV'");
+    $query->bindParam(':POL', $POLICY_NUMBER_CHECK, PDO::PARAM_INT);
+    $query->execute();
+    $result=$query->fetch(PDO::FETCH_ASSOC);
+    
+    if ($query->rowCount() >= 1) { //IF THERES A MATCH ELSE GO TO NO MATCH
+    
+    $clientid=$result['client_id'];
+    $polid=$result['id'];
+    $policynumber=$result['policy_number'];
+    $ref= "$policynumber ($polid)";
+    $polstat=$result['policystatus'];
+     
+    $note="One Family Financial Uploaded";
+    $message="COMM (Status changed from $polstat to $POLICY_STATUS)";
+    
+    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+    $insert->bindParam(':clientid', $clientid, PDO::PARAM_INT);
+    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();
+    
+        $update = $pdo->prepare("UPDATE client_policy set policystatus=:STATUS, edited=:sent WHERE id=:polid");
+        $update->bindParam(':polid', $polid, PDO::PARAM_INT);
+        $update->bindParam(':STATUS', $POLICY_STATUS, PDO::PARAM_STR);
+        $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+        $update->execute();
+                 
+        
+}
+
+if ($query->rowCount() <= 0) { // NO MATCH
+
+   $insert = $pdo->prepare("INSERT INTO one_family_financial_nomatch SET one_family_financial_nomatch_commission_amount=:pay, one_family_financial_nomatch_policy_id=:pol, one_family_financial_nomatch_uploader=:hello");
+    $insert->bindParam(':pay', $COMMISSION_AMOUNT, PDO::PARAM_STR);
+    $insert->bindParam(':pol', $POLICY_ID, PDO::PARAM_INT);
+    $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
+    $insert->execute();        
+    
+}
+
+        $ONE_FAMILY_INSERT = $pdo->prepare("INSERT INTO
+                                        one_family_financial
+                                    SET
+                                        one_family_financial_product_code=:CODE,
+                                        one_family_financial_transaction_date=:TRAN_DATE,
+                                        one_family_financial_transaction_type=:TRAN_TYPE,
+                                        one_family_financial_ifa_name=:IFA_NAME,
+                                        one_family_financial_ifa_onefamily_agency_id=:AID,
+                                        one_family_financial_branch_name=:BRANCH,
+                                        one_family_financial_policy_holder_name=:HOLDER,
+                                        one_family_financial_policy_id=:POLICY,
+                                        one_family_financial_policy_start_date=:START_DATE,
+                                        one_family_financial_policy_api_premium=:PREMIUM,
+                                        one_family_financial_policy_api_gross=:GROSS,
+                                        one_family_financial_policy_initial_investment=:INITIAL,
+                                        one_family_financial_commission_amount=:COMM,
+                                        one_family_financial_commission_split=:SPLIT,
+                                        one_family_financial_split_percentage=:PERCENT,
+                                        one_family_financial_uploader=:UPLOADER");
+        $ONE_FAMILY_INSERT->bindParam(':CODE', $PRODUCT_CODE , PDO::PARAM_STR);
+        $ONE_FAMILY_INSERT->bindParam(':TRAN_DATE', $TRANSACTION_DATE , PDO::PARAM_STR, 200);
+        $ONE_FAMILY_INSERT->bindParam(':TRAN_TYPE', $TRANSACTION_TYPE , PDO::PARAM_STR, 200);
+        $ONE_FAMILY_INSERT->bindParam(':IFA_NAME', $IFA_NAME , PDO::PARAM_STR);
+        $ONE_FAMILY_INSERT->bindParam(':AID', $IFA_ONEFAMILY_AGENCY_ID , PDO::PARAM_STR, 200);
+        $ONE_FAMILY_INSERT->bindParam(':BRANCH', $BRANCH_NAME , PDO::PARAM_STR, 200);
+        $ONE_FAMILY_INSERT->bindParam(':HOLDER', $POLICY_HOLDER_NAME , PDO::PARAM_STR, 200);
+        $ONE_FAMILY_INSERT->bindParam(':POLICY', $POLICY_ID , PDO::PARAM_STR, 100);
+        $ONE_FAMILY_INSERT->bindParam(':START_DATE', $POLICY_START_DATE , PDO::PARAM_STR, 50);
+        $ONE_FAMILY_INSERT->bindParam(':PREMIUM', $POLICY_API_PREMIUM , PDO::PARAM_INT);
+        $ONE_FAMILY_INSERT->bindParam(':GROSS', $POLICY_API_GROSS , PDO::PARAM_INT);
+        $ONE_FAMILY_INSERT->bindParam(':INITIAL', $POLICY_INITIAL_INVESTMENT , PDO::PARAM_INT);
+        $ONE_FAMILY_INSERT->bindParam(':COMM', $COMMISSION_AMOUNT , PDO::PARAM_INT);
+        $ONE_FAMILY_INSERT->bindParam(':SPLIT', $COMMISSION_SPLIT , PDO::PARAM_STR);
+        $ONE_FAMILY_INSERT->bindParam(':PERCENT', $SPLIT_PERCENTAGE , PDO::PARAM_STR);
+        $ONE_FAMILY_INSERT->bindParam(':UPLOADER', $hello_name , PDO::PARAM_STR, 50);
+        $ONE_FAMILY_INSERT->execute();
+      
+    }
+    } while ($data = fgetcsv($handle,1000,",","'"));
+    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=ONEFAMILY'); die;
+}    
+    
+    
+}
+
 }
 ?>

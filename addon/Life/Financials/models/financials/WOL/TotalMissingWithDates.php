@@ -15,7 +15,7 @@ class WOL_TotalMissingWithDatesModal {
 FROM
     client_policy
         LEFT JOIN
-    financials ON financials.financials_policy = client_policy.policy_number
+    one_family_financial ON one_family_financial.one_family_financial_policy_id = client_policy.policy_number
 WHERE
     DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
         AND client_policy.policy_number NOT IN (SELECT 

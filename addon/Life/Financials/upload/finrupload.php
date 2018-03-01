@@ -1503,16 +1503,20 @@ if(empty($COMMISSION_AMOUNT)) {
 $COMMISSION_SPLIT=$data[13];
 $SPLIT_PERCENTAGE=$data[14];
 
-$POLICY_NUMBER_CHECK=substr($data[7], 0, -1);
+$POLICY_NUMBER_CHECK=$data[7];
 
-if ($COMMISSION_AMOUNT >= 0) {
+if ($TRANSACTION_TYPE == 'BACS_OUT') {
     $POLICY_STATUS="Live";
     
-} elseif ($COMMISSION_AMOUNT < 0) {
+} elseif ($TRANSACTION_TYPE == 'INTCOMCB') {
     $POLICY_STATUS="Clawback";
     }
+    
+    else {
+      $POLICY_STATUS="Live";  
+    }
      
-    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number =:POL AND insurer='LV'");
+    $query = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number =:POL AND insurer='One Family'");
     $query->bindParam(':POL', $POLICY_NUMBER_CHECK, PDO::PARAM_INT);
     $query->execute();
     $result=$query->fetch(PDO::FETCH_ASSOC);
@@ -1547,8 +1551,9 @@ if ($COMMISSION_AMOUNT >= 0) {
 
 if ($query->rowCount() <= 0) { // NO MATCH
 
-   $insert = $pdo->prepare("INSERT INTO one_family_financial_nomatch SET one_family_financial_nomatch_commission_amount=:pay, one_family_financial_nomatch_policy_id=:pol, one_family_financial_nomatch_uploader=:hello");
+   $insert = $pdo->prepare("INSERT INTO one_family_financial_nomatch SET one_family_financial_nomatch_transaction_type=:TYPE, one_family_financial_nomatch_commission_amount=:pay, one_family_financial_nomatch_policy_id=:pol, one_family_financial_nomatch_uploader=:hello");
     $insert->bindParam(':pay', $COMMISSION_AMOUNT, PDO::PARAM_STR);
+    $insert->bindParam(':TYPE', $TRANSACTION_TYPE, PDO::PARAM_STR);
     $insert->bindParam(':pol', $POLICY_ID, PDO::PARAM_INT);
     $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR, 250);
     $insert->execute();        

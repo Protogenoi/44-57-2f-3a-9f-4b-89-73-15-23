@@ -67,7 +67,7 @@ $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $AMOUNT= filter_input(INPUT_GET, 'AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
-$INSURER_ARRAY=array('LG','OneFamily','Royal London','Aviva','Vitality','LV');
+$INSURER_ARRAY=array('LG','One Family','Royal London','Aviva','Vitality','LV');
 
 if(!in_array($INSURER, $INSURER_ARRAY)) {
     
@@ -232,6 +232,83 @@ if(isset($EXECUTE) && $EXECUTE==10) {
                         
                        $delete = $pdo->prepare("DELETE FROM lv_financial_nomatch WHERE lv_financial_nomatch_policy_number=:pol AND lv_financial_nomatch_id=:ID LIMIT 1");
                        $delete->bindParam(':pol', $POL_NUM, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
+                       $delete->execute();  
+                       
+                }
+                    
+                }
+            }
+           
+                                        header('Location: /addon/Life/Financials/Financial.php?UPDATED='.$i); die;    
+
+        
+    }  
+    
+    if($INSURER=='One Family') {
+        
+        $i=0;
+        
+            $Icheck = $pdo->prepare("SELECT one_family_financial_nomatch_id, one_family_financial_nomatch_transaction_type, one_family_financial_nomatch_policy_id, one_family_financial_nomatch_commission_amount FROM one_family_financial_nomatch");
+            $Icheck->execute();
+            if ($Icheck->rowCount() >= 1) {  
+            while ($result=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
+            
+            $POL_NUM=$result['one_family_financial_nomatch_policy_id'];
+            $FID=$result['one_family_financial_nomatch_id'];
+            $AMOUNT=$result['one_family_financial_nomatch_commission_amount'];
+            $TYPE=$result['one_family_financial_nomatch_transaction_type'];
+                    
+                $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
+                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $SELECT_Q->execute();
+                $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
+                if ($SELECT_Q->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
+                    $policynumber=$result['policy_number'];
+                    $ref= "$policynumber ($PID)";
+                    $polstat=$result['policystatus'];     
+                    
+                    $note="One Family Financial Uploaded";
+                    
+                    if($TYPE == 'BACS_OUT') {  
+                    
+                    $message="COMM (Status changed from $polstat to Live)";
+                    $POL_STATUS='Live';
+                    
+                    } elseif($TYPE == 'INTCOMCB') {
+                        
+                        $message="COMM (Status changed from $polstat to Clawback)";
+                        $POL_STATUS='Clawback';
+                        
+                    } else {
+                        
+                        $message="ERROR";
+                        $POL_STATUS='ERROR';                        
+                        
+                    }
+                        
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE client_policy set policystatus=:policystatus, edited=:sent WHERE id=:PID");
+                    $update->bindParam(':PID', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $update->bindParam(':policystatus', $POL_STATUS, PDO::PARAM_STR, 50);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM one_family_financial_nomatch WHERE one_family_financial_nomatch_policy_id=:pol AND one_family_financial_nomatch_id=:ID LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
                        $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
                        $delete->execute();  
                        

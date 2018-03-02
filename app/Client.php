@@ -773,10 +773,22 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         }
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
+                            
+                            if($COMPANY_ENTITY=='First Priority Group') {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/WOL/Policies-modal.php');
+                            $WOLPolicies = new WOLPoliciesModal($pdo);
+                            $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/WOL/Policies-view.php');        
+                                
+                            } else {                                
+                            
                             require_once(__DIR__ . '/../addon/Life/models/WOLPoliciesModal.php');
                             $WOLPolicies = new WOLPoliciesModal($pdo);
                             $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/WOL-Policies.php');
+                            
+                            }
 
                         }
 

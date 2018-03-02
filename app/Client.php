@@ -2314,13 +2314,26 @@ WHERE
                             }  
                             
                             if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
+                                
+                             if($COMPANY_ENTITY=='First Priority Group') {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/WOL/Financial-model.php');
+                            $WOLtrans = new WOLtransModel($pdo);
+                            $WOLtransList = $WOLtrans->getWOLtrans($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/WOL/Financial-view.php');                                      
+                                    
+                                } 
+                                
+                            else {    
                             
                             require_once(__DIR__ . '/../addon/Life/models/financials/transactions/WOLModel.php');
                             $WOLtrans = new WOLtransModel($pdo);
                             $WOLtransList = $WOLtrans->getWOLtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/transactions/wol-view.php');             
                             
-                            }                             
+                            }    
+                            
+                            }
                        ?>                 </div>
             </div>
                  <?php

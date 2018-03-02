@@ -35,8 +35,7 @@ class WOLPoliciesModal {
             WHERE 
                 client_policy.client_id =:CID
             AND 
-                insurer='One Family' 
-            AND one_family_financial_transaction_type IN('BACS_OUT ','INTCOMCB')   
+                insurer='One Family'
             GROUP BY 
                 client_policy.policy_number");
         $stmt->bindParam(':CID', $search, PDO::PARAM_INT);

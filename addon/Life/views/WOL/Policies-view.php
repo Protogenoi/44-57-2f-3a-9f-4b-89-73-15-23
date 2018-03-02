@@ -24,6 +24,7 @@
         $polref = $WOL_Policies['policy_number'];
         $polcap[] = $WOL_Policies['id'];
         $POL_HOLDER = $WOL_Policies['client_name'];
+        $WOL_TYPE=$WOL_Policies['one_family_financial_transaction_type'];
         
         if(empty($Old_Policies['covera'])) {
             $Old_Policies['covera']=0;
@@ -54,18 +55,9 @@
             echo "<td><span class=\"label label-default\">" . $WOL_Policies['PolicyStatus'] . "</span></td>";
         }
             
-        if ($WOL_Policies['one_family_financial_transaction_type'] == 'BACS_OUT') {
+        if (isset($WOL_Policies['one_family_financial_transaction_type'])) {
             
-            echo "<td><span class='label label-success'>PAID</span> </td>";
-            
-        } else {
-
-            echo "<td> </td>";
-        }
-        
-        if ($WOL_Policies['one_family_financial_transaction_type'] == 'INTCOMCB') {
-            
-            echo "<td><span class='label label-danger'>CLAWBACK</span> </td>";
+            echo "<td><span class='label label-info'>On Financials</span> </td>";
             
         } else {
 

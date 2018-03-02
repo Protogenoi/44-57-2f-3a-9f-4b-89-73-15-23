@@ -101,6 +101,103 @@ if(isset($EXECUTE)) {
            if($EXECUTE=='1') {
             
          if(isset($INSURER)) {
+          if($INSURER == 'One Family') {
+            
+            $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,Email,Address_1,Address_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";
+            $query = $pdo->prepare("SELECT 
+    one_family_financial.one_family_financial_commission_amount AS FIN_AMOUNT,
+    one_family_financial.one_family_financial_transaction_type, 
+    client_policy.application_number,
+    client_policy.policy_number AS POLICY_NUMBER,
+    CONCAT(DATE(client_policy.submitted_date), ' - ',
+    DATE(client_policy.sale_date)) as sale_sub,
+    client_policy.commission,
+    DATE(one_family_financial.one_family_financial_uploaded_date) AS insert_date,
+    '' AS empty_col,
+    client_policy.client_name,
+    '' AS empty_col,
+    client_details.phone_number,
+    client_details.alt_number,
+    CONCAT(client_details.dob,
+            ' - ',
+            client_details.dob2) AS CDOB,
+    client_details.email,
+    client_details.address1,
+    client_details.address2,
+    CONCAT(client_details.address3,
+            ' ',
+            client_details.town) AS TOWN,
+    client_details.post_code,
+    client_policy.premium,
+    client_policy.type,
+    client_policy.commission,
+    '' AS empty_col,
+    '' AS empty_col2,
+    CONCAT(client_policy.lead,
+            '/',
+            client_policy.closer) AS AGENTS,
+    client_policy.policystatus,
+    client_policy.insurer,
+    client_policy.submitted_by,
+    client_details.company,
+    client_details.submitted_date
+FROM
+    client_policy
+        LEFT JOIN
+    client_details ON client_policy.client_id = client_details.client_id
+        LEFT JOIN
+    one_family_financial ON one_family_financial.one_family_financial_policy_id = client_policy.policy_number
+WHERE
+    DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto AND client_policy.insurer='One Family'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2 AND client_policy.insurer='One Family'");
+            $query->bindParam(':datefrom', $DATE_FROM, PDO::PARAM_STR);
+            $query->bindParam(':dateto', $DATE_TO, PDO::PARAM_STR);
+            $query->bindParam(':datefrom2', $DATE_FROM, PDO::PARAM_STR);
+            $query->bindParam(':dateto2', $DATE_TO, PDO::PARAM_STR);
+            $query->execute();
+            $list = $query->fetchAll();
+            foreach ($list as $rs) {
+                
+            $ADL_AMOUNT = ($simply_biz/100) * $rs['commission'];
+            $pipe=$rs['commission']-$ADL_AMOUNT;  
+            $ADL_SUM = number_format($pipe, 2, '.', '.' ); 
+
+            if(empty($rs['FIN_AMOUNT'])) {
+                $rs['FIN_AMOUNT']='NOT PAID';
+            }
+
+        if($rs['one_family_financial_transaction_type'] == 'BACS_OUT') {
+            
+$PAYMENT_AMOUNT=abs($rs['FIN_AMOUNT']);            
+            
+        }   elseif($rs['one_family_financial_transaction_type'] =='INTCOM') {
+            
+            $PAYMENT_AMOUNT=$rs['FIN_AMOUNT']." (INTCOM)";
+            
+        }  
+        
+elseif($rs['one_family_financial_transaction_type'] =='INTCOMCB') {
+            
+            $PAYMENT_AMOUNT=$rs['FIN_AMOUNT'];
+            
+        }       
+        else {
+            
+        $PAYMENT_AMOUNT=$rs['FIN_AMOUNT'];    
+            $PAYMENT_AMOUNT='NOT PAID';
+        }  
+        
+            if(empty($rs['FIN_AMOUNT'])) {
+                $PAYMENT_AMOUNT='NOT PAID';
+            }        
+            
+                
+                $output .= $rs['application_number'].",".$rs['POLICY_NUMBER'].",".$rs['sale_sub'].",".$rs['insert_date'].",".$rs['client_name'].",$ADL_SUM,$PAYMENT_AMOUNT,".$rs['phone_number'].",".$rs['alt_number'].",".$rs['CDOB'].",".$rs['email'].",".$rs['address1'].",".$rs['address2'].",".$rs['TOWN'].",".$rs['post_code'].",".$rs['premium'].",".$rs['type'].",".$rs['commission'].",".$rs['empty_col'].",".$rs['empty_col2'].",".$rs['AGENTS'].",".$rs['policystatus'].",".$rs['insurer'].",".$rs['submitted_by'].",".$rs['company'].",".$rs['submitted_date']."\n";
+                
+            }
+            echo $output;
+            exit;
+            }             
              if($INSURER == 'Vitality') {
             
             $output = "Application_Number,Policy_Number, Sale_THEN_OLP_Date,COMM Date,Forename,ADL Amount,COMM Amount,Tel,Alt_Tel,DOB,Email,Address_1,Address_2,Town,Postcode,Premium,Type,Commission,Paid_to_HWIFS,Net_Paid,Closer,Status,Insurer,Owner,Company,Date_Added\n";

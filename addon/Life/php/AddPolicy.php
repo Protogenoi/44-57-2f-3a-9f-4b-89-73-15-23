@@ -394,9 +394,8 @@ $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
         $REF= "CRM Alert";
         $messagedata="All tasks have been assigned to this client";
                 
-                $database->query("INSERT INTO client_note set client_id=:CID, client_name=:recipientholder, sent_by=:HELLO, note_type=:noteholder, message=:messageholder ");
+                $database->query("INSERT INTO client_note set client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:noteholder, message=:messageholder ");
                 $database->bind(':CID',$CID);
-                $database->bind(':HELLO',$hello_name);
                 $database->bind(':recipientholder',$REF);
                 $database->bind(':noteholder',$notedata);
                 $database->bind(':messageholder',$messagedata);

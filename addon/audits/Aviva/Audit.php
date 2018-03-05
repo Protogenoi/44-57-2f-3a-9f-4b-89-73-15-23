@@ -529,7 +529,6 @@ WHERE
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
-    <?php require_once(__DIR__ . '/../../../includes/NAV.php');?><br>
 
     <div class="container-fluid">
         <div class="row">

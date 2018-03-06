@@ -2166,12 +2166,8 @@ $user = filter_input(INPUT_GET, 'user', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                    <label class="col-md-4 control-label" for="password">Company:</label>
                                    <div class="col-md-4">
     <select class="form-control" name='COMPANY_ENTITY'>
+        <option value='First Priority Group'>First Priority Group</option>
         <option value='Bluestone Protect'>Bluestone Protect</option>
-        <option value='Protect Family Plans'>Protect Family Plans</option>
-        <option value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option value='We Insure'>We Insure</option>
-        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
     </select>
                                    </div>
                                </div>                        

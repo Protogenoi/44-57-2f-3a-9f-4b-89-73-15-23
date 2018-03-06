@@ -206,7 +206,7 @@ $(document).ready(function() {
 					"processing": "<div></div><div></div><div></div><div></div><div></div>"
 
         },
-        "ajax": "php/Search_Results.php?EXECUTE=1&USER=<?php echo $USER;?>&TOKEN=<?php echo $TOKEN; ?>",
+        "ajax": "php/Search_Results.php?EXECUTE=1&USER=<?php echo $hello_name;?>&TOKEN=<?php echo $TOKEN; ?>",
         "columns": [
             {
                 "className":      'details-control',

@@ -1238,6 +1238,7 @@ if (isset($fileuploadedfail)) {
                             <div class="form-group">
                                 <select style="width: 170px" class="form-control" name="uploadtype" required>
                                     <option value="">Select...</option>
+                                    <option value="Closer and Agent Call Recording">Closer and Agent Call Recording</option>
                                     <option value="Closer Call Recording">Closer Call Recording</option>
                                     <option value="Agent Call Recording">Agent Call Recording</option>
                                     <option value="Dealsheet">Life Dealsheet</option>

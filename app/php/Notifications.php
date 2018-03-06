@@ -212,7 +212,12 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
         echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
         
      } } else {
-
+         
+    $database->query("SELECT uploadtype FROM tbl_uploads WHERE uploadtype='Closer and Agent Call Recording' AND file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
 
     $database->query("select uploadtype from tbl_uploads where uploadtype='Closer Call Recording' and file like :search");
     $database->bind(':search', $likesearch);
@@ -224,6 +229,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
+     
     $database->query("select uploadtype from tbl_uploads where uploadtype='Agent Call Recording' and file like :search");
     $database->bind(':search', $likesearch);
     $database->execute();
@@ -233,6 +239,8 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
     echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Agent call recording not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
+     }
+     
      }
 
      

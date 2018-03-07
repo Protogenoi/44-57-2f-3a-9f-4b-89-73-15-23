@@ -24,6 +24,9 @@
         $polref = $VITALITY_Policies['policy_number'];
         $polcap[] = $VITALITY_Policies['id'];
         $POL_HOLDER = $VITALITY_Policies['client_name'];
+        $VITALITY_TOTAL_AMOUNT = $VITALITY_Policies['VITALITY_TOTAL_AMOUNT'];        
+        
+        $ADL_VIT_POL_COM = (5.0 / 100) * $VITALITY_Policies['commission'];
         
         if(empty($Old_Policies['covera'])) {
             $Old_Policies['covera']=0;
@@ -62,17 +65,31 @@
         }
         if (!empty($VITALITY_Policies['vitality_financial_amount'])) {
             
-        if ($VITALITY_Policies['vitality_financial_amount'] >= 0) {
+        if ($VITALITY_TOTAL_AMOUNT > $ADL_VIT_POL_COM) {
             
-            echo "<td><span class='label label-success'>PAID</span> </td>";
-            
-        } elseif ($VITALITY_Policies['vitality_financial_amount'] < 0) {
-            
-            echo "<td><span class='label label-danger'>CLAWBACK</span> </td>";
+            echo "<td><span class='label label-success'>FULL PAYMENT</span> </td>";
             
         } 
         
-        } else {
+        elseif ($VITALITY_TOTAL_AMOUNT > 0 && $VITALITY_TOTAL_AMOUNT < $ADL_VIT_POL_COM) {
+            
+            echo "<td><span class='label label-warning'>PART PAYMENT</span> </td>";
+            
+        }
+        
+        elseif ($VITALITY_Policies['vitality_financial_amount'] < 0) {
+            
+            echo "<td><span class='label label-danger'>Clawback</span> </td>";
+            
+        }  
+        
+        else {
+            echo "<td><span class='label label-danger'>Clawback</span> </td>";
+        }
+        
+        } 
+        
+        else {
 
             echo "<td> </td>";
         }

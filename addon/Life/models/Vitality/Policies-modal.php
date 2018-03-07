@@ -23,10 +23,11 @@ class VITALITYPoliciesModal {
                 client_policy.covera, 
                 client_policy.client_id, 
                 client_policy.client_name, 
-                client_policy.premium,  
+                client_policy.premium, 
                 client_policy.CommissionType, 
                 client_policy.PolicyStatus, 
-                client_policy.commission 
+                client_policy.commission,
+                SUM(vitality_financial.vitality_financial_amount) AS VITALITY_TOTAL_AMOUNT
             FROM 
                 client_policy
             LEFT JOIN 

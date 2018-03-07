@@ -1,5 +1,5 @@
 
-    <button class="btn btn-warning btn-sm list-group-item" data-toggle="modal" data-target="#KeyFactsModal">Keyfacts emails not sent!</button>
+    <button class="btn btn-danger btn-sm list-group-item" data-toggle="modal" data-target="#KeyFactsModal">KEYFACTS EMAIL NOT SENT!</button>
     
     <div id="KeyFactsModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg"">

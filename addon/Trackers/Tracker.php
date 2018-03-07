@@ -281,31 +281,6 @@ WHERE
 <button class="list-group-item"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; READY!!!/CANCEL</button>
 <select class="form-control" name="SEND_LEAD" id="SEND_LEAD">
     <option value="">Select agent</option>
-<option value="Adam Arrigan">Adam Arrigan</option>
-<option value="Ashleigh Woodgate">Ashleigh Woodgate</option>
-<option value="Ashley Johns">Ashley Johns</option>
-<option value="Ashley Heaven">Ashley Heaven</option>
-<option value="Charlotte Griffiths">Charlotte Griffiths</option>
-<option value="Craig Davies">Craig Davies</option>
-<option value="Daniel Holden">Daniel Holden</option>
-<option value="David Bebee">David Bebee</option>
-<option value="Ffion Edwards">Ffion Edwards</option>
-<option value="Jared Morris">Jared Morris</option>
-<option value="Joanne Bailey">Joanne Bailey</option>
-<option value="Jordan Davies">Jordan Davies</option>
-<option value="Ricky Derrick">Ricky Derrick</option>
-<option value="Ryan Tidbal">Ryan Tidbal</option>
-<option value="Shaun Pearce">Shaun Pearce</option>
-<option value="Sophie Jones">Sophie Jones</option>
-<option value="Stavros">Stavros</option>
-<option value="Stephen Howard">Stephen Howard</option>
-<option value="Sharne Knight">Sharne Knight</option>
-<option value="Sophie Lloyd">Sophie Lloyd</option>
-<option disabled>-------------Web-------------</option>
-<option value="Andy Jones">Andy Jones</option>
-<option value="Jack Smith">Jack Smith</option>
-<option value="Lee McDonaugh">Lee McDonaugh</option>
-<option value="Lois Taylor">Lois Taylor</option>
 </select>
                     </form>
                 </div>

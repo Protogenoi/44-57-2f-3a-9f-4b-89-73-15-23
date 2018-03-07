@@ -755,26 +755,15 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
 
                 <?php
 
-                    $query = $pdo->prepare("SELECT 
-                        client_policy.id AS PID, 
-                        client_policy.client_id AS CID, 
-                        client_policy.policy_number, 
-                        client_policy.commission, 
-                        DATE(client_policy.sale_date) AS SALE_DATE, 
+                    $query = $pdo->prepare("SELECT  
                         vitality_financial.vitality_financial_life_assured_name, 
                         vitality_financial.vitality_financial_policy_number, 
                         vitality_financial.vitality_financial_amount, 
                         DATE(vitality_financial_uploaded_date) AS COMM_DATE
                     FROM
                         vitality_financial
-                    LEFT JOIN 
-                        client_policy
-                    ON 
-                        vitality_financial.vitality_financial_policy_number=client_policy.policy_number
                     WHERE 
                         DATE(vitality_financial_uploaded_date) = :commdate
-                    AND
-                        client_policy.insurer='Vitality'
                     ORDER BY 
                         vitality_financial.vitality_financial_amount DESC");
                     $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
@@ -800,7 +789,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
                                 echo '<tr>';
-                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>".$row['vitality_financial_policy_number']."</td>";
                                 echo "<td>" . $row['vitality_financial_life_assured_name'] . "</td>";
                                 if (intval($row['vitality_financial_amount']) > 0) {
                                     echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";

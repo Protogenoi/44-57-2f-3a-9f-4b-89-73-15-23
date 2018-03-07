@@ -200,7 +200,13 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
       <?php
 
 }
-}        
+}  
+
+    require_once(__DIR__ . '/models/CLOSERS/LAST_SALE-MODAL.php');
+    $LAST_SALE = new LAST_SALEModal($pdo);
+    $LAST_SALEList = $LAST_SALE->getLAST_SALE();
+    require_once(__DIR__ . '/views/CLOSERS/LAST_SALE-VIEW.php');   
+
 
         $TRACKER = $pdo->prepare("SELECT insurer, date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() AND sale ='SALE' ORDER BY date_added DESC LIMIT 5");
         $TRACKER->execute();

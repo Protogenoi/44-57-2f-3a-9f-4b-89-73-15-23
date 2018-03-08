@@ -106,7 +106,7 @@ $delete->execute();
         if(isset($fferror)) {
     if($fferror=='0') {
         
-        header('Location: /../../../../Life/ViewClient.php?deletedpolicy=y&search='.$client_id); die;
+        header('Location: /../../../../app/Client.php?deletedpolicy=y&search='.$client_id); die;
         
     }
     

@@ -71,6 +71,15 @@ WHERE
    <?php  $NUMBER_BAD='1'; 
    
                  }
+                 
+                 if(isset($LANG_POL) && $LANG_POL == 1 
+                         || isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 
+                         || isset($HAS_LV_POL) && $HAS_LV_POL == 1 
+                         || isset($HAS_AVI_POL) && $HAS_AVI_POL == 1 
+                         || isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 
+                         || isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1 
+                         || isset($HAS_RL_POL) && $HAS_RL_POL == 1
+                         || isset($HAS_WOL_POL) && $HAS_WOL_POL == 1 ) {
    
                 $database->query("SELECT 
     note_id
@@ -95,6 +104,8 @@ WHERE
    <?php  }   
     
     
+}
+
 }
 
 if(isset($WHICH_COMPANY)){     
@@ -546,7 +557,7 @@ foreach ($result as $value) {
          
                           <?php  }   }      
                           
-if($WHICH_COMPANY=='Zurich') {
+if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='Zurichkeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -572,7 +583,7 @@ if($WHICH_COMPANY=='Zurich') {
      }    
 }  
 
-if($WHICH_COMPANY=='Royal London') {
+     if(isset($HAS_RL_POL) && $HAS_RL_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='RLkeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -606,7 +617,7 @@ if(empty($HAS_RL_LEAD_AUDIT)) {
      
 }
 
-if($WHICH_COMPANY=='Scottish Widows') {
+ if(isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='SWkeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -632,7 +643,7 @@ if($WHICH_COMPANY=='Scottish Widows') {
      }    
 }
 
-if($WHICH_COMPANY=='Vitality') {
+     if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -656,7 +667,7 @@ if($WHICH_COMPANY=='Vitality') {
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
      }   
-
+     
 if(empty($HAS_VIT_CLOSE_AUDIT)) {  
  echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Vitality Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
 } 
@@ -666,7 +677,8 @@ if(empty($HAS_VIT_LEAD_AUDIT)) {
      
 }
 
-if($WHICH_COMPANY=='LV') {
+
+     if(isset($HAS_LV_POL) && $HAS_LV_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='LVkeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -700,7 +712,8 @@ if(empty($HAS_LV_LEAD_AUDIT)) {
      
 }
 
-if($WHICH_COMPANY=='One Family') {
+
+     if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='WOLkeyfacts' and file like :search");
             $database->bind(':search', $likesearch);
@@ -733,4 +746,39 @@ if(empty($HAS_WOL_LEAD_AUDIT)) {
 }    
      
 }
-                                                                ?>
+
+    if(isset($HAS_AVI_POL) && $HAS_AVI_POL=='1') {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='Avivakeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Aviva Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Avivapolicy' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Aviva App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }   
+
+if(empty($HAS_AVI_CLOSE_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Aviva Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+} 
+if(empty($HAS_AVI_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Aviva Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}    
+     
+}
+
+?>

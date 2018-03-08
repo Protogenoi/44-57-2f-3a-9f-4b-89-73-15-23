@@ -208,7 +208,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
     require_once(__DIR__ . '/views/CLOSERS/LAST_SALE-VIEW.php');   
 
 
-        $TRACKER = $pdo->prepare("SELECT insurer, date_updated, tracker_id, agent, closer, client, current_premium, our_premium, comments, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() AND sale ='SALE' ORDER BY date_added DESC LIMIT 5");
+        $TRACKER = $pdo->prepare("SELECT insurer, date_updated, tracker_id, agent, closer, client, sale, date_updated FROM closer_trackers WHERE date_updated >= CURDATE() AND sale ='SALE' ORDER BY date_added DESC LIMIT 5");
         $TRACKER->execute();
 
         if ($TRACKER->rowCount() > 0) {
@@ -220,9 +220,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         <th>Closer</th>
                         <th>Agent</th>
                         <th>Client</th>
-                        <th>Current Premium</th>
-                        <th>Our Premium</th>
-                        <th>Notes</th>
                         <th>Insurer</th>
                         <th>DISPO</th>
                     </tr>
@@ -234,9 +231,6 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     $TRK_closer = $TRACKERresult['closer'];
                     $TRK_client = $TRACKERresult['client'];
 
-                    $TRK_current_premium = $TRACKERresult['current_premium'];
-                    $TRK_our_premium = $TRACKERresult['our_premium'];
-                    $TRK_comments = $TRACKERresult['comments'];
                     $TRK_sale = $TRACKERresult['sale'];
                     $TRK_INSURER = $TRACKERresult['insurer'];
 
@@ -296,12 +290,9 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                     ?>
 
                     <tr>
-                        <td bgcolor="#ffffff"> <strong style="font-size: 40px;"> <?php echo $TRK_closer; ?></strong></td>
+                        <td bgcolor="#ffffff"><strong style="font-size: 40px;"> <?php echo $TRK_closer; ?></strong></td>
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_agent; ?></strong></td>
-                        <td bgcolor="#ffffff"><strong><?php echo $TRK_client; ?></strong></td>
-                        <td bgcolor="#ffffff"><strong><?php echo $TRK_current_premium; ?></strong></td>
-                        <td bgcolor="#ffffff"><strong><?php echo $TRK_our_premium; ?></strong></td>
-                        <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_comments; ?></strong></td>
+                        <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_client; ?></strong></td>
                         <td bgcolor="#ffffff"><strong style="font-size: 40px;"><?php echo $TRK_INSURER; ?></strong></td>
                         <td bgcolor="<?php echo $TRK_BG; ?>"><strong style="font-size: 40px;"><?php echo $TRK_sale; ?></strong></td>
 

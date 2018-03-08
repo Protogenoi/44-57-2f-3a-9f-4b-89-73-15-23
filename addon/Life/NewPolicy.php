@@ -372,7 +372,25 @@ if (isset($EXECUTE)) {
                                             <span class="input-group-addon">£</span>
                                             <input value="0" style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="EXTRA_CHARGE" name="EXTRA_CHARGE" required/>
                                         </div> 
-                                        </p>                                        
+                                        </p>  
+                                        
+                                        <p>
+                                                <div class="form-group">
+                                                    <label for="CommissionType">Comms:</label>
+                                                    <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
+                                                        <option value="">Select...</option>
+                                                        <option value="Indemnity">Indemnity</option>
+                                                        <option value="Non Idenmity">Non-Idemnity</option>
+                                                        <option value="NA" <?php
+                                                        if (isset($INSURER)) {
+                                                            if ($INSURER == 'ONEFAMILY') {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?>>N/A</option>
+                                                    </select>
+                                                </div>
+                                                </p>                                        
 
 
                                         <p>
@@ -387,6 +405,15 @@ if (isset($EXECUTE)) {
                                             ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
                                         </div> 
                                         </p>
+                                        
+                                        <p>
+
+                                            <label for="NonIndem">Non-Indem Comm</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input value='0' style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIndem" name="NonIndem" required/>
+                                        </div> 
+                                        </p>                                         
 
                                         <p>
                                         <div class="form-row">
@@ -410,7 +437,7 @@ if (isset($EXECUTE)) {
                                                     if ($INSURER == 'ARCHIVE') {
                                                         echo "value='0'";
                                                     }
-                                                    ?> style="width: 140px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php
+                                                    ?> style="width: 125px" autocomplete="off" type="text" class="form-control" id="polterm" name="polterm" <?php
                                                         if (isset($INSURER)) {
                                                             if ($INSURER == 'ONEFAMILY') {
                                                                 echo "value='WOL'";
@@ -420,23 +447,6 @@ if (isset($EXECUTE)) {
                                                 </div> 
                                                 </p>
 
-                                                <p>
-                                                <div class="form-group">
-                                                    <label for="CommissionType">Comms:</label>
-                                                    <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
-                                                        <option value="">Select...</option>
-                                                        <option value="Indemnity">Indemnity</option>
-                                                        <option value="Non Idenmity">Non-Idemnity</option>
-                                                        <option value="NA" <?php
-                                                        if (isset($INSURER)) {
-                                                            if ($INSURER == 'ONEFAMILY') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?>>N/A</option>
-                                                    </select>
-                                                </div>
-                                                </p>
 
                                                 <p>
                                                 <div class="form-group">

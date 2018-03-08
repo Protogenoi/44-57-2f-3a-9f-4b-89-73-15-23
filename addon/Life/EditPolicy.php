@@ -135,7 +135,7 @@ if (isset($fferror)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT client_policy.extra_charge, CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name AS POL_NAME, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
+    $query = $pdo->prepare("SELECT non_indem_com, client_policy.extra_charge, CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name AS POL_NAME, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
     $query->bindParam(':search', $id, PDO::PARAM_INT);
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
@@ -372,7 +372,30 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                         <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php if(isset($data2['extra_charge'])) { echo $data2['extra_charge']; } else { echo 0; }  ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="EXTRA_CHARGE" name="EXTRA_CHARGE" />
                                     </div> 
                                 </div>
-                                </p>                                
+                                </p>  
+                                
+                                     <p>
+                                    <div class="form-group">
+                                        <label for="CommissionType">Comms:</label>
+                                        <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
+                                            <option <?php
+                                                if ($data2["CommissionType"] == 'Indemnity') {
+                                                    echo "selected";
+                                                }
+                                                ?> value="Indemnity">Indemnity</option>
+                                            <option <?php
+                                                if ($data2["CommissionType"] == 'Non Idenmity') {
+                                                    echo "selected";
+                                                }
+                                                ?> value="Non Idenmity">Non-Idemnity</option>
+                                            <option <?php
+                                                if ($data2["CommissionType"] == 'NA') {
+                                                    echo "selected";
+                                                }
+                                                ?> value="NA">N/A</option>
+                                        </select>
+                                    </div>
+                                    </p>                               
 
 <?php if (in_array($hello_name, $Level_10_Access, true) || $hello_name == "Tina" || $hello_name="carys") { ?>
                                     <p>
@@ -386,6 +409,17 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
 
                                     </p>
 
+                                    <p>
+                                    <div class="form-row">
+                                        <label for="NonIdem">Non-Idem Comm</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['non_indem_com'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIdem" name="NonIdem" />
+                                        </div>
+                                    </div>
+
+                                    </p>                                    
+                                    
 <?php } else { ?>
                                     <p>
                                     <div class="form-row">
@@ -397,6 +431,17 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                         </div>  
                                     </div>
                                     </p>
+                                    
+                                    <p>
+                                    <div class="form-row">
+                                        <div class="alert alert-info"><strong>Commission: See an authorised person to update the amount</strong><br>
+                                            <div class="input-group"> 
+                                                <span class="input-group-addon">£</span>
+                                                <input  class="form-control currency" style="width: 140px" min="0" type="text" readonly="true" value="<?php echo $data2['non_indem_com'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIdem" name="NonIdem" />
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    </p>                                    
 <?php } ?>
                                 <p>
                                 <div class="form-row">
@@ -420,31 +465,6 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                         </div> 
                                     </div>
                                     </p>
-
-
-                                    <p>
-                                    <div class="form-group">
-                                        <label for="CommissionType">Comms:</label>
-                                        <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
-                                            <option <?php
-                                                if ($data2["CommissionType"] == 'Indemnity') {
-                                                    echo "selected";
-                                                }
-                                                ?> value="Indemnity">Indemnity</option>
-                                            <option <?php
-                                                if ($data2["CommissionType"] == 'Non Idenmity') {
-                                                    echo "selected";
-                                                }
-                                                ?> value="Non Idenmity">Non-Idemnity</option>
-                                            <option <?php
-                                                if ($data2["CommissionType"] == 'NA') {
-                                                    echo "selected";
-                                                }
-                                                ?> value="NA">N/A</option>
-                                        </select>
-                                    </div>
-                                    </p>
-
 
                                     <p>
                                     <div class="form-group">

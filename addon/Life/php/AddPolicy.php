@@ -92,6 +92,7 @@ if (isset($EXECUTE)) {
         $covera = filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
         $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
         $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
+        $NonIndem = filter_input(INPUT_POST, 'NonIndem', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_NUMBER_FLOAT);
 
@@ -139,7 +140,9 @@ extra_charge=:CHARGE,
  closer=:closer,
  lead=:lead,
  covera=:covera,
- polterm=:polterm");
+ polterm=:polterm,
+ non_indem_com=:NONIDEM");
+            $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_INT);
             $insert->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
             $insert->bindParam(':cid', $CID, PDO::PARAM_STR);
             $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
@@ -182,8 +185,9 @@ extra_charge=:CHARGE,
 
         }
 
-        $insert = $pdo->prepare("INSERT INTO client_policy set client_id=:cid, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
+        $insert = $pdo->prepare("INSERT INTO client_policy set non_indem_com=:NONIDEM, client_id=:cid, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
         $insert->bindParam(':cid', $CID, PDO::PARAM_STR);
+        $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_STR);
         $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
         $insert->bindParam(':sale', $sale_date, PDO::PARAM_STR);
         $insert->bindParam(':an_num', $application_number, PDO::PARAM_STR);

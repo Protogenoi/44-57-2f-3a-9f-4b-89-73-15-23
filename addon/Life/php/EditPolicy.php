@@ -87,6 +87,7 @@ $covera = filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_NUMBER_FLOAT);
+$NonIdem = filter_input(INPUT_POST, 'NonIdem', FILTER_SANITIZE_NUMBER_FLOAT);
 
 $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -116,7 +117,8 @@ if ($count = $dupeck->rowCount() >= 1) {
 
     $oname = $origdetails['orig_policy'];
 
-    $update = $pdo->prepare("UPDATE client_policy SET extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+    $update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+    $update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
     $update->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
     $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $update->bindParam(':covera', $covera, PDO::PARAM_INT);
@@ -172,7 +174,8 @@ $origdetails = $query->fetch(PDO::FETCH_ASSOC);
 
 $oname = $origdetails['orig_policy'];
 
-$update = $pdo->prepare("UPDATE client_policy SET extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+$update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+$update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
 $update->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
 $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $update->bindParam(':covera', $covera, PDO::PARAM_INT);

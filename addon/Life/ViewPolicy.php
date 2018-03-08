@@ -123,7 +123,7 @@ if (isset($hello_name)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT extra_charge, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
+    $query = $pdo->prepare("SELECT non_indem_com, extra_charge, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
     $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
     $query->bindParam(':CID', $search, PDO::PARAM_INT);
     $query->execute();
@@ -460,7 +460,12 @@ ews_data.policy_number
                                     <span class="input-group-addon">£</span>
                                     <input style="width: 170px" type="number" value="<?php if(isset($data2['extra_charge'])) { echo $data2['extra_charge']; } ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="EXTRA_CHARGE" name="EXTRA_CHARGE" class="form-control" readonly style="width: 200px"/>
                                 </div> 
-                                </p>                                
+                                </p> 
+                                
+                                             <p>
+                                                <label for="CommissionType">Commission Type</label>
+                                                <input type="text" value="<?php echo $data2["CommissionType"]; ?>" class="form-control" readonly style="width: 200px">
+                                            </p>                               
 
                                 <p>
                                 <div class="form-row">
@@ -471,6 +476,15 @@ ews_data.policy_number
                                     </div> 
                                     </p>
 
+                                <p>
+                                <div class="form-row">
+                                    <label for="NonIndem">Non-Idem Comm</label>
+                                    <div class="input-group"> 
+                                        <span class="input-group-addon">£</span>
+                                        <input style="width: 170px" type="number" value="<?php echo $data2['non_indem_com']; ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIndem" name="NonIndem" class="form-control" readonly style="width: 200px"/>
+                                    </div> 
+                                    </p>                                    
+                                    
                                     <p>
                                     <div class="form-row">
                                         <label for="covera">Cover Amount</label>
@@ -487,11 +501,6 @@ ews_data.policy_number
                                                 <span class="input-group-addon">yrs</span>
                                                 <input style="width: 160px" type="text" class="form-control" id="polterm" name="polterm" value="<?php echo $data2['polterm'] ?>" disabled/>
                                             </div> 
-                                            </p>
-
-                                            <p>
-                                                <label for="CommissionType">Commission Type</label>
-                                                <input type="text" value="<?php echo $data2["CommissionType"]; ?>" class="form-control" readonly style="width: 200px">
                                             </p>
 
                                             <p>

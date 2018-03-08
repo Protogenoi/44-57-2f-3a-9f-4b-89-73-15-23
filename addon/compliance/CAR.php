@@ -245,7 +245,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
                 <div class="row">
                     <label for="PRINCIPAL_FIRM" class="col-sm-3 col-form-label">Principal Firm:</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="PRINCIPAL_FIRM" name="PRINCIPAL_FIRM" placeholder="Hayden Williams Independent Financial Services LTD" value="<?php if(isset($PRINCIPAL_FIRM)) { echo $PRINCIPAL_FIRM; } ?>">
+                        <input type="text" class="form-control" id="PRINCIPAL_FIRM" name="PRINCIPAL_FIRM" value="<?php if(isset($PRINCIPAL_FIRM)) { echo $PRINCIPAL_FIRM; } ?>">
                     </div>
                 </div>
             </div>       

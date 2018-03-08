@@ -23,7 +23,7 @@ A Customer relationship management application built for the financial services 
 
 ## License
 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
  * Unauthorised modification of this code is strictly prohibited.

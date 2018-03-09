@@ -86,8 +86,8 @@ $LEAD = filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera = filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_NUMBER_FLOAT);
-$NonIdem = filter_input(INPUT_POST, 'NonIdem', FILTER_SANITIZE_NUMBER_FLOAT);
+$EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_SPECIAL_CHARS);
+$NonIdem = filter_input(INPUT_POST, 'NonIdem', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
 

@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -119,8 +119,8 @@ if (isset($EXECUTE)) {
             $dupepol = "$row[policy_number] DUPE";
 
             $insert = $pdo->prepare("INSERT INTO client_policy set 
-client_id=:cid,
-extra_charge=:CHARGE,
+ client_id=:cid,
+ extra_charge=:CHARGE,
  client_name=:name,
  sale_date=:sale,
  application_number=:an_num,
@@ -169,7 +169,7 @@ extra_charge=:CHARGE,
 
             $messagedata = "Policy added $dupepol duplicate of $policy_number";
 
-            $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG ");
+            $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
             $query->bindParam(':CID', $CID, PDO::PARAM_INT);
             $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
             $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
@@ -219,7 +219,7 @@ extra_charge=:CHARGE,
         $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
         $query->execute();
         
-$database = new Database(); 
+        $database = new Database(); 
         $database->beginTransaction();    
                 
         $database->query("SELECT client_id FROM Client_Tasks WHERE client_id=:CID");
@@ -353,14 +353,12 @@ if($next18=="Sun") { //Check if Weekend
 }
 
 
-if (in_array($next18,$weekarray,true)){
+if (in_array($next18,$weekarray,true)) {
 
 $WeekDay18 = date("Y-m-d", strtotime("+18 day"));
-
-    $deadline18=$WeekDay18;
+$deadline18=$WeekDay18;
 
 }
-
 
         $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
         $database->bind(':assign', $assignCYD, PDO::PARAM_STR);

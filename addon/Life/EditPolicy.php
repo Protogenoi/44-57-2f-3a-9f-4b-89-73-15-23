@@ -414,7 +414,7 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                         <label for="NonIdem">Non-Idem Comm</label>
                                         <div class="input-group"> 
                                             <span class="input-group-addon">£</span>
-                                            <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['non_indem_com'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIdem" name="NonIdem" />
+                                            <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php if(isset($data2['non_indem_com'])) { echo $data2['non_indem_com']; } else { echo 0; } ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIdem" name="NonIdem" />
                                         </div>
                                     </div>
 

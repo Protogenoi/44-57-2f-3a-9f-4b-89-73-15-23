@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -27,7 +27,7 @@
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -2385,8 +2385,12 @@ WHERE
                         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>";
                     }
                 }
-
-                if ($client_date_added >= "2016-06-19") {
+               
+                    
+            $query = $pdo->prepare("SELECT life_tasks_client_id FROM life_tasks WHERE life_tasks_client_id=:cid");
+            $query->bindParam(':cid', $search, PDO::PARAM_STR);
+            $query->execute()or die(print_r($query->errorInfo(), true));
+            if ($query->rowCount() <= 0 ) {                     
 
                     $database->query("select post_arrived, post_returned, Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
@@ -2883,7 +2887,17 @@ WHERE
                     </center> 
                     </form>          
 
-<?php } ?>
+<?php } else {
+    
+    
+                            require_once(__DIR__ . '/../addon/Life/models/Tasks/Tasks-modal.php');
+                            $LifeTasks = new LifeTasksModel($pdo);
+                            $LifeTasksList = $LifeTasks->getLifeTasks($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Tasks/Tasks-view.php');         
+    
+    
+}
+?>
 
                 <div class='container'>
                     <div class="row">
@@ -3027,6 +3041,9 @@ WHERE
 
                                         case "Task 24 48":
                                         case "Task 5 day":
+                                        case "Task 7 day":
+                                        case "Task 21 day": 
+                                            case "Task 48":
                                         case "Task CYD":
                                         case "Task 18 day":
                                         case "Tasks 24 48":

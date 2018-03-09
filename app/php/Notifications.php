@@ -557,6 +557,21 @@ foreach ($result as $value) {
          
                           <?php  }   }      
                           
+$NEW_TSK_QRY = $pdo->prepare("SELECT life_tasks_task from life_tasks WHERE life_tasks_client_id=:CID and life_tasks_complete ='0' and life_tasks_deadline <= CURDATE()");
+$NEW_TSK_QRY->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $NEW_TSK_QRY->execute();
+                            if ($NEW_TSK_QRY->rowCount()>0) { 
+                            while ($result=$NEW_TSK_QRY->fetch(PDO::FETCH_ASSOC)){    ?>
+
+         
+    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Tasks To Do:</strong> <?php 
+foreach ($result as $value) {
+    echo "$value ";
+}
+?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
+         
+                          <?php  }   }                            
+                          
 if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='Zurichkeyfacts' and file like :search");

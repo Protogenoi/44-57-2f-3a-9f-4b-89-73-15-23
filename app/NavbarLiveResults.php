@@ -39,8 +39,8 @@ require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
 require_once(__DIR__ . '/../includes/Access_Levels.php');
 
 if ($fflife == '1') {
-if(in_array($hello_name,$Task_Access,true)) {
     $NAVdate = date("Y-m-d");
+if(in_array($hello_name,$Task_Access,true)) {
 
     $navbar = $pdo->prepare("select count(deadline) AS badge from Client_Tasks where deadline=:date AND assigned =:navbarname and complete ='0'");
     $navbar->bindParam(':navbarname', $hello_name, PDO::PARAM_STR, 25);
@@ -55,6 +55,11 @@ if(in_array($hello_name,$Task_Access,true)) {
     $navbarresult2 = $navbar2->fetch(PDO::FETCH_ASSOC);
     
 }
+
+    $NEW_TASK_COUNT_CHK = $pdo->prepare("SELECT count(life_tasks_deadline) AS badge FROM life_tasks WHERE life_tasks_deadline <:date AND life_tasks_complete ='0'");
+    $NEW_TASK_COUNT_CHK->bindParam(':date', $NAVdate, PDO::PARAM_STR, 25);
+    $NEW_TASK_COUNT_CHK->execute();
+    $NEW_TASKS_COUNT = $NEW_TASK_COUNT_CHK->fetch(PDO::FETCH_ASSOC);  
 
     $set_timea = date("G:i", strtotime('-30 minutes'));
     $set_time_toa = date("G:i", strtotime('+20 minutes'));
@@ -170,6 +175,9 @@ if(!isset($navbarresult['badge'])) {
 if(!isset($navbarresult2['badge'])) {
     $navbarresult2['badge']=0;
 }
+if(!isset($NEW_TASKS_COUNT['badge'])) {
+    $NEW_TASKS_COUNT['badge']=0;
+}
 if(!isset($KFS_stmtresult['badge'])) {
     $KFS_stmtresult['badge']=0;
 }
@@ -198,7 +206,12 @@ $TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$nav
                             <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa fa-phone"></i> Callbacks:</strong><a href="/app/calendar/calendar.php"> There are <?php echo $ACT_CBS['badge']; ?> active callbacks!</a></div></li>
                             <?php } } ?>
                             <?php if ($fflife == '1') {
-                                if(in_array($hello_name,$Task_Access,true)) {
+                                if (in_array($hello_name, $Level_3_Access, true)) {
+                            if ($NEW_TASKS_COUNT['badge'] > 0) { ?>
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>}                                
+                                <?php } }
+                            
+                            if(in_array($hello_name,$Task_Access,true)) {
                                     if ($navbarresult['badge'] > 0) { ?>
                             <li><div class="notice notice-success" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php"> There are <?php echo $navbarresult['badge']; ?> tasks deadlines expiring today!</a></div></li>
                             <?php } 
@@ -237,6 +250,9 @@ if ($ACT_CBS['badge'] > 0) { ?>
         <li><a href="/app/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 
         } if ($fflife == '1') {
+            
+        if ($NEW_TASKS_COUNT['badge'] > 0) {
+            ?>    <li><a href="/addon/Life/Tasks/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $NEW_TASKS_COUNT['badge']; ?> </span></a></li> <?php }            
             if(in_array($hello_name,$Task_Access,true)) {
 
         if ($navbarresult['badge'] > 0) {

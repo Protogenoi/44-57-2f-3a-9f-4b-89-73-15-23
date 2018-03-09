@@ -1777,7 +1777,7 @@ foreach($SMS_INSURER_ARRAY as $SMS_COMPANY) {  ?>
                             </table>
                             <legend>Update who get assigned</legend>
                                 <?php
-                                $TaskArray = array("CYD", "24 48", "5 day", "18 day");
+                                $TaskArray = array("48","7 day", "18 day" , "21 day");
                                 $arrlength = count($TaskArray);
                                 ?>
 

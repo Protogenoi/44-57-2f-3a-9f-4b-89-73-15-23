@@ -40,7 +40,7 @@ require_once(__DIR__ . '/../../../includes/adl_features.php');
 
 require_once(__DIR__ . '/../../../includes/time.php');
 
-if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+if(isSET($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
@@ -54,10 +54,10 @@ if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
-if (isset($fferror)) {
+if (isSET($fferror)) {
     if ($fferror == '0') {
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
+        ini_SET('display_errors', 1);
+        ini_SET('display_startup_errors', 1);
         error_reporting(E_ALL);
     }
 } 
@@ -66,7 +66,7 @@ if (in_array($hello_name, $Level_3_Access, true)) {
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (isset($EXECUTE)) {
+if (isSET($EXECUTE)) {
 
     $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -118,8 +118,8 @@ if (isset($EXECUTE)) {
         if ($count = $dupeck->rowCount() >= 1) {
             $dupepol = "$row[policy_number] DUPE";
 
-            $insert = $pdo->prepare("INSERT INTO client_policy set 
- client_id=:cid,
+            $insert = $pdo->prepare("INSERT INTO client_policy SET 
+ client_id=:CID,
  extra_charge=:CHARGE,
  client_name=:name,
  sale_date=:sale,
@@ -144,7 +144,7 @@ if (isset($EXECUTE)) {
  non_indem_com=:NONIDEM");
             $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_INT);
             $insert->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
-            $insert->bindParam(':cid', $CID, PDO::PARAM_STR);
+            $insert->bindParam(':CID', $CID, PDO::PARAM_STR);
             $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
             $insert->bindParam(':sale', $sale_date, PDO::PARAM_STR);
             $insert->bindParam(':an_num', $application_number, PDO::PARAM_STR);
@@ -169,14 +169,14 @@ if (isset($EXECUTE)) {
 
             $messagedata = "Policy added $dupepol duplicate of $policy_number";
 
-            $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+            $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
             $query->bindParam(':CID', $CID, PDO::PARAM_INT);
             $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
             $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
             $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
             $query->execute();
 
-            $client_type = $pdo->prepare("UPDATE client_details set client_type='Life' WHERE client_id =:client_id");
+            $client_type = $pdo->prepare("UPDATE client_details SET client_type='Life' WHERE client_id =:client_id");
             $client_type->bindParam(':client_id', $CID, PDO::PARAM_STR);
             $client_type->execute();
 
@@ -185,8 +185,8 @@ if (isset($EXECUTE)) {
 
         }
 
-        $insert = $pdo->prepare("INSERT INTO client_policy set non_indem_com=:NONIDEM, client_id=:cid, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
-        $insert->bindParam(':cid', $CID, PDO::PARAM_STR);
+        $insert = $pdo->prepare("INSERT INTO client_policy SET non_indem_com=:NONIDEM, client_id=:CID, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
+        $insert->bindParam(':CID', $CID, PDO::PARAM_STR);
         $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_STR);
         $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
         $insert->bindParam(':sale', $sale_date, PDO::PARAM_STR);
@@ -212,7 +212,7 @@ if (isset($EXECUTE)) {
         
         $messagedata = "Policy $policy_number added";
 
-        $query = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
         $query->bindParam(':CID', $CID, PDO::PARAM_INT);
         $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
         $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
@@ -222,7 +222,7 @@ if (isset($EXECUTE)) {
         $database = new Database(); 
         $database->beginTransaction();    
                 
-        $database->query("SELECT client_id FROM Client_Tasks WHERE client_id=:CID");
+        $database->query("SELECT life_tasks_client_id FROM life_tasks WHERE life_tasks_client_id=:CID");
         $database->bind(':CID', $CID);
         $database->execute();
         
@@ -235,15 +235,11 @@ if (isset($EXECUTE)) {
                 $today=date("D"); // check Day Mon - Sun
                 $date=date("Y-m-d",strtotime($today)); // Convert day to date
                 
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='CYD'");
+                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='48'");
                 $database->execute();
-                $assignCYDd=$database->single();
+                $assign48d=$database->single();
                 
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='24 48'");
-                $database->execute();
-                $assign24d=$database->single();
-                
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='5 day'");
+                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='7 day'");
                 $database->execute();
                 $assign5d=$database->single();
                 
@@ -251,74 +247,47 @@ if (isset($EXECUTE)) {
                 $database->execute();
                 $assign18d=$database->single();
                 
-                $assignCYD=$assignCYDd['Assigned'];
-                $assign24=$assign24d['Assigned'];
+                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='21 day'");
+                $database->execute();
+                $assign21d=$database->single();                
+                
+                $assign48=$assign48d['Assigned'];
                 $assign5=$assign5d['Assigned'];
                 $assign18=$assign18d['Assigned'];
+                $assign21=$assign21d['Assigned'];
                 
-                $taskCYD="CYD";
-                $next = date("D", strtotime("+91 day")); // Add 2 to Day
+                $task48="48";
                 
-                if($next =="Sat") { //Check if Weekend
-                $SkipWeekEndDayCYD = date("Y-m-d", strtotime("+93 day")); //Add extra 2 Days if Sat Weekend
-                $deadlineCYD=$SkipWeekEndDayCYD;
-                
-                }
-                
-                if($next=="Sun") {
-                    $SkipWeekEndDayCYD = date("Y-m-d", strtotime("+92 day"));
-                    $deadlineCYD=$SkipWeekEndDayCYD;
+                $next48 = date("D", strtotime("+2 day")); 
+                if($next48 =="Sat") { 
+                    $SkipWeekEndDay48 = date("Y-m-d", strtotime("+4 day")); 
+                    $deadline48=$SkipWeekEndDay48;
                     
                 }
                 
-                if (in_array($next,$weekarray,true)){
-                    $WeekDayCYD = date("Y-m-d", strtotime("+91 day"));
-                    $deadlineCYD=$WeekDayCYD;
+                if($next48=="Sun") { 
+                    $SkipWeekEndDay48 = date("Y-m-d", strtotime("+3 day")); 
+                    $deadline48=$SkipWeekEndDay48;
+                    
+                }
+                
+                if (in_array($next48,$weekarray,true)){
+                    $WeekDay48 = date("Y-m-d", strtotime("+2 day"));
+                    $deadline48=$WeekDay48;
                     
                 } 
                 
-                $date_added= date("Y-m-d H:i:s");
-                $task24="24 48";
-                
-                $next24 = date("D", strtotime("+2 day")); 
-                if($next24 =="Sat") { 
-                    $SkipWeekEndDay24 = date("Y-m-d", strtotime("+4 day")); 
-                    $deadline24=$SkipWeekEndDay24;
+                $task5="7 day";
+                $next5 = date("D", strtotime("+7 day")); // Add 2 to Day
+               
+                if($next5 =="Sat") { //Check if Weekend
+                    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+8 day")); //Add extra 2 Days if Sat Weekend
+                    $deadline5=$SkipWeekEndDay5;
                     
                 }
-
-if($next24=="Sun") { 
-
-    $SkipWeekEndDay24 = date("Y-m-d", strtotime("+3 day")); 
-
-    $deadline24=$SkipWeekEndDay24;
-
-}
-
-
-if (in_array($next24,$weekarray,true)){
-
-$WeekDay24 = date("Y-m-d", strtotime("+2 day"));
-
-    $deadline24=$WeekDay24;
-
-} 
-
-$task5="5 day";
-$next5 = date("D", strtotime("+5 day")); // Add 2 to Day
-
-if($next5 =="Sat") { //Check if Weekend
-
-    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+7 day")); //Add extra 2 Days if Sat Weekend
-
-    $deadline5=$SkipWeekEndDay5;
-
-}
-
-if($next5=="Sun") { //Check if Weekend
-
-    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+6 day")); //Add extra 1 day if Sunday
-
+                
+                if($next5=="Sun") { //Check if Weekend
+    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+8 day")); //Add extra 1 day if Sunday
     $deadline5=$SkipWeekEndDay5;
 
 }
@@ -326,7 +295,7 @@ if($next5=="Sun") { //Check if Weekend
 
 if (in_array($next5,$weekarray,true)){
 
-$WeekDay5 = date("Y-m-d", strtotime("+5 day"));
+$WeekDay5 = date("Y-m-d", strtotime("+7 day"));
 
     $deadline5=$WeekDay5;
 
@@ -360,47 +329,70 @@ $deadline18=$WeekDay18;
 
 }
 
-        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
-        $database->bind(':assign', $assignCYD, PDO::PARAM_STR);
-        $database->bind(':task', $taskCYD, PDO::PARAM_STR);
-        $database->bind(':added', $date_added, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadlineCYD, PDO::PARAM_STR); 
-        $database->bind(':cid', $CID); 
+$task21="21 day";
+$next21 = date("D", strtotime("+21 day")); // Add 2 to Day
+
+if($next21 =="Sat") { //Check if Weekend
+
+    $SkipWeekEndDay21 = date("Y-m-d", strtotime("+23 day")); //Add extra 2 Days if Sat Weekend
+
+    $deadline21=$SkipWeekEndDay21;
+
+}
+
+if($next21=="Sun") { //Check if Weekend
+
+    $SkipWeekEndDay21 = date("Y-m-d", strtotime("+22 day")); //Add extra 1 day if Sunday
+
+    $deadline21=$SkipWeekEndDay21;
+
+}
+
+
+if (in_array($next21,$weekarray,true)) {
+
+$WeekDay21 = date("Y-m-d", strtotime("+21 day"));
+$deadline21=$WeekDay21;
+
+}
+        
+        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
+        $database->bind(':assign', $assign48, PDO::PARAM_STR);
+        $database->bind(':task', $task48, PDO::PARAM_STR);
+        $database->bind(':deadline', $deadline48, PDO::PARAM_STR); 
+        $database->bind(':CID', $CID); 
         $database->execute();
         
-        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
-        $database->bind(':assign', $assign24, PDO::PARAM_STR);
-        $database->bind(':task', $task24, PDO::PARAM_STR);
-        $database->bind(':added', $date_added, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline24, PDO::PARAM_STR); 
-        $database->bind(':cid', $CID); 
-        $database->execute();
-        
-        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
+        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);
         $database->bind(':task', $task5, PDO::PARAM_STR);
-        $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline5, PDO::PARAM_STR); 
-        $database->bind(':cid', $CID); 
+        $database->bind(':CID', $CID); 
         $database->execute();
         
-        $database->query("INSERT INTO Client_Tasks set client_id=:cid, Assigned=:assign, task=:task, date_added=:added, deadline=:deadline");
+        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
         $database->bind(':assign', $assign18, PDO::PARAM_STR);
         $database->bind(':task', $task18, PDO::PARAM_STR);
-        $database->bind(':added', $date_added, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
-        $database->bind(':cid', $CID); 
+        $database->bind(':CID', $CID); 
         $database->execute();
+        
+        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
+        $database->bind(':assign', $assign21, PDO::PARAM_STR);
+        $database->bind(':task', $task21, PDO::PARAM_STR);
+        $database->bind(':deadline', $deadline21, PDO::PARAM_STR); 
+        $database->bind(':CID', $CID); 
+        $database->execute();        
         
         $notedata= "Tasks added!";
         $REF= "CRM Alert";
         $messagedata="All tasks have been assigned to this client";
                 
-                $database->query("INSERT INTO client_note set client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:noteholder, message=:messageholder ");
+                $database->query("INSERT INTO client_note SET client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:NOTE, message=:MSG ");
                 $database->bind(':CID',$CID);
                 $database->bind(':recipientholder',$REF);
-                $database->bind(':noteholder',$notedata);
-                $database->bind(':messageholder',$messagedata);
+                $database->bind(':NOTE',$notedata);
+                $database->bind(':MSG',$messagedata);
                 $database->execute();         
         
         $database->endTransaction();        

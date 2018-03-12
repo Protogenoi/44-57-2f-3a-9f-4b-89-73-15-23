@@ -2515,17 +2515,11 @@ WHERE
                                 <div class="col-md-4">
                                     <select id="Taskoption" class="form-control" name="Taskoption" required>
                                         <option value="">Select Task</option>
-
-                                        <?php if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Legal and General') { ?>
-                                        <option value="24 48">24-48</option>
-                                        <?php } ?>
+                                        <option value="24 48">24-48</option>                                        
                                         <option value="5 day">5-day</option>
-                                        <option value="18 day">18-day</option>
-                                        <?php if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='Legal and General') { ?>
+                                        <option value="18 day">18-day</option>                                        
                                         <option value="CYD">CYD</option>
                                         <option value="Trust">Trust</option>
-                                        <?php } ?>                                        
-                                       
                                     </select>
 
                                 </div>   

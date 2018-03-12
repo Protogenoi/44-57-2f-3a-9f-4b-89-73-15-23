@@ -103,6 +103,38 @@ if ($fftrackers == '0') {
     die;
 }
 
+switch ($hello_name):
+            case "James":
+                $CLOSER_NAME = "James Adams";
+                break;
+            case "Mike":
+                $CLOSER_NAME = "Michael Lloyd";
+                break;
+            case "Sarah":
+                $CLOSER_NAME = "Sarah Wallace";
+                break;
+            case "Richard";
+                $CLOSER_NAME = "Richard Michaels";
+                break;
+            case "Hayley":
+                $CLOSER_NAME = "Hayley Hutchinson";
+                break;
+            case "Martin";
+                $CLOSER_NAME="Martin Smith";
+                break;
+            case "Corey";
+                $CLOSER_NAME="Corey Divetta";
+                break;    
+            case "Kyle";
+                $CLOSER_NAME="Kyle Barnett";
+                break; 
+            case "carys";
+                $CLOSER_NAME="Carys Riley";
+                break;             
+            default:
+                $CLOSER_NAME = $hello_name;
+        endswitch; 
+
 $QUERY = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $Today_DATE = date("d-M-Y");
@@ -203,54 +235,34 @@ AND closer=:closer");
 
     if ($QUERY == 'CloserTrackers') {
         $TrackerEdit = filter_input(INPUT_GET, 'TrackerEdit', FILTER_SANITIZE_SPECIAL_CHARS);
-        ?>
 
+      
+      ?>
         <div class="container CLOSE_RATE">
 
             <div class="col-md-12">
-
+<div class="STATREFRESH"></div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
 
                 <div class="col-md-4">
-
-        <?php echo "<h3>$Today_DATES</h3>"; ?>
-        <?php echo "<h4>$Today_TIME</h4>";
                     
-         switch ($hello_name):
-            case "James":
-                $CLOSER_NAME = "James Adams";
-                break;
-            case "Mike":
-                $CLOSER_NAME = "Michael Lloyd";
-                break;
-            case "Sarah":
-                $CLOSER_NAME = "Sarah Wallace";
-                break;
-            case "Gavin":
-                $CLOSER_NAME = "Gavin Fulford";
-                break;
-            case "Richard";
-                $CLOSER_NAME = "Richard Michaels";
-                break;
-            case "Hayley":
-                $CLOSER_NAME = "Hayley Hutchinson";
-                break;
-            case "Martin";
-                $CLOSER_NAME="Martin Smith";
-                break;
-            case "Corey";
-                $CLOSER_NAME="Corey Divetta";
-                break;    
-            case "Kyle";
-                $CLOSER_NAME="Kyle Barnett";
-                break; 
-            case "carys";
-                $CLOSER_NAME="Carys Riley";
-                break;             
-            default:
-                $CLOSER_NAME = $hello_name;
-        endswitch;       
+                         
+    <script>
+        function refresh_div() {
+            jQuery.ajax({
+                url: 'AJAX/Closer_Stats.php?EXECUTE=1&CLOSER_NAME=<?php echo $CLOSER_NAME;?>',
+                type: 'POST',
+                success: function (results) {
+                    jQuery(".STATREFRESH").html(results);
+                }
+            });
+        }
+
+        t = setInterval(refresh_div, 10000);
+    </script>
+
+       <?php      
         
                         $MISS_KF_CHK = $pdo->prepare("SELECT 
     client_details.client_id
@@ -276,19 +288,19 @@ WHERE
                         }       
                         
                         ?>                    
-                    
+                <!--    
                     <form method="POST" action="php/CloserReady.php?EXECUTE=1">
 <button class="list-group-item"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; READY!!!/CANCEL</button>
 <select class="form-control" name="SEND_LEAD" id="SEND_LEAD">
     <option value="">Select agent</option>
 </select>
-                    </form>
+                    </form> -->
                 </div>
 
             </div>
 
             <div class="list-group">
-                <span class="label label-primary"><?php echo $hello_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } ?></span>
+                <span class="label label-primary"><?php echo $hello_name; ?> Trackers | Close Rate = <?php if(isset($SINGLE_CLOSER_RATE)) { echo $SINGLE_CLOSER_RATE; } else { echo 0; } ?></span>
                 <form method="post" action="<?php if (isset($TrackerEdit)) {
             echo 'php/Tracker.php?query=edit';
         } else {

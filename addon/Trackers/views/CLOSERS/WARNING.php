@@ -127,7 +127,7 @@ $TRACKER_SUM_FORMAT= number_format((float)$TRACKER_SUM_TOTAL, 2, '.', '');
      <div class="col-sm-6">
 <table class="table">
     <tr>
-        <th colspan="11">Tracker Stats <?php echo $Today_TIME = date("h:i:s"); ?></th>
+        <th colspan="11"><?php if(isset($CLOSER_NAME)) { echo $CLOSER_NAME; } ?> Tracker Stats <?php echo $Today_TIME = date("h:i:s"); ?></th>
     </tr>
     <tr>
         <th>Total</th>

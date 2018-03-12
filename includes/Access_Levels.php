@@ -39,7 +39,7 @@ $companynamere = $companydetailsq['company_name'];
 
 $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 
-$ANYTIME_ACCESS=array("Archiver","Michael","Matt","Jade");
+$ANYTIME_ACCESS=array("Archiver","Michael","Matt");
 $COM_MANAGER_ACCESS = array("Michmael");
 $COM_LVL_10_ACCESS = array("Michamel");
 $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
@@ -50,28 +50,28 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","Martin Smith","Ciara","David Bebee");
-    $Level_3_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan", "David","Richard","James Adams","Christopher Griffiths","David Bebee");
-    $Level_1_Access = array("Martin Smith","Molly Grove","Ciara","Nathan Thomas","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","David","Darryl","Gavin","James Adams","Christopher Griffiths","David Bebee");
+    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","David Bebee","Ryan Tidbal","Lois Taylor");
+    $Level_3_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor");
+    $Level_1_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor");
     
-    $Task_Access = array("Ciara","Jakob","David Bebee");
+    $Task_Access = array("Jakob","David Bebee");
     
     $SECRET = array("Michael", "carys", "Jakob", "Nicola", "Tina");
     
     $Agent_Access = array("Bob Jones");
-    $Closer_Access = array("Martin","James", "Hayley","Mike", "Kyle", "Sarah", "Richard", "Mike","Corey","Gavin");
-    $Manager_Access = array("Martin Smith","Corey Divetta","Hayley Hutchinson","Sarah Wallace","Richard","Michael", "Matt", "leighton", "Nick", "carys", "Nicola","David","Darryl","Ryan","Jakob","James Adams","Christopher Griffiths");
+    $Closer_Access = array("Bob Jones");
+    $Manager_Access = array("Michael", "Matt", "leighton", "Nick", "carys", "Nicola","Ryan","Jakob","Christopher Griffiths");
 
-    $EWS_SEARCH_ACCESS=array("");
+    $EWS_SEARCH_ACCESS=array("Bob Jones");
     $ADMIN_EWS_SEARCH_ACCESS=array("carys","Nicola","Michael","Matt");
-    $OLD_CLIENT_SEARCH=array("Martin Smith","Hayley Hutchinson","Sarah Wallace","James Adams","Corey Divetta");
+    $OLD_CLIENT_SEARCH=array("Bob Jones");
     
     ///Advanced Admin Search
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Ciara","Molly Grove","David Bebee");
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Molly Grove","David Bebee");
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Ciara","Molly Grove","David Bebee");
+    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Molly Grove","David Bebee","Ryan Tidbal","Lois Taylor");
     //View Dealsheets awaiting QA
-    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Ciara","Christopher Griffiths","David Bebee");
+    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor");
     
-    $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths");
+    $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths","Ryan Tidbal","Lois Taylor");
 ?>

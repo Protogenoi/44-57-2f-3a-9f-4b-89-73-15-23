@@ -72,7 +72,7 @@ if ($ffanalytics == '1') {
 ?>
 <!DOCTYPE html>
 <html>
-<title>ADL | Search Vitality Audits</title>
+<title>ADL | Search LV Audits</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
@@ -93,12 +93,12 @@ if ($ffanalytics == '1') {
 ?>
     
     <div class="container">
-        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search Vitality Audits</center></strong></div>
+        <div class="notice notice-default" role="alert"><strong><center><span class="label label-warning"></span> Search LV Audits</center></strong></div>
         
         <br>
         <center>
             <div class="btn-group">
-                <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Vitality Audits</a>
+                <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> LV Audits</a>
                 <a href="/addon/audits/WOL/Search.php" class="btn btn-info"><i class="fa fa-search"></i> WOL Audits</a>
                 <a href="/addon/audits/audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
                 <a href="/addon/audits/lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
@@ -162,7 +162,7 @@ if ($ffanalytics == '1') {
                 <div class="text-center">
                     <center><i class="fa fa-spinner fa-pulse fa-5x fa-lg"></i></center>
                     <br>
-                    <h3>Searching Vitality Audits... </h3>
+                    <h3>Searching LV Audits... </h3>
                 </div>
             </div>
         </div>

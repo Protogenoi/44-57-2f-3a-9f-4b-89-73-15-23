@@ -43,20 +43,9 @@
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="icon" type="/image/x-icon" href="/img/favicon.ico"  />
     <style>
-        .vertical-center-row {
-            display: table-cell;
-            vertical-align: middle;
-        }
         .backcolour {
             background-color:#05668d !important;
-        }
- .blink_me {
-  animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {  
-  50% { opacity: 0; }
-}       
+        }      
 h1 {
     font-size: 600%;
 }
@@ -80,127 +69,6 @@ h1 {
     <div class="contain-to-grid">
         <?php
         require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
-
-        $query = $pdo->prepare("SELECT 
-closer,
-    COUNT(IF(sale = 'SALE',
-        1,
-        NULL)) AS Sales,
- COUNT(IF(sale IN ('SALE' , 'NoCard',
-            'QDE',
-            'DEC',
-            'QUN',
-            'QNQ',
-            'DIDNO',
-            'QCBK',
-            'QQQ',
-            'Other',
-            'QML'),
-        1,
-        NULL)) AS Leads
-FROM
-    closer_trackers
-
-WHERE
-date_added > DATE(NOW())
-GROUP BY closer
-ORDER BY Sales, Leads");
-        ?>
-
-        <table id='main2' cellspacing='0' cellpadding='10'>
-
-            <?php
-            $query->execute();
-            if ($query->rowCount() > 0) {
-                while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
-
-                    $Sales = $result['Sales'];
-                    $Leads = $result['Leads'];
-                    $CLOSER_NAME = $result['closer'];
-
-                    switch ($CLOSER_NAME) {
-                        case("Richard"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales + 0;
-                            break;
-                        case("Kyle"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales + 0;
-                            break;
-                        case("Sarah"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0;
-                            break;
-                        case("Gavin"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales + 0;
-                            break;
-                        case("James"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales + 0;
-                            break;
-                        case("Hayley"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0;
-                            break;
-                        case("Martin Smith"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0; 
-                            $CLOSER_NAME = "Martin";                        
-                        default:
-                            $LEADS = $Leads;
-                            $SALES = $Sales;
-                            break;
-                    }
-
-                    if ($SALES == '0') {
-                        $Formattedrate = "0.0";
-                        $CR_BG_COL = "bgcolor='white'";
-                    } else {
-                        $Conversionrate = $LEADS / $SALES;
-                        $Formattedrate = number_format($Conversionrate, 1);
-                    }
-
-                    if ($Formattedrate >4.9 && $Formattedrate<6) {
-                        $CR_BG_COL = "bgcolor='orange'";
-                    }
-                    if ($Formattedrate <=4.9 && $Formattedrate >= 1) {
-                        $CR_BG_COL = "bgcolor='green'";
-                    }
-                    if ($Formattedrate >= 6) {
-                        $CR_BG_COL = "bgcolor='red'";
-                    }
-                    echo '<td ' . $CR_BG_COL . '><strong style="font-size: 50px;">' . $CLOSER_NAME . ' <br>' . $LEADS . '/' . $SALES . '<br>' . $Formattedrate . '</strong></td>';
-                }
-            }
-            ?>
-        </table>
-
-<?php    
-
-    require_once(__DIR__ . '/models/CLOSERS/WARNING.php');
-    $TRACKER_WARNING = new TRACKER_WARNINGModal($pdo);
-    $TRACKER_WARNINGList = $TRACKER_WARNING->getTRACKER_WARNING();
-    require_once(__DIR__ . '/views/CLOSERS/WARNING.php');   
-
-$NEWLEAD = $pdo->prepare("select agent,closer from dealsheet_call ");
-$NEWLEAD->execute();
-if ($NEWLEAD->rowCount()>0) {
-while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
-
-?>
-      
-                      <div class="row blink_me">
-                <div class="col-sm-12">
-                    <center><h1 style="color:white;"><i class="fa fa-exclamation"></i> <?php echo $result['agent']; ?> SEND LEAD TO <?php echo $result['closer']; ?> <i class="fa fa-exclamation"></i></h1></center>
-                </div>
-      </div>
-      
-      
-      <?php
-
-}
-}  
 
     require_once(__DIR__ . '/models/CLOSERS/LAST_SALE-MODAL.php');
     $LAST_SALE = new LAST_SALEModal($pdo);

@@ -191,7 +191,7 @@ if(!isset($MSG_stmtresult['badge'])) {
     $MSG_stmtresult['badge']=0;
 }
 
-$TOTAL_NOTIFICATIONS=$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
+$TOTAL_NOTIFICATIONS=$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
 ?>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { ?>

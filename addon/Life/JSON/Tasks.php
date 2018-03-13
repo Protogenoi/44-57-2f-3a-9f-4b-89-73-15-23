@@ -48,5 +48,57 @@ elseif($EXECUTE == 2) {
     
 }
 
+    if($EXECUTE== 3) {
+        if(isset($AGENT)) {
+    
+    $query = $pdo->prepare("SELECT 
+    life_tasks.life_tasks_assigned,
+    life_tasks.life_tasks_id,
+    life_tasks.life_tasks_client_id,
+    DATE(life_tasks.life_tasks_added_date) AS date_added,
+    life_tasks.life_tasks_task,
+    DATE(life_tasks.life_tasks_deadline) AS deadline,
+    CURDATE() AS today,
+    CONCAT(client_details.title,
+            ' ',
+            client_details.last_name) AS name
+FROM
+    life_tasks
+        JOIN
+    client_details ON life_tasks.life_tasks_client_id = client_details.client_id
+WHERE
+    life_tasks_complete = '0' AND life_tasks_assigned = :AGENT");
+    $query->bindParam(':AGENT', $AGENT, PDO::PARAM_STR);
+    $query->execute()or die(print_r($query->errorInfo(), true));
+    json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+    echo json_encode($results);
+
+} else {
+    
+    $query = $pdo->prepare("SELECT 
+    life_tasks.life_tasks_assigned,
+    life_tasks.life_tasks_id,
+    life_tasks.life_tasks_client_id,
+    DATE(life_tasks.life_tasks_added_date) AS date_added,
+    life_tasks.life_tasks_task,
+    DATE(life_tasks.life_tasks_deadline) AS deadline,
+    CURDATE() AS today,
+    CONCAT(client_details.title,
+            ' ',
+            client_details.last_name) AS name
+FROM
+    life_tasks
+        JOIN
+    client_details ON life_tasks.life_tasks_client_id = client_details.client_id
+WHERE
+    life_tasks_complete = '0'");
+    $query->execute()or die(print_r($query->errorInfo(), true));
+    json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+    echo json_encode($results);  
+    
+}
+
+    }
+
 }
 ?>

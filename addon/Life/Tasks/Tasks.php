@@ -106,6 +106,43 @@ if (isset($fferror)) {
           
           <?php
           
+          if(isset($EXECUTE) && $EXECUTE == 2 ) { ?>
+          
+    <div  class="text-center">
+       <label class="label label-success">Incomplete Tasks (New Tasks)</label>
+      <div id="bar-chart" ></div>
+    </div>
+  
+          <br>
+          
+    <table id="task" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Added On</th>
+                <th>ID</th>
+                <th>Client Name</th>
+                <th>Assigned</th>
+                <th>Task</th>
+                <th>Deadline</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th>Added On</th>
+                <th>ID</th>
+                <th>Client Name</th>
+                <th>Assigned</th>
+                <th>Task</th>
+                <th>Deadline</th>
+            </tr>
+        </tfoot>
+    </table>          
+          
+              
+ <?php  } else {
+          
            $taskassigned= filter_input(INPUT_GET, 'taskassigned', FILTER_SANITIZE_SPECIAL_CHARS);
 
 
@@ -159,6 +196,8 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
             </tr>
         </tfoot>
     </table>
+          
+          <?php } ?>
 
 </div>
 
@@ -171,6 +210,105 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
 <script type="text/javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+
+<?php if(isset($EXECUTE) && $EXECUTE == 2 ) { ?>
+    
+<script>
+    
+    var json = (function () {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': '/addon/Life/JSON/TaskChart.php<?php if(isset($hello_name) && $ACCESS_LEVEL <= 3) { echo "?EXECUTE=3&AGENT=$hello_name"; } elseif($ACCESS_LEVEL > 3) { echo "?EXECUTE=3"; } ?>>',
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })
+    ();
+     
+    config = {
+      data: json,
+      xkey: 'task',
+      ykeys: ['Completed'],
+      labels: ['Incompleted Tasks'],
+      fillOpacity: 0.6,
+      hideHover: 'auto',
+      behaveLikeLine: true,
+      resize: true,
+      pointFillColors:['#ffffff'],
+      pointStrokeColors: ['black'],
+      lineColors:['gray','red']
+  };
+
+
+config.element = 'bar-chart';
+Morris.Bar(config);
+</script>
+<script type="text/javascript" language="javascript" >
+$(document).ready(function() {
+    var table = $('#task').DataTable( {
+"fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+    if ( aData["deadline"] <= aData["today"] )  {
+          $('td', nRow).eq(6).addClass( 'red' );
+    }
+   else if ( aData["deadline"] >= aData["today"] )  {
+          $('td', nRow).eq(6).addClass( 'green' );
+
+    }
+},
+"response":true,
+					"processing": true,
+"iDisplayLength": 500,
+"aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 500], [5, 10, 25, 50, 100, 125, 150, 200, 500]],
+				"language": {
+					"processing": "<div></div><div></div><div></div><div></div><div></div>"
+
+        },
+        "ajax": "/addon/Life/JSON/Tasks.php<?php if(isset($hello_name) && $ACCESS_LEVEL <= 3) { echo "?EXECUTE=3&AGENT=$hello_name"; } elseif($ACCESS_LEVEL > 3) { echo "?EXECUTE=3"; } ?>",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "date_added" },
+            { "data": "life_tasks_client_id",
+            "render": function(data, type, full, meta) {
+                return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
+            } },
+            { "data": "name" },
+            { "data": "life_tasks_assigned" },
+            { "data": "life_tasks_task" },
+            { "data": "deadline" }
+         ],
+        "order": [[6, 'asc']]
+    } ); $('#min, #max').keyup( function() {
+        table.draw();
+    } );
+     
+    $('#task tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } ); 
+} );
+		</script>    
+    
+    
+<?php } else { ?>
 <script>
     
     var json = (function () {
@@ -206,7 +344,6 @@ print("<br><div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\
 config.element = 'bar-chart';
 Morris.Bar(config);
 </script>
-
 <script type="text/javascript" language="javascript" >
 function format ( d ) {
 
@@ -528,6 +665,7 @@ $(document).ready(function () {
     </div>
 
   </div>
-</div>                
+</div>    
+<?php } ?>
 </body>
 </html>

@@ -48,5 +48,43 @@ echo $json=json_encode($results);
     
 }
 
+    if($EXECUTE == 3 ) {
+        if(isset($AGENT)) {
+
+$query = $pdo->prepare("SELECT 
+    life_tasks_task AS task, COUNT(life_tasks_complete) AS Completed
+FROM
+    life_tasks
+WHERE
+    life_tasks_complete = '0' AND life_tasks_assigned = :AGENT
+GROUP BY life_tasks_task");
+$query->bindParam(':AGENT', $AGENT, PDO::PARAM_STR);
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_ASSOC);
+
+header("content-type:application/json");
+echo $json=json_encode($results);  
+
+}
+
+else {
+    
+$query = $pdo->prepare("SELECT 
+    life_tasks_task AS task, COUNT(life_tasks_complete) AS Completed
+FROM
+    life_tasks
+WHERE
+    life_tasks_complete = '0'
+GROUP BY life_tasks_task");
+$query->execute();
+$results=$query->fetchAll(PDO::FETCH_ASSOC);
+
+header("content-type:application/json");
+echo $json=json_encode($results);     
+    
+}
+
+    }
+
 }
 ?>

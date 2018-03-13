@@ -208,7 +208,7 @@ $TOTAL_NOTIFICATIONS=$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$
                             <?php if ($fflife == '1') {
                                 if (in_array($hello_name, $Level_3_Access, true)) {
                             if ($NEW_TASKS_COUNT['badge'] > 0) { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>}                                
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php?EXEUCTE=2"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>}                                
                                 <?php } }
                             
                             if(in_array($hello_name,$Task_Access,true)) {
@@ -252,7 +252,7 @@ if ($ACT_CBS['badge'] > 0) { ?>
         } if ($fflife == '1') {
             
         if ($NEW_TASKS_COUNT['badge'] > 0) {
-            ?>    <li><a href="/addon/Life/Tasks/Tasks.php"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $NEW_TASKS_COUNT['badge']; ?> </span></a></li> <?php }            
+            ?>    <li><a href="/addon/Life/Tasks/Tasks.php?EXECUTE=2"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $NEW_TASKS_COUNT['badge']; ?> </span></a></li> <?php }            
             if(in_array($hello_name,$Task_Access,true)) {
 
         if ($navbarresult['badge'] > 0) {

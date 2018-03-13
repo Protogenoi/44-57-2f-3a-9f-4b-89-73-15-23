@@ -80,7 +80,7 @@ if (isSET($EXECUTE)) {
         $application_number = filter_input(INPUT_POST, 'application_number', FILTER_SANITIZE_SPECIAL_CHARS);
         $premium = filter_input(INPUT_POST, 'premium', FILTER_SANITIZE_SPECIAL_CHARS);
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
-        $insurer = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
+        $INSURER = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
         $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHARS);
         $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
         $PolicyStatus = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -151,7 +151,7 @@ if (isSET($EXECUTE)) {
             $insert->bindParam(':policy', $dupepol, PDO::PARAM_STR);
             $insert->bindParam(':premium', $premium, PDO::PARAM_STR);
             $insert->bindParam(':type', $type, PDO::PARAM_STR);
-            $insert->bindParam(':insurer', $insurer, PDO::PARAM_STR);
+            $insert->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
             $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR);
             $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);
             $insert->bindParam(':commission', $commission, PDO::PARAM_STR);
@@ -194,7 +194,7 @@ if (isSET($EXECUTE)) {
         $insert->bindParam(':policy', $policy_number, PDO::PARAM_STR);
         $insert->bindParam(':premium', $premium, PDO::PARAM_STR);
         $insert->bindParam(':type', $type, PDO::PARAM_STR);
-        $insert->bindParam(':insurer', $insurer, PDO::PARAM_STR);
+        $insert->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
         $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR);
         $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);
         $insert->bindParam(':commission', $commission, PDO::PARAM_STR);
@@ -231,7 +231,6 @@ if (isSET($EXECUTE)) {
             
         } else {
     
-                $weekarray=array('Mon','Tue','Wed','Thu','Fri');
                 $today=date("D"); // check Day Mon - Sun
                 $date=date("Y-m-d",strtotime($today)); // Convert day to date
                 
@@ -257,105 +256,21 @@ if (isSET($EXECUTE)) {
                 $assign21=$assign21d['Assigned'];
                 
                 $task48="48";
-                
-                $next48 = date("D", strtotime("+2 day")); 
-                if($next48 =="Sat") { 
-                    $SkipWeekEndDay48 = date("Y-m-d", strtotime("+4 day")); 
-                    $deadline48=$SkipWeekEndDay48;
-                    
-                }
-                
-                if($next48=="Sun") { 
-                    $SkipWeekEndDay48 = date("Y-m-d", strtotime("+3 day")); 
-                    $deadline48=$SkipWeekEndDay48;
-                    
-                }
-                
-                if (in_array($next48,$weekarray,true)){
-                    $WeekDay48 = date("Y-m-d", strtotime("+2 day"));
-                    $deadline48=$WeekDay48;
-                    
-                } 
+                $WeekDay48 = date("Y-m-d", strtotime("+2 weekdays"));
+                $deadline48=$WeekDay48;
                 
                 $task5="7 day";
-                $next5 = date("D", strtotime("+7 day")); // Add 2 to Day
-               
-                if($next5 =="Sat") { //Check if Weekend
-                    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+8 day")); //Add extra 2 Days if Sat Weekend
-                    $deadline5=$SkipWeekEndDay5;
-                    
-                }
+                $WeekDay5 = date("Y-m-d", strtotime("+7 weekdays"));
+                $deadline5=$WeekDay5;
                 
-                if($next5=="Sun") { //Check if Weekend
-    $SkipWeekEndDay5 = date("Y-m-d", strtotime("+8 day")); //Add extra 1 day if Sunday
-    $deadline5=$SkipWeekEndDay5;
-
-}
-
-
-if (in_array($next5,$weekarray,true)){
-
-$WeekDay5 = date("Y-m-d", strtotime("+7 day"));
-
-    $deadline5=$WeekDay5;
-
-} 
-
-
-$task18="18 day";
-$next18 = date("D", strtotime("+18 day")); // Add 2 to Day
-
-if($next18 =="Sat") { //Check if Weekend
-
-    $SkipWeekEndDay18 = date("Y-m-d", strtotime("+20 day")); //Add extra 2 Days if Sat Weekend
-
-    $deadline18=$SkipWeekEndDay18;
-
-}
-
-if($next18=="Sun") { //Check if Weekend
-
-    $SkipWeekEndDay18 = date("Y-m-d", strtotime("+19 day")); //Add extra 1 day if Sunday
-
-    $deadline18=$SkipWeekEndDay18;
-
-}
-
-
-if (in_array($next18,$weekarray,true)) {
-
-$WeekDay18 = date("Y-m-d", strtotime("+18 day"));
-$deadline18=$WeekDay18;
-
-}
-
-$task21="21 day";
-$next21 = date("D", strtotime("+21 day")); // Add 2 to Day
-
-if($next21 =="Sat") { //Check if Weekend
-
-    $SkipWeekEndDay21 = date("Y-m-d", strtotime("+23 day")); //Add extra 2 Days if Sat Weekend
-
-    $deadline21=$SkipWeekEndDay21;
-
-}
-
-if($next21=="Sun") { //Check if Weekend
-
-    $SkipWeekEndDay21 = date("Y-m-d", strtotime("+22 day")); //Add extra 1 day if Sunday
-
-    $deadline21=$SkipWeekEndDay21;
-
-}
-
-
-if (in_array($next21,$weekarray,true)) {
-
-$WeekDay21 = date("Y-m-d", strtotime("+21 day"));
-$deadline21=$WeekDay21;
-
-}
-        
+                $task18="18 day";
+                $WeekDay18 = date("Y-m-d", strtotime("+18 weekdays"));
+                $deadline18=$WeekDay18;
+                
+                $task21="21 day";
+                $WeekDay21 = date("Y-m-d", strtotime("+21 weekdays"));
+                $deadline21=$WeekDay21;
+ 
         $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
         $database->bind(':assign', $assign48, PDO::PARAM_STR);
         $database->bind(':task', $task48, PDO::PARAM_STR);
@@ -397,7 +312,13 @@ $deadline21=$WeekDay21;
         
         $database->endTransaction();        
         
-    }        
+    } 
+    
+    if(isset($INSURER) && $INSURER == 'Vitality') {
+        
+        
+        
+    }
         
     }
 }

@@ -90,6 +90,9 @@ WHERE
         AND client_id = :CID
         OR note_type = 'Sent SMS'
         AND message = 'Welcome'
+OR
+        note_type = 'SMS notice dismissed'
+        AND message = 'Welcome message dismissed'
         AND client_id =:CID2");
             $database->bind(':CID', $search);
             $database->bind(':CID2', $search);
@@ -98,7 +101,7 @@ WHERE
             
                  if ($database->rowCount()<=0) {  ?>
          
-    <div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Alert:</strong> No Welcome SMS has been sent to this client! 
+<div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Alert:</strong> No Welcome SMS has been sent to this client! <a class="btn btn-xs btn-warning" href="/addon/Life/SMS/dismiss_notification.php?EXECUTE=1&CID=<?php echo $search; ?>">Dismiss</a>
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
          
    <?php  }   
@@ -540,6 +543,9 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                     if($CLIENT_SMS == 1 ) {
                                                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS sent!</div>");
                                                     }
+                                                    if($CLIENT_SMS == 2 ) {
+                                                    print("<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-envelope fa-lg\"></i> Success:</strong> SMS dismissed!</div>");
+                                                    }                                                    
                                                 }                                                       
                                                 
 $TSK_QRY = $pdo->prepare("select task from Client_Tasks WHERE client_id=:CID and complete ='0' and deadline <= CURDATE()");

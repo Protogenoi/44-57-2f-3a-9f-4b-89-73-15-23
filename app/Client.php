@@ -2995,6 +2995,7 @@ WHERE
                                             $TMicon = "fa-user-plus";
                                             break;
                                         case "Policy Deleted":
+                                        case "SMS notice dismissed":
                                             $TMicon = "fa-exclamation";
                                             break;
                                         case "CRM Alert":

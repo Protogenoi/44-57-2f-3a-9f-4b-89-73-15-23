@@ -213,23 +213,38 @@ $TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD
                     <li class='dropdown'>
                         <a data-toggle='dropdown' class='dropdown-toggle' href='#'><span class="badge alert-info"><i class="fa fa-exclamation"><strong> <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { echo $TOTAL_NOTIFICATIONS; } ?></strong></i></span></a>
                         <ul role='menu' class='dropdown-menu'>
-                            <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
+                            <?php 
+                            
+                            if (in_array($hello_name, $Level_8_Access, true)) {
+                                if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
                             <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-file-pdf-o"></i> Uploads:</strong> <a href="/addon/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"><?php echo $UPLOAD_COUNT; ?> Keyfacts not uploaded!</a></div></li>
-                            <?php } } 
+                            <?php 
+                            
+                                } 
+                            
+                                } 
+                            
                             if ($ffcallbacks == '1') { 
                                 if ($ACT_CBS['badge'] > 0) { ?>
                             <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa fa-phone"></i> Callbacks:</strong><a href="/app/calendar/calendar.php"> There are <?php echo $ACT_CBS['badge']; ?> active callbacks!</a></div></li>
-                            <?php } } ?>
-                            <?php if ($fflife == '1') {
-                                if (in_array($hello_name, $Level_3_Access, true)) {
-                            if ($NEW_TASKS_COUNT['badge'] > 0) { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php?EXEUCTE=2"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>}                                
-                                <?php }
-                            if ($WORKFLOWS_COUNT['badge'] > 0) { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Workflows/Workflows.php?EXEUCTE=1"> <?php echo $WORKFLOWS_COUNT['badge']; ?> Workflow deadlines have expired!</a></div></li>}                                
-                                <?php }                                
+                            <?php 
+                            
+                                } 
                                 
-                            }
+                                }
+                                
+                                if ($fflife == '1') {
+                                        if ($NEW_TASKS_COUNT['badge'] > 0) { ?>
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php?EXEUCTE=2"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>                               
+                                <?php 
+                                
+                                        }
+                                        
+                            if ($WORKFLOWS_COUNT['badge'] > 0) { ?>
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Workflows/Workflows.php?EXEUCTE=1"> <?php echo $WORKFLOWS_COUNT['badge']; ?> Workflow deadlines have expired!</a></div></li>                              
+                                <?php 
+                                
+                            }                                
                             
                             if(in_array($hello_name,$Task_Access,true)) {
                                     if ($navbarresult['badge'] > 0) { ?>
@@ -238,19 +253,33 @@ $TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD
                             if ($navbarresult2['badge'] > 0) { ?>
                             <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php"> There are <?php echo $navbarresult2['badge']; ?> tasks which deadlines have expired!</a></div></li>
                                 <?php } }
+                                
                                 if($ffkeyfactsemail=='1') {
                                 if (in_array($hello_name, $Level_8_Access, true)) { 
                                     if ($KFS_stmtresult['badge'] >= '1') { ?>
                             <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-envelope"></i> Email:</strong><a href="/addon/Life/Reports/Keyfacts.php?SEARCH=NotSent"> <?php echo $KFS_stmtresult['badge']; ?> Closer Keyfacts email's have not been sent!</a></div></li>
-                            <?php } } } }
+                            <?php } 
+                            
+                                    } 
+                                    
+                                    } 
+                                    
+                                }
+                                    
                             if ($ffsms == '1') {
                                 if (in_array($hello_name, $Level_3_Access, true)) {
                                     if ($RPY_stmtresult['badge'] >= '1') { ?>
                             <li><div class="notice notice-success" role="alert" id="HIDELGKEY"><strong><i class="fa fa-commenting-o"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> There are <?php echo $RPY_stmtresult['badge']; ?> client responses!</a></div></li>
                             <?php }
+                            
                             if(isset($RPY_stmtresult2['badge']) && $RPY_stmtresult2['badge'] >= '1') { ?>
                             <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-commenting-o"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <?php echo $RPY_stmtresult2['badge']; ?> messages have failed to be delivered!</a></div></li>
-                            <?php } } }
+                            <?php } 
+                            
+                            } 
+                            
+                            }
+                            
                             if ($MSG_stmtresult['badge'] >= '1') { ?>
                             <li><div class="notice notice-info" role="alert" id="HIDELGKEY"><strong><i class="fa fa-inbox"></i> Messages:</strong><a href="/app/messenger/Main.php"> You have <?php echo $MSG_stmtresult['badge']; ?> private messages!</a></div></li>
                             <?php } ?>
@@ -262,7 +291,8 @@ $TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD
             </ul>
 
 <ul class="nav navbar-nav navbar-right">
-    <?php if (in_array($hello_name, $Level_8_Access, true)) {  if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
+    <?php if (in_array($hello_name, $Level_8_Access, true)) {  
+        if(isset($UPLOAD_COUNT) && $UPLOAD_COUNT > 0 ) { ?>
 <li><a href="/addon/Life/Reports/Uploads.php?SEARCH=Insurer Keyfacts"> <span class="badge alert-info"> <i class='fa fa-file-pdf-o'></i> <?php echo $UPLOAD_COUNT; ?> </span></a></li>
    
     <?php } } 
@@ -271,11 +301,14 @@ $TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD
 if ($ACT_CBS['badge'] > 0) { ?>
         <li><a href="/app/calendar/calendar.php">  <span class="badge alert-danger"><i class="fa fa-phone"></i>Active <?php echo $ACT_CBS['badge']; ?></span></a></li> <?php }
 
-        } if ($fflife == '1') {
+        } 
+        
+        if ($fflife == '1') {
             
         if ($NEW_TASKS_COUNT['badge'] > 0) {
             ?>    <li><a href="/addon/Life/Tasks/Tasks.php?EXECUTE=2"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $NEW_TASKS_COUNT['badge']; ?> </span></a></li> 
-                <?php }   
+            <?php }
+                
         if ($WORKFLOWS_COUNT['badge'] > 0) {
             ?>    <li><a href="/addon/Workflows/Workflows.php?EXECUTE=1"><span class="badge alert-danger"><i class="fa fa-tasks"></i> <?php echo $WORKFLOWS_COUNT['badge']; ?> </span></a></li> 
                 <?php }       

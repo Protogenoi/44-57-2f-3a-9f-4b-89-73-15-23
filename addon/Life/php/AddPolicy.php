@@ -79,7 +79,7 @@ if (isSET($EXECUTE)) {
         $sale_date = filter_input(INPUT_POST, 'sale_date', FILTER_SANITIZE_SPECIAL_CHARS);
         $application_number = filter_input(INPUT_POST, 'application_number', FILTER_SANITIZE_SPECIAL_CHARS);
         $premium = filter_input(INPUT_POST, 'premium', FILTER_SANITIZE_SPECIAL_CHARS);
-        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TYPE = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
         $INSURER = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
         $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHARS);
         $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -150,7 +150,7 @@ if (isSET($EXECUTE)) {
             $insert->bindParam(':an_num', $application_number, PDO::PARAM_STR);
             $insert->bindParam(':policy', $dupepol, PDO::PARAM_STR);
             $insert->bindParam(':premium', $premium, PDO::PARAM_STR);
-            $insert->bindParam(':type', $type, PDO::PARAM_STR);
+            $insert->bindParam(':type', $TYPE, PDO::PARAM_STR);
             $insert->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
             $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR);
             $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);
@@ -193,7 +193,7 @@ if (isSET($EXECUTE)) {
         $insert->bindParam(':an_num', $application_number, PDO::PARAM_STR);
         $insert->bindParam(':policy', $policy_number, PDO::PARAM_STR);
         $insert->bindParam(':premium', $premium, PDO::PARAM_STR);
-        $insert->bindParam(':type', $type, PDO::PARAM_STR);
+        $insert->bindParam(':type', $TYPE, PDO::PARAM_STR);
         $insert->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
         $insert->bindParam(':hello', $hello_name, PDO::PARAM_STR);
         $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);

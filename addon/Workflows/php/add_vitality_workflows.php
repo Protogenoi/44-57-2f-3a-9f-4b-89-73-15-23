@@ -70,6 +70,8 @@
                 $task21="21 day";
                 $WeekDay21 = date("Y-m-d", strtotime("+21 weekdays"));
                 $deadline21=$WeekDay21;
+                
+        if($TYPE !='VITALITY WOL') {                
  
         $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign48, PDO::PARAM_STR);
@@ -87,6 +89,7 @@
         $FOURTY_EIGHT_HOUR_ID=$FOURTY_EIGHT_row['adl_workflows_id'];
         $TASK_ONE='Happy with policy';
         
+        
         foreach ($TASK_ARRAY as $TASK_NAME) {
         
         $database->query("INSERT INTO adl_tasks SET adl_tasks_id_fk=:FK, adl_tasks_title=:TASK");
@@ -96,7 +99,9 @@
         
         }
         
-        }        
+        }  
+        
+        }
         
         $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);

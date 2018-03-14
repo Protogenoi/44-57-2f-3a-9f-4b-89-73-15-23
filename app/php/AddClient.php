@@ -388,9 +388,27 @@ if ($ffanalytics == '1') {
                                         <label for="EXTRA_CHARGE">Extra Charges:</label>
                                         <div class="input-group"> 
                                             <span class="input-group-addon">£</span>
-                                            <input style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="EXTRA_CHARGE" name="EXTRA_CHARGE" required/>
+                                            <input value="0" style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" id="EXTRA_CHARGE" name="EXTRA_CHARGE" required/>
                                         </div> 
-                                        </p>                                       
+                                        </p>  
+                                        
+                                                 <p>
+                                                <div class="form-group">
+                                                    <label for="CommissionType">Comms:</label>
+                                                    <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
+                                                        <option value="">Select...</option>
+                                                        <option value="Indemnity">Indemnity</option>
+                                                        <option value="Non Idenmity">Non-Idemnity</option>
+                                                        <option value="NA" <?php
+                                                        if (isset($INSURER)) {
+                                                            if ($INSURER == 'One Family' || $INSURER=='TRB WOL') {
+                                                                echo "selected";
+                                                            }
+                                                        }
+                                                        ?>>N/A</option>
+                                                    </select>
+                                                </div>
+                                                </p>                                       
 
                                         <p>
 
@@ -404,6 +422,15 @@ if ($ffanalytics == '1') {
                                             ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="commission" name="commission" required/>
                                         </div> 
                                         </p>
+                                        
+                                        <p>
+
+                                            <label for="NonIndem">Non-Indem Comm</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input value="0" style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="NonIndem" name="NonIndem" required/>
+                                        </div> 
+                                        </p>                                        
 
                                         <p>
                                         <div class="form-row">
@@ -439,23 +466,6 @@ if ($ffanalytics == '1') {
                                             </div>
                                                 </p>
 
-                                                <p>
-                                                <div class="form-group">
-                                                    <label for="CommissionType">Comms:</label>
-                                                    <select class="form-control" name="CommissionType" id="CommissionType" style="width: 170px" required>
-                                                        <option value="">Select...</option>
-                                                        <option value="Indemnity">Indemnity</option>
-                                                        <option value="Non Idenmity">Non-Idemnity</option>
-                                                        <option value="NA" <?php
-                                                        if (isset($INSURER)) {
-                                                            if ($INSURER == 'One Family' || $INSURER=='TRB WOL') {
-                                                                echo "selected";
-                                                            }
-                                                        }
-                                                        ?>>N/A</option>
-                                                    </select>
-                                                </div>
-                                                </p>
                                                 <p>
                                                 <div class="form-group">
                                                     <label for="comm_term">Clawback Term:</label>

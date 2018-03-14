@@ -2390,8 +2390,47 @@ WHERE
             $query = $pdo->prepare("SELECT life_tasks_client_id FROM life_tasks WHERE life_tasks_client_id=:cid");
             $query->bindParam(':cid', $search, PDO::PARAM_STR);
             $query->execute()or die(print_r($query->errorInfo(), true));
-            if ($query->rowCount() <= 0 ) {                     
+            if ($query->rowCount() >= 1 ) {   
+                
+                $NEW_TASKS = 1;        
 
+            }
+            else {
+                $NEW_TASKS=0;
+            }
+            
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $search);
+        $database->execute();
+        
+        if ($database->rowCount() >= 1 ) {   
+            
+            $WORKFLOW_TASKS = 1;
+            
+        }         else {
+            $WORKFLOW_TASKS=0;
+        }
+            
+            if(isset($NEW_TASKS) && $NEW_TASKS == 1 ) {
+                
+                            require_once(__DIR__ . '/../addon/Life/models/Tasks/Tasks-modal.php');
+                            $LifeTasks = new LifeTasksModel($pdo);
+                            $LifeTasksList = $LifeTasks->getLifeTasks($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Tasks/Tasks-view.php');                  
+                
+            }
+            
+            elseif($WORKFLOW_TASKS == 1 ) {
+                
+                            require_once(__DIR__ . '/../addon/Workflows/modals/Client/Workflow-modal.php');
+                            $LifeWorkflows = new LifeWorkflowsModel($pdo);
+                            $LifeWorkflowsList = $LifeWorkflows->getLifeWorkflows($search);
+                            require_once(__DIR__ . '/../addon/Workflows/views/Client/Workflow-view.php');                 
+                
+            }
+            
+            else {
+                
                     $database->query("select post_arrived, post_returned, Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
                     $database->execute();
@@ -2881,17 +2920,7 @@ WHERE
                     </center> 
                     </form>          
 
-<?php } else {
-    
-    
-                            require_once(__DIR__ . '/../addon/Life/models/Tasks/Tasks-modal.php');
-                            $LifeTasks = new LifeTasksModel($pdo);
-                            $LifeTasksList = $LifeTasks->getLifeTasks($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Tasks/Tasks-view.php');         
-    
-    
-}
-?>
+<?php } ?>
 
                 <div class='container'>
                     <div class="row">
@@ -3041,6 +3070,8 @@ WHERE
                                         case "Task CYD":
                                         case "Task 18 day":
                                         case "Tasks 24 48":
+                                            case "Task 48 hour":
+                                        case "Workflows and Tasks added!":    
                                         case "Tasks 5 day":
                                         case "Tasks CYD":
                                         case "Tasks 18 day":

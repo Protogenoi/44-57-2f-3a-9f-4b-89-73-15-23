@@ -40,7 +40,7 @@ require_once(__DIR__ . '/../../../includes/adl_features.php');
 
 require_once(__DIR__ . '/../../../includes/time.php');
 
-if(isSET($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
@@ -222,104 +222,24 @@ if (isSET($EXECUTE)) {
         $database = new Database(); 
         $database->beginTransaction();    
                 
-        $database->query("SELECT life_tasks_client_id FROM life_tasks WHERE life_tasks_client_id=:CID");
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
         $database->bind(':CID', $CID);
         $database->execute();
         
-        if ($database->rowCount()>=1) {
+        if ($database->rowCount() <=0 ) {
+            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
+        
+        if(isset($INSURER) && $INSURER == 'Vitality') {
             
             
-        } else {
-    
-                $today=date("D"); // check Day Mon - Sun
-                $date=date("Y-m-d",strtotime($today)); // Convert day to date
-                
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='48'");
-                $database->execute();
-                $assign48d=$database->single();
-                
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='7 day'");
-                $database->execute();
-                $assign5d=$database->single();
-                
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='18 day'");
-                $database->execute();
-                $assign18d=$database->single();
-                
-                $database->query("SELECT Task, Assigned FROM Set_Client_Tasks WHERE Task='21 day'");
-                $database->execute();
-                $assign21d=$database->single();                
-                
-                $assign48=$assign48d['Assigned'];
-                $assign5=$assign5d['Assigned'];
-                $assign18=$assign18d['Assigned'];
-                $assign21=$assign21d['Assigned'];
-                
-                $task48="48";
-                $WeekDay48 = date("Y-m-d", strtotime("+2 weekdays"));
-                $deadline48=$WeekDay48;
-                
-                $task5="7 day";
-                $WeekDay5 = date("Y-m-d", strtotime("+7 weekdays"));
-                $deadline5=$WeekDay5;
-                
-                $task18="18 day";
-                $WeekDay18 = date("Y-m-d", strtotime("+18 weekdays"));
-                $deadline18=$WeekDay18;
-                
-                $task21="21 day";
-                $WeekDay21 = date("Y-m-d", strtotime("+21 weekdays"));
-                $deadline21=$WeekDay21;
- 
-        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
-        $database->bind(':assign', $assign48, PDO::PARAM_STR);
-        $database->bind(':task', $task48, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline48, PDO::PARAM_STR); 
-        $database->bind(':CID', $CID); 
-        $database->execute();
-        
-        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
-        $database->bind(':assign', $assign5, PDO::PARAM_STR);
-        $database->bind(':task', $task5, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline5, PDO::PARAM_STR); 
-        $database->bind(':CID', $CID); 
-        $database->execute();
-        
-        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
-        $database->bind(':assign', $assign18, PDO::PARAM_STR);
-        $database->bind(':task', $task18, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
-        $database->bind(':CID', $CID); 
-        $database->execute();
-        
-        $database->query("INSERT INTO life_tasks SET life_tasks_client_id=:CID, life_tasks_assigned=:assign, life_tasks_task=:task, life_tasks_deadline=:deadline");
-        $database->bind(':assign', $assign21, PDO::PARAM_STR);
-        $database->bind(':task', $task21, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline21, PDO::PARAM_STR); 
-        $database->bind(':CID', $CID); 
-        $database->execute();        
-        
-        $notedata= "Tasks added!";
-        $REF= "CRM Alert";
-        $messagedata="All tasks have been assigned to this client";
-                
-                $database->query("INSERT INTO client_note SET client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:NOTE, message=:MSG ");
-                $database->bind(':CID',$CID);
-                $database->bind(':recipientholder',$REF);
-                $database->bind(':NOTE',$notedata);
-                $database->bind(':MSG',$messagedata);
-                $database->execute();         
-        
-        $database->endTransaction();        
-        
-    } 
-    
-    if(isset($INSURER) && $INSURER == 'Vitality') {
+        }        
+            
+            
+        } 
         
         
-        
-    }
-        
+        $database->endTransaction(); 
     }
 }
 

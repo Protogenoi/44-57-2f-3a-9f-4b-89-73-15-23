@@ -21,7 +21,7 @@
 
     <?php endforeach ?>
 
- <br><br>
+ <br><br> <br>
 
                        <form name="ClientTaskForm" id="ClientTaskForm" class="form-horizontal" method="POST" action="/addon/Workflows/php/update_workflow.php?EXECUTE=1&CID=<?php echo "$search"; ?>">
 
@@ -51,8 +51,8 @@
                            
                    <?php foreach ($LifeWorkflowsList as $WORKFLOW_TASK_VARS): 
                        
-                           $ADL_TASK_TITLE=$WORKFLOW_TASK_VARS['adl_tasks_title'];
-    $ADL_TASK_OUTCOME=$WORKFLOW_TASK_VARS['adl_tasks_outcome'];
+                        $ADL_TASK_TITLE=$WORKFLOW_TASK_VARS['adl_tasks_title'];
+                        $ADL_TASK_OUTCOME=$WORKFLOW_TASK_VARS['adl_tasks_outcome'];
                        
                        ?>        
 

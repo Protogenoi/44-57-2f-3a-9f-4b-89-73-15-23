@@ -76,6 +76,9 @@ if (isset($fferror)) {
     $WORKFLOW_TPS= filter_input(INPUT_POST, 'TPS', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $WORKFLOW_TRUST= filter_input(INPUT_POST, 'Trust', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
+    $WORKFLOW_ZONE= filter_input(INPUT_POST, 'Loggedintomemberzone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $WORKFLOW_HEALTH_CHECK= filter_input(INPUT_POST, 'Bookedhealthcheck', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    
     $SELECT_HAPPY = $pdo->prepare("SELECT 
     adl_tasks_outcome, adl_workflows_id, adl_tasks_id
 FROM
@@ -164,7 +167,46 @@ WHERE
 ORDER BY adl_workflows_updated_date DESC");
     $SELECT_TRUST->bindParam(':CID', $CID, PDO::PARAM_INT); 
     $SELECT_TRUST->execute();
-    $TRUSTresult=$SELECT_TRUST->fetch(PDO::FETCH_ASSOC);    
+    $TRUSTresult=$SELECT_TRUST->fetch(PDO::FETCH_ASSOC); 
+    
+    $SELECT_ZONE = $pdo->prepare("SELECT 
+    adl_tasks_outcome, adl_tasks_id
+FROM
+    adl_workflows
+        JOIN
+    adl_tasks ON adl_workflows.adl_workflows_id = adl_tasks.adl_tasks_id_fk
+WHERE
+    adl_workflows_client_id_fk = :CID
+        AND adl_workflows_name = '7 day'
+        AND adl_tasks_title = 'Logged into memberzone'
+ORDER BY adl_workflows_updated_date DESC");
+    $SELECT_ZONE->bindParam(':CID', $CID, PDO::PARAM_INT); 
+    $SELECT_ZONE->execute();
+    $ZONEresult=$SELECT_ZONE->fetch(PDO::FETCH_ASSOC); 
+    
+    $SELECT_HEALTH = $pdo->prepare("SELECT 
+    adl_tasks_outcome, adl_tasks_id
+FROM
+    adl_workflows
+        JOIN
+    adl_tasks ON adl_workflows.adl_workflows_id = adl_tasks.adl_tasks_id_fk
+WHERE
+    adl_workflows_client_id_fk = :CID
+        AND adl_workflows_name = '7 day'
+        AND adl_tasks_title = 'Booked health check'
+ORDER BY adl_workflows_updated_date DESC");
+    $SELECT_HEALTH->bindParam(':CID', $CID, PDO::PARAM_INT); 
+    $SELECT_HEALTH->execute();
+    $HEALTHresult=$SELECT_HEALTH->fetch(PDO::FETCH_ASSOC);     
+    
+    $VAR_SEVEN=$ZONEresult['adl_tasks_outcome'];
+    $TID_SEVEN=$ZONEresult['adl_tasks_id'];
+    
+    $VAR_EIGHT=$HEALTHresult['adl_tasks_outcome'];
+    $TID_EIGHT=$HEALTHresult['adl_tasks_id'];    
+    
+    $ORIGVAR_SEVEN=$ZONEresult['adl_tasks_outcome'];
+    $ORIGVAR_EIGHT=$HEALTHresult['adl_tasks_outcome'];   
     
     $WFID=$HAPPYresult['adl_workflows_id'];
     
@@ -265,14 +307,42 @@ ORDER BY adl_workflows_updated_date DESC");
         
     }
 
+    
+        if($VAR_SEVEN != $WORKFLOW_ZONE) {
+            
+            $VAR_SEVEN= "| Logged into member zone - $WORKFLOW_ZONE |";
+        
+    }
+    
+        else {
+        
+        unset($VAR_SEVEN);
+        
+    }   
+    
+        if($VAR_EIGHT != $WORKFLOW_HEALTH_CHECK) {
+            
+            $VAR_EIGHT= "| Booked health check - $WORKFLOW_HEALTH_CHECK |";
+        
+    }
+    
+        else {
+        
+        unset($VAR_EIGHT);
+        
+    }   
+
+
         $query = $pdo->prepare("UPDATE 
             adl_tasks 
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Happy with policy'");
         $query->bindParam(':OUTCOME', $WORKFLOW_HAPPY, PDO::PARAM_STR);
-        $query->bindParam(':TID', $TID_ONE, PDO::PARAM_INT); 
+        $query->bindParam(':TID', $WFID, PDO::PARAM_INT); 
         $query->execute();
         
         $QRY_TWO = $pdo->prepare("UPDATE 
@@ -280,9 +350,11 @@ ORDER BY adl_workflows_updated_date DESC");
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Had email from us'");
         $QRY_TWO->bindParam(':OUTCOME', $WORKFLOW_EMAIL, PDO::PARAM_STR);
-        $QRY_TWO->bindParam(':TID', $TID_TWO, PDO::PARAM_INT); 
+        $QRY_TWO->bindParam(':TID', $WFID, PDO::PARAM_INT); 
         $QRY_TWO->execute();
 
         $QRY_THREE = $pdo->prepare("UPDATE 
@@ -290,9 +362,11 @@ ORDER BY adl_workflows_updated_date DESC");
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Had post from insurer'");
         $QRY_THREE->bindParam(':OUTCOME', $WORKFLOW_POST, PDO::PARAM_STR);
-        $QRY_THREE->bindParam(':TID', $TID_THREE, PDO::PARAM_INT); 
+        $QRY_THREE->bindParam(':TID', $WFID, PDO::PARAM_INT); 
         $QRY_THREE->execute();
 
         $QRY_FOUR = $pdo->prepare("UPDATE 
@@ -300,9 +374,11 @@ ORDER BY adl_workflows_updated_date DESC");
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID        
+        AND
+            adl_tasks_title='Cancelled old DD'");
         $QRY_FOUR->bindParam(':OUTCOME', $WORKFLOW_DD, PDO::PARAM_STR);
-        $QRY_FOUR->bindParam(':TID', $TID_FOUR, PDO::PARAM_INT); 
+        $QRY_FOUR->bindParam(':TID', $WFID, PDO::PARAM_INT); 
         $QRY_FOUR->execute();
 
         $QRY_FIVE = $pdo->prepare("UPDATE 
@@ -310,9 +386,11 @@ ORDER BY adl_workflows_updated_date DESC");
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='TPS'");
         $QRY_FIVE->bindParam(':OUTCOME', $WORKFLOW_TPS, PDO::PARAM_STR);
-        $QRY_FIVE->bindParam(':TID', $TID_FIVE, PDO::PARAM_INT); 
+        $QRY_FIVE->bindParam(':TID', $WFID, PDO::PARAM_INT); 
         $QRY_FIVE->execute();
 
         $QRY_SIX = $pdo->prepare("UPDATE 
@@ -320,11 +398,37 @@ ORDER BY adl_workflows_updated_date DESC");
         SET     
             adl_tasks_outcome=:OUTCOME
         WHERE 
-            adl_tasks_id=:TID");
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Trust'");
         $QRY_SIX->bindParam(':OUTCOME', $WORKFLOW_TRUST, PDO::PARAM_STR);
-        $QRY_SIX->bindParam(':TID', $TID_SIX, PDO::PARAM_INT); 
-        $QRY_SIX->execute();        
-        
+        $QRY_SIX->bindParam(':TID', $WFID, PDO::PARAM_INT); 
+        $QRY_SIX->execute();   
+         
+        $QRY_SEVEN = $pdo->prepare("UPDATE 
+            adl_tasks 
+        SET     
+            adl_tasks_outcome=:OUTCOME
+        WHERE 
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Logged into memberzone'");
+        $QRY_SEVEN->bindParam(':OUTCOME', $WORKFLOW_ZONE, PDO::PARAM_STR);
+        $QRY_SEVEN->bindParam(':TID', $WFID, PDO::PARAM_INT); 
+        $QRY_SEVEN->execute();
+
+        $QRY_EIGHT = $pdo->prepare("UPDATE 
+            adl_tasks 
+        SET     
+            adl_tasks_outcome=:OUTCOME 
+        WHERE 
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Booked health check'");
+        $QRY_EIGHT->bindParam(':OUTCOME', $WORKFLOW_HEALTH_CHECK, PDO::PARAM_STR);
+        $QRY_EIGHT->bindParam(':TID', $WFID, PDO::PARAM_INT); 
+        $QRY_EIGHT->execute();       
+       
     if($TASK_NAME=='48 hour') {
     
         $complete = $pdo->prepare("UPDATE adl_workflows SET adl_workflows_complete='1' WHERE adl_workflows_client_id_fk=:CID AND adl_workflows_name IN('7 day','48 hour')");
@@ -358,7 +462,9 @@ ORDER BY adl_workflows_updated_date DESC");
                     && $ORIGVAR_THREE == $WORKFLOW_POST 
                     && $ORIGVAR_FOUR == $WORKFLOW_DD 
                     && $ORIGVAR_FIVE == $WORKFLOW_TPS 
-                    && $ORIGVAR_SIX == $WORKFLOW_TRUST) {
+                    && $ORIGVAR_SIX == $WORKFLOW_TRUST
+                    && $ORIGVAR_SEVEN == $WORKFLOW_ZONE
+                    && $ORIGVAR_EIGHT == $WORKFLOW_HEALTH_CHECK) {
         
         $notes="No changes";
     }
@@ -399,9 +505,21 @@ ORDER BY adl_workflows_updated_date DESC");
             
             $VAR_SIX="";
             
-        }                             
+        } 
         
-        $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX";
+        if(empty($VAR_SEVEN)) {
+            
+            $VAR_SEVEN="";
+            
+        } 
+
+        if(empty($VAR_EIGHT)) {
+            
+            $VAR_EIGHT="";
+            
+        }         
+        
+        $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX $VAR_SEVEN $VAR_EIGHT";
         
     }
     

@@ -3072,7 +3072,8 @@ WHERE
                                         case "Task 18 day":
                                         case "Tasks 24 48":
                                             case "Task 48 hour":
-                                        case "Workflows and Tasks added!":    
+                                        case "Workflows and Tasks added!":
+                                             case "Vitality Workflows and Tasks added!":
                                         case "Tasks 5 day":
                                         case "Tasks CYD":
                                         case "Tasks 18 day":

@@ -228,14 +228,16 @@ if (isSET($EXECUTE)) {
         
         if ($database->rowCount() <=0 ) {
             
-        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
-        
         if(isset($INSURER) && $INSURER == 'Vitality') {
             
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_vitality_workflows.php');     
             
-        }        
+        }   else {            
             
-            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
+        
+        }
+                            
         } 
         
         

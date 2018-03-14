@@ -285,9 +285,9 @@ WHERE
                             $MissingKFEmail = new MissingKFEmailModal($pdo);
                             $MissingKFEmailList = $MissingKFEmail->getMissingKFEmail($hello_name);
                             require_once(__DIR__ . '/views/trackers/Missing-KFEmail.php');
-                        }       
-                        
-                        ?>                    
+                        } else { ?>       
+    <button class="btn btn-info btn-sm list-group-item"><strong>You have sent all of your Keyfacts emails!</strong></button>
+                        <?php } ?>
                 <!--    
                     <form method="POST" action="php/CloserReady.php?EXECUTE=1">
 <button class="list-group-item"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; READY!!!/CANCEL</button>

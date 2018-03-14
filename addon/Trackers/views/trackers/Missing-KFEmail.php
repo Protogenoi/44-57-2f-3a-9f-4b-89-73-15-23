@@ -1,5 +1,5 @@
 
-    <button class="btn btn-danger btn-sm list-group-item" data-toggle="modal" data-target="#KeyFactsModal">KEYFACTS EMAIL NOT SENT!</button>
+<button class="btn btn-danger btn-sm list-group-item" data-toggle="modal" data-target="#KeyFactsModal"><strong><font color="white"><i class="fa fa-envelope"> KEYFACTS EMAIL NOT SENT!</i></font></strong></button>
     
     <div id="KeyFactsModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg"">
@@ -11,7 +11,7 @@
         <h4 class="modal-title">Keyfacts Email Tracker</h4>
       </div>
       <div class="modal-body">
-          <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>Sometimes the email may of been added wrong onto ADL. Make sure the email address is correct on the dealsheet and on OLP.</b></div>
+          <div class='notice notice-info' role='alert' id='HIDEGLEAD'><strong><i class='fa fa-exclamation fa-lg'></i> Info:</strong> <b>Sometimes the email may of been added wrong onto ADL. Make sure the email address is correct on the dealsheet and on the insurers portal.</b></div>
 
           <table class="table table-hover">
               <thead>

@@ -72,7 +72,7 @@ $APP_NUM = filter_input(INPUT_POST, 'application_number', FILTER_SANITIZE_SPECIA
 $policy_number = filter_input(INPUT_POST, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
 $premium = filter_input(INPUT_POST, 'premium', FILTER_SANITIZE_SPECIAL_CHARS);
 $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
-$insurer = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
+$INSURER = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHARS);
 $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
 $POLICY_STATUS = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -134,7 +134,7 @@ if ($count = $dupeck->rowCount() >= 1) {
     $update->bindParam(':policy_number', $dupepol, PDO::PARAM_STR);
     $update->bindParam(':premium', $premium, PDO::PARAM_INT);
     $update->bindParam(':type', $type, PDO::PARAM_STR);
-    $update->bindParam(':insurer', $insurer, PDO::PARAM_STR);
+    $update->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
     $update->bindParam(':commission', $commission, PDO::PARAM_INT);
     $update->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
     $update->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);
@@ -251,7 +251,7 @@ $update->bindParam(':application_number', $APP_NUM, PDO::PARAM_STR);
 $update->bindParam(':policy_number', $policy_number, PDO::PARAM_STR);
 $update->bindParam(':premium', $premium, PDO::PARAM_INT);
 $update->bindParam(':type', $type, PDO::PARAM_STR);
-$update->bindParam(':insurer', $insurer, PDO::PARAM_STR);
+$update->bindParam(':insurer', $INSURER, PDO::PARAM_STR);
 $update->bindParam(':commission', $commission, PDO::PARAM_INT);
 $update->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
 $update->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);

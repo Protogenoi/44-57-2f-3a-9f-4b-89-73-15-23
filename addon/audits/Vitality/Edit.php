@@ -2740,7 +2740,7 @@ function textAreaAdjust(o) {
                             });
                         </script>
                         <p>
-                            <label for="QC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer provided contact details for Bluestone Protect?</label>
+                            <label for="QC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
                             <input type="radio" name="QC_Q6" 
 <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6 == "1") {
     echo "checked";

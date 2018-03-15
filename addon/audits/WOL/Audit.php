@@ -1470,7 +1470,7 @@ function yesnoCheckc34() {
 }
                         </script>
                         
-                        <label for="q35">Q35. Closer provided contact details for Bluestone Protect?</label>
+                        <label for="q35">Q35. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="1" id="yesCheckc35">Yes
                         <input type="radio" name="q35" <?php if (isset($q35) && $q35=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc35();" value="0" id="noCheckc35">No
                         

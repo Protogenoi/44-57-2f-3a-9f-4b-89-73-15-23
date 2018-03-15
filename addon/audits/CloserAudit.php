@@ -2585,7 +2585,7 @@ if (isset($fferror)) {
                         </script>
 
                         <p>
-                            <label for="q51">Q53. Closer provided contact details for Bluestone Protect?</label>
+                            <label for="q51">Q53. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
                             <input type="radio" name="q51" 
                                    <?php if (isset($q51) && $q51 == "Yes") echo "checked"; ?> onclick="javascript:yesnoCheckc51();"
                                    value="Yes" id="yesCheckc51">Yes

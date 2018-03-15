@@ -1082,7 +1082,7 @@ WHERE
             </p>
 
             <p>
-                <label for="q51"><?php echo $QC_NUM++; ?>. Closer provided contact details for Bluestone Protect?</label><br>
+                <label for="q51"><?php echo $QC_NUM++; ?>. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label><br>
         <?php if(isset($Q_QC6)) { if($Q_QC6=='1') { echo "Yes"; } if($Q_QC6=='0') { echo "No"; } } ?>
                 
             <div class="phpcomments">

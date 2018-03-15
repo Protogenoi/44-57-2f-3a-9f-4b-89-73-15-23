@@ -2226,7 +2226,7 @@ if (isset($_GET["auditid"])) {
                             </p>
 
                             <p>
-                                <label for="q51">Q53. Did The Agent Provide Contact Details For Bluestone Protect?</label>
+                                <label for="q51">Q53. Did The Agent Provide Contact Details For <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
 
                                 <input type="radio" name="q51" value="Yes"  <?php if ($result['q51'] == "Yes") {
     echo "checked";

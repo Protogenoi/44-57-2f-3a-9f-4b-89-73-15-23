@@ -1302,7 +1302,7 @@ $database->query("SELECT
 
 
 <p>
-<label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for First Priority Group?</label><br>
+<label for="QC6">Q<?php $i++; echo $i; ?>. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label><br>
 <input type="radio" name="QC6" <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="1" id="yesCheckQCT6">Yes
 <input type="radio" name="QC6" <?php if (isset($VIT_CM_QC6) && $VIT_CM_QC6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT6();" value="0" id="noCheckQCT6"><label for="No">No</label>
 </p>

@@ -1815,7 +1815,7 @@ function showTCD8(select_item) {
                                 </div>                                  
                                 
                 <div class="form-group">
-                    <label for="QC6"><?php echo $QC_NUM++; ?>. Closer provided contact details for Bluestone Protect?</label>
+                    <label for="QC6"><?php echo $QC_NUM++; ?>. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
                     <div class="col-2">    
                     <select class="form-control" id="QC6" name="QC6" onchange="java_script_:showTQC6(this.options[this.selectedIndex].value)">
                             <option value=""></option>

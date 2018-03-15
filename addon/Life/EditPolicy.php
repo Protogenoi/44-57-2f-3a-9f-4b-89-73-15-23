@@ -744,7 +744,7 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                             <option value="Declined">Declined</option>
                                             <option value="Redrawn">Redrawn</option>
                                             <option value="Cancelled">Cancelled</option>
-                                            <?php if (in_array($hello_name, $Level_8_Access, true)) { ?>
+                                            <?php if (in_array($hello_name, $Level_9_Access, true)) { ?>
                                             <option value="On Hold">On Hold</option>
                                             <?php } ?>
                                         </select>

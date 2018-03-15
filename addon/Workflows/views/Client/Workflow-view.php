@@ -81,7 +81,17 @@
                                         ?>>
                                             No
                                         </label>
-
+                                        
+                                        <label class="radio-inline" for="<?php echo $ADL_TASK_TITLE; ?>-1">
+                                            <input name="<?php echo str_replace(' ', '', $ADL_TASK_TITLE); ?>" id="<?php echo str_replace(' ', '', $ADL_TASK_TITLE); ?>-1" value="NA" type="radio" <?php
+                                        if (isset($ADL_TASK_OUTCOME)) {
+                                            if ($ADL_TASK_OUTCOME == 'NA') {
+                                                echo "checked='checked'";
+                                            }
+                                        }
+                                        ?>>
+                                            NA
+                                        </label>
                                     </div>
                                 </div>
 

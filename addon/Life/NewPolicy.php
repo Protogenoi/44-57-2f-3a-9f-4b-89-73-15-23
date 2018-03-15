@@ -571,6 +571,7 @@ if (isset($EXECUTE)) {
                                         <option value="NTU">NTU</option>
                                         <option value="Declined">Declined</option>
                                         <option value="Redrawn">Redrawn</option>
+                                        <option value="On Hold">On Hold</option>
                                     </select>
                                 </div>
 

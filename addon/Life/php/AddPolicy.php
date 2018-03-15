@@ -83,7 +83,7 @@ if (isSET($EXECUTE)) {
         $INSURER = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
         $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHARS);
         $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
-        $PolicyStatus = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
+        $POLICY_STATUS = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
         $comm_term = filter_input(INPUT_POST, 'comm_term', FILTER_SANITIZE_SPECIAL_CHARS);
         $drip = filter_input(INPUT_POST, 'drip', FILTER_SANITIZE_SPECIAL_CHARS);
         $soj = filter_input(INPUT_POST, 'soj', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -96,11 +96,11 @@ if (isSET($EXECUTE)) {
         
         $EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_NUMBER_FLOAT);
 
-        if ($PolicyStatus == "Awaiting" || $policy_number=="TBC") {
+        if ($POLICY_STATUS == "Awaiting" || $policy_number=="TBC") {
             $sale_date = "TBC";
             $DATE = date("Y/m/d h:i:s");
             $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $DATE);
-            $PolicyStatus="Awaiting";
+            $POLICY_STATUS="Awaiting";
 
             $policy_number = "TBC $DATE_FOR_TBC_POL";
         }
@@ -156,7 +156,7 @@ if (isSET($EXECUTE)) {
             $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);
             $insert->bindParam(':commission', $commission, PDO::PARAM_STR);
             $insert->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
-            $insert->bindParam(':PolicyStatus', $PolicyStatus, PDO::PARAM_STR);
+            $insert->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);
             $insert->bindParam(':comm_term', $comm_term, PDO::PARAM_STR);
             $insert->bindParam(':drip', $drip, PDO::PARAM_STR);
             $insert->bindParam(':date', $submitted_date, PDO::PARAM_STR);
@@ -199,7 +199,7 @@ if (isSET($EXECUTE)) {
         $insert->bindParam(':helloed', $hello_name, PDO::PARAM_STR);
         $insert->bindParam(':commission', $commission, PDO::PARAM_STR);
         $insert->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
-        $insert->bindParam(':PolicyStatus', $PolicyStatus, PDO::PARAM_STR);
+        $insert->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);
         $insert->bindParam(':comm_term', $comm_term, PDO::PARAM_STR);
         $insert->bindParam(':drip', $drip, PDO::PARAM_STR);
         $insert->bindParam(':date', $submitted_date, PDO::PARAM_STR);
@@ -218,6 +218,8 @@ if (isSET($EXECUTE)) {
         $query->bindParam(':HOLDER', $client_name, PDO::PARAM_STR, 500);
         $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
         $query->execute();
+        
+        if(isset($POLICY_STATUS) && $POLICY_STATUS != 'On Hold') {
         
         $database = new Database(); 
         $database->beginTransaction();    
@@ -240,8 +242,10 @@ if (isSET($EXECUTE)) {
                             
         } 
         
-        
         $database->endTransaction(); 
+        }
+          
+        
     }
 }
 

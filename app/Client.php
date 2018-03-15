@@ -2995,6 +2995,7 @@ WHERE
                                             $TMicon = "fa-user-plus";
                                             break;
                                         case "Policy Deleted":
+                                            case "All Workflows and Tasks have been deleted (Policy On Hold)!":
                                         case "SMS notice dismissed":
                                             $TMicon = "fa-exclamation";
                                             break;

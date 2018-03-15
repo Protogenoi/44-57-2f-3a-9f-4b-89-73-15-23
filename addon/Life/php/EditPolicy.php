@@ -48,6 +48,7 @@ require_once(__DIR__ . '/../../../includes/user_tracking.php');
 require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
 require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../classes/database_class.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
@@ -74,7 +75,7 @@ $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS);
 $insurer = filter_input(INPUT_POST, 'insurer', FILTER_SANITIZE_SPECIAL_CHARS);
 $commission = filter_input(INPUT_POST, 'commission', FILTER_SANITIZE_SPECIAL_CHARS);
 $CommissionType = filter_input(INPUT_POST, 'CommissionType', FILTER_SANITIZE_SPECIAL_CHARS);
-$PolicyStatus = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
+$POLICY_STATUS = filter_input(INPUT_POST, 'PolicyStatus', FILTER_SANITIZE_SPECIAL_CHARS);
 $edited = filter_input(INPUT_POST, 'edited', FILTER_SANITIZE_SPECIAL_CHARS);
 $CID = filter_input(INPUT_POST, 'keyfield', FILTER_SANITIZE_SPECIAL_CHARS);
 $policyID = filter_input(INPUT_POST, 'policyID', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -97,7 +98,7 @@ if(strpos($NAME, ' and ') !== false) {
     $soj="Single";
 }
 
-if ($PolicyStatus == "Awaiting") {
+if ($POLICY_STATUS == "Awaiting") {
     $SALE_DATE = "TBC";
     $policy_number = "TBC $policyunid";
 }
@@ -107,15 +108,18 @@ $dupeck->bindParam(':pol', $policy_number, PDO::PARAM_STR);
 $dupeck->bindParam(':id', $search, PDO::PARAM_STR);
 $dupeck->execute();
 $row = $dupeck->fetch(PDO::FETCH_ASSOC);
+
 if ($count = $dupeck->rowCount() >= 1) {
     $dupepol = "$row[policy_number] DUPE";
 
-    $query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:OCID");
+    $query = $pdo->prepare("SELECT policy_number AS orig_policy, policystatus FROM client_policy WHERE id=:OCID");
     $query->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $query->execute();
     $origdetails = $query->fetch(PDO::FETCH_ASSOC);
 
     $oname = $origdetails['orig_policy'];
+    
+    $ORIG_POLICY_STATUS = $origdetails['policystatus'];
 
     $update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
     $update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
@@ -133,7 +137,7 @@ if ($count = $dupeck->rowCount() >= 1) {
     $update->bindParam(':insurer', $insurer, PDO::PARAM_STR);
     $update->bindParam(':commission', $commission, PDO::PARAM_INT);
     $update->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
-    $update->bindParam(':PolicyStatus', $PolicyStatus, PDO::PARAM_STR);
+    $update->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);
     $update->bindParam(':edited', $hello_name, PDO::PARAM_STR);
     $update->bindParam(':comm_term', $comm_term, PDO::PARAM_INT);
     $update->bindParam(':drip', $drip, PDO::PARAM_INT);
@@ -142,6 +146,64 @@ if ($count = $dupeck->rowCount() >= 1) {
     $update->bindParam(':polterm', $polterm, PDO::PARAM_STR);
     $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $update->execute();
+    
+if($ORIG_POLICY_STATUS == 'On Hold' && $POLICY_STATUS != $ORIG_POLICY_STATUS) {
+    
+    
+        $database = new Database(); 
+        $database->beginTransaction();    
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() <=0 ) {
+            
+        if(isset($INSURER) && $INSURER == 'Vitality') {
+            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_vitality_workflows.php');     
+            
+        }   else {            
+            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
+        
+        }
+                            
+        } 
+        
+        $database->endTransaction();     
+    
+} if($POLICY_STATUS == 'On Hold' && $ORIG_POLICY_STATUS != $POLICY_STATUS) {
+    
+        $database = new Database(); 
+        $database->beginTransaction();    
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() >= 1 ) {
+
+        $database->query("DELETE FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        $notedata= "All Workflows and Tasks have been deleted (Policy $POLICY_STATUS)!";
+        $REF= "CRM Alert";
+        $messagedata="All workflows and tasks have been removed from this client";
+                
+        $database->query("INSERT INTO client_note SET client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:NOTE, message=:MSG ");
+        $database->bind(':CID',$CID);
+        $database->bind(':recipientholder',$REF);
+        $database->bind(':NOTE',$notedata);
+        $database->bind(':MSG',$messagedata);
+        $database->execute();          
+                            
+        } 
+        
+        $database->endTransaction();      
+    
+}    
 
     $clientnamedata2 = $NAME;
 
@@ -167,12 +229,14 @@ if ($count = $dupeck->rowCount() >= 1) {
             
 }
 
-$query = $pdo->prepare("SELECT policy_number AS orig_policy FROM client_policy WHERE id=:OCID");
+$query = $pdo->prepare("SELECT policy_number AS orig_policy, policystatus FROM client_policy WHERE id=:OCID");
 $query->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $query->execute();
 $origdetails = $query->fetch(PDO::FETCH_ASSOC);
 
 $oname = $origdetails['orig_policy'];
+
+$ORIG_POLICY_STATUS = $origdetails['policystatus'];
 
 $update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
 $update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
@@ -190,7 +254,7 @@ $update->bindParam(':type', $type, PDO::PARAM_STR);
 $update->bindParam(':insurer', $insurer, PDO::PARAM_STR);
 $update->bindParam(':commission', $commission, PDO::PARAM_INT);
 $update->bindParam(':CommissionType', $CommissionType, PDO::PARAM_STR);
-$update->bindParam(':PolicyStatus', $PolicyStatus, PDO::PARAM_STR);
+$update->bindParam(':PolicyStatus', $POLICY_STATUS, PDO::PARAM_STR);
 $update->bindParam(':edited', $hello_name, PDO::PARAM_STR);
 $update->bindParam(':comm_term', $comm_term, PDO::PARAM_INT);
 $update->bindParam(':drip', $drip, PDO::PARAM_INT);
@@ -201,6 +265,64 @@ $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $update->execute();
 
 $clientnamedata2 = $NAME;
+
+if($ORIG_POLICY_STATUS == 'On Hold' && $POLICY_STATUS != $ORIG_POLICY_STATUS) {
+    
+    
+        $database = new Database(); 
+        $database->beginTransaction();    
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() <=0 ) {
+            
+        if(isset($INSURER) && $INSURER == 'Vitality') {
+            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_vitality_workflows.php');     
+            
+        }   else {            
+            
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
+        
+        }
+                            
+        } 
+        
+        $database->endTransaction();     
+    
+} elseif($POLICY_STATUS == 'On Hold' && $ORIG_POLICY_STATUS != $POLICY_STATUS) {
+    
+        $database = new Database(); 
+        $database->beginTransaction();    
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() >= 1 ) {
+
+        $database->query("DELETE FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+         $notedata= "All Workflows and Tasks have been deleted (Policy $POLICY_STATUS)!";
+        $REF= "CRM Alert";
+        $messagedata="All workflows and tasks have been removed from this client";
+                
+        $database->query("INSERT INTO client_note SET client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:NOTE, message=:MSG ");
+        $database->bind(':CID',$CID);
+        $database->bind(':recipientholder',$REF);
+        $database->bind(':NOTE',$notedata);
+        $database->bind(':MSG',$messagedata);
+        $database->execute();               
+                           
+        } 
+        
+        $database->endTransaction();      
+    
+}
 
 $changereason = filter_input(INPUT_POST, 'changereason', FILTER_SANITIZE_SPECIAL_CHARS);
 

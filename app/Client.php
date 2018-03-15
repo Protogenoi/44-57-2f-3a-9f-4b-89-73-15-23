@@ -2429,11 +2429,20 @@ WHERE
                 
             }
             
-            else {
+            elseif(isset($LANG_POL) && $LANG_POL == 1
+                    || isset($HAS_VIT_POL) && $HAS_VIT_POL == 1
+                    || isset($HAS_LV_POL) && $HAS_LV_POL == 1
+                    || isset($HAS_WOL_POL) && $HAS_WOL_POL == 1
+                    || isset($HAS_RL_POL) && $HAS_RL_POL == 1
+                    || isset($HAS_AVI_POL) && $HAS_AVI_POL == 1
+                    || isset($HAS_ENG_POL) && $HAS_ENG_POL== 1
+                    || isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1
+                    || isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1) {
                 
                     $database->query("select post_arrived, post_returned, Task, Upsells, PitchTrust, PitchTPS, RemindDD, CYDReturned, DocsArrived, HappyPol FROM Client_Tasks where client_id=:cid");
                     $database->bind(':cid', $search);
                     $database->execute();
+                    if ($database->rowCount() >= 1 ) {
                     $result = $database->single();
 
                     $HappyPol = $result['HappyPol'];
@@ -2920,7 +2929,9 @@ WHERE
                     </center> 
                     </form>          
 
-<?php } ?>
+<?php } 
+
+}?>
 
                 <div class='container'>
                     <div class="row">

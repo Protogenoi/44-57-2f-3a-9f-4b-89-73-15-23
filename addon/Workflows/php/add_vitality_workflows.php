@@ -29,7 +29,7 @@
  * 
 */  
             
-                $TASK_ARRAY = ['Happy with policy','Had email from us','Had post from insurer','Cancelled old DD','TPS','Trust','Logged into memberzone','Booked health check'];    
+                $TASK_ARRAY = ['Happy with policy','Had email from us','Had post from insurer','Cancelled old DD','Confirmed 1st DD','TPS','Trust','Logged into memberzone','Booked health check'];    
             
                 $today=date("D");
                 $date=date("Y-m-d",strtotime($today)); 

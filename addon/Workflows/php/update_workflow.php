@@ -75,6 +75,7 @@ if (isset($fferror)) {
     $WORKFLOW_DD= filter_input(INPUT_POST, 'CancelledoldDD', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $WORKFLOW_TPS= filter_input(INPUT_POST, 'TPS', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $WORKFLOW_TRUST= filter_input(INPUT_POST, 'Trust', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $WORKFLOW_FIRST_DD= filter_input(INPUT_POST, 'Confirmed1stDD', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     $WORKFLOW_ZONE= filter_input(INPUT_POST, 'Loggedintomemberzone', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $WORKFLOW_HEALTH_CHECK= filter_input(INPUT_POST, 'Bookedhealthcheck', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -197,13 +198,32 @@ WHERE
 ORDER BY adl_workflows_updated_date DESC");
     $SELECT_HEALTH->bindParam(':CID', $CID, PDO::PARAM_INT); 
     $SELECT_HEALTH->execute();
-    $HEALTHresult=$SELECT_HEALTH->fetch(PDO::FETCH_ASSOC);     
+    $HEALTHresult=$SELECT_HEALTH->fetch(PDO::FETCH_ASSOC);  
+    
+    $SELECT_FIRST_DD = $pdo->prepare("SELECT 
+    adl_tasks_outcome, adl_tasks_id
+FROM
+    adl_workflows
+        JOIN
+    adl_tasks ON adl_workflows.adl_workflows_id = adl_tasks.adl_tasks_id_fk
+WHERE
+    adl_workflows_client_id_fk = :CID
+        AND adl_workflows_name = '7 day'
+        AND adl_tasks_title = 'Confirmed 1st DD'
+ORDER BY adl_workflows_updated_date DESC");
+    $SELECT_FIRST_DD->bindParam(':CID', $CID, PDO::PARAM_INT); 
+    $SELECT_FIRST_DD->execute();
+    $FIRST_DDresult=$SELECT_FIRST_DD->fetch(PDO::FETCH_ASSOC);      
     
     $VAR_SEVEN=$ZONEresult['adl_tasks_outcome'];
     $TID_SEVEN=$ZONEresult['adl_tasks_id'];
     
     $VAR_EIGHT=$HEALTHresult['adl_tasks_outcome'];
     $TID_EIGHT=$HEALTHresult['adl_tasks_id'];    
+    
+    $VAR_NINE=$FIRST_DDresult['adl_tasks_outcome'];
+    $TID_NINE=$FIRST_DDresult['adl_tasks_id'];   
+    $ORIGVAR_NINE=$FIRST_DDresult['adl_tasks_outcome']; 
     
     $ORIGVAR_SEVEN=$ZONEresult['adl_tasks_outcome'];
     $ORIGVAR_EIGHT=$HEALTHresult['adl_tasks_outcome'];   
@@ -331,6 +351,18 @@ ORDER BY adl_workflows_updated_date DESC");
         unset($VAR_EIGHT);
         
     }   
+    
+        if($VAR_NINE != $WORKFLOW_FIRST_DD) {
+            
+            $VAR_NINE= "| Confirmed 1st DD - $WORKFLOW_FIRST_DD |";
+        
+    }
+    
+        else {
+        
+        unset($VAR_NINE);
+        
+    }    
 
 
         $query = $pdo->prepare("UPDATE 
@@ -427,7 +459,19 @@ ORDER BY adl_workflows_updated_date DESC");
             adl_tasks_title='Booked health check'");
         $QRY_EIGHT->bindParam(':OUTCOME', $WORKFLOW_HEALTH_CHECK, PDO::PARAM_STR);
         $QRY_EIGHT->bindParam(':TID', $WFID, PDO::PARAM_INT); 
-        $QRY_EIGHT->execute();       
+        $QRY_EIGHT->execute();  
+        
+        $QRY_NINE = $pdo->prepare("UPDATE 
+            adl_tasks 
+        SET     
+            adl_tasks_outcome=:OUTCOME 
+        WHERE 
+            adl_tasks_id_fk=:TID
+        AND
+            adl_tasks_title='Confirmed 1st DD'");
+        $QRY_NINE->bindParam(':OUTCOME', $WORKFLOW_FIRST_DD, PDO::PARAM_STR);
+        $QRY_NINE->bindParam(':TID', $WFID, PDO::PARAM_INT); 
+        $QRY_NINE->execute();         
        
     if($TASK_NAME=='48 hour') {
     
@@ -464,7 +508,8 @@ ORDER BY adl_workflows_updated_date DESC");
                     && $ORIGVAR_FIVE == $WORKFLOW_TPS 
                     && $ORIGVAR_SIX == $WORKFLOW_TRUST
                     && $ORIGVAR_SEVEN == $WORKFLOW_ZONE
-                    && $ORIGVAR_EIGHT == $WORKFLOW_HEALTH_CHECK) {
+                    && $ORIGVAR_EIGHT == $WORKFLOW_HEALTH_CHECK
+                    && $ORIGVAR_NINE == $WORKFLOW_FIRST_DD) {
         
         $notes="No changes";
     }
@@ -517,22 +562,27 @@ ORDER BY adl_workflows_updated_date DESC");
             
             $VAR_EIGHT="";
             
-        }         
+        }   
         
-        $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX $VAR_SEVEN $VAR_EIGHT";
+        if(empty($VAR_NINE)) {
+            
+            $VAR_NINE="";
+            
+        }           
+        
+        $notes="$VAR_ONE $VAR_TWO $VAR_THREE $VAR_FOUR $VAR_FIVE $VAR_SIX $VAR_SEVEN $VAR_EIGHT $VAR_NINE";
         
     }
     
-$noteinsert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:HELLO, note_type=:NOTE, message=:MSG ");
-$noteinsert->bindParam(':CID',$CID, PDO::PARAM_INT);
-$noteinsert->bindParam('HELLO',$hello_name, PDO::PARAM_STR, 100);
-$noteinsert->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
-$noteinsert->bindParam(':NOTE',$notetypedata, PDO::PARAM_STR, 255);
-$noteinsert->bindParam(':MSG',$notes, PDO::PARAM_STR, 2500);
-$noteinsert->execute();
+$INSERT = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:recipient, sent_by=:HELLO, note_type=:NOTE, message=:MSG ");
+$INSERT->bindParam(':CID',$CID, PDO::PARAM_INT);
+$INSERT->bindParam('HELLO',$hello_name, PDO::PARAM_STR, 100);
+$INSERT->bindParam(':recipient',$recept, PDO::PARAM_STR, 500);
+$INSERT->bindParam(':NOTE',$notetypedata, PDO::PARAM_STR, 255);
+$INSERT->bindParam(':MSG',$notes, PDO::PARAM_STR, 2500);
+$INSERT->execute();
 
-
-      header('Location: /../../../../../app/Client.php?search='.$CID.'&CLIENT_TASK='.$TASK_NAME.'#menu4'); die; 
+      header('Location: /../../../../../app/Client.php?search='.$CID.'&CLIENT_TASK='.$TASK_NAME.'&WORKFLOW=UPDATED#menu4'); die; 
 
     }       
                         

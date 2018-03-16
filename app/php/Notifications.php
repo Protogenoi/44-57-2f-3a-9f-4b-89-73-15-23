@@ -832,4 +832,33 @@ if(empty($HAS_AVI_LEAD_AUDIT)) {
                                             
                                         }
                                     }
+                                    
+ $clientnotesadded = filter_input(INPUT_GET, 'clientnotesadded', FILTER_SANITIZE_SPECIAL_CHARS);
+                if (isset($clientnotesadded)) {
+                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client notes added!</div>");
+                }
+
+                $TaskSelect = filter_input(INPUT_GET, 'TaskSelect', FILTER_SANITIZE_SPECIAL_CHARS);
+
+                if (isset($TaskSelect)) {
+                    if ($TaskSelect == 'CYD') {
+
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> CYD Task Updated!</div>";
+                    }
+
+                    if ($TaskSelect == '5 day') {
+
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 5 Day Task Updated!</div>";
+                    }
+
+                    if ($TaskSelect == '24 48') {
+
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 24-48 Day Task Updated!</div>";
+                    }
+
+                    if ($TaskSelect == '18 day') {
+
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>";
+                    }
+                }                                   
 ?>

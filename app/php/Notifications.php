@@ -824,4 +824,12 @@ if(empty($HAS_AVI_LEAD_AUDIT)) {
      
 }
 
+                                    $WORKFLOW_GET_VAR= filter_input(INPUT_GET, 'WORKFLOW', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    if(isset($WORKFLOW_GET_VAR)){
+                                        $CLIENT_TASK_GET_VAR= filter_input(INPUT_GET, 'CLIENT_TASK', FILTER_SANITIZE_SPECIAL_CHARS);
+                                        if ($WORKFLOW_GET_VAR == "UPDATED" ) {
+                                            echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-tasks fa-lg\"></i> Workflow:</strong> $CLIENT_TASK_GET_VAR task updated!</div>";
+                                            
+                                        }
+                                    }
 ?>

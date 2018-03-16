@@ -914,6 +914,548 @@ function textAreaAdjust(o) {
                     </div>
                 </div>
                 
+ <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Personal</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <p>
+                            <label for="P_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you been advised to reduce your alcohol intake because you were drinking too heavily?" asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q1" 
+                                   <?php if (isset($VIT_P1) && $VIT_P1 == "1") {
+                                       echo "checked";
+                                   } ?> value="1" id="yesCheckP_C1" required >Yes
+                            <input type="radio" name="P_Q1"
+<?php if (isset($VIT_P1) && $VIT_P1 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C1">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C1" name="P_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P1)) { echo $VIT_C_P1; } ?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft1').text('500 characters left');
+                                $('#P_C1').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft1').text('You have reached the limit');
+                                        $('#characterLeft1').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft1').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft1').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p>
+                            <label for="P_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "In the last 10 years have you ever taken recreation drugs such as.." asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q2" 
+<?php if (isset($VIT_P2) && $VIT_P2 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C2" required >Yes
+                            <input type="radio" name="P_Q2"
+<?php if (isset($VIT_P2) && $VIT_P2 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C2">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C2" name="P_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P2)) { echo $VIT_C_P2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft2').text('500 characters left');
+                                $('#P_C2').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft2').text('You have reached the limit');
+                                        $('#characterLeft2').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft2').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft2').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p>
+                            <label for="P_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you ever test positive for HIV, Hepatitis B or C or are you waiting the results of such a test?" asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q3" 
+<?php if (isset($VIT_P3) && $VIT_P3 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C3" required >Yes
+                            <input type="radio" name="P_Q3"
+<?php if (isset($VIT_P3) && $VIT_P3 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C3">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C3" name="P_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P3)) { echo $VIT_C_P3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft3').text('500 characters left');
+                                $('#P_C3').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft3').text('You have reached the limit');
+                                        $('#characterLeft3').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft3').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft3').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p>
+                            <label for="P_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Before the age of 60, have any members of your immediate family had any of the medical...[conditions listed]...?" asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q4" 
+<?php if (isset($VIT_P4) && $VIT_P4 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C4" required >Yes
+                            <input type="radio" name="P_Q4"
+<?php if (isset($VIT_P4) && $VIT_P4 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C4">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C4" name="P_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P4)) { echo $VIT_C_P4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft4').text('500 characters left');
+                                $('#P_C4').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft4').text('You have reached the limit');
+                                        $('#characterLeft4').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft4').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft4').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        
+                        <p>
+                            <label for="P_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you ever had or do you currently have any of the following" asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q5" 
+<?php if (isset($VIT_P5) && $VIT_P5 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C5" required >Yes
+                            <input type="radio" name="P_Q5"
+<?php if (isset($VIT_P5) && $VIT_P5 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C5">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C5" name="P_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P5)) { echo $VIT_C_P5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft5').text('500 characters left');
+                                $('#P_C5').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft5').text('You have reached the limit');
+                                        $('#characterLeft5').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft5').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft5').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+   
+<p>
+                            <label for="P_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question for health condition in the last 5 years asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q6" 
+<?php if (isset($VIT_P6) && $VIT_P6 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C6" required >Yes
+                            <input type="radio" name="P_Q6"
+<?php if (isset($VIT_P6) && $VIT_P6 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C6">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C6" name="P_C6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P6)) { echo $VIT_C_P6; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft5').text('500 characters left');
+                                $('#P_C6').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft5').text('You have reached the limit');
+                                        $('#characterLeft5').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft5').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft5').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                     
+<p>
+                            <label for="P_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Apart from any condition you have already told us about, within the last 5 years have you.." asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q7" 
+<?php if (isset($VIT_P7) && $VIT_P7 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C7" required >Yes
+                            <input type="radio" name="P_Q7"
+<?php if (isset($VIT_P7) && $VIT_P7 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C7">No
+                        </p>
+                            <textarea class="form-control"id="P_C7" name="P_C7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P7)) { echo $VIT_C_P7; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft5').text('500 characters left');
+                                $('#P_C7').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft5').text('You have reached the limit');
+                                        $('#characterLeft5').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft5').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft5').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>           
+ <p>
+                            <label for="P_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question for recent and current health asked and recorded correctly?</label>
+                            <input type="radio" name="P_Q8" 
+<?php if (isset($VIT_P8) && $VIT_P8 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckP_C8" required >Yes
+                            <input type="radio" name="P_Q8"
+<?php if (isset($VIT_P8) && $VIT_P8 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckP_C8">No
+                        </p>
+
+                            <textarea class="form-control"id="P_C8" name="P_C8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P8)) { echo $VIT_C_P8; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft5').text('500 characters left');
+                                $('#P_C8').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft5').text('You have reached the limit');
+                                        $('#characterLeft5').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft5').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft5').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>                        
+                        
+                    </div>
+                </div>                
+
+ <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Eligibility</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <p>
+                            <label for="E_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Important customer information declaration?</label>
+                            <input type="radio" name="E_Q1" 
+<?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C1" required >Yes
+                            <input type="radio" name="E_Q1"
+<?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C1">No
+                        </p>
+
+                            <textarea class="form-control"id="E_C1" name="E_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E1)) { echo $VIT_CE_E1; } ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft19').text('500 characters left');
+                                $('#E_C1').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft19').text('You have reached the limit');
+                                        $('#characterLeft19').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft19').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft19').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <p>
+                            <label for="E_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients contact details recorded correctly?</label>
+                            <input type="radio" name="E_Q2" 
+<?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C2" required >Yes
+                            <input type="radio" name="E_Q2"
+<?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C2">No
+                        </p>
+
+                            <textarea class="form-control"id="E_C2" name="E_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E2)) { echo $VIT_CE_E2; } ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft18').text('500 characters left');
+                                $('#E_C2').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft18').text('You have reached the limit');
+                                        $('#characterLeft18').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft18').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft18').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <p>
+                            <label for="E_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients address details recorded correctly?</label>
+                            <input type="radio" name="E_Q3" 
+<?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C3" required >Yes
+                            <input type="radio" name="E_Q3"
+<?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C3">No
+                        </p>
+
+                            <textarea class="form-control"id="E_C3" name="E_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E3)) { echo $VIT_CE_E3; } ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft17').text('500 characters left');
+                                $('#E_C3').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft17').text('You have reached the limit');
+                                        $('#characterLeft17').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft17').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft17').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <p>
+                            <label for="E_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Were all doctors details recorded correctly?</label>
+                            <input type="radio" name="E_Q4" 
+<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C4" required >Yes
+                            <input type="radio" name="E_Q4"
+<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C4">No
+                            <input type="radio" name="E_Q4"
+<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "N/A") {
+    echo "checked";
+} ?> value="N/A" id="noCheckE_C4">N/A                            
+                        </p>
+
+                            <textarea class="form-control"id="E_C4" name="E_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E4)) { echo $VIT_CE_E4; } ?></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft20').text('500 characters left');
+                                $('#E_C4').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft20').text('You have reached the limit');
+                                        $('#characterLeft20').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft20').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft20').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <p>
+                            <label for="E_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the height and weight details correctly?</label>
+                            <input type="radio" name="E_Q5" 
+<?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C5" required >Yes
+                            <input type="radio" name="E_Q5"
+                                   <?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "0") {
+                                       echo "checked";
+                                   } ?> value="0" id="noCheckE_C5">No
+                        </p>
+                            <textarea class="form-control"id="E_C5" name="E_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E5)) { echo $VIT_CE_E5; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft23').text('500 characters left');
+                                $('#E_C5').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft23').text('You have reached the limit');
+                                        $('#characterLeft23').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft23').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft23').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                      
+                        <p>
+                            <label for="E_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the smoking details correctly?</label>
+                            <input type="radio" name="E_Q6" 
+                                   <?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "1") {
+                                       echo "checked";
+                                   } ?> value="1" id="yesCheckE_C6" required >Yes
+                            <input type="radio" name="E_Q6"
+<?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C6">No
+                        </p>
+
+                            <textarea class="form-control"id="E_C6" name="E_C6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E6)) { echo $VIT_CE_E6; } ?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft24').text('500 characters left');
+                                $('#E_C6').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft24').text('You have reached the limit');
+                                        $('#characterLeft24').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft24').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft24').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <p>
+                            <label for="E_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the drug use details correctly?</label>
+                            <input type="radio" name="E_Q7" 
+<?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "1") {
+    echo "checked";
+} ?> value="1" id="yesCheckE_C7" required >Yes
+                            <input type="radio" name="E_Q7"
+<?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "0") {
+    echo "checked";
+} ?> value="0" id="noCheckE_C7">No
+                        </p>
+
+                            <textarea class="form-control"id="E_C7" name="E_C7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E7)) { echo $VIT_CE_E7; } ?></textarea><span class="help-block"><p id="characterLeft25" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft25').text('500 characters left');
+                                $('#E_C7').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft25').text('You have reached the limit');
+                                        $('#characterLeft25').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft25').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft25').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                       <p>
+                            <label for="E_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Were term for term details recorded correctly?</label>
+                            <select class="form-control" name="E_Q8" >
+                                <option value="N/A">Select...</option>
+                                <option value="Client provided details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client provided details') { echo "selected"; } ?>>Client Provided Details</option>
+                                <option value="Client failed to provide details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client failed to provide details') { echo "selected"; } ?>>Client failed to provide details</option>
+                                <option value="Not existing Vitality customer" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Not existing Vitality customer') { echo "selected"; } ?>>Not existing legal and general customer</option>
+                                <option value="Obtained from Term4Term service" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Obtained from Term4Term service') { echo "selected"; } ?>>Obtained from Term4Term service</option>
+                                <option value="Existing Vitality Policy, no attempt to get policy number" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Existing Vitality Policy, no attempt to get policy number') { echo "selected"; } ?>>Existing Vitality Policy, no attempt to get policy number</option>
+                            </select>
+                        </p>
+
+                        <textarea class="form-control"id="E_C8" name="E_C8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E8)) { echo $VIT_CE_E8; } ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
+                        <script>
+                            $(document).ready(function () {
+                                $('#characterLeft32').text('500 characters left');
+                                $('#E_C8').keydown(function () {
+                                    var max = 500;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#characterLeft32').text('You have reached the limit');
+                                        $('#characterLeft32').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#characterLeft32').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#characterLeft32').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+                    </div>
+                </div>
+                
 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Customer Information</h3>
@@ -1355,281 +1897,8 @@ function textAreaAdjust(o) {
                         </script>                        
                         
                     </div>
-                </div>
-                
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Personal</h3>
-                    </div>
-                    <div class="panel-body">
-
-                        <p>
-                            <label for="P_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you been advised to reduce your alcohol intake because you were drinking too heavily?" asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q1" 
-                                   <?php if (isset($VIT_P1) && $VIT_P1 == "1") {
-                                       echo "checked";
-                                   } ?> value="1" id="yesCheckP_C1" required >Yes
-                            <input type="radio" name="P_Q1"
-<?php if (isset($VIT_P1) && $VIT_P1 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C1">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C1" name="P_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P1)) { echo $VIT_C_P1; } ?></textarea><span class="help-block"><p id="characterLeft1" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft1').text('500 characters left');
-                                $('#P_C1').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft1').text('You have reached the limit');
-                                        $('#characterLeft1').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft1').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft1').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-
-                        <p>
-                            <label for="P_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "In the last 10 years have you ever taken recreation drugs such as.." asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q2" 
-<?php if (isset($VIT_P2) && $VIT_P2 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C2" required >Yes
-                            <input type="radio" name="P_Q2"
-<?php if (isset($VIT_P2) && $VIT_P2 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C2">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C2" name="P_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P2)) { echo $VIT_C_P2; } ?></textarea><span class="help-block"><p id="characterLeft2" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft2').text('500 characters left');
-                                $('#P_C2').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft2').text('You have reached the limit');
-                                        $('#characterLeft2').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft2').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft2').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-
-                        <p>
-                            <label for="P_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you ever test positive for HIV, Hepatitis B or C or are you waiting the results of such a test?" asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q3" 
-<?php if (isset($VIT_P3) && $VIT_P3 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C3" required >Yes
-                            <input type="radio" name="P_Q3"
-<?php if (isset($VIT_P3) && $VIT_P3 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C3">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C3" name="P_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P3)) { echo $VIT_C_P3; } ?></textarea><span class="help-block"><p id="characterLeft3" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft3').text('500 characters left');
-                                $('#P_C3').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft3').text('You have reached the limit');
-                                        $('#characterLeft3').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft3').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft3').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-
-                        <p>
-                            <label for="P_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Before the age of 60, have any members of your immediate family had any of the medical...[conditions listed]...?" asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q4" 
-<?php if (isset($VIT_P4) && $VIT_P4 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C4" required >Yes
-                            <input type="radio" name="P_Q4"
-<?php if (isset($VIT_P4) && $VIT_P4 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C4">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C4" name="P_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P4)) { echo $VIT_C_P4; } ?></textarea><span class="help-block"><p id="characterLeft4" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft4').text('500 characters left');
-                                $('#P_C4').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft4').text('You have reached the limit');
-                                        $('#characterLeft4').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft4').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft4').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        
-                        <p>
-                            <label for="P_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Have you ever had or do you currently have any of the following" asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q5" 
-<?php if (isset($VIT_P5) && $VIT_P5 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C5" required >Yes
-                            <input type="radio" name="P_Q5"
-<?php if (isset($VIT_P5) && $VIT_P5 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C5">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C5" name="P_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P5)) { echo $VIT_C_P5; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft5').text('500 characters left');
-                                $('#P_C5').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft5').text('You have reached the limit');
-                                        $('#characterLeft5').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft5').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft5').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-   
-<p>
-                            <label for="P_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question for health condition in the last 5 years asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q6" 
-<?php if (isset($VIT_P6) && $VIT_P6 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C6" required >Yes
-                            <input type="radio" name="P_Q6"
-<?php if (isset($VIT_P6) && $VIT_P6 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C6">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C6" name="P_C6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P6)) { echo $VIT_C_P6; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft5').text('500 characters left');
-                                $('#P_C6').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft5').text('You have reached the limit');
-                                        $('#characterLeft5').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft5').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft5').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                     
-<p>
-                            <label for="P_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question "Apart from any condition you have already told us about, within the last 5 years have you.." asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q7" 
-<?php if (isset($VIT_P7) && $VIT_P7 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C7" required >Yes
-                            <input type="radio" name="P_Q7"
-<?php if (isset($VIT_P7) && $VIT_P7 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C7">No
-                        </p>
-                            <textarea class="form-control"id="P_C7" name="P_C7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P7)) { echo $VIT_C_P7; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft5').text('500 characters left');
-                                $('#P_C7').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft5').text('You have reached the limit');
-                                        $('#characterLeft5').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft5').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft5').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>           
- <p>
-                            <label for="P_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Was the question for recent and current health asked and recorded correctly?</label>
-                            <input type="radio" name="P_Q8" 
-<?php if (isset($VIT_P8) && $VIT_P8 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckP_C8" required >Yes
-                            <input type="radio" name="P_Q8"
-<?php if (isset($VIT_P8) && $VIT_P8 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckP_C8">No
-                        </p>
-
-                            <textarea class="form-control"id="P_C8" name="P_C8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_C_P8)) { echo $VIT_C_P8; } ?></textarea><span class="help-block"><p id="characterLeft5" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft5').text('500 characters left');
-                                $('#P_C8').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft5').text('You have reached the limit');
-                                        $('#characterLeft5').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft5').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft5').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>                        
-                        
-                    </div>
-                </div>
-                
-                
-                
+                </div>     
+                                            
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Identifying Clients Needs</h3>
@@ -1807,276 +2076,6 @@ function textAreaAdjust(o) {
                     </div>
                 </div>
 
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Eligibility</h3>
-                    </div>
-                    <div class="panel-body">
-                        
-                        <p>
-                            <label for="E_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Important customer information declaration?</label>
-                            <input type="radio" name="E_Q1" 
-<?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C1" required >Yes
-                            <input type="radio" name="E_Q1"
-<?php if (isset($VIT_CM_E1) && $VIT_CM_E1 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C1">No
-                        </p>
-
-                            <textarea class="form-control"id="E_C1" name="E_C1" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E1)) { echo $VIT_CE_E1; } ?></textarea><span class="help-block"><p id="characterLeft19" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft19').text('500 characters left');
-                                $('#E_C1').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft19').text('You have reached the limit');
-                                        $('#characterLeft19').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft19').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft19').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-
-                        <p>
-                            <label for="E_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients contact details recorded correctly?</label>
-                            <input type="radio" name="E_Q2" 
-<?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C2" required >Yes
-                            <input type="radio" name="E_Q2"
-<?php if (isset($VIT_CM_E2) && $VIT_CM_E2 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C2">No
-                        </p>
-
-                            <textarea class="form-control"id="E_C2" name="E_C2" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E2)) { echo $VIT_CE_E2; } ?></textarea><span class="help-block"><p id="characterLeft18" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft18').text('500 characters left');
-                                $('#E_C2').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft18').text('You have reached the limit');
-                                        $('#characterLeft18').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft18').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft18').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="E_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Were all clients address details recorded correctly?</label>
-                            <input type="radio" name="E_Q3" 
-<?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C3" required >Yes
-                            <input type="radio" name="E_Q3"
-<?php if (isset($VIT_CM_E3) && $VIT_CM_E3 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C3">No
-                        </p>
-
-                            <textarea class="form-control"id="E_C3" name="E_C3" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E3)) { echo $VIT_CE_E3; } ?></textarea><span class="help-block"><p id="characterLeft17" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft17').text('500 characters left');
-                                $('#E_C3').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft17').text('You have reached the limit');
-                                        $('#characterLeft17').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft17').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft17').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="E_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Were all doctors details recorded correctly?</label>
-                            <input type="radio" name="E_Q4" 
-<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C4" required >Yes
-                            <input type="radio" name="E_Q4"
-<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C4">No
-                            <input type="radio" name="E_Q4"
-<?php if (isset($VIT_CM_E4) && $VIT_CM_E4 == "N/A") {
-    echo "checked";
-} ?> value="N/A" id="noCheckE_C4">N/A                            
-                        </p>
-
-                            <textarea class="form-control"id="E_C4" name="E_C4" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E4)) { echo $VIT_CE_E4; } ?></textarea><span class="help-block"><p id="characterLeft20" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft20').text('500 characters left');
-                                $('#E_C4').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft20').text('You have reached the limit');
-                                        $('#characterLeft20').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft20').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft20').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="E_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the height and weight details correctly?</label>
-                            <input type="radio" name="E_Q5" 
-<?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C5" required >Yes
-                            <input type="radio" name="E_Q5"
-                                   <?php if (isset($VIT_CM_E5) && $VIT_CM_E5 == "0") {
-                                       echo "checked";
-                                   } ?> value="0" id="noCheckE_C5">No
-                        </p>
-                            <textarea class="form-control"id="E_C5" name="E_C5" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E5)) { echo $VIT_CE_E5; } ?></textarea><span class="help-block"><p id="characterLeft23" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft23').text('500 characters left');
-                                $('#E_C5').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft23').text('You have reached the limit');
-                                        $('#characterLeft23').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft23').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft23').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                      
-                        <p>
-                            <label for="E_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the smoking details correctly?</label>
-                            <input type="radio" name="E_Q6" 
-                                   <?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "1") {
-                                       echo "checked";
-                                   } ?> value="1" id="yesCheckE_C6" required >Yes
-                            <input type="radio" name="E_Q6"
-<?php if (isset($VIT_CM_E6) && $VIT_CM_E6 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C6">No
-                        </p>
-
-                            <textarea class="form-control"id="E_C6" name="E_C6" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E6)) { echo $VIT_CE_E6; } ?></textarea><span class="help-block"><p id="characterLeft24" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft24').text('500 characters left');
-                                $('#E_C6').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft24').text('You have reached the limit');
-                                        $('#characterLeft24').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft24').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft24').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="E_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER ask and accurately record the drug use details correctly?</label>
-                            <input type="radio" name="E_Q7" 
-<?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "1") {
-    echo "checked";
-} ?> value="1" id="yesCheckE_C7" required >Yes
-                            <input type="radio" name="E_Q7"
-<?php if (isset($VIT_CM_E7) && $VIT_CM_E7 == "0") {
-    echo "checked";
-} ?> value="0" id="noCheckE_C7">No
-                        </p>
-
-                            <textarea class="form-control"id="E_C7" name="E_C7" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E7)) { echo $VIT_CE_E7; } ?></textarea><span class="help-block"><p id="characterLeft25" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft25').text('500 characters left');
-                                $('#E_C7').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft25').text('You have reached the limit');
-                                        $('#characterLeft25').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft25').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft25').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                       <p>
-                            <label for="E_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Were term for term details recorded correctly?</label>
-                            <select class="form-control" name="E_Q8" >
-                                <option value="N/A">Select...</option>
-                                <option value="Client provided details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client provided details') { echo "selected"; } ?>>Client Provided Details</option>
-                                <option value="Client failed to provide details" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Client failed to provide details') { echo "selected"; } ?>>Client failed to provide details</option>
-                                <option value="Not existing Vitality customer" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Not existing Vitality customer') { echo "selected"; } ?>>Not existing legal and general customer</option>
-                                <option value="Obtained from Term4Term service" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Obtained from Term4Term service') { echo "selected"; } ?>>Obtained from Term4Term service</option>
-                                <option value="Existing Vitality Policy, no attempt to get policy number" <?php if(isset($VIT_CM_E8) && $VIT_CM_E8=='Existing Vitality Policy, no attempt to get policy number') { echo "selected"; } ?>>Existing Vitality Policy, no attempt to get policy number</option>
-                            </select>
-                        </p>
-
-                        <textarea class="form-control"id="E_C8" name="E_C8" rows="1" cols="75" maxlength="500" onkeyup="textAreaAdjust(this)"><?php if(isset($VIT_CE_E8)) { echo $VIT_CE_E8; } ?></textarea><span class="help-block"><p id="characterLeft32" class="help-block ">You have reached the limit</p></span>
-                        <script>
-                            $(document).ready(function () {
-                                $('#characterLeft32').text('500 characters left');
-                                $('#E_C8').keydown(function () {
-                                    var max = 500;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#characterLeft32').text('You have reached the limit');
-                                        $('#characterLeft32').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#characterLeft32').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#characterLeft32').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-
-                    </div>
-                </div>
                 
                 <div class="panel panel-info">
                     <div class="panel-heading">

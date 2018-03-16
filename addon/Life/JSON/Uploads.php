@@ -56,7 +56,7 @@ WHERE
             client_note
         WHERE
             note_type like '%keyfacts')
-        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_policy.insurer != 'One Family'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_policy.insurer != 'One Family' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -91,7 +91,7 @@ WHERE
             client_note
         WHERE
             note_type = 'Closer Call Recording')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -126,7 +126,7 @@ WHERE
             client_note
         WHERE
             note_type = 'Agent Call Recording')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -161,7 +161,7 @@ WHERE
             client_note
         WHERE
             note_type = 'Dealsheet')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -232,7 +232,7 @@ WHERE
             client_note
         WHERE
             note_type = 'Sent SMS: Welcome')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
@@ -268,7 +268,7 @@ WHERE
             client_note
         WHERE
             note_type = 'Policy Added')
-        AND DATE(client_details.submitted_date) >= '2017-09-07'
+        AND DATE(client_details.submitted_date) >= '2017-09-07' AND client_details.company !='FPG Paul'
 GROUP BY client_id
     ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));

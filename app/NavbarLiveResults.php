@@ -71,7 +71,16 @@ AND
     adl_workflows_complete = '0'");
     $WORKFLOW_COUNT_CHK->bindParam(':date', $NAVdate, PDO::PARAM_STR, 25);
     $WORKFLOW_COUNT_CHK->execute();
-    $WORKFLOWS_COUNT = $WORKFLOW_COUNT_CHK->fetch(PDO::FETCH_ASSOC);      
+    $WORKFLOWS_COUNT = $WORKFLOW_COUNT_CHK->fetch(PDO::FETCH_ASSOC);    
+    
+    $ON_HOLD_POLS_COUNT_CHK = $pdo->prepare("SELECT 
+    COUNT(client_id) AS badge
+FROM
+    client_policy
+WHERE
+    policystatus = 'On Hold';");
+    $ON_HOLD_POLS_COUNT_CHK->execute();
+    $ON_HOLD_POLSS_COUNT = $ON_HOLD_POLS_COUNT_CHK->fetch(PDO::FETCH_ASSOC);       
 
     $set_timea = date("G:i", strtotime('-30 minutes'));
     $set_time_toa = date("G:i", strtotime('+20 minutes'));
@@ -205,8 +214,11 @@ if(!isset($RPY_stmtresult2['badge'])) {
 if(!isset($MSG_stmtresult['badge'])) {
     $MSG_stmtresult['badge']=0;
 }
+if(!isset($ON_HOLD_POLSS_COUNT['badge'])) {
+    $ON_HOLD_POLSS_COUNT['badge']=0;
+}
 
-$TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
+$TOTAL_NOTIFICATIONS=$ON_HOLD_POLSS_COUNT['badge']+$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
 ?>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { ?>
@@ -239,6 +251,12 @@ $TOTAL_NOTIFICATIONS=$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD
                                 <?php 
                                 
                                         }
+                                        
+                            if ($ON_HOLD_POLSS_COUNT['badge'] > 0) { ?>
+                            <li><div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fa fa-exclamation-triangle"></i> Policies:</strong><a href="/addon/Life/Reports/policy_statuses.php?TYPE=On Hold&DATE_FROM=2018-01-01&DATE_TO=2025-03-16"> <?php echo $ON_HOLD_POLSS_COUNT['badge']; ?> Policies are On Hold!</a></div></li>                              
+                                <?php 
+                                
+                            }                                        
                                         
                             if ($WORKFLOWS_COUNT['badge'] > 0) { ?>
                             <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Workflows/Workflows.php?EXEUCTE=1"> <?php echo $WORKFLOWS_COUNT['badge']; ?> Workflow deadlines have expired!</a></div></li>                              

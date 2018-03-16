@@ -986,9 +986,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
                                                 <option value="">Select company...</option>
-                                                <option value="First Priority Group">First Priority Group</option>
-                                                <option value="Bluestone Protect">Bluestone Protect</option>
-                                                <option value="The Review Bureau">The Review Bureau</option>
+                                                <option value="<?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>"><?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></option>
                                             </select>
                                         </div>                                        
 
@@ -1176,9 +1174,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
                                                 <option value="">Select company...</option>
-                                                <option value="First Priority Group">First Priority Group</option>
-                                                <option value="Bluestone Protect">Bluestone Protect</option>
-                                                <option value="The Review Bureau">The Review Bureau</option>
+                                                <option value="<?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>"><?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></option>
                                             </select>
                                         </div>                                        
 

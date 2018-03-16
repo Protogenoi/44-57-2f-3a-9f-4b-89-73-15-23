@@ -576,6 +576,28 @@ foreach ($result as $value) {
 }
 ?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
          
+                          <?php  }   }   
+                          
+$WORKFLOW_DEADLINE_NOTICE = $pdo->prepare("SELECT 
+    adl_workflows_name
+FROM
+    adl_workflows
+WHERE
+    adl_workflows_client_id_fk = :CID
+        AND adl_workflows_complete = '0'
+        AND adl_workflows_deadline <= CURDATE()");
+$WORKFLOW_DEADLINE_NOTICE->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $WORKFLOW_DEADLINE_NOTICE->execute();
+                            if ($WORKFLOW_DEADLINE_NOTICE->rowCount()>0) { 
+                            while ($result=$WORKFLOW_DEADLINE_NOTICE->fetch(PDO::FETCH_ASSOC)){    ?>
+
+         
+    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Workflow tasks To Do:</strong> <?php 
+foreach ($result as $value) {
+    echo "$value ";
+}
+?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
+         
                           <?php  }   }                            
                           
 if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 ) {

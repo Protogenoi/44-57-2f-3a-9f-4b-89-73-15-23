@@ -186,7 +186,7 @@ while ($result=$query->fetch(PDO::FETCH_ASSOC)){
                                     echo "<td>".$result['insurer']."</td>";
                                     echo "<td>".$result['submitted_date']."</td>";
                                     echo "<td>".$result['date_edited']."</td>";
-                                    echo "<td><a href='../ViewClient.php?search=$search' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-search'></i> </a></td>";
+                                    echo "<td><a href='/app/Client.php?search=$search' target='_blank' class='btn btn-info btn-sm'><i class='fa fa-search'></i> </a></td>";
                                     echo "</tr>";
     }
     

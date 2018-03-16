@@ -1,4 +1,33 @@
 <?php
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2017 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ * 
+*/
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
@@ -7,14 +36,6 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 $USER_TRACKING=0;
 
 require_once(__DIR__ . '/../../includes/user_tracking.php'); 
-
-$Level_2_Access = array("Jade");
-
-if (in_array($hello_name, $Level_2_Access, true)) {
-
-    header('Location: ../Life/Financial_Menu.php');
-    die;
-}
 
 require_once(__DIR__ . '/../../includes/adl_features.php');
 require_once(__DIR__ . '/../../includes/Access_Levels.php');
@@ -48,7 +69,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
     <title>ADL | Compliance Documents</title>
@@ -162,7 +183,7 @@ ADL
     <label for="DOC_COMPANY">Company:</label>
     <select class="form-control" name='DOC_COMPANY'>
         <option value='N/A'>For all</option>
-        <option value='Bluestone Protect'>Bluestone Protect</option>
+        <option value='<?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>'><?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></option>
     </select>
   </div>
  
@@ -218,6 +239,7 @@ ADL
     <label for="COMPANY_ENTITY">Company:</label>
     <select class="form-control" name='COMPANY_ENTITY'>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='N/A') { echo "selected"; }  ?> value='N/A'>For all</option>
+        <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='First Priority Group') { echo "selected"; }  ?> value='First Priority Group'>First Priority Group</option>
         <option <?php if(isset($RESULT['compliance_uploads_company']) && $RESULT['compliance_uploads_company']=='Bluestone Protect') { echo "selected"; }  ?> value='Bluestone Protect'>Bluestone Protect</option>
     </select>
   </div>

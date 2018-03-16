@@ -259,7 +259,7 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
                                 
                                 if ($fflife == '1') {
                                         if ($NEW_TASKS_COUNT['badge'] > 0) { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php?EXEUCTE=2"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>                               
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Life/Tasks/Tasks.php?EXECUTE=2"> <?php echo $NEW_TASKS_COUNT['badge']; ?> tasks deadlines have expired!</a></div></li>                               
                                 <?php 
                                 
                                         }
@@ -276,7 +276,7 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
                             }                            
                                         
                             if ($WORKFLOWS_COUNT['badge'] > 0) { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Workflows/Workflows.php?EXEUCTE=1"> <?php echo $WORKFLOWS_COUNT['badge']; ?> Workflow deadlines have expired!</a></div></li>                              
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-tasks"></i> Tasks:</strong><a href="/addon/Workflows/Workflows.php?EXECUTE=1"> <?php echo $WORKFLOWS_COUNT['badge']; ?> Workflow deadlines have expired!</a></div></li>                              
                                 <?php 
                                 
                             }                                

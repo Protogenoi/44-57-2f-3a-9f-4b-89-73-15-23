@@ -65,6 +65,9 @@ if (isSET($fferror)) {
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($EXECUTE)) {
+    
+        $database = new Database(); 
+        $database->beginTransaction();       
 
     $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
     $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -112,9 +115,6 @@ if (isset($EXECUTE)) {
         }
         
         if(isset($INSURER)) {
-
-        $database = new Database(); 
-        $database->beginTransaction();   
             
             if($INSURER == 'Vitality') {
                 
@@ -126,6 +126,7 @@ if (isset($EXECUTE)) {
             $row = $database->single();
             
             $dupepol="$row[vitality_policy_ref] DUPE";
+            $POLICY_STATUS = "On Hold";
 
 $database->query("INSERT INTO adl_policy SET 
  adl_policy_client_id_fk=:CID,
@@ -151,7 +152,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->execute();
             $lastid =  $database->lastInsertId();     
             
-     if ($database->rowCount()>=0) {         
+     if ($database->rowCount()> 0) {         
 
             $database->query("INSERT INTO vitality_policy SET 
  vitality_policy_id_fk=:PID,
@@ -252,7 +253,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->execute();
             $lastid =  $database->lastInsertId();            
     
-            if ($database->rowCount()>=0) { 
+            if ($database->rowCount()> 0) { 
 
             $database->query("INSERT INTO vitality_policy SET 
  vitality_policy_id_fk=:PID,
@@ -304,7 +305,8 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':NAME', $KID_NAME_1);
             $database->bind(':DOB', $KID_DOB_1);
             $database->bind(':AMOUNT',$KID_AMOUNT_1);
-            $database->bind(':OPT',$KID_OPT_1);            
+            $database->bind(':OPT',$KID_OPT_1);   
+            $database->execute(); 
 
         $messagedata = "Policy $POLICY_REF added";
 
@@ -322,17 +324,9 @@ $database->query("INSERT INTO adl_policy SET
         $database->execute();
         
         if ($database->rowCount() <=0 ) {
-            
-        if(isset($INSURER) && $INSURER == 'Vitality') {
-            
+
         require_once(__DIR__ . '/../../../addon/Workflows/php/add_vitality_workflows.php');     
-            
-        }   else {            
-            
-        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php'); 
-        
-        }
-                            
+                    
         } 
         
         }

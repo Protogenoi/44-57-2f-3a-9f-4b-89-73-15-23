@@ -40,20 +40,8 @@ if(isset($hello_name)) {
          case "leighton":
              $hello_name_full="Leighton Morris";
              break;
-         case "Roxy":
-             $hello_name_full="Roxanne Studholme";
-             break;
          case "Nicola":
              $hello_name_full="Nicola Griffiths";
-             break;
-         case "Rhibayliss":
-             $hello_name_full="Rhiannon Bayliss";
-             break;
-         case "Amelia":
-             $hello_name_full="Amelia Pike";
-             break;
-         case "Abbiek":
-             $hello_name_full="Abbie Kenyon";
              break;
          case "carys":
              $hello_name_full="Carys Riley";
@@ -66,12 +54,6 @@ if(isset($hello_name)) {
              break;
          case "Nick":
              $hello_name_full="Nick Dennis";
-             break;
-         case "Amy":
-             $hello_name_full="Amy Clayfield";
-             break;
-        case "Georgia":
-             $hello_name_full="Georgia Davies";
              break;
          case "Mike":
              $hello_name_full="Michael Lloyd";
@@ -442,7 +424,7 @@ function WriteHTML($html)
 $html = '
 <br /><br><p>Please find enclosed your Discretionary Trust Deed, as discussed you can use this to name the people you would like to leave the money to if something should happen to you within the term of your policy.</p>
 <br /><br><p>Please fill this form in using block capitals and in blue or black ink.</p>
-<br /><br><p>Once fully completed, please sign and return using the cover letter at the back of the forms. Please note, the envelope provided will require a stamp.</p>
+<br /><br><p>Once fully completed, please sign and return.. Please note, the envelope provided will require a stamp.</p>
 <br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 03300 100 035.</p>
 
 <br /><br>

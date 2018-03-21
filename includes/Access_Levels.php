@@ -50,9 +50,9 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     
     $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
     $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","David Bebee","Ryan Tidbal","Lois Taylor");
-    $Level_3_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan");
-    $Level_1_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan");
+    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","David Bebee","Ryan Tidbal","Lois Taylor","Martin Smith");
+    $Level_3_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
+    $Level_1_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
     
     $Task_Access = array("Jakob","David Bebee");
     
@@ -69,9 +69,9 @@ $TRB_ACCESS= array("Michael","Matt","leighton","Nick");
     ///Advanced Admin Search
     $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Molly Grove","David Bebee","Richard Morgan");
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Molly Grove","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan");
+    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Molly Grove","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
     //View Dealsheets awaiting QA
-    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor");
+    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Martin Smith");
     
-    $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths","Ryan Tidbal","Lois Taylor");
+    $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths","Ryan Tidbal","Lois Taylor","Martin Smith");
 ?>

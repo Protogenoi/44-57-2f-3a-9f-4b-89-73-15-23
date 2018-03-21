@@ -205,27 +205,28 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':DOB', $KID_DOB_1);
             $database->bind(':AMOUNT',$KID_AMOUNT_1);
             $database->bind(':OPT',$KID_OPT_1);
-            $database->execute();     
+            $database->execute();
+            
+            $database->endTransaction();  
 
-            $messagedata = "Policy added $dupepol duplicate of $POLICY_REF";
+        $messagedata = "Policy added $dupepol duplicate of $POLICY_REF";
 
-            $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
-            $query->bindParam(':CID', $CID, PDO::PARAM_INT);
-            $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
-            $query->bindParam(':HOLDER', $CLIENT_NAME, PDO::PARAM_STR, 500);
-            $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
-            $query->execute();
+        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $query->bindParam(':HOLDER', $CLIENT_NAME, PDO::PARAM_STR, 500);
+        $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
+        $query->execute();
 
             $client_type = $pdo->prepare("UPDATE client_details SET client_type='Life' WHERE client_id =:client_id");
             $client_type->bindParam(':client_id', $CID, PDO::PARAM_STR);
             $client_type->execute();
             
-            $database->endTransaction(); 
+            
 
                     header('Location: ../../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $POLICY_REF);
                     die;
-                    
-            }
+     }
             
         }
             
@@ -348,5 +349,6 @@ $database->query("INSERT INTO adl_policy SET
 
 } 
 
-        }   
+        }
+        
 ?>

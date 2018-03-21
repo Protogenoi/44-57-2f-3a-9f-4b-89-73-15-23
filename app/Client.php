@@ -1501,7 +1501,8 @@ if (isset($fileuploadedfail)) {
                             if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                             
-
+                            <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                                <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Freepost Trust Letter</a>                                
                                 
                             <a class="list-group-item" href="/addon/Life/<?php 
                             if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
@@ -1547,6 +1548,9 @@ if (isset($fileuploadedfail)) {
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Trust Letter</a>
+                                    
+                                <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Freepost Trust Letter</a>                                    
                                   
                                 
                                 <a class="list-group-item" href="/addon/Life/<?php 
@@ -1615,6 +1619,9 @@ if (isset($fileuploadedfail)) {
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
+                                    
+                                <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                    <i class="fa fa-file-pdf-o fa-fw" aria-hidden="true"></i> &nbsp; Joint Freepost Trust Letter</a>                                    
                               
                                 <a class="list-group-item" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 

@@ -70,9 +70,11 @@ if (isset($EXECUTE)) {
         $database->beginTransaction();       
 
     $CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
+    $VPID = filter_input(INPUT_GET, 'VPID', FILTER_SANITIZE_SPECIAL_CHARS);
     $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
+    $APID = filter_input(INPUT_GET, 'APID', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    if ($EXECUTE == '1') {
+    if ($EXECUTE == 1) {
 
         $CLIENT_NAME = filter_input(INPUT_POST, 'CLIENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
         $POLICY_REF = filter_input(INPUT_POST, 'POLICY_REF', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -101,7 +103,7 @@ if (isset($EXECUTE)) {
         $KID_DOB_1 = filter_input(INPUT_POST, 'KID_DOB_1', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_AMOUNT_1 = filter_input(INPUT_POST, 'KID_AMOUNT_1', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_OPT_1 = filter_input(INPUT_POST, 'KID_OPT_1', FILTER_SANITIZE_SPECIAL_CHARS);  
-
+        
         $KID_NAME_2 = filter_input(INPUT_POST, 'KID_NAME_2', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_DOB_2 = filter_input(INPUT_POST, 'KID_DOB_2', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_AMOUNT_2 = filter_input(INPUT_POST, 'KID_AMOUNT_2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -126,8 +128,6 @@ if (isset($EXECUTE)) {
         $KID_DOB_6 = filter_input(INPUT_POST, 'KID_DOB_6', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_AMOUNT_6 = filter_input(INPUT_POST, 'KID_AMOUNT_6', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_OPT_6 = filter_input(INPUT_POST, 'KID_OPT_6', FILTER_SANITIZE_SPECIAL_CHARS);          
-        
-        $CID=133888;
 
         if ($POLICY_STATUS == "Awaiting" || $POLICY_REF=="TBC") {
             $sale_date = "TBC";
@@ -137,13 +137,22 @@ if (isset($EXECUTE)) {
 
             $POLICY_REF = "TBC $DATE_FOR_TBC_POL";
         }
-        
+
         if(isset($INSURER)) {
             
             if($INSURER == 'Vitality') {
                 
-        $database->query("SELECT vitality_policy_ref from vitality_policy where vitality_policy_ref=:REF");
+$ORIG_STATUS_QRY = $pdo->prepare("SELECT adl_policy_status FROM adl_policy WHERE adl_policy_ref=:REF AND adl_policy_id =:AID");
+$ORIG_STATUS_QRY->bindParam(':AID', $APID, PDO::PARAM_INT);
+$ORIG_STATUS_QRY->bindParam(':REF', $POLICY_REF, PDO::PARAM_INT);
+$ORIG_STATUS_QRY->execute();
+$origdetails = $ORIG_STATUS_QRY->fetch(PDO::FETCH_ASSOC);
+
+$ORIG_POLICY_STATUS = $origdetails['adl_policy_status'];                  
+            
+        $database->query("SELECT adl_policy_ref FROM adl_policy WHERE adl_policy_ref=:REF AND adl_policy_client_id_fk !=:CID");
         $database->bind(':REF', $POLICY_REF);
+        $database->bind(':CID', $CID);
         $database->execute();           
         
         if ($database->rowCount()>=1) {
@@ -152,8 +161,7 @@ if (isset($EXECUTE)) {
             $dupepol="$row[vitality_policy_ref] DUPE";
             $POLICY_STATUS = "On Hold";
 
-$database->query("INSERT INTO adl_policy SET 
- adl_policy_client_id_fk=:CID,
+$database->query("UPDATE adl_policy SET 
  adl_policy_ref=:REF,
  adl_policy_insurer=:INSURER,
  adl_policy_policy_holder=:HOLDER,
@@ -162,8 +170,13 @@ $database->query("INSERT INTO adl_policy SET
  adl_policy_agent=:AGENT,
  adl_policy_sale_date=:SALE_DATE,
  adl_policy_sub_date=:SUB_DATE,
- adl_policy_status=:STATUS");
+ adl_policy_status=:STATUS
+ WHERE
+  adl_policy_client_id_fk=:CID
+ AND 
+ adl_policy_id=:APID");
             $database->bind(':CID', $CID);
+            $database->bind(':APID', $APID);
             $database->bind(':REF', $dupepol);
             $database->bind(':INSURER', $INSURER);
             $database->bind(':HOLDER',$CLIENT_NAME);
@@ -173,13 +186,9 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':SALE_DATE',$SALE_DATE);
             $database->bind(':SUB_DATE',$SUB_DATE);
             $database->bind(':STATUS', $POLICY_STATUS);
-            $database->execute();
-            $lastid =  $database->lastInsertId();     
-            
-     if ($database->rowCount()> 0) {         
+            $database->execute();       
 
-            $database->query("INSERT INTO vitality_policy SET 
- vitality_policy_id_fk=:PID,
+            $database->query("UPDATE vitality_policy SET 
  vitality_policy_ref=:REF,
  vitality_policy_plan=:PLAN,
  vitality_policy_type=:TYPE,
@@ -195,8 +204,10 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_cover_amount=:COVER_AMOUNT,
  vitality_policy_policy_term=:POLICY_TERM,
  vitality_policy_cb_term=:CB_TERM,
- vitality_policy_drip=:DRIP");
-            $database->bind(':PID', $lastid);
+ vitality_policy_drip=:DRIP
+ WHERE
+  vitality_policy_id_fk=:PID");
+            $database->bind(':VPID', $APID);
             $database->bind(':REF', $dupepol);
             $database->bind(':PLAN', $PLAN);
             $database->bind(':TYPE',$TYPE);
@@ -214,10 +225,8 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':CB_TERM', $CB_TERM);
             $database->bind(':DRIP', $DRIP);
             $database->execute(); 
-            $lastid =  $database->lastInsertId(); 
-                
-            $database->query("INSERT INTO vitality_policy_kids_sic SET 
- vitality_policy_kids_sic_id_fk=:REF,
+
+            $database->query("UPDATE vitality_policy_kids_sic SET
  vitality_policy_kids_sic_name=:NAME,
  vitality_policy_kids_sic_dob=:DOB,
  vitality_policy_kids_sic_amount=:AMOUNT,
@@ -241,8 +250,10 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_kids_sic_name6=:NAME6,
  vitality_policy_kids_sic_dob6=:DOB6,
  vitality_policy_kids_sic_amount6=:AMOUNT6,
- vitality_policy_kids_sic_opt6=:OPT6");
-            $database->bind(':REF', $lastid);
+ vitality_policy_kids_sic_opt6=:OPT6
+ WHERE
+  vitality_policy_kids_sic_id_fk=:REF");
+            $database->bind(':REF', $VPID);
             $database->bind(':NAME', $KID_NAME_1);
             $database->bind(':DOB', $KID_DOB_1);
             $database->bind(':AMOUNT',$KID_AMOUNT_1);
@@ -266,7 +277,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':NAME6', $KID_NAME_6);
             $database->bind(':DOB6', $KID_DOB_6);
             $database->bind(':AMOUNT6',$KID_AMOUNT_6);
-            $database->bind(':OPT6',$KID_OPT_6);            
+            $database->bind(':OPT6',$KID_OPT_6);             
             $database->execute();
             
             $database->endTransaction();  
@@ -288,12 +299,10 @@ $database->query("INSERT INTO adl_policy SET
 
                     header('Location: ../../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $POLICY_REF);
                     die;
-     }
             
         }
-            
-$database->query("INSERT INTO adl_policy SET 
- adl_policy_client_id_fk=:CID,
+        
+$database->query("UPDATE adl_policy SET 
  adl_policy_ref=:REF,
  adl_policy_insurer=:INSURER,
  adl_policy_policy_holder=:HOLDER,
@@ -302,8 +311,13 @@ $database->query("INSERT INTO adl_policy SET
  adl_policy_agent=:AGENT,
  adl_policy_sale_date=:SALE_DATE,
  adl_policy_sub_date=:SUB_DATE,
- adl_policy_status=:STATUS");
+ adl_policy_status=:STATUS
+ WHERE
+  adl_policy_client_id_fk=:CID
+ AND 
+ adl_policy_id=:APID");
             $database->bind(':CID', $CID);
+            $database->bind(':APID', $APID);
             $database->bind(':REF', $POLICY_REF);
             $database->bind(':INSURER', $INSURER);
             $database->bind(':HOLDER',$CLIENT_NAME);
@@ -313,13 +327,9 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':SALE_DATE',$SALE_DATE);
             $database->bind(':SUB_DATE',$SUB_DATE);
             $database->bind(':STATUS', $POLICY_STATUS);
-            $database->execute();
-            $lastid =  $database->lastInsertId();            
-    
-            if ($database->rowCount()> 0) { 
+            $database->execute();          
 
-            $database->query("INSERT INTO vitality_policy SET 
- vitality_policy_id_fk=:PID,
+            $database->query("UPDATE vitality_policy SET 
  vitality_policy_ref=:REF,
  vitality_policy_plan=:PLAN,
  vitality_policy_type=:TYPE,
@@ -335,8 +345,10 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_cover_amount=:COVER_AMOUNT,
  vitality_policy_policy_term=:POLICY_TERM,
  vitality_policy_cb_term=:CB_TERM,
- vitality_policy_drip=:DRIP");
-            $database->bind(':PID', $lastid);
+ vitality_policy_drip=:DRIP
+ WHERE
+ vitality_policy_id_fk=:PID");
+            $database->bind(':PID', $APID);
             $database->bind(':REF', $POLICY_REF);
             $database->bind(':PLAN', $PLAN);
             $database->bind(':TYPE',$TYPE);
@@ -354,10 +366,8 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':CB_TERM', $CB_TERM);
             $database->bind(':DRIP', $DRIP);
             $database->execute(); 
-            $lastid =  $database->lastInsertId(); 
             
-            $database->query("INSERT INTO vitality_policy_kids_sic SET 
- vitality_policy_kids_sic_id_fk=:REF,
+            $database->query("UPDATE vitality_policy_kids_sic SET 
  vitality_policy_kids_sic_name=:NAME,
  vitality_policy_kids_sic_dob=:DOB,
  vitality_policy_kids_sic_amount=:AMOUNT,
@@ -381,8 +391,10 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_kids_sic_name6=:NAME6,
  vitality_policy_kids_sic_dob6=:DOB6,
  vitality_policy_kids_sic_amount6=:AMOUNT6,
- vitality_policy_kids_sic_opt6=:OPT6");
-            $database->bind(':REF', $lastid);
+ vitality_policy_kids_sic_opt6=:OPT6
+ WHERE
+ vitality_policy_kids_sic_id_fk=:REF");
+            $database->bind(':REF', $VPID);
             $database->bind(':NAME', $KID_NAME_1);
             $database->bind(':DOB', $KID_DOB_1);
             $database->bind(':AMOUNT',$KID_AMOUNT_1);
@@ -430,13 +442,38 @@ $database->query("INSERT INTO adl_policy SET
                     
         } 
         
-        }
+        } elseif($POLICY_STATUS == 'On Hold' && $ORIG_POLICY_STATUS != $POLICY_STATUS) {  
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() >= 1 ) {
+
+        $database->query("DELETE FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+         $notedata= "All Workflows and Tasks have been deleted (Policy $POLICY_STATUS)!";
+        $REF= "CRM Alert";
+        $messagedata="All workflows and tasks have been removed from this client";
+                
+        $database->query("INSERT INTO client_note SET client_id=:CID, client_name=:recipientholder, sent_by='ADL', note_type=:NOTE, message=:MSG ");
+        $database->bind(':CID',$CID);
+        $database->bind(':recipientholder',$REF);
+        $database->bind(':NOTE',$notedata);
+        $database->bind(':MSG',$messagedata);
+        $database->execute();               
+                           
+        } 
+          
+    
+}
         
         $database->endTransaction(); 
         
        header('Location: /../../../../../app/Client.php?CLIENT_POLICY=1&search=' . $CID . '&CLIENT_POLICY_POL_NUM=' . $POLICY_REF);
-       die;                      
-            }           
+       die;                              
                 
                 
                 

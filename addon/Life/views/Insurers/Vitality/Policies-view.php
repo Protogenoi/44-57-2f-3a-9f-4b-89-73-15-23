@@ -24,6 +24,7 @@
 
         <?php
         $PID = $VITALITY_Policies['vitality_policy_id'];
+        $APID = $VITALITY_Policies['adl_policy_id'];
         $polref = $VITALITY_Policies['adl_policy_ref'];
         $POL_HOLDER = $VITALITY_Policies['adl_policy_policy_holder'];  
         
@@ -85,19 +86,14 @@
         echo "<td><a href='/addon/Life/Insurers/Vitality/view_policy.php?EXECUTE=1&PID=$PID&CID=$search' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
         echo "<td><a href='/addon/Life/Insurers/Vitality/edit_policy.php?EXECUTE=1&PID=$PID&CID=$search&NAME=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
 
-            if (in_array($hello_name, $Level_10_Access, true)) {
+        if (in_array($hello_name, $Level_10_Access, true)) {
 
+        echo "<td><a href='/addon/Life/Insurers/Vitality/delete_policy.php?EXECUTE=1&PID=$APID&CID=$search' class='btn btn-danger btn-xs'><i class='fa fa-trash'></i> </a></td>";
 
-                echo "<td>
-                                                                                        <form method='POST' action='/app/admin/deletepolicy.php?DeleteLifePolicy=1'>
-                                                                                        <input type='hidden' id='policyID' name='policyID' value='$PID'>
-                                                                                            <button type='submit' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> </button>
-                                                                                            </form>
-                                                                                            </td>";
             }
+            
         echo "</tr>";
         ?>
-
 
     <?php endforeach ?>
 </table> 

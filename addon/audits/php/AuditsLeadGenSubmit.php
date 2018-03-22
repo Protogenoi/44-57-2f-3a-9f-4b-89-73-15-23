@@ -156,21 +156,21 @@ if ($s2aq2 == "No" || $s2aq3 == "No" || $s2aq4 =="No" || $s2aq5=="No" || $s2aq6=
         $last_id = $pdo->lastInsertId();
 
         $QUES = $pdo->prepare("INSERT INTO Audit_LeadGen_Comments set audit_id=:last, q1=:q1, q2=:q2, q3=:q3, q4=:q4, q5=:q5, q6=:q6, q7=:q7, q8=:q8, q9=:q9, q10=:q10, q11=:q11, q12=:q12, q13=:q13, q14=:q14, q15=:q15 ");
-        $QUES->bindParam(':q1', $q1TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q2', $q2TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q3', $q3TEXT, PDO::PARAM_STR, 450);        
-        $QUES->bindParam(':q4', $q4TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q5', $q5TEXT, PDO::PARAM_STR, 450);        
-        $QUES->bindParam(':q6', $q6TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q7', $q7TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q8', $q8TEXT, PDO::PARAM_STR, 450);
-    	$QUES->bindParam(':q9', $q9TEXT, PDO::PARAM_STR, 450);
-    	$QUES->bindParam(':q10', $q10TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q11', $q11TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q12', $q12TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q13', $q13TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q14', $q14TEXT, PDO::PARAM_STR, 450);
-        $QUES->bindParam(':q15', $q15TEXT, PDO::PARAM_STR, 450);
+        $QUES->bindParam(':q1', $q1TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q2', $q2TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q3', $q3TEXT, PDO::PARAM_STR);        
+        $QUES->bindParam(':q4', $q4TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q5', $q5TEXT, PDO::PARAM_STR);        
+        $QUES->bindParam(':q6', $q6TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q7', $q7TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q8', $q8TEXT, PDO::PARAM_STR);
+    	$QUES->bindParam(':q9', $q9TEXT, PDO::PARAM_STR);
+    	$QUES->bindParam(':q10', $q10TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q11', $q11TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q12', $q12TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q13', $q13TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q14', $q14TEXT, PDO::PARAM_STR);
+        $QUES->bindParam(':q15', $q15TEXT, PDO::PARAM_STR);
         $QUES->bindParam(':last', $last_id, PDO::PARAM_INT);
         $QUES->execute()or die(print_r($QUES->errorInfo(), true));
     

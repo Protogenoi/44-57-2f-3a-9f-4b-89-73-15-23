@@ -182,13 +182,13 @@ $("#agents").easyAutocomplete(options);</script>
 <div class="form-group">
   <label class="col-md-4 control-label" for="c1"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q1TEXT" name="q1TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q1TEXT" name="q1TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q1LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q1LEFT').text('400 characters left');
+    $('#q1LEFT').text('1000 characters left');
     $('#q1TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q1LEFT').text('You have reached the limit');
@@ -237,13 +237,13 @@ function q1JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q2TEXT" name="q2TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q2TEXT" name="q2TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q2LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q2LEFT').text('400 characters left');
+    $('#q2LEFT').text('1000 characters left');
     $('#q2TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q2LEFT').text('You have reached the limit');
@@ -292,13 +292,13 @@ function q2JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q3TEXT" name="q3TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q3TEXT" name="q3TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q3LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q3LEFT').text('400 characters left');
+    $('#q3LEFT').text('1000 characters left');
     $('#q3TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q3LEFT').text('You have reached the limit');
@@ -347,13 +347,13 @@ function q3JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q4TEXT" name="q4TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q4TEXT" name="q4TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q4LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q4LEFT').text('400 characters left');
+    $('#q4LEFT').text('1000 characters left');
     $('#q4TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q4LEFT').text('You have reached the limit');
@@ -401,13 +401,13 @@ function q4JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q5TEXT" name="q5TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q5TEXT" name="q5TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q5LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q5LEFT').text('400 characters left');
+    $('#q5LEFT').text('1000 characters left');
     $('#q5TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q5LEFT').text('You have reached the limit');
@@ -483,13 +483,13 @@ function q5JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q6TEXT" name="q6TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q6TEXT" name="q6TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q6LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q6LEFT').text('400 characters left');
+    $('#q6LEFT').text('1000 characters left');
     $('#q6TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q6LEFT').text('You have reached the limit');
@@ -538,13 +538,13 @@ function q6JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q7TEXT" name="q7TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q7TEXT" name="q7TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q7LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q7LEFT').text('400 characters left');
+    $('#q7LEFT').text('1000 characters left');
     $('#q7TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q7LEFT').text('You have reached the limit');
@@ -593,13 +593,13 @@ function q7JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q8TEXT" name="q8TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q8TEXT" name="q8TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q8LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q8LEFT').text('400 characters left');
+    $('#q8LEFT').text('1000 characters left');
     $('#q8TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q8LEFT').text('You have reached the limit');
@@ -648,13 +648,13 @@ function q8JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q9TEXT" name="q9TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q9TEXT" name="q9TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q9LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q9LEFT').text('400 characters left');
+    $('#q9LEFT').text('1000 characters left');
     $('#q9TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q9LEFT').text('You have reached the limit');
@@ -703,13 +703,13 @@ function q9JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q10TEXT" name="q10TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q10TEXT" name="q10TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q10LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q10LEFT').text('400 characters left');
+    $('#q10LEFT').text('1000 characters left');
     $('#q10TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q10LEFT').text('You have reached the limit');
@@ -758,13 +758,13 @@ function q10JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q11TEXT" name="q11TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q11TEXT" name="q11TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q11LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q11LEFT').text('400 characters left');
+    $('#q11LEFT').text('1000 characters left');
     $('#q11TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q11LEFT').text('You have reached the limit');
@@ -813,13 +813,13 @@ function q11JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q12TEXT" name="q12TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q12TEXT" name="q12TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q12LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q12LEFT').text('400 characters left');
+    $('#q12LEFT').text('1000 characters left');
     $('#q12TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q12LEFT').text('You have reached the limit');
@@ -868,13 +868,13 @@ function q12JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q13TEXT" name="q13TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q13TEXT" name="q13TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q13LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q13LEFT').text('400 characters left');
+    $('#q13LEFT').text('1000 characters left');
     $('#q13TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q13LEFT').text('You have reached the limit');
@@ -923,13 +923,13 @@ function q13JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q14TEXT" name="q14TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q14TEXT" name="q14TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q14LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q14LEFT').text('400 characters left');
+    $('#q14LEFT').text('1000 characters left');
     $('#q14TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q14LEFT').text('You have reached the limit');
@@ -978,13 +978,13 @@ function q14JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="c2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="q15TEXT" name="q15TEXT" rows="1" cols="75" maxlength="400" onkeyup="textAreaAdjust(this)"></textarea>
+    <textarea class="form-control" id="q15TEXT" name="q15TEXT" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="q15LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
-    $('#q15LEFT').text('400 characters left');
+    $('#q15LEFT').text('1000 characters left');
     $('#q15TEXT').keydown(function () {
-        var max = 400;
+        var max = 1000;
         var len = $(this).val().length;
         if (len >= max) {
             $('#q15LEFT').text('You have reached the limit');

@@ -1,6 +1,6 @@
 <?php
 
-class VIT_POL_Modal {
+class VIT_NEW_POL_Modal {
 
     protected $pdo;
 

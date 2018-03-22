@@ -1,6 +1,6 @@
 <?php
 
-class VI_KFModal {
+class VI_NEW_KFModal {
 
     protected $pdo;
 

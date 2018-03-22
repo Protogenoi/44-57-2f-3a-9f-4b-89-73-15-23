@@ -1,6 +1,6 @@
 <?php
 
-class VITALITYPoliciesModal {
+class VITALITY_NEW_PoliciesModal {
 
     protected $pdo;
 

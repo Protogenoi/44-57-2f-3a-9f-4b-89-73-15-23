@@ -126,8 +126,6 @@ if (isset($EXECUTE)) {
         $KID_DOB_6 = filter_input(INPUT_POST, 'KID_DOB_6', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_AMOUNT_6 = filter_input(INPUT_POST, 'KID_AMOUNT_6', FILTER_SANITIZE_SPECIAL_CHARS);
         $KID_OPT_6 = filter_input(INPUT_POST, 'KID_OPT_6', FILTER_SANITIZE_SPECIAL_CHARS);          
-        
-        $CID=133888;
 
         if ($POLICY_STATUS == "Awaiting" || $POLICY_REF=="TBC") {
             $sale_date = "TBC";

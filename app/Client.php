@@ -205,7 +205,26 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_VIT_AN->execute();
                             $GET_VIT_row = $GET_VIT_AN->fetch(PDO::FETCH_ASSOC);
                             
-                            $VIT_POL_number = $GET_VIT_row['policy_number'];   
+                            $VIT_POL_number = $GET_VIT_row['policy_number'];                               
+                        
+                        }
+                        
+                        $NEW_VIT_CHECK = $pdo->prepare("SELECT adl_policy_id  FROM adl_policy WHERE adl_policy_insurer='Vitality' AND adl_policy_client_id_fk=:CID");
+                        $NEW_VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $NEW_VIT_CHECK->execute();
+                        if ($NEW_VIT_CHECK->rowCount() > 0) {
+                            $HAS_NEW_VIT_POL='1';
+                            
+                            $GET_VIT_AN = $pdo->prepare("SELECT adl_policy_ref from adl_policy where adl_policy_client_id_fk=:CID AND adl_policy_insurer='Vitality'");
+                            $GET_VIT_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_VIT_AN->execute();
+                            $GET_VIT_row = $GET_VIT_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $VIT_POL_number = $GET_VIT_row['adl_policy_ref'];                               
+                        
+                        }                        
+                        
+                            if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) { 
                             
                             $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN OR vitality_audit_plan_number=:PHONE");
                             $GET_VIT_CLOSER_AUDIT->bindParam(':AN', $VIT_POL_number, PDO::PARAM_STR);
@@ -475,6 +494,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LV">LV Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
+                        <li><a class="list-group-item" href="/addon/Life/Insurers/Vitality/add_policy.php?EXECUTE=1&CID=<?php echo $search; ?>&INSURER=VITALITY">New Vitality Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ZURICH">Zurich Policy</a></li>
@@ -580,6 +600,21 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
  
                             }
+                            
+                            if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policy-model.php');
+                            $VIT_POL = new VIT_POL_Modal($pdo);
+                            $VIT_POLList = $VIT_POL->getVIT_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Keyfacts-model.php');
+                            $VI_KF = new VI_KFModal($pdo);
+                            $VI_KFList = $VI_KF->getVI_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Keyfacts-view.php');                                       
+
+ 
+                            }                            
                             
                             if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                                     
@@ -751,6 +786,15 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             }
 
                         }
+                        
+                        if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policies-modal.php');
+                            $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
+                            $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policies-view.php');        
+                                
+                        }                        
                         
                         if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                             
@@ -985,7 +1029,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <div class="form-group">
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
-                                                <option value="">Select company...</option>
                                                 <option value="<?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>"><?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></option>
                                             </select>
                                         </div>                                        
@@ -1100,7 +1143,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         echo "/addon/Life/SMS/Send.php";
                                     } ?>">
 
-                                        <input type="hidden" name="keyfield" value="<?php echo $search; ?>">
+                                        <input type="hidden" name="search" value="<?php echo $search; ?>">
                                         <div class="form-group">
 
                                             <label for="selectsms">Message:</label>
@@ -1129,7 +1172,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }   
                                                     if ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
-                                                    }   
+                                                    }                                                       
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
@@ -1160,10 +1203,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 <option value="">Select insurer...</option> 
                                                 <option value="Legal and General">Legal and General</option>
                                                 <option value="Zurich">Zurich</option>
-                                                <option value="Scottish Widows">Scottish Widows</option>                                                
+                                                <option value="Scottish Widows">Scottish Widows</option>
                                                 <option value="Aviva">Aviva</option>                                              
                                                 <option value="Vitality">Vitality</option>                                             
-                                                <option value="Royal London">Royal London</option>  
+                                                <option value="Royal London">Royal London</option>
                                                 <option value="LV">LV</option>
                                                 <option value="One Family">One Family</option>
                                                
@@ -1173,7 +1216,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         <div class="form-group">
                                             <label for="SMS_COMPANY">Company:</label>
                                             <select class="form-control" name="SMS_COMPANY" id="SMS_COMPANY" required>
-                                                <option value="">Select company...</option>
                                                 <option value="<?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>"><?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?></option>
                                             </select>
                                         </div>                                        
@@ -2405,6 +2447,7 @@ WHERE
             
             elseif(isset($LANG_POL) && $LANG_POL == 1
                     || isset($HAS_VIT_POL) && $HAS_VIT_POL == 1
+                    || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1
                     || isset($HAS_LV_POL) && $HAS_LV_POL == 1
                     || isset($HAS_WOL_POL) && $HAS_WOL_POL == 1
                     || isset($HAS_RL_POL) && $HAS_RL_POL == 1

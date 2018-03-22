@@ -88,15 +88,21 @@ if (isset($fferror)) {
             
         }
 
-$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_NUMBER_INT);
+$CID = filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 $INSURER = filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 
 if (isset($EXECUTE)) {
     if ($EXECUTE == '1') {
 
-        $query = $pdo->prepare("SELECT submitted_date, company, client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :CID");
-        $query->bindParam(':CID', $search, PDO::PARAM_STR);
+        $query = $pdo->prepare("SELECT 
+            CONCAT(title, ' ', first_name, ' ', last_name) AS Name,
+            CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 
+        FROM 
+            client_details
+        WHERE 
+            client_id = :CID");
+        $query->bindParam(':CID', $CID, PDO::PARAM_STR);
         $query->execute();
         $data2 = $query->fetch(PDO::FETCH_ASSOC);
 
@@ -145,6 +151,54 @@ if (isset($EXECUTE)) {
                         yearRange: "-100:+1"
                     });
                 });
+                $(function () {
+                    $("#KID_DOB_1").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });    
+                $(function () {
+                    $("#KID_DOB_2").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });        
+                $(function () {
+                    $("#KID_DOB_3").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });   
+                $(function () {
+                    $("#KID_DOB_4").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });    
+                 $(function () {
+                    $("#KID_DOB_5").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });       
+                 $(function () {
+                    $("#KID_DOB_6").datepicker({
+                        dateFormat: 'yy-mm-dd',
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:+1"
+                    });
+                });                  
             </script>
             <script>
                 webshims.setOptions('forms-ext', {
@@ -195,8 +249,11 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3" for="CLIENT_NAME">Client<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
                         <select id="CLIENT_NAME" class="form-control"  name="CLIENT_NAME">
-                            <option value="NAME 1">NAME 1</option><option value="NAME 2">NAME 2</option>
-                            <option value="NAME 1 AND NAME 2">NAME 1 AND NAME 2</option>
+                                            <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
+                                            <?php if (isset($NAME2)) { ?>
+                                            <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
+                                            <option value="<?php echo "$data2[Name] and  $data2[Name2]"; ?>"><?php echo "$data2[Name] and  $data2[Name2]"; ?></option>
+                                            <?php } ?>  
                         </select>
                     </div>
                 </div>
@@ -212,33 +269,33 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3">Plan<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="PLAN_1">
-                            <input type="checkbox" value="Essential" id="PLAN_1" name="PLAN" >Essential</label>
-                            <label class="checkbox-inline" for="PLAN_2">
-                                <input type="checkbox" value="Vitality Life" id="PLAN_2" name="PLAN" >Vitality Life</label>
+                        <label class="radio-inline" for="PLAN_1">
+                            <input type="radio" value="Essential" id="PLAN_1" name="PLAN" >Essential</label>
+                            <label class="radio-inline" for="PLAN_2">
+                                <input type="radio" value="Vitality Life" id="PLAN_2" name="PLAN" >Vitality Life</label>
                     </div>
                 </div>            
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3">Type<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="TYPE_1">
-                            <input type="checkbox" value="Index" id="TYPE_1" name="TYPE" >Index</label>
-                            <label class="checkbox-inline" for="TYPE_2">
-                                <input type="checkbox" value="DTA" id="TYPE_2" name="TYPE" >DTA</label>
-                                <label class="checkbox-inline" for="TYPE_3">
-                                    <input type="checkbox" value="LTA" id="TYPE_3" name="TYPE" >LTA</label></div>
+                        <label class="radio-inline" for="TYPE_1">
+                            <input type="radio" value="Index" id="TYPE_1" name="TYPE" >Index</label>
+                            <label class="radio-inline" for="TYPE_2">
+                                <input type="radio" value="DTA" id="TYPE_2" name="TYPE" >DTA</label>
+                                <label class="radio-inline" for="TYPE_3">
+                                    <input type="radio" value="LTA" id="TYPE_3" name="TYPE" >LTA</label></div>
                 </div>        
                 
                 <div class="form-group" style="display: block">
                     <label class="control-label control-label-left col-sm-3">Cover</label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="SIC_SELECTED_3">
-                            <input type="checkbox" value="Life" id="SIC_SELECTED_3" name="COVER">Life</label>
-                            <label class="checkbox-inline" for="SIC_SELECTED_1">
-                                <input type="checkbox" value="Life or SIC" id="SIC_SELECTED_1" name="COVER">Life or SIC</label>
-                        <label class="checkbox-inline" for="SIC_SELECTED_2">
-                                <input type="checkbox" value="Life and SIC" id="SIC_SELECTED_2" name="COVER">Life and SIC</label>
+                        <label class="radio-inline" for="SIC_SELECTED_3">
+                            <input type="radio" value="Life" id="SIC_SELECTED_3" name="COVER">Life</label>
+                            <label class="radio-inline" for="SIC_SELECTED_1">
+                                <input type="radio" value="Life or SIC" id="SIC_SELECTED_1" name="COVER">Life or SIC</label>
+                        <label class="radio-inline" for="SIC_SELECTED_2">
+                                <input type="radio" value="Life and SIC" id="SIC_SELECTED_2" name="COVER">Life and SIC</label>
                     </div>
                 </div>  
 
@@ -266,33 +323,33 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: none" id="sic_type_div">
                     <label class="control-label control-label-left col-sm-3">Cover type</label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="COVER_TYPE_1">
-                            <input type="checkbox" value="Protected SIC" id="COVER_TYPE_1" name="COVER_TYPE">Protected SIC</label>
-                        <label class="checkbox-inline" for="COVER_TYPE_2">
-                            <input type="checkbox" value="Protected Life" id="COVER_TYPE_2" name="COVER_TYPE">Protected Life</label>                            
-                            <label class="checkbox-inline" for="COVER_TYPE_3">
-                                <input type="checkbox" value="Not protected" id="COVER_TYPE_3" name="COVER_TYPE">Not protected</label>
-                                <span class="help-block checkbox-inline">(If cover == SIC)</span>
+                        <label class="radio-inline" for="COVER_TYPE_1">
+                            <input type="radio" value="Protected SIC" id="COVER_TYPE_1" name="COVER_TYPE">Protected SIC</label>
+                        <label class="radio-inline" for="COVER_TYPE_2">
+                            <input type="radio" value="Protected Life" id="COVER_TYPE_2" name="COVER_TYPE">Protected Life</label>                            
+                            <label class="radio-inline" for="COVER_TYPE_3">
+                                <input type="radio" value="Not protected" id="COVER_TYPE_3" name="COVER_TYPE">Not protected</label>
+                                <span class="help-block radio-inline">(If cover == SIC)</span>
                     </div>
                 </div>                   
                 
                 <div class="form-group" style="display: none;" id="sic_opt_div">
                     <label class="control-label control-label-left col-sm-3">SIC Opt</label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="SIC_OPT_1">
-                            <input type="checkbox" value="Primary" id="SIC_OPT_1" name="SIC_OPT">Primary</label>
-                            <label class="checkbox-inline" for="SIC_OPT_2">
-                                <input type="checkbox" value="Comprehensive" id="SIC_OPT_2" name="SIC_OPT">Comprehensive</label>
+                        <label class="radio-inline" for="SIC_OPT_1">
+                            <input type="radio" value="Primary" id="SIC_OPT_1" name="SIC_OPT">Primary</label>
+                            <label class="radio-inline" for="SIC_OPT_2">
+                                <input type="radio" value="Comprehensive" id="SIC_OPT_2" name="SIC_OPT">Comprehensive</label>
                     </div>
                 </div>
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3">Term Prem<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="TERM_PREM_1">
-                            <input type="checkbox" value="No opt" id="TERM_PREM_1" name="WELLNESS_OPT" >No opt</label>
-                            <label class="checkbox-inline" for="TERM_PREM_2">
-                                <input type="checkbox" value="Wellness opt" name="WELLNESS_OPT" id="TERM_PREM_2" >Wellness opt</label>
+                        <label class="radio-inline" for="TERM_PREM_1">
+                            <input type="radio" value="No opt" id="TERM_PREM_1" name="WELLNESS_OPT" >No opt</label>
+                            <label class="radio-inline" for="TERM_PREM_2">
+                                <input type="radio" value="Wellness opt" name="WELLNESS_OPT" id="TERM_PREM_2" >Wellness opt</label>
                     </div>
                 </div>
 
@@ -309,11 +366,11 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: none" id="wellness_div">
                     <label class="control-label control-label-left col-sm-3">Wellness</label>
                     <div class="controls col-sm-9">
-                        <label class="checkbox-inline" for="WELLNESS_1">
-                            <input type="checkbox" value="Vital Life" id="WELLNESS_1" name="WELLNESS">Vital Life</label>
-                            <label class="checkbox-inline" for="WELLNESS_2">
-                                <input type="checkbox" value="Vital Plus" id="WELLNESS_2" name="WELLNESS">Vital Plus</label>
-                                <span class="help-block checkbox-inline">(If wellness opt selected)</span>
+                        <label class="radio-inline" for="WELLNESS_1">
+                            <input type="radio" value="Vital Lite" id="WELLNESS_1" name="VITAL">Vital Lite</label>
+                            <label class="radio-inline" for="WELLNESS_2">
+                                <input type="radio" value="Vital Plus" id="WELLNESS_2" name="VITAL">Vital Plus</label>
+                                <span class="help-block radio-inline">(If wellness opt selected)</span>
                     </div>
                 </div>              
                 
@@ -326,14 +383,7 @@ if (isset($EXECUTE)) {
                     <div class="controls col-sm-5">
                         <input id="PREMIUM" name="PREMIUM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
                     </div>
-                </div>
-                
-                <div class="form-group" style="display: block;">
-                    <label class="control-label control-label-left col-sm-4" for="PREMIUM_SIC">Premium (SIC)</label>
-                    <div class="controls col-sm-5">
-                        <input id="PREMIUM_SIC" name="PREMIUM_SIC" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
-                    </div>
-                </div>                
+                </div>              
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="COMMS_TYPE">Comm Type<span class="req"> *</span></label>
@@ -512,7 +562,7 @@ if (isset($EXECUTE)) {
                     <div class="form-group" style="display: block;">
                         <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_1">Amount</label>
                         <div class="controls col-sm-9">
-                            <input id="KID_AMOUNT_1" name="KID_AMOUNT_1" type="text" class="form-control k-textbox" data-role="text">
+                            <input id="KID_AMOUNT_1" name="KID_AMOUNT_1" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
                         </div>
                     </div>
                 </div>
@@ -521,16 +571,232 @@ if (isset($EXECUTE)) {
                     <div class="form-group">
                         <label class="control-label control-label-left col-sm-3 sr-only"></label>
                         <div class="controls col-sm-9">
-                            <label class="checkbox-inline" for="KID_OPT_1">
-                                <input type="checkbox" value="Primary" id="KID_OPT_1" name="KID_OPT_1">Pri</label>
-                                <label class="checkbox-inline">
-                                    <input id="KID_OPT_1" name="KID_OPT_1" type="checkbox" value="Comp">Comp</label>
-                                    <label class="checkbox-inline">
-                                        <input id="KID_OPT_1" name="KID_OPT_1" type="checkbox" value="Index">Index</label>
+                            <label class="radio-inline" for="KID_OPT_1">
+                                <input type="radio" value="Primary" id="KID_OPT_1" name="KID_OPT_1">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Index">Index</label>
                         </div>
                     </div>
                 </div>
             </div>
+            
+<div class="row" style="display: block;">
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_NAME_2">Name</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_NAME_2" name="KID_NAME_2" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="KID_DOB_2">DOB</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_DOB_2" name="KID_DOB_2" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_2">Amount</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_AMOUNT_2" name="KID_AMOUNT_2" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3 sr-only"></label>
+                        <div class="controls col-sm-9">
+                            <label class="radio-inline" for="KID_OPT_2">
+                                <input type="radio" value="Primary" id="KID_OPT_2" name="KID_OPT_2">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Index">Index</label>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            
+<div class="row" style="display: block;">
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_NAME_3">Name</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_NAME_3" name="KID_NAME_3" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="KID_DOB_3">DOB</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_DOB_3" name="KID_DOB_3" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_3">Amount</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_AMOUNT_3" name="KID_AMOUNT_3" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3 sr-only"></label>
+                        <div class="controls col-sm-9">
+                            <label class="radio-inline" for="KID_OPT_3">
+                                <input type="radio" value="Primary" id="KID_OPT_3" name="KID_OPT_3">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_3" name="KID_OPT_3" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_3" name="KID_OPT_3" type="radio" value="Index">Index</label>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+            
+<div class="row" style="display: block;">
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_NAME_4">Name</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_NAME_4" name="KID_NAME_4" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="KID_DOB_4">DOB</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_DOB_4" name="KID_DOB_4" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_4">Amount</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_AMOUNT_4" name="KID_AMOUNT_4" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3 sr-only"></label>
+                        <div class="controls col-sm-9">
+                            <label class="radio-inline" for="KID_OPT_4">
+                                <input type="radio" value="Primary" id="KID_OPT_4" name="KID_OPT_4">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Index">Index</label>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            
+<div class="row" style="display: block;">
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_NAME_5">Name</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_NAME_5" name="KID_NAME_5" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="KID_DOB_5">DOB</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_DOB_5" name="KID_DOB_5" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_5">Amount</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_AMOUNT_5" name="KID_AMOUNT_5" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3 sr-only"></label>
+                        <div class="controls col-sm-9">
+                            <label class="radio-inline" for="KID_OPT_5">
+                                <input type="radio" value="Primary" id="KID_OPT_5" name="KID_OPT_5">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Index">Index</label>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            
+  <div class="row" style="display: block;">
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_NAME_6">Name</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_NAME_6" name="KID_NAME_6" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3" for="KID_DOB_6">DOB</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_DOB_6" name="KID_DOB_6" type="text" class="form-control k-textbox" data-role="text">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group" style="display: block;">
+                        <label class="control-label control-label-left col-sm-3" for="KID_AMOUNT_6">Amount</label>
+                        <div class="controls col-sm-9">
+                            <input id="KID_AMOUNT_6" name="KID_AMOUNT_6" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="control-label control-label-left col-sm-3 sr-only"></label>
+                        <div class="controls col-sm-9">
+                            <label class="radio-inline" for="KID_OPT_6">
+                                <input type="radio" value="Primary" id="KID_OPT_6" name="KID_OPT_6">Pri</label>
+                                <label class="radio-inline">
+                                    <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Comp">Comp</label>
+                                    <label class="radio-inline">
+                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Index">Index</label>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+            
         </div>
         </div>
                         </div>

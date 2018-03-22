@@ -603,12 +603,12 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policy-model.php');
-                            $VIT_POL = new VIT_POL_Modal($pdo);
+                            $VIT_POL = new VIT_NEW_POL_Modal($pdo);
                             $VIT_POLList = $VIT_POL->getVIT_POL($likesearch);
                             require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policy-view.php');                                       
                                     
                             require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Keyfacts-model.php');
-                            $VI_KF = new VI_KFModal($pdo);
+                            $VI_KF = new VI_NEW_KFModal($pdo);
                             $VI_KFList = $VI_KF->getVI_KF($likesearch);
                             require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Keyfacts-view.php');                                       
 
@@ -789,7 +789,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
                                 
                             require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policies-modal.php');
-                            $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
+                            $VITALITYPolicies = new VITALITY_NEW_PoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policies-view.php');        
                                 

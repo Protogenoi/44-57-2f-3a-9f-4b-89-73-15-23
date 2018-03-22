@@ -234,7 +234,7 @@ if (isset($EXECUTE)) {
             <div class="container">
         <div class="row">
 
-            <form action="/addon/Life/php/add_policy.php?EXECUTE=1&INSURER=Vitality" id="formentry" class="form-horizontal" role="form" method="POST">
+            <form action="/addon/Life/php/add_policy.php?EXECUTE=1&INSURER=Vitality&CID=<?php echo $CID; ?>" id="formentry" class="form-horizontal" role="form" method="POST">
                 <div class="container-fluid shadow">
                     <div class="row">
                         

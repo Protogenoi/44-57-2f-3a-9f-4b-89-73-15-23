@@ -71,7 +71,7 @@
                 $WeekDay21 = date("Y-m-d", strtotime("+21 weekdays"));
                 $deadline21=$WeekDay21;
                 
-        if($TYPE !='VITALITY WOL') {                
+     /*   if($TYPE !='VITALITY WOL') {                
  
         $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign48, PDO::PARAM_STR);
@@ -101,7 +101,7 @@
         
         }  
         
-        }
+        }*/
         
         $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);

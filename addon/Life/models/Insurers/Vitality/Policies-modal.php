@@ -26,6 +26,7 @@ class VITALITYPoliciesModal {
     adl_policy.adl_policy_policy_holder,
     adl_policy.adl_policy_status,
     adl_policy.adl_policy_ref,
+    adl_policy.adl_policy_id,
     vitality_policy.vitality_policy_premium,
     vitality_policy.vitality_policy_comms,
     vitality_financial_amount

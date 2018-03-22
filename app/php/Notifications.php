@@ -73,6 +73,7 @@ WHERE
                  }
                  
                  if(isset($LANG_POL) && $LANG_POL == 1 
+                         || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1 
                          || isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 
                          || isset($HAS_LV_POL) && $HAS_LV_POL == 1 
                          || isset($HAS_AVI_POL) && $HAS_AVI_POL == 1 
@@ -686,7 +687,7 @@ if(empty($HAS_RL_LEAD_AUDIT)) {
      }    
 }
 
-     if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 ) {
+     if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");
             $database->bind(':search', $likesearch);

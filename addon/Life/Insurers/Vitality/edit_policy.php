@@ -517,6 +517,7 @@ WHERE
                     <label class="control-label control-label-left col-sm-3" for="CHANGE_REASON">Change reason</label>
                     <div class="controls col-sm-9">
                         <select id="CHANGE_REASON" class="form-control"  name="CHANGE_REASON" required>
+                            <option value="">Select...</option>
                                     <option value="Updated TBC Policy Number">Updated TBC Policy Number</option>
                                     <option value="Incorrect Policy Number">Incorrect Policy Number</option>
                                     <option value="Incorrect Single/Joint">Incorrect Single/Joint</option>

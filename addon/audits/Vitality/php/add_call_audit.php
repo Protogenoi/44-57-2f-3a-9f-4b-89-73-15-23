@@ -267,6 +267,10 @@ if (isset($EXECUTE)) {
     $VITALITY_QUES_QRY->bindParam(':T1', $T_Q1, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':T2', $T_Q2, PDO::PARAM_STR);   
     $VITALITY_QUES_QRY->bindParam(':HAZ1', $HAZ_Q1, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':L1', $L_Q1, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':L2', $L_Q2, PDO::PARAM_STR);   
+    $VITALITY_QUES_QRY->bindParam(':L3', $L_Q3, PDO::PARAM_STR);  
+    $VITALITY_QUES_QRY->bindParam(':FAM1', $FAM_Q1, PDO::PARAM_STR);  
     $VITALITY_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR);    
@@ -425,68 +429,72 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
     $VITALITY_C_EXTRA_QRY = $pdo->prepare("INSERT INTO 
                                             adl_audit_vitality_ce
                                         SET 
-  adl_audit_vitality_ce_id_fk ,
-  adl_audit_vitality_ce_o2  ,
-  adl_audit_vitality_ce_o3  ,
-  adl_audit_vitality_ce_t1  ,
-  adl_audit_vitality_ce_t2  ,
-  adl_audit_vitality_ce_haz1  ,
-  adl_audit_vitality_ce_l1  ,
-  adl_audit_vitality_ce_l2  ,
-  adl_audit_vitality_ce_l3  ,
-  adl_audit_vitality_ce_fam1  ,
-  adl_audit_vitality_ce_h1  ,
-  adl_audit_vitality_ce_h2  ,
-  adl_audit_vitality_ce_h3  ,
-  adl_audit_vitality_ce_bd1  ,
-  adl_audit_vitality_ce_bd2  ,
-  adl_audit_vitality_ce_bd3  ,
-  adl_audit_vitality_ce_bd4  ,
-  adl_audit_vitality_ce_bd5  ,
-  adl_audit_vitality_ce_dec1  ,
-  adl_audit_vitality_ce_dec2  ,
-  adl_audit_vitality_ce_dec3  ,
-  adl_audit_vitality_ce_dec4  ,
-  adl_audit_vitality_ce_dec5  ,
-  adl_audit_vitality_ce_dec6  ,
-  adl_audit_vitality_ce_dec7  ,
-  adl_audit_vitality_ce_qc1  ,
-  adl_audit_vitality_ce_qc2  ,
-  adl_audit_vitality_ce_qc3  ,
-  adl_audit_vitality_ce_qc4  ,
-  adl_audit_vitality_ce_qc5  ,
-  adl_audit_vitality_ce_qc6  ,
-  adl_audit_vitality_ce_qc7  ,
-                                            ");
-    $VITALITY_C_EXTRA_QRY->bindParam(':FK', $LAST_AUDITID, PDO::PARAM_INT);
-    $VITALITY_C_EXTRA_QRY->bindParam(':O1', $O_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':O2', $O_Q2, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':O3', $O_Q3, PDO::PARAM_STR);   
-    $VITALITY_C_EXTRA_QRY->bindParam(':T1', $T_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':T2', $T_Q2, PDO::PARAM_STR);   
-    $VITALITY_C_EXTRA_QRY->bindParam(':HAZ1', $HAZ_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR);    
-    $VITALITY_C_EXTRA_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':BD4', $BD_Q4, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':BD5', $BD_Q5, PDO::PARAM_STR);   
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC1', $DEC_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC2', $DEC_Q2, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC3', $DEC_Q3, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC4', $DEC_Q4, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC5', $DEC_Q5, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC6', $DEC_Q6, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':DEC7', $DEC_Q7, PDO::PARAM_STR); 
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC1', $QC_Q1, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC2', $QC_Q2, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC3', $QC_Q3, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC4', $QC_Q4, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC5', $QC_Q5, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC6', $QC_Q6, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->bindParam(':QC7', $QC_Q7, PDO::PARAM_STR); 
+  adl_audit_vitality_ce_id_fk =:REF,
+  adl_audit_vitality_ce_o1=:O1,
+  adl_audit_vitality_ce_o2=:O2,
+  adl_audit_vitality_ce_o3=:O3,
+  adl_audit_vitality_ce_t1=:T1,
+  adl_audit_vitality_ce_t2=:T2,
+  adl_audit_vitality_ce_haz1=:HAZ1,
+  adl_audit_vitality_ce_l1=:L1,
+  adl_audit_vitality_ce_l2=:L2,
+  adl_audit_vitality_ce_l3=:L3,
+  adl_audit_vitality_ce_fam1=:FAM1,
+  adl_audit_vitality_ce_h1=:H1,
+  adl_audit_vitality_ce_h2=:H2,
+  adl_audit_vitality_ce_h3=:H3,
+  adl_audit_vitality_ce_bd1=:BD1,
+  adl_audit_vitality_ce_bd2=:BD2,
+  adl_audit_vitality_ce_bd3=:BD3,
+  adl_audit_vitality_ce_bd4=:BD4,
+  adl_audit_vitality_ce_bd5=:BD5,
+  adl_audit_vitality_ce_dec1=:DEC1,
+  adl_audit_vitality_ce_dec2=:DEC2,
+  adl_audit_vitality_ce_dec3=:DEC3,
+  adl_audit_vitality_ce_dec4=:DEC4,
+  adl_audit_vitality_ce_dec5=:DEC5,
+  adl_audit_vitality_ce_dec6=:DEC6,
+  adl_audit_vitality_ce_dec7=:DEC7,
+  adl_audit_vitality_ce_qc1=:QC1,
+  adl_audit_vitality_ce_qc2=:QC2,
+  adl_audit_vitality_ce_qc3=:QC3,
+  adl_audit_vitality_ce_qc4=:QC4,
+  adl_audit_vitality_ce_qc5=:QC5,
+  adl_audit_vitality_ce_qc6=:QC6,
+  adl_audit_vitality_ce_qc7=:QC7");
+  $VITALITY_C_EXTRA_QRY->bindParam(':FK', $LAST_AUDITID, PDO::PARAM_INT);
+  $VITALITY_C_EXTRA_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':O3', $O_C3, PDO::PARAM_STR);   
+  $VITALITY_C_EXTRA_QRY->bindParam(':T1', $T_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':T2', $T_C2, PDO::PARAM_STR);   
+  $VITALITY_C_EXTRA_QRY->bindParam(':HAZ1', $HAZ_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':L1', $L_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':L2', $L_C2, PDO::PARAM_STR);   
+  $VITALITY_C_EXTRA_QRY->bindParam(':L3', $L_C3, PDO::PARAM_STR);  
+  $VITALITY_C_EXTRA_QRY->bindParam(':FAM1', $FAM_C1, PDO::PARAM_STR);  
+  $VITALITY_C_EXTRA_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);    
+  $VITALITY_C_EXTRA_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':BD4', $BD_C4, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':BD5', $BD_C5, PDO::PARAM_STR);   
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC1', $DEC_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC2', $DEC_C2, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC3', $DEC_C3, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC4', $DEC_C4, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC5', $DEC_C5, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC6', $DEC_C6, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':DEC7', $DEC_C7, PDO::PARAM_STR); 
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC1', $QC_C1, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC2', $QC_C2, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC3', $QC_C3, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC4', $QC_C4, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC5', $QC_C5, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC6', $QC_C6, PDO::PARAM_STR);
+  $VITALITY_C_EXTRA_QRY->bindParam(':QC7', $QC_C7, PDO::PARAM_STR);
     $VITALITY_C_EXTRA_QRY->execute()or die(print_r($VITALITY_C_EXTRA_QRY->errorInfo(), true));     
         
     }

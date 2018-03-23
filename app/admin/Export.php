@@ -323,6 +323,7 @@ if (isset($fferror)) {
                 
                 <p>
                     <select name="INSURER">
+                        <option value="New Vitality">New Vitality</option>
                         <option value="Vitality">Vitality</option>
                         <option value="Royal London">Royal London</option>
                         <option value="LV">LV</option>

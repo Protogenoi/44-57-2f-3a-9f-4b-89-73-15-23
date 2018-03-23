@@ -121,7 +121,6 @@ if (isset($EXECUTE)) {
     vitality_policy_term_prem,
     vitality_policy_wellness,
     vitality_policy_premium,
-    vitality_policy_premium_sic,
     vitality_policy_comms,
     vitality_policy_non_indem_comms,
     vitality_policy_cover_amount,
@@ -141,7 +140,7 @@ FROM
     vitality_policy_kids_sic ON vitality_policy.vitality_policy_id = vitality_policy_kids_sic_id_fk
 WHERE    
     adl_policy_client_id_fk = :CID
-    AND adl_policy_id = :PID");
+    AND vitality_policy_id = :PID");
     $query->bindParam(':PID', $PID, PDO::PARAM_INT);
     $query->bindParam(':CID', $CID, PDO::PARAM_INT);
     $query->execute();
@@ -320,13 +319,6 @@ WHERE
                     <label class="control-label control-label-left col-sm-3" for="Premium">Premium</label>
                     <div class="controls col-sm-9">
                         <input readonly value="<?php if(isset($data2['vitality_policy_premium'])) { echo $data2['vitality_policy_premium'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
-                    </div>
-                </div>  
-                
-                 <div class="form-group" style="display: block;">
-                    <label class="control-label control-label-left col-sm-3" for="PREMIUM_SIC">Premium (SIC)</label>
-                    <div class="controls col-sm-9">
-                        <input readonly value="<?php if(isset($data2['vitality_policy_premium_sic'])) { echo $data2['vitality_policy_premium_sic'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
                     </div>
                 </div>                  
                 

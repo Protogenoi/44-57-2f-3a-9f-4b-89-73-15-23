@@ -162,7 +162,7 @@ FROM
     client_details on client_details.client_id = adl_policy.adl_policy_client_id_fk
 WHERE    
     adl_policy_client_id_fk = :CID
-    AND adl_policy_id = :PID");
+    AND vitality_policy_id = :PID");
     $query->bindParam(':PID', $PID, PDO::PARAM_INT);
     $query->bindParam(':CID', $CID, PDO::PARAM_INT);
     $query->execute();
@@ -512,6 +512,37 @@ WHERE
                         </select>
                     </div>
                 </div>
+                
+                 <div class="form-group" style="display: block;">
+                    <label class="control-label control-label-left col-sm-3" for="CHANGE_REASON">Change reason</label>
+                    <div class="controls col-sm-9">
+                        <select id="CHANGE_REASON" class="form-control"  name="CHANGE_REASON" readonly>
+                                    <option value="Updated TBC Policy Number">Updated TBC Policy Number</option>
+                                    <option value="Incorrect Policy Number">Incorrect Policy Number</option>
+                                    <option value="Incorrect Single/Joint">Incorrect Single/Joint</option>
+                                    <option value="Incorrect Application Number">Application Number</option>
+                                    <option value="Incorrect Policy Holder">Incorrect Policy Holder</option>
+                                    <option value="Incorrect Sale Date">Incorrect Sale Date</option>
+                                    <option value="Incorrect Submitted Date<">Incorrect Submitted Date</option>
+                                    <option value="Incorrect Policy Type">Incorrect Policy Type  (LTA, DTA, etc...)</option>
+                                    <option value="Incorrect Insurer">Incorrect Insurer</option>
+                                    <option value="Incorrect Premium">Incorrect Premium</option>
+<?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                        <option value="Incorrect Commission">Incorrect Commission</option>
+<?php } ?>
+                                    <option value="Incorrect Comm Type">Incorrect Comms Type</option>
+                                    <option value="Incorrect Clawback Term">Incorrect Clawback Term</option>
+                                    <option value="Incorrect Drip">Incorrect Drip</option>
+                                    <option value="Incorrect Lead Gen">Incorrect Lead Gen</option>
+                                    <option value="Incorrect Closer">Incorrect Closer</option>
+                                    <option value="Update Policy Status">Update Policy Status</option>
+                                    <option value="Updated Cover Amount">Update Cover Amount</option>
+<?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
+                                        <option value="Admin Change">Admin Change</option>
+<?php } ?>
+                        </select>
+                    </div>
+                </div>               
             
             </div>
                                                     

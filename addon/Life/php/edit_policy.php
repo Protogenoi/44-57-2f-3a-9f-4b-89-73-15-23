@@ -75,6 +75,8 @@ if (isset($EXECUTE)) {
     $APID = filter_input(INPUT_GET, 'APID', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if ($EXECUTE == 1) {
+        
+        $CHANGE_REASON = filter_input(INPUT_POST, 'CHANGE_REASON', FILTER_SANITIZE_SPECIAL_CHARS);
 
         $CLIENT_NAME = filter_input(INPUT_POST, 'CLIENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
         $POLICY_REF = filter_input(INPUT_POST, 'POLICY_REF', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -421,14 +423,15 @@ $database->query("UPDATE adl_policy SET
             $database->bind(':OPT6',$KID_OPT_6);  
             $database->execute(); 
 
-        $messagedata = "Policy $POLICY_REF added";
+    $NOTE = "Policy Details Updated";
 
-        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
-        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
-        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
-        $query->bindParam(':HOLDER', $CLIENT_NAME, PDO::PARAM_STR, 500);
-        $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
-        $query->execute();
+    $INSERT_NOTE = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type=:NOTE, message=:MSG ");
+    $INSERT_NOTE->bindParam(':CID', $CID, PDO::PARAM_INT);
+    $INSERT_NOTE->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+    $INSERT_NOTE->bindParam(':HOLDER', $POLICY_REF, PDO::PARAM_STR, 500);
+    $INSERT_NOTE->bindParam(':NOTE', $NOTE, PDO::PARAM_STR, 255);
+    $INSERT_NOTE->bindParam(':MSG', $CHANGE_REASON, PDO::PARAM_STR, 2500);
+    $INSERT_NOTE->execute();        
 
         if(isset($POLICY_STATUS) && $POLICY_STATUS != 'On Hold') {  
                 

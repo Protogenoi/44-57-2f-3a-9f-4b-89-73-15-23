@@ -118,6 +118,14 @@ require_once(__DIR__ . '/../../includes/navbar.php');
 ?>
 
     <div class="container">
+        
+        <center>
+        <div class="btn-group">
+            
+            <a href="/addon/audits/Vitality/call_audit.php" class="btn btn-default"><i class="fa fa-folder"></i> Vitality</a>
+            
+        </div>
+        </center>
 
         <br>
 
@@ -183,13 +191,13 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         $(document).ready(function () {
             var table = $('#clients').DataTable({
                 "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                    if (aData["grade"] === "Red") {
+                    if (aData["adl_audits_grade"] === "Red") {
                         $(nRow).addClass('Red');
-                    } else if (aData["grade"] === "Amber") {
+                    } else if (aData["adl_audits_grade"] === "Amber") {
                         $(nRow).addClass('Amber');
-                    } else if (aData["grade"] === "Green") {
+                    } else if (aData["adl_audits_grade"] === "Green") {
                         $(nRow).addClass('Green');
-                    } else if (aData["grade"] === "SAVED") {
+                    } else if (aData["adl_audits_grade"] === "SAVED") {
                         $(nRow).addClass('Purple');
                     }
                 },
@@ -220,7 +228,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                     {"data": "adl_audits_grade"},
                     {"data": "adl_audits_id",
                         "render": function (data, type, full, meta) {
-                            return '<a href="closer_form_edit.php?auditid=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
+                            return '<a href="/addon/audits/Vitality/edit_call_audit.php?AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
                         }},
                     {"data": "adl_audits_id",
                         "render": function (data, type, full, meta) {

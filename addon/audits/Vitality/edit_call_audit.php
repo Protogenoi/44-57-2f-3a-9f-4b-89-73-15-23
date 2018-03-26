@@ -77,6 +77,916 @@ if ($ffanalytics == '1') {
             
         } 
 $QUESTION_NUMBER=1;
+
+$AUDITID = filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
+
+if(isset($AUDITID)) {
+
+    $database = new Database();  
+    $database->beginTransaction();
+    
+    $database->query("SELECT 
+                            DATE(adl_audits_date_added) AS adl_audits_date_added, 
+                            adl_audits_auditor, 
+                            adl_audits_grade, 
+                            adl_audits_closer, 
+                            adl_audits_agent,
+                            adl_audits_ref
+                        FROM 
+                            adl_audits 
+                        WHERE 
+                            adl_audits_id=:AUDITID");
+    $database->bind(':AUDITID', $AUDITID);
+    $database->execute();
+    $VIT_AUDIT=$database->single();   
+    
+    if(isset($VIT_AUDIT['adl_audits_date_added'])) {
+        
+        $VIT_DATE=$VIT_AUDIT['adl_audits_date_added'];
+        
+    }
+    
+    if(isset($VIT_AUDIT['adl_audits_auditor'])) {
+        
+        $VIT_AUDITOR=$VIT_AUDIT['adl_audits_auditor'];
+        
+    }
+
+    if(isset($VIT_AUDIT['adl_audits_grade'])) {
+        
+        $VIT_GRADE=$VIT_AUDIT['adl_audits_grade'];
+        
+    }
+
+    if(isset($VIT_AUDIT['adl_audits_closer'])) {
+        
+        $VIT_CLOSER=$VIT_AUDIT['adl_audits_closer'];
+        
+    }
+
+    if(isset($VIT_AUDIT['adl_audits_agent'])) {
+        
+        $VIT_AGENT=$VIT_AUDIT['adl_audits_agent'];
+        
+    }
+
+    if(isset($VIT_AUDIT['adl_audits_ref'])) {
+        
+        $VIT_REF=$VIT_AUDIT['adl_audits_ref'];
+        
+    }  
+    
+    $database->query("SELECT 
+        adl_audit_vitality_id,
+  adl_audit_vitality_od1,
+  adl_audit_vitality_od2,
+  adl_audit_vitality_od3,
+  adl_audit_vitality_od4,
+  adl_audit_vitality_od5,
+  adl_audit_vitality_icn1,
+  adl_audit_vitality_icn2,
+  adl_audit_vitality_icn3,
+  adl_audit_vitality_icn4,
+  adl_audit_vitality_icn5,
+  adl_audit_vitality_cd1,
+  adl_audit_vitality_cd2,
+  adl_audit_vitality_cd3,
+  adl_audit_vitality_cd4,
+  adl_audit_vitality_cd5,
+  adl_audit_vitality_cd6,
+  adl_audit_vitality_cd7,
+  adl_audit_vitality_cd8,
+  adl_audit_vitality_cd9,
+  adl_audit_vitality_cd10,
+  adl_audit_vitality_owd1,
+  adl_audit_vitality_owd2,
+  adl_audit_vitality_other1,
+  adl_audit_vitality_other2,
+  adl_audit_vitality_other3,
+  adl_audit_vitality_o1,
+  adl_audit_vitality_o2,
+  adl_audit_vitality_o3,
+  adl_audit_vitality_t1,
+  adl_audit_vitality_t2,
+  adl_audit_vitality_haz1,
+  adl_audit_vitality_l1,
+  adl_audit_vitality_l2,
+  adl_audit_vitality_l3,
+  adl_audit_vitality_fam1,
+  adl_audit_vitality_h1,
+  adl_audit_vitality_h2,
+  adl_audit_vitality_h3,
+  adl_audit_vitality_bd1,
+  adl_audit_vitality_bd2,
+  adl_audit_vitality_bd3,
+  adl_audit_vitality_bd4,
+  adl_audit_vitality_bd5,
+  adl_audit_vitality_dec1,
+  adl_audit_vitality_dec2,
+  adl_audit_vitality_dec3,
+  adl_audit_vitality_dec4,
+  adl_audit_vitality_dec5,
+  adl_audit_vitality_dec6,
+  adl_audit_vitality_dec7,
+  adl_audit_vitality_qc1,
+  adl_audit_vitality_qc2,
+  adl_audit_vitality_qc3,
+  adl_audit_vitality_qc4,
+  adl_audit_vitality_qc5,
+  adl_audit_vitality_qc6,
+  adl_audit_vitality_qc7
+  FROM
+    adl_audit_vitality
+  WHERE
+    adl_audit_vitality_id_fk = :AUDITID");
+    $database->bind(':AUDITID', $AUDITID);
+    $database->execute();
+    $VIT_Q_AUDIT=$database->single();   
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_id'])) {
+        $AID_FK=$VIT_Q_AUDIT['adl_audit_vitality_id'];
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_od1'])) {
+        
+        $OD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_od1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_od2'])) {
+        
+        $OD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_od2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_od3'])) {
+        
+        $OD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_od3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_od4'])) {
+        
+        $OD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_od4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_od5'])) {
+        
+        $OD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_od5'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn1'])) {
+        
+        $ICN_Q1=$VIT_Q_AUDIT['adl_audit_vitality_icn1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn2'])) {
+        
+        $ICN_Q2=$VIT_Q_AUDIT['adl_audit_vitality_icn2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn3'])) {
+        
+        $ICN_Q3=$VIT_Q_AUDIT['adl_audit_vitality_icn3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn4'])) {
+        
+        $ICN_Q4=$VIT_Q_AUDIT['adl_audit_vitality_icn4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn5'])) {
+        
+        $ICN_Q5=$VIT_Q_AUDIT['adl_audit_vitality_icn5'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd1'])) {
+        
+        $CD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_cd1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd2'])) {
+        
+        $CD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_cd2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd3'])) {
+        
+        $CD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_cd3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd4'])) {
+        
+        $CD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_cd4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd5'])) {
+        
+        $CD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_cd5'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd6'])) {
+        
+        $CD_Q6=$VIT_Q_AUDIT['adl_audit_vitality_cd6'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd7'])) {
+        
+        $CD_Q7=$VIT_Q_AUDIT['adl_audit_vitality_cd7'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd8'])) {
+        
+        $CD_Q8=$VIT_Q_AUDIT['adl_audit_vitality_cd8'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd9'])) {
+        
+        $CD_Q9=$VIT_Q_AUDIT['adl_audit_vitality_cd9'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd10'])) {
+        
+        $CD_Q10=$VIT_Q_AUDIT['adl_audit_vitality_cd10'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_owd1'])) {
+        
+        $OWD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_owd1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_owd2'])) {
+        
+        $OWD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_owd2'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_other1'])) {
+        
+        $OTHER_Q1=$VIT_Q_AUDIT['adl_audit_vitality_other1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_other2'])) {
+        
+        $OTHER_Q2=$VIT_Q_AUDIT['adl_audit_vitality_other2'];
+        
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_other3'])) {
+        
+        $OTHER_Q3=$VIT_Q_AUDIT['adl_audit_vitality_other3'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o1'])) {
+        
+        $O_Q1=$VIT_Q_AUDIT['adl_audit_vitality_o1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o2'])) {
+        
+        $O_Q2=$VIT_Q_AUDIT['adl_audit_vitality_o2'];
+        
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o3'])) {
+        
+        $O_Q3=$VIT_Q_AUDIT['adl_audit_vitality_o3'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_t1'])) {
+        
+        $T_Q1=$VIT_Q_AUDIT['adl_audit_vitality_t1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_t2'])) {
+        
+        $T_Q2=$VIT_Q_AUDIT['adl_audit_vitality_t2'];
+        
+    } 
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_haz1'])) {
+        
+        $HAZ_Q1=$VIT_Q_AUDIT['adl_audit_vitality_haz1'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o1'])) {
+        
+        $O_Q1=$VIT_Q_AUDIT['adl_audit_vitality_o1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o2'])) {
+        
+        $O_Q2=$VIT_Q_AUDIT['adl_audit_vitality_o2'];
+        
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o3'])) {
+        
+        $O_Q3=$VIT_Q_AUDIT['adl_audit_vitality_o3'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_l1'])) {
+        
+        $L_Q1=$VIT_Q_AUDIT['adl_audit_vitality_l1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_l2'])) {
+        
+        $L_Q2=$VIT_Q_AUDIT['adl_audit_vitality_l2'];
+        
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_l3'])) {
+        
+        $L_Q3=$VIT_Q_AUDIT['adl_audit_vitality_l3'];
+        
+    }     
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_fam1'])) {
+        
+        $FAM_Q1=$VIT_Q_AUDIT['adl_audit_vitality_fam1'];
+        
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_h1'])) {
+        
+        $H_Q1=$VIT_Q_AUDIT['adl_audit_vitality_h1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_h2'])) {
+        
+        $H_Q2=$VIT_Q_AUDIT['adl_audit_vitality_h2'];
+        
+    }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_h3'])) {
+        
+        $H_Q3=$VIT_Q_AUDIT['adl_audit_vitality_h3'];
+        
+    }     
+    
+   if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd1'])) {
+        
+        $BD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_bd1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd2'])) {
+        
+        $BD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_bd2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd3'])) {
+        
+        $BD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_bd3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd4'])) {
+        
+        $BD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_bd4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd5'])) {
+        
+        $BD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_bd5'];
+        
+    }    
+    
+   if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec1'])) {
+        
+        $DEC_Q1=$VIT_Q_AUDIT['adl_audit_vitality_dec1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec2'])) {
+        
+        $DEC_Q2=$VIT_Q_AUDIT['adl_audit_vitality_dec2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec3'])) {
+        
+        $DEC_Q3=$VIT_Q_AUDIT['adl_audit_vitality_dec3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec4'])) {
+        
+        $DEC_Q4=$VIT_Q_AUDIT['adl_audit_vitality_dec4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec5'])) {
+        
+        $DEC_Q5=$VIT_Q_AUDIT['adl_audit_vitality_dec5'];
+        
+    }   
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec6'])) {
+        
+        $DEC_Q6=$VIT_Q_AUDIT['adl_audit_vitality_dec6'];
+        
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec7'])) {
+        
+        $DEC_Q7=$VIT_Q_AUDIT['adl_audit_vitality_dec7'];
+        
+    }     
+    
+   if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc1'])) {
+        
+        $QC_Q1=$VIT_Q_AUDIT['adl_audit_vitality_qc1'];
+        
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc2'])) {
+        
+        $QC_Q2=$VIT_Q_AUDIT['adl_audit_vitality_qc2'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc3'])) {
+        
+        $QC_Q3=$VIT_Q_AUDIT['adl_audit_vitality_qc3'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc4'])) {
+        
+        $QC_Q4=$VIT_Q_AUDIT['adl_audit_vitality_qc4'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc5'])) {
+        
+        $QC_Q5=$VIT_Q_AUDIT['adl_audit_vitality_qc5'];
+        
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc6'])) {
+        
+        $QC_Q6=$VIT_Q_AUDIT['adl_audit_vitality_qc6'];
+        
+    }
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc7'])) {
+        
+        $QC_Q7=$VIT_Q_AUDIT['adl_audit_vitality_qc7'];
+        
+    }     
+
+    $database->query("SELECT
+  adl_audit_vitality_c_od1,
+  adl_audit_vitality_c_od2,
+  adl_audit_vitality_c_od3,
+  adl_audit_vitality_c_od4,
+  adl_audit_vitality_c_od5,
+  adl_audit_vitality_c_icn1,
+  adl_audit_vitality_c_icn2,
+  adl_audit_vitality_c_icn3,
+  adl_audit_vitality_c_icn4,
+  adl_audit_vitality_c_icn5,
+  adl_audit_vitality_c_cd1,
+  adl_audit_vitality_c_cd2,
+  adl_audit_vitality_c_cd3,
+  adl_audit_vitality_c_cd4,
+  adl_audit_vitality_c_cd5,
+  adl_audit_vitality_c_cd6,
+  adl_audit_vitality_c_cd7,
+  adl_audit_vitality_c_cd8,
+  adl_audit_vitality_c_cd9,
+  adl_audit_vitality_c_cd10,
+  adl_audit_vitality_c_owd1,
+  adl_audit_vitality_c_owd2,
+  adl_audit_vitality_c_other1,
+  adl_audit_vitality_c_other2,
+  adl_audit_vitality_c_other3
+                        FROM 
+                            adl_audit_vitality_c 
+                        WHERE 
+                            adl_audit_vitality_c_id_fk=:AUDITID");
+    $database->bind(':AUDITID', $AID_FK);
+    $database->execute();
+    $VIT_C_AUDIT=$database->single();     
+    
+   if(isset($VIT_C_AUDIT['adl_audit_vitality_c_od1'])) {
+        
+        $OD_C1=$VIT_C_AUDIT['adl_audit_vitality_c_od1'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_od2'])) {
+        
+        $OD_C2=$VIT_C_AUDIT['adl_audit_vitality_c_od2'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_od3'])) {
+        
+        $OD_C3=$VIT_C_AUDIT['adl_audit_vitality_c_od3'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_od4'])) {
+        
+        $OD_C4=$VIT_C_AUDIT['adl_audit_vitality_c_od4'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_od5'])) {
+        
+        $OD_C5=$VIT_C_AUDIT['adl_audit_vitality_c_od5'];
+        
+    }    
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_icn1'])) {
+        
+        $ICN_C1=$VIT_C_AUDIT['adl_audit_vitality_c_icn1'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_icn2'])) {
+        
+        $ICN_C2=$VIT_C_AUDIT['adl_audit_vitality_c_icn2'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_icn3'])) {
+        
+        $ICN_C3=$VIT_C_AUDIT['adl_audit_vitality_c_icn3'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_icn4'])) {
+        
+        $ICN_C4=$VIT_C_AUDIT['adl_audit_vitality_c_icn4'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_icn5'])) {
+        
+        $ICN_C5=$VIT_C_AUDIT['adl_audit_vitality_c_icn5'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd1'])) {
+        
+        $CD_C1=$VIT_C_AUDIT['adl_audit_vitality_c_cd1'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd2'])) {
+        
+        $CD_C2=$VIT_C_AUDIT['adl_audit_vitality_c_cd2'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd3'])) {
+        
+        $CD_C3=$VIT_C_AUDIT['adl_audit_vitality_c_cd3'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd4'])) {
+        
+        $CD_C4=$VIT_C_AUDIT['adl_audit_vitality_c_cd4'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd5'])) {
+        
+        $CD_C5=$VIT_C_AUDIT['adl_audit_vitality_c_cd5'];
+        
+    }    
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd6'])) {
+        
+        $CD_C6=$VIT_C_AUDIT['adl_audit_vitality_c_cd6'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd7'])) {
+        
+        $CD_C7=$VIT_C_AUDIT['adl_audit_vitality_c_cd7'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd8'])) {
+        
+        $CD_C8=$VIT_C_AUDIT['adl_audit_vitality_c_cd8'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd9'])) {
+        
+        $CD_C9=$VIT_C_AUDIT['adl_audit_vitality_c_cd9'];
+        
+    }
+
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_cd10'])) {
+        
+        $CD_C10=$VIT_C_AUDIT['adl_audit_vitality_c_cd10'];
+        
+    }    
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_owd1'])) {
+        
+        $OWD_C1=$VIT_C_AUDIT['adl_audit_vitality_c_owd1'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_owd2'])) {
+        
+        $OWD_C2=$VIT_C_AUDIT['adl_audit_vitality_c_owd2'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_other1'])) {
+        
+        $OTHER_C1=$VIT_C_AUDIT['adl_audit_vitality_c_other1'];
+        
+    }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_other2'])) {
+        
+        $OTHER_C2=$VIT_C_AUDIT['adl_audit_vitality_c_other2'];
+        
+    }
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_other3'])) {
+        
+        $OTHER_C3=$VIT_C_AUDIT['adl_audit_vitality_c_other3'];
+        
+    }   
+    
+$database->query("SELECT
+  adl_audit_vitality_ce_o1,
+  adl_audit_vitality_ce_o2,
+  adl_audit_vitality_ce_o3,
+  adl_audit_vitality_ce_t1,
+  adl_audit_vitality_ce_t2,
+  adl_audit_vitality_ce_haz1,
+  adl_audit_vitality_ce_l1,
+  adl_audit_vitality_ce_l2,
+  adl_audit_vitality_ce_l3,
+  adl_audit_vitality_ce_fam1,
+  adl_audit_vitality_ce_h1,
+  adl_audit_vitality_ce_h2,
+  adl_audit_vitality_ce_h3,
+  adl_audit_vitality_ce_bd1,
+  adl_audit_vitality_ce_bd2,
+  adl_audit_vitality_ce_bd3,
+  adl_audit_vitality_ce_bd4,
+  adl_audit_vitality_ce_bd5,
+  adl_audit_vitality_ce_dec1,
+  adl_audit_vitality_ce_dec2,
+  adl_audit_vitality_ce_dec3,
+  adl_audit_vitality_ce_dec4,
+  adl_audit_vitality_ce_dec5,
+  adl_audit_vitality_ce_dec6,
+  adl_audit_vitality_ce_dec7,
+  adl_audit_vitality_ce_qc1,
+  adl_audit_vitality_ce_qc2,
+  adl_audit_vitality_ce_qc3,
+  adl_audit_vitality_ce_qc4,
+  adl_audit_vitality_ce_qc5,
+  adl_audit_vitality_ce_qc6,
+  adl_audit_vitality_ce_qc7
+  FROM
+    adl_audit_vitality_ce
+  WHERE
+    adl_audit_vitality_ce_id_fk = :AUDITID");
+    $database->bind(':AUDITID', $AID_FK);
+    $database->execute();
+    $VIT_CE_AUDIT=$database->single();   
+    
+if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_o1'])) {
+        
+        $O_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_o1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_o2'])) {
+        
+        $O_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_o2'];
+        
+    }
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_o3'])) {
+        
+        $O_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_o3'];
+        
+    }    
+    
+if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
+        
+        $T_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_t1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t2'])) {
+        
+        $T_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_t2'];
+        
+    }    
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_haz1'])) {
+        
+        $HAZ_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_haz1'];
+        
+    }
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_l1'])) {
+        
+        $L_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_l1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_l2'])) {
+        
+        $L_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_l2'];
+        
+    }
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_l3'])) {
+        
+        $L_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_l3'];
+        
+    }     
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_fam1'])) {
+        
+        $FAM_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_fam1'];
+        
+    } 
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_h1'])) {
+        
+        $H_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_h1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_h2'])) {
+        
+        $H_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_h2'];
+        
+    }
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_h3'])) {
+        
+        $H_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_h3'];
+        
+    }     
+    
+   if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd1'])) {
+        
+        $BD_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_bd1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd2'])) {
+        
+        $BD_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_bd2'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd3'])) {
+        
+        $BD_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_bd3'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd4'])) {
+        
+        $BD_C4=$VIT_CE_AUDIT['adl_audit_vitality_ce_bd4'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd5'])) {
+        
+        $BD_C5=$VIT_CE_AUDIT['adl_audit_vitality_ce_bd5'];
+        
+    }    
+    
+   if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec1'])) {
+        
+        $DEC_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec2'])) {
+        
+        $DEC_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec2'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec3'])) {
+        
+        $DEC_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec3'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec4'])) {
+        
+        $DEC_C4=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec4'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec5'])) {
+        
+        $DEC_C5=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec5'];
+        
+    }   
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec6'])) {
+        
+        $DEC_C6=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec6'];
+        
+    } 
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_dec7'])) {
+        
+        $DEC_C7=$VIT_CE_AUDIT['adl_audit_vitality_ce_dec7'];
+        
+    }     
+    
+   if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc1'])) {
+        
+        $QC_C1=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc1'];
+        
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc2'])) {
+        
+        $QC_C2=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc2'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc3'])) {
+        
+        $QC_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc3'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc4'])) {
+        
+        $QC_C4=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc4'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc5'])) {
+        
+        $QC_C5=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc5'];
+        
+    }    
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc6'])) {
+        
+        $QC_C6=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc6'];
+        
+    }
+
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_qc7'])) {
+        
+        $QC_C7=$VIT_CE_AUDIT['adl_audit_vitality_ce_qc7'];
+        
+    } 
+    
+    $database->endTransaction();  
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,36 +1018,33 @@ $QUESTION_NUMBER=1;
 
     <div class="container">
 
-        <form action="php/add_call_audit.php?EXECUTE=1" method="POST" id="AUDIT_FORM" name="AUDIT_FORM" autocomplete="off">
+        <form action="php/edit_call_audit.php?EXECUTE=1&AID=<?php echo $AUDITID; ?>&AIDFK=<?php echo $AID_FK; ?>" method="POST" id="AUDIT_FORM" name="AUDIT_FORM" autocomplete="off">
 
             <fieldset>
-                <div class="panel panel-primary">
+                <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Vitality Closer Call Audit</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Edit Vitality Closer Call Audit</h3>
                     </div>
 
                     <div class="panel-body">
                         <p>
-                        <div class='form-group'>
-                            <label for='CLOSER'>Closer:</label>
-                            <select class='form-control' name='CLOSER' id='full_name' required> 
-                                <option value="">Select...</option>
+                            <label for="CLOSER">Closer</label>
+                            <input type="text" class="form-control" name="CLOSER" id="CLOSER" style="width: 520px" value="<?php if(isset($VIT_CLOSER)) { echo $VIT_CLOSER; } ?>">
+                        
+<script>var options = {
+                                            url: "/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            getValue: "full_name",
+                                            list: {
+                                                match: {
+                                                    enabled: true
+                                                }
+                                            }
+                                        };
 
-                                <script type="text/JavaScript"> 
-                                    var $select = $('#full_name');
-                                    $.getJSON('/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
-                                    $select.html('full_name');
-                                    $.each(data, function(key, val){ 
-                                    $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
-                                    })
-                                    });
-                                </script>
-
-                            </select>
-                        </div>
+                                        $("#CLOSER").easyAutocomplete(options);</script>                        
                         
                         <label for="AGENT">Agent</label>
-                        <input type="text" class="form-control" name="AGENT" id="AGENT" style="width: 520px">
+                        <input type="text" class="form-control" name="AGENT" id="AGENT" style="width: 520px" value="<?php if(isset($VIT_AGENT)) { echo $VIT_AGENT; } ?>">
                         
     <script>var options = {
                                                             url: "/../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
@@ -151,7 +1058,7 @@ $QUESTION_NUMBER=1;
                                                         $("#AGENT").easyAutocomplete(options);</script>                         
 
                         <label for="POLICY">Reference</label>
-                        <input type="text" class="form-control" name="REFERENCE" style="width: 520px">
+                        <input type="text" class="form-control" name="REFERENCE" style="width: 520px" value="<?php if(isset($VIT_REF)) { echo $VIT_REF; } ?>">
 
                         </p>
 
@@ -159,11 +1066,10 @@ $QUESTION_NUMBER=1;
                         <div class="form-group">
                             <label for='GRADE'>Grade:</label>
                             <select class="form-control" name="GRADE" required>
-                                <option value="">Select...</option>
-                                <option value="SAVED">Incomplete Audit (SAVE)</option>
-                                <option value="Green">Green</option>
-                                <option value="Amber">Amber</option>
-                                <option value="Red">Red</option>
+                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'SAVED') { echo "selected"; } ?> value="SAVED">Incomplete Audit (SAVE)</option>
+                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Green') { echo "selected"; } ?> value="Green">Green</option>
+                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Amber') { echo "selected"; } ?> value="Amber">Amber</option>
+                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Red')   { echo "selected"; } ?> value="Red">Red</option>
                             </select>
                         </div>
                         </p>
@@ -189,8 +1095,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOD_C1">No
                         </p>
 
-                        <div id="ifYesOD_C1" style="display:none">
-                            <textarea class="form-control"id="OD_C1" name="OD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOD_C1" >
+                            <textarea class="form-control"id="OD_C1" name="OD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OD_C1)) { echo $OD_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -211,16 +1117,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOD_C1() {
-                                if (document.getElementById('yesCheckOD_C1').checked) {
-                                    document.getElementById('ifYesOD_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOD_C1').style.display = 'block';
-
-                            }
-                        </script>
 
                         <p>
                             <label for="OD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Was the customer informed that general insurance is regulated by the FCA?</label>
@@ -236,8 +1132,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOD_C2">No
                         </p>
 
-                        <div id="ifYesOD_C2" style="display:none">
-                            <textarea class="form-control"id="OD_C2" name="OD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOD_C2" >
+                            <textarea class="form-control"id="OD_C2" name="OD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OD_C2)) { echo $OD_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -258,18 +1154,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOD_C2() {
-                                if (document.getElementById('yesCheckOD_C2').checked) {
-                                    document.getElementById('ifYesOD_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOD_C2').style.display = 'block';
-
-                            }
-
-                        </script>
-
                         <p>
                             <label for="OD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the customer consent to the abbreviated script being read? If no, was the full disclosure read?</label>
                             <input type="radio" name="OD_Q3" 
@@ -284,8 +1168,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOD_C3">No
                         </p>
 
-                        <div id="ifYesOD_C3" style="display:none">
-                            <textarea class="form-control"id="OD_C3" name="OD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOD_C3" >
+                            <textarea class="form-control"id="OD_C3" name="OD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OD_C3)) { echo $OD_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -306,17 +1190,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOD_C3() {
-                                if (document.getElementById('yesCheckOD_C3').checked) {
-                                    document.getElementById('ifYesOD_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOD_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="OD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER provide the name and details of the firm who is regulated by the FCA?</label>
@@ -332,8 +1205,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOD_C4">No
                         </p>
 
-                        <div id="ifYesOD_C4" style="display:none">
-                            <textarea class="form-control"id="OD_C4" name="OD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOD_C4" >
+                            <textarea class="form-control"id="OD_C4" name="OD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OD_C4)) { echo $OD_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -354,17 +1227,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOD_C4() {
-                                if (document.getElementById('yesCheckOD_C4').checked) {
-                                    document.getElementById('ifYesOD_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOD_C4').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="OD_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER make the customer aware that they are unable to offer advice or personal opinion and that they will only be providing them with an information based service to make their own informed decision?</label>
@@ -380,8 +1242,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOD_C5">No
                         </p>
 
-                        <div id="ifYesOD_C5" style="display:none">
-                            <textarea class="form-control"id="OD_C5" name="OD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOD_C5" >
+                            <textarea class="form-control"id="OD_C5" name="OD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OD_C5)) { echo $OD_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -401,17 +1263,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOD_C5() {
-                                if (document.getElementById('yesCheckOD_C5').checked) {
-                                    document.getElementById('ifYesOD_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOD_C5').style.display = 'block';
-
-                            }
-
                         </script>
                     </div>
                 </div>
@@ -436,8 +1287,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckICN_C1">No
                         </p>
 
-                        <div id="ifYesICN_C1" style="display:none">
-                            <textarea class="form-control"id="ICN_C1" name="ICN_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C1" >
+                            <textarea class="form-control"id="ICN_C1" name="ICN_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C1)) { echo $ICN_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -458,17 +1309,7 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
 
-                            function yesnoCheckICN_C1() {
-                                if (document.getElementById('yesCheckICN_C1').checked) {
-                                    document.getElementById('ifYesICN_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesICN_C1').style.display = 'block';
-
-                            }
-
-                        </script>
 
 
                         <p>
@@ -490,8 +1331,8 @@ $QUESTION_NUMBER=1;
                                    value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesICN_C2" style="display:none">
-                            <textarea class="form-control"id="ICN_C2" name="ICN_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C2" >
+                            <textarea class="form-control"id="ICN_C2" name="ICN_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C2)) { echo $ICN_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -512,17 +1353,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckICN_C2() {
-                                if (document.getElementById('yesCheckICN_C2').checked) {
-                                    document.getElementById('ifYesICN_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesICN_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
 
                         <p>
@@ -539,8 +1369,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckICN_C3">No
                         </p>
 
-                        <div id="ifYesICN_C3" style="display:none">
-                            <textarea class="form-control"id="ICN_C3" name="ICN_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C3" >
+                            <textarea class="form-control"id="ICN_C3" name="ICN_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C3)) { echo $ICN_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -561,32 +1391,21 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckICN_C3() {
-                                if (document.getElementById('yesCheckICN_C3').checked) {
-                                    document.getElementById('ifYesICN_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesICN_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
                             <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();">
                                 <option value="N/A">Select...</option>
-                                <option value="More than sufficient">More than sufficient</option>
-                                <option value="Sufficient">Sufficient</option>
-                                <option value="Adaquate">Adequate</option>
-                                <option value="Poor" onclick="javascript:yesnoCheckICN_C4a();" id="yesCheckICN_C4">Poor</option>
+                                <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'More than sufficient') { echo "selected"; } ?> value="More than sufficient">More than sufficient</option>
+                                <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'Sufficient') { echo "selected"; } ?> value="Sufficient">Sufficient</option>
+                                <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'Adaquate') { echo "selected"; } ?> value="Adaquate">Adequate</option>
+                                <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'Poor') { echo "selected"; } ?> value="Poor" onclick="javascript:yesnoCheckICN_C4a();" id="yesCheckICN_C4">Poor</option>
                             </select>
                         </p>
 
 
-                        <div id="ifYesICN_C4" style="display:none">
-                            <textarea class="form-control"id="ICN_C4" name="ICN_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C4" >
+                            <textarea class="form-control"id="ICN_C4" name="ICN_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C4)) { echo $ICN_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -607,17 +1426,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckICN_C4() {
-                                if (document.getElementById('yesCheckICN_C4').checked) {
-                                    document.getElementById('ifYesICN_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesICN_C4').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="ICN_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed this policy will be set up with Vitality?</label>
@@ -633,8 +1441,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckICN_C5">No
                         </p>
 
-                        <div id="ifYesICN_C5" style="display:none">
-                            <textarea class="form-control"id="ICN_C5" name="ICN_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesICN_C5" >
+                            <textarea class="form-control"id="ICN_C5" name="ICN_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C5)) { echo $ICN_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -654,17 +1462,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckICN_C5() {
-                                if (document.getElementById('yesCheckICN_C5').checked) {
-                                    document.getElementById('ifYesICN_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesICN_C5').style.display = 'block';
-
-                            }
-
                         </script>
                     </div>
                 </div>               
@@ -689,8 +1486,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C1">No
                         </p>
 
-                        <div id="ifYesCD_C1" style="display:none">
-                            <textarea class="form-control"id="CD_C1" name="CD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C1" >
+                            <textarea class="form-control"id="CD_C1" name="CD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C1)) { echo $CD_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -711,16 +1508,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C1() {
-                                if (document.getElementById('yesCheckCD_C1').checked) {
-                                    document.getElementById('ifYesCD_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C1').style.display = 'block';
-
-                            }
-                        </script>
 
                         <p>
                             <label for="CD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer phonetically check names?</label>
@@ -736,8 +1523,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C2">No
                         </p>
 
-                        <div id="ifYesCD_C2" style="display:none">
-                            <textarea class="form-control"id="CD_C2" name="CD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C2" >
+                            <textarea class="form-control"id="CD_C2" name="CD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C2)) { echo $CD_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -758,17 +1545,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C2() {
-                                if (document.getElementById('yesCheckCD_C2').checked) {
-                                    document.getElementById('ifYesCD_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="CD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask and confirm customers DOB?</label>
@@ -784,8 +1560,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C3">No
                         </p>
 
-                        <div id="ifYesCD_C3" style="display:none">
-                            <textarea class="form-control"id="CD_C3" name="CD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C3" >
+                            <textarea class="form-control"id="CD_C3" name="CD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C3)) { echo $CD_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -806,17 +1582,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C3() {
-                                if (document.getElementById('yesCheckCD_C3').checked) {
-                                    document.getElementById('ifYesCD_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="CD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer get the customers email correct?</label>
@@ -832,8 +1597,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C4">No
                         </p>
 
-                        <div id="ifYesCD_C4" style="display:none">
-                            <textarea class="form-control"id="CD_C4" name="CD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C4" >
+                            <textarea class="form-control"id="CD_C4" name="CD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C4)) { echo $CD_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -854,17 +1619,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C4() {
-                                if (document.getElementById('yesCheckCD_C4').checked) {
-                                    document.getElementById('ifYesCD_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C4').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="CD_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers martial status?</label>
@@ -880,8 +1634,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C5">No
                         </p>
 
-                        <div id="ifYesCD_C5" style="display:none">
-                            <textarea class="form-control"id="CD_C5" name="CD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C5" >
+                            <textarea class="form-control"id="CD_C5" name="CD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C5)) { echo $CD_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -902,17 +1656,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C5() {
-                                if (document.getElementById('yesCheckCD_C5').checked) {
-                                    document.getElementById('ifYesCD_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C5').style.display = 'block';
-
-                            }
-
-                        </script>
               
 <p>
                             <label for="CD_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm the customers address?</label>
@@ -928,8 +1671,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C6">No
                         </p>
 
-                        <div id="ifYesCD_C6" style="display:none">
-                            <textarea class="form-control"id="CD_C6" name="CD_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C6" >
+                            <textarea class="form-control"id="CD_C6" name="CD_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C6)) { echo $CD_C6; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -949,18 +1692,7 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C6() {
-                                if (document.getElementById('yesCheckCD_C6').checked) {
-                                    document.getElementById('ifYesCD_C6').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C6').style.display = 'block';
-
-                            }
-
-                        </script>                     
+                        </script>                  
 <p>
                             <label for="CD_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer the smoking question?</label>
                             <input type="radio" name="CD_Q7" 
@@ -975,8 +1707,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C7">No
                         </p>
 
-                        <div id="ifYesCD_C7" style="display:none">
-                            <textarea class="form-control"id="CD_C7" name="CD_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C7" >
+                            <textarea class="form-control"id="CD_C7" name="CD_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C7)) { echo $CD_C7; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -996,18 +1728,7 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C7() {
-                                if (document.getElementById('yesCheckCD_C7').checked) {
-                                    document.getElementById('ifYesCD_C7').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C7').style.display = 'block';
-
-                            }
-
-                        </script>     
+                        </script>  
                                              
  <p>
                             <label for="CD_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer how much alcohol they drink per week?</label>
@@ -1023,8 +1744,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C8">No
                         </p>
 
-                        <div id="ifYesCD_C8" style="display:none">
-                            <textarea class="form-control"id="CD_C8" name="CD_C8" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C8" >
+                            <textarea class="form-control"id="CD_C8" name="CD_C8" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C8)) { echo $CD_C8; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1045,17 +1766,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C8() {
-                                if (document.getElementById('yesCheckCD_C8').checked) {
-                                    document.getElementById('ifYesCD_C8').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C8').style.display = 'block';
-
-                            }
-
-                        </script>    
                         
 <p>
                             <label for="CD_Q9">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer was a UK resident?</label>
@@ -1071,8 +1781,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C9">No
                         </p>
 
-                        <div id="ifYesCD_C9" style="display:none">
-                            <textarea class="form-control"id="CD_C9" name="CD_C9" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C9" >
+                            <textarea class="form-control"id="CD_C9" name="CD_C9" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C9)) { echo $CD_C9; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1092,18 +1802,7 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C9() {
-                                if (document.getElementById('yesCheckCD_C9').checked) {
-                                    document.getElementById('ifYesCD_C9').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C9').style.display = 'block';
-
-                            }
-
-                        </script>     
+                        </script> 
                         
  <p>
                             <label for="CD_Q10">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers occupation?</label>
@@ -1119,8 +1818,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckCD_C10">No
                         </p>
 
-                        <div id="ifYesCD_C10" style="display:none">
-                            <textarea class="form-control"id="CD_C10" name="CD_C10" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCD_C10" >
+                            <textarea class="form-control"id="CD_C10" name="CD_C10" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CD_C10)) { echo $CD_C10; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1140,18 +1839,7 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckCD_C10() {
-                                if (document.getElementById('yesCheckCD_C10').checked) {
-                                    document.getElementById('ifYesCD_C10').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesCD_C10').style.display = 'block';
-
-                            }
-
-                        </script>                        
+                        </script>                    
                         
                     </div>
                 </div>  
@@ -1176,8 +1864,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOWD_C1">No
                         </p>
 
-                        <div id="ifYesOWD_C1" style="display:none">
-                            <textarea class="form-control"id="OWD_C1" name="OWD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOWD_C1" >
+                            <textarea class="form-control"id="OWD_C1" name="OWD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OWD_C1)) { echo $OWD_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1198,17 +1886,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOWD_C1() {
-                                if (document.getElementById('yesCheckOWD_C1').checked) {
-                                    document.getElementById('ifYesOWD_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOWD_C1').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="OWD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers smoking status and did they record the answer correctly?</label>
@@ -1224,8 +1901,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOWD_C2">No
                         </p>
 
-                        <div id="ifYesOWD_C2" style="display:none">
-                            <textarea class="form-control"id="OWD_C2" name="OWD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOWD_C2" >
+                            <textarea class="form-control"id="OWD_C2" name="OWD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OWD_C2)) { echo $OWD_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1246,18 +1923,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOWD_C2() {
-                                if (document.getElementById('yesCheckOWD_C2').checked) {
-                                    document.getElementById('ifYesOWD_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOWD_C2').style.display = 'block';
-
-                            }
-
-                        </script>
-
                     </div>
                 </div>              
                 
@@ -1281,8 +1946,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOTHER_C1">No
                         </p>
 
-                        <div id="ifYesOTHER_C1" style="display:none">
-                            <textarea class="form-control"id="OTHER_C1" name="OTHER_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOTHER_C1" >
+                            <textarea class="form-control"id="OTHER_C1" name="OTHER_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C1)) { echo $OTHER_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1303,18 +1968,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOTHER_C1() {
-                                if (document.getElementById('yesCheckOTHER_C1').checked) {
-                                    document.getElementById('ifYesOTHER_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOTHER_C1').style.display = 'block';
-
-                            }
-
-                        </script>
-
                         <p>
                             <label for="OTHER_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer had applied for cover with Vitality in the last 12 months?</label>
                             <input type="radio" name="OTHER_Q2" 
@@ -1329,8 +1982,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckOTHER_C2">No
                         </p>
 
-                        <div id="ifYesOTHER_C2" style="display:none">
-                            <textarea class="form-control"id="OTHER_C2" name="OTHER_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesOTHER_C2" >
+                            <textarea class="form-control"id="OTHER_C2" name="OTHER_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C2)) { echo $OTHER_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1351,17 +2004,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckOTHER_C2() {
-                                if (document.getElementById('yesCheckOTHER_C2').checked) {
-                                    document.getElementById('ifYesOTHER_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesOTHER_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
 
                         <p>
@@ -1377,8 +2019,8 @@ $QUESTION_NUMBER=1;
 } ?>
                                    value="0" id="noCheck">No
                         </p>
-                        <div id="ifYes" style="display:none">
-                            <textarea class="form-control"id="OTHER_C3" name="OTHER_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYes" >
+                            <textarea class="form-control"id="OTHER_C3" name="OTHER_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C3)) { echo $OTHER_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1399,18 +2041,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheck() {
-                                if (document.getElementById('yesCheck').checked) {
-                                    document.getElementById('ifYes').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYes').style.display = 'block';
-
-                            }
-
-                        </script>
-                        
                     </div>
                 </div>               
                 
@@ -1434,8 +2064,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckO_C1">No
                         </p>
 
-                        <div id="ifYesO_C1" style="display:none">
-                            <textarea class="form-control"id="O_C1" name="O_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesO_C1" >
+                            <textarea class="form-control"id="O_C1" name="O_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C1)) { echo $O_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1456,17 +2086,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckO_C1() {
-                                if (document.getElementById('yesCheckO_C1').checked) {
-                                    document.getElementById('ifYesO_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesO_C1').style.display = 'block';
-
-                            }
-                        </script>
-
                         <p>
                             <label for="O_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer job involves travelling more than 25k miles per annum?</label>
                             <input type="radio" name="O_Q2" 
@@ -1481,8 +2100,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckO_C2">No
                         </p>
 
-                        <div id="ifYesO_C2" style="display:none">
-                            <textarea class="form-control"id="O_C2" name="O_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesO_C2" >
+                            <textarea class="form-control"id="O_C2" name="O_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C2)) { echo $O_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1503,17 +2122,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckO_C2() {
-                                if (document.getElementById('yesCheckO_C2').checked) {
-                                    document.getElementById('ifYesO_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesO_C2').style.display = 'block';
-
-                            }
-                        </script>
-
                         <p>
                             <label for="O_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer works less than 16 hours per week?</label>
                             <input type="radio" name="O_Q3" 
@@ -1528,8 +2136,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckO_C3">No
                         </p>
 
-                        <div id="ifYesO_C3" style="display:none">
-                            <textarea class="form-control"id="O_C3" name="O_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesO_C3" >
+                            <textarea class="form-control"id="O_C3" name="O_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C3)) { echo $O_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1550,17 +2158,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckO_C3() {
-                                if (document.getElementById('yesCheckO_C3').checked) {
-                                    document.getElementById('ifYesO_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesO_C3').style.display = 'block';
-
-                            }
-                        </script>
-                       
                     </div>
                 </div>                
                 
@@ -1584,8 +2181,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckT_C1">No
                         </p>
 
-                        <div id="ifYesT_C1" style="display:none">
-                            <textarea class="form-control"id="T_C1" name="T_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesT_C1" >
+                            <textarea class="form-control"id="T_C1" name="T_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($T_C1)) { echo $T_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1605,17 +2202,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckT_C1() {
-                                if (document.getElementById('yesCheckT_C1').checked) {
-                                    document.getElementById('ifYesT_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesT_C1').style.display = 'block';
-
-                            }
-
                         </script>
 
                         <p>
@@ -1637,8 +2223,8 @@ $QUESTION_NUMBER=1;
                                    value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesT_C2" style="display:none">
-                            <textarea class="form-control"id="T_C2" name="T_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesT_C2" >
+                            <textarea class="form-control"id="T_C2" name="T_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($T_C2)) { echo $T_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1659,18 +2245,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckT_C2() {
-                                if (document.getElementById('yesCheckT_C2').checked) {
-                                    document.getElementById('ifYesT_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesT_C2').style.display = 'block';
-
-                            }
-
-                        </script>
-                        
                     </div>
                 </div>
                 
@@ -1694,8 +2268,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckHAZ_C1">No
                         </p>
 
-                        <div id="ifYesHAZ_C1" style="display:none">
-                            <textarea class="form-control"id="HAZ_C1" name="HAZ_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesHAZ_C1" >
+                            <textarea class="form-control"id="HAZ_C1" name="HAZ_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($HAZ_C1)) { echo $HAZ_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1715,17 +2289,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckHAZ_C1() {
-                                if (document.getElementById('yesCheckHAZ_C1').checked) {
-                                    document.getElementById('ifYesHAZ_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesHAZ_C1').style.display = 'block';
-
-                            }
-
                         </script>
                         
                     </div>
@@ -1751,8 +2314,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckL_C1">No
                         </p>
 
-                        <div id="ifYesL_C1" style="display:none">
-                            <textarea class="form-control"id="L_C1" name="L_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesL_C1" >
+                            <textarea class="form-control"id="L_C1" name="L_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C1)) { echo $L_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1773,39 +2336,15 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckL_C1() {
-                                if (document.getElementById('yesCheckL_C1').checked) {
-                                    document.getElementById('ifYesL_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesL_C1').style.display = 'block';
-
-                            }
-
-                        </script>
-
                         <p>
                             <label for="L_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has taken any drugs in the last 10 years?</label>
-                            <input type="radio" name="L_Q2" 
-<?php if (isset($L_Q2) && $L_Q2 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C2();"
-                                   value="1" id="yesCheckL_C2" required >Yes
-                            <input type="radio" name="L_Q2"
-<?php if (isset($L_Q2) && $L_Q2 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C2();"
-                                   value="0" id="noCheckL_C2">No
-                            <input type="radio" name="L_Q2" 
-<?php if (isset($L_Q2) && $L_Q2 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
+                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 1 ) { echo "checked"; } ?> value="1" required >Yes
+                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 0 ) { echo "checked"; } ?> value="0" >No
+                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == "N/A" ) { echo "checked"; } ?> value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesL_C2" style="display:none">
-                            <textarea class="form-control"id="L_C2" name="L_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_35" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesL_C2" >
+                            <textarea class="form-control"id="L_C2" name="L_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C2)) { echo $L_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_35" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1826,39 +2365,16 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckL_C2() {
-                                if (document.getElementById('yesCheckL_C2').checked) {
-                                    document.getElementById('ifYesL_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesL_C2').style.display = 'block';
-
-                            }
-
-                        </script>
                         
                         <p>
                             <label for="L_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has ever tested postive to HIV?</label>
-                            <input type="radio" name="L_Q3" 
-<?php if (isset($L_Q3) && $L_Q3 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C3();"
-                                   value="1" id="yesCheckL_C3" required >Yes
-                            <input type="radio" name="L_Q3"
-<?php if (isset($L_Q3) && $L_Q3 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C3();"
-                                   value="0" id="noCheckL_C3">No
-                            <input type="radio" name="L_Q3" 
-<?php if (isset($L_Q3) && $L_Q3 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
+                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C3" required >Yes
+                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C3">No
+                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == "N/A") { echo "checked"; } ?> value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesL_C3" style="display:none">
-                            <textarea class="form-control"id="L_C3" name="L_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_35" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesL_C3" >
+                            <textarea class="form-control"id="L_C3" name="L_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C3)) { echo $L_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_35" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1878,18 +2394,7 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckL_C3() {
-                                if (document.getElementById('yesCheckL_C3').checked) {
-                                    document.getElementById('ifYesL_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesL_C3').style.display = 'block';
-
-                            }
-
-                        </script>                        
+                        </script>                      
                         
                     </div>
                 </div>                
@@ -1914,8 +2419,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckFAMC1">No
                         </p>
 
-                        <div id="ifYesFAMC1" style="display:none">
-                            <textarea class="form-control"id="FAMC1" name="FAMC1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesFAMC1" >
+                            <textarea class="form-control"id="FAMC1" name="FAMC1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($FAM_C1)) { echo $FAM_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1935,17 +2440,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckFAMC1() {
-                                if (document.getElementById('yesCheckFAMC1').checked) {
-                                    document.getElementById('ifYesFAMC1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesFAMC1').style.display = 'block';
-
-                            }
-
                         </script>
                         
                     </div>
@@ -1971,8 +2465,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckH_C1">No
                         </p>
 
-                        <div id="ifYesH_C1" style="display:none">
-                            <textarea class="form-control"id="H_C1" name="H_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesH_C1" >
+                            <textarea class="form-control"id="H_C1" name="H_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($H_C1)) { echo $H_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -1992,17 +2486,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckH_C1() {
-                                if (document.getElementById('yesCheckH_C1').checked) {
-                                    document.getElementById('ifYesH_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesH_C1').style.display = 'block';
-
-                            }
-
                         </script>
 
                         <p>
@@ -2024,8 +2507,8 @@ $QUESTION_NUMBER=1;
                                    value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesH_C2" style="display:none">
-                            <textarea class="form-control"id="H_C2" name="H_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesH_C2" >
+                            <textarea class="form-control"id="H_C2" name="H_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($H_C2)) { echo $H_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2045,17 +2528,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckH_C2() {
-                                if (document.getElementById('yesCheckH_C2').checked) {
-                                    document.getElementById('ifYesH_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesH_C2').style.display = 'block';
-
-                            }
-
                         </script>
                         
                         <p>
@@ -2077,8 +2549,8 @@ $QUESTION_NUMBER=1;
                                    value="N/A" >N/A
                         </p>
 
-                        <div id="ifYesH_C3" style="display:none">
-                            <textarea class="form-control"id="H_C3" name="H_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesH_C3" >
+                            <textarea class="form-control"id="H_C3" name="H_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($H_C3)) { echo $H_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2099,17 +2571,7 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckH_C3() {
-                                if (document.getElementById('yesCheckH_C3').checked) {
-                                    document.getElementById('ifYesH_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesH_C3').style.display = 'block';
-
-                            }
-
-                        </script>                        
+                      
                         
                     </div>
                 </div>                 
@@ -2134,8 +2596,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckBD_C1">No
                         </p>
 
-                        <div id="ifYesBD_C1" style="display:none">
-                            <textarea class="form-control"id="BD_C1" name="BD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesBD_C1" >
+                            <textarea class="form-control"id="BD_C1" name="BD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($BD_C1)) { echo $BD_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2156,17 +2618,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckBD_C1() {
-                                if (document.getElementById('yesCheckBD_C1').checked) {
-                                    document.getElementById('ifYesBD_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesBD_C1').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="BD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER offer to read the direct debit guarantee?</label>
@@ -2182,8 +2633,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckBD_C2">No
                         </p>
 
-                        <div id="ifYesBD_C2" style="display:none">
-                            <textarea class="form-control"id="BD_C2" name="BD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesBD_C2" >
+                            <textarea class="form-control"id="BD_C2" name="BD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($BD_C2)) { echo $BD_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2204,17 +2655,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckBD_C2() {
-                                if (document.getElementById('yesCheckBD_C2').checked) {
-                                    document.getElementById('ifYesBD_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesBD_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="BD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER offer a preferred premium collection date?</label>
@@ -2230,8 +2670,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckBD_C3">No
                         </p>
 
-                        <div id="ifYesBD_C3" style="display:none">
-                            <textarea class="form-control"id="BD_C3" name="BD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesBD_C3" >
+                            <textarea class="form-control"id="BD_C3" name="BD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($BD_C3)) { echo $BD_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2252,17 +2692,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckBD_C3() {
-                                if (document.getElementById('yesCheckBD_C3').checked) {
-                                    document.getElementById('ifYesBD_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesBD_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="BD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER record the bank details correctly?</label>
@@ -2278,8 +2707,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckBD_C4">No
                         </p>
 
-                        <div id="ifYesBD_C4" style="display:none">
-                            <textarea class="form-control"id="BD_C4" name="BD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesBD_C4" >
+                            <textarea class="form-control"id="BD_C4" name="BD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($BD_C4)) { echo $BD_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2300,18 +2729,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckBD_C4() {
-                                if (document.getElementById('yesCheckBD_C4').checked) {
-                                    document.getElementById('ifYesBD_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesBD_C4').style.display = 'block';
-
-                            }
-
-                        </script>
-
                         <p>
                             <label for="BD_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did they have consent off the premium payer?</label>
                             <input type="radio" name="BD_Q5" 
@@ -2326,8 +2743,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckBD_C5">No
                         </p>
 
-                        <div id="ifYesBD_C5" style="display:none">
-                            <textarea class="form-control"id="BD_C5" name="BD_C5" rows="1" cols="75" maxlength="11000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesBD_C5" >
+                            <textarea class="form-control"id="BD_C5" name="BD_C5" rows="1" cols="75" maxlength="11000" onkeyup="textAreaAdjust(this)"><?php if(isset($BD_C5)) { echo $BD_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2348,18 +2765,7 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckBD_C5() {
-                                if (document.getElementById('yesCheckBD_C5').checked) {
-                                    document.getElementById('ifYesBD_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesBD_C5').style.display = 'block';
-
-                            }
-
-                        </script>
-
+                        
                     </div>
                 </div>
                 
@@ -2383,8 +2789,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckDEC_C1">No
                         </p>
 
-                        <div id="ifYesDEC_C1" style="display:none">
-                            <textarea class="form-control"id="DEC_C1" name="DEC_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C1" >
+                            <textarea class="form-control"id="DEC_C1" name="DEC_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C1)) { echo $DEC_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2405,17 +2811,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C1() {
-                                if (document.getElementById('yesCheckDEC_C1').checked) {
-                                    document.getElementById('ifYesDEC_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C1').style.display = 'block';
-
-                            }
-
-                        </script>
 
 
                         <p>
@@ -2432,8 +2827,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckDEC_C2">No
                         </p>
 
-                        <div id="ifYesDEC_C2" style="display:none">
-                            <textarea class="form-control"id="DEC_C2" name="DEC_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C2" >
+                            <textarea class="form-control"id="DEC_C2" name="DEC_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C2)) { echo $DEC_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2454,17 +2849,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C2() {
-                                if (document.getElementById('yesCheckDEC_C2').checked) {
-                                    document.getElementById('ifYesDEC_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="DEC_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Like mentioned earlier did the CLOSER make the customer aware that they are unable to offer advice or personal opinion and that they only provide an information based service to make their own informed decision?</label>
@@ -2480,8 +2864,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckDEC_C3">No
                         </p>
 
-                        <div id="ifYesDEC_C3" style="display:none">
-                            <textarea class="form-control"id="DEC_C3" name="DEC_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C3" >
+                            <textarea class="form-control"id="DEC_C3" name="DEC_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C3)) { echo $DEC_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2502,17 +2886,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C3() {
-                                if (document.getElementById('yesCheckDEC_C3').checked) {
-                                    document.getElementById('ifYesDEC_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="DEC_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that the client will be emailed the following: A policy booklet, quote, policy summary, and a keyfact document.</label>
@@ -2528,8 +2901,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckDEC_C4">No
                         </p>
 
-                        <div id="ifYesDEC_C4" style="display:none">
-                            <textarea class="form-control"id="DEC_C4" name="DEC_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C4" >
+                            <textarea class="form-control"id="DEC_C4" name="DEC_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C4)) { echo $DEC_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2550,17 +2923,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C4() {
-                                if (document.getElementById('yesCheckDEC_C4').checked) {
-                                    document.getElementById('ifYesDEC_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C4').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="DEC_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed the check your details procedure?</label>
@@ -2576,8 +2938,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckDEC_C5">No
                         </p>
 
-                        <div id="ifYesDEC_C5" style="display:none">
-                            <textarea class="form-control"id="DEC_C5" name="DEC_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C5" >
+                            <textarea class="form-control"id="DEC_C5" name="DEC_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C5)) { echo $DEC_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2598,17 +2960,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C5() {
-                                if (document.getElementById('yesCheckDEC_C5').checked) {
-                                    document.getElementById('ifYesDEC_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C5').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="DEC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Vitality will write to them with a more specific date?</label>
@@ -2625,8 +2976,8 @@ $QUESTION_NUMBER=1;
 
                         </p>
 
-                        <div id="ifYesDEC_C6" style="display:none">
-                            <textarea class="form-control"id="DEC_C6" name="DEC_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C6" >
+                            <textarea class="form-control"id="DEC_C6" name="DEC_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C6)) { echo $DEC_C6; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2646,17 +2997,6 @@ $QUESTION_NUMBER=1;
                                     }
                                 });
                             });
-                        </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C6() {
-                                if (document.getElementById('yesCheckDEC_C6').checked) {
-                                    document.getElementById('ifYesDEC_C6').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C6').style.display = 'block';
-
-                            }
-
                         </script>
 
                         <p>
@@ -2678,8 +3018,8 @@ $QUESTION_NUMBER=1;
                                    value="N/A" id="yesCheckDEC_C7">N/A
                         </p>
 
-                        <div id="ifYesDEC_C7" style="display:none">
-                            <textarea class="form-control"id="DEC_C7" name="DEC_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesDEC_C7" >
+                            <textarea class="form-control"id="DEC_C7" name="DEC_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($DEC_C7)) { echo $DEC_C7; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2700,17 +3040,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckDEC_C7() {
-                                if (document.getElementById('yesCheckDEC_C7').checked) {
-                                    document.getElementById('ifYesDEC_C7').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesDEC_C7').style.display = 'block';
-
-                            }
-
-                        </script>
 
                     </div>
                 </div>
@@ -2723,12 +3052,20 @@ $QUESTION_NUMBER=1;
                         
                         <p>
                             <label for="QC_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Vitality with client information?</label>
-                            <input type="radio" name="QC_Q1" <?php if (isset($QC_Q1) && $QC_Q1 == "1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQC_C1();" value="1" id="yesCheckQC_Q1" required>Yes
-                            <input type="radio" name="QC_Q1" <?php if (isset($QC_Q1) && $QC_Q1 == "0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQC_C1();" value="0" id="noCheckQC_Q1">No
+                            <input type="radio" name="QC_Q1" 
+<?php if (isset($QC_Q1) && $QC_Q1 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckQC_Q2();"
+                                   value="1" id="yesCheckQC_Q2" required >Yes
+                            <input type="radio" name="QC_Q1"
+<?php if (isset($QC_Q1) && $QC_Q1 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckQC_Q2();"
+                                   value="0" id="noCheckQC_Q2">No
                         </p>
 
-                        <div id="ifYesQC_C1" style="display:none">
-                            <textarea class="form-control"id="QC_C1" name="QC_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C1" >
+                            <textarea class="form-control"id="QC_C1" name="QC_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C1)) { echo $QC_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2749,26 +3086,23 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C1() {
-                                if (document.getElementById('yesCheckQC_Q1').checked) {
-                                    document.getElementById('ifYesQC_C1').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C1').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed length of policy in years with client confirmation?</label>
-                            <input type="radio" name="QC_Q2" <?php if (isset($QC_Q2) && $QC_Q2 == "1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQC_C2();" value="1" id="yesCheckQC_C2" required >Yes
-                            <input type="radio" name="QC_Q2" <?php if (isset($QC_Q2) && $QC_Q2 == "0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQC_C2();" value="0" id="noCheckQC_C2">No
+                            <input type="radio" name="QC_Q2" 
+<?php if (isset($QC_Q2) && $QC_Q2 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckQC_C2();"
+                                   value="1" id="yesCheckQC_C2" required >Yes
+                            <input type="radio" name="QC_Q2"
+<?php if (isset($QC_Q2) && $QC_Q2 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckQC_C2();"
+                                   value="0" id="noCheckQC_C2">No
                         </p>
 
-                        <div id="ifYesQC_C2" style="display:none">
-                            <textarea class="form-control"id="QC_C2" name="QC_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C2" >
+                            <textarea class="form-control"id="QC_C2" name="QC_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C2)) { echo $QC_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2789,17 +3123,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C2() {
-                                if (document.getElementById('yesCheckQC_C2').checked) {
-                                    document.getElementById('ifYesQC_C2').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C2').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed the amount of cover on the policy with client confirmation?</label>
@@ -2815,8 +3138,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckQC_C3">No
                         </p>
 
-                        <div id="ifYesQC_C3" style="display:none">
-                            <textarea class="form-control"id="QC_C3" name="QC_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C3" >
+                            <textarea class="form-control"id="QC_C3" name="QC_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C3)) { echo $QC_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2837,17 +3160,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C3() {
-                                if (document.getElementById('yesCheckQC_C3').checked) {
-                                    document.getElementById('ifYesQC_C3').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C3').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed with the client that they have understood everything today with client confirmation?</label>
@@ -2863,8 +3175,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckQC_C4">No
                         </p>
 
-                        <div id="ifYesQC_C4" style="display:none">
-                            <textarea class="form-control"id="QC_C4" name="QC_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C4" >
+                            <textarea class="form-control"id="QC_C4" name="QC_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C4)) { echo $QC_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2885,17 +3197,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C4() {
-                                if (document.getElementById('yesCheckQC_C4').checked) {
-                                    document.getElementById('ifYesQC_C4').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C4').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the customer give their explicit consent for the policy to be set up?</label>
@@ -2911,8 +3212,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckQC_C5">No
                         </p>
 
-                        <div id="ifYesQC_C5" style="display:none">
-                            <textarea class="form-control"id="QC_C5" name="QC_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C5" >
+                            <textarea class="form-control"id="QC_C5" name="QC_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C5)) { echo $QC_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2933,17 +3234,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C5() {
-                                if (document.getElementById('yesCheckQC_C5').checked) {
-                                    document.getElementById('ifYesQC_C5').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C5').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer provided contact details for <?php if(isset($COMPANY_ENTITY)) { echo $COMPANY_ENTITY; } ?>?</label>
@@ -2959,8 +3249,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckQC_C6">No
                         </p>
 
-                        <div id="ifYesQC_C6" style="display:none">
-                            <textarea class="form-control"id="QC_C6" name="QC_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C6" >
+                            <textarea class="form-control"id="QC_C6" name="QC_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C6)) { echo $QC_C6; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -2981,17 +3271,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C6() {
-                                if (document.getElementById('yesCheckQC_C6').checked) {
-                                    document.getElementById('ifYesQC_C6').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C6').style.display = 'block';
-
-                            }
-
-                        </script>
 
                         <p>
                             <label for="QC_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the CLOSER keep to the requirements of a non-advised sale, providing an information based service and not offering advice or personal opinion?</label>
@@ -3007,8 +3286,8 @@ $QUESTION_NUMBER=1;
                                    value="0" id="noCheckQC_C7">No
                         </p>
 
-                        <div id="ifYesQC_C7" style="display:none">
-                            <textarea class="form-control"id="QC_C7" name="QC_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesQC_C7" >
+                            <textarea class="form-control"id="QC_C7" name="QC_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($QC_C7)) { echo $QC_C7; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
@@ -3029,17 +3308,6 @@ $QUESTION_NUMBER=1;
                                 });
                             });
                         </script>
-                        <script type="text/javascript">
-
-                            function yesnoCheckQC_C7() {
-                                if (document.getElementById('yesCheckQC_C7').checked) {
-                                    document.getElementById('ifYesQC_C7').style.display = 'none';
-                                } else
-                                    document.getElementById('ifYesQC_C7').style.display = 'block';
-
-                            }
-
-                        </script>
 
                     </div>
                 </div>                
@@ -3057,8 +3325,8 @@ $QUESTION_NUMBER=1;
         var form = this;
         e.preventDefault();
         swal({
-            title: "Vitality audit?",
-            text: "Save and submit vitality audit!",
+            title: "Update Vitality audit?",
+            text: "Save and update vitality audit!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -3071,7 +3339,7 @@ $QUESTION_NUMBER=1;
                     if (isConfirm) {
                         swal({
                             title: 'Complete!',
-                            text: 'Vitality audit saved!',
+                            text: 'Vitality audit updated!',
                             type: 'success'
                         }, function () {
                             form.submit();

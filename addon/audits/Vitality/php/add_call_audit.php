@@ -77,6 +77,7 @@ if (isset($EXECUTE)) {
     if($EXECUTE=="1") {
         
     $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+    $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
     $REFERENCE = filter_input(INPUT_POST, 'REFERENCE', FILTER_SANITIZE_SPECIAL_CHARS);
     $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
     
@@ -94,11 +95,13 @@ if (isset($EXECUTE)) {
                                             adl_audits_auditor=:HELLO,
                                             adl_audits_grade=:GRADE, 
                                             adl_audits_closer=:CLOSER, 
+                                            adl_audits_agent=:AGENT, 
                                             adl_audits_ref=:PLAN,
                                             adl_audits_insurer=:INSURER");
     $VITALITY_AUDIT_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->bindParam(':GRADE', $GRADE, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->bindParam(':CLOSER', $CLOSER, PDO::PARAM_STR, 100);
+    $VITALITY_AUDIT_QRY->bindParam(':AGENT', $AGENT, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->bindParam(':PLAN', $REFERENCE, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->bindParam(':INSURER', $INSURER, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->execute()or die(print_r($VITALITY_AUDIT_QRY->errorInfo(), true));

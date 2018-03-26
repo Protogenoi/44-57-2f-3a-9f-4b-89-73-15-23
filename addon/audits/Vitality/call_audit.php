@@ -135,6 +135,20 @@ $QUESTION_NUMBER=1;
 
                             </select>
                         </div>
+                        
+                        <label for="AGENT">Agent</label>
+                        <input type="text" class="form-control" name="AGENT" id="AGENT" style="width: 520px">
+                        
+    <script>var options = {
+                                                            url: "/../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                                            getValue: "full_name",
+                                                            list: {
+                                                                match: {
+                                                                    enabled: true
+                                                                }
+                                                            }
+                                                        };
+                                                        $("#AGENT").easyAutocomplete(options);</script>                         
 
                         <label for="POLICY">Reference</label>
                         <input type="text" class="form-control" name="REFERENCE" style="width: 520px">

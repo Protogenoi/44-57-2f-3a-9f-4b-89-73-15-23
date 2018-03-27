@@ -1164,16 +1164,8 @@ $QUESTION_NUMBER=1;
                         
                         <p>
                             <label for="OWD_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'height and weight' and did they record the answer correctly?</label>
-                            <input type="radio" name="OWD_Q1" 
-<?php if (isset($OWD_Q1) && $OWD_Q1 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckOWD_C1();"
-                                   value="1" id="yesCheckOWD_C1" required >Yes
-                            <input type="radio" name="OWD_Q1"
-<?php if (isset($OWD_Q1) && $OWD_Q1 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckOWD_C1();"
-                                   value="0" id="noCheckOWD_C1">No
+                            <input type="radio" name="OWD_Q1" <?php if (isset($OWD_Q1) && $OWD_Q1 == "1") { echo "checked"; } ?> onclick="javascript:yesnoCheckOWD_C1();" value="1" id="yesCheckOWD_C1" required >Yes
+                            <input type="radio" name="OWD_Q1" <?php if (isset($OWD_Q1) && $OWD_Q1 == "0") { echo "checked"; } ?> onclick="javascript:yesnoCheckOWD_C1();" value="0" id="noCheckOWD_C1">No
                         </p>
 
                         <div id="ifYesOWD_C1" style="display:none">

@@ -512,7 +512,7 @@ $VITALITY_COM_QRY = $pdo->prepare("UPDATE
     }
 
     if ($AID >= '1') {
-        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE);
+        header('Location: ../../search_audits.php?RETURN=ADDED&grade=' . $GRADE);
         die;
     } else {
         header('Location: ../../search_audits.php?RETURN=AuditEditFailed&Error');

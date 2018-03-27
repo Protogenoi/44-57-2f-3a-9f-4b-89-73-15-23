@@ -509,7 +509,7 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
  
 
     if ($LAST_AUDITID >= '1') {
-        header('Location: ../../search_audits.php?RETURN=ADDED&grade=' . $GRADE);
+        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE);
         die;
     } else {
         header('Location: ../../search_audits.php?RETURN=AuditEditFailed&Error');

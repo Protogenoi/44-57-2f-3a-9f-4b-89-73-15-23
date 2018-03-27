@@ -183,7 +183,7 @@ if (isset($EXECUTE)) {
      $VITALITY_QUES_QRY = $pdo->prepare("INSERT INTO 
                                             adl_audit_vitality
                                         SET 
-  adl_audit_vitality_id_fk=:ID_FK,
+  adl_audit_vitality_id_fk=:ID,
   adl_audit_vitality_ref=:REF,
   adl_audit_vitality_od1=:OD1,
   adl_audit_vitality_od2=:OD2,
@@ -242,7 +242,7 @@ if (isset($EXECUTE)) {
   adl_audit_vitality_qc5=:QC5,
   adl_audit_vitality_qc6=:QC6,
   adl_audit_vitality_qc7=:QC7");
-    $VITALITY_QUES_QRY->bindParam(':ID_FK', $LAST_AUDITID, PDO::PARAM_INT);
+    $VITALITY_QUES_QRY->bindParam(':ID', $LAST_AUDITID, PDO::PARAM_INT);
     $VITALITY_QUES_QRY->bindParam(':REF', $REFERENCE, PDO::PARAM_INT);
     $VITALITY_QUES_QRY->bindParam(':OD1', $OD_Q1, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':OD2', $OD_Q2, PDO::PARAM_STR);

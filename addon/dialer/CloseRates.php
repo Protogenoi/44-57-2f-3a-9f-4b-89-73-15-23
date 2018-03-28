@@ -139,10 +139,16 @@ ORDER BY Sales, Leads");
                             $LEADS = $Leads - 0;
                             $SALES = $Sales + 0;
                             break;
-                        case("Hayley"):
+                        case("Aron Davies"):
                             $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0;
+                            $SALES = $Sales - 0; 
+                            $CLOSER_NAME = "Aron";  
                             break;
+                        case("Ryan Tidball"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $CLOSER_NAME = "Ryan";  
+                            break;                        
                         case("Martin Smith"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0; 

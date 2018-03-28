@@ -194,7 +194,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $HAS_NEW_LG_POL='1';
                         }
 
-                        $VIT_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
+                        $VIT_CHECK = $pdo->prepare("SELECT client_policy.id FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
                         $VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $VIT_CHECK->execute();
                         if ($VIT_CHECK->rowCount() > 0) {
@@ -205,7 +205,30 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_VIT_AN->execute();
                             $GET_VIT_row = $GET_VIT_AN->fetch(PDO::FETCH_ASSOC);
                             
-                            $VIT_POL_number = $GET_VIT_row['policy_number'];                               
+                            $VIT_POL_number = $GET_VIT_row['policy_number'];                          
+                            
+                            $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN OR vitality_audit_plan_number=:PHONE");
+                            $GET_VIT_CLOSER_AUDIT->bindParam(':AN', $VIT_POL_number, PDO::PARAM_STR);
+                            $GET_VIT_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_VIT_CLOSER_AUDIT->execute();
+                            $GET_VIT_CLOSERrow = $GET_VIT_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_VIT_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_VIT_CLOSE_AUDIT=1;
+                                $HAS_VIT_CLOSER_AUDIT_CHECK=1;
+                                $VIT_closeraudit = $GET_VIT_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_VIT_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_VIT_LEAD_AUDIT->execute();
+                                $GET_VIT_LEADrow = $GET_VIT_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_VIT_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_VIT_LEAD_AUDIT=1;
+                                    $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
+                                    
+                                }                             
                         
                         }
                         
@@ -220,12 +243,18 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_VIT_AN->execute();
                             $GET_VIT_row = $GET_VIT_AN->fetch(PDO::FETCH_ASSOC);
                             
-                            $VIT_POL_number = $GET_VIT_row['adl_policy_ref'];                               
-                        
-                        }                        
-                        
-                            if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) { 
+                            $VIT_POL_number = $GET_VIT_row['adl_policy_ref'];   
+
+                            $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_vitality_id_fk AS CLOSER FROM adl_audit_vitality WHERE adl_audit_vitality_ref=:PHONE");
+                            $GET_VIT_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_VIT_CLOSER_AUDIT->execute();
+                            $GET_VIT_CLOSERrow = $GET_VIT_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
                             
+                            if ($GET_VIT_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_VIT_CLOSER_AUDIT_CHECK=1;
+                                $HAS_NEW_VIT_CLOSE_AUDIT=1;
+                                $VIT_NEW_closeraudit = $GET_VIT_CLOSERrow['CLOSER']; 
+                                } else {
                             $GET_VIT_CLOSER_AUDIT = $pdo->prepare("SELECT vitality_audit_id AS CLOSER FROM vitality_audit where vitality_audit_plan_number=:AN OR vitality_audit_plan_number=:PHONE");
                             $GET_VIT_CLOSER_AUDIT->bindParam(':AN', $VIT_POL_number, PDO::PARAM_STR);
                             $GET_VIT_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
@@ -233,8 +262,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_VIT_CLOSERrow = $GET_VIT_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
                             
                             if ($GET_VIT_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_VIT_CLOSER_AUDIT_CHECK=1;
                                 $HAS_VIT_CLOSE_AUDIT=1;
                                 $VIT_closeraudit = $GET_VIT_CLOSERrow['CLOSER']; 
+                                }                                    
                                 }
                                 
                                 $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
@@ -246,10 +277,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     $HAS_VIT_LEAD_AUDIT=1;
                                     $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
                                     
-                                }  
-                                
-                                }
-                                
+                                }                             
+                        
+                        }                        
+
                                 
                         $LV_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='LV' AND client_id=:CID");
                         $LV_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -1715,11 +1746,17 @@ if (isset($fileuploadedfail)) {
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $LV_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Lead Audit</a>
         
-       <?php }                              
+       <?php }          
+               
+        if(isset($HAS_NEW_VIT_CLOSE_AUDIT) && $HAS_NEW_VIT_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/Vitality/view_call_audit.php?AUDITID=<?php echo $VIT_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Closer Audit</a>                                    
+            
+        <?php }               
                             
         if(isset($HAS_VIT_CLOSE_AUDIT) && $HAS_VIT_CLOSE_AUDIT == 1) {   ?>
                                     
-<a class="list-group-item" href="/addon/audits/Vitality/View.php?EXECUTE=VIEW&AUDITID=<?php echo $VIT_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Closer Audit</a>                                    
+<a class="list-group-item" href="/addon/audits/Vitality/View.php?EXECUTE=VIEW&AUDITID=<?php echo $VIT_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Old Vitality Closer Audit</a>                                    
             
         <?php }
         

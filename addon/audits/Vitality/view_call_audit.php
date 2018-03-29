@@ -183,6 +183,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_h1,
   adl_audit_vitality_h2,
   adl_audit_vitality_h3,
+  adl_audit_vitality_h4,
   adl_audit_vitality_bd1,
   adl_audit_vitality_bd2,
   adl_audit_vitality_bd3,
@@ -457,6 +458,12 @@ if(isset($AUDITID)) {
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_h3'])) {
         
         $H_Q3=$VIT_Q_AUDIT['adl_audit_vitality_h3'];
+        
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_h4'])) {
+        
+        $H_Q4=$VIT_Q_AUDIT['adl_audit_vitality_h4'];
         
     }     
     
@@ -772,6 +779,7 @@ $database->query("SELECT
   adl_audit_vitality_ce_h1,
   adl_audit_vitality_ce_h2,
   adl_audit_vitality_ce_h3,
+  adl_audit_vitality_ce_h4,
   adl_audit_vitality_ce_bd1,
   adl_audit_vitality_ce_bd2,
   adl_audit_vitality_ce_bd3,
@@ -875,7 +883,13 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
         
         $H_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_h3'];
         
-    }     
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_h4'])) {
+        
+        $H_C4=$VIT_CE_AUDIT['adl_audit_vitality_ce_h4'];
+        
+    }  
     
    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd1'])) {
         
@@ -1147,7 +1161,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
 <label for="ICN4">Q<?php $i++; echo $i; ?>. Did The vitality_audit_closer provide the customer with a sufficient amount of features and benefits for the policy?</label><br>
-<select class="form-control" name="ICN4" onclick="javascript:yesnoCheckICN4();">
+<select class="form-control" name="ICN4">
   <option value="0" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='0') { echo "selected"; } } ?>>Select...</option>
   <option value="1" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='More than sufficient') { echo "selected"; } } ?>>More than sufficient</option>
   <option value="2" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='Sufficient') { echo "selected"; } } ?>>Sufficient</option>
@@ -1445,11 +1459,22 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="H3">Q<?php $i++; echo $i; ?>. Did the closer ask all the "Recent and current" health questions and did the closer record the answers correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($H_Q3)) {  if ($H_Q3 == "3") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q3)) {  if ($H_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($H_Q3)) {  if ($H_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
                 <?php if(isset($H_C3)) { echo $H_C3; } ?>
+            </div>    
+</p>
+
+<p>
+    <label for="H4">Q<?php $i++; echo $i; ?>. Did the closer ask for the customers doctor details and did the closer record the answers correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "N/A") { echo "checked"; } } ?> ><label for="N/A">N/A</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($H_C4)) { echo $H_C4; } ?>
             </div>    
 </p>
 
@@ -1467,7 +1492,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="BD2">Q<?php $i++; echo $i; ?>. Did the CLOSER offer to read the direct debit guarantee?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($BD_Q2)) {  if ($BD_Q2 == "2") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($BD_Q2)) {  if ($BD_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($BD_Q2)) {  if ($BD_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
@@ -1477,7 +1502,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="BD3">Q<?php $i++; echo $i; ?>. Did the CLOSER offer a preferred premium collection date?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($BD_Q3)) {  if ($BD_Q3 == "3") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($BD_Q3)) {  if ($BD_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($BD_Q3)) {  if ($BD_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
@@ -1487,7 +1512,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="BD4">Q<?php $i++; echo $i; ?>. Did the CLOSER record the bank details correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($BD_Q4)) {  if ($BD_Q4 == "4") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($BD_Q4)) {  if ($BD_Q4 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($BD_Q4)) {  if ($BD_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
@@ -1497,7 +1522,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="BD5">Q<?php $i++; echo $i; ?>. Did they have consent off the premium payer?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($BD_Q5)) {  if ($BD_Q5 == "5") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($BD_Q5)) {  if ($BD_Q5 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($BD_Q5)) {  if ($BD_Q5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">

@@ -209,7 +209,7 @@ WHERE
             <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
             <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
             <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
-            <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
+            <script src="/resources/lib/js-webshim/minified/polyfiller.js"></script>
             <script>
                 $(function () {
                     $("#SALE_DATE").datepicker({
@@ -227,6 +227,13 @@ WHERE
                         yearRange: "-100:+1"
                     });
                 });
+            </script>
+                                    <script>
+                webshims.setOptions('forms-ext', {
+                    replaceUI: 'auto',
+                    types: 'number'
+                });
+                webshims.polyfill('forms forms-ext');
             </script>
         </head>
         <body>

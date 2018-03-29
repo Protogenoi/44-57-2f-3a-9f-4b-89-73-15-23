@@ -359,7 +359,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':NON_IDEM_COMM', $NON_INDEM_COMM);
             $database->bind(':COVER_AMOUNT', $COVER_AMOUNT);
             $database->bind(':POLICY_TERM', $TERM);
-            $database->bind(':TERM_COVER_AMOUNT', $SIC_COVER_AMOUNT);
+            $database->bind(':SIC_COVER_AMOUNT', $SIC_COVER_AMOUNT);
             $database->bind(':SIC_POLICY_TERM', $SIC_TERM);            
             $database->bind(':CB_TERM', $CB_TERM);
             $database->bind(':DRIP', $DRIP);

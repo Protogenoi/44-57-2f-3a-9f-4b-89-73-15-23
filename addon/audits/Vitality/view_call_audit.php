@@ -1351,6 +1351,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
     <label for="O2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer job involves travelling more than 25k miles per annum?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "N/A") { echo "checked"; } } ?> >N/A
     
             <div class="phpcomments">
                 <?php if(isset($O_C2)) { echo $O_C2; } ?>
@@ -1358,7 +1359,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 </p>
          
 <p>
-    <label for="O3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer intends on spending more than 4 weeks overall in the listed countries?</label><br>
+    <label for="O3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer works less than 16 hours per week?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
@@ -1370,7 +1371,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 <h3 class="panel-title">Travel/residency</h3>   
 
 <p>
-    <label for="T1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has spent more than 3 consecutive months in the listed countries in the last 5 years?</label><br>
+    <label for="T1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer intends on spending more than 4 weeks overall in the listed countries?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($T_Q1)) {  if ($T_Q1 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($T_Q1)) {  if ($T_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
@@ -1380,7 +1381,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 </p>
 
 <p>
-    <label for="T2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer job involves travelling more than 25k miles per annum?</label><br>
+    <label for="T2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has spent more than 3 consecutive months in the listed countries in the last 5 years?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($T_Q2)) {  if ($T_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($T_Q2)) {  if ($T_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     

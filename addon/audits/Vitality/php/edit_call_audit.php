@@ -159,7 +159,8 @@ if (isset($EXECUTE)) {
     
     $H_Q1 = filter_input(INPUT_POST, 'H_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_Q2 = filter_input(INPUT_POST, 'H_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_Q3 = filter_input(INPUT_POST, 'H_Q3', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $H_Q3 = filter_input(INPUT_POST, 'H_Q3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_Q4 = filter_input(INPUT_POST, 'H_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $BD_Q1 = filter_input(INPUT_POST, 'BD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_Q2 = filter_input(INPUT_POST, 'BD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -225,6 +226,7 @@ if (isset($EXECUTE)) {
   adl_audit_vitality_h1=:H1,
   adl_audit_vitality_h2=:H2,
   adl_audit_vitality_h3=:H3,
+  adl_audit_vitality_h3=:H4,
   adl_audit_vitality_bd1=:BD1,
   adl_audit_vitality_bd2=:BD2,
   adl_audit_vitality_bd3=:BD3,
@@ -285,7 +287,8 @@ if (isset($EXECUTE)) {
     $VITALITY_QUES_QRY->bindParam(':FAM1', $FAM_Q1, PDO::PARAM_STR);  
     $VITALITY_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR);    
+    $VITALITY_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR); 
+    $VITALITY_QUES_QRY->bindParam(':H4', $H_Q4, PDO::PARAM_STR); 
     $VITALITY_QUES_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
@@ -413,7 +416,8 @@ $VITALITY_COM_QRY = $pdo->prepare("UPDATE
     
     $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -453,6 +457,7 @@ $VITALITY_COM_QRY = $pdo->prepare("UPDATE
   adl_audit_vitality_ce_h1=:H1,
   adl_audit_vitality_ce_h2=:H2,
   adl_audit_vitality_ce_h3=:H3,
+  adl_audit_vitality_ce_h4=:H4,
   adl_audit_vitality_ce_bd1=:BD1,
   adl_audit_vitality_ce_bd2=:BD2,
   adl_audit_vitality_ce_bd3=:BD3,
@@ -487,7 +492,8 @@ $VITALITY_COM_QRY = $pdo->prepare("UPDATE
   $VITALITY_C_EXTRA_QRY->bindParam(':FAM1', $FAM_C1, PDO::PARAM_STR);  
   $VITALITY_C_EXTRA_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);    
+  $VITALITY_C_EXTRA_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);  
+  $VITALITY_C_EXTRA_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR);    
   $VITALITY_C_EXTRA_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);

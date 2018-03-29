@@ -176,6 +176,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_h1,
   adl_audit_vitality_h2,
   adl_audit_vitality_h3,
+  adl_audit_vitality_h4,
   adl_audit_vitality_bd1,
   adl_audit_vitality_bd2,
   adl_audit_vitality_bd3,
@@ -450,6 +451,12 @@ if(isset($AUDITID)) {
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_h3'])) {
         
         $H_Q3=$VIT_Q_AUDIT['adl_audit_vitality_h3'];
+        
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_h4'])) {
+        
+        $H_Q4=$VIT_Q_AUDIT['adl_audit_vitality_h4'];
         
     }     
     
@@ -765,6 +772,7 @@ $database->query("SELECT
   adl_audit_vitality_ce_h1,
   adl_audit_vitality_ce_h2,
   adl_audit_vitality_ce_h3,
+  adl_audit_vitality_ce_h4,
   adl_audit_vitality_ce_bd1,
   adl_audit_vitality_ce_bd2,
   adl_audit_vitality_ce_bd3,
@@ -868,7 +876,13 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
         
         $H_C3=$VIT_CE_AUDIT['adl_audit_vitality_ce_h3'];
         
-    }     
+    }  
+    
+    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_h4'])) {
+        
+        $H_C4=$VIT_CE_AUDIT['adl_audit_vitality_ce_h4'];
+        
+    }      
     
    if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_bd1'])) {
         
@@ -1394,7 +1408,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
                         <p>
                             <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
-                            <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();">
+                            <select class="form-control" name="ICN_Q4" onclick="javascript:yesnoCheckICN_C4();" required>
                                 <option value="N/A">Select...</option>
                                 <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'More than sufficient') { echo "selected"; } ?> value="More than sufficient">More than sufficient</option>
                                 <option <?php if(isset($ICN_Q4) && $ICN_Q4 == 'Sufficient') { echo "selected"; } ?> value="Sufficient">Sufficient</option>
@@ -2571,6 +2585,48 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
                                 });
                             });
                         </script>
+                        
+  <p>
+                            <label for="H_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask for the customers doctor details and did the closer record the answers correctly?</label>
+                            <input type="radio" name="H_Q4" 
+<?php if (isset($H_Q4) && $H_Q4 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckH_C4();"
+                                   value="1" id="yesCheckH_C4" required >Yes
+                            <input type="radio" name="H_Q4"
+<?php if (isset($H_Q4) && $H_Q4 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckH_C4();"
+                                   value="0" id="noCheckH_C4">No
+                            <input type="radio" name="H_Q4" 
+<?php if (isset($H_Q4) && $H_Q4 == "N/A") {
+    echo "checked";
+} ?>
+                                   value="N/A" >N/A
+                        </p>
+
+                        <div id="ifYesH_C4" >
+                            <textarea class="form-control"id="H_C4" name="H_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($H_C4)) { echo $H_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#H_C4').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>                        
                       
                         
                     </div>

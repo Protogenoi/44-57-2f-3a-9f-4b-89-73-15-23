@@ -150,6 +150,8 @@ vitality_policy_comms_type,
  vitality_policy_kids_sic_dob6,
  vitality_policy_kids_sic_amount6,
  vitality_policy_kids_sic_opt6,
+     vitality_policy_sic_policy_term,
+    vitality_policy_sic_cover_amount,
     CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, 
     CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2
 FROM
@@ -191,13 +193,6 @@ WHERE
     $query2->execute();
     $data3 = $query2->fetch(PDO::FETCH_ASSOC);
         ?>
-<!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
         <html lang="en">
             <title>ADL | Edit Vitality Policy</title>
             <meta charset="UTF-8">
@@ -233,30 +228,6 @@ WHERE
                     });
                 });
             </script>
-            <script>
-                webshims.setOptions('forms-ext', {
-                    replaceUI: 'auto',
-                    types: 'number'
-                });
-                webshims.polyfill('forms forms-ext');
-            </script>
-            <style>
-                .form-row input {
-                    padding: 3px 1px;
-                    width: 100%;
-                }
-                input.currency {
-                    text-align: right;
-                    padding-right: 15px;
-                }
-                .input-group .form-control {
-                    float: none;
-                }
-                .input-group .input-buttons {
-                    position: relative;
-                    z-index: 3;
-                }
-            </style>
         </head>
         <body>
 
@@ -426,6 +397,20 @@ WHERE
                 </div>
                 
                 <div class="form-group" style="display: block;">
+                    <label class="control-label control-label-left col-sm-4" for="COVER">SIC Cover Amount</label>
+                    <div class="controls col-sm-5">
+                        <input value="<?php if(isset($data2['vitality_policy_cover_amount'])) { echo $data2['vitality_policy_sic_cover_amount'];  } ?>" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="display: block;">
+                    <label class="control-label control-label-left col-sm-4" for="SIC_TERM">SIC Policy Term</label>
+                    <div class="controls col-sm-5">
+                        <input value="<?php if(isset($data2['vitality_policy_policy_term'])) { echo $data2['vitality_policy_sic_policy_term'];  } ?>" id="SIC_TERM" name="SIC_TERM" value="" type="text" class="form-control k-input" data-role="numeric" data-format="integer" role="spinbutton" aria-valuenow="" aria-disabled="false" aria-readonly="false">
+                    </div>
+                </div>                
+                
+                <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="CB_TERM">Clawback Term</label>
                     <div class="controls col-sm-5">
                         <select id="CB_TERM" class="form-control"  selected="selected" name="CB_TERM">
@@ -444,7 +429,7 @@ WHERE
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="CLOSER">Closer</label>
                     <div class="controls col-sm-5">
-                        <input value="<?php if(isset($data2['adl_policy_closer'])) { echo $data2['adl_policy_closer'];  } ?>" id="CLOSER" name="CLOSER" type="text" class="form-control k-textbox" data-role="text" >
+                        <input value="<?php if(isset($data2['adl_policy_closer'])) { echo $data2['adl_policy_closer'];  } ?>" id="CLOSER" name="CLOSER" type="text" class="form-control k-textbox" data-role="text" required>
                     </div>
                 </div>
                 
@@ -464,7 +449,7 @@ WHERE
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="AGENT">Agent</label>
                     <div class="controls col-sm-5">
-                        <input value="<?php if(isset($data2['adl_policy_agent'])) { echo $data2['adl_policy_agent'];  } ?>" id="AGENT" name="AGENT" type="text" class="form-control k-textbox" data-role="text" >
+                        <input value="<?php if(isset($data2['adl_policy_agent'])) { echo $data2['adl_policy_agent'];  } ?>" id="AGENT" name="AGENT" type="text" class="form-control k-textbox" data-role="text" required>
                     </div>
                 </div>
                 
@@ -501,7 +486,7 @@ WHERE
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3" for="POLICY_STATUS">Status</label>
                     <div class="controls col-sm-9">
-                        <select id="POLICY_STATUS" class="form-control"  selected="selected" name="POLICY_STATUS">
+                        <select id="POLICY_STATUS" class="form-control"  selected="selected" name="POLICY_STATUS" required>
                                         <option value="Live" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Live') { echo "selected";  } ?>>Live</option>
                                         <option value="Awaiting" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Awaiting') { echo "selected";  } ?>>Awaiting</option>
                                         <option value="Not Live" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Not Live') { echo "selected";  } ?>>Not Live</option>

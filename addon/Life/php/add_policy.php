@@ -89,6 +89,10 @@ if (isset($EXECUTE)) {
         $NON_INDEM_COMM = filter_input(INPUT_POST, 'NON_INDEM_COMM', FILTER_SANITIZE_SPECIAL_CHARS);
         $COVER_AMOUNT = filter_input(INPUT_POST, 'COVER_AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
         $TERM = filter_input(INPUT_POST, 'TERM', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $SIC_COVER_AMOUNT = filter_input(INPUT_POST, 'SIC_COVER_AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
+        $SIC_TERM = filter_input(INPUT_POST, 'SIC_TERM', FILTER_SANITIZE_SPECIAL_CHARS);  
+        
         $CB_TERM = filter_input(INPUT_POST, 'CB_TERM', FILTER_SANITIZE_SPECIAL_CHARS);
         $DRIP = filter_input(INPUT_POST, 'DRIP', FILTER_SANITIZE_SPECIAL_CHARS);
         $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -192,6 +196,8 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_non_indem_comms=:NON_IDEM_COMM,
  vitality_policy_cover_amount=:COVER_AMOUNT,
  vitality_policy_policy_term=:POLICY_TERM,
+ vitality_policy_sic_cover_amount=:SIC_COVER_AMOUNT,
+ vitality_policy_sic_policy_term=:SIC_POLICY_TERM, 
  vitality_policy_cb_term=:CB_TERM,
  vitality_policy_drip=:DRIP");
             $database->bind(':PID', $lastid);
@@ -209,6 +215,8 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':NON_IDEM_COMM', $NON_INDEM_COMM);
             $database->bind(':COVER_AMOUNT', $COVER_AMOUNT);
             $database->bind(':POLICY_TERM', $TERM);
+            $database->bind(':SIC_COVER_AMOUNT', $SIC_COVER_AMOUNT);
+            $database->bind(':SIC_POLICY_TERM', $SIC_TERM);            
             $database->bind(':CB_TERM', $CB_TERM);
             $database->bind(':DRIP', $DRIP);
             $database->execute(); 
@@ -332,6 +340,8 @@ $database->query("INSERT INTO adl_policy SET
  vitality_policy_non_indem_comms=:NON_IDEM_COMM,
  vitality_policy_cover_amount=:COVER_AMOUNT,
  vitality_policy_policy_term=:POLICY_TERM,
+  vitality_policy_sic_cover_amount=:SIC_COVER_AMOUNT,
+ vitality_policy_sic_policy_term=:SIC_POLICY_TERM, 
  vitality_policy_cb_term=:CB_TERM,
  vitality_policy_drip=:DRIP");
             $database->bind(':PID', $lastid);
@@ -349,6 +359,8 @@ $database->query("INSERT INTO adl_policy SET
             $database->bind(':NON_IDEM_COMM', $NON_INDEM_COMM);
             $database->bind(':COVER_AMOUNT', $COVER_AMOUNT);
             $database->bind(':POLICY_TERM', $TERM);
+            $database->bind(':TERM_COVER_AMOUNT', $SIC_COVER_AMOUNT);
+            $database->bind(':SIC_POLICY_TERM', $SIC_TERM);            
             $database->bind(':CB_TERM', $CB_TERM);
             $database->bind(':DRIP', $DRIP);
             $database->execute(); 

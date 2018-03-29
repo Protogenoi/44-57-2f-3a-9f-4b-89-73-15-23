@@ -200,13 +200,6 @@ if (isset($EXECUTE)) {
                     });
                 });                  
             </script>
-            <script>
-                webshims.setOptions('forms-ext', {
-                    replaceUI: 'auto',
-                    types: 'number'
-                });
-                webshims.polyfill('forms forms-ext');
-            </script>
             <style>
                 .form-row input {
                     padding: 3px 1px;
@@ -248,7 +241,7 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3" for="CLIENT_NAME">Client<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                        <select id="CLIENT_NAME" class="form-control"  name="CLIENT_NAME">
+                        <select id="CLIENT_NAME" class="form-control"  name="CLIENT_NAME" required>
                                             <option value="<?php echo $data2['Name']; ?>"><?php echo $data2['Name']; ?></option>
                                             <?php if (isset($NAME2)) { ?>
                                             <option value="<?php echo $data2['Name2']; ?>"><?php echo $data2['Name2']; ?></option>
@@ -270,7 +263,7 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3">Plan<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
                         <label class="radio-inline" for="PLAN_1">
-                            <input type="radio" value="Essential" id="PLAN_1" name="PLAN" >Essential</label>
+                            <input type="radio" value="Essential" id="PLAN_1" name="PLAN" required>Essential</label>
                             <label class="radio-inline" for="PLAN_2">
                                 <input type="radio" value="Vitality Life" id="PLAN_2" name="PLAN" >Vitality Life</label>
                     </div>
@@ -280,7 +273,7 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3">Type<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
                         <label class="radio-inline" for="TYPE_1">
-                            <input type="radio" value="Index" id="TYPE_1" name="TYPE" >Index</label>
+                            <input type="radio" value="Index" id="TYPE_1" name="TYPE" required>Index</label>
                             <label class="radio-inline" for="TYPE_2">
                                 <input type="radio" value="DTA" id="TYPE_2" name="TYPE" >DTA</label>
                                 <label class="radio-inline" for="TYPE_3">
@@ -291,7 +284,7 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3">Cover</label>
                     <div class="controls col-sm-9">
                         <label class="radio-inline" for="SIC_SELECTED_3">
-                            <input type="radio" value="Life" id="SIC_SELECTED_3" name="COVER">Life</label>
+                            <input type="radio" value="Life" id="SIC_SELECTED_3" name="COVER" required>Life</label>
                             <label class="radio-inline" for="SIC_SELECTED_1">
                                 <input type="radio" value="Life or SIC" id="SIC_SELECTED_1" name="COVER">Life or SIC</label>
                         <label class="radio-inline" for="SIC_SELECTED_2">
@@ -304,18 +297,26 @@ if (isset($EXECUTE)) {
             if ($(this).is(":checked")) {
                 $("#sic_type_div").show();
                 $("#sic_opt_div").show();
+                 $("#SIC_COVER_AMOUNT").show();
+                $("#SIC_TERM").show();                 
             } else {
                 $("#sic_type_div").hide();
                 $("#sic_opt_div").hide();
+                $("#SIC_COVER_AMOUNT").hide();
+                $("#SIC_TERM").hide();                
             }
         });
         $("#SIC_SELECTED_2").click(function () {
             if ($(this).is(":checked")) {
                 $("#sic_type_div").show();
                 $("#sic_opt_div").show();
+                 $("#SIC_COVER_AMOUNT").show();
+                $("#SIC_TERM").show();               
             } else {
                 $("#sic_type_div").hide();
                 $("#sic_opt_div").hide();
+                 $("#SIC_COVER_AMOUNT").hide();
+                $("#SIC_TERM").hide();                 
             }
         });        
     });</script>                  
@@ -347,7 +348,7 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3">Term Prem<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
                         <label class="radio-inline" for="TERM_PREM_1">
-                            <input type="radio" value="No opt" id="TERM_PREM_1" name="WELLNESS_OPT" >No opt</label>
+                            <input type="radio" value="No opt" id="TERM_PREM_1" name="WELLNESS_OPT" required>No opt</label>
                             <label class="radio-inline" for="TERM_PREM_2">
                                 <input type="radio" value="Wellness opt" name="WELLNESS_OPT" id="TERM_PREM_2" >Wellness opt</label>
                     </div>
@@ -381,14 +382,14 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="PREMIUM">Premium<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <input id="PREMIUM" name="PREMIUM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <input id="PREMIUM" name="PREMIUM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                     </div>
                 </div>              
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="COMMS_TYPE">Comm Type<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <select id="COMMS_TYPE" name="COMMS_TYPE" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <select id="COMMS_TYPE" name="COMMS_TYPE" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                             <option value=""></option>
                             <option value="Indemnity">Indemnity</option>
                             <option value="Non Indemnity">Non-Indem</option>
@@ -399,35 +400,49 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="COMM">Comms</label>
                     <div class="controls col-sm-5">
-                        <input id="COMM" name="COMM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <input id="COMM" name="COMM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                     </div>
                 </div>                
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="NON_INDEM_COMM">Non-Idem Comm</label>
                     <div class="controls col-sm-5">
-                        <input id="NON_INDEM_COMM" name="NON_INDEM_COMM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <input id="NON_INDEM_COMM" name="NON_INDEM_COMM" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                     </div>
                 </div>
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="COVER">Cover Amount</label>
                     <div class="controls col-sm-5">
-                        <input id="COVER_AMOUNT" name="COVER_AMOUNT" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <input id="COVER_AMOUNT" name="COVER_AMOUNT" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                     </div>
                 </div>
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="TERM">Policy Term</label>
                     <div class="controls col-sm-5">
-                        <input id="TERM" name="TERM" value="" type="text" class="form-control k-input" data-role="numeric" data-format="integer" role="spinbutton" aria-valuenow="" aria-disabled="false" aria-readonly="false">
+                        <input id="TERM" name="TERM" value="" type="text" class="form-control k-input" data-role="numeric" data-format="integer" role="spinbutton" aria-valuenow="" aria-disabled="false" aria-readonly="false" required>
                     </div>
                 </div>
+                
+                <div class="form-group" style="display: none;" id="SIC_COVER_AMOUNT">
+                    <label class="control-label control-label-left col-sm-4" for="SIC_COVER_AMOUNT">SIC Cover Amount</label>
+                    <div class="controls col-sm-5">
+                        <input id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="display: none;" id="SIC_TERM">
+                    <label class="control-label control-label-left col-sm-4" for="SIC_TERM">SIC Policy Term</label>
+                    <div class="controls col-sm-5">
+                        <input id="SIC_TERM" name="SIC_TERM" value="" type="text" class="form-control k-input" data-role="numeric" data-format="integer" role="spinbutton" aria-valuenow="" aria-disabled="false" aria-readonly="false">
+                    </div>
+                </div>                
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="CB_TERM">Clawback Term<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <select id="CB_TERM" class="form-control"  selected="selected" name="CB_TERM">
+                        <select id="CB_TERM" class="form-control"  selected="selected" name="CB_TERM" required>
                             <option value=""></option>
                                                     <?php for ($CB_TERM = 52; $CB_TERM > 11; $CB_TERM = $CB_TERM - 1) {
                                                             if($CB_TERM< 12) {
@@ -449,14 +464,14 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="DRIP">Drip<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <input id="DRIP" name="DRIP" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1">
+                        <input id="DRIP" name="DRIP" value="0" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency premium value1" required>
                     </div>
                 </div>
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="CLOSER">Closer<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <input id="CLOSER" name="CLOSER" type="text" class="form-control k-textbox" data-role="text" >
+                        <input id="CLOSER" name="CLOSER" type="text" class="form-control k-textbox" data-role="text" required>
                     </div>
                 </div>
                 
@@ -476,7 +491,7 @@ if (isset($EXECUTE)) {
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="AGENT">Agent<span class="req"> *</span></label>
                     <div class="controls col-sm-5">
-                        <input id="AGENT" name="AGENT" type="text" class="form-control k-textbox" data-role="text" >
+                        <input id="AGENT" name="AGENT" type="text" class="form-control k-textbox" data-role="text" required>
                     </div>
                 </div>
             
@@ -497,7 +512,7 @@ if (isset($EXECUTE)) {
                 <div class="form-group alert alert-info" style="display: block;">
                     <label class="control-label control-label-left col-sm-3" for="SALE_DATE">Sale Date<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                                <input id="SALE_DATE" name="SALE_DATE" value="<?php echo date('Y-m-d H:i:s'); ?>" type="text" class="form-control k-input" data-role="date" role="textbox" aria-haspopup="true" aria-expanded="false" aria-owns="field29_dateview" style="width: 100%;" aria-disabled="false" aria-readonly="false" >
+                                <input id="SALE_DATE" name="SALE_DATE" value="<?php echo date('Y-m-d H:i:s'); ?>" type="text" class="form-control k-input" data-role="date" role="textbox" aria-haspopup="true" aria-expanded="false" aria-owns="field29_dateview" style="width: 100%;" aria-disabled="false" aria-readonly="false" required>
                                 <span class="help-block"><strong>This is the sale date on the deal sheet.</strong></span>
                     </div>
                 </div>
@@ -506,7 +521,7 @@ if (isset($EXECUTE)) {
                     <label class="control-label control-label-left col-sm-3" for="SUB_DATE">Submitted Date<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
                             <span class="k-picker-wrap k-state-default">
-                                <input id="SUB_DATE" name="SUB_DATE" value="<?php echo date('Y-m-d H:i:s'); ?>" type="text" class="form-control k-input" data-role="date" role="textbox" aria-haspopup="true" aria-expanded="false" aria-owns="field30_dateview" style="width: 100%;" aria-disabled="false" aria-readonly="false" >
+                                <input id="SUB_DATE" name="SUB_DATE" value="<?php echo date('Y-m-d H:i:s'); ?>" type="text" class="form-control k-input" data-role="date" role="textbox" aria-haspopup="true" aria-expanded="false" aria-owns="field30_dateview" style="width: 100%;" aria-disabled="false" aria-readonly="false" required>
                                     <span class="help-block"><strong>This is the policy live date on the insurers portal.</strong></span>
                     </div>
                 </div>
@@ -514,7 +529,7 @@ if (isset($EXECUTE)) {
                 <div class="form-group alert alert-info" style="display: block;">
                     <label class="control-label control-label-left col-sm-3" for="POLICY_STATUS">Policy Status<span class="req"> *</span></label>
                     <div class="controls col-sm-9">
-                        <select id="POLICY_STATUS" class="form-control"  selected="selected" name="POLICY_STATUS">
+                        <select id="POLICY_STATUS" class="form-control"  selected="selected" name="POLICY_STATUS" required>
                             <option value=""></option>
                             <option value="Live">Live</option>
                             <option value="Awaiting">Awaiting</option>

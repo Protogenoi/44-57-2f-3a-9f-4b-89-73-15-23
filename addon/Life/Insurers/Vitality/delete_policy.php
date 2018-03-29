@@ -131,7 +131,9 @@ if (isset($EXECUTE)) {
     vitality_policy_kids_sic_name,
     vitality_policy_kids_sic_dob,
     vitality_policy_kids_sic_amount,
-    vitality_policy_kids_sic_opt
+    vitality_policy_kids_sic_opt,
+    vitality_policy_sic_policy_term,
+    vitality_policy_sic_cover_amount
 FROM
     adl_policy
         JOIN
@@ -356,6 +358,20 @@ WHERE
                         <input readonly value="<?php if(isset($data2['vitality_policy_policy_term'])) { echo $data2['vitality_policy_policy_term'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
                     </div>
                 </div> 
+                
+                <div class="form-group" style="display: block;">
+                    <label class="control-label control-label-left col-sm-3" for="SIC_COVER_AMOUNT">Cover</label>
+                    <div class="controls col-sm-9">
+                        <input readonly value="<?php if(isset($data2['vitality_policy_sic_cover_amount'])) { echo $data2['vitality_policy_cover_amount'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
+                    </div>
+                </div> 
+                
+                 <div class="form-group" style="display: block;">
+                    <label class="control-label control-label-left col-sm-3" for="SIC_TERM">Policy Term</label>
+                    <div class="controls col-sm-9">
+                        <input readonly value="<?php if(isset($data2['vitality_policy_sic_policy_term'])) { echo $data2['vitality_policy_policy_term'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
+                    </div>
+                </div>                
                 
                  <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-3" for="CB_TERM">Clawback Term</label>

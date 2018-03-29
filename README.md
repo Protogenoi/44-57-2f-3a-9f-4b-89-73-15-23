@@ -43,6 +43,8 @@ ADL CRM makes use of the following third party open source software/tools:
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
+
 
 Further acknowledgments to individuals;
 

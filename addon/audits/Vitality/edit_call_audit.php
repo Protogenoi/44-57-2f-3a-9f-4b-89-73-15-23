@@ -2164,6 +2164,11 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckO_C2();"
                                    value="0" id="noCheckO_C2">No
+ <input type="radio" name="O_Q2" 
+<?php if (isset($O_Q2) && $O_Q2 == "N/A") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckO_C2();"
+                                   value="N/A" id="yesCheckO_C2" required >N/A                            
                         </p>
 
                         <div id="ifYesO_C2" >
@@ -2200,6 +2205,11 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckO_C3();"
                                    value="0" id="noCheckO_C3">No
+                            <input type="radio" name="O_Q3" 
+<?php if (isset($O_Q3) && $O_Q3 == "N/A") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckO_C3();"
+                                   value="N/A" id="yesCheckO_C3" >N/A                            
                         </p>
 
                         <div id="ifYesO_C3" >

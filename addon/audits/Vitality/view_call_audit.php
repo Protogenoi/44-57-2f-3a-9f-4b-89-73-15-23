@@ -167,6 +167,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_cd10,
   adl_audit_vitality_owd1,
   adl_audit_vitality_owd2,
+  adl_audit_vitality_owd3,
   adl_audit_vitality_other1,
   adl_audit_vitality_other2,
   adl_audit_vitality_other3,
@@ -345,7 +346,13 @@ if(isset($AUDITID)) {
         
         $OWD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_owd2'];
         
-    }  
+    } 
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_owd3'])) {
+        
+        $OWD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_owd3'];
+        
+    }     
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_other1'])) {
         
@@ -604,6 +611,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_c_cd10,
   adl_audit_vitality_c_owd1,
   adl_audit_vitality_c_owd2,
+  adl_audit_vitality_c_owd3,
   adl_audit_vitality_c_other1,
   adl_audit_vitality_c_other2,
   adl_audit_vitality_c_other3
@@ -746,6 +754,12 @@ if(isset($AUDITID)) {
         $OWD_C2=$VIT_C_AUDIT['adl_audit_vitality_c_owd2'];
         
     }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_owd3'])) {
+        
+        $OWD_C3=$VIT_C_AUDIT['adl_audit_vitality_c_owd3'];
+        
+    }      
     
     if(isset($VIT_C_AUDIT['adl_audit_vitality_c_other1'])) {
         
@@ -1362,6 +1376,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
     <label for="O3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer works less than 16 hours per week?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "N/A") { echo "checked"; } } ?> >N/A
     
             <div class="phpcomments">
                 <?php if(isset($O_C3)) { echo $O_C3; } ?>
@@ -1416,7 +1431,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="L2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has taken any drugs in the last 10 years?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($L_Q2)) {  if ($L_Q2 == "2") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($L_Q2)) {  if ($L_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($L_Q2)) {  if ($L_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
@@ -1426,7 +1441,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="L3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has ever tested positive to HIV?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($L_Q3)) {  if ($L_Q3 == "3") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($L_Q3)) {  if ($L_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($L_Q3)) {  if ($L_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
@@ -1460,7 +1475,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 
 <p>
     <label for="H2">Q<?php $i++; echo $i; ?>. Did the closer ask all the "any condition in the last 5 years" health questions and did the closer record the answers correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($H_Q2)) {  if ($H_Q2 == "2") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q2)) {  if ($H_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($H_Q2)) {  if ($H_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">

@@ -160,6 +160,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_cd10,
   adl_audit_vitality_owd1,
   adl_audit_vitality_owd2,
+  adl_audit_vitality_owd3,
   adl_audit_vitality_other1,
   adl_audit_vitality_other2,
   adl_audit_vitality_other3,
@@ -339,6 +340,12 @@ if(isset($AUDITID)) {
         $OWD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_owd2'];
         
     }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_vitality_owd3'])) {
+        
+        $OWD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_owd3'];
+        
+    }      
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_other1'])) {
         
@@ -597,6 +604,7 @@ if(isset($AUDITID)) {
   adl_audit_vitality_c_cd10,
   adl_audit_vitality_c_owd1,
   adl_audit_vitality_c_owd2,
+  adl_audit_vitality_c_owd3,
   adl_audit_vitality_c_other1,
   adl_audit_vitality_c_other2,
   adl_audit_vitality_c_other3
@@ -739,6 +747,12 @@ if(isset($AUDITID)) {
         $OWD_C2=$VIT_C_AUDIT['adl_audit_vitality_c_owd2'];
         
     }  
+    
+    if(isset($VIT_C_AUDIT['adl_audit_vitality_c_owd3'])) {
+        
+        $OWD_C3=$VIT_C_AUDIT['adl_audit_vitality_c_owd3'];
+        
+    }      
     
     if(isset($VIT_C_AUDIT['adl_audit_vitality_c_other1'])) {
         
@@ -1937,6 +1951,44 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
                                 });
                             });
                         </script>
+
+     <p>
+                            <label for="OWD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer read the declaration?</label>
+                            <input type="radio" name="OWD_Q3" 
+<?php if (isset($OWD_Q3) && $OWD_Q3 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckOWD_C3();"
+                                   value="1" id="yesCheckOWD_C3" required >Yes
+                            <input type="radio" name="OWD_Q3"
+<?php if (isset($OWD_Q3) && $OWD_Q3 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckOWD_C3();"
+                                   value="0" id="noCheckOWD_C3">No
+                        </p>
+
+                        <div id="ifYesOWD_C3" >
+                            <textarea class="form-control"id="OWD_C3" name="OWD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OWD_C3)) { echo $OWD_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#OWD_C3').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>                        
+                        
                     </div>
                 </div>              
                 

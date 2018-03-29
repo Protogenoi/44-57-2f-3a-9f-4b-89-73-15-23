@@ -701,7 +701,7 @@ if(empty($HAS_RL_LEAD_AUDIT)) {
          
      }
      
-    $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitypolicy' and file like :search");
     $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();

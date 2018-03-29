@@ -121,7 +121,7 @@ $newDATE_TO="$DATE_TO 23:00:00";
 
 <div class="col-xs-2">
     <button name="submit" class="btn btn-success">Submit</button>
-    <a href="PolicyStatuses.php" class="btn btn-danger "><span class="glyphicon glyphicon-repeat"></span> Reset</a>
+    <a href="policy_statuses.php" class="btn btn-danger "><span class="glyphicon glyphicon-repeat"></span> Reset</a>
   </div>
 
 

@@ -1249,6 +1249,54 @@ $QUESTION_NUMBER=1;
                             }
 
                         </script>
+                        
+  <p>
+                            <label for="OWD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer read the declaration?</label>
+                            <input type="radio" name="OWD_Q3" 
+<?php if (isset($OWD_Q3) && $OWD_Q3 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckOWD_C3();"
+                                   value="1" id="yesCheckOWD_C3" required >Yes
+                            <input type="radio" name="OWD_Q3"
+<?php if (isset($OWD_Q3) && $OWD_Q3 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckOWD_C3();"
+                                   value="0" id="noCheckOWD_C3">No
+                        </p>
+
+                        <div id="ifYesOWD_C3" style="display:none">
+                            <textarea class="form-control"id="OWD_C3" name="OWD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#OWD_C3').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckOWD_C3() {
+                                if (document.getElementById('yesCheckOWD_C3').checked) {
+                                    document.getElementById('ifYesOWD_C3').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesOWD_C3').style.display = 'block';
+
+                            }
+
+                        </script>                        
 
                     </div>
                 </div>              

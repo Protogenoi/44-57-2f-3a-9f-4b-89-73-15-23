@@ -1291,6 +1291,16 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
                 <?php if(isset($OWD_C2)) { echo $OWD_C2; } ?>
             </div>     
 </p>
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer read the declaration?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($OWD_Q3)) {  if ($OWD_Q3 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($OWD_Q3)) {  if ($OWD_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($OWD_C3)) { echo $OWD_C3; } ?>
+            </div>     
+</p>
          
             
 <h3 class="panel-title">Other/existing cover</h3>   

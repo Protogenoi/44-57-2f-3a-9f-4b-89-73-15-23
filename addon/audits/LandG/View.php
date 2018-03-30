@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -72,13 +72,7 @@ if ($ffanalytics == '1') {
         }
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
-?><!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
--->
+?>
 <html>
     <html lang="en">
         <title>ADL | View Audit</title>

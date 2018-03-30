@@ -155,7 +155,7 @@ print("<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa
 
 <center>
     <div class="btn-group">
-        <a href="Audit_LeadGen.php" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> New Audit</a>
+        <a href="/addon/audits/Agent/call_audit.php" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> New Audit</a>
         <a href="auditor_menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> Closer Audits</a>
     </div>
 </center>

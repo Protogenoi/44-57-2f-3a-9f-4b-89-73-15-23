@@ -95,14 +95,9 @@ if ($ffaudits == '0') {
 
     $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
     $GRADE= filter_input(INPUT_GET, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
+    $INSURER= filter_input(INPUT_GET, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
--->
 <html lang="en">
     <title>ADL | Search Call Audits</title>
     <meta charset="UTF-8">
@@ -126,29 +121,29 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         if(isset($RETURN)) {
             if($RETURN=='EDIT'){
                 if($GRADE == 'Green') {
-                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> Vitality Audit Updated!</div>";
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> $INSURER Audit Updated!</div>";
                 
                 
             } elseif($GRADE == 'Red') {
-                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> Vitality Audit Updated!</div>";
+                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> $INSURER Audit Updated!</div>";
                 
             }
             elseif($GRADE == 'Amber') {
-                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> Vitality Audit Updated!</div>";
+                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> $INSURER Audit Updated!</div>";
                 
             }                
             }
             if($RETURN == 'ADDED') {
                 if($GRADE == 'Green') {
-                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> Vitality Audit Added!</div>";
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> $INSURER Audit Added!</div>";
                 
                 
             } elseif($GRADE == 'Red') {
-                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> Vitality Audit Added!</div>";
+                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> $INSURER Audit Added!</div>";
                 
             }
             elseif($GRADE == 'Amber') {
-                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> Vitality Audit Added!</div>";
+                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> $INSURER Audit Added!</div>";
                 
             }
         }
@@ -157,8 +152,8 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         
         <center>
         <div class="btn-group">
-            
-            <a href="/addon/audits/Vitality/call_audit.php" class="btn btn-default"><i class="fa fa-folder"></i> Vitality</a>
+            <a href="/addon/audits/Agent/call_audit.php" class="btn btn-default"><i class="fa fa-folder-o"></i> Agent Audit</a>
+            <a href="/addon/audits/Vitality/call_audit.php" class="btn btn-default"><i class="fa fa-folder"></i> Vitality Audit</a>
             
         </div>
         </center>
@@ -264,11 +259,11 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                     {"data": "adl_audits_grade"},
                     {"data": "adl_audits_id",
                         "render": function (data, type, full, meta) {
-                            return '<a href="/addon/audits/Vitality/edit_call_audit.php?AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
+                            return '<a href="/addon/audits/call_audit_route.php?EXECUTE=EDIT&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
                         }},
                     {"data": "adl_audits_id",
                         "render": function (data, type, full, meta) {
-                            return '<a href="/addon/audits/Vitality/view_call_audit.php?AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
+                            return '<a href="/addon/audits/call_audit_route.php?EXECUTE=VIEW&AUDITID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a></a>';
                         }}
                 ],
                 "order": [[1, 'desc']]

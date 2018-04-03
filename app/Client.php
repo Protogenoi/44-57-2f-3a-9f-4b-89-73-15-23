@@ -277,7 +277,20 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     $HAS_VIT_LEAD_AUDIT=1;
                                     $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
                                     
-                                }                             
+                                }   elseif($GET_VIT_LEAD_AUDIT->rowCount() <= 0) {  
+                                    
+                                $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_VIT_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_VIT_LEAD_AUDIT->execute();
+                                $GET_VIT_LEADrow = $GET_VIT_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_VIT_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_VIT_LEAD_AUDIT=1;
+                                    $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
+                                    
+                                }                                 
+                                    
+                                }                        
                         
                         }                        
 
@@ -315,7 +328,20 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     $HAS_LV_LEAD_AUDIT=1;
                                     $LV_leadaudit = $GET_LV_LEADrow['LEAD']; 
                                     
-                                }                            
+                                } elseif($GET_LV_LEAD_AUDIT->rowCount() <= 0) {  
+                                    
+                                $GET_LV_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_LV_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_LV_LEAD_AUDIT->execute();
+                                $GET_LV_LEADrow = $GET_LV_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_LV_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_LV_LEAD_AUDIT=1;
+                                    $LV_leadaudit = $GET_LV_LEADrow['LEAD']; 
+                                    
+                                }   
+                                
+                                }
                             
                         }                        
 
@@ -389,7 +415,20 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     $HAS_RL_LEAD_AUDIT=1;
                                     $RL_leadaudit = $GET_RL_LEADrow['LEAD']; 
                                     
-                                }                             
+                                }  elseif($GET_RL_LEAD_AUDIT->rowCount() <= 0) {  
+                                    
+                                $GET_RL_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_RL_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_RL_LEAD_AUDIT->execute();
+                                $GET_RL_LEADrow = $GET_RL_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_RL_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_RL_LEAD_AUDIT=1;
+                                    $RL_leadaudit = $GET_RL_LEADrow['LEAD']; 
+                                    
+                                } 
+                                
+                                }
                             
                             
                         }
@@ -399,6 +438,48 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         $Aviva_CHECK->execute();
                         if ($Aviva_CHECK->rowCount() > 0) {
                             $HAS_AVI_POL='1';
+                            
+                            $GET_AVI_AN = $pdo->prepare("select policy_number from client_policy where client_id=:CID AND insurer='Aviva'");
+                            $GET_AVI_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_AVI_AN->execute();
+                            $GET_AVI_row = $GET_AVI_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $AVI_POL_number = $GET_AVI_row['policy_number'];   
+                            
+                            $GET_AVI_CLOSER_AUDIT = $pdo->prepare("SELECT aviva_audit_id AS CLOSER FROM aviva_audit WHERE aviva_audit_policy=:AN OR aviva_audit_policy=:PHONE");
+                            $GET_AVI_CLOSER_AUDIT->bindParam(':AN', $AVI_POL_number, PDO::PARAM_STR);
+                            $GET_AVI_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_AVI_CLOSER_AUDIT->execute();
+                            $GET_AVI_CLOSERrow = $GET_AVI_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_AVI_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_AVI_CLOSE_AUDIT=1;
+                                $AVI_closeraudit = $GET_AVI_CLOSERrow['CLOSER']; 
+                                }
+                                
+                                $GET_AVI_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
+                                $GET_AVI_LEAD_AUDIT->bindParam(':AN', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_AVI_LEAD_AUDIT->execute();
+                                $GET_AVI_LEADrow = $GET_AVI_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);
+                                
+                                if ($GET_AVI_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_AVI_LEAD_AUDIT=1;
+                                    $AVI_leadaudit = $GET_AVI_LEADrow['LEAD']; 
+                                    
+                                }  elseif($GET_AVI_LEAD_AUDIT->rowCount() <= 0) {  
+                                    
+                                $GET_AVI_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_AVI_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_AVI_LEAD_AUDIT->execute();
+                                $GET_AVI_LEADrow = $GET_AVI_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_AVI_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_AVI_LEAD_AUDIT=1;
+                                    $AVI_leadaudit = $GET_AVI_LEADrow['LEAD']; 
+                                    
+                                } 
+                                
+                                }                            
                             
                         }
                         

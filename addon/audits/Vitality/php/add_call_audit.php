@@ -74,7 +74,7 @@ if ($ffanalytics == '1') {
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
 
 if (isset($EXECUTE)) {
-    if($EXECUTE=="1") {
+    if($EXECUTE== 1 ) {
         
     $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
     $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -83,30 +83,6 @@ if (isset($EXECUTE)) {
     
     $INSURER='Vitality';
     
-    $GRADE_ARRAY=array("Red","Amber","Green","Saved");
-    
-    if(isset($GRADE) && !in_array($GRADE,$GRADE_ARRAY)) {
-        $GRADE="Saved";
-    } 
-    
-    $VITALITY_AUDIT_QRY = $pdo->prepare("INSERT INTO 
-                                            adl_audits
-                                        SET 
-                                            adl_audits_auditor=:HELLO,
-                                            adl_audits_grade=:GRADE, 
-                                            adl_audits_closer=:CLOSER, 
-                                            adl_audits_agent=:AGENT, 
-                                            adl_audits_ref=:PLAN,
-                                            adl_audits_insurer=:INSURER");
-    $VITALITY_AUDIT_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->bindParam(':GRADE', $GRADE, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->bindParam(':CLOSER', $CLOSER, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->bindParam(':AGENT', $AGENT, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->bindParam(':PLAN', $REFERENCE, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->bindParam(':INSURER', $INSURER, PDO::PARAM_STR, 100);
-    $VITALITY_AUDIT_QRY->execute()or die(print_r($VITALITY_AUDIT_QRY->errorInfo(), true));
-    $LAST_AUDITID = $pdo->lastInsertId();  
-        
     $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q3 = filter_input(INPUT_POST, 'OD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -178,9 +154,111 @@ if (isset($EXECUTE)) {
     $QC_Q4 = filter_input(INPUT_POST, 'QC_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
     $QC_Q5 = filter_input(INPUT_POST, 'QC_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
     $QC_Q6 = filter_input(INPUT_POST, 'QC_Q6', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_Q7 = filter_input(INPUT_POST, 'QC_Q7', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $QC_Q7 = filter_input(INPUT_POST, 'QC_Q7', FILTER_SANITIZE_SPECIAL_CHARS);  
     
-     $VITALITY_QUES_QRY = $pdo->prepare("INSERT INTO 
+    $OD_C1 = filter_input(INPUT_POST, 'OD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C2 = filter_input(INPUT_POST, 'OD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C3 = filter_input(INPUT_POST, 'OD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C4 = filter_input(INPUT_POST, 'OD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C5 = filter_input(INPUT_POST, 'OD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $ICN_C1 = filter_input(INPUT_POST, 'ICN_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C3 = filter_input(INPUT_POST, 'ICN_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C5 = filter_input(INPUT_POST, 'ICN_C5', FILTER_SANITIZE_SPECIAL_CHARS);      
+    
+    $CD_C1 = filter_input(INPUT_POST, 'CD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C2 = filter_input(INPUT_POST, 'CD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C3 = filter_input(INPUT_POST, 'CD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C4 = filter_input(INPUT_POST, 'CD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C5 = filter_input(INPUT_POST, 'CD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C6 = filter_input(INPUT_POST, 'CD_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C7 = filter_input(INPUT_POST, 'CD_C7', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C8 = filter_input(INPUT_POST, 'CD_C8', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C9 = filter_input(INPUT_POST, 'CD_C9', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C10 = filter_input(INPUT_POST, 'CD_C10', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $OWD_C1 = filter_input(INPUT_POST, 'OWD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OWD_C2 = filter_input(INPUT_POST, 'OWD_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $OWD_C3 = filter_input(INPUT_POST, 'OWD_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $OTHER_C1 = filter_input(INPUT_POST, 'OTHER_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OTHER_C2 = filter_input(INPUT_POST, 'OTHER_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OTHER_C3 = filter_input(INPUT_POST, 'OTHER_C3', FILTER_SANITIZE_SPECIAL_CHARS);   
+    
+$O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $O_C2 = filter_input(INPUT_POST, 'O_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $O_C3 = filter_input(INPUT_POST, 'O_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $T_C1 = filter_input(INPUT_POST, 'T_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $T_C2 = filter_input(INPUT_POST, 'T_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $HAZ_C1 = filter_input(INPUT_POST, 'HAZ_C1', FILTER_SANITIZE_SPECIAL_CHARS);    
+    
+    $L_C1 = filter_input(INPUT_POST, 'L_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $L_C2 = filter_input(INPUT_POST, 'L_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $L_C3 = filter_input(INPUT_POST, 'L_C3', FILTER_SANITIZE_SPECIAL_CHARS);  
+    
+    $FAM_C1 = filter_input(INPUT_POST, 'FAM_C1', FILTER_SANITIZE_SPECIAL_CHARS);    
+    
+    $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C3 = filter_input(INPUT_POST, 'BD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C4 = filter_input(INPUT_POST, 'BD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C5 = filter_input(INPUT_POST, 'BD_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $DEC_C1 = filter_input(INPUT_POST, 'DEC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C2 = filter_input(INPUT_POST, 'DEC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C3 = filter_input(INPUT_POST, 'DEC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C4 = filter_input(INPUT_POST, 'DEC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C5 = filter_input(INPUT_POST, 'DEC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C6 = filter_input(INPUT_POST, 'DEC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C7 = filter_input(INPUT_POST, 'DEC_C7', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $QC_C1 = filter_input(INPUT_POST, 'QC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C2 = filter_input(INPUT_POST, 'QC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C3 = filter_input(INPUT_POST, 'QC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C4 = filter_input(INPUT_POST, 'QC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C5 = filter_input(INPUT_POST, 'QC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C6 = filter_input(INPUT_POST, 'QC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C7 = filter_input(INPUT_POST, 'QC_C7', FILTER_SANITIZE_SPECIAL_CHARS);    
+    
+    $GRADE_ARRAY=array("Red","Amber","Green","Saved");
+    
+    if(isset($GRADE) && !in_array($GRADE,$GRADE_ARRAY)) {
+        $GRADE="Saved";
+    } 
+    
+        $database = new Database(); 
+        $database->beginTransaction();
+        
+            $database->query("INSERT INTO 
+                                            adl_audits
+                                        SET 
+                                            adl_audits_auditor=:HELLO,
+                                            adl_audits_grade=:GRADE, 
+                                            adl_audits_closer=:CLOSER, 
+                                            adl_audits_agent=:AGENT, 
+                                            adl_audits_ref=:PLAN,
+                                            adl_audits_insurer=:INSURER");
+            $database->bind(':HELLO', $hello_name);
+            $database->bind(':GRADE', $GRADE);
+            $database->bind(':CLOSER', $CLOSER);
+            $database->bind(':AGENT',$AGENT);
+            $database->bind(':PLAN',$REFERENCE);
+            $database->bind(':INSURER',$INSURER);
+            $database->execute();
+            $LAST_AUDITID =  $database->lastInsertId();
+            
+            if ($database->rowCount()>=0) { 
+                
+            $database->query("INSERT INTO 
                                             adl_audit_vitality
                                         SET 
   adl_audit_vitality_id_fk=:ID,
@@ -244,103 +322,71 @@ if (isset($EXECUTE)) {
   adl_audit_vitality_qc5=:QC5,
   adl_audit_vitality_qc6=:QC6,
   adl_audit_vitality_qc7=:QC7");
-    $VITALITY_QUES_QRY->bindParam(':ID', $LAST_AUDITID, PDO::PARAM_INT);
-    $VITALITY_QUES_QRY->bindParam(':REF', $REFERENCE, PDO::PARAM_INT);
-    $VITALITY_QUES_QRY->bindParam(':OD1', $OD_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OD2', $OD_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OD3', $OD_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OD4', $OD_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OD5', $OD_Q5, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':ICN1', $ICN_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':ICN2', $ICN_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':ICN3', $ICN_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':ICN4', $ICN_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':ICN5', $ICN_Q5, PDO::PARAM_STR);  
-    $VITALITY_QUES_QRY->bindParam(':CD1', $CD_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD2', $CD_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD3', $CD_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD4', $CD_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD5', $CD_Q5, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD6', $CD_Q6, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD7', $CD_Q7, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD8', $CD_Q8, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD9', $CD_Q9, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':CD10', $CD_Q10, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OWD1', $OWD_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OWD2', $OWD_Q2, PDO::PARAM_STR); 
-    $VITALITY_QUES_QRY->bindParam(':OWD3', $OWD_Q3, PDO::PARAM_STR); 
-    $VITALITY_QUES_QRY->bindParam(':OTHER1', $OTHER_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OTHER2', $OTHER_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':OTHER3', $OTHER_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':O1', $O_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':O2', $O_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':O3', $O_Q3, PDO::PARAM_STR);   
-    $VITALITY_QUES_QRY->bindParam(':T1', $T_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':T2', $T_Q2, PDO::PARAM_STR);   
-    $VITALITY_QUES_QRY->bindParam(':HAZ1', $HAZ_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':L1', $L_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':L2', $L_Q2, PDO::PARAM_STR);   
-    $VITALITY_QUES_QRY->bindParam(':L3', $L_Q3, PDO::PARAM_STR);  
-    $VITALITY_QUES_QRY->bindParam(':FAM1', $FAM_Q1, PDO::PARAM_STR);  
-    $VITALITY_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':H4', $H_Q4, PDO::PARAM_STR);    
-    $VITALITY_QUES_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':BD4', $BD_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':BD5', $BD_Q5, PDO::PARAM_STR);   
-    $VITALITY_QUES_QRY->bindParam(':DEC1', $DEC_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC2', $DEC_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC3', $DEC_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC4', $DEC_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC5', $DEC_Q5, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC6', $DEC_Q6, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':DEC7', $DEC_Q7, PDO::PARAM_STR); 
-    $VITALITY_QUES_QRY->bindParam(':QC1', $QC_Q1, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC2', $QC_Q2, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC3', $QC_Q3, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC4', $QC_Q4, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC5', $QC_Q5, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC6', $QC_Q6, PDO::PARAM_STR);
-    $VITALITY_QUES_QRY->bindParam(':QC7', $QC_Q7, PDO::PARAM_STR);    
-    $VITALITY_QUES_QRY->execute()or die(print_r($VITALITY_QUES_QRY->errorInfo(), true)); 
-    $LAST_AUDITID_TWO = $pdo->lastInsertId();  
-
-    $OD_C1 = filter_input(INPUT_POST, 'OD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OD_C2 = filter_input(INPUT_POST, 'OD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OD_C3 = filter_input(INPUT_POST, 'OD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OD_C4 = filter_input(INPUT_POST, 'OD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OD_C5 = filter_input(INPUT_POST, 'OD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $database->bind(':ID', $LAST_AUDITID);
+    $database->bind(':REF', $REFERENCE);
+    $database->bind(':OD1', $OD_Q1);
+    $database->bind(':OD2', $OD_Q2);
+    $database->bind(':OD3', $OD_Q3);
+    $database->bind(':OD4', $OD_Q4);
+    $database->bind(':OD5', $OD_Q5);
+    $database->bind(':ICN1', $ICN_Q1);
+    $database->bind(':ICN2', $ICN_Q2);
+    $database->bind(':ICN3', $ICN_Q3);
+    $database->bind(':ICN4', $ICN_Q4);
+    $database->bind(':ICN5', $ICN_Q5);  
+    $database->bind(':CD1', $CD_Q1);
+    $database->bind(':CD2', $CD_Q2);
+    $database->bind(':CD3', $CD_Q3);
+    $database->bind(':CD4', $CD_Q4);
+    $database->bind(':CD5', $CD_Q5);
+    $database->bind(':CD6', $CD_Q6);
+    $database->bind(':CD7', $CD_Q7);
+    $database->bind(':CD8', $CD_Q8);
+    $database->bind(':CD9', $CD_Q9);
+    $database->bind(':CD10', $CD_Q10);
+    $database->bind(':OWD1', $OWD_Q1);
+    $database->bind(':OWD2', $OWD_Q2); 
+    $database->bind(':OWD3', $OWD_Q3); 
+    $database->bind(':OTHER1', $OTHER_Q1);
+    $database->bind(':OTHER2', $OTHER_Q2);
+    $database->bind(':OTHER3', $OTHER_Q3);
+    $database->bind(':O1', $O_Q1);
+    $database->bind(':O2', $O_Q2);
+    $database->bind(':O3', $O_Q3);   
+    $database->bind(':T1', $T_Q1);
+    $database->bind(':T2', $T_Q2);   
+    $database->bind(':HAZ1', $HAZ_Q1);
+    $database->bind(':L1', $L_Q1);
+    $database->bind(':L2', $L_Q2);   
+    $database->bind(':L3', $L_Q3);  
+    $database->bind(':FAM1', $FAM_Q1);  
+    $database->bind(':H1', $H_Q1);
+    $database->bind(':H2', $H_Q2);
+    $database->bind(':H3', $H_Q3);
+    $database->bind(':H4', $H_Q4);    
+    $database->bind(':BD1', $BD_Q1);
+    $database->bind(':BD2', $BD_Q2);
+    $database->bind(':BD3', $BD_Q3);
+    $database->bind(':BD4', $BD_Q4);
+    $database->bind(':BD5', $BD_Q5);   
+    $database->bind(':DEC1', $DEC_Q1);
+    $database->bind(':DEC2', $DEC_Q2);
+    $database->bind(':DEC3', $DEC_Q3);
+    $database->bind(':DEC4', $DEC_Q4);
+    $database->bind(':DEC5', $DEC_Q5);
+    $database->bind(':DEC6', $DEC_Q6);
+    $database->bind(':DEC7', $DEC_Q7); 
+    $database->bind(':QC1', $QC_Q1);
+    $database->bind(':QC2', $QC_Q2);
+    $database->bind(':QC3', $QC_Q3);
+    $database->bind(':QC4', $QC_Q4);
+    $database->bind(':QC5', $QC_Q5);
+    $database->bind(':QC6', $QC_Q6);
+    $database->bind(':QC7', $QC_Q7);
+    $database->execute();
+    $LAST_AUDITID_TWO =  $database->lastInsertId();   
     
-    $ICN_C1 = filter_input(INPUT_POST, 'ICN_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_C3 = filter_input(INPUT_POST, 'ICN_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_C5 = filter_input(INPUT_POST, 'ICN_C5', FILTER_SANITIZE_SPECIAL_CHARS);      
-    
-    $CD_C1 = filter_input(INPUT_POST, 'CD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C2 = filter_input(INPUT_POST, 'CD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C3 = filter_input(INPUT_POST, 'CD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C4 = filter_input(INPUT_POST, 'CD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C5 = filter_input(INPUT_POST, 'CD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C6 = filter_input(INPUT_POST, 'CD_C6', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C7 = filter_input(INPUT_POST, 'CD_C7', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C8 = filter_input(INPUT_POST, 'CD_C8', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C9 = filter_input(INPUT_POST, 'CD_C9', FILTER_SANITIZE_SPECIAL_CHARS);
-    $CD_C10 = filter_input(INPUT_POST, 'CD_C10', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    $OWD_C1 = filter_input(INPUT_POST, 'OWD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OWD_C2 = filter_input(INPUT_POST, 'OWD_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
-    $OWD_C3 = filter_input(INPUT_POST, 'OWD_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
-    
-    $OTHER_C1 = filter_input(INPUT_POST, 'OTHER_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OTHER_C2 = filter_input(INPUT_POST, 'OTHER_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $OTHER_C3 = filter_input(INPUT_POST, 'OTHER_C3', FILTER_SANITIZE_SPECIAL_CHARS);    
-    
-
-$VITALITY_COM_QRY = $pdo->prepare("INSERT INTO 
+            $database->query("INSERT INTO 
                                             adl_audit_vitality_c
                                         SET 
   adl_audit_vitality_c_id_fk=:FK,
@@ -370,78 +416,36 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
   adl_audit_vitality_c_other1=:OTHER1,
   adl_audit_vitality_c_other2=:OTHER2,
   adl_audit_vitality_c_other3=:OTHER3");
-    $VITALITY_COM_QRY->bindParam(':FK', $LAST_AUDITID_TWO, PDO::PARAM_INT);
-    $VITALITY_COM_QRY->bindParam(':OD1', $OD_C1, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OD2', $OD_C2, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OD3', $OD_C3, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OD4', $OD_C4, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OD5', $OD_C5, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':ICN1', $ICN_C1, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':ICN2', $ICN_C2, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':ICN3', $ICN_C3, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':ICN4', $ICN_C4, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':ICN5', $ICN_C5, PDO::PARAM_STR);  
-    $VITALITY_COM_QRY->bindParam(':CD1', $CD_C1, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD2', $CD_C2, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD3', $CD_C3, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD4', $CD_C4, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD5', $CD_C5, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD6', $CD_C6, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD7', $CD_C7, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD8', $CD_C8, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD9', $CD_C9, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':CD10', $CD_C10, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OWD1', $OWD_C1, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OWD2', $OWD_C2, PDO::PARAM_STR); 
-    $VITALITY_COM_QRY->bindParam(':OWD3', $OWD_C3, PDO::PARAM_STR); 
-    $VITALITY_COM_QRY->bindParam(':OTHER1', $OTHER_C1, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OTHER2', $OTHER_C2, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->bindParam(':OTHER3', $OTHER_C3, PDO::PARAM_STR);
-    $VITALITY_COM_QRY->execute()or die(print_r($VITALITY_COM_QRY->errorInfo(), true));  
-    
-    $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $O_C2 = filter_input(INPUT_POST, 'O_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $O_C3 = filter_input(INPUT_POST, 'O_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    $T_C1 = filter_input(INPUT_POST, 'T_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $T_C2 = filter_input(INPUT_POST, 'T_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
-    
-    $HAZ_C1 = filter_input(INPUT_POST, 'HAZ_C1', FILTER_SANITIZE_SPECIAL_CHARS);    
-    
-    $L_C1 = filter_input(INPUT_POST, 'L_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $L_C2 = filter_input(INPUT_POST, 'L_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $L_C3 = filter_input(INPUT_POST, 'L_C3', FILTER_SANITIZE_SPECIAL_CHARS);  
-    
-    $FAM_C1 = filter_input(INPUT_POST, 'FAM_C1', FILTER_SANITIZE_SPECIAL_CHARS);    
-    
-    $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
-    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
-    
-    $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $BD_C3 = filter_input(INPUT_POST, 'BD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $BD_C4 = filter_input(INPUT_POST, 'BD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $BD_C5 = filter_input(INPUT_POST, 'BD_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
-    
-    $DEC_C1 = filter_input(INPUT_POST, 'DEC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C2 = filter_input(INPUT_POST, 'DEC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C3 = filter_input(INPUT_POST, 'DEC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C4 = filter_input(INPUT_POST, 'DEC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C5 = filter_input(INPUT_POST, 'DEC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C6 = filter_input(INPUT_POST, 'DEC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
-    $DEC_C7 = filter_input(INPUT_POST, 'DEC_C7', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    $QC_C1 = filter_input(INPUT_POST, 'QC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C2 = filter_input(INPUT_POST, 'QC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C3 = filter_input(INPUT_POST, 'QC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C4 = filter_input(INPUT_POST, 'QC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C5 = filter_input(INPUT_POST, 'QC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C6 = filter_input(INPUT_POST, 'QC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C7 = filter_input(INPUT_POST, 'QC_C7', FILTER_SANITIZE_SPECIAL_CHARS);     
-    
-    $VITALITY_C_EXTRA_QRY = $pdo->prepare("INSERT INTO 
+    $database->bind(':FK', $LAST_AUDITID_TWO);
+    $database->bind(':OD1', $OD_C1);
+    $database->bind(':OD2', $OD_C2);
+    $database->bind(':OD3', $OD_C3);
+    $database->bind(':OD4', $OD_C4);
+    $database->bind(':OD5', $OD_C5);
+    $database->bind(':ICN1', $ICN_C1);
+    $database->bind(':ICN2', $ICN_C2);
+    $database->bind(':ICN3', $ICN_C3);
+    $database->bind(':ICN4', $ICN_C4);
+    $database->bind(':ICN5', $ICN_C5);  
+    $database->bind(':CD1', $CD_C1);
+    $database->bind(':CD2', $CD_C2);
+    $database->bind(':CD3', $CD_C3);
+    $database->bind(':CD4', $CD_C4);
+    $database->bind(':CD5', $CD_C5);
+    $database->bind(':CD6', $CD_C6);
+    $database->bind(':CD7', $CD_C7);
+    $database->bind(':CD8', $CD_C8);
+    $database->bind(':CD9', $CD_C9);
+    $database->bind(':CD10', $CD_C10);
+    $database->bind(':OWD1', $OWD_C1);
+    $database->bind(':OWD2', $OWD_C2); 
+    $database->bind(':OWD3', $OWD_C3); 
+    $database->bind(':OTHER1', $OTHER_C1);
+    $database->bind(':OTHER2', $OTHER_C2);
+    $database->bind(':OTHER3', $OTHER_C3);
+            $database->execute();    
+            
+            $database->query("INSERT INTO 
                                             adl_audit_vitality_ce
                                         SET 
   adl_audit_vitality_ce_id_fk =:FK,
@@ -478,44 +482,49 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
   adl_audit_vitality_ce_qc5=:QC5,
   adl_audit_vitality_ce_qc6=:QC6,
   adl_audit_vitality_ce_qc7=:QC7");
-  $VITALITY_C_EXTRA_QRY->bindParam(':FK', $LAST_AUDITID_TWO, PDO::PARAM_INT);
-  $VITALITY_C_EXTRA_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':O3', $O_C3, PDO::PARAM_STR);   
-  $VITALITY_C_EXTRA_QRY->bindParam(':T1', $T_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':T2', $T_C2, PDO::PARAM_STR);   
-  $VITALITY_C_EXTRA_QRY->bindParam(':HAZ1', $HAZ_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':L1', $L_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':L2', $L_C2, PDO::PARAM_STR);   
-  $VITALITY_C_EXTRA_QRY->bindParam(':L3', $L_C3, PDO::PARAM_STR);  
-  $VITALITY_C_EXTRA_QRY->bindParam(':FAM1', $FAM_C1, PDO::PARAM_STR);  
-  $VITALITY_C_EXTRA_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR); 
-  $VITALITY_C_EXTRA_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR); 
-  $VITALITY_C_EXTRA_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':BD4', $BD_C4, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':BD5', $BD_C5, PDO::PARAM_STR);   
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC1', $DEC_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC2', $DEC_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC3', $DEC_C3, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC4', $DEC_C4, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC5', $DEC_C5, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC6', $DEC_C6, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':DEC7', $DEC_C7, PDO::PARAM_STR); 
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC1', $QC_C1, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC2', $QC_C2, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC3', $QC_C3, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC4', $QC_C4, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC5', $QC_C5, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC6', $QC_C6, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->bindParam(':QC7', $QC_C7, PDO::PARAM_STR);
-  $VITALITY_C_EXTRA_QRY->execute()or die(print_r($VITALITY_C_EXTRA_QRY->errorInfo(), true));     
+    $database->bind(':FK', $LAST_AUDITID_TWO);
+  $database->bind(':O1', $O_C1);
+  $database->bind(':O2', $O_C2);
+  $database->bind(':O3', $O_C3);   
+  $database->bind(':T1', $T_C1);
+  $database->bind(':T2', $T_C2);   
+  $database->bind(':HAZ1', $HAZ_C1);
+  $database->bind(':L1', $L_C1);
+  $database->bind(':L2', $L_C2);   
+  $database->bind(':L3', $L_C3);  
+  $database->bind(':FAM1', $FAM_C1);  
+  $database->bind(':H1', $H_C1);
+  $database->bind(':H2', $H_C2);
+  $database->bind(':H3', $H_C3); 
+  $database->bind(':H4', $H_C4); 
+  $database->bind(':BD1', $BD_C1);
+  $database->bind(':BD2', $BD_C2);
+  $database->bind(':BD3', $BD_C3);
+  $database->bind(':BD4', $BD_C4);
+  $database->bind(':BD5', $BD_C5);   
+  $database->bind(':DEC1', $DEC_C1);
+  $database->bind(':DEC2', $DEC_C2);
+  $database->bind(':DEC3', $DEC_C3);
+  $database->bind(':DEC4', $DEC_C4);
+  $database->bind(':DEC5', $DEC_C5);
+  $database->bind(':DEC6', $DEC_C6);
+  $database->bind(':DEC7', $DEC_C7); 
+  $database->bind(':QC1', $QC_C1);
+  $database->bind(':QC2', $QC_C2);
+  $database->bind(':QC3', $QC_C3);
+  $database->bind(':QC4', $QC_C4);
+  $database->bind(':QC5', $QC_C5);
+  $database->bind(':QC6', $QC_C6);
+  $database->bind(':QC7', $QC_C7);
+            $database->execute();            
+                
+            }        
+        
+        $database->endTransaction();
+
  
 
-    if ($LAST_AUDITID >= '1') {
+    if (isset($LAST_AUDITID) && isset($LAST_AUDITID_TWO)) {
         header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE.'&INSURER='.$INSURER);
         die;
     } else {

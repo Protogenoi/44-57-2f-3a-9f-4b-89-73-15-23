@@ -106,8 +106,6 @@ if (isset($EXECUTE)) {
     $VITALITY_AUDIT_QRY->bindParam(':INSURER', $INSURER, PDO::PARAM_STR, 100);
     $VITALITY_AUDIT_QRY->execute()or die(print_r($VITALITY_AUDIT_QRY->errorInfo(), true));
     $LAST_AUDITID = $pdo->lastInsertId();  
-    
-    if(isset($LAST_AUDITID)) {
         
     $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -308,7 +306,7 @@ if (isset($EXECUTE)) {
     $VITALITY_QUES_QRY->bindParam(':QC6', $QC_Q6, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':QC7', $QC_Q7, PDO::PARAM_STR);    
     $VITALITY_QUES_QRY->execute()or die(print_r($VITALITY_QUES_QRY->errorInfo(), true)); 
-    $LAST_AUDITID = $pdo->lastInsertId();  
+    $LAST_AUDITID_TWO = $pdo->lastInsertId();  
 
     $OD_C1 = filter_input(INPUT_POST, 'OD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_C2 = filter_input(INPUT_POST, 'OD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -372,7 +370,7 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
   adl_audit_vitality_c_other1=:OTHER1,
   adl_audit_vitality_c_other2=:OTHER2,
   adl_audit_vitality_c_other3=:OTHER3");
-    $VITALITY_COM_QRY->bindParam(':FK', $LAST_AUDITID, PDO::PARAM_INT);
+    $VITALITY_COM_QRY->bindParam(':FK', $LAST_AUDITID_TWO, PDO::PARAM_INT);
     $VITALITY_COM_QRY->bindParam(':OD1', $OD_C1, PDO::PARAM_STR);
     $VITALITY_COM_QRY->bindParam(':OD2', $OD_C2, PDO::PARAM_STR);
     $VITALITY_COM_QRY->bindParam(':OD3', $OD_C3, PDO::PARAM_STR);
@@ -480,7 +478,7 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
   adl_audit_vitality_ce_qc5=:QC5,
   adl_audit_vitality_ce_qc6=:QC6,
   adl_audit_vitality_ce_qc7=:QC7");
-  $VITALITY_C_EXTRA_QRY->bindParam(':FK', $LAST_AUDITID, PDO::PARAM_INT);
+  $VITALITY_C_EXTRA_QRY->bindParam(':FK', $LAST_AUDITID_TWO, PDO::PARAM_INT);
   $VITALITY_C_EXTRA_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':O3', $O_C3, PDO::PARAM_STR);   
@@ -514,14 +512,11 @@ $VITALITY_COM_QRY = $pdo->prepare("INSERT INTO
   $VITALITY_C_EXTRA_QRY->bindParam(':QC5', $QC_C5, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':QC6', $QC_C6, PDO::PARAM_STR);
   $VITALITY_C_EXTRA_QRY->bindParam(':QC7', $QC_C7, PDO::PARAM_STR);
-    $VITALITY_C_EXTRA_QRY->execute()or die(print_r($VITALITY_C_EXTRA_QRY->errorInfo(), true));     
-        
-    }
-    
+  $VITALITY_C_EXTRA_QRY->execute()or die(print_r($VITALITY_C_EXTRA_QRY->errorInfo(), true));     
  
 
     if ($LAST_AUDITID >= '1') {
-        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE);
+        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE.'&INSURER='.$INSURER);
         die;
     } else {
         header('Location: ../../search_audits.php?RETURN=AuditEditFailed&Error');

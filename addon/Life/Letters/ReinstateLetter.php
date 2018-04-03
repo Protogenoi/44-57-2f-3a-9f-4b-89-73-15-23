@@ -6,7 +6,7 @@ $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_n
 
 require_once(__DIR__ . '/../../../resources/lib/fpdf17/fpdf.php');
 require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
 
 if (isset($fferror)) {
     if ($fferror == '1') {
@@ -21,15 +21,6 @@ $clientone =filter_input(INPUT_GET, 'clientone', FILTER_SANITIZE_SPECIAL_CHARS);
 $clienttwo =filter_input(INPUT_GET, 'clienttwo', FILTER_SANITIZE_SPECIAL_CHARS);
 $joint =filter_input(INPUT_GET, 'joint', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$cnquery = $pdo->prepare("select company_name from company_details limit 1");
-                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
-                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-                            
-                            $companynamere=$companydetailsq['company_name'];
-                            
-                            if(isset($companynamere)) {
-                                if($companynamere=='Bluestone Protect') {
-
     $main = $pdo->prepare("SELECT company, CONCAT(title,' ',first_name,' ', last_name) AS NAME, CONCAT(title2,' ', first_name2,' ', last_name2) AS NAMET, address1, address2, address3, town, post_code FROM client_details WHERE client_id = :SEARCH");
     $main->bindParam(':SEARCH', $search, PDO::PARAM_STR, 12);
     $main->execute();
@@ -43,10 +34,6 @@ $cnquery = $pdo->prepare("select company_name from company_details limit 1");
     $TOWN=$data2['town'];
     $POSTCODE=$data2['post_code'];
     $COMPANY=$data2['company'];
-    
-    if($COMPANY=='The Review Bureau' || $COMPANY=='Bluestone Protect') {
-        $COMPANY='Legal and General';
-    }
     
     $TODAY = date("Y-m-d");
     
@@ -156,9 +143,9 @@ function WriteHTML($html)
 {
     $this->SetY(-15);
     $this->SetFont('Arial','I',8);
-    $this->Cell(0,10,'Bluestone Protect LTD. Registered in England and Wales with registered number 08519932.',0,0,'C');
+    $this->Cell(0,10,'First Priority Group LTD. Registered in England and Wales with registered number 09796173.',0,0,'C');
     $this->Ln( 5 );
-    $this->Cell(0,10,'Registered office: 4th Floor The Post House, Adelaide Street, SA1 1SB.',0,0,'C');
+    $this->Cell(0,10,'Registered office: 5 Prospect Place, Swansea, Wales, SA1 1QP.',0,0,'C');
     
     
 }
@@ -171,7 +158,7 @@ $html = '
 <br /><br><p>The first document is a Declaration of Reinstatement form; this must be completed to let '.$COMPANY.' know if you have developed any health conditions or lifestyle changes that may affect the terms of your cover.</p>
 <br /><br><p>I have also enclosed a direct debit mandate for you to complete so your direct debit can be reinstated. Once received '.$COMPANY.' will reinstate the direct debit and usually attempt a payment for any arrears in about 10-14 working days.</p>
 <br /><br><p>Please fill in these forms using block capitals and in blue or black ink and once fully completed please sign and return using the envelope enclosed.</p>
-<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 0330 010 0707.</p>
+<br /><br><p>If you have any queries please do not hesitate to contact our customer care team on 03300 100 035.</p>
 
 <br /><br>
 <br /><br>';
@@ -183,15 +170,15 @@ $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
 $pdf->SetMargins(30, 20 ,30);
 $pdf->SetFont('Times','',12);
-if(file_exists("../../../img/bluestone_protect_logo.png")){ 
-$pdf->Image('../../../img/bluestone_protect_logo.png',80,6,40);
+if(file_exists("../../../img/fpg_logo.png")){ 
+$pdf->Image('../../../img/fpg_logo.png',80,6,40);
 }
 else{
  $pdf->Cell("COMPANY LOGO",140,6,40);   
 }
 $pdf->Ln( 5 );
 
-$pdf->Cell(0,12,"Bluestone Protect", 0, 0,'R');
+$pdf->Cell(0,12,"First Priority Group", 0, 0,'R');
 $pdf->Ln( 5 );
 $pdf->Cell(0,12,"4th Floor The Post House", 0, 0,'R');
 $pdf->Ln( 5 );
@@ -302,18 +289,9 @@ if(isset($hello_name)) {
      
      }
 
-
-
-
-
 $pdf->Cell(0,12,"Many thanks", 0, 0,'L');
 $pdf->Ln( 10 );
 $pdf->Cell(0,12,"$hello_name_full", 0, 0,'L');
-
 $pdf->Output();
-
-        }
-        
-                            }
     
 ?>

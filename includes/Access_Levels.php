@@ -41,37 +41,37 @@ $TIMELOCK_ACCESS=array("Michael","Matt","Archiver");
 
 $ANYTIME_ACCESS=array("Archiver","Michael","Matt");
 $COM_MANAGER_ACCESS = array("Michmael");
-$COM_LVL_10_ACCESS = array("Michamel");
-$TRB_ACCESS= array("Michael","Matt","leighton","Nick");
+$COM_LVL_10_ACCESS = array("Bob Jones");
+$TRB_ACCESS= array("Michael","Matt");
     
     $COMPANY_ENTITY_ID="1";
     $COMPANY_ENTITY = 'Bluestone Protect';
     $COMPANY_ENTITY_LEAD_GENS="The Review Bureau";
     
-    $Level_10_Access = array("Michael", "Matt", "leighton", "Nick");
-    $Level_9_Access = array("Michael", "Matt", "leighton", "Nick", "carys");
-    $Level_8_Access = array("Nathan Thomas","Molly Grove","Michael", "Matt", "leighton", "Nick", "carys", "Tina", "Nicola","David Bebee","Ryan Tidbal","Lois Taylor","Martin Smith");
-    $Level_3_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
-    $Level_1_Access = array("Molly Grove","Nathan Thomas","Archiver","Michael", "Matt", "leighton", "Nick", "carys", "Jakob", "Nicola", "Tina","Ryan","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
+    $Level_10_Access = array("Michael", "Matt");
+    $Level_9_Access = array("Michael", "Matt");
+    $Level_8_Access = array("Michael", "Matt","Tina");
+    $Level_3_Access = array("Archiver","Michael", "Matt","Tina");
+    $Level_1_Access = array("Archiver","Michael", "Matt","Tina");
     
-    $Task_Access = array("Jakob","David Bebee");
+    $Task_Access = array("Bob Jones");
     
-    $SECRET = array("Michael", "carys", "Jakob", "Nicola", "Tina");
+    $SECRET = array("Michael");
     
     $Agent_Access = array("Bob Jones");
     $Closer_Access = array("Bob Jones");
-    $Manager_Access = array("Michael", "Matt", "leighton", "Nick", "carys", "Nicola","Ryan","Jakob","Christopher Griffiths");
+    $Manager_Access = array("Michael","Matt");
 
     $EWS_SEARCH_ACCESS=array("Bob Jones");
-    $ADMIN_EWS_SEARCH_ACCESS=array("carys","Nicola","Michael","Matt");
+    $ADMIN_EWS_SEARCH_ACCESS=array("Michael","Matt");
     $OLD_CLIENT_SEARCH=array("Bob Jones");
     
     ///Advanced Admin Search
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","leighton","Nick","Tina","Archiver","Nicola","Jakob","carys","Molly Grove","David Bebee","Richard Morgan");
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","Tina","Archiver");
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("carys","Jakob","Nicola","Michael","Nick","Tina","Matt","leighton","Molly Grove","David Bebee","Ryan Tidbal","Lois Taylor","Richard Morgan","Martin Smith");
+    $ADMIN_SEARCH_ACCESS=array("Michael","Tina","Matt");
     //View Dealsheets awaiting QA
-    $QA_Access = array("Michael","Nathan Thomas","carys", "Jakob", "Nicola", "Tina","Ryan","Molly Grove","Christopher Griffiths","David Bebee","Ryan Tidbal","Lois Taylor","Martin Smith");
+    $QA_Access = array("Michael","Tina");
     
-    $AUDIT_SEARCH_ACCESS=array("Molly Grove","Nathan Thomas","Ryan","Christopher Griffiths","Ryan Tidbal","Lois Taylor","Martin Smith");
+    $AUDIT_SEARCH_ACCESS=array("Bob Jones");
 ?>

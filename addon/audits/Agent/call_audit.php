@@ -141,12 +141,12 @@ function textAreaAdjust(o) {
     <div class="form-group">
   <label class="col-md-4 control-label" for="AGENT">Lead Gen</label>  
   <div class="col-md-4">
-      <input id="agents" name='AGENT' class='form-control' placeholder="AGENT" class="form-control input-md" type="text" required>
+      <input id="AGENT" name='AGENT' class='form-control' placeholder="AGENT" class="form-control input-md" type="text" required>
   </div>
 </div>
 
     <script>var options = {
-	url: "/../../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+	url: "/../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                 getValue: "full_name",
 
 	list: {

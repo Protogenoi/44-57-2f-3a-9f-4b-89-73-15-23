@@ -212,6 +212,8 @@ if(isset($AUDITID)) {
     $database->execute();
     $VIT_Q_AUDIT=$database->single();   
     
+    $SCORE = 0;
+    
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_id'])) {
         $AID_FK=$VIT_Q_AUDIT['adl_audit_vitality_id'];
     }
@@ -220,11 +222,20 @@ if(isset($AUDITID)) {
         
         $OD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_od1'];
         
+        if($OD_Q1 == "0") {
+            $SCORE ++;
+            
+        }
+        
     }  
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_od2'])) {
         
         $OD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_od2'];
+        
+        if($OD_Q2 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
@@ -232,11 +243,20 @@ if(isset($AUDITID)) {
         
         $OD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_od3'];
         
+        if($OD_Q3 == "0") {
+            $SCORE ++;
+        }        
+        
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_od4'])) {
         
         $OD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_od4'];
+        
+        if($OD_Q4 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
@@ -244,11 +264,19 @@ if(isset($AUDITID)) {
         
         $OD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_od5'];
         
+        if($OD_Q5 == "0") {
+            $SCORE ++;
+        }        
+        
     }    
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn1'])) {
         
         $ICN_Q1=$VIT_Q_AUDIT['adl_audit_vitality_icn1'];
+        
+        if($ICN_Q1 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
@@ -256,11 +284,19 @@ if(isset($AUDITID)) {
         
         $ICN_Q2=$VIT_Q_AUDIT['adl_audit_vitality_icn2'];
         
+        if($ICN_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn3'])) {
         
         $ICN_Q3=$VIT_Q_AUDIT['adl_audit_vitality_icn3'];
+        
+        if($ICN_Q3 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -268,11 +304,19 @@ if(isset($AUDITID)) {
         
         $ICN_Q4=$VIT_Q_AUDIT['adl_audit_vitality_icn4'];
         
+        if($ICN_Q4 == "Poor") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_icn5'])) {
         
         $ICN_Q5=$VIT_Q_AUDIT['adl_audit_vitality_icn5'];
+        
+        if($ICN_Q5 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -280,11 +324,19 @@ if(isset($AUDITID)) {
         
         $CD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_cd1'];
         
+        if($CD_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
     }  
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd2'])) {
         
         $CD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_cd2'];
+        
+        if($CD_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -292,11 +344,19 @@ if(isset($AUDITID)) {
         
         $CD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_cd3'];
         
+        if($CD_Q3 == "0") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd4'])) {
         
         $CD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_cd4'];
+        
+         if($CD_Q4 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
@@ -304,11 +364,19 @@ if(isset($AUDITID)) {
         
         $CD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_cd5'];
         
+        if($CD_Q5 == "0") {
+            $SCORE ++;
+        }         
+        
     }    
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd6'])) {
         
         $CD_Q6=$VIT_Q_AUDIT['adl_audit_vitality_cd6'];
+        
+         if($CD_Q6 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
@@ -316,11 +384,19 @@ if(isset($AUDITID)) {
         
         $CD_Q7=$VIT_Q_AUDIT['adl_audit_vitality_cd7'];
         
+        if($CD_Q7 == "0") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd8'])) {
         
         $CD_Q8=$VIT_Q_AUDIT['adl_audit_vitality_cd8'];
+        
+        if($CD_Q8 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -328,11 +404,19 @@ if(isset($AUDITID)) {
         
         $CD_Q9=$VIT_Q_AUDIT['adl_audit_vitality_cd9'];
         
+         if($CD_Q9 == "0") {
+            $SCORE ++;
+        }        
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_cd10'])) {
         
         $CD_Q10=$VIT_Q_AUDIT['adl_audit_vitality_cd10'];
+        
+        if($CD_Q10 == "0") {
+            $SCORE ++;
+        }         
         
     }    
     
@@ -340,11 +424,19 @@ if(isset($AUDITID)) {
         
         $OWD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_owd1'];
         
+        if($OWD_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
     }  
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_owd2'])) {
         
         $OWD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_owd2'];
+        
+        if($OWD_Q2 == "0") {
+            $SCORE ++;
+        }          
         
     } 
     
@@ -352,11 +444,19 @@ if(isset($AUDITID)) {
         
         $OWD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_owd3'];
         
+        if($OWD_Q3 == "0") {
+            $SCORE ++;
+        }          
+        
     }     
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_other1'])) {
         
         $OTHER_Q1=$VIT_Q_AUDIT['adl_audit_vitality_other1'];
+        
+         if($OTHER_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
@@ -364,35 +464,29 @@ if(isset($AUDITID)) {
         
         $OTHER_Q2=$VIT_Q_AUDIT['adl_audit_vitality_other2'];
         
+          if($OTHER_Q2 == "0") {
+            $SCORE ++;
+        }        
+        
     }
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_other3'])) {
         
         $OTHER_Q3=$VIT_Q_AUDIT['adl_audit_vitality_other3'];
         
-    }    
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o1'])) {
+          if($OTHER_Q3 == "0") {
+            $SCORE ++;
+        }        
         
-        $O_Q1=$VIT_Q_AUDIT['adl_audit_vitality_o1'];
-        
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o2'])) {
-        
-        $O_Q2=$VIT_Q_AUDIT['adl_audit_vitality_o2'];
-        
-    }
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_vitality_o3'])) {
-        
-        $O_Q3=$VIT_Q_AUDIT['adl_audit_vitality_o3'];
-        
-    }  
+    }      
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_t1'])) {
         
         $T_Q1=$VIT_Q_AUDIT['adl_audit_vitality_t1'];
+        
+         if($T_Q1 == "0") {
+            $SCORE ++;
+        }          
         
     }  
     
@@ -400,11 +494,19 @@ if(isset($AUDITID)) {
         
         $T_Q2=$VIT_Q_AUDIT['adl_audit_vitality_t2'];
         
+         if($T_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
     } 
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_haz1'])) {
         
         $HAZ_Q1=$VIT_Q_AUDIT['adl_audit_vitality_haz1'];
+        
+         if($HAZ_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }    
     
@@ -412,11 +514,19 @@ if(isset($AUDITID)) {
         
         $O_Q1=$VIT_Q_AUDIT['adl_audit_vitality_o1'];
         
+         if($O_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
     }  
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_o2'])) {
         
         $O_Q2=$VIT_Q_AUDIT['adl_audit_vitality_o2'];
+        
+         if($O_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
     
@@ -424,11 +534,19 @@ if(isset($AUDITID)) {
         
         $O_Q3=$VIT_Q_AUDIT['adl_audit_vitality_o3'];
         
+         if($O_Q3 == "0") {
+            $SCORE ++;
+        }         
+        
     }    
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_l1'])) {
         
         $L_Q1=$VIT_Q_AUDIT['adl_audit_vitality_l1'];
+        
+         if($L_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
@@ -436,11 +554,19 @@ if(isset($AUDITID)) {
         
         $L_Q2=$VIT_Q_AUDIT['adl_audit_vitality_l2'];
         
+         if($L_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
     }
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_l3'])) {
         
         $L_Q3=$VIT_Q_AUDIT['adl_audit_vitality_l3'];
+        
+         if($L_Q3 == "0") {
+            $SCORE ++;
+        }          
         
     }     
     
@@ -448,11 +574,19 @@ if(isset($AUDITID)) {
         
         $FAM_Q1=$VIT_Q_AUDIT['adl_audit_vitality_fam1'];
         
+         if($FAM_Q1 == "0") {
+            $SCORE ++;
+        }          
+        
     } 
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_h1'])) {
         
         $H_Q1=$VIT_Q_AUDIT['adl_audit_vitality_h1'];
+        
+         if($H_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
@@ -460,11 +594,19 @@ if(isset($AUDITID)) {
         
         $H_Q2=$VIT_Q_AUDIT['adl_audit_vitality_h2'];
         
+         if($H_Q2 == "0") {
+            $SCORE ++;
+        }        
+        
     }
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_h3'])) {
         
         $H_Q3=$VIT_Q_AUDIT['adl_audit_vitality_h3'];
+        
+         if($H_Q3 == "0") {
+            $SCORE ++;
+        }        
         
     } 
 
@@ -472,11 +614,19 @@ if(isset($AUDITID)) {
         
         $H_Q4=$VIT_Q_AUDIT['adl_audit_vitality_h4'];
         
+         if($H_Q4 == "0") {
+            $SCORE ++;
+        }        
+        
     }     
     
    if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd1'])) {
         
         $BD_Q1=$VIT_Q_AUDIT['adl_audit_vitality_bd1'];
+        
+         if($BD_Q1 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
@@ -484,11 +634,19 @@ if(isset($AUDITID)) {
         
         $BD_Q2=$VIT_Q_AUDIT['adl_audit_vitality_bd2'];
         
+         if($BD_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd3'])) {
         
         $BD_Q3=$VIT_Q_AUDIT['adl_audit_vitality_bd3'];
+        
+         if($BD_Q3 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -496,11 +654,19 @@ if(isset($AUDITID)) {
         
         $BD_Q4=$VIT_Q_AUDIT['adl_audit_vitality_bd4'];
         
+         if($BD_Q4 == "0") {
+            $SCORE ++;
+        }         
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_bd5'])) {
         
         $BD_Q5=$VIT_Q_AUDIT['adl_audit_vitality_bd5'];
+        
+         if($BD_Q5 == "0") {
+            $SCORE ++;
+        }         
         
     }    
     
@@ -508,11 +674,19 @@ if(isset($AUDITID)) {
         
         $DEC_Q1=$VIT_Q_AUDIT['adl_audit_vitality_dec1'];
         
+          if($DEC_Q1 == "0") {
+            $SCORE ++;
+        }        
+        
     }  
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec2'])) {
         
         $DEC_Q2=$VIT_Q_AUDIT['adl_audit_vitality_dec2'];
+        
+          if($DEC_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -520,11 +694,19 @@ if(isset($AUDITID)) {
         
         $DEC_Q3=$VIT_Q_AUDIT['adl_audit_vitality_dec3'];
         
+           if($DEC_Q3 == "0") {
+            $SCORE ++;
+        }        
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec4'])) {
         
         $DEC_Q4=$VIT_Q_AUDIT['adl_audit_vitality_dec4'];
+        
+          if($DEC_Q4 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
@@ -532,11 +714,19 @@ if(isset($AUDITID)) {
         
         $DEC_Q5=$VIT_Q_AUDIT['adl_audit_vitality_dec5'];
         
+           if($DEC_Q5 == "0") {
+            $SCORE ++;
+        }        
+        
     }   
     
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_dec6'])) {
         
         $DEC_Q6=$VIT_Q_AUDIT['adl_audit_vitality_dec6'];
+        
+          if($DEC_Q6 == "0") {
+            $SCORE ++;
+        }         
         
     } 
 
@@ -544,11 +734,19 @@ if(isset($AUDITID)) {
         
         $DEC_Q7=$VIT_Q_AUDIT['adl_audit_vitality_dec7'];
         
+          if($DEC_Q7 == "0") {
+            $SCORE ++;
+        }         
+        
     }     
     
    if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc1'])) {
         
         $QC_Q1=$VIT_Q_AUDIT['adl_audit_vitality_qc1'];
+        
+          if($QC_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
@@ -556,11 +754,19 @@ if(isset($AUDITID)) {
         
         $QC_Q2=$VIT_Q_AUDIT['adl_audit_vitality_qc2'];
         
+           if($QC_Q2 == "0") {
+            $SCORE ++;
+        }       
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc3'])) {
         
         $QC_Q3=$VIT_Q_AUDIT['adl_audit_vitality_qc3'];
+        
+          if($QC_Q3 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
@@ -568,11 +774,19 @@ if(isset($AUDITID)) {
         
         $QC_Q4=$VIT_Q_AUDIT['adl_audit_vitality_qc4'];
         
+           if($QC_Q4 == "0") {
+            $SCORE ++;
+        }       
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc5'])) {
         
         $QC_Q5=$VIT_Q_AUDIT['adl_audit_vitality_qc5'];
+        
+          if($QC_Q5 == "0") {
+            $SCORE ++;
+        }        
         
     }    
     
@@ -580,11 +794,19 @@ if(isset($AUDITID)) {
         
         $QC_Q6=$VIT_Q_AUDIT['adl_audit_vitality_qc6'];
         
+          if($QC_Q6 == "0") {
+            $SCORE ++;
+        }        
+        
     }
 
     if(isset($VIT_Q_AUDIT['adl_audit_vitality_qc7'])) {
         
         $QC_Q7=$VIT_Q_AUDIT['adl_audit_vitality_qc7'];
+        
+           if($QC_Q7 == "0") {
+            $SCORE ++;
+        }       
         
     }     
 
@@ -1020,6 +1242,10 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
     } 
     
     $database->endTransaction();  
+ 
+    $TOTAL= 59 - $SCORE;
+    
+    
     
 }
 ?>
@@ -1058,11 +1284,11 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
                         <?php
                         
                         if ($VIT_GRADE == 'Amber') {
-                            echo "<td style='background-color: #FF9900;' colspan=2><b>$VIT_GRADE</b></td>";
+                            echo "<td style='background-color: #FF9900;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
                         } else if ($VIT_GRADE == 'Green') {
-                            echo "<td style='background-color: #109618;' colspan=2><b>$VIT_GRADE</b></td>";
+                            echo "<td style='background-color: #109618;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
                         } else if ($VIT_GRADE == 'Red') {
-                            echo "<td style='background-color: #DC3912;' colspan=2><b>$VIT_GRADE</b></td>";
+                            echo "<td style='background-color: #DC3912;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
                         }
                         ?>
                     </tr>
@@ -1157,7 +1383,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 <div class="phpcomments"><?php if(isset($ICN_C1)) { echo $ICN_C1; } ?></div>
 
 <p>
-<label for="ICN2">Q<?php $i++; echo $i; ?>. Did the vitality_audit_closer mention waiver, indexation, or TPD?</label><br>
+<label for="ICN2">Q<?php $i++; echo $i; ?>. Did the closer mention waiver, indexation, or TPD?</label><br>
 <input type="radio" name="ICN2" <?php if (isset($ICN_Q2) && $ICN_Q2=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="1" id="yesCheckICN2">Yes
 <input type="radio" name="ICN2" <?php if (isset($ICN_Q2) && $ICN_Q2=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN2();" value="0" id="noCheckICN2"><label for="No">No</label>
 <input type="radio" name="ICN2" <?php if (isset($ICN_Q2) && $ICN_Q2=="N/A") { echo "checked"; } ?> value="N/A" >N/A
@@ -1166,7 +1392,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 <div class="phpcomments"><?php if(isset($ICN_C2)) { echo $ICN_C2; } ?></div>
 
 <p>
-<label for="ICN3">Q<?php $i++; echo $i; ?>. Did the vitality_audit_closer ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label><br>
+<label for="ICN3">Q<?php $i++; echo $i; ?>. Did the closer ensure that the client was provided with a policy that met their needs (more cover, cheaper premium etc...)?</label><br>
 <input type="radio" name="ICN3" <?php if (isset($ICN_Q3) && $ICN_Q3=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN3();" value="1" id="yesCheckICN3">Yes
 <input type="radio" name="ICN3" <?php if (isset($ICN_Q3) && $ICN_Q3=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN3();" value="0" id="noCheckICN3"><label for="No">No</label>
 </p>
@@ -1174,9 +1400,8 @@ if(isset($VIT_CE_AUDIT['adl_audit_vitality_ce_t1'])) {
 <div class="phpcomments"><?php if(isset($ICN_C3)) { echo $ICN_C3; } ?></div>
 
 <p>
-<label for="ICN4">Q<?php $i++; echo $i; ?>. Did The vitality_audit_closer provide the customer with a sufficient amount of features and benefits for the policy?</label><br>
+<label for="ICN4">Q<?php $i++; echo $i; ?>. Did The closer provide the customer with a sufficient amount of features and benefits for the policy?</label><br>
 <select class="form-control" name="ICN4">
-  <option value="0" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='0') { echo "selected"; } } ?>>Select...</option>
   <option value="1" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='More than sufficient') { echo "selected"; } } ?>>More than sufficient</option>
   <option value="2" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='Sufficient') { echo "selected"; } } ?>>Sufficient</option>
   <option value="3" <?php if(isset($ICN_Q4)) { if($ICN_Q4=='Adequate') { echo "selected"; } } ?>>Adequate</option>

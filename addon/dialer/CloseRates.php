@@ -131,10 +131,6 @@ ORDER BY Sales, Leads");
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0;
                             break;
-                        case("Gavin"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales + 0;
-                            break;
                         case("James"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales + 0;
@@ -149,10 +145,15 @@ ORDER BY Sales, Leads");
                             $SALES = $Sales - 0; 
                             $CLOSER_NAME = "Ryan";  
                             break;                        
-                        case("Martin Smith"):
+                        case("Molly Grove"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0; 
-                            $CLOSER_NAME = "Martin";                        
+                            $CLOSER_NAME = "Molly";  
+                            break;               
+                        case("David Bebee"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $CLOSER_NAME = "Bebee";                         
                         default:
                             $LEADS = $Leads;
                             $SALES = $Sales;
@@ -290,8 +291,46 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                             $TRK_BG = "#ffffff";
                     }
                     
-                    if($TRK_closer == 'Martin Smith') {
-                        $TRK_closer = 'Martin';
+                    switch ($TRK_closer) {
+                        case("Richard"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales + 0;
+                            break;
+                        case("Kyle"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales + 0;
+                            break;
+                        case("Sarah"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0;
+                            break;
+                        case("James"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales + 0;
+                            break;
+                        case("Aron Davies"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $TRK_closer = "Aron";  
+                            break;
+                        case("Ryan Tidball"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $TRK_closer = "Ryan";  
+                            break;                        
+                        case("Molly Grove"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $TRK_closer = "Molly";  
+                            break;               
+                        case("David Bebee"):
+                            $LEADS = $Leads - 0;
+                            $SALES = $Sales - 0; 
+                            $TRK_closer = "Bebee";                         
+                        default:
+                            $LEADS = $Leads;
+                            $SALES = $Sales;
+                            break;
                     }
                     ?>
 

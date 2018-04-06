@@ -259,6 +259,35 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
             
             if ($database->rowCount()>=0) { 
                 
+                if(empty($LAST_AUDITID)) {
+                    
+    $database->query("SELECT 
+                            adl_audits_id
+                        FROM 
+                            adl_audits 
+                        WHERE 
+                            adl_audits_auditor=:HELLO
+                        AND
+                            adl_audits_grade=:GRADE
+                        AND
+                            adl_audits_ref=:PLAN
+                        AND
+                            adl_audits_insurer=:INSURER");
+            $database->bind(':HELLO', $hello_name);
+            $database->bind(':GRADE', $GRADE);
+            $database->bind(':PLAN',$REFERENCE);
+            $database->bind(':INSURER',$INSURER);
+    $database->execute();
+    $ROW=$database->single();   
+    
+    if(isset($ROW['adl_audits_id'])) {
+        
+        $LAST_AUDITID=$ROW['adl_audits_id'];
+        
+    }                    
+                    
+                }
+                
             $database->query("INSERT INTO 
                                             adl_audit_vitality
                                         SET 

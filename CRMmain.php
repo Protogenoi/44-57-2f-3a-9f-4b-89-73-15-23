@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -111,7 +111,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
     <title>ADL</title>

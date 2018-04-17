@@ -286,6 +286,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 
                                 if ($GET_VIT_LEAD_AUDIT->rowCount() > 0) {
                                     $HAS_VIT_LEAD_AUDIT=1;
+                                    $HAS_NEW_LEAD_AUDIT=1;
                                     $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
                                     
                                 }                                 
@@ -534,7 +535,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
     <title>ADL | Client</title>
@@ -1717,9 +1718,8 @@ if (isset($fileuploadedfail)) {
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                                 
-                                <?php } 
-    
-                                if($COMPANY_ENTITY == 'First Priority Group') { ?>
+                                <?php } ?>
+                                
                                 <a class="list-group-item confirmation" href="/addon/Life/Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
@@ -1727,10 +1727,9 @@ if (isset($fileuploadedfail)) {
                                     echo $clientonemail;
                                 }
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="fa  fa-envelope-o fa-fw" aria-hidden="true"></i> &nbsp; My Account Details Email</a>                                    
-                            <?php    }
-                                
-                                
-                                if ($ffkeyfactsemail == '1') { ?>
+                            <?php 
+                            
+                            if ($ffkeyfactsemail == '1') { ?>
                                     <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                     if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
                                     if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
@@ -1824,13 +1823,18 @@ if (isset($fileuploadedfail)) {
 <a class="list-group-item" href="/addon/audits/Vitality/View.php?EXECUTE=VIEW&AUDITID=<?php echo $VIT_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Old Vitality Closer Audit</a>                                    
             
         <?php }
-        
-        
-        if(isset($HAS_VIT_LEAD_AUDIT) && $HAS_VIT_LEAD_AUDIT == 1) {  ?>
+
+       if(isset($HAS_NEW_LEAD_AUDIT) && $HAS_NEW_LEAD_AUDIT == 1 ) { ?>
+           
+<a class="list-group-item" href="/addon/audits/Agent/view_call_audit.php?EXECUTE=1&AUDITID==<?php echo $VIT_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Lead Audit</a>
+           
+    <?php   }
+    
+        elseif(isset($HAS_VIT_LEAD_AUDIT) && $HAS_VIT_LEAD_AUDIT == 1) {  ?>
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $VIT_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Lead Audit</a>
         
-       <?php }         
+       <?php }     
        
         if(isset($HAS_RL_CLOSE_AUDIT) && $HAS_RL_CLOSE_AUDIT == 1) {   ?>
                                     

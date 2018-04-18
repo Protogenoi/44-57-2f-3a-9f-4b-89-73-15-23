@@ -11,21 +11,18 @@ class TotalExpectedWithDatesModal {
     public function getTotalExpectedWithDates($datefrom, $dateto) {
 
         $stmt = $this->pdo->prepare("SELECT 
-    SUM(commission) AS commission
+    SUM(vitality_policy.vitality_policy_comms) AS commission
 FROM
-    client_policy
+    adl_policy
+        JOIN
+    vitality_policy ON adl_policy.adl_policy_id = vitality_policy.vitality_policy_id_fk
 WHERE
-    DATE(sale_date) BETWEEN :datefrom AND :dateto
-        AND insurer = 'Vitality'
-        AND policystatus = 'Live'
-        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
-        AND client_policy.insurer = 'Vitality'
-        AND policystatus = 'Awaiting'
+    DATE(adl_policy_sub_date) BETWEEN :DATEFROM AND :DATETO
+        AND adl_policy_insurer = 'Vitality'
+        AND adl_policy_status = 'Live'
         ");
-        $stmt->bindParam(':datefrom', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto', $dateto, PDO::PARAM_STR);
-        $stmt->bindParam(':datefrom2', $datefrom, PDO::PARAM_STR);
-        $stmt->bindParam(':dateto2', $dateto, PDO::PARAM_STR);       
+        $stmt->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR);
+        $stmt->bindParam(':DATETO', $dateto, PDO::PARAM_STR);    
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -730,7 +730,7 @@ if(empty($HAS_WOL_LEAD_AUDIT)) {
          
      }
      
-    $database->query("select uploadtype from tbl_uploads where uploadtype='Avivapolicy' and file like :search");
+    $database->query("SELECT uploadtype from tbl_uploads WHERE uploadtype='Avivapolicy' AND file LIKE :search");
     $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();

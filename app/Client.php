@@ -287,7 +287,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 if ($GET_VIT_LEAD_AUDIT->rowCount() > 0) {
                                     $HAS_VIT_LEAD_AUDIT=1;
                                     $HAS_NEW_LEAD_AUDIT=1;
-                                    $VIT_leadaudit = $GET_VIT_LEADrow['LEAD']; 
+                                    $NEW_LEAD_AUDIT_ID = $GET_VIT_LEADrow['LEAD']; 
                                     
                                 }                                 
                                     
@@ -418,14 +418,15 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     
                                 }  elseif($GET_RL_LEAD_AUDIT->rowCount() <= 0) {  
                                     
-                                $GET_RL_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_RL_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
                                 $GET_RL_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
                                 $GET_RL_LEAD_AUDIT->execute();
                                 $GET_RL_LEADrow = $GET_RL_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
                                 
                                 if ($GET_RL_LEAD_AUDIT->rowCount() > 0) {
                                     $HAS_RL_LEAD_AUDIT=1;
-                                    $RL_leadaudit = $GET_RL_LEADrow['LEAD']; 
+                                    $HAS_NEW_LEAD_AUDIT=1;
+                                    $NEW_LEAD_AUDIT_ID = $GET_RL_LEADrow['LEAD']; 
                                     
                                 } 
                                 
@@ -475,8 +476,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 $GET_AVI_LEADrow = $GET_AVI_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
                                 
                                 if ($GET_AVI_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_NEW_LEAD_AUDIT=1;
                                     $HAS_AVI_LEAD_AUDIT=1;
-                                    $AVI_leadaudit = $GET_AVI_LEADrow['LEAD']; 
+                                    $NEW_LEAD_AUDIT_ID = $GET_AVI_LEADrow['LEAD']; 
                                     
                                 } 
                                 
@@ -1816,7 +1818,13 @@ if (isset($fileuploadedfail)) {
                                     
 <a class="list-group-item" href="/addon/audits/Vitality/view_call_audit.php?AUDITID=<?php echo $VIT_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Closer Audit</a>                                    
             
-        <?php }               
+        <?php }
+        
+        if(isset($HAS_AVI_CLOSE_AUDIT) && $HAS_AVI_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/Aviva/View.php?EXECUTE=VIEW&AUDITID=<?php echo $AVI_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Closer Audit</a>                                    
+            
+        <?php }        
                             
         if(isset($HAS_VIT_CLOSE_AUDIT) && $HAS_VIT_CLOSE_AUDIT == 1) {   ?>
                                     
@@ -1826,7 +1834,7 @@ if (isset($fileuploadedfail)) {
 
        if(isset($HAS_NEW_LEAD_AUDIT) && $HAS_NEW_LEAD_AUDIT == 1 ) { ?>
            
-<a class="list-group-item" href="/addon/audits/Agent/view_call_audit.php?EXECUTE=1&AUDITID==<?php echo $VIT_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Lead Audit</a>
+<a class="list-group-item" href="/addon/audits/Agent/view_call_audit.php?EXECUTE=1&AUDITID=<?php echo $NEW_LEAD_AUDIT_ID; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Lead Audit</a>
            
     <?php   }
     
@@ -1843,7 +1851,7 @@ if (isset($fileuploadedfail)) {
         <?php }
         
         
-        if(isset($HAS_RL_LEAD_AUDIT) && $HAS_RL_LEAD_AUDIT == 1) {  ?>
+        elseif(isset($HAS_RL_LEAD_AUDIT) && $HAS_RL_LEAD_AUDIT == 1) {  ?>
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $RL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Lead Audit</a>
         

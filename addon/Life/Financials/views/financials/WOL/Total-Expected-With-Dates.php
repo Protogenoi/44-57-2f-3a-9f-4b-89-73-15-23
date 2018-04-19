@@ -1,5 +1,5 @@
 
-    <?php foreach ($TotalExpectedWithDatesList as $WOL_TotalExpectedWithDatesList_Resuts): ?>
+    <?php foreach ($WOL_TotalExpectedWithDatesList as $WOL_TotalExpectedWithDatesList_Resuts): ?>
 
 
         <?php

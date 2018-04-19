@@ -1375,19 +1375,13 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                                sum(vitality_financial_amount) AS vitality_financial_amount 
                             FROM 
                                 vitality_financial 
-                            LEFT JOIN 
-                                client_policy 
-                            ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0
+                                vitality_financial_amount < 0
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate
-                            AND 
-                                client_policy.insurer='Vitality'");
+                                DATE(vitality_financial_uploaded_date) =:commdate");
                     $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
@@ -1396,23 +1390,14 @@ WHERE
 
                     $query = $pdo->prepare("
                             SELECT 
-    vitality_financial.vitality_financial_amount,
-    vitality_financial.vitality_financial_policy_number,
-    vitality_policy_id AS PID,
-    adl_policy_client_id_fk AS CID,
-    adl_policy_policy_holder,
-    adl_policy_ref,
-    DATE(adl_policy_sub_date) AS SUB_DATE
+    vitality_financial_amount,
+    vitality_financial_policy_number,
+    vitality_financial_life_assured_name
 FROM
-    adl_policy
-        JOIN
-    vitality_policy ON adl_policy.adl_policy_id = vitality_policy.vitality_policy_id_fk
-        LEFT JOIN
-    vitality_financial ON vitality_financial.vitality_financial_policy_number = adl_policy_ref
+    vitality_financial
 WHERE
-    vitality_financial.vitality_financial_amount < 0
-        AND DATE(vitality_financial_uploaded_date) = :COMMDATE
-        AND adl_policy_insurer = 'Vitality'");
+    vitality_financial_amount < 0
+        AND DATE(vitality_financial_uploaded_date) = :COMMDATE");
                     $query->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
@@ -1426,7 +1411,6 @@ WHERE
                                 <tr>
                                     <th colspan='3'>COMM OUT  <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
                                 </tr>
-                            <th>Date</th>
                             <th>Client</th>
                             <th>Policy</th>
                             <th>COMM Amount</th>
@@ -1439,9 +1423,8 @@ WHERE
                                 $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
 
                                 echo '<tr>';
-                                echo "<td>" . $row['SUB_DATE'] . "</td>";
-                                echo "<td>" . $row['adl_policy_policy_holder'] . "</td>";
-                                echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                                echo "<td>" . $row['vitality_financial_life_assured_name'] . "</td>";
+                                echo "<td>$policy</td>";
                                 if (intval($PAY_AMOUNT) > 0) {
                                     echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
                                 } else if (intval($PAY_AMOUNT) < 0) {

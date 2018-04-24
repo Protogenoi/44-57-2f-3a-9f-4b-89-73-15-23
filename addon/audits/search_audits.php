@@ -154,6 +154,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         <div class="btn-group">
             <a href="/addon/audits/Agent/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Agent Audit</a>
             <a href="/addon/audits/Vitality/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Vitality Audit</a>
+            <a href="/addon/audits/RoyalLondon/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Royal London Audit</a>
             
         </div>
         </center>

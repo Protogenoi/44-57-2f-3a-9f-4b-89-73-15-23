@@ -915,51 +915,51 @@ if(isset($AUDITID)) {
         
     }   
     
-     if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l1'])) {
+     if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l1'])) {
         
-        $L_C1=$VIT_CE_AUDIT['adl_audit_royal_london_c_l1'];
+        $L_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_l1'];
         
     }  
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l2'])) {
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l2'])) {
         
-        $L_C2=$VIT_CE_AUDIT['adl_audit_royal_london_c_l2'];
+        $L_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_l2'];
         
     }
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l3'])) {
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l3'])) {
         
-        $L_C3=$VIT_CE_AUDIT['adl_audit_royal_london_c_l3'];
+        $L_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_l3'];
         
     }   
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l4'])) {
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l4'])) {
         
-        $L_C4=$VIT_CE_AUDIT['adl_audit_royal_london_c_l4'];
-        
-    } 
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l5'])) {
-        
-        $L_C5=$VIT_CE_AUDIT['adl_audit_royal_london_c_l5'];
+        $L_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_l4'];
         
     } 
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l6'])) {
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l5'])) {
         
-        $L_C6=$VIT_CE_AUDIT['adl_audit_royal_london_c_l6'];
-        
-    } 
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l7'])) {
-        
-        $L_C7=$VIT_CE_AUDIT['adl_audit_royal_london_c_l7'];
+        $L_C5=$VIT_C_AUDIT['adl_audit_royal_london_c_l5'];
         
     } 
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_c_l8'])) {
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l6'])) {
         
-        $L_C8=$VIT_CE_AUDIT['adl_audit_royal_london_c_l8'];
+        $L_C6=$VIT_C_AUDIT['adl_audit_royal_london_c_l6'];
+        
+    } 
+
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l7'])) {
+        
+        $L_C7=$VIT_C_AUDIT['adl_audit_royal_london_c_l7'];
+        
+    } 
+
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l8'])) {
+        
+        $L_C8=$VIT_C_AUDIT['adl_audit_royal_london_c_l8'];
         
     }     
     

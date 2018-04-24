@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -396,6 +396,17 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             $RL_POL_number = $GET_RL_row['policy_number'];   
                             
+                            $GET_RL_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_royal_london_id_fk AS CLOSER FROM adl_audit_royal_london WHERE adl_audit_royal_london_ref=:PHONE");
+                            $GET_RL_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_RL_CLOSER_AUDIT->execute();
+                            $GET_RL_CLOSERrow = $GET_RL_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_RL_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_RL_CLOSER_AUDIT_CHECK=1;
+                                $HAS_NEW_RL_CLOSE_AUDIT=1;
+                                $RL_NEW_closeraudit = $GET_RL_CLOSERrow['CLOSER']; 
+                                } else {                            
+                            
                             $GET_RL_CLOSER_AUDIT = $pdo->prepare("SELECT audit_id AS CLOSER FROM RoyalLondon_Audit where plan_number=:AN OR plan_number=:PHONE");
                             $GET_RL_CLOSER_AUDIT->bindParam(':AN', $RL_POL_number, PDO::PARAM_STR);
                             $GET_RL_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
@@ -403,8 +414,11 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_RL_CLOSERrow = $GET_RL_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
                             
                             if ($GET_RL_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_RL_CLOSER_AUDIT_CHECK=1;
                                 $HAS_RL_CLOSE_AUDIT=1;
                                 $RL_closeraudit = $GET_RL_CLOSERrow['CLOSER']; 
+                                }
+                                
                                 }
                                 
                                 $GET_RL_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
@@ -1820,6 +1834,12 @@ if (isset($fileuploadedfail)) {
             
         <?php }
         
+        if(isset($HAS_NEW_RL_CLOSE_AUDIT) && $HAS_NEW_RL_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/RoyalLondon/view_call_audit.php?AUDITID=<?php echo $RL_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Closer Audit</a>                                    
+            
+        <?php }        
+        
         if(isset($HAS_AVI_CLOSE_AUDIT) && $HAS_AVI_CLOSE_AUDIT == 1) {   ?>
                                     
 <a class="list-group-item" href="/addon/audits/Aviva/View.php?EXECUTE=VIEW&AUDITID=<?php echo $AVI_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aviva Closer Audit</a>                                    
@@ -1851,9 +1871,9 @@ if (isset($fileuploadedfail)) {
         <?php }
         
         
-        elseif(isset($HAS_RL_LEAD_AUDIT) && $HAS_RL_LEAD_AUDIT == 1) {  ?>
+        elseif(isset($HAS_RL_LEAD_AUDIT) && $HAS_RL_LEAD_AUDIT == 1 && empty($HAS_NEW_LEAD_AUDIT)) {  ?>
 
-<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $RL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Lead Audit</a>
+<a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $RL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Royal London Lead Audit (OLD)</a>
         
        <?php }  
        

@@ -577,9 +577,10 @@ if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 ) {
          
      }
      
-if(empty($HAS_RL_CLOSE_AUDIT)) {  
+if(empty($HAS_RL_CLOSER_AUDIT_CHECK)) {  
  echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Royal London Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
-} 
+}      
+
 if(empty($HAS_RL_LEAD_AUDIT)) {  
  echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Royal London Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
 }       

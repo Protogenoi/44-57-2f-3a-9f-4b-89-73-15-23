@@ -335,7 +335,7 @@ if (isset($EXECUTE)) {
     $UPDATE_QUES_QRY->bindParam(':L5', $L_Q5, PDO::PARAM_STR); 
     $UPDATE_QUES_QRY->bindParam(':L6', $L_Q6, PDO::PARAM_STR); 
     $UPDATE_QUES_QRY->bindParam(':L7', $L_Q7, PDO::PARAM_STR); 
-    $UPDATE_QUES_QRY->bindParam(':L8', $L_Q38, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L8', $L_Q8, PDO::PARAM_STR); 
     $UPDATE_QUES_QRY->bindParam(':FAM1', $FAM_Q1, PDO::PARAM_STR);  
     $UPDATE_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);

@@ -331,14 +331,15 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     
                                 } elseif($GET_LV_LEAD_AUDIT->rowCount() <= 0) {  
                                     
-                                $GET_LV_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_LV_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
                                 $GET_LV_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
                                 $GET_LV_LEAD_AUDIT->execute();
                                 $GET_LV_LEADrow = $GET_LV_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
                                 
                                 if ($GET_LV_LEAD_AUDIT->rowCount() > 0) {
                                     $HAS_LV_LEAD_AUDIT=1;
-                                    $LV_leadaudit = $GET_LV_LEADrow['LEAD']; 
+                                    $HAS_NEW_LEAD_AUDIT=1;
+                                    $NEW_LEAD_AUDIT_ID = $GET_LV_LEADrow['LEAD']; 
                                     
                                 }   
                                 
@@ -379,7 +380,21 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     $HAS_WOL_LEAD_AUDIT=1;
                                     $WOL_leadaudit = $GET_WOL_LEADrow['LEAD']; 
                                     
-                                }                            
+                                }  elseif($GET_WOL_LEAD_AUDIT->rowCount() <= 0) {  
+                                    
+                                $GET_WOL_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_WOL_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_WOL_LEAD_AUDIT->execute();
+                                $GET_WOL_LEADrow = $GET_WOL_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_WOL_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_WOL_LEAD_AUDIT=1;
+                                    $HAS_NEW_LEAD_AUDIT=1;
+                                    $NEW_LEAD_AUDIT_ID = $GET_WOL_LEADrow['LEAD']; 
+                                    
+                                } 
+                                
+                                }                          
                             
                         }
 
@@ -1822,7 +1837,7 @@ if (isset($fileuploadedfail)) {
         <?php }
         
         
-        if(isset($HAS_LV_LEAD_AUDIT) && $HAS_LV_LEAD_AUDIT == 1) {  ?>
+        if(isset($HAS_LV_LEAD_AUDIT) && $HAS_LV_LEAD_AUDIT == 1  && empty($HAS_NEW_LEAD_AUDIT)) {  ?>
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $LV_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Lead Audit</a>
         
@@ -1884,7 +1899,7 @@ if (isset($fileuploadedfail)) {
         <?php }
         
         
-        if(isset($HAS_WOL_LEAD_AUDIT) && $HAS_WOL_LEAD_AUDIT == 1) {  ?>
+        if(isset($HAS_WOL_LEAD_AUDIT) && $HAS_WOL_LEAD_AUDIT == 1 && empty($HAS_NEW_LEAD_AUDIT)) {  ?>
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $WOL_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; One Family Lead Audit</a>
         

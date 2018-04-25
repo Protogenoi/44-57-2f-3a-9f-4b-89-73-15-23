@@ -82,7 +82,7 @@ if (isset($EXECUTE)) {
     $REFERENCE = filter_input(INPUT_POST, 'REFERENCE', FILTER_SANITIZE_SPECIAL_CHARS);
     $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
     
-    $INSURER='Royal London';
+    $INSURER='LV';
     
     $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -132,17 +132,17 @@ if (isset($EXECUTE)) {
     $CON_C2 = filter_input(INPUT_POST, 'CON_C2', FILTER_SANITIZE_SPECIAL_CHARS);
     $CON_C3 = filter_input(INPUT_POST, 'CON_C3', FILTER_SANITIZE_SPECIAL_CHARS);    
     
-    $PD_Q1 = filter_input(INPUT_POST, 'PD_Q1', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_Q2 = filter_input(INPUT_POST, 'PD_Q2', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_Q3 = filter_input(INPUT_POST, 'PD_Q3', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_Q4 = filter_input(INPUT_POST, 'PD_Q4', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_Q5 = filter_input(INPUT_POST, 'PD_Q5', FILTER_SANITIZE_SPECIAPD_CHARS);     
+    $PD_Q1 = filter_input(INPUT_POST, 'PD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_Q2 = filter_input(INPUT_POST, 'PD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_Q3 = filter_input(INPUT_POST, 'PD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_Q4 = filter_input(INPUT_POST, 'PD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_Q5 = filter_input(INPUT_POST, 'PD_Q5', FILTER_SANITIZE_SPECIAL_CHARS);     
     
-    $PD_C1 = filter_input(INPUT_POST, 'PD_C1', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_C2 = filter_input(INPUT_POST, 'PD_C2', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_C3 = filter_input(INPUT_POST, 'PD_C3', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_C4 = filter_input(INPUT_POST, 'PD_C4', FILTER_SANITIZE_SPECIAPD_CHARS);
-    $PD_C5 = filter_input(INPUT_POST, 'PD_C5', FILTER_SANITIZE_SPECIAPD_CHARS);
+    $PD_C1 = filter_input(INPUT_POST, 'PD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_C2 = filter_input(INPUT_POST, 'PD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_C3 = filter_input(INPUT_POST, 'PD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_C4 = filter_input(INPUT_POST, 'PD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_C5 = filter_input(INPUT_POST, 'PD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
     
     $H_Q1 = filter_input(INPUT_POST, 'H_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_Q2 = filter_input(INPUT_POST, 'H_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -255,58 +255,68 @@ if (isset($EXECUTE)) {
             if ($database->rowCount()>=0) { 
                 
             $database->query("INSERT INTO 
-                                            adl_audit_royal_london
+                                            adl_audit_lv
                                         SET 
-  adl_audit_royal_london_id_fk=:ID,
-  adl_audit_royal_london_ref=:REF,
-  adl_audit_royal_london_od1=:OD1,
-  adl_audit_royal_london_od2=:OD2,
-  adl_audit_royal_london_od3=:OD3,
-  adl_audit_royal_london_od4=:OD4,
-  adl_audit_royal_london_od5=:OD5,
-  adl_audit_royal_london_icn1=:ICN1,
-  adl_audit_royal_london_icn2=:ICN2,
-  adl_audit_royal_london_icn3=:ICN3,
-  adl_audit_royal_london_icn4=:ICN4,
-  adl_audit_royal_london_cd1=:CD1,
-  adl_audit_royal_london_cd2=:CD2,
-  adl_audit_royal_london_cd3=:CD3,
-  adl_audit_royal_london_cd4=:CD4,
-  adl_audit_royal_london_cd5=:CD5,
-  adl_audit_royal_london_cd6=:CD6,
-  adl_audit_royal_london_cd7=:CD7,
-  adl_audit_royal_london_cd8=:CD8,
-  adl_audit_royal_london_o1=:O1,
-  adl_audit_royal_london_l1=:L1,
-  adl_audit_royal_london_l2=:L2,
-  adl_audit_royal_london_l3=:L3,
-  adl_audit_royal_london_l4=:L4,
-  adl_audit_royal_london_l5=:L5,
-  adl_audit_royal_london_l6=:L6,
-  adl_audit_royal_london_l7=:L7,
-  adl_audit_royal_london_l8=:L8,
-  adl_audit_royal_london_h1=:H1,
-  adl_audit_royal_london_h2=:H2,
-  adl_audit_royal_london_h3=:H3,
-  adl_audit_royal_london_bd1=:BD1,
-  adl_audit_royal_london_bd2=:BD2,
-  adl_audit_royal_london_bd3=:BD3,
-  adl_audit_royal_london_bd4=:BD4,
-  adl_audit_royal_london_bd5=:BD5,
-  adl_audit_royal_london_dec1=:DEC1,
-  adl_audit_royal_london_dec2=:DEC2,
-  adl_audit_royal_london_dec3=:DEC3,
-  adl_audit_royal_london_dec4=:DEC4,
-  adl_audit_royal_london_dec5=:DEC5,
-  adl_audit_royal_london_dec6=:DEC6,
-  adl_audit_royal_london_dec7=:DEC7,
-  adl_audit_royal_london_qc1=:QC1,
-  adl_audit_royal_london_qc2=:QC2,
-  adl_audit_royal_london_qc3=:QC3,
-  adl_audit_royal_london_qc4=:QC4,
-  adl_audit_royal_london_qc5=:QC5,
-  adl_audit_royal_london_qc6=:QC6,
-  adl_audit_royal_london_qc7=:QC7");
+  adl_audit_lv_id_fk=:ID,
+  adl_audit_lv_ref=:REF,
+  adl_audit_lv_od1=:OD1,
+  adl_audit_lv_od2=:OD2,
+  adl_audit_lv_od3=:OD3,
+  adl_audit_lv_od4=:OD4,
+  adl_audit_lv_od5=:OD5,
+  adl_audit_lv_icn1=:ICN1,
+  adl_audit_lv_icn2=:ICN2,
+  adl_audit_lv_icn3=:ICN3,
+  adl_audit_lv_icn4=:ICN4,
+  adl_audit_lv_cd1=:CD1,
+  adl_audit_lv_cd2=:CD2,
+  adl_audit_lv_cd3=:CD3,
+  adl_audit_lv_cd4=:CD4,
+  adl_audit_lv_cd5=:CD5,
+  adl_audit_lv_cd6=:CD6,
+  adl_audit_lv_cd7=:CD7,
+  adl_audit_lv_cd8=:CD8,
+  adl_audit_lv_con1=:CON1,
+  adl_audit_lv_con2=:CON2,
+  adl_audit_lv_con3=:CON3,  
+  adl_audit_lv_pd1=:PD1,
+  adl_audit_lv_pd2=:PD2,
+  adl_audit_lv_pd3=:PD3,
+  adl_audit_lv_pd4=:PD4,
+  adl_audit_lv_pd5=:PD5,  
+  adl_audit_lv_h1=:H1,
+  adl_audit_lv_h2=:H2,
+  adl_audit_lv_h3=:H3,  
+  adl_audit_lv_l1=:L1,
+  adl_audit_lv_l2=:L2,
+  adl_audit_lv_l3=:L3,
+  adl_audit_lv_l4=:L4,
+  adl_audit_lv_l5=:L5,
+  adl_audit_lv_l6=:L6,
+  adl_audit_lv_l7=:L7,
+  adl_audit_lv_l8=:L8,
+  adl_audit_lv_l9=:L9,
+  adl_audit_lv_o1=:O1,
+  adl_audit_lv_pri1=:PRI1,
+  adl_audit_lv_bd1=:BD1,
+  adl_audit_lv_bd2=:BD2,
+  adl_audit_lv_bd3=:BD3,
+  adl_audit_lv_bd4=:BD4,
+  adl_audit_lv_bd5=:BD5,
+  adl_audit_lv_dec1=:DEC1,
+  adl_audit_lv_dec2=:DEC2,
+  adl_audit_lv_dec3=:DEC3,
+  adl_audit_lv_dec4=:DEC4,
+  adl_audit_lv_dec5=:DEC5,
+  adl_audit_lv_dec6=:DEC6,
+  adl_audit_lv_dec7=:DEC7,
+  adl_audit_lv_qc1=:QC1,
+  adl_audit_lv_qc2=:QC2,
+  adl_audit_lv_qc3=:QC3,
+  adl_audit_lv_qc4=:QC4,
+  adl_audit_lv_qc5=:QC5,
+  adl_audit_lv_qc6=:QC6,
+  adl_audit_lv_qc7=:QC7");
     $database->bind(':ID', $LAST_AUDITID);
     $database->bind(':REF', $REFERENCE);
     $database->bind(':OD1', $OD_Q1);
@@ -326,7 +336,17 @@ if (isset($EXECUTE)) {
     $database->bind(':CD6', $CD_Q6);
     $database->bind(':CD7', $CD_Q7);
     $database->bind(':CD8', $CD_Q8);
-    $database->bind(':O1', $O_Q1);  
+    $database->bind(':CON1', $CON_Q1);
+    $database->bind(':CON2', $CON_Q2);
+    $database->bind(':CON3', $CON_Q3);    
+    $database->bind(':PD1', $PD_Q1);
+    $database->bind(':PD2', $PD_Q2);
+    $database->bind(':PD3', $PD_Q3);
+    $database->bind(':PD4', $PD_Q4);
+    $database->bind(':PD5', $PD_Q5); 
+    $database->bind(':H1', $H_Q1);
+    $database->bind(':H2', $H_Q2);
+    $database->bind(':H3', $H_Q3);     
     $database->bind(':L1', $L_Q1);
     $database->bind(':L2', $L_Q2);   
     $database->bind(':L3', $L_Q3); 
@@ -334,10 +354,10 @@ if (isset($EXECUTE)) {
     $database->bind(':L5', $L_Q5); 
     $database->bind(':L6', $L_Q6); 
     $database->bind(':L7', $L_Q7); 
-    $database->bind(':L8', $L_Q8);   
-    $database->bind(':H1', $H_Q1);
-    $database->bind(':H2', $H_Q2);
-    $database->bind(':H3', $H_Q3);  
+    $database->bind(':L8', $L_Q8);
+    $database->bind(':L9', $L_Q9);
+    $database->bind(':O1', $O_Q1); 
+    $database->bind(':PRI1', $PRI_Q1); 
     $database->bind(':BD1', $BD_Q1);
     $database->bind(':BD2', $BD_Q2);
     $database->bind(':BD3', $BD_Q3);
@@ -361,34 +381,37 @@ if (isset($EXECUTE)) {
     $LAST_AUDITID_TWO =  $database->lastInsertId();   
     
             $database->query("INSERT INTO 
-                                            adl_audit_royal_london_c
+                                            adl_audit_lv_c
                                         SET 
-  adl_audit_royal_london_c_id_fk=:FK,
-  adl_audit_royal_london_c_od1=:OD1,
-  adl_audit_royal_london_c_od2=:OD2,
-  adl_audit_royal_london_c_od3=:OD3,
-  adl_audit_royal_london_c_od4=:OD4,
-  adl_audit_royal_london_c_od5=:OD5,
-  adl_audit_royal_london_c_icn1=:ICN1,
-  adl_audit_royal_london_c_icn2=:ICN2,
-  adl_audit_royal_london_c_icn3=:ICN3,
-  adl_audit_royal_london_c_icn4=:ICN4,
-  adl_audit_royal_london_c_cd1=:CD1,
-  adl_audit_royal_london_c_cd2=:CD2,
-  adl_audit_royal_london_c_cd3=:CD3,
-  adl_audit_royal_london_c_cd4=:CD4,
-  adl_audit_royal_london_c_cd5=:CD5,
-  adl_audit_royal_london_c_cd6=:CD6,
-  adl_audit_royal_london_c_cd7=:CD7,
-  adl_audit_royal_london_c_cd8=:CD8,
-  adl_audit_royal_london_c_l1=:L1,
-  adl_audit_royal_london_c_l2=:L2,
-  adl_audit_royal_london_c_l3=:L3,
-  adl_audit_royal_london_c_l4=:L4,
-  adl_audit_royal_london_c_l5=:L5,
-  adl_audit_royal_london_c_l6=:L6,
-  adl_audit_royal_london_c_l7=:L7,
-  adl_audit_royal_london_c_l8=:L8");
+  adl_audit_lv_c_id_fk=:FK,
+  adl_audit_lv_c_od1=:OD1,
+  adl_audit_lv_c_od2=:OD2,
+  adl_audit_lv_c_od3=:OD3,
+  adl_audit_lv_c_od4=:OD4,
+  adl_audit_lv_c_od5=:OD5,
+  adl_audit_lv_c_icn1=:ICN1,
+  adl_audit_lv_c_icn2=:ICN2,
+  adl_audit_lv_c_icn3=:ICN3,
+  adl_audit_lv_c_icn4=:ICN4,
+  adl_audit_lv_c_cd1=:CD1,
+  adl_audit_lv_c_cd2=:CD2,
+  adl_audit_lv_c_cd3=:CD3,
+  adl_audit_lv_c_cd4=:CD4,
+  adl_audit_lv_c_cd5=:CD5,
+  adl_audit_lv_c_cd6=:CD6,
+  adl_audit_lv_c_cd7=:CD7,
+  adl_audit_lv_c_cd8=:CD8,
+  adl_audit_lv_c_con1=:CON1,
+  adl_audit_lv_c_con2=:CON2,
+  adl_audit_lv_c_con3=:CON3, 
+  adl_audit_lv_c_pd1=:PD1,
+  adl_audit_lv_c_pd2=:PD2,
+  adl_audit_lv_c_pd3=:PD3,
+  adl_audit_lv_c_pd4=:PD4,
+  adl_audit_lv_c_pd5=:PD5,  
+  adl_audit_lv_c_h1=:H1,
+  adl_audit_lv_c_h2=:H2,
+  adl_audit_lv_c_h3=:H3");
     $database->bind(':FK', $LAST_AUDITID_TWO);
     $database->bind(':OD1', $OD_C1);
     $database->bind(':OD2', $OD_C2);
@@ -407,48 +430,64 @@ if (isset($EXECUTE)) {
     $database->bind(':CD6', $CD_C6);
     $database->bind(':CD7', $CD_C7);
     $database->bind(':CD8', $CD_C8);
-  $database->bind(':L1', $L_C1);
-  $database->bind(':L2', $L_C2);   
-  $database->bind(':L3', $L_C3); 
-  $database->bind(':L4', $L_C4); 
-  $database->bind(':L5', $L_C5); 
-  $database->bind(':L6', $L_C6); 
-  $database->bind(':L7', $L_C7); 
-  $database->bind(':L8', $L_C8);     
-            $database->execute();    
+    $database->bind(':CON1', $CON_C1);
+    $database->bind(':CON2', $CON_C2);   
+    $database->bind(':CON3', $CON_C3);  
+    $database->bind(':PD1', $PD_C1);
+    $database->bind(':PD2', $PD_C2);
+    $database->bind(':PD3', $PD_C3);
+    $database->bind(':PD4', $PD_C4);
+    $database->bind(':PD5', $PD_C5);  
+    $database->bind(':H1', $H_C1);
+    $database->bind(':H2', $H_C2);   
+    $database->bind(':H3', $H_C3);     
+    $database->execute();    
             
             $database->query("INSERT INTO 
-                                            adl_audit_royal_london_ce
+                                            adl_audit_lv_ce
                                         SET 
-  adl_audit_royal_london_ce_id_fk =:FK,
-  adl_audit_royal_london_ce_o1=:O1,
-  adl_audit_royal_london_ce_h1=:H1,
-  adl_audit_royal_london_ce_h2=:H2,
-  adl_audit_royal_london_ce_h3=:H3,
-  adl_audit_royal_london_ce_bd1=:BD1,
-  adl_audit_royal_london_ce_bd2=:BD2,
-  adl_audit_royal_london_ce_bd3=:BD3,
-  adl_audit_royal_london_ce_bd4=:BD4,
-  adl_audit_royal_london_ce_bd5=:BD5,
-  adl_audit_royal_london_ce_dec1=:DEC1,
-  adl_audit_royal_london_ce_dec2=:DEC2,
-  adl_audit_royal_london_ce_dec3=:DEC3,
-  adl_audit_royal_london_ce_dec4=:DEC4,
-  adl_audit_royal_london_ce_dec5=:DEC5,
-  adl_audit_royal_london_ce_dec6=:DEC6,
-  adl_audit_royal_london_ce_dec7=:DEC7,
-  adl_audit_royal_london_ce_qc1=:QC1,
-  adl_audit_royal_london_ce_qc2=:QC2,
-  adl_audit_royal_london_ce_qc3=:QC3,
-  adl_audit_royal_london_ce_qc4=:QC4,
-  adl_audit_royal_london_ce_qc5=:QC5,
-  adl_audit_royal_london_ce_qc6=:QC6,
-  adl_audit_royal_london_ce_qc7=:QC7");
+  adl_audit_lv_ce_id_fk =:FK,
+  
+  adl_audit_lv_ce_l1=:L1,
+  adl_audit_lv_ce_l2=:L2,
+  adl_audit_lv_ce_l3=:L3,
+  adl_audit_lv_ce_l4=:L4,
+  adl_audit_lv_ce_l5=:L5,
+  adl_audit_lv_ce_l6=:L6,
+  adl_audit_lv_ce_l7=:L7,
+  adl_audit_lv_ce_l8=:L8,
+  adl_audit_lv_ce_o1=:O1,
+  adl_audit_lv_ce_pri1=:PRI1,
+  adl_audit_lv_ce_bd1=:BD1,
+  adl_audit_lv_ce_bd2=:BD2,
+  adl_audit_lv_ce_bd3=:BD3,
+  adl_audit_lv_ce_bd4=:BD4,
+  adl_audit_lv_ce_bd5=:BD5,
+  adl_audit_lv_ce_dec1=:DEC1,
+  adl_audit_lv_ce_dec2=:DEC2,
+  adl_audit_lv_ce_dec3=:DEC3,
+  adl_audit_lv_ce_dec4=:DEC4,
+  adl_audit_lv_ce_dec5=:DEC5,
+  adl_audit_lv_ce_dec6=:DEC6,
+  adl_audit_lv_ce_dec7=:DEC7,
+  adl_audit_lv_ce_qc1=:QC1,
+  adl_audit_lv_ce_qc2=:QC2,
+  adl_audit_lv_ce_qc3=:QC3,
+  adl_audit_lv_ce_qc4=:QC4,
+  adl_audit_lv_ce_qc5=:QC5,
+  adl_audit_lv_ce_qc6=:QC6,
+  adl_audit_lv_ce_qc7=:QC7");
   $database->bind(':FK', $LAST_AUDITID_TWO);
+  $database->bind(':L1', $L_C1);
+  $database->bind(':L2', $L_C2);
+  $database->bind(':L3', $L_C3);
+  $database->bind(':L4', $L_C4);
+  $database->bind(':L5', $L_C5);
+  $database->bind(':L6', $L_C6);
+  $database->bind(':L7', $L_C7); 
+  $database->bind(':L8', $L_C8); 
   $database->bind(':O1', $O_C1);  
-  $database->bind(':H1', $H_C1);
-  $database->bind(':H2', $H_C2);
-  $database->bind(':H3', $H_C3); 
+  $database->bind(':PRI1', $PRI_C1);
   $database->bind(':BD1', $BD_C1);
   $database->bind(':BD2', $BD_C2);
   $database->bind(':BD3', $BD_C3);
@@ -468,7 +507,7 @@ if (isset($EXECUTE)) {
   $database->bind(':QC5', $QC_C5);
   $database->bind(':QC6', $QC_C6);
   $database->bind(':QC7', $QC_C7);
-            $database->execute();            
+  $database->execute();            
                 
             }        
         

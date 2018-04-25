@@ -52,11 +52,21 @@ if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
-        require_once(__DIR__ . '/../../../classes/database_class.php');
+     require_once(__DIR__ . '/../../../classes/database_class.php');
         require_once(__DIR__ . '/../../../class/login/login.php');
-        
+
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        
+        $CHECK_USER_LOGIN->SelectToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
+   
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
         
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -345,10 +355,12 @@ if(isset($EXECUTE)) {
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script>
 function textAreaAdjust(o) {
@@ -375,35 +387,31 @@ function textAreaAdjust(o) {
                         
                         <div class='form-group'>
                             <label for='closer'>Closer:</label>
-                            <select class='form-control' name='closer' id='closer' required> 
-                                <option value="">Select...</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Martin") { echo "selected"; }  ?> value="Martin">Bounce</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Carys") { echo "selected"; }  ?> value="Carys">Carys</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Hayley") { echo "selected"; }  ?> value="Hayley">Hayley</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="James") { echo "selected"; }  ?> value="James">James</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Kyle") { echo "selected"; }  ?> value="Kyle">Kyle</option>  
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Mike") { echo "selected"; }  ?> value="Mike">Mike</option> 
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Richard") { echo "selected"; }  ?> value="Richard">Richard</option>
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Sarah") { echo "selected"; }  ?> value="Sarah">Sarah</option> 
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Nicola") { echo "selected"; }  ?> value="Nicola">Nicola</option> 
-                                    <option <?php if(isset($CLOSER) && $CLOSER=="Gavin") { echo "selected"; }  ?> value="Gavin">Gavin</option> 
-                            </select>
+                             <input type='text' id='closer' name='closer' class="form-control" value="<?php if(isset($VIT_CLOSER)) { echo $VIT_CLOSER; } ?>" style="width: 520px" required>
+                                    <script>var options = {
+                                            url: "/../../../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                            getValue: "full_name",
+                                            list: {
+                                                match: {
+                                                    enabled: true
+                                                }
+                                            }
+                                        };
+
+                                        $("#closer").easyAutocomplete(options);</script>
                         </div>
                         
                         <div class='form-group'>
                             <label for='closer2'>Closer (optional):</label>
                             <select class='form-control' name='closer2' id='closer2' > 
                                 <option value="None">None</option> 
-                                    <option <?php if(isset($CLOSER2) && $CLOSER2=="Martin") { echo "selected"; }  ?> value="Martin">Bounce</option>
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Carys") { echo "selected"; }  ?> value="Carys">Carys</option>
-                                    <option <?php if(isset($CLOSER2) && $CLOSER2=="Hayley") { echo "selected"; }  ?> value="Hayley">Hayley</option>
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="James") { echo "selected"; }  ?> value="James">James</option>
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Kyle") { echo "selected"; }  ?> value="Kyle">Kyle</option>  
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Mike") { echo "selected"; }  ?> value="Mike">Mike</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Richard") { echo "selected"; }  ?> value="Richard">Richard</option>
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Sarah") { echo "selected"; }  ?> value="Sarah">Sarah</option> 
                                     <option <?php if(isset($CLOSER2) && $CLOSER2=="Nicola") { echo "selected"; }  ?> value="Nicola">Nicola</option> 
-                                    <option <?php if(isset($CLOSER2) && $CLOSER2=="Gavin") { echo "selected"; }  ?> value="Gavin">Gavin</option> 
                             </select>
                         </div>
                         

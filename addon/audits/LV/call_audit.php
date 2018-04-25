@@ -1227,7 +1227,7 @@ $QUESTION_NUMBER=1;
                         </script>
 
                         <p>
-                            <label for="PD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Smoking Status' and did they record the answer correcty?</label>
+                            <label for="PD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Smoking Status' and did they record the answer correctly?</label>
                             <input type="radio" name="PD_Q2" 
 <?php if (isset($PD_Q2) && $PD_Q2 == "1") {
     echo "checked";

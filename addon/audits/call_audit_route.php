@@ -105,6 +105,10 @@ if(isset($AUDITID)) {
          header('Location: RoyalLondon/edit_call_audit.php?AUDITID='.$AUDITID);
         die;           
         }
+        elseif($INSUER == 'LV') {
+         header('Location: LV/edit_call_audit.php?AUDITID='.$AUDITID);
+        die;           
+        }        
         elseif($INSUER == 'Lead') {
          header('Location: Agent/edit_call_audit.php?AUDITID='.$AUDITID);
         die;                
@@ -118,10 +122,14 @@ if(isset($AUDITID)) {
          header('Location: Vitality/view_call_audit.php?AUDITID='.$AUDITID);
         die;           
         } 
-        if($INSUER == 'Royal London') {
+        elseif($INSUER == 'Royal London') {
          header('Location: RoyalLondon/view_call_audit.php?AUDITID='.$AUDITID);
         die;           
         }
+        elseif($INSUER == 'LV') {
+         header('Location: LV/view_call_audit.php?AUDITID='.$AUDITID);
+        die;           
+        }        
         elseif($INSUER == 'Lead') {
          header('Location: Agent/view_call_audit.php?EXECUTE=1&AUDITID='.$AUDITID);
         die;                

@@ -1431,7 +1431,7 @@ $QUESTION_NUMBER=1;
                     <div class="panel-body">
                         
                         <p>
-                            <label for="H_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the 'Any condition in the last 5 year' health question and did they record the answers correclty?</label>
+                            <label for="H_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the 'Any condition in the last 5 year' health question and did they record the answers correctly?</label>
                             <input type="radio" name="H_Q1" 
 <?php if (isset($H_Q1) && $H_Q1 == "1") {
     echo "checked";

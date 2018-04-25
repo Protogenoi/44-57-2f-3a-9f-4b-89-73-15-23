@@ -279,7 +279,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     
                                 }   elseif($GET_VIT_LEAD_AUDIT->rowCount() <= 0) {  
                                     
-                                $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_VIT_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
                                 $GET_VIT_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
                                 $GET_VIT_LEAD_AUDIT->execute();
                                 $GET_VIT_LEADrow = $GET_VIT_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
@@ -499,7 +499,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                     
                                 }  elseif($GET_AVI_LEAD_AUDIT->rowCount() <= 0) {  
                                     
-                                $GET_AVI_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_AVI_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
                                 $GET_AVI_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
                                 $GET_AVI_LEAD_AUDIT->execute();
                                 $GET_AVI_LEADrow = $GET_AVI_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  

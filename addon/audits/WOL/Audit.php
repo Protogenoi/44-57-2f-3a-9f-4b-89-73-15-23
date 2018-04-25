@@ -52,22 +52,30 @@ if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
-        require_once(__DIR__ . '/../../../classes/database_class.php');
+       require_once(__DIR__ . '/../../../classes/database_class.php');
         require_once(__DIR__ . '/../../../class/login/login.php');
         
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
-        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
         
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
         $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 2) {
+        if($ACCESS_LEVEL < 3) {
             
         header('Location: /../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
-        }
+        } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,10 +86,12 @@ if ($ffanalytics == '1') {
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script>
 function textAreaAdjust(o) {
@@ -109,18 +119,19 @@ function textAreaAdjust(o) {
                         
                         <div class='form-group'>
                             <label for='closer'>Closer:</label>
-                            <select class='form-control' name='closer' id='closer' required> 
+                             <select class='form-control' name='closer' id='full_name' required> 
                                 <option value="">Select...</option>
-<option value="Carys">Carys</option>
-<option value="Hayley">Hayley</option>
-<option value="James">James</option>
-<option value="Kyle">Kyle</option>  
-<option value="Mike">Mike</option>  
-<option value="Richard">Richard</option>
-<option value="Martin">Martin</option> 
-<option value="Sarah">Sarah</option> 
-<option value="Nicola">Nicola</option> 
-<option value="Gavin">Gavin</option> 
+
+                                <script type="text/JavaScript"> 
+                                    var $select = $('#full_name');
+                                    $.getJSON('/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>', function(data){
+                                    $select.html('full_name');
+                                    $.each(data, function(key, val){ 
+                                    $select.append('<option value="' + val.full_name + '">' + val.full_name + '</option>');
+                                    })
+                                    });
+                                </script>
+
                             </select>
                         </div>
                         
@@ -129,15 +140,12 @@ function textAreaAdjust(o) {
                             <select class='form-control' name='closer2' id='closer2' > 
                                 <option value="None">None</option> 
 <option value="Carys">Carys</option>
-<option value="Hayley">Hayley</option>
 <option value="James">James</option>
 <option value="Kyle">Kyle</option>  
 <option value="Mike">Mike</option> 
 <option value="Richard">Richard</option>
-<option value="Martin">Martin</option> 
 <option value="Sarah">Sarah</option> 
 <option value="Nicola">Nicola</option> 
-<option value="Gavin">Gavin</option> 
             </select>
                         </div>
                         

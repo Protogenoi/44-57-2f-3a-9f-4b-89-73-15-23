@@ -1338,12 +1338,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($PD_Q4) && $PD_Q4 == "0") {
     echo "checked";
 } ?>
-                                   value="0" id="noCheck">No
- <input type="radio" name="PD_Q4" onclick="javascript:yesnoCheck();"
-<?php if (isset($PD_Q4) && $PD_Q4 == "1") {
-    echo "checked";
-} ?>
-                                   value="N/A" id="yesCheck" required >N/A                           
+                                   value="0" id="noCheck">No                           
                         </p>
                         <div id="ifYes" style="display:none">
                             <textarea class="form-control"id="PD_C4" name="PD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
@@ -1390,12 +1385,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($PD_Q5) && $PD_Q5 == "0") {
     echo "checked";
 } ?>
-                                   value="0" id="noCheck">No
- <input type="radio" name="PD_Q5" onclick="javascript:yesnoCheck();"
-<?php if (isset($PD_Q5) && $PD_Q5 == "1") {
-    echo "checked";
-} ?>
-                                   value="N/A" id="yesCheck" required >N/A                           
+                                   value="0" id="noCheck">No                        
                         </p>
                         <div id="ifYes" style="display:none">
                             <textarea class="form-control"id="PD_C5" name="PD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
@@ -1851,11 +1841,6 @@ $QUESTION_NUMBER=1;
     echo "checked";
 } ?> onclick="javascript:yesnoCheckL_C6();"
                                    value="0" id="noCheckL_C6">No
-                            <input type="radio" name="L_Q6" 
-<?php if (isset($L_Q6) && $L_Q6 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
                         </p>
 
                         <div id="ifYesL_C6" style="display:none">

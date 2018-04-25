@@ -726,7 +726,6 @@ function textAreaAdjust(o) {
 
                                         $("#CLOSER").easyAutocomplete(options);</script>
 
-                            </select>
                         </div>
 
                         <label for="POLICY">Reference ID</label>

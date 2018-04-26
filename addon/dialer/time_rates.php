@@ -352,8 +352,7 @@ ORDER BY Sales, Leads");
                                     AND
                                         DATE(date_added) = :DATE                                       
                                     ORDER BY 
-                                        date_added DESC 
-                                    LIMIT 5");
+                                        date_added DESC");
         $TRACKER->bindParam(':DATE', $DATE, PDO::PARAM_STR);
         $TRACKER->bindParam(':TIME_FROM', $TIME_FROM, PDO::PARAM_STR);
         $TRACKER->bindParam(':TIME_TO', $TIME_TO, PDO::PARAM_STR);

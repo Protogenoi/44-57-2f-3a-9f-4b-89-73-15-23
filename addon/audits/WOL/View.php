@@ -538,11 +538,14 @@ if(isset($QRY)) {
                                 
                         
                         <label for="q18">Q18. Did the agent explain funeral contribution?</label><br>
-                        <input type="radio" name="q18" <?php if (isset($q18) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc18();" value="1" id="yesCheckc18" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>Yes
+                        <input type="radio" name="q18" <?php if (isset($q18) && $q18=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc18();" value="1" id="yesCheckc18" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>Yes
                         <input type="radio" name="q18" <?php if (isset($q18) && $q18=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc18();" value="0" id="noCheckc18" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>No
+                        
+                        <div class="phpcomments"><?php if(isset($c18)) { echo $c18; } ?></div>
+                        
                         <br>
                         <label for="q19">Q19. Did the agent offer to nominate a beneficiary?</label><br>
-                        <input type="radio" name="q19" <?php if (isset($q19) && $q15=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc19();" value="1" id="yesCheckc19" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>Yes
+                        <input type="radio" name="q19" <?php if (isset($q19) && $q19=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckc19();" value="1" id="yesCheckc19" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>Yes
                         <input type="radio" name="q19" <?php if (isset($q19) && $q19=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc19();" value="0" id="noCheckc19" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>No
                         
    

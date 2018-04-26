@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -673,7 +674,7 @@ if(empty($HAS_VIT_LEAD_AUDIT)) {
          
      }   
 
-if(empty($HAS_LV_CLOSE_AUDIT)) {  
+if(empty($HAS_LV_CLOSER_AUDIT_CHECK)) {  
  echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No LV Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
 } 
 if(empty($HAS_LV_LEAD_AUDIT)) {  

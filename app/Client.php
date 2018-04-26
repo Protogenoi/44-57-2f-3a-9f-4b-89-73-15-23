@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */ 
 
@@ -309,6 +310,17 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             $LV_POL_number = $GET_LV_row['policy_number'];   
                             
+                            $GET_LV_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_lv_id_fk AS CLOSER FROM adl_audit_lv WHERE adl_audit_lv_ref=:PHONE");
+                            $GET_LV_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_LV_CLOSER_AUDIT->execute();
+                            $GET_LV_CLOSERrow = $GET_LV_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_LV_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_LV_CLOSER_AUDIT_CHECK=1;
+                                $HAS_NEW_LV_CLOSE_AUDIT=1;
+                                $LV_NEW_closeraudit = $GET_LV_CLOSERrow['CLOSER']; 
+                                } else {                           
+                            
                             $GET_LV_CLOSER_AUDIT = $pdo->prepare("SELECT lv_audit_id AS CLOSER FROM lv_audit where lv_audit_ref=:AN OR lv_audit_ref=:PHONE");
                             $GET_LV_CLOSER_AUDIT->bindParam(':AN', $LV_POL_number, PDO::PARAM_STR);
                             $GET_LV_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
@@ -316,8 +328,11 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $GET_LV_CLOSERrow = $GET_LV_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
                             
                             if ($GET_LV_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_LV_CLOSER_AUDIT_CHECK=1;
                                 $HAS_LV_CLOSE_AUDIT=1;
                                 $LV_closeraudit = $GET_LV_CLOSERrow['CLOSER']; 
+                                }
+                                
                                 }
                                 
                                 $GET_LV_LEAD_AUDIT = $pdo->prepare("SELECT id AS LEAD FROM Audit_LeadGen where an_number=:AN");
@@ -1841,7 +1856,13 @@ if (isset($fileuploadedfail)) {
 
 <a class="list-group-item" href="/addon/audits/LandG/View.php?EXECUTE=1&AID=<?php echo $LV_leadaudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Lead Audit</a>
         
-       <?php }          
+       <?php }       
+               
+        if(isset($HAS_NEW_LV_CLOSE_AUDIT ) && $HAS_NEW_LV_CLOSE_AUDIT  == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/LV/view_call_audit.php?AUDITID=<?php echo $LV_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Closer Audit</a>                                    
+            
+        <?php }               
                
         if(isset($HAS_NEW_VIT_CLOSE_AUDIT) && $HAS_NEW_VIT_CLOSE_AUDIT == 1) {   ?>
                                     

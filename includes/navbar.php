@@ -177,6 +177,7 @@ $companynamere = $companydetailsq['company_name'];
             <li><a href="/addon/Trackers/Closers.php?EXECUTE=1">Search Closer Trackers</a></li>
             <li><a href="/addon/Trackers/SearchSurvey.php">Search Survey Trackers</a></li>
             <li><a href="/addon/Trackers/Agent.php?EXECUTE=1">Search Agent Trackers</a></li>
+            <li><a href="/addon/dialer/time_rates.php?">Time Tracker Wallboard</a></li>
             <?php } } 
             if(isset($ffdealsheets) && $ffdealsheets == '1') { 
                 if(in_array($hello_name, $Manager_Access, true)) { ?> 

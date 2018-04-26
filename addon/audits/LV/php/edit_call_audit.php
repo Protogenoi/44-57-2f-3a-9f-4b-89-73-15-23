@@ -73,9 +73,11 @@ if ($ffanalytics == '1') {
         }
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$AID = filter_input(INPUT_GET, 'AID', FILTER_SANITIZE_NUMBER_INT);
+$AIDFK = filter_input(INPUT_GET, 'AIDFK', FILTER_SANITIZE_NUMBER_INT);
 
 if (isset($EXECUTE)) {
-    if($EXECUTE== 1 ) {
+    if($EXECUTE=="1") {
         
     $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
     $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -84,7 +86,34 @@ if (isset($EXECUTE)) {
     
     $INSURER='LV';
     
-    $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $GRADE_ARRAY=array("Red","Amber","Green","Saved");
+    
+    if(isset($GRADE) && !in_array($GRADE,$GRADE_ARRAY)) {
+        $GRADE="Saved";
+    } 
+    
+    $UPDATE_AUDIT_QRY = $pdo->prepare("UPDATE
+                                            adl_audits
+                                        SET 
+                                            adl_audits_auditor_edit=:HELLO,
+                                            adl_audits_grade=:GRADE, 
+                                            adl_audits_closer=:CLOSER, 
+                                            adl_audits_agent=:AGENT, 
+                                            adl_audits_ref=:PLAN
+                                        WHERE
+                                            adl_audits_insurer=:INSURER
+                                        AND
+                                            adl_audits_id=:AID");
+    $UPDATE_AUDIT_QRY->bindParam(':AID', $AID, PDO::PARAM_INT);
+    $UPDATE_AUDIT_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->bindParam(':GRADE', $GRADE, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->bindParam(':CLOSER', $CLOSER, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->bindParam(':AGENT', $AGENT, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->bindParam(':PLAN', $REFERENCE, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->bindParam(':INSURER', $INSURER, PDO::PARAM_STR, 100);
+    $UPDATE_AUDIT_QRY->execute()or die(print_r($UPDATE_AUDIT_QRY->errorInfo(), true));
+
+$OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q3 = filter_input(INPUT_POST, 'OD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q4 = filter_input(INPUT_POST, 'OD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -223,41 +252,11 @@ if (isset($EXECUTE)) {
     $QC_C4 = filter_input(INPUT_POST, 'QC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
     $QC_C5 = filter_input(INPUT_POST, 'QC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
     $QC_C6 = filter_input(INPUT_POST, 'QC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
-    $QC_C7 = filter_input(INPUT_POST, 'QC_C7', FILTER_SANITIZE_SPECIAL_CHARS);    
+    $QC_C7 = filter_input(INPUT_POST, 'QC_C7', FILTER_SANITIZE_SPECIAL_CHARS);   
     
-    $GRADE_ARRAY=array("Red","Amber","Green","Saved");
-    
-    if(isset($GRADE) && !in_array($GRADE,$GRADE_ARRAY)) {
-        $GRADE="Saved";
-    } 
-    
-        $database = new Database(); 
-        $database->beginTransaction();
-        
-            $database->query("INSERT INTO 
-                                            adl_audits
-                                        SET 
-                                            adl_audits_auditor=:HELLO,
-                                            adl_audits_grade=:GRADE, 
-                                            adl_audits_closer=:CLOSER, 
-                                            adl_audits_agent=:AGENT, 
-                                            adl_audits_ref=:PLAN,
-                                            adl_audits_insurer=:INSURER");
-            $database->bind(':HELLO', $hello_name);
-            $database->bind(':GRADE', $GRADE);
-            $database->bind(':CLOSER', $CLOSER);
-            $database->bind(':AGENT',$AGENT);
-            $database->bind(':PLAN',$REFERENCE);
-            $database->bind(':INSURER',$INSURER);
-            $database->execute();
-            $LAST_AUDITID =  $database->lastInsertId();
-            
-            if ($database->rowCount()>=0) { 
-                
-            $database->query("INSERT INTO 
+     $UPDATE_QUES_QRY = $pdo->prepare("UPDATE
                                             adl_audit_lv
-                                        SET 
-  adl_audit_lv_id_fk=:ID,
+                                        SET
   adl_audit_lv_ref=:REF,
   adl_audit_lv_od1=:OD1,
   adl_audit_lv_od2=:OD2,
@@ -316,74 +315,75 @@ if (isset($EXECUTE)) {
   adl_audit_lv_qc4=:QC4,
   adl_audit_lv_qc5=:QC5,
   adl_audit_lv_qc6=:QC6,
-  adl_audit_lv_qc7=:QC7");
-    $database->bind(':ID', $LAST_AUDITID);
-    $database->bind(':REF', $REFERENCE);
-    $database->bind(':OD1', $OD_Q1);
-    $database->bind(':OD2', $OD_Q2);
-    $database->bind(':OD3', $OD_Q3);
-    $database->bind(':OD4', $OD_Q4);
-    $database->bind(':OD5', $OD_Q5);
-    $database->bind(':ICN1', $ICN_Q1);
-    $database->bind(':ICN2', $ICN_Q2);
-    $database->bind(':ICN3', $ICN_Q3);
-    $database->bind(':ICN4', $ICN_Q4);
-    $database->bind(':CD1', $CD_Q1);
-    $database->bind(':CD2', $CD_Q2);
-    $database->bind(':CD3', $CD_Q3);
-    $database->bind(':CD4', $CD_Q4);
-    $database->bind(':CD5', $CD_Q5);
-    $database->bind(':CD6', $CD_Q6);
-    $database->bind(':CD7', $CD_Q7);
-    $database->bind(':CD8', $CD_Q8);
-    $database->bind(':CON1', $CON_Q1);
-    $database->bind(':CON2', $CON_Q2);
-    $database->bind(':CON3', $CON_Q3);    
-    $database->bind(':PD1', $PD_Q1);
-    $database->bind(':PD2', $PD_Q2);
-    $database->bind(':PD3', $PD_Q3);
-    $database->bind(':PD4', $PD_Q4);
-    $database->bind(':PD5', $PD_Q5); 
-    $database->bind(':H1', $H_Q1);
-    $database->bind(':H2', $H_Q2);
-    $database->bind(':H3', $H_Q3);     
-    $database->bind(':L1', $L_Q1);
-    $database->bind(':L2', $L_Q2);   
-    $database->bind(':L3', $L_Q3); 
-    $database->bind(':L4', $L_Q4); 
-    $database->bind(':L5', $L_Q5); 
-    $database->bind(':L6', $L_Q6); 
-    $database->bind(':L7', $L_Q7); 
-    $database->bind(':L8', $L_Q8);
-    $database->bind(':L9', $L_Q9);
-    $database->bind(':O1', $O_Q1); 
-    $database->bind(':PRI1', $PRI_Q1); 
-    $database->bind(':BD1', $BD_Q1);
-    $database->bind(':BD2', $BD_Q2);
-    $database->bind(':BD3', $BD_Q3);
-    $database->bind(':BD4', $BD_Q4);
-    $database->bind(':BD5', $BD_Q5);   
-    $database->bind(':DEC1', $DEC_Q1);
-    $database->bind(':DEC2', $DEC_Q2);
-    $database->bind(':DEC3', $DEC_Q3);
-    $database->bind(':DEC4', $DEC_Q4);
-    $database->bind(':DEC5', $DEC_Q5);
-    $database->bind(':DEC6', $DEC_Q6);
-    $database->bind(':DEC7', $DEC_Q7); 
-    $database->bind(':QC1', $QC_Q1);
-    $database->bind(':QC2', $QC_Q2);
-    $database->bind(':QC3', $QC_Q3);
-    $database->bind(':QC4', $QC_Q4);
-    $database->bind(':QC5', $QC_Q5);
-    $database->bind(':QC6', $QC_Q6);
-    $database->bind(':QC7', $QC_Q7);
-    $database->execute();
-    $LAST_AUDITID_TWO =  $database->lastInsertId();   
+  adl_audit_lv_qc7=:QC7
+  WHERE
+    adl_audit_lv_id_fk=:ID_FK");
+    $UPDATE_QUES_QRY->bindParam(':ID_FK', $AID, PDO::PARAM_INT);
+    $UPDATE_QUES_QRY->bindParam(':REF', $REFERENCE, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':OD1', $OD_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':OD2', $OD_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':OD3', $OD_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':OD4', $OD_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':OD5', $OD_Q5, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':ICN1', $ICN_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':ICN2', $ICN_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':ICN3', $ICN_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':ICN4', $ICN_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD1', $CD_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD2', $CD_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD3', $CD_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD4', $CD_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD5', $CD_Q5, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD6', $CD_Q6, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD7', $CD_Q7, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CD8', $CD_Q8, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CON1', $CON_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CON2', $CON_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':CON3', $CON_Q3, PDO::PARAM_STR);    
+    $UPDATE_QUES_QRY->bindParam(':PD1', $PD_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':PD2', $PD_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':PD3', $PD_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':PD4', $PD_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':PD5', $PD_Q5, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR);     
+    $UPDATE_QUES_QRY->bindParam(':L1', $L_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':L2', $L_Q2, PDO::PARAM_STR);   
+    $UPDATE_QUES_QRY->bindParam(':L3', $L_Q3, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L4', $L_Q4, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L5', $L_Q5, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L6', $L_Q6, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L7', $L_Q7, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':L8', $L_Q8, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':L9', $L_Q9, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':O1', $O_Q1, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':PRI1', $PRI_Q1, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':BD4', $BD_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':BD5', $BD_Q5, PDO::PARAM_STR);   
+    $UPDATE_QUES_QRY->bindParam(':DEC1', $DEC_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC2', $DEC_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC3', $DEC_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC4', $DEC_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC5', $DEC_Q5, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC6', $DEC_Q6, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':DEC7', $DEC_Q7, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':QC1', $QC_Q1, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC2', $QC_Q2, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC3', $QC_Q3, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC4', $QC_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC5', $QC_Q5, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC6', $QC_Q6, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':QC7', $QC_Q7, PDO::PARAM_STR);    
+    $UPDATE_QUES_QRY->execute()or die(print_r($UPDATE_QUES_QRY->errorInfo(), true));   
     
-            $database->query("INSERT INTO 
+
+$UPDATE_COM_QRY = $pdo->prepare("UPDATE
                                             adl_audit_lv_c
                                         SET 
-  adl_audit_lv_c_id_fk=:FK,
   adl_audit_lv_c_od1=:OD1,
   adl_audit_lv_c_od2=:OD2,
   adl_audit_lv_c_od3=:OD3,
@@ -411,42 +411,43 @@ if (isset($EXECUTE)) {
   adl_audit_lv_c_pd5=:PD5,  
   adl_audit_lv_c_h1=:H1,
   adl_audit_lv_c_h2=:H2,
-  adl_audit_lv_c_h3=:H3");
-    $database->bind(':FK', $LAST_AUDITID_TWO);
-    $database->bind(':OD1', $OD_C1);
-    $database->bind(':OD2', $OD_C2);
-    $database->bind(':OD3', $OD_C3);
-    $database->bind(':OD4', $OD_C4);
-    $database->bind(':OD5', $OD_C5);
-    $database->bind(':ICN1', $ICN_C1);
-    $database->bind(':ICN2', $ICN_C2);
-    $database->bind(':ICN3', $ICN_C3);
-    $database->bind(':ICN4', $ICN_C4); 
-    $database->bind(':CD1', $CD_C1);
-    $database->bind(':CD2', $CD_C2);
-    $database->bind(':CD3', $CD_C3);
-    $database->bind(':CD4', $CD_C4);
-    $database->bind(':CD5', $CD_C5);
-    $database->bind(':CD6', $CD_C6);
-    $database->bind(':CD7', $CD_C7);
-    $database->bind(':CD8', $CD_C8);
-    $database->bind(':CON1', $CON_C1);
-    $database->bind(':CON2', $CON_C2);   
-    $database->bind(':CON3', $CON_C3);  
-    $database->bind(':PD1', $PD_C1);
-    $database->bind(':PD2', $PD_C2);
-    $database->bind(':PD3', $PD_C3);
-    $database->bind(':PD4', $PD_C4);
-    $database->bind(':PD5', $PD_C5);  
-    $database->bind(':H1', $H_C1);
-    $database->bind(':H2', $H_C2);   
-    $database->bind(':H3', $H_C3);     
-    $database->execute();    
-            
-            $database->query("INSERT INTO 
+  adl_audit_lv_c_h3=:H3
+  WHERE
+    adl_audit_lv_c_id_fk=:FK");
+    $UPDATE_COM_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
+    $UPDATE_COM_QRY->bindParam(':OD1', $OD_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':OD2', $OD_C2, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':OD3', $OD_C3, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':OD4', $OD_C4, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':OD5', $OD_C5, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':ICN1', $ICN_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':ICN2', $ICN_C2, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':ICN3', $ICN_C3, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':ICN4', $ICN_C4, PDO::PARAM_STR); 
+    $UPDATE_COM_QRY->bindParam(':CD1', $CD_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD2', $CD_C2, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD3', $CD_C3, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD4', $CD_C4, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD5', $CD_C5, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD6', $CD_C6, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD7', $CD_C7, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CD8', $CD_C8, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CON1', $CON_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':CON2', $CON_C2, PDO::PARAM_STR);   
+    $UPDATE_COM_QRY->bindParam(':CON3', $CON_C3, PDO::PARAM_STR);  
+    $UPDATE_COM_QRY->bindParam(':PD1', $PD_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':PD2', $PD_C2, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':PD3', $PD_C3, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':PD4', $PD_C4, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':PD5', $PD_C5, PDO::PARAM_STR);  
+    $UPDATE_COM_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
+    $UPDATE_COM_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);   
+    $UPDATE_COM_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);    
+    $UPDATE_COM_QRY->execute()or die(print_r($UPDATE_COM_QRY->errorInfo(), true));      
+    
+    $UPDATE_C_EXTRA_QRY = $pdo->prepare("UPDATE
                                             adl_audit_lv_ce
-                                        SET 
-  adl_audit_lv_ce_id_fk =:FK,
+                                        SET
   adl_audit_lv_ce_l1=:L1,
   adl_audit_lv_ce_l2=:L2,
   adl_audit_lv_ce_l3=:L3,
@@ -476,48 +477,46 @@ if (isset($EXECUTE)) {
   adl_audit_lv_ce_qc4=:QC4,
   adl_audit_lv_ce_qc5=:QC5,
   adl_audit_lv_ce_qc6=:QC6,
-  adl_audit_lv_ce_qc7=:QC7");
-  $database->bind(':FK', $LAST_AUDITID_TWO);
-  $database->bind(':L1', $L_C1);
-  $database->bind(':L2', $L_C2);
-  $database->bind(':L3', $L_C3);
-  $database->bind(':L4', $L_C4);
-  $database->bind(':L5', $L_C5);
-  $database->bind(':L6', $L_C6);
-  $database->bind(':L7', $L_C7); 
-  $database->bind(':L8', $L_C8); 
-  $database->bind(':L9', $L_C9); 
-  $database->bind(':O1', $O_C1);  
-  $database->bind(':PRI1', $PRI_C1);
-  $database->bind(':BD1', $BD_C1);
-  $database->bind(':BD2', $BD_C2);
-  $database->bind(':BD3', $BD_C3);
-  $database->bind(':BD4', $BD_C4);
-  $database->bind(':BD5', $BD_C5);   
-  $database->bind(':DEC1', $DEC_C1);
-  $database->bind(':DEC2', $DEC_C2);
-  $database->bind(':DEC3', $DEC_C3);
-  $database->bind(':DEC4', $DEC_C4);
-  $database->bind(':DEC5', $DEC_C5);
-  $database->bind(':DEC6', $DEC_C6);
-  $database->bind(':DEC7', $DEC_C7); 
-  $database->bind(':QC1', $QC_C1);
-  $database->bind(':QC2', $QC_C2);
-  $database->bind(':QC3', $QC_C3);
-  $database->bind(':QC4', $QC_C4);
-  $database->bind(':QC5', $QC_C5);
-  $database->bind(':QC6', $QC_C6);
-  $database->bind(':QC7', $QC_C7);
-  $database->execute();            
-                
-            }        
+  adl_audit_lv_ce_qc7=:QC7
+  WHERE
+     adl_audit_lv_ce_id_fk =:FK");  
+  $UPDATE_C_EXTRA_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L1', $L_C1, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L2', $L_C2, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L3', $L_C3, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L4', $L_C4, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L5', $L_C5, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L6', $L_C6, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':L7', $L_C7, PDO::PARAM_STR); 
+  $UPDATE_C_EXTRA_QRY->bindParam(':L8', $L_C8, PDO::PARAM_STR); 
+  $UPDATE_C_EXTRA_QRY->bindParam(':L9', $L_C9, PDO::PARAM_STR); 
+  $UPDATE_C_EXTRA_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);  
+  $UPDATE_C_EXTRA_QRY->bindParam(':PRI1', $PRI_C1, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':BD4', $BD_C4, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':BD5', $BD_C5, PDO::PARAM_STR);   
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC1', $DEC_C1, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC2', $DEC_C2, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC3', $DEC_C3, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC4', $DEC_C4, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC5', $DEC_C5, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC6', $DEC_C6, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':DEC7', $DEC_C7, PDO::PARAM_STR); 
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC1', $QC_C1, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC2', $QC_C2, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC3', $QC_C3, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC4', $QC_C4, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC5', $QC_C5, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC6', $QC_C6, PDO::PARAM_STR);
+  $UPDATE_C_EXTRA_QRY->bindParam(':QC7', $QC_C7, PDO::PARAM_STR);    
+  $UPDATE_C_EXTRA_QRY->execute()or die(print_r($UPDATE_C_EXTRA_QRY->errorInfo(), true));     
         
-        $database->endTransaction();
+    }
 
- 
-
-    if (isset($LAST_AUDITID) && isset($LAST_AUDITID_TWO)) {
-        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE.'&INSURER='.$INSURER);
+    if ($AID >= '1') {
+        header('Location: ../../search_audits.php?RETURN=EDIT&GRADE=' . $GRADE.'&INSURER='.$INSURER);
         die;
     } else {
         header('Location: ../../search_audits.php?RETURN=AuditEditFailed&Error');
@@ -525,5 +524,4 @@ if (isset($EXECUTE)) {
     }
 }
 
-}
 ?>

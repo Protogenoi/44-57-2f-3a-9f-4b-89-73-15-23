@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -1109,7 +1110,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_lv_ce_o1'])) {
     
     if(isset($VIT_CE_AUDIT['adl_audit_lv_ce_pri1'])) {
         
-        $PRI_C2=$VIT_CE_AUDIT['adl_audit_lv_ce_pri1'];
+        $PRI_C1=$VIT_CE_AUDIT['adl_audit_lv_ce_pri1'];
         
     }        
     

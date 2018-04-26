@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -76,6 +77,7 @@ if ($ffanalytics == '1') {
         die;    
             
         } 
+        
 $QUESTION_NUMBER=1;
 
 $AUDITID = filter_input(INPUT_GET, 'AUDITID', FILTER_SANITIZE_NUMBER_INT);
@@ -98,859 +100,1135 @@ if(isset($AUDITID)) {
                             adl_audits_id=:AUDITID");
     $database->bind(':AUDITID', $AUDITID);
     $database->execute();
-    $VIT_AUDIT=$database->single();   
+    $LV_AUDIT=$database->single();   
     
-    if(isset($VIT_AUDIT['adl_audits_date_added'])) {
+    if(isset($LV_AUDIT['adl_audits_date_added'])) {
         
-        $VIT_DATE=$VIT_AUDIT['adl_audits_date_added'];
+        $LV_DATE=$LV_AUDIT['adl_audits_date_added'];
         
     }
     
-    if(isset($VIT_AUDIT['adl_audits_auditor'])) {
+    if(isset($LV_AUDIT['adl_audits_auditor'])) {
         
-        $VIT_AUDITOR=$VIT_AUDIT['adl_audits_auditor'];
-        
-    }
-
-    if(isset($VIT_AUDIT['adl_audits_grade'])) {
-        
-        $VIT_GRADE=$VIT_AUDIT['adl_audits_grade'];
+        $LV_AUDITOR=$LV_AUDIT['adl_audits_auditor'];
         
     }
 
-    if(isset($VIT_AUDIT['adl_audits_closer'])) {
+    if(isset($LV_AUDIT['adl_audits_grade'])) {
         
-        $VIT_CLOSER=$VIT_AUDIT['adl_audits_closer'];
-        
-    }
-
-    if(isset($VIT_AUDIT['adl_audits_agent'])) {
-        
-        $VIT_AGENT=$VIT_AUDIT['adl_audits_agent'];
+        $LV_GRADE=$LV_AUDIT['adl_audits_grade'];
         
     }
 
-    if(isset($VIT_AUDIT['adl_audits_ref'])) {
+    if(isset($LV_AUDIT['adl_audits_closer'])) {
         
-        $VIT_REF=$VIT_AUDIT['adl_audits_ref'];
+        $LV_CLOSER=$LV_AUDIT['adl_audits_closer'];
+        
+    }
+
+    if(isset($LV_AUDIT['adl_audits_agent'])) {
+        
+        $LV_AGENT=$LV_AUDIT['adl_audits_agent'];
+        
+    }
+
+    if(isset($LV_AUDIT['adl_audits_ref'])) {
+        
+        $LV_REF=$LV_AUDIT['adl_audits_ref'];
         
     }  
     
     $database->query("SELECT 
-        adl_audit_royal_london_id,
-  adl_audit_royal_london_od1,
-  adl_audit_royal_london_od2,
-  adl_audit_royal_london_od3,
-  adl_audit_royal_london_od4,
-  adl_audit_royal_london_od5,
-  adl_audit_royal_london_icn1,
-  adl_audit_royal_london_icn2,
-  adl_audit_royal_london_icn3,
-  adl_audit_royal_london_icn4,
-  adl_audit_royal_london_cd1,
-  adl_audit_royal_london_cd2,
-  adl_audit_royal_london_cd3,
-  adl_audit_royal_london_cd4,
-  adl_audit_royal_london_cd5,
-  adl_audit_royal_london_cd6,
-  adl_audit_royal_london_cd7,
-  adl_audit_royal_london_cd8,
-  adl_audit_royal_london_other1,
-  adl_audit_royal_london_other2,
-  adl_audit_royal_london_other3,
-  adl_audit_royal_london_o1,
-  adl_audit_royal_london_o2,
-  adl_audit_royal_london_o3,
-  adl_audit_royal_london_l1,
-  adl_audit_royal_london_l2,
-  adl_audit_royal_london_l3,
-  adl_audit_royal_london_l4,
-  adl_audit_royal_london_l5,
-  adl_audit_royal_london_l6,
-  adl_audit_royal_london_l7,
-  adl_audit_royal_london_l8,
-  adl_audit_royal_london_fam1,
-  adl_audit_royal_london_h1,
-  adl_audit_royal_london_h2,
-  adl_audit_royal_london_h3,
-  adl_audit_royal_london_bd1,
-  adl_audit_royal_london_bd2,
-  adl_audit_royal_london_bd3,
-  adl_audit_royal_london_bd4,
-  adl_audit_royal_london_bd5,
-  adl_audit_royal_london_dec1,
-  adl_audit_royal_london_dec2,
-  adl_audit_royal_london_dec3,
-  adl_audit_royal_london_dec4,
-  adl_audit_royal_london_dec5,
-  adl_audit_royal_london_dec6,
-  adl_audit_royal_london_dec7,
-  adl_audit_royal_london_qc1,
-  adl_audit_royal_london_qc2,
-  adl_audit_royal_london_qc3,
-  adl_audit_royal_london_qc4,
-  adl_audit_royal_london_qc5,
-  adl_audit_royal_london_qc6,
-  adl_audit_royal_london_qc7
+                            adl_audit_lv_id,
+                            adl_audit_lv_od1, 
+                            adl_audit_lv_od2, 
+                            adl_audit_lv_od3, 
+                            adl_audit_lv_od4, 
+                            adl_audit_lv_od5, 
+                            adl_audit_lv_icn1, 
+                            adl_audit_lv_icn2, 
+                            adl_audit_lv_icn3, 
+                            adl_audit_lv_icn4, 
+                            adl_audit_lv_cd1, 
+                            adl_audit_lv_cd2, 
+                            adl_audit_lv_cd3, 
+                            adl_audit_lv_cd4, 
+                            adl_audit_lv_cd5, 
+                            adl_audit_lv_cd6, 
+                            adl_audit_lv_cd7, 
+                            adl_audit_lv_cd8, 
+                            adl_audit_lv_con1, 
+                            adl_audit_lv_con2,
+                            adl_audit_lv_con3,
+                            adl_audit_lv_pd1, 
+                            adl_audit_lv_pd2, 
+                            adl_audit_lv_pd3, 
+                            adl_audit_lv_pd4, 
+                            adl_audit_lv_pd5, 
+                            adl_audit_lv_h1, 
+                            adl_audit_lv_h2, 
+                            adl_audit_lv_h3, 
+                            adl_audit_lv_l1, 
+                            adl_audit_lv_l2, 
+                            adl_audit_lv_l3, 
+                            adl_audit_lv_l4, 
+                            adl_audit_lv_l5, 
+                            adl_audit_lv_l6, 
+                            adl_audit_lv_l7, 
+                            adl_audit_lv_l8, 
+                            adl_audit_lv_l9, 
+                            adl_audit_lv_o1, 
+                            adl_audit_lv_pri1, 
+                            adl_audit_lv_bd1, 
+                            adl_audit_lv_bd2, 
+                            adl_audit_lv_bd3, 
+                            adl_audit_lv_bd4, 
+                            adl_audit_lv_bd5, 
+                            adl_audit_lv_dec1, 
+                            adl_audit_lv_dec2, 
+                            adl_audit_lv_dec3, 
+                            adl_audit_lv_dec4, 
+                            adl_audit_lv_dec5, 
+                            adl_audit_lv_dec6, 
+                            adl_audit_lv_dec7, 
+                            adl_audit_lv_qc1, 
+                            adl_audit_lv_qc2, 
+                            adl_audit_lv_qc3, 
+                            adl_audit_lv_qc4, 
+                            adl_audit_lv_qc5, 
+                            adl_audit_lv_qc6, 
+                            adl_audit_lv_qc7
   FROM
-    adl_audit_royal_london
+    adl_audit_lv
   WHERE
-    adl_audit_royal_london_id_fk = :AUDITID");
+    adl_audit_lv_id_fk = :AUDITID");
     $database->bind(':AUDITID', $AUDITID);
     $database->execute();
-    $VIT_Q_AUDIT=$database->single();   
+    $LV_Q_AUDIT=$database->single();   
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_id'])) {
-        $AID_FK=$VIT_Q_AUDIT['adl_audit_royal_london_id'];
+    $SCORE = 0;
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_id'])) {
+        $AID_FK=$LV_Q_AUDIT['adl_audit_lv_id'];
     }
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_od1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_od1'])) {
         
-        $OD_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_od1'];
+        $OD_Q1=$LV_Q_AUDIT['adl_audit_lv_od1'];
+        
+        if($OD_Q1 == "0") {
+            $SCORE ++;
+            
+        }
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_od2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_od2'])) {
         
-        $OD_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_od2'];
+        $OD_Q2=$LV_Q_AUDIT['adl_audit_lv_od2'];
         
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_od3'])) {
-        
-        $OD_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_od3'];
+        if($OD_Q2 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_od4'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_od3'])) {
         
-        $OD_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_od4'];
+        $OD_Q3=$LV_Q_AUDIT['adl_audit_lv_od3'];
+        
+        if($OD_Q3 == "0") {
+            $SCORE ++;
+        }        
+        
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_od5'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_od4'])) {
         
-        $OD_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_od5'];
+        $OD_Q4=$LV_Q_AUDIT['adl_audit_lv_od4'];
+        
+        if($OD_Q4 == "0") {
+            $SCORE ++;
+        }        
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_od5'])) {
+        
+        $OD_Q5=$LV_Q_AUDIT['adl_audit_lv_od5'];
+        
+        if($OD_Q5 == "0") {
+            $SCORE ++;
+        }        
         
     }    
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_icn1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_icn1'])) {
         
-        $ICN_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_icn1'];
+        $ICN_Q1=$LV_Q_AUDIT['adl_audit_lv_icn1'];
         
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_icn2'])) {
-        
-        $ICN_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_icn2'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_icn3'])) {
-        
-        $ICN_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_icn3'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_icn4'])) {
-        
-        $ICN_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_icn4'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd1'])) {
-        
-        $CD_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_cd1'];
+        if($ICN_Q1 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_icn2'])) {
         
-        $CD_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_cd2'];
+        $ICN_Q2=$LV_Q_AUDIT['adl_audit_lv_icn2'];
         
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd3'])) {
-        
-        $CD_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_cd3'];
+        if($ICN_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd4'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_icn3'])) {
         
-        $CD_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_cd4'];
+        $ICN_Q3=$LV_Q_AUDIT['adl_audit_lv_icn3'];
+        
+        if($ICN_Q3 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd5'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_icn4'])) {
         
-        $CD_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_cd5'];
+        $ICN_Q4=$LV_Q_AUDIT['adl_audit_lv_icn4'];
+        
+        if($ICN_Q4 == "Poor") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd1'])) {
+        
+        $CD_Q1=$LV_Q_AUDIT['adl_audit_lv_cd1'];
+        
+        if($CD_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
+    }  
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd2'])) {
+        
+        $CD_Q2=$LV_Q_AUDIT['adl_audit_lv_cd2'];
+        
+        if($CD_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd3'])) {
+        
+        $CD_Q3=$LV_Q_AUDIT['adl_audit_lv_cd3'];
+        
+        if($CD_Q3 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd4'])) {
+        
+        $CD_Q4=$LV_Q_AUDIT['adl_audit_lv_cd4'];
+        
+         if($CD_Q4 == "0") {
+            $SCORE ++;
+        }        
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd5'])) {
+        
+        $CD_Q5=$LV_Q_AUDIT['adl_audit_lv_cd5'];
+        
+        if($CD_Q5 == "0") {
+            $SCORE ++;
+        }         
         
     }    
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd6'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd6'])) {
         
-        $CD_Q6=$VIT_Q_AUDIT['adl_audit_royal_london_cd6'];
+        $CD_Q6=$LV_Q_AUDIT['adl_audit_lv_cd6'];
+        
+         if($CD_Q6 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd7'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd7'])) {
         
-        $CD_Q7=$VIT_Q_AUDIT['adl_audit_royal_london_cd7'];
+        $CD_Q7=$LV_Q_AUDIT['adl_audit_lv_cd7'];
+        
+        if($CD_Q7 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd8'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_cd8'])) {
         
-        $CD_Q8=$VIT_Q_AUDIT['adl_audit_royal_london_cd8'];
+        $CD_Q8=$LV_Q_AUDIT['adl_audit_lv_cd8'];
+        
+        if($CD_Q8 == "0") {
+            $SCORE ++;
+        }         
+        
+    }        
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_con1'])) {
+        
+        $CON_Q1=$LV_Q_AUDIT['adl_audit_lv_con1'];
+        
+         if($CON_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
-     
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_other1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_con2'])) {
         
-        $OTHER_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_other1'];
+        $CON_Q2=$LV_Q_AUDIT['adl_audit_lv_con2'];
         
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_other2'])) {
-        
-        $OTHER_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_other2'];
+          if($CON_Q2 == "0") {
+            $SCORE ++;
+        }        
         
     }
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_other3'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_con3'])) {
         
-        $OTHER_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_other3'];
+        $CON_Q3=$LV_Q_AUDIT['adl_audit_lv_con3'];
         
-    }    
+          if($CON_Q3 == "0") {
+            $SCORE ++;
+        }        
+        
+    }         
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pd1'])) {
         
-        $O_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_o1'];
+        $PD_Q1=$LV_Q_AUDIT['adl_audit_lv_pd1'];
+        
+         if($PD_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pd2'])) {
         
-        $O_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_o2'];
+        $PD_Q2=$LV_Q_AUDIT['adl_audit_lv_pd2'];
+        
+         if($PD_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o3'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pd3'])) {
         
-        $O_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_o3'];
+        $PD_Q3=$LV_Q_AUDIT['adl_audit_lv_pd3'];
+        
+         if($PD_Q3 == "0") {
+            $SCORE ++;
+        }         
+        
+    }  
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pd4'])) {
+        
+        $PD_Q4=$LV_Q_AUDIT['adl_audit_lv_pd4'];
+        
+         if($PD_Q4 == "0") {
+            $SCORE ++;
+        }         
         
     }     
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pd5'])) {
         
-        $O_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_o1'];
+        $PD_Q5=$LV_Q_AUDIT['adl_audit_lv_pd5'];
         
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o2'])) {
-        
-        $O_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_o2'];
-        
-    }
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_o3'])) {
-        
-        $O_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_o3'];
-        
-    }    
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l1'])) {
-        
-        $L_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_l1'];
-        
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l2'])) {
-        
-        $L_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_l2'];
-        
-    }
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l3'])) {
-        
-        $L_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_l3'];
-        
-    }    
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l4'])) {
-        
-        $L_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_l4'];
-        
-    } 
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l5'])) {
-        
-        $L_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_l5'];
-        
-    } 
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l6'])) {
-        
-        $L_Q6=$VIT_Q_AUDIT['adl_audit_royal_london_l6'];
-        
-    } 
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l7'])) {
-        
-        $L_Q7=$VIT_Q_AUDIT['adl_audit_royal_london_l7'];
-        
-    } 
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_l8'])) {
-        
-        $L_Q8=$VIT_Q_AUDIT['adl_audit_royal_london_l8'];
+         if($PD_Q5 == "0") {
+            $SCORE ++;
+        }         
         
     }     
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_fam1'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_h1'])) {
         
-        $FAM_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_fam1'];
+        $H_Q1=$LV_Q_AUDIT['adl_audit_lv_h1'];
+        
+         if($H_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
+    }  
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_h2'])) {
+        
+        $H_Q2=$LV_Q_AUDIT['adl_audit_lv_h2'];
+        
+         if($H_Q2 == "0") {
+            $SCORE ++;
+        }        
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_h3'])) {
+        
+        $H_Q3=$LV_Q_AUDIT['adl_audit_lv_h3'];
+        
+         if($H_Q3 == "0") {
+            $SCORE ++;
+        }   
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l1'])) {
+        
+        $L_Q1=$LV_Q_AUDIT['adl_audit_lv_l1'];
+        
+         if($L_Q1 == "0") {
+            $SCORE ++;
+        }         
+        
+    }  
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l2'])) {
+        
+        $L_Q2=$LV_Q_AUDIT['adl_audit_lv_l2'];
+        
+         if($L_Q2 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l3'])) {
+        
+        $L_Q3=$LV_Q_AUDIT['adl_audit_lv_l3'];
+        
+         if($L_Q3 == "0") {
+            $SCORE ++;
+        }          
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l4'])) {
+        
+        $L_Q4=$LV_Q_AUDIT['adl_audit_lv_l4'];
+        
+         if($L_Q4 == "0") {
+            $SCORE ++;
+        }          
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l5'])) {
+        
+        $L_Q5=$LV_Q_AUDIT['adl_audit_lv_l5'];
+        
+         if($L_Q5 == "0") {
+            $SCORE ++;
+        }          
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l6'])) {
+        
+        $L_Q6=$LV_Q_AUDIT['adl_audit_lv_l6'];
+        
+         if($L_Q6 == "0") {
+            $SCORE ++;
+        }          
+        
+    }
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l7'])) {
+        
+        $L_Q7=$LV_Q_AUDIT['adl_audit_lv_l7'];
+        
+         if($L_Q7 == "0") {
+            $SCORE ++;
+        }          
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l8'])) {
+        
+        $L_Q8=$LV_Q_AUDIT['adl_audit_lv_l8'];
+        
+         if($L_Q8 == "0") {
+            $SCORE ++;
+        }          
+        
+    }            
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_l9'])) {
+        
+        $L_Q9=$LV_Q_AUDIT['adl_audit_lv_l9'];
+        
+         if($L_Q9 == "0") {
+            $SCORE ++;
+        }          
+        
+    }           
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_o1'])) {
+        
+        $O_Q1=$LV_Q_AUDIT['adl_audit_lv_o1'];
+        
+         if($O_Q1 == "0") {
+            $SCORE ++;
+        }          
         
     } 
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_h1'])) {
+    
+    if(isset($LV_Q_AUDIT['adl_audit_lv_pri1'])) {
         
-        $H_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_h1'];
+        $PRI_Q1=$LV_Q_AUDIT['adl_audit_lv_pri1'];
+        
+         if($PRI_Q1 == "0") {
+            $SCORE ++;
+        }          
+        
+    }     
+
+   if(isset($LV_Q_AUDIT['adl_audit_lv_bd1'])) {
+        
+        $BD_Q1=$LV_Q_AUDIT['adl_audit_lv_bd1'];
+        
+         if($BD_Q1 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_h2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_bd2'])) {
         
-        $H_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_h2'];
+        $BD_Q2=$LV_Q_AUDIT['adl_audit_lv_bd2'];
+        
+         if($BD_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_h3'])) {
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_bd3'])) {
         
-        $H_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_h3'];
+        $BD_Q3=$LV_Q_AUDIT['adl_audit_lv_bd3'];
+        
+         if($BD_Q3 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_bd4'])) {
+        
+        $BD_Q4=$LV_Q_AUDIT['adl_audit_lv_bd4'];
+        
+         if($BD_Q4 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_bd5'])) {
+        
+        $BD_Q5=$LV_Q_AUDIT['adl_audit_lv_bd5'];
+        
+         if($BD_Q5 == "0") {
+            $SCORE ++;
+        }         
         
     }    
     
-   if(isset($VIT_Q_AUDIT['adl_audit_royal_london_bd1'])) {
+   if(isset($LV_Q_AUDIT['adl_audit_lv_dec1'])) {
         
-        $BD_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_bd1'];
+        $DEC_Q1=$LV_Q_AUDIT['adl_audit_lv_dec1'];
         
-    }  
-    
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_bd2'])) {
-        
-        $BD_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_bd2'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_bd3'])) {
-        
-        $BD_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_bd3'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_bd4'])) {
-        
-        $BD_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_bd4'];
-        
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_bd5'])) {
-        
-        $BD_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_bd5'];
-        
-    }    
-    
-   if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec1'])) {
-        
-        $DEC_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_dec1'];
+          if($DEC_Q1 == "0") {
+            $SCORE ++;
+        }        
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec2'])) {
         
-        $DEC_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_dec2'];
+        $DEC_Q2=$LV_Q_AUDIT['adl_audit_lv_dec2'];
         
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec3'])) {
-        
-        $DEC_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_dec3'];
+          if($DEC_Q2 == "0") {
+            $SCORE ++;
+        }         
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec4'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec3'])) {
         
-        $DEC_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_dec4'];
+        $DEC_Q3=$LV_Q_AUDIT['adl_audit_lv_dec3'];
+        
+           if($DEC_Q3 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec5'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec4'])) {
         
-        $DEC_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_dec5'];
+        $DEC_Q4=$LV_Q_AUDIT['adl_audit_lv_dec4'];
+        
+          if($DEC_Q4 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec5'])) {
+        
+        $DEC_Q5=$LV_Q_AUDIT['adl_audit_lv_dec5'];
+        
+           if($DEC_Q5 == "0") {
+            $SCORE ++;
+        }        
         
     }   
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec6'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec6'])) {
         
-        $DEC_Q6=$VIT_Q_AUDIT['adl_audit_royal_london_dec6'];
+        $DEC_Q6=$LV_Q_AUDIT['adl_audit_lv_dec6'];
+        
+          if($DEC_Q6 == "0") {
+            $SCORE ++;
+        }         
         
     } 
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_dec7'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_dec7'])) {
         
-        $DEC_Q7=$VIT_Q_AUDIT['adl_audit_royal_london_dec7'];
+        $DEC_Q7=$LV_Q_AUDIT['adl_audit_lv_dec7'];
         
-    }     
+          if($DEC_Q7 == "0") {
+            $SCORE ++;
+        }         
+        
+    }
+   
     
-   if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc1'])) {
+   if(isset($LV_Q_AUDIT['adl_audit_lv_qc1'])) {
         
-        $QC_Q1=$VIT_Q_AUDIT['adl_audit_royal_london_qc1'];
+        $QC_Q1=$LV_Q_AUDIT['adl_audit_lv_qc1'];
+        
+          if($QC_Q1 == "0") {
+            $SCORE ++;
+        }         
         
     }  
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc2'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc2'])) {
         
-        $QC_Q2=$VIT_Q_AUDIT['adl_audit_royal_london_qc2'];
+        $QC_Q2=$LV_Q_AUDIT['adl_audit_lv_qc2'];
         
-    }
-
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc3'])) {
-        
-        $QC_Q3=$VIT_Q_AUDIT['adl_audit_royal_london_qc3'];
+           if($QC_Q2 == "0") {
+            $SCORE ++;
+        }       
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc4'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc3'])) {
         
-        $QC_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_qc4'];
+        $QC_Q3=$LV_Q_AUDIT['adl_audit_lv_qc3'];
+        
+          if($QC_Q3 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc5'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc4'])) {
         
-        $QC_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_qc5'];
+        $QC_Q4=$LV_Q_AUDIT['adl_audit_lv_qc4'];
+        
+           if($QC_Q4 == "0") {
+            $SCORE ++;
+        }       
+        
+    }
+
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc5'])) {
+        
+        $QC_Q5=$LV_Q_AUDIT['adl_audit_lv_qc5'];
+        
+          if($QC_Q5 == "0") {
+            $SCORE ++;
+        }        
         
     }    
     
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc6'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc6'])) {
         
-        $QC_Q6=$VIT_Q_AUDIT['adl_audit_royal_london_qc6'];
+        $QC_Q6=$LV_Q_AUDIT['adl_audit_lv_qc6'];
+        
+          if($QC_Q6 == "0") {
+            $SCORE ++;
+        }        
         
     }
 
-    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_qc7'])) {
+    if(isset($LV_Q_AUDIT['adl_audit_lv_qc7'])) {
         
-        $QC_Q7=$VIT_Q_AUDIT['adl_audit_royal_london_qc7'];
+        $QC_Q7=$LV_Q_AUDIT['adl_audit_lv_qc7'];
+        
+           if($QC_Q7 == "0") {
+            $SCORE ++;
+        }       
         
     }     
 
     $database->query("SELECT
-  adl_audit_royal_london_c_od1,
-  adl_audit_royal_london_c_od2,
-  adl_audit_royal_london_c_od3,
-  adl_audit_royal_london_c_od4,
-  adl_audit_royal_london_c_od5,
-  adl_audit_royal_london_c_icn1,
-  adl_audit_royal_london_c_icn2,
-  adl_audit_royal_london_c_icn3,
-  adl_audit_royal_london_c_icn4,
-  adl_audit_royal_london_c_cd1,
-  adl_audit_royal_london_c_cd2,
-  adl_audit_royal_london_c_cd3,
-  adl_audit_royal_london_c_cd4,
-  adl_audit_royal_london_c_cd5,
-  adl_audit_royal_london_c_cd6,
-  adl_audit_royal_london_c_cd7,
-  adl_audit_royal_london_c_cd8,
-  adl_audit_royal_london_c_other1,
-  adl_audit_royal_london_c_other2,
-  adl_audit_royal_london_c_other3,
-  adl_audit_royal_london_c_l1,
-  adl_audit_royal_london_c_l2,
-  adl_audit_royal_london_c_l3,
-  adl_audit_royal_london_c_l4,
-  adl_audit_royal_london_c_l5,
-  adl_audit_royal_london_c_l6,
-  adl_audit_royal_london_c_l7,
-  adl_audit_royal_london_c_l8
+                            adl_audit_lv_c_od1, 
+                            adl_audit_lv_c_od2, 
+                            adl_audit_lv_c_od3, 
+                            adl_audit_lv_c_od4, 
+                            adl_audit_lv_c_od5, 
+                            adl_audit_lv_c_icn1, 
+                            adl_audit_lv_c_icn2, 
+                            adl_audit_lv_c_icn3, 
+                            adl_audit_lv_c_icn4, 
+                            adl_audit_lv_c_cd1, 
+                            adl_audit_lv_c_cd2, 
+                            adl_audit_lv_c_cd3, 
+                            adl_audit_lv_c_cd4, 
+                            adl_audit_lv_c_cd5, 
+                            adl_audit_lv_c_cd6, 
+                            adl_audit_lv_c_cd7, 
+                            adl_audit_lv_c_cd8, 
+                            adl_audit_lv_c_con1,
+                            adl_audit_lv_c_con2,
+                            adl_audit_lv_c_con3, 
+                            adl_audit_lv_c_pd1, 
+                            adl_audit_lv_c_pd2, 
+                            adl_audit_lv_c_pd3, 
+                            adl_audit_lv_c_pd4, 
+                            adl_audit_lv_c_pd5, 
+                            adl_audit_lv_c_h1, 
+                            adl_audit_lv_c_h2, 
+                            adl_audit_lv_c_h3
                         FROM 
-                            adl_audit_royal_london_c 
+                            adl_audit_lv_c 
                         WHERE 
-                            adl_audit_royal_london_c_id_fk=:AUDITID");
+                            adl_audit_lv_c_id_fk=:AUDITID");
     $database->bind(':AUDITID', $AID_FK);
     $database->execute();
-    $VIT_C_AUDIT=$database->single();     
+    $LV_C_AUDIT=$database->single();     
     
-   if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_od1'])) {
+   if(isset($LV_C_AUDIT['adl_audit_lv_c_od1'])) {
         
-        $OD_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_od1'];
+        $OD_C1=$LV_C_AUDIT['adl_audit_lv_c_od1'];
         
     }  
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_od2'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_od2'])) {
         
-        $OD_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_od2'];
-        
-    }
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_od3'])) {
-        
-        $OD_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_od3'];
+        $OD_C2=$LV_C_AUDIT['adl_audit_lv_c_od2'];
         
     }
 
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_od4'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_od3'])) {
         
-        $OD_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_od4'];
+        $OD_C3=$LV_C_AUDIT['adl_audit_lv_c_od3'];
         
     }
 
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_od5'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_od4'])) {
         
-        $OD_C5=$VIT_C_AUDIT['adl_audit_royal_london_c_od5'];
+        $OD_C4=$LV_C_AUDIT['adl_audit_lv_c_od4'];
+        
+    }
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_od5'])) {
+        
+        $OD_C5=$LV_C_AUDIT['adl_audit_lv_c_od5'];
         
     }    
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_icn1'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_icn1'])) {
         
-        $ICN_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_icn1'];
-        
-    }  
-    
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_icn2'])) {
-        
-        $ICN_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_icn2'];
-        
-    }
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_icn3'])) {
-        
-        $ICN_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_icn3'];
-        
-    }
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_icn4'])) {
-        
-        $ICN_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_icn4'];
-        
-    }
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd1'])) {
-        
-        $CD_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_cd1'];
+        $ICN_C1=$LV_C_AUDIT['adl_audit_lv_c_icn1'];
         
     }  
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd2'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_icn2'])) {
         
-        $CD_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_cd2'];
-        
-    }
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd3'])) {
-        
-        $CD_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_cd3'];
+        $ICN_C2=$LV_C_AUDIT['adl_audit_lv_c_icn2'];
         
     }
 
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd4'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_icn3'])) {
         
-        $CD_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_cd4'];
+        $ICN_C3=$LV_C_AUDIT['adl_audit_lv_c_icn3'];
         
     }
 
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd5'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_icn4'])) {
         
-        $CD_C5=$VIT_C_AUDIT['adl_audit_royal_london_c_cd5'];
+        $ICN_C4=$LV_C_AUDIT['adl_audit_lv_c_icn4'];
+        
+    }
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd1'])) {
+        
+        $CD_C1=$LV_C_AUDIT['adl_audit_lv_c_cd1'];
+        
+    }  
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd2'])) {
+        
+        $CD_C2=$LV_C_AUDIT['adl_audit_lv_c_cd2'];
+        
+    }
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd3'])) {
+        
+        $CD_C3=$LV_C_AUDIT['adl_audit_lv_c_cd3'];
+        
+    }
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd4'])) {
+        
+        $CD_C4=$LV_C_AUDIT['adl_audit_lv_c_cd4'];
+        
+    }
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd5'])) {
+        
+        $CD_C5=$LV_C_AUDIT['adl_audit_lv_c_cd5'];
         
     }    
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd6'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd6'])) {
         
-        $CD_C6=$VIT_C_AUDIT['adl_audit_royal_london_c_cd6'];
+        $CD_C6=$LV_C_AUDIT['adl_audit_lv_c_cd6'];
         
     }  
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd7'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd7'])) {
         
-        $CD_C7=$VIT_C_AUDIT['adl_audit_royal_london_c_cd7'];
+        $CD_C7=$LV_C_AUDIT['adl_audit_lv_c_cd7'];
         
     }
 
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd8'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_cd8'])) {
         
-        $CD_C8=$VIT_C_AUDIT['adl_audit_royal_london_c_cd8'];
-        
-    }        
-    
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_other1'])) {
-        
-        $OTHER_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_other1'];
-        
-    }  
-    
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_other2'])) {
-        
-        $OTHER_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_other2'];
+        $CD_C8=$LV_C_AUDIT['adl_audit_lv_c_cd8'];
         
     }
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_other3'])) {
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_con1'])) {
         
-        $OTHER_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_other3'];
+        $CON_C1=$LV_C_AUDIT['adl_audit_lv_c_con1'];
+        
+    }  
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_con2'])) {
+        
+        $CON_C2=$LV_C_AUDIT['adl_audit_lv_c_con2'];
+        
+    }
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_con3'])) {
+        
+        $CON_C3=$LV_C_AUDIT['adl_audit_lv_c_con3'];
         
     }   
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l1'])) {
+     if(isset($LV_C_AUDIT['adl_audit_lv_c_pd1'])) {
         
-        $L_C1=$VIT_C_AUDIT['adl_audit_royal_london_c_l1'];
+        $PD_C1=$LV_C_AUDIT['adl_audit_lv_c_pd1'];
         
-    }    
+    }  
     
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l2'])) {
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_pd2'])) {
         
-        $L_C2=$VIT_C_AUDIT['adl_audit_royal_london_c_l2'];
+        $PD_C2=$LV_C_AUDIT['adl_audit_lv_c_pd2'];
+        
+    }
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_pd3'])) {
+        
+        $PD_C3=$LV_C_AUDIT['adl_audit_lv_c_pd3'];
+        
+    }   
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_pd4'])) {
+        
+        $PD_C4=$LV_C_AUDIT['adl_audit_lv_c_pd4'];
+        
+    } 
+
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_pd5'])) {
+        
+        $PD_C5=$LV_C_AUDIT['adl_audit_lv_c_pd5'];
+        
+    } 
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_h1'])) {
+        
+        $H_C1=$LV_C_AUDIT['adl_audit_lv_c_h1'];
         
     }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l3'])) {
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_h2'])) {
         
-        $L_C3=$VIT_C_AUDIT['adl_audit_royal_london_c_l3'];
+        $H_C2=$LV_C_AUDIT['adl_audit_lv_c_h2'];
         
-    }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l4'])) {
+    }
+    
+    if(isset($LV_C_AUDIT['adl_audit_lv_c_h3'])) {
         
-        $L_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_l4'];
-        
-    }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l5'])) {
-        
-        $L_C5=$VIT_C_AUDIT['adl_audit_royal_london_c_l5'];
-        
-    }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l6'])) {
-        
-        $L_C6=$VIT_C_AUDIT['adl_audit_royal_london_c_l6'];
-        
-    }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l7'])) {
-        
-        $L_C7=$VIT_C_AUDIT['adl_audit_royal_london_c_l7'];
-        
-    }  
-
-    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_l8'])) {
-        
-        $L_C8=$VIT_C_AUDIT['adl_audit_royal_london_c_l8'];
+        $H_C3=$LV_C_AUDIT['adl_audit_lv_c_h3'];
         
     }      
-    
+
+     
     
 $database->query("SELECT
-  adl_audit_royal_london_ce_o1,
-  adl_audit_royal_london_ce_o2,
-  adl_audit_royal_london_ce_o3,
-  adl_audit_royal_london_ce_fam1,
-  adl_audit_royal_london_ce_h1,
-  adl_audit_royal_london_ce_h2,
-  adl_audit_royal_london_ce_h3,
-  adl_audit_royal_london_ce_bd1,
-  adl_audit_royal_london_ce_bd2,
-  adl_audit_royal_london_ce_bd3,
-  adl_audit_royal_london_ce_bd4,
-  adl_audit_royal_london_ce_bd5,
-  adl_audit_royal_london_ce_dec1,
-  adl_audit_royal_london_ce_dec2,
-  adl_audit_royal_london_ce_dec3,
-  adl_audit_royal_london_ce_dec4,
-  adl_audit_royal_london_ce_dec5,
-  adl_audit_royal_london_ce_dec6,
-  adl_audit_royal_london_ce_dec7,
-  adl_audit_royal_london_ce_qc1,
-  adl_audit_royal_london_ce_qc2,
-  adl_audit_royal_london_ce_qc3,
-  adl_audit_royal_london_ce_qc4,
-  adl_audit_royal_london_ce_qc5,
-  adl_audit_royal_london_ce_qc6,
-  adl_audit_royal_london_ce_qc7
+                        adl_audit_lv_ce_l1, 
+                        adl_audit_lv_ce_l2,
+                        adl_audit_lv_ce_l3, 
+                        adl_audit_lv_ce_l4, 
+                        adl_audit_lv_ce_l5, 
+                        adl_audit_lv_ce_l6, 
+                        adl_audit_lv_ce_l7, 
+                        adl_audit_lv_ce_l8, 
+                        adl_audit_lv_ce_l9, 
+                        adl_audit_lv_ce_o1, 
+                        adl_audit_lv_ce_pri1, 
+                        adl_audit_lv_ce_bd1, 
+                        adl_audit_lv_ce_bd2, 
+                        adl_audit_lv_ce_bd3, 
+                        adl_audit_lv_ce_bd4, 
+                        adl_audit_lv_ce_bd5, 
+                        adl_audit_lv_ce_dec1, 
+                        adl_audit_lv_ce_dec2, 
+                        adl_audit_lv_ce_dec3, 
+                        adl_audit_lv_ce_dec4, 
+                        adl_audit_lv_ce_dec5, 
+                        adl_audit_lv_ce_dec6, 
+                        adl_audit_lv_ce_dec7, 
+                        adl_audit_lv_ce_qc1, 
+                        adl_audit_lv_ce_qc2, 
+                        adl_audit_lv_ce_qc3, 
+                        adl_audit_lv_ce_qc4, 
+                        adl_audit_lv_ce_qc5, 
+                        adl_audit_lv_ce_qc6, 
+                        adl_audit_lv_ce_qc7
   FROM
-    adl_audit_royal_london_ce
+    adl_audit_lv_ce
   WHERE
-    adl_audit_royal_london_ce_id_fk = :AUDITID");
+    adl_audit_lv_ce_id_fk = :AUDITID");
     $database->bind(':AUDITID', $AID_FK);
     $database->execute();
-    $VIT_CE_AUDIT=$database->single();   
+    $LV_CE_AUDIT=$database->single();   
     
-if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l1'])) {
         
-        $O_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'];
+        $L_C1=$LV_CE_AUDIT['adl_audit_lv_ce_l1'];
         
     }  
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o2'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l2'])) {
         
-        $O_C2=$VIT_CE_AUDIT['adl_audit_royal_london_ce_o2'];
-        
-    }
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o3'])) {
-        
-        $O_C3=$VIT_CE_AUDIT['adl_audit_royal_london_ce_o3'];
-        
-    }       
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_fam1'])) {
-        
-        $FAM_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_fam1'];
-        
-    } 
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_h1'])) {
-        
-        $H_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_h1'];
-        
-    }  
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_h2'])) {
-        
-        $H_C2=$VIT_CE_AUDIT['adl_audit_royal_london_ce_h2'];
-        
-    }
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_h3'])) {
-        
-        $H_C3=$VIT_CE_AUDIT['adl_audit_royal_london_ce_h3'];
-        
-    }      
-    
-   if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_bd1'])) {
-        
-        $BD_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_bd1'];
-        
-    }  
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_bd2'])) {
-        
-        $BD_C2=$VIT_CE_AUDIT['adl_audit_royal_london_ce_bd2'];
+        $L_C2=$LV_CE_AUDIT['adl_audit_lv_ce_l2'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_bd3'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l3'])) {
         
-        $BD_C3=$VIT_CE_AUDIT['adl_audit_royal_london_ce_bd3'];
-        
-    }
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_bd4'])) {
-        
-        $BD_C4=$VIT_CE_AUDIT['adl_audit_royal_london_ce_bd4'];
+        $L_C3=$LV_CE_AUDIT['adl_audit_lv_ce_l3'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_bd5'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l4'])) {
         
-        $BD_C5=$VIT_CE_AUDIT['adl_audit_royal_london_ce_bd5'];
+        $L_C4=$LV_CE_AUDIT['adl_audit_lv_ce_l4'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l5'])) {
+        
+        $L_C5=$LV_CE_AUDIT['adl_audit_lv_ce_l5'];
         
     }    
     
-   if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec1'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l6'])) {
         
-        $DEC_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec1'];
-        
-    }  
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec2'])) {
-        
-        $DEC_C2=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec2'];
+        $L_C6=$LV_CE_AUDIT['adl_audit_lv_ce_l6'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec3'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l7'])) {
         
-        $DEC_C3=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec3'];
-        
-    }
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec4'])) {
-        
-        $DEC_C4=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec4'];
-        
-    }
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec5'])) {
-        
-        $DEC_C5=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec5'];
-        
-    }   
-    
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec6'])) {
-        
-        $DEC_C6=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec6'];
+        $L_C7=$LV_CE_AUDIT['adl_audit_lv_ce_l7'];
         
     } 
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_dec7'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l8'])) {
         
-        $DEC_C7=$VIT_CE_AUDIT['adl_audit_royal_london_ce_dec7'];
+        $L_C8=$LV_CE_AUDIT['adl_audit_lv_ce_l8'];
+        
+    } 
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_l9'])) {
+        
+        $L_C9=$LV_CE_AUDIT['adl_audit_lv_ce_l9'];
         
     }     
     
-   if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc1'])) {
+if(isset($LV_CE_AUDIT['adl_audit_lv_ce_o1'])) {
         
-        $QC_C1=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc1'];
+        $O_C1=$LV_CE_AUDIT['adl_audit_lv_ce_o1'];
         
     }  
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc2'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_pri1'])) {
         
-        $QC_C2=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc2'];
+        $PRI_C1=$LV_CE_AUDIT['adl_audit_lv_ce_pri1'];
+        
+    }        
+    
+   if(isset($LV_CE_AUDIT['adl_audit_lv_ce_bd1'])) {
+        
+        $BD_C1=$LV_CE_AUDIT['adl_audit_lv_ce_bd1'];
+        
+    }  
+    
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_bd2'])) {
+        
+        $BD_C2=$LV_CE_AUDIT['adl_audit_lv_ce_bd2'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc3'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_bd3'])) {
         
-        $QC_C3=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc3'];
-        
-    }
-
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc4'])) {
-        
-        $QC_C4=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc4'];
+        $BD_C3=$LV_CE_AUDIT['adl_audit_lv_ce_bd3'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc5'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_bd4'])) {
         
-        $QC_C5=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc5'];
+        $BD_C4=$LV_CE_AUDIT['adl_audit_lv_ce_bd4'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_bd5'])) {
+        
+        $BD_C5=$LV_CE_AUDIT['adl_audit_lv_ce_bd5'];
         
     }    
     
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc6'])) {
+   if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec1'])) {
         
-        $QC_C6=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc6'];
+        $DEC_C1=$LV_CE_AUDIT['adl_audit_lv_ce_dec1'];
+        
+    }  
+    
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec2'])) {
+        
+        $DEC_C2=$LV_CE_AUDIT['adl_audit_lv_ce_dec2'];
         
     }
 
-    if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_qc7'])) {
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec3'])) {
         
-        $QC_C7=$VIT_CE_AUDIT['adl_audit_royal_london_ce_qc7'];
+        $DEC_C3=$LV_CE_AUDIT['adl_audit_lv_ce_dec3'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec4'])) {
+        
+        $DEC_C4=$LV_CE_AUDIT['adl_audit_lv_ce_dec4'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec5'])) {
+        
+        $DEC_C5=$LV_CE_AUDIT['adl_audit_lv_ce_dec5'];
+        
+    }   
+    
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec6'])) {
+        
+        $DEC_C6=$LV_CE_AUDIT['adl_audit_lv_ce_dec6'];
+        
+    } 
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_dec7'])) {
+        
+        $DEC_C7=$LV_CE_AUDIT['adl_audit_lv_ce_dec7'];
+        
+    }     
+    
+   if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc1'])) {
+        
+        $QC_C1=$LV_CE_AUDIT['adl_audit_lv_ce_qc1'];
+        
+    }  
+    
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc2'])) {
+        
+        $QC_C2=$LV_CE_AUDIT['adl_audit_lv_ce_qc2'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc3'])) {
+        
+        $QC_C3=$LV_CE_AUDIT['adl_audit_lv_ce_qc3'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc4'])) {
+        
+        $QC_C4=$LV_CE_AUDIT['adl_audit_lv_ce_qc4'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc5'])) {
+        
+        $QC_C5=$LV_CE_AUDIT['adl_audit_lv_ce_qc5'];
+        
+    }    
+    
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc6'])) {
+        
+        $QC_C6=$LV_CE_AUDIT['adl_audit_lv_ce_qc6'];
+        
+    }
+
+    if(isset($LV_CE_AUDIT['adl_audit_lv_ce_qc7'])) {
+        
+        $QC_C7=$LV_CE_AUDIT['adl_audit_lv_ce_qc7'];
         
     } 
     
-    $database->endTransaction();  
+    $database->endTransaction();   
     
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>ADL | Royal London Call Audit</title>
+    <title>ADL | LV Call Audit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
@@ -983,13 +1261,13 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
             <fieldset>
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Edit Royal London Closer Call Audit</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Edit LV Closer Call Audit</h3>
                     </div>
 
                     <div class="panel-body">
                         <p>
                             <label for="CLOSER">Closer</label>
-                            <input type="text" class="form-control" name="CLOSER" id="CLOSER" style="width: 520px" value="<?php if(isset($VIT_CLOSER)) { echo $VIT_CLOSER; } ?>">
+                            <input type="text" class="form-control" name="CLOSER" id="CLOSER" style="width: 520px" value="<?php if(isset($LV_CLOSER)) { echo $LV_CLOSER; } ?>">
                         
 <script>var options = {
                                             url: "/../../app/JSON/Closers.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
@@ -1004,7 +1282,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                                         $("#CLOSER").easyAutocomplete(options);</script>                        
                         
                         <label for="AGENT">Agent</label>
-                        <input type="text" class="form-control" name="AGENT" id="AGENT" style="width: 520px" value="<?php if(isset($VIT_AGENT)) { echo $VIT_AGENT; } ?>">
+                        <input type="text" class="form-control" name="AGENT" id="AGENT" style="width: 520px" value="<?php if(isset($LV_AGENT)) { echo $LV_AGENT; } ?>">
                         
     <script>var options = {
                                                             url: "/../../app/JSON/Agents.php?EXECUTE=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
@@ -1018,7 +1296,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                                                         $("#AGENT").easyAutocomplete(options);</script>                         
 
                         <label for="POLICY">Reference</label>
-                        <input type="text" class="form-control" name="REFERENCE" style="width: 520px" value="<?php if(isset($VIT_REF)) { echo $VIT_REF; } ?>">
+                        <input type="text" class="form-control" name="REFERENCE" style="width: 520px" value="<?php if(isset($LV_REF)) { echo $LV_REF; } ?>">
 
                         </p>
 
@@ -1026,10 +1304,10 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         <div class="form-group">
                             <label for='GRADE'>Grade:</label>
                             <select class="form-control" name="GRADE" required>
-                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'SAVED') { echo "selected"; } ?> value="SAVED">Incomplete Audit (SAVE)</option>
-                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Green') { echo "selected"; } ?> value="Green">Green</option>
-                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Amber') { echo "selected"; } ?> value="Amber">Amber</option>
-                                <option <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Red')   { echo "selected"; } ?> value="Red">Red</option>
+                                <option <?php if(isset($LV_GRADE) && $LV_GRADE == 'SAVED') { echo "selected"; } ?> value="SAVED">Incomplete Audit (SAVE)</option>
+                                <option <?php if(isset($LV_GRADE) && $LV_GRADE == 'Green') { echo "selected"; } ?> value="Green">Green</option>
+                                <option <?php if(isset($LV_GRADE) && $LV_GRADE == 'Amber') { echo "selected"; } ?> value="Amber">Amber</option>
+                                <option <?php if(isset($LV_GRADE) && $LV_GRADE == 'Red')   { echo "selected"; } ?> value="Red">Red</option>
                             </select>
                         </div>
                         </p>
@@ -1358,7 +1636,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
 
                         <p>
-                            <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm that this policy would be set up with Royal London?</label>
+                            <label for="ICN_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm that this policy would be set up with LV?</label>
                             <input type="radio" name="ICN_Q4" 
 <?php if (isset($ICN_Q4) && $ICN_Q4 == "1") {
     echo "checked";
@@ -1478,7 +1756,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
 
                         <p>
-                            <label for="CD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask and confirm customers DOB?</label>
+                            <label for="CD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer input the correct gender?</label>
                             <input type="radio" name="CD_Q3" 
 <?php if (isset($CD_Q3) && $CD_Q3 == "1") {
     echo "checked";
@@ -1515,7 +1793,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
 
                         <p>
-                            <label for="CD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer get the customers email correct?</label>
+                            <label for="CD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask and confirm the customers DOB?</label>
                             <input type="radio" name="CD_Q4" 
 <?php if (isset($CD_Q4) && $CD_Q4 == "1") {
     echo "checked";
@@ -1589,7 +1867,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
               
 <p>
-                            <label for="CD_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer was a UK resident?</label>
+                            <label for="CD_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers occupation?</label>
                             <input type="radio" name="CD_Q6" 
 <?php if (isset($CD_Q6) && $CD_Q6 == "1") {
     echo "checked";
@@ -1625,7 +1903,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                             });
                         </script>                  
 <p>
-                            <label for="CD_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer occupation?</label>
+                            <label for="CD_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer was a UK resident?</label>
                             <input type="radio" name="CD_Q7" 
 <?php if (isset($CD_Q7) && $CD_Q7 == "1") {
     echo "checked";
@@ -1662,7 +1940,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>  
                                              
  <p>
-                            <label for="CD_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm the customers address?</label>
+                            <label for="CD_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm single or joint policy?</label>
                             <input type="radio" name="CD_Q8" 
 <?php if (isset($CD_Q8) && $CD_Q8 == "1") {
     echo "checked";
@@ -1704,31 +1982,31 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                 
 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Other/existing cover</h3>
+                        <h3 class="panel-title">Contact details</h3>
                     </div>
                     <div class="panel-body">
                         
                         <p>
-                            <label for="OTHER_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer is covered by Royal London and did they record the answer correctly?</label>
-                            <input type="radio" name="OTHER_Q1" 
-<?php if (isset($OTHER_Q1) && $OTHER_Q1 == "1") {
+                            <label for="CON_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm the customers address?</label>
+                            <input type="radio" name="CON_Q1" 
+<?php if (isset($CON_Q1) && $CON_Q1 == "1") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckOTHER_C1();"
-                                   value="1" id="yesCheckOTHER_C1" required >Yes
-                            <input type="radio" name="OTHER_Q1"
-<?php if (isset($OTHER_Q1) && $OTHER_Q1 == "0") {
+} ?> onclick="javascript:yesnoCheckCON_C1();"
+                                   value="1" id="yesCheckCON_C1" required >Yes
+                            <input type="radio" name="CON_Q1"
+<?php if (isset($CON_Q1) && $CON_Q1 == "0") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckOTHER_C1();"
-                                   value="0" id="noCheckOTHER_C1">No
+} ?> onclick="javascript:yesnoCheckCON_C1();"
+                                   value="0" id="noCheckCON_C1">No
                         </p>
 
-                        <div id="ifYesOTHER_C1" >
-                            <textarea class="form-control"id="OTHER_C1" name="OTHER_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C1)) { echo $OTHER_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCON_C1" >
+                            <textarea class="form-control"id="CON_C1" name="CON_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CON_C1)) { echo $CON_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#OTHER_C1').keydown(function () {
+                                $('#CON_C1').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1745,26 +2023,26 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                             });
                         </script>
                         <p>
-                            <label for="OTHER_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has ever had an application for life insurance that was deferred or declined?</label>
-                            <input type="radio" name="OTHER_Q2" 
-<?php if (isset($OTHER_Q2) && $OTHER_Q2 == "1") {
+                            <label for="CON_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer get the correct email?</label>
+                            <input type="radio" name="CON_Q2" 
+<?php if (isset($CON_Q2) && $CON_Q2 == "1") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckOTHER_C2();"
-                                   value="1" id="yesCheckOTHER_C2" required >Yes
-                            <input type="radio" name="OTHER_Q2"
-<?php if (isset($OTHER_Q2) && $OTHER_Q2 == "0") {
+} ?> onclick="javascript:yesnoCheckCON_C2();"
+                                   value="1" id="yesCheckCON_C2" required >Yes
+                            <input type="radio" name="CON_Q2"
+<?php if (isset($CON_Q2) && $CON_Q2 == "0") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckOTHER_C2();"
-                                   value="0" id="noCheckOTHER_C2">No
+} ?> onclick="javascript:yesnoCheckCON_C2();"
+                                   value="0" id="noCheckCON_C2">No
                         </p>
 
-                        <div id="ifYesOTHER_C2" >
-                            <textarea class="form-control"id="OTHER_C2" name="OTHER_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C2)) { echo $OTHER_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesCON_C2" >
+                            <textarea class="form-control"id="CON_C2" name="CON_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CON_C2)) { echo $CON_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#OTHER_C2').keydown(function () {
+                                $('#CON_C2').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1783,25 +2061,25 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
 
 
                         <p>
-                            <label for="OTHER_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer had exiting life cover exceeding £1m or £500k critical illness?</label>
-                            <input type="radio" name="OTHER_Q3" onclick="javascript:yesnoCheck();"
-<?php if (isset($OTHER_Q3) && $OTHER_Q3 == "1") {
+                            <label for="CON_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer put the correct marital status in?</label>
+                            <input type="radio" name="CON_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($CON_Q3) && $CON_Q3 == "1") {
     echo "checked";
 } ?>
                                    value="1" id="yesCheck" required >Yes
-                            <input type="radio" name="OTHER_Q3" onclick="javascript:yesnoCheck();"
-<?php if (isset($OTHER_Q3) && $OTHER_Q3 == "0") {
+                            <input type="radio" name="CON_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($CON_Q3) && $CON_Q3 == "0") {
     echo "checked";
 } ?>
                                    value="0" id="noCheck">No
                         </p>
                         <div id="ifYes" >
-                            <textarea class="form-control"id="OTHER_C3" name="OTHER_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($OTHER_C3)) { echo $OTHER_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                            <textarea class="form-control"id="CON_C3" name="CON_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($CON_C3)) { echo $CON_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#OTHER_C3').keydown(function () {
+                                $('#CON_C3').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1822,31 +2100,31 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                 
 <div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Lifestyle</h3>
+                        <h3 class="panel-title">Personal Details</h3>
                     </div>
                     <div class="panel-body">
                         
                         <p>
-                            <label for="L_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Height and Weight' and did they record the answers correctly?</label>
-                            <input type="radio" name="L_Q1" 
-<?php if (isset($L_Q1) && $L_Q1 == "1") {
+                            <label for="PD_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Height and Weight' and did they record the answers correctly?</label>
+                            <input type="radio" name="PD_Q1" 
+<?php if (isset($PD_Q1) && $PD_Q1 == "1") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C1();"
-                                   value="1" id="yesCheckL_C1" required >Yes
-                            <input type="radio" name="L_Q1"
-<?php if (isset($L_Q1) && $L_Q1 == "0") {
+} ?> onclick="javascript:yesnoCheckPD_C1();"
+                                   value="1" id="yesCheckPD_C1" required >Yes
+                            <input type="radio" name="PD_Q1"
+<?php if (isset($PD_Q1) && $PD_Q1 == "0") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckL_C1();"
-                                   value="0" id="noCheckL_C1">No
+} ?> onclick="javascript:yesnoCheckPD_C1();"
+                                   value="0" id="noCheckPD_C1">No
                         </p>
 
-                        <div id="ifYesL_C1" >
-                            <textarea class="form-control"id="L_C1" name="L_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C1)) { echo $L_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesPD_C1" >
+                            <textarea class="form-control"id="PD_C1" name="PD_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PD_C1)) { echo $PD_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C1').keydown(function () {
+                                $('#PD_C1').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1863,18 +2141,63 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                             });
                         </script>
                         <p>
-                            <label for="L_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer 'Trouser/Dress size' and did they record the answers correctly?</label>
-                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 1 ) { echo "checked"; } ?> value="1" required >Yes
-                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 0 ) { echo "checked"; } ?> value="0" >No
+                            <label for="PD_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Smoking Status' and did they record the answer correctly?</label>
+                            <input type="radio" name="PD_Q2" 
+<?php if (isset($PD_Q2) && $PD_Q2 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckPD_C2();"
+                                   value="1" id="yesCheckPD_C2" required >Yes
+                            <input type="radio" name="PD_Q2"
+<?php if (isset($PD_Q2) && $PD_Q2 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckPD_C2();"
+                                   value="0" id="noCheckPD_C2">No
                         </p>
 
-                        <div id="ifYesL_C2" >
-                            <textarea class="form-control"id="L_C2" name="L_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C2)) { echo $L_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesPD_C2" >
+                            <textarea class="form-control"id="PD_C2" name="PD_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PD_C2)) { echo $PD_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C2').keydown(function () {
+                                $('#PD_C2').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+
+
+                        <p>
+                            <label for="PD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer what they had smoked and how many per day in the last 12 months?</label>
+                            <input type="radio" name="PD_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($PD_Q3) && $PD_Q3 == "1") {
+    echo "checked";
+} ?>
+                                   value="1" id="yesCheck" required >Yes
+                            <input type="radio" name="PD_Q3" onclick="javascript:yesnoCheck();"
+<?php if (isset($PD_Q3) && $PD_Q3 == "0") {
+    echo "checked";
+} ?>
+                                   value="0" id="noCheck">No
+                        </p>
+                        <div id="ifYes" >
+                            <textarea class="form-control"id="PD_C3" name="PD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PD_C3)) { echo $PD_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#PD_C3').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -1891,136 +2214,26 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                             });
                         </script>
                         
-                        <p>
-                            <label for="L_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'Smoking status' and did the closer record the answer correctly?</label>
-                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C3" required >Yes
-                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C3">No
-                        </p>
-
-                        <div id="ifYesL_C3" >
-                            <textarea class="form-control"id="L_C3" name="L_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C3)) { echo $L_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C3').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>    
-                        
-   <p>
-                            <label for="L_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer what the customer had smoked and how many per day in the last 12 months?</label>
-                            <input type="radio" name="L_Q4" <?php if (isset($L_Q4) && $L_Q4 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C4" required >Yes
-                            <input type="radio" name="L_Q4" <?php if (isset($L_Q4) && $L_Q4 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C4">No
-                        </p>
-
-                        <div id="ifYesL_C4" >
-                            <textarea class="form-control"id="L_C4" name="L_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C4)) { echo $L_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C4').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>   
-
-<p>
-                            <label for="L_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer how many units of alcohol does the customer drink per week and did they record the answers correctly?</label>
-                            <input type="radio" name="L_Q5" <?php if (isset($L_Q5) && $L_Q5 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C5" required >Yes
-                            <input type="radio" name="L_Q5" <?php if (isset($L_Q5) && $L_Q5 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C5">No
-                        </p>
-
-                        <div id="ifYesL_C5" >
-                            <textarea class="form-control"id="L_C5" name="L_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C5)) { echo $L_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C5').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>      
-                        
-<p>
-                            <label for="L_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has been advised to reduce alcohol consumption?</label>
-                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C6" required >Yes
-                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C6">No
-                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == "N/A") { echo "checked"; } ?> value="N/A" >N/A
-                        </p>
-
-                        <div id="ifYesL_C6" >
-                            <textarea class="form-control"id="L_C6" name="L_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C6)) { echo $L_C6; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C6').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>      
-                        
  <p>
-                            <label for="L_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer if they have taken any drugs in the last 10 years?</label>
-                            <input type="radio" name="L_Q7" <?php if (isset($L_Q7) && $L_Q7 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C7" required >Yes
-                            <input type="radio" name="L_Q7" <?php if (isset($L_Q7) && $L_Q7 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C7">No
+                            <label for="PD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer confirm the customers main job?</label>
+                            <input type="radio" name="PD_Q4" onclick="javascript:yesnoCheck<?php echo $QUESTION_NUMBER; ?>();"
+<?php if (isset($PD_Q4) && $PD_Q4 == "1") {
+    echo "checked";
+} ?>
+                                   value="1" id="yesCheck" required >Yes
+                            <input type="radio" name="PD_Q4" onclick="javascript:yesnoCheck<?php echo $QUESTION_NUMBER; ?>();"
+<?php if (isset($PD_Q4) && $PD_Q4 == "0") {
+    echo "checked";
+} ?>
+                                   value="0" id="noCheck">No
                         </p>
-
-                        <div id="ifYesL_C7" >
-                            <textarea class="form-control"id="L_C7" name="L_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C7)) { echo $L_C7; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYes" >
+                            <textarea class="form-control"id="PD_C4" name="PD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PD_C4)) { echo $PD_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C7').keydown(function () {
+                                $('#PD_C4').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -2035,21 +2248,28 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                                     }
                                 });
                             });
-                        </script>                        
-                        
- <p>
-                            <label for="L_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer intends to take part in any hazardous activities?</label>
-                            <input type="radio" name="L_Q8" <?php if (isset($L_Q8) && $L_Q8 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C8" required >Yes
-                            <input type="radio" name="L_Q8" <?php if (isset($L_Q8) && $L_Q8 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C8">No
-                        </p>
+                        </script>
 
-                        <div id="ifYesL_C8" >
-                            <textarea class="form-control"id="L_C8" name="L_C8" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C8)) { echo $L_C8; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+ <p>
+                            <label for="PD_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer's family history and did they record the answered correctly?</label>
+                            <input type="radio" name="PD_Q5" onclick="javascript:yesnoCheck<?php echo $QUESTION_NUMBER; ?>();"
+<?php if (isset($PD_Q5) && $PD_Q5 == "1") {
+    echo "checked";
+} ?>
+                                   value="1" id="yesCheck" required >Yes
+                            <input type="radio" name="PD_Q5" onclick="javascript:yesnoCheck<?php echo $QUESTION_NUMBER; ?>();"
+<?php if (isset($PD_Q5) && $PD_Q5 == "0") {
+    echo "checked";
+} ?>
+                                   value="0" id="noCheck">No
+                        </p>
+                        <div id="ifYes" >
+                            <textarea class="form-control"id="PD_C5" name="PD_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PD_C5)) { echo $PD_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#L_C8').keydown(function () {
+                                $('#PD_C5').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -2067,125 +2287,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>                        
                         
                     </div>
-                </div>   
-
- <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Occupation</h3>
-                    </div>
-                    <div class="panel-body">
-                        
-                        <p>
-                            <label for="O_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customers current job involves manual work or driving?</label>
-                            <input type="radio" name="O_Q1" 
-                                   <?php if (isset($O_Q1) && $O_Q1 == "1") {
-                                       echo "checked";
-                                   } ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="1" id="yesCheckO_C1" required >Yes
-                            <input type="radio" name="O_Q1"
-<?php if (isset($O_Q1) && $O_Q1 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="0" id="noCheckO_C1">No
-                        </p>
-
-                        <div id="ifYesO_C1" >
-                            <textarea class="form-control"id="O_C1" name="O_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C1)) { echo $O_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C1').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="O_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer is involved in any of the hazardous activities listed?</label>
-                            <input type="radio" name="O_Q2" 
-<?php if (isset($O_Q2) && $O_Q2 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C2();"
-                                   value="1" id="yesCheckO_C2" required >Yes
-                            <input type="radio" name="O_Q2"
-<?php if (isset($O_Q2) && $O_Q2 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C2();"
-                                   value="0" id="noCheckO_C2">No                           
-                        </p>
-
-                        <div id="ifYesO_C2" >
-                            <textarea class="form-control"id="O_C2" name="O_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C2)) { echo $O_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C2').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="O_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has lived, worked or travelled to the listed areas during the last two years?</label>
-                            <input type="radio" name="O_Q3" 
-<?php if (isset($O_Q3) && $O_Q3 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C3();"
-                                   value="1" id="yesCheckO_C3" required >Yes
-                            <input type="radio" name="O_Q3"
-<?php if (isset($O_Q3) && $O_Q3 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C3();"
-                                   value="0" id="noCheckO_C3">No
-                                             
-                        </p>
-
-                        <div id="ifYesO_C3" >
-                            <textarea class="form-control"id="O_C3" name="O_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C3)) { echo $O_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C3').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                </div>                   
+                </div> 
                 
  <div class="panel panel-info">
                     <div class="panel-heading">
@@ -2194,7 +2296,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                     <div class="panel-body">
                         
                         <p>
-                            <label for="H_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask all the "Have you ever had or do you currently have" health questions and did they record the answers correctly?</label>
+                            <label for="H_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the 'Any condition in the last 5 year' health question and did they record the answers correctly?</label>
                             <input type="radio" name="H_Q1" 
 <?php if (isset($H_Q1) && $H_Q1 == "1") {
     echo "checked";
@@ -2231,7 +2333,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
 
                         <p>
-                            <label for="H_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask all the "any condition in the last 5 years" health questions and did the closer record the answers correctly?</label>
+                            <label for="H_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask all the 'Have you ever had or do you currently have' health questions and did the closer record the answers correctly?</label>
                             <input type="radio" name="H_Q2" 
 <?php if (isset($H_Q2) && $H_Q2 == "1") {
     echo "checked";
@@ -2269,7 +2371,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
                         
                         <p>
-                            <label for="H_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask all the "any condition in the last 3 years" health questions and did the closer record the answers correctly?</label>
+                            <label for="H_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask all the "any condition in the last 2 years" health questions and did the closer record the answers correctly?</label>
                             <input type="radio" name="H_Q3" 
 <?php if (isset($H_Q3) && $H_Q3 == "1") {
     echo "checked";
@@ -2307,35 +2409,358 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>                   
                         
                     </div>
-                </div>                    
+                </div>                      
                 
- <div class="panel panel-info">
+<div class="panel panel-info">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Family history</h3>
+                        <h3 class="panel-title">Lifestyle</h3>
                     </div>
                     <div class="panel-body">
                         
                         <p>
-                            <label for="FAM_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer's family history and did they record the answers correctly?</label>
-                            <input type="radio" name="FAM_Q1" 
-<?php if (isset($FAM_Q1) && $FAM_Q1 == "1") {
+                            <label for="L_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer if they intend to partake in any physical hobby or sport?</label>
+                            <input type="radio" name="L_Q1" 
+<?php if (isset($L_Q1) && $L_Q1 == "1") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckFAMC1();"
-                                   value="1" id="yesCheckFAMC1" required >Yes
-                            <input type="radio" name="FAM_Q1"
-<?php if (isset($FAM_Q1) && $FAM_Q1 == "0") {
+} ?> onclick="javascript:yesnoCheckL_C1();"
+                                   value="1" id="yesCheckL_C1" required >Yes
+                            <input type="radio" name="L_Q1"
+<?php if (isset($L_Q1) && $L_Q1 == "0") {
     echo "checked";
-} ?> onclick="javascript:yesnoCheckFAMC1();"
-                                   value="0" id="noCheckFAMC1">No
+} ?> onclick="javascript:yesnoCheckL_C1();"
+                                   value="0" id="noCheckL_C1">No
                         </p>
 
-                        <div id="ifYesFAMC1" >
-                            <textarea class="form-control"id="FAMC1" name="FAMC1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($FAM_C1)) { echo $FAM_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
+                        <div id="ifYesL_C1" >
+                            <textarea class="form-control"id="L_C1" name="L_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C1)) { echo $L_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C1').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <p>
+                            <label for="L_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer rides a motorbike, scooter or moped on the road?</label>
+                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 1 ) { echo "checked"; } ?> value="1" required >Yes
+                            <input type="radio" name="L_Q2" <?php if (isset($L_Q2) && $L_Q2 == 0 ) { echo "checked"; } ?> value="0" >No
+                        </p>
+
+                        <div id="ifYesL_C2" >
+                            <textarea class="form-control"id="L_C2" name="L_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C2)) { echo $L_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C2').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        
+                        <p>
+                            <label for="L_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if customer has been banned from driving for any reason in the last 5 years?</label>
+                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C3" required >Yes
+                            <input type="radio" name="L_Q3" <?php if (isset($L_Q3) && $L_Q3 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C3">No
+                        </p>
+
+                        <div id="ifYesL_C3" >
+                            <textarea class="form-control"id="L_C3" name="L_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C3)) { echo $L_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C3').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>    
+                        
+   <p>
+                            <label for="L_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has lived, worked or travelled to the listed areas during the last 5 years?</label>
+                            <input type="radio" name="L_Q4" <?php if (isset($L_Q4) && $L_Q4 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C4" required >Yes
+                            <input type="radio" name="L_Q4" <?php if (isset($L_Q4) && $L_Q4 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C4">No
+                        </p>
+
+                        <div id="ifYesL_C4" >
+                            <textarea class="form-control"id="L_C4" name="L_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C4)) { echo $L_C4; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C4').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>   
+
+<p>
+                            <label for="L_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer intends to travel outside the UK or EU?</label>
+                            <input type="radio" name="L_Q5" <?php if (isset($L_Q5) && $L_Q5 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C5" required >Yes
+                            <input type="radio" name="L_Q5" <?php if (isset($L_Q5) && $L_Q5 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C5">No
+                        </p>
+
+                        <div id="ifYesL_C5" >
+                            <textarea class="form-control"id="L_C5" name="L_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C5)) { echo $L_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C5').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>      
+                        
+<p>
+                            <label for="L_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer had any existing life cover exceeding £1m or £500k Critical illness?</label>
+                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C6" required >Yes
+                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C6">No
+                            <input type="radio" name="L_Q6" <?php if (isset($L_Q6) && $L_Q6 == "N/A") { echo "checked"; } ?> value="N/A" >N/A
+                        </p>
+
+                        <div id="ifYesL_C6" >
+                            <textarea class="form-control"id="L_C6" name="L_C6" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C6)) { echo $L_C6; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C6').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>      
+                        
+ <p>
+                            <label for="L_Q7">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer how many alcoholic drinks does the customer consume per week and was the answer recorded correctly?</label>
+                            <input type="radio" name="L_Q7" <?php if (isset($L_Q7) && $L_Q7 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C7" required >Yes
+                            <input type="radio" name="L_Q7" <?php if (isset($L_Q7) && $L_Q7 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C7">No
+                        </p>
+
+                        <div id="ifYesL_C7" >
+                            <textarea class="form-control"id="L_C7" name="L_C7" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C7)) { echo $L_C7; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C7').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>                        
+                        
+ <p>
+                            <label for="L_Q8">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has been advised to reduce alcohol consumption?</label>
+                            <input type="radio" name="L_Q8" <?php if (isset($L_Q8) && $L_Q8 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C8" required >Yes
+                            <input type="radio" name="L_Q8" <?php if (isset($L_Q8) && $L_Q8 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C8">No
+                        </p>
+
+                        <div id="ifYesL_C8" >
+                            <textarea class="form-control"id="L_C8" name="L_C8" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C8)) { echo $L_C8; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C8').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>  
+                        
+                <label for="L_Q9">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer has taken any drugs in the last 10 years?</label>
+                            <input type="radio" name="L_Q9" <?php if (isset($L_Q9) && $L_Q9 == 1) { echo "checked"; } ?> value="1" id="yesCheckL_C9" required >Yes
+                            <input type="radio" name="L_Q9" <?php if (isset($L_Q9) && $L_Q9 == 0 ) { echo "checked"; } ?> value="0" id="noCheckL_C9">No
+                        </p>
+
+                        <div id="ifYesL_C9" >
+                            <textarea class="form-control"id="L_C9" name="L_C9" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($L_C9)) { echo $L_C9; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#L_C9').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>             
+                        
+                    </div>
+                </div>   
+
+ <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Occupation</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <p>
+                            <label for="O_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customers is involved in any hazardous duties listed?</label>
+                            <input type="radio" name="O_Q1" 
+                                   <?php if (isset($O_Q1) && $O_Q1 == "1") {
+                                       echo "checked";
+                                   } ?> onclick="javascript:yesnoCheckO_C1();"
+                                   value="1" id="yesCheckO_C1" required >Yes
+                            <input type="radio" name="O_Q1"
+<?php if (isset($O_Q1) && $O_Q1 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckO_C1();"
+                                   value="0" id="noCheckO_C1">No
+                        </p>
+
+                        <div id="ifYesO_C1" >
+                            <textarea class="form-control"id="O_C1" name="O_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C1)) { echo $O_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#O_C1').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                       
+                    </div>
+                </div>                    
+                
+ <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Price</h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <p>
+                            <label for="PRI_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer's family history and did they record the answers correctly?</label>
+                            <input type="radio" name="PRI_Q1" 
+<?php if (isset($PRI_Q1) && $PRI_Q1 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckPRI_C1();"
+                                   value="1" id="yesCheckPRI_C1" required >Yes
+                            <input type="radio" name="PRI_Q1"
+<?php if (isset($PRI_Q1) && $PRI_Q1 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckPRI_C1();"
+                                   value="0" id="noCheckPRI_C1">No
+                        </p>
+
+                        <div id="ifYesPRI_C1" >
+                            <textarea class="form-control"id="PRI_C1" name="PRI_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($PRI_C1)) { echo $PRI_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_33" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
                             $(document).ready(function () {
                                 $('#CHARS_LEFT_ID_34').text('1000 characters left');
-                                $('#FAMC1').keydown(function () {
+                                $('#PRI_C1').keydown(function () {
                                     var max = 1000;
                                     var len = $(this).val().length;
                                     if (len >= max) {
@@ -2355,7 +2780,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                     </div>
                 </div>  
 
-                <div class="panel panel-info">
+<div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Bank details</h3>
                     </div>
@@ -2548,7 +2973,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                     </div>
                 </div>
                 
-                <div class="panel panel-info">
+<div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Consolidation Declaration</h3>
                     </div>
@@ -2741,7 +3166,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                         </script>
 
                         <p>
-                            <label for="DEC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Royal London will write to them with a more specific date?</label>
+                            <label for="DEC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but LV will write to them with a more specific date?</label>
                             <input type="radio" name="DEC_Q6" 
 <?php if (isset($DEC_Q6) && $DEC_Q6 == "1") {
     echo "checked";
@@ -2823,14 +3248,14 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                     </div>
                 </div>
                 
-     <div class="panel panel-info">
+<div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Quality Control</h3>
                     </div>
                     <div class="panel-body">
                         
                         <p>
-                            <label for="QC_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Royal London with client information?</label>
+                            <label for="QC_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with LV with client information?</label>
                             <input type="radio" name="QC_Q1" 
 <?php if (isset($QC_Q1) && $QC_Q1 == "1") {
     echo "checked";
@@ -3104,8 +3529,8 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
         var form = this;
         e.preventDefault();
         swal({
-            title: "Update Royal London audit?",
-            text: "Save and update Royal London audit!",
+            title: "Update LV audit?",
+            text: "Save and update LV audit!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -3118,7 +3543,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                     if (isConfirm) {
                         swal({
                             title: 'Complete!',
-                            text: 'Royal London audit updated!',
+                            text: 'LV audit updated!',
                             type: 'success'
                         }, function () {
                             form.submit();

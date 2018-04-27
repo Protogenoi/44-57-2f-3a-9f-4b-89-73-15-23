@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -588,6 +589,8 @@ WHERE
                                         <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Index") { echo "checked";  } ?> >Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Comp and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Comp and Index") { echo "checked";  } ?> >Comp and Index</label>
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Pri and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Pri and Index") { echo "checked";  } ?> >Pri and Index</label>
                         </div>
                     </div>
                 </div>
@@ -633,6 +636,8 @@ WHERE
                                         <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Index" <?php if(isset($data2['vitality_policy_kids_sic_opt2']) && $data2['vitality_policy_kids_sic_opt2'] == "Index") { echo "checked";  } ?> >Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_2" type="radio" value="Comp and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt2']) && $data2['vitality_policy_kids_sic_opt2'] == "Comp and Index") { echo "checked";  } ?> >Comp and Index</label>
+                                         <label class="radio-inline">
+                                        <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Pri and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Pri and Index") { echo "checked";  } ?> >Pri and Index</label>
                         </div>
                     </div>
                 </div>
@@ -723,6 +728,8 @@ WHERE
                                         <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Index" <?php if(isset($data2['vitality_policy_kids_sic_opt4']) && $data2['vitality_policy_kids_sic_opt4'] == "Index") { echo "checked";  } ?> >Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_4" type="radio" value="Comp and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt4']) && $data2['vitality_policy_kids_sic_opt4'] == "Comp and Index") { echo "checked";  } ?> >Comp and Index</label>
+                                         <label class="radio-inline">
+                                        <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Pri and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Pri and Index") { echo "checked";  } ?> >Pri and Index</label>
                         </div>
                     </div>
                 </div>
@@ -768,6 +775,8 @@ WHERE
                                         <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Index" <?php if(isset($data2['vitality_policy_kids_sic_opt5']) && $data2['vitality_policy_kids_sic_opt5'] == "Index") { echo "checked";  } ?> >Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_5" type="radio" value="Comp and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt5']) && $data2['vitality_policy_kids_sic_opt5'] == "Comp and Index") { echo "checked";  } ?> >Comp and Index</label>
+                                         <label class="radio-inline">
+                                        <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Pri and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Pri and Index") { echo "checked";  } ?> >Pri and Index</label>
                         </div>
                     </div>
                 </div>
@@ -813,6 +822,8 @@ WHERE
                                         <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Index" <?php if(isset($data2['vitality_policy_kids_sic_opt6']) && $data2['vitality_policy_kids_sic_opt6'] == "Index") { echo "checked";  } ?> >Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_6" type="radio" value="Comp and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt6']) && $data2['vitality_policy_kids_sic_opt6'] == "Comp and Index") { echo "checked";  } ?> >Comp and Index</label>
+                                         <label class="radio-inline">
+                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Pri and Index" <?php if(isset($data2['vitality_policy_kids_sic_opt']) && $data2['vitality_policy_kids_sic_opt'] == "Pri and Index") { echo "checked";  } ?> >Pri and Index</label>
                         </div>
                     </div>
                 </div>

@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -601,6 +602,8 @@ if (isset($EXECUTE)) {
                                         <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Index">Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Comp and Index">Comp and Index</label> 
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_1" name="KID_OPT_1" type="radio" value="Pri and Index">Pri and Index</label>                                         
                         </div>
                     </div>
                 </div>
@@ -646,6 +649,8 @@ if (isset($EXECUTE)) {
                                         <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Index">Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Comp and Index">Comp and Index</label> 
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_2" name="KID_OPT_2" type="radio" value="Pri and Index">Pri and Index</label> 
                         </div>
                     </div>
                 </div>
@@ -690,7 +695,9 @@ if (isset($EXECUTE)) {
                                     <label class="radio-inline">
                                         <input id="KID_OPT_3" name="KID_OPT_3" type="radio" value="Index">Index</label>
                                         <label class="radio-inline">
-                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Comp and Index">Comp and Index</label> 
+                                        <input id="KID_OPT_3" name="KID_OPT_3" type="radio" value="Comp and Index">Comp and Index</label> 
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_3" name="KID_OPT_3" type="radio" value="Pri and Index">Pri and Index</label> 
                         </div>
                     </div>
                 </div>
@@ -736,6 +743,8 @@ if (isset($EXECUTE)) {
                                         <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Index">Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Comp and Index">Comp and Index</label> 
+                                  <label class="radio-inline">
+                                        <input id="KID_OPT_4" name="KID_OPT_4" type="radio" value="Pri and Index">Pri and Index</label>       
                         </div>
                     </div>
                 </div>
@@ -781,6 +790,8 @@ if (isset($EXECUTE)) {
                                         <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Index">Index</label>
                                         <label class="radio-inline">
                                         <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Comp and Index">Comp and Index</label> 
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_5" name="KID_OPT_5" type="radio" value="Pri and Index">Pri and Index</label> 
                         </div>
                     </div>
                 </div>
@@ -825,7 +836,9 @@ if (isset($EXECUTE)) {
                                     <label class="radio-inline">
                                         <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Index">Index</label>
                                    <label class="radio-inline">
-                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Comp and Index">Comp and Index</label>     
+                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Comp and Index">Comp and Index</label>  
+                                        <label class="radio-inline">
+                                        <input id="KID_OPT_6" name="KID_OPT_6" type="radio" value="Pri and Index">Pri and Index</label> 
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,7 @@
             <th>Wellness</th>
             <th></th>
             <th>Opts</th>
+            <th>Income Benefit</th>
             <th>Status</th>
             <th>Financial</th>
             <th colspan="3">Options</th>
@@ -37,6 +38,13 @@
         if(empty($Old_Policies['vitality_policy_cover_amount'])) {
             $Old_Policies['vitality_policy_cover_amount']=0;
         }        
+        
+        if(isset($VITALITY_Policies['vitality_income_benefit_id'])) {
+            
+            $VIT_INCOME_BENEFIT="Yes";
+        } else {
+            $VIT_INCOME_BENEFIT="No";
+        }
         
         $COVER_AMOUNT = number_format($VITALITY_Policies['vitality_policy_cover_amount'],2);
 
@@ -62,8 +70,18 @@
         echo "<td>" . $VITALITY_Policies['vitality_policy_premium'] . "</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_wellness'] . "</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_term_prem'] . "</td>";
-        echo "<td>" . $VITALITY_Policies['vitality_policy_sic_opt'] . "</td>";
-        if ($VITALITY_Policies['adl_policy_status'] == 'CLAWBACK' || ['adl_policy_status'] == 'CLAWBACK-LAPSE' || $VITALITY_Policies['adl_policy_status'] == 'Declined') {
+        echo "<td>" . $VITALITY_Policies['vitality_policy_sic_opt'] . "</td>"; 
+        
+        if($VIT_INCOME_BENEFIT == 'Yes') { ?>
+
+        <td><a href='/addon/Life/Insurers/Vitality/view_income_benefit.php?EXECUTE=1&PID=<?php echo $APID; ?>&CID=<?php echo $search; ?>' class='btn btn-info btn-xs'><i class='fa fa-eye'></i><?php echo $VIT_INCOME_BENEFIT; ?></a></td>
+        
+        <?php } else { ?>
+        
+                <td><?php echo $VIT_INCOME_BENEFIT; ?></td>
+
+       
+        <?php } if ($VITALITY_Policies['adl_policy_status'] == 'CLAWBACK' || ['adl_policy_status'] == 'CLAWBACK-LAPSE' || $VITALITY_Policies['adl_policy_status'] == 'Declined') {
             echo "<td><span class=\"label label-danger\">" . $VITALITY_Policies['adl_policy_status'] . "</span></td>";
         } elseif ($VITALITY_Policies['adl_policy_status'] == 'PENDING' || $VITALITY_Policies['adl_policy_status'] == 'Live Awaiting Policy Number' || $VITALITY_Policies['adl_policy_status'] == 'Awaiting Policy Number') {
             echo "<td><span class=\"label label-warning\">" . $VITALITY_Policies['adl_policy_status'] . "</span></td>";

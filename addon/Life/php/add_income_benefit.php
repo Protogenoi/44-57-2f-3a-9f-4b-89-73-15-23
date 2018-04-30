@@ -104,7 +104,8 @@ if (isset($EXECUTE)) {
  vitality_income_benefit_indexation=:INDEXATION,
  vitality_income_benefit_escalation=:ESCALATION,
  vitality_income_benefit_premium=:PREMIUM,
- vitality_income_benefit_premium_type=:PREMIUM_TYPE");
+ vitality_income_benefit_premium_type=:PREMIUM_TYPE,
+ vitality_income_benefit_amount=:BENEFIT");
             $database->bind(':ID_FK', $ID_FK);
             $database->bind(':TYPE', $TYPE);
             $database->bind(':PERIOD',$PERIOD);
@@ -114,6 +115,7 @@ if (isset($EXECUTE)) {
             $database->bind(':ESCALATION',$ESCALATION);
             $database->bind(':PREMIUM',$PREMIUM);
             $database->bind(':PREMIUM_TYPE', $PREMIUM_TYPE);
+            $database->bind(':BENEFIT', $BENEFIT_AMOUNT);
             $database->execute(); 
             $lastid =  $database->lastInsertId(); 
 

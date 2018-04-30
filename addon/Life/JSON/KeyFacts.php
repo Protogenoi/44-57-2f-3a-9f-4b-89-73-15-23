@@ -31,17 +31,23 @@ echo json_encode($results);
     client_details.email,
     client_details.submitted_date,
     client_policy.closer,
-    client_details.client_id
+    client_details.client_id,
+    adl_policy_closer
 FROM
     client_details
-    LEFT JOIN client_policy ON client_details.client_id=client_policy.client_id
+        LEFT JOIN
+    client_policy ON client_details.client_id = client_policy.client_id
+        LEFT JOIN
+    adl_policy ON client_details.client_id = adl_policy_client_id_fk
 WHERE
-    DATE(client_details.submitted_date) >= '2017-08-31' AND client_details.company !='FPG Paul'
+    DATE(client_details.submitted_date) >= '2017-08-31'
+        AND client_details.company != 'FPG Paul'
         AND client_details.email NOT IN (SELECT 
             keyfactsemail_email
         FROM
             keyfactsemail)
-    GROUP BY client_details.email ORDER BY client_details.submitted_date DESC");
+GROUP BY client_details.email
+ORDER BY client_details.submitted_date DESC");
 $query->execute()or die(print_r($query->errorInfo(), true));
 json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 

@@ -83,6 +83,7 @@ if ($fflife=='0') {
                 <th><?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "ADL Client Added Date"; } if($SEARCH=="Sent") { echo "Sent Date"; } } if(!isset($SEARCH)) { echo "Sent Date"; } ?></th>
                 <th>Email</th>
                 <th>User</th>
+                <th>Closer</th>
                 <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>View</th>"; } }?>
                 <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>Dismiss?</th>"; } }?>
             </tr>
@@ -93,6 +94,7 @@ if ($fflife=='0') {
                 <th>Date</th>
                 <th>Email</th>
                 <th>User</th>
+                <th>Closer</th>
                 <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>View</th>"; } }?>
                 <?php if(isset($SEARCH)) { if($SEARCH=='NotSent') { echo "<th>Dismiss?</th>"; } }?>
             </tr>
@@ -204,6 +206,7 @@ if ($fflife=='0') {
                         {"data": "submitted_date"},
                         {"data": "email"},
                         {"data": "closer"},
+                        {"data": "adl_policy_closer"},
                                                 {"data": "client_id",
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + ' " target="_blank">View</a>';

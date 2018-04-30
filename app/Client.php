@@ -653,6 +653,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=LV">LV Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=AVIVA">Aviva Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/Insurers/Vitality/add_policy.php?EXECUTE=1&CID=<?php echo $search; ?>&INSURER=VITALITY">Vitality Policy</a></li>
+                        <?php
+                        
+                        if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL = 1 ) { ?>
+                       <li><a class="list-group-item" href="/addon/Life/Insurers/Vitality/add_income_benefit.php?EXECUTE=1&CID=<?php echo $search; ?>">Vitality Income Benefit</a></li>     
+                       <?php }
+                        
+                        ?>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ROYALLONDON">Royal London Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ZURICH">Zurich Policy</a></li>

@@ -29,13 +29,16 @@ class VITALITY_NEW_PoliciesModal {
     adl_policy.adl_policy_id,
     vitality_policy.vitality_policy_premium,
     vitality_policy.vitality_policy_comms,
-    vitality_financial_amount
+    vitality_financial_amount,
+    vitality_income_benefit_id
 FROM
     adl_policy
 		JOIN
     vitality_policy ON adl_policy.adl_policy_id = vitality_policy.vitality_policy_id_fk
             LEFT JOIN
     vitality_financial ON adl_policy.adl_policy_ref = vitality_financial.vitality_financial_policy_number
+    LEFT  JOIN
+    vitality_income_benefit ON adl_policy.adl_policy_id = vitality_income_benefit.vitality_income_benefit_id_fk
 WHERE
     adl_policy_client_id_fk = :CID
         AND adl_policy.adl_policy_insurer = 'Vitality'");

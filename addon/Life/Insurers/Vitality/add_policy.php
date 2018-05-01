@@ -285,7 +285,9 @@ if (isset($EXECUTE)) {
                             <label class="radio-inline" for="TYPE_2">
                                 <input type="radio" value="DTA" id="TYPE_2" name="TYPE" >DTA</label>
                                 <label class="radio-inline" for="TYPE_3">
-                                    <input type="radio" value="LTA" id="TYPE_3" name="TYPE" >LTA</label></div>
+                                    <input type="radio" value="LTA" id="TYPE_3" name="TYPE" >LTA</label>
+                                    <label class="radio-inline" for="TYPE_4">
+                                    <input type="radio" value="WOL" id="TYPE_4" name="TYPE" >WOL</label></div>
                 </div>        
                 
                 <div class="form-group" style="display: block">

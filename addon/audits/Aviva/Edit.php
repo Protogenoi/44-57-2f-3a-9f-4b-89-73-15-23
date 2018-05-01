@@ -237,7 +237,7 @@ if (isset($_GET["auditid"])) {
                         <div class="panel-body">
 
                             <p>
-                                <label for="q1">Q1. Was The Customer Made Aware That Calls Are Recorded For Training And Monitoring Purposes?</label>
+                                <label for="q1">Q1. Was The Customer Made Aware That Calls Are Recorded For training and quality Purposes?</label>
                                 <input type="radio" name="q1" value="Yes"  <?php if ($result['q1'] == "Yes") {
     echo "checked";
 } ?> >Yes

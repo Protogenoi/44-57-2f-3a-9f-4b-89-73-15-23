@@ -407,7 +407,7 @@ if(isset($QRY)) {
            
 <br><h3 class="panel-title">Opening Declaration</h3>
                         
-                        <label for="q1">Q1. Was the customer made aware that calls are recorded for training and monitoring purposes?</label><br>
+                        <label for="q1">Q1. Was the customer made aware that calls are recorded for training and quality purposes?</label><br>
                         <input type="radio" name="q1" <?php if (isset($q1) && $q1=="1") { echo  "checked"; }?> onclick="javascript:yesnoCheckc1();" value="1" id="yesCheckc1" <?php if(isset($QRY)) { if($QRY=='View') { echo "disabled"; } } ?>>Yes
                         <input type="radio" name="q1" <?php if (isset($q1) && $q1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc1();" value="0" id="noCheckc1" <?php if(isset($QRY)) { if ($QRY=='View') { echo "disabled"; } } ?>>No
                         

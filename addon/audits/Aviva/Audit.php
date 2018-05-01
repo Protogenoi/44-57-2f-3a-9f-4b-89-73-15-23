@@ -603,7 +603,7 @@ WHERE
                                 ?>
                                 
                 <div class="form-group">
-                    <label for="OD1"><?php echo $OD_NUM++; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label>
+                    <label for="OD1"><?php echo $OD_NUM++; ?>. Was the customer made aware that calls are recorded for training and quality purposes?</label>
                     <div class="col-2">    
                     <select class="form-control" id="OD1" name="OD1" onchange="java_script_:showTOD1(this.options[this.selectedIndex].value)">
                             <option value=""></option>

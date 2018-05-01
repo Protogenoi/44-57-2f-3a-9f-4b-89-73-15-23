@@ -581,7 +581,7 @@ WHERE
                                 ?>
 
             <p>
-                <label for="q1"><?php echo $OD_NUM++; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label><br>
+                <label for="q1"><?php echo $OD_NUM++; ?>. Was the customer made aware that calls are recorded for training and quality purposes?</label><br>
                 <?php if(isset($Q_OD1)) { if($Q_OD1=='1') { echo "Yes"; } if($Q_OD1=='0') { echo "No"; } } ?>
 
 

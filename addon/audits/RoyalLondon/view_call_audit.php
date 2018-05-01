@@ -1233,7 +1233,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
            <h1><b>Opening Declaration</b></h1>
 
             <p>
-                <label for="q1">Q<?php $i=0; $i++; echo $i; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label><br>
+                <label for="q1">Q<?php $i=0; $i++; echo $i; ?>. Was the customer made aware that calls are recorded for training and quality purposes?</label><br>
                 <input type="radio" name="q1" value="Yes" onclick="return false" <?php if(isset($OD_Q1)) { if ($OD_Q1 == "1") { echo "checked"; } } ?> >Yes
                 <input type="radio" name="q1" value="No" onclick="return false" <?php if(isset($OD_Q1)) { if ($OD_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
 

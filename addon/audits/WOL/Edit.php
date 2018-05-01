@@ -438,7 +438,7 @@ function textAreaAdjust(o) {
                     </div>
                     <div class="panel-body">
                         
-                        <label for="q1">Q1. Was the customer made aware that calls are recorded for training and monitoring purposes?</label>
+                        <label for="q1">Q1. Was the customer made aware that calls are recorded for training and quality purposes?</label>
                         <input type="radio" name="q1" <?php if (isset($q1) && $q1=="1") { echo  "checked"; }?> onclick="javascript:yesnoCheckc1();" value="1" id="yesCheckc1">Yes
                         <input type="radio" name="q1" <?php if (isset($q1) && $q1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckc1();" value="0" id="noCheckc1">No
                         

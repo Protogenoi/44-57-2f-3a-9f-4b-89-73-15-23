@@ -176,7 +176,7 @@ $QUESTION_NUMBER=1;
                     </div>
                     <div class="panel-body">
                         <p>
-                            <label for="OD_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Was the customer made aware that calls are recorded for training and monitoring purposes?</label>
+                            <label for="OD_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Was the customer made aware that calls are recorded for training and quality purposes?</label>
                             <input type="radio" name="OD_Q1" 
                                    <?php if (isset($OD_Q1) && $OD_Q1 == "1") {
                                        echo "checked";

@@ -296,7 +296,9 @@ WHERE
                             <label class="radio-inline" for="TYPE_2">
                                 <input type="radio" value="DTA" id="TYPE_2" name="TYPE" <?php if(isset($data2['vitality_policy_type']) && $data2['vitality_policy_type'] == "DTA") { echo "checked";  } ?> >DTA</label>
                                 <label class="radio-inline" for="TYPE_3">
-                                    <input type="radio" value="LTA" id="TYPE_3" name="TYPE" <?php if(isset($data2['vitality_policy_type']) && $data2['vitality_policy_type'] == "LTA") { echo "checked";  } ?> >LTA</label></div>
+                                    <input type="radio" value="LTA" id="TYPE_3" name="TYPE" <?php if(isset($data2['vitality_policy_type']) && $data2['vitality_policy_type'] == "LTA") { echo "checked";  } ?> >LTA</label>
+                                    <label class="radio-inline" for="TYPE_4">
+                                    <input type="radio" value="WOL" id="TYPE_4" name="TYPE" <?php if(isset($data2['vitality_policy_type']) && $data2['vitality_policy_type'] == "WOL") { echo "checked";  } ?> >WOL</label></div>
                 </div>        
                 
                 <div class="form-group" style="display: block">

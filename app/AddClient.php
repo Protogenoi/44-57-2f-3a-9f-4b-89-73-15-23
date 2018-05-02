@@ -194,6 +194,11 @@ if ($ffpost_code == '1') {
                                             <?php
                                         }
                                     }
+                                    
+                                    if($ffhome == 1 ) { ?>
+                                            <option value="Home Insurance">Home Insurance</option> 
+                                  <?php  }
+                                    
                                     ?>         
 
                                 </select>

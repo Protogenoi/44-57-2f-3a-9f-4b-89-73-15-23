@@ -96,27 +96,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     $COMPANY='TRB';
     $COMPANY_NAME='Bluestone Protect';
     }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='PFP';
-    $COMPANY_NAME='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='PLL';
-    $COMPANY_NAME='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='WI';
-    $COMPANY_NAME='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='TFAC';
-    $COMPANY_NAME='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='APM';
-    $COMPANY_NAME='Assured Protect and Mortgages';
-    }   
-          if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+          elseif (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
     $COMPANY='TRB';
     $COMPANY_NAME='Bluestone Protect';
     }    
@@ -169,7 +149,7 @@ $UPLOAD->execute();
             $database->bind(':change',$changereason); 
             $database->execute(); 
 
- header('Location: /compliance/Recordings.php?RETURN=UPLOAD'); die;
+ header('Location: /addon/compliance/Recordings.php?RETURN=UPLOAD'); die;
  }
 
 }
@@ -192,34 +172,14 @@ $UPLOAD->execute();
             $DOC_CAT= filter_input(INPUT_POST, 'DOC_CAT', FILTER_SANITIZE_SPECIAL_CHARS);
   
             if($_FILES['file']['size'] > 40000000) {
-                header('Location: /Compliance.php?RETURN=UPMAX'); die;
+                header('Location: /addon/compliance/Compliance.php?RETURN=UPMAX'); die;
             }
          
   if (in_array($hello_name, $TRB_ACCESS, true)) { 
     $COMPANY='TRB';
     $COMPANY_NAME='Bluestone Protect';
-    }
-        if (in_array($hello_name, $PFP_ACCESS, true)) { 
-    $COMPANY='PFP';
-    $COMPANY_NAME='Protect Family Plans';
-    }
-        if (in_array($hello_name, $PLL_ACCESS, true)) { 
-    $COMPANY='PLL';
-    $COMPANY_NAME='Protected Life Ltd';
-    }
-        if (in_array($hello_name, $WI_ACCESS, true)) { 
-    $COMPANY='WI';
-    $COMPANY_NAME='We Insure';
-    }
-        if (in_array($hello_name, $TFAC_ACCESS, true)) { 
-    $COMPANY='TFAC';
-    $COMPANY_NAME='The Financial Assessment Centre';
-    }
-        if (in_array($hello_name, $APM_ACCESS, true)) { 
-    $COMPANY='APM';
-    $COMPANY_NAME='Assured Protect and Mortgages';
-    }   
-          if (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
+    } 
+          elseif (in_array($hello_name, $COM_LVL_10_ACCESS, true)) { 
     $COMPANY='TRB';
     $COMPANY_NAME=$DOC_COMPANY;
     }    
@@ -256,16 +216,16 @@ $UPLOAD->bindParam(':CAT',$DOC_CAT, PDO::PARAM_STR);
 $UPLOAD->bindParam(':COMPANY',$COMPANY_NAME, PDO::PARAM_STR);
 $UPLOAD->execute();  
 
- header('Location: /compliance/Compliance.php?RETURN=DOCUPLOAD'); die;
+ header('Location: /addon/compliance/Compliance.php?RETURN=DOCUPLOAD'); die;
  }
 
 }
 
-header('Location: /compliance/Compliance.php?RETURN=UPFAIL'); die;
+header('Location: /addon/compliance/Compliance.php?RETURN=UPFAIL'); die;
             }
             
             else {
-              header('Location: /compliance/Compliance.php?RETURN=UPNO'); die;  
+              header('Location: /addon/compliance/Compliance.php?RETURN=UPNO'); die;  
             }
             
         }        
@@ -277,7 +237,7 @@ $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHAR
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);            
 
    if($_FILES['file']['size'] > 40000000) {
-               header('Location: /Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?fail&REF='.$REF.'#menu3'); die;
+               header('Location: /addon/Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?fail&REF='.$REF.'#menu3'); die;
             }
 
 if(isset($btnupload)) {    
@@ -315,12 +275,12 @@ $query->bindParam(':sent',$hello_name, PDO::PARAM_STR, 100);
 $query->bindParam(':message',$final_file, PDO::PARAM_STR, 2500);
 $query->execute();
 
- header('Location: /Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploaded=y&?success&fileupname='.$uploadtype.'&REF='.$REF.'#menu3'); die;
+ header('Location: /addon/Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploaded=y&?success&fileupname='.$uploadtype.'&REF='.$REF.'#menu3'); die;
  }
 
 }
 
-header('Location: /Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?fail&REF='.$REF.'#menu3'); die;
+header('Location: /addon/Staff/ViewEmployee.php?RETURN=FILEUPLOAD&fileuploadedfail=y&?fail&REF='.$REF.'#menu3'); die;
           
             
         }
@@ -336,7 +296,7 @@ $uploadtype= filter_input(INPUT_POST, 'uploadtype', FILTER_SANITIZE_SPECIAL_CHAR
 $btnupload= filter_input(INPUT_POST, 'btn-upload', FILTER_SANITIZE_SPECIAL_CHARS);
 
    if($_FILES['file']['size'] > 40000000) {
-                header('Location: /Home/ViewClient.php?UPLOAD=MAX&CID='.$CID.'#menu2'); die;
+                header('Location: /addon/Home/ViewClient.php?UPLOAD=MAX&CID='.$CID.'#menu2'); die;
             }
 
 if(isset($btnupload)) {    
@@ -376,12 +336,12 @@ $query->bindParam(':noteholder',$uploadtype, PDO::PARAM_STR, 255);
 $query->bindParam(':messageholder',$final_file, PDO::PARAM_STR, 2500);
 $query->execute();
 
-  header('Location: Home/ViewClient.php?fileuploaded=y&?success&fileupname='.$uploadtype.'&CID='.$CID.'#menu2'); die;
+  header('Location: /addon/Home/ViewClient.php?fileuploaded=y&?success&fileupname='.$uploadtype.'&CID='.$CID.'#menu2'); die;
  }
 
 }
 
-header('Location: Home/ViewClient.php?fileuploadedfail=y&?fail&CID='.$CID.'#menu2'); die;
+header('Location: /addon/Home/ViewClient.php?fileuploadedfail=y&?fail&CID='.$CID.'#menu2'); die;
           
             
         }

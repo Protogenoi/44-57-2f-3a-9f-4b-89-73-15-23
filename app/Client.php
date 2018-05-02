@@ -178,7 +178,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
     if($ffhome == 1 ) {
 
-                        $HOME_CHECK = $pdo->prepare("SELECT client_id FROM home_policy WHERE WHERE client_id=:CID");
+                        $HOME_CHECK = $pdo->prepare("SELECT client_id FROM home_policy WHERE client_id=:CID");
                         $HOME_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $HOME_CHECK->execute();
                         if ($HOME_CHECK->rowCount() > 0) {

@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -87,16 +88,19 @@ if (isset($fferror)) {
         die;    
             
         }
+        
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);   
+$CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_NUMBER_INT);   
 ?>
 <!DOCTYPE html>
 <!-- 
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
-<title>ADL | Add Product</title>
+<title>ADL | Add Home Insurance</title>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
@@ -106,7 +110,8 @@ if (isset($fferror)) {
 <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-  <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
+
+<script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
@@ -152,8 +157,6 @@ input.currency {
 <?php 
 require_once(__DIR__ . '/../../includes/navbar.php');
 
-$AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
-
 ?>
 
 <br>
@@ -162,13 +165,12 @@ $AddHome= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_NUMBER_INT);
 
  <div class="panel-group">
     <div class="panel panel-primary">
-      <div class="panel-heading">Add Product</div>
+      <div class="panel-heading">Add Home Insurance</div>
       <div class="panel-body">
 <?php 
 
-if(isset($AddHome)){ 
-    $HomePOST= filter_input(INPUT_GET, 'Home', FILTER_SANITIZE_SPECIAL_CHARS);
-    if ($HomePOST =='y') {  
+if(isset($EXECUTE)){ 
+    if ($EXECUTE == 1 ) {  
         $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);
         $query = $pdo->prepare("SELECT client_id, CONCAT(title, ' ', first_name, ' ', last_name) AS Name , CONCAT(title2, ' ', first_name2, ' ', last_name2) AS Name2 from client_details where client_id = :search");
         $query->bindParam(':search', $CID, PDO::PARAM_INT);
@@ -179,7 +181,7 @@ if(isset($AddHome)){
         $NAME2=$result['Name2'];
         ?>
 
-<form class="AddClient" action="php/AddPolicySubmit.php?query=HomeInsurance&CID=<?php echo $CID; ?>" method="POST">
+<form class="AddClient" action="php/AddPolicySubmit.php?EXECUTE=1&CID=<?php echo $CID; ?>" method="POST">
     <div class="col-md-4">
         
         <label for='client_name'>Client Name</label>
@@ -289,7 +291,7 @@ if(isset($AddHome)){
                 </div>
                 
                 <div class="btn-group">
-                    <a href="Home/ViewClient.php?CID=<?php echo $CID; ?>" class="btn btn-warning "><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+                    <a href="/app/Client.php?search=<?php echo $CID; ?>" class="btn btn-warning "><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-ok"></span> Save</button>
                 </div>
                 </form>

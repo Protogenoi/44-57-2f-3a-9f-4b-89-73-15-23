@@ -664,7 +664,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ONEFAMILY">One Family Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=ZURICH">Zurich Policy</a></li>
                         <li><a class="list-group-item" href="/addon/Life/NewPolicy.php?EXECUTE=1&search=<?php echo $search; ?>&INSURER=SCOTTISH WIDOWS">Scottish Widows Policy</a></li>
-                    <?php } ?>
+                    <?php if($ffhome == 1 ) { ?>
+                      <li><a class="list-group-item" href="/addon/Home/AddPolicy.php?EXECUTE=1&CID=<?php echo $search; ?>&INSURER=Home Insurance">Home Insurance</a></li>
+                    <?php } } ?>
 
                 </ul>
             </li>

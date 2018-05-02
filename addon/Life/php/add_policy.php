@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -54,7 +55,7 @@ if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
-if (isSET($fferror)) {
+if (isset($fferror)) {
     if ($fferror == '0') {
         ini_SET('display_errors', 1);
         ini_SET('display_startup_errors', 1);

@@ -48,14 +48,15 @@ if(isset($fferror)) {
     
     }
 
-$query= filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if(isset($query)) {
+if(isset($EXECUTE)) {
+    if($EXECUTE == 1 ) {
     
     require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php'); 
     
-    $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS);   
-    if($query=='HomeInsurance') {
+    $CID= filter_input(INPUT_GET, 'CID', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
         $policy_number= filter_input(INPUT_POST, 'policy_number', FILTER_SANITIZE_SPECIAL_CHARS);
         $client_name= filter_input(INPUT_POST, 'client_name', FILTER_SANITIZE_SPECIAL_CHARS);
         $sale_date= filter_input(INPUT_POST, 'sale_date', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -98,7 +99,7 @@ if(isset($query)) {
             $insert->execute(); 
             
             $notedata= "Policy Added";
-            $messagedata="Policy added $dupepol duplicate of $policy_number";
+            $messagedata="Home insurnace policy added $dupepol duplicate of $policy_number";
  
             $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
             $query->bindParam(':clientidholder',$CID, PDO::PARAM_INT);
@@ -111,15 +112,9 @@ if(isset($query)) {
             $client_type = $pdo->prepare("UPDATE client_details set client_type='Home' WHERE client_id =:client_id");
             $client_type->bindParam(':client_id',$CID, PDO::PARAM_STR);
             $client_type->execute();
-            
-            if(isset($fferror)) {
-                if($fferror=='0') {   
-                    header('Location: ../ViewClient.php?policyadded=y&CID='.$CID.'&dupepolicy='.$dupepol.'&origpolicy='.$policy_number); die;     
+ 
+                    header('Location: /../../../app/Client.php?CLIENT_POLICY=1&search='.$CID.'&dupepolicy='.$dupepol.'&origpolicy='.$policy_number); die;     
                     
-                }
-                
-                }
-                
                 }
                 
                 $insert = $pdo->prepare("INSERT INTO home_policy set client_id=:cid, client_name=:name, sale_date=:sale, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, added_by=:hello, commission=:commission, status=:status, closer=:closer, lead=:lead, cover=:cover");
@@ -139,7 +134,7 @@ if(isset($query)) {
                 $insert->execute();
                 
                 $notedata= "Policy Added";
-                $messagedata="Policy $policy_number added";
+                $messagedata="Home insurance policy $policy_number added";
                 
                 $query = $pdo->prepare("INSERT INTO client_note set client_id=:clientidholder, client_name=:recipientholder, sent_by=:sentbyholder, note_type=:noteholder, message=:messageholder ");
                 $query->bindParam(':clientidholder',$CID, PDO::PARAM_INT);
@@ -149,24 +144,11 @@ if(isset($query)) {
                 $query->bindParam(':messageholder',$messagedata, PDO::PARAM_STR, 2500);
                 $query->execute(); 
                 
-                if(isset($fferror)) {
-                    if($fferror=='0') {
-                        header('Location: ../ViewClient.php?policyadded=y&CID='.$CID.'&policy_number='.$policy_number); die;
-                        }
-                        
-                    }
-                    
-                    }
+                        header('Location: /../../../app/Client.php?CLIENT_POLICY=1&search='.$CID.'&CLIENT_POLICY_POL_NUM='.$policy_number); die;
+
                     
                     }
 
-
-
-if(isset($fferror)) {
-    if($fferror=='0') {
-
-header('Location: ../ViewClient.php?policyadded=y&CID='.$CID.'&policy_number='.$policy_number); die;
-    }
 }
 ?>
 

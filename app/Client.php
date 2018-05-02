@@ -176,6 +176,17 @@ if(isset($Single_Client['alt_number'])) {
 $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
+    if($ffhome == 1 ) {
+
+                        $HOME_CHECK = $pdo->prepare("SELECT client_id FROM home_policy WHERE WHERE client_id=:CID");
+                        $HOME_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $HOME_CHECK->execute();
+                        if ($HOME_CHECK->rowCount() > 0) {
+                            $HAS_HOME_POL='1';
+                        }   
+                        
+    }
+
                         $Old_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Legal and General' AND client_id=:CID AND DATE(client_policy.sale_date) <='2016-12-31' OR client_id=:CID2 AND insurer='Legal and General' AND DATE(client_policy.submitted_date) <='2016-12-31'");
                         $Old_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
                         $Old_CHECK->bindParam(':CID2', $search, PDO::PARAM_INT);
@@ -193,7 +204,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         if ($LG_CHECK->rowCount() > 0) {
                             $LANG_POL = "1";
                             $HAS_NEW_LG_POL='1';
-                        }
+                        }                                           
 
                         $VIT_CHECK = $pdo->prepare("SELECT client_policy.id FROM client_policy WHERE insurer='Vitality' AND client_id=:CID");
                         $VIT_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -902,7 +913,14 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                     <br>
 
                     <?php
-                        
+                    
+                     /*   if(isset($HAS_NEW_HOME_POL) && $HAS_NEW_HOME_POL == 1) {
+                            require_once(__DIR__ . '/../addon/Home/models/HOMEPoliciesModel.php');
+                            $HOMEPolicies = new HOMEPoliciesModal($pdo);
+                            $HOMEPoliciesList = $HOMEPolicies->getHOMEPolicies($search);
+                            require_once(__DIR__ . '/../addon/Home/views/HOME-Policies.php');
+                        }                    
+                        */
                         if(isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/OldPoliciesModel.php');
                             $OldPolicies = new OldPoliciesModal($pdo);

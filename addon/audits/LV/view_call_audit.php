@@ -1288,11 +1288,11 @@ if(isset($VIT_CE_AUDIT['adl_audit_lv_ce_o1'])) {
                         <?php
                         
                         if ($VIT_GRADE == 'Amber') {
-                            echo "<td style='background-color: #FF9900;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
+                            echo "<td style='background-color: #FF9900;' colspan=2><b>$VIT_GRADE | (69/$TOTAL)</b></td>";
                         } else if ($VIT_GRADE == 'Green') {
-                            echo "<td style='background-color: #109618;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
+                            echo "<td style='background-color: #109618;' colspan=2><b>$VIT_GRADE | (60/$TOTAL)</b></td>";
                         } else if ($VIT_GRADE == 'Red') {
-                            echo "<td style='background-color: #DC3912;' colspan=2><b>$VIT_GRADE | ($TOTAL/59)</b></td>";
+                            echo "<td style='background-color: #DC3912;' colspan=2><b>$VIT_GRADE | (60/$TOTAL)</b></td>";
                         }
                         ?>
                     </tr>

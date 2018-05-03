@@ -10,6 +10,7 @@
             <th>Type</th>
             <th></th>
             <th>Cover</th>
+            <th>SIC Cover</th>
             <th>Term</th>
             <th>Premium</th>
             <th>Wellness</th>
@@ -47,6 +48,8 @@
         }
         
         $COVER_AMOUNT = number_format($VITALITY_Policies['vitality_policy_cover_amount'],2);
+        
+        $VIT_SIC_COVER_AMOUNT = number_format($VITALITY_Policies['vitality_policy_sic_cover_amount'],2);
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -66,6 +69,7 @@
         echo "<td>" . $VITALITY_Policies['vitality_policy_cover'] . "</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_type'] . "</td>";
         echo "<td>£$COVER_AMOUNT</td>";
+        echo "<td>£$VIT_SIC_COVER_AMOUNT</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_policy_term'] . "</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_premium'] . "</td>";
         echo "<td>" . $VITALITY_Policies['vitality_policy_wellness'] . "</td>";

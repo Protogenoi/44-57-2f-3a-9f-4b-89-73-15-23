@@ -4,7 +4,7 @@ training<?php
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -154,7 +154,8 @@ if(isset($AUDITID)) {
                             adl_audit_lv_icn1, 
                             adl_audit_lv_icn2, 
                             adl_audit_lv_icn3, 
-                            adl_audit_lv_icn4, 
+                            adl_audit_lv_icn4,
+                            adl_audit_lv_icn5, 
                             adl_audit_lv_cd1, 
                             adl_audit_lv_cd2, 
                             adl_audit_lv_cd3, 
@@ -304,11 +305,21 @@ if(isset($AUDITID)) {
         
         $ICN_Q4=$VIT_Q_AUDIT['adl_audit_lv_icn4'];
         
-        if($ICN_Q4 == "Poor") {
+        if($ICN_Q4 == "0") {
             $SCORE ++;
         }         
         
     }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lv_icn5'])) {
+        
+        $ICN_Q5=$VIT_Q_AUDIT['adl_audit_lv_icn5'];
+        
+        if($ICN_Q5 == "Poor") {
+            $SCORE ++;
+        }         
+        
+    }    
 
     if(isset($VIT_Q_AUDIT['adl_audit_lv_cd1'])) {
         
@@ -810,7 +821,8 @@ if(isset($AUDITID)) {
                             adl_audit_lv_c_icn1, 
                             adl_audit_lv_c_icn2, 
                             adl_audit_lv_c_icn3, 
-                            adl_audit_lv_c_icn4, 
+                            adl_audit_lv_c_icn4,
+                            adl_audit_lv_c_icn5,
                             adl_audit_lv_c_cd1, 
                             adl_audit_lv_c_cd2, 
                             adl_audit_lv_c_cd3, 
@@ -891,6 +903,12 @@ if(isset($AUDITID)) {
         $ICN_C4=$VIT_C_AUDIT['adl_audit_lv_c_icn4'];
         
     }
+    
+    if(isset($VIT_C_AUDIT['adl_audit_lv_c_icn5'])) {
+        
+        $ICN_C5=$VIT_C_AUDIT['adl_audit_lv_c_icn5'];
+        
+    }    
 
     if(isset($VIT_C_AUDIT['adl_audit_lv_c_cd1'])) {
         
@@ -1230,7 +1248,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_lv_ce_o1'])) {
     
     $database->endTransaction();  
  
-    $TOTAL= 59 - $SCORE;
+    $TOTAL= 60 - $SCORE;
     
     
 }
@@ -1391,6 +1409,17 @@ if(isset($VIT_CE_AUDIT['adl_audit_lv_ce_o1'])) {
 <input type="radio" name="ICN4" <?php if (isset($ICN_Q4) && $ICN_Q4=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN4();" value="0" id="noCheckICN4"><label for="No">No</label>
 </p>
 <div class="phpcomments"><?php if(isset($ICN_C4)) { echo $ICN_C4; } ?></div>
+
+<p>
+<label for="ICN5">Q<?php $i++; echo $i; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label><br>
+<select class="form-control" name="IC5">
+  <option value="0" <?php if(isset($ICN_Q5)) { if($ICN_Q5=='N/A') { echo "selected"; } } ?>>Select...</option>
+  <option value="1" <?php if(isset($ICN_Q5)) { if($ICN_Q5=='More than sufficient') { echo "selected"; } } ?>>More than sufficient</option>
+  <option value="2" <?php if(isset($ICN_Q5)) { if($ICN_Q5=='Sufficient') { echo "selected"; } } ?>>Sufficient</option>
+  <option value="3" <?php if(isset($ICN_Q5)) { if($ICN_Q5=='Adequate') { echo "selected"; } } ?>>Adequate</option>
+  <option value="5" <?php if(isset($ICN_Q5)) { if($ICN_Q5=='Poor') { echo "selected"; } } ?>>Poor</option>
+</select></p>
+<div class="phpcomments"><?php if(isset($ICN_C5)) { echo $ICN_C5; } ?></div>
       
 
 <h3 class="panel-title">Customer Details</h3>

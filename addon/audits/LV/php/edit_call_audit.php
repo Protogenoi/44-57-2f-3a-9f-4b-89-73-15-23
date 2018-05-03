@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -129,6 +129,7 @@ $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q2 = filter_input(INPUT_POST, 'ICN_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q3 = filter_input(INPUT_POST, 'ICN_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $ICN_Q5 = filter_input(INPUT_POST, 'ICN_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $ICN_C1 = filter_input(INPUT_POST, 'ICN_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -267,6 +268,7 @@ $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
   adl_audit_lv_icn2=:ICN2,
   adl_audit_lv_icn3=:ICN3,
   adl_audit_lv_icn4=:ICN4,
+  adl_audit_lv_icn5=:ICN5,
   adl_audit_lv_cd1=:CD1,
   adl_audit_lv_cd2=:CD2,
   adl_audit_lv_cd3=:CD3,
@@ -329,6 +331,7 @@ $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $UPDATE_QUES_QRY->bindParam(':ICN2', $ICN_Q2, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':ICN3', $ICN_Q3, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':ICN4', $ICN_Q4, PDO::PARAM_STR);
+    $UPDATE_QUES_QRY->bindParam(':ICN5', $ICN_Q5, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':CD1', $CD_Q1, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':CD2', $CD_Q2, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':CD3', $CD_Q3, PDO::PARAM_STR);
@@ -393,6 +396,7 @@ $UPDATE_COM_QRY = $pdo->prepare("UPDATE
   adl_audit_lv_c_icn2=:ICN2,
   adl_audit_lv_c_icn3=:ICN3,
   adl_audit_lv_c_icn4=:ICN4,
+  adl_audit_lv_c_icn5=:ICN5,
   adl_audit_lv_c_cd1=:CD1,
   adl_audit_lv_c_cd2=:CD2,
   adl_audit_lv_c_cd3=:CD3,
@@ -424,6 +428,7 @@ $UPDATE_COM_QRY = $pdo->prepare("UPDATE
     $UPDATE_COM_QRY->bindParam(':ICN2', $ICN_C2, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':ICN3', $ICN_C3, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':ICN4', $ICN_C4, PDO::PARAM_STR); 
+    $UPDATE_COM_QRY->bindParam(':ICN5', $ICN_C5, PDO::PARAM_STR); 
     $UPDATE_COM_QRY->bindParam(':CD1', $CD_C1, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':CD2', $CD_C2, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':CD3', $CD_C3, PDO::PARAM_STR);

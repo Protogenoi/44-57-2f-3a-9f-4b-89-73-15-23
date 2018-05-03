@@ -93,7 +93,8 @@ if (isset($EXECUTE)) {
     $ICN_Q1 = filter_input(INPUT_POST, 'ICN_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q2 = filter_input(INPUT_POST, 'ICN_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q3 = filter_input(INPUT_POST, 'ICN_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS);   
+    $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $ICN_Q5 = filter_input(INPUT_POST, 'ICN_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $CD_Q1 = filter_input(INPUT_POST, 'CD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $CD_Q2 = filter_input(INPUT_POST, 'CD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -159,6 +160,7 @@ if (isset($EXECUTE)) {
     $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_C3 = filter_input(INPUT_POST, 'ICN_C3', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);     
+    $ICN_C5 = filter_input(INPUT_POST, 'ICN_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $CD_C1 = filter_input(INPUT_POST, 'CD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $CD_C2 = filter_input(INPUT_POST, 'CD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -258,6 +260,7 @@ if (isset($EXECUTE)) {
   adl_audit_royal_london_icn2=:ICN2,
   adl_audit_royal_london_icn3=:ICN3,
   adl_audit_royal_london_icn4=:ICN4,
+  adl_audit_royal_london_icn5=:ICN5,
   adl_audit_royal_london_cd1=:CD1,
   adl_audit_royal_london_cd2=:CD2,
   adl_audit_royal_london_cd3=:CD3,
@@ -314,6 +317,7 @@ if (isset($EXECUTE)) {
     $database->bind(':ICN2', $ICN_Q2);
     $database->bind(':ICN3', $ICN_Q3);
     $database->bind(':ICN4', $ICN_Q4);
+    $database->bind(':ICN5', $ICN_Q5);
     $database->bind(':CD1', $CD_Q1);
     $database->bind(':CD2', $CD_Q2);
     $database->bind(':CD3', $CD_Q3);
@@ -375,6 +379,7 @@ if (isset($EXECUTE)) {
   adl_audit_royal_london_c_icn2=:ICN2,
   adl_audit_royal_london_c_icn3=:ICN3,
   adl_audit_royal_london_c_icn4=:ICN4,
+  adl_audit_royal_london_c_icn5=:ICN5,
   adl_audit_royal_london_c_cd1=:CD1,
   adl_audit_royal_london_c_cd2=:CD2,
   adl_audit_royal_london_c_cd3=:CD3,
@@ -404,6 +409,7 @@ if (isset($EXECUTE)) {
     $database->bind(':ICN2', $ICN_C2);
     $database->bind(':ICN3', $ICN_C3);
     $database->bind(':ICN4', $ICN_C4); 
+    $database->bind(':ICN5', $ICN_C5); 
     $database->bind(':CD1', $CD_C1);
     $database->bind(':CD2', $CD_C2);
     $database->bind(':CD3', $CD_C3);

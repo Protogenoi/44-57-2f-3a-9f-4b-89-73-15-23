@@ -1175,7 +1175,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
     
     $database->endTransaction();  
  
-    $TOTAL= 59 - $SCORE;
+    $TOTAL= 60 - $SCORE;
     
     
     

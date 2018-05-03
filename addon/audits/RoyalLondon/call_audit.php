@@ -152,7 +152,7 @@ $QUESTION_NUMBER=1;
 
                         <label for="POLICY">Reference</label>
                         <input type="text" class="form-control" name="REFERENCE" style="width: 520px">
-
+                        
                         </p>
 
                         <p>
@@ -623,7 +623,52 @@ $QUESTION_NUMBER=1;
 
                             }
 
-                        </script>                       
+                        </script>      
+                        
+ <p>
+                            <label for="ICN_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
+                            <select class="form-control" name="ICN_Q5" onclick="javascript:yesnoCheckICN_C5();">
+                                <option value="N/A">Select...</option>
+                                <option value="More than sufficient">More than sufficient</option>
+                                <option value="Sufficient">Sufficient</option>
+                                <option value="Adequate">Adequate</option>
+                                <option value="Poor" onclick="javascript:yesnoCheckICN_C5a();" id="yesCheckICN_C5">Poor</option>
+                            </select>
+                        </p>
+
+                        <div id="ifYesICN_C5" style="display:none">
+                            <textarea class="form-control"id="ICN_C5" name="ICN_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#ICN_C5').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>
+                        <script type="text/javascript">
+
+                            function yesnoCheckICN_C5() {
+                                if (document.getElementById('yesCheckICN_C5').checked) {
+                                    document.getElementById('ifYesICN_C5').style.display = 'none';
+                                } else
+                                    document.getElementById('ifYesICN_C5').style.display = 'block';
+
+                            }
+
+                        </script>                         
                        
                     </div>
                 </div>               

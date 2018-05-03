@@ -17,6 +17,7 @@ class VITALITY_NEW_PoliciesModal {
     vitality_policy.vitality_policy_cover,
     vitality_policy.vitality_policy_cover_amount,
     vitality_policy.vitality_policy_id,
+    vitality_policy_sic_cover_amount,
     vitality_policy.vitality_policy_policy_term,
     vitality_policy.vitality_policy_term_prem,
     vitality_policy.vitality_policy_premium,

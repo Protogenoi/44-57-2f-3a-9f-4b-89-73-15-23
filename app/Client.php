@@ -3274,6 +3274,7 @@ WHERE
                                         case "Closer and Agent Call Recording":
                                         case"Agent Call Recording";
                                         case"Admin Call Recording";
+                                            case"Other";
                                             $TMicon = "fa-upload";
                                             break;
 

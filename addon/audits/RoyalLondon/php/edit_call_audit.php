@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -121,7 +122,8 @@ if (isset($EXECUTE)) {
     $ICN_Q1 = filter_input(INPUT_POST, 'ICN_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q2 = filter_input(INPUT_POST, 'ICN_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_Q3 = filter_input(INPUT_POST, 'ICN_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS);   
+    $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $ICN_Q5 = filter_input(INPUT_POST, 'ICN_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $CD_Q1 = filter_input(INPUT_POST, 'CD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $CD_Q2 = filter_input(INPUT_POST, 'CD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -186,7 +188,8 @@ if (isset($EXECUTE)) {
     $ICN_C1 = filter_input(INPUT_POST, 'ICN_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
     $ICN_C3 = filter_input(INPUT_POST, 'ICN_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);     
+    $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C5 = filter_input(INPUT_POST, 'ICN_C5', FILTER_SANITIZE_SPECIAL_CHARS);
     
     $CD_C1 = filter_input(INPUT_POST, 'CD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $CD_C2 = filter_input(INPUT_POST, 'CD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -256,6 +259,7 @@ if (isset($EXECUTE)) {
   adl_audit_royal_london_icn2=:ICN2,
   adl_audit_royal_london_icn3=:ICN3,
   adl_audit_royal_london_icn4=:ICN4,
+  adl_audit_royal_london_icn5=:ICN5,
   adl_audit_royal_london_cd1=:CD1,
   adl_audit_royal_london_cd2=:CD2,
   adl_audit_royal_london_cd3=:CD3,
@@ -314,6 +318,7 @@ if (isset($EXECUTE)) {
     $UPDATE_QUES_QRY->bindParam(':ICN2', $ICN_Q2, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':ICN3', $ICN_Q3, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':ICN4', $ICN_Q4, PDO::PARAM_STR); 
+    $UPDATE_QUES_QRY->bindParam(':ICN5', $ICN_Q5, PDO::PARAM_STR); 
     $UPDATE_QUES_QRY->bindParam(':CD1', $CD_Q1, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':CD2', $CD_Q2, PDO::PARAM_STR);
     $UPDATE_QUES_QRY->bindParam(':CD3', $CD_Q3, PDO::PARAM_STR);
@@ -374,6 +379,7 @@ $UPDATE_COM_QRY = $pdo->prepare("UPDATE
   adl_audit_royal_london_c_icn2=:ICN2,
   adl_audit_royal_london_c_icn3=:ICN3,
   adl_audit_royal_london_c_icn4=:ICN4,
+  adl_audit_royal_london_c_icn5=:ICN5,
   adl_audit_royal_london_c_cd1=:CD1,
   adl_audit_royal_london_c_cd2=:CD2,
   adl_audit_royal_london_c_cd3=:CD3,
@@ -405,6 +411,7 @@ $UPDATE_COM_QRY = $pdo->prepare("UPDATE
     $UPDATE_COM_QRY->bindParam(':ICN2', $ICN_C2, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':ICN3', $ICN_C3, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':ICN4', $ICN_C4, PDO::PARAM_STR); 
+    $UPDATE_COM_QRY->bindParam(':ICN5', $ICN_C5, PDO::PARAM_STR); 
     $UPDATE_COM_QRY->bindParam(':CD1', $CD_C1, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':CD2', $CD_C2, PDO::PARAM_STR);
     $UPDATE_COM_QRY->bindParam(':CD3', $CD_C3, PDO::PARAM_STR);

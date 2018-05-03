@@ -147,6 +147,7 @@ if(isset($AUDITID)) {
   adl_audit_royal_london_icn2,
   adl_audit_royal_london_icn3,
   adl_audit_royal_london_icn4,
+  adl_audit_royal_london_icn5,
   adl_audit_royal_london_cd1,
   adl_audit_royal_london_cd2,
   adl_audit_royal_london_cd3,
@@ -257,6 +258,12 @@ if(isset($AUDITID)) {
         $ICN_Q4=$VIT_Q_AUDIT['adl_audit_royal_london_icn4'];
         
     }
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_royal_london_icn5'])) {
+        
+        $ICN_Q5=$VIT_Q_AUDIT['adl_audit_royal_london_icn5'];
+        
+    }    
 
     if(isset($VIT_Q_AUDIT['adl_audit_royal_london_cd1'])) {
         
@@ -557,6 +564,7 @@ if(isset($AUDITID)) {
   adl_audit_royal_london_c_icn2,
   adl_audit_royal_london_c_icn3,
   adl_audit_royal_london_c_icn4,
+  adl_audit_royal_london_c_icn5,
   adl_audit_royal_london_c_cd1,
   adl_audit_royal_london_c_cd2,
   adl_audit_royal_london_c_cd3,
@@ -637,6 +645,12 @@ if(isset($AUDITID)) {
         $ICN_C4=$VIT_C_AUDIT['adl_audit_royal_london_c_icn4'];
         
     }
+    
+    if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_icn5'])) {
+        
+        $ICN_C5=$VIT_C_AUDIT['adl_audit_royal_london_c_icn5'];
+        
+    }    
 
     if(isset($VIT_C_AUDIT['adl_audit_royal_london_c_cd1'])) {
         
@@ -1393,6 +1407,40 @@ if(isset($VIT_CE_AUDIT['adl_audit_royal_london_ce_o1'])) {
                                 });
                             });
                         </script>
+                        
+<p>
+                            <label for="ICN_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did The CLOSER provide the customer with a sufficient amount of features and benefits for the policy?</label>
+                                                        <select class="form-control" name="ICN_Q5" onclick="javascript:yesnoCheckICN_C5();">
+                                <option value="N/A">Select...</option>
+                                <option value="More than sufficient" <?php if(isset($ICN_Q5) && $ICN_Q5 == 'More than sufficient') { echo "selected"; } ?> >More than sufficient</option>
+                                <option value="Sufficient" <?php if(isset($ICN_Q5) && $ICN_Q5 == 'Sufficient') { echo "selected"; } ?> >Sufficient</option>
+                                <option value="Adequate" <?php if(isset($ICN_Q5) && $ICN_Q5 == 'Adequate') { echo "selected"; } ?> >Adequate</option>
+                                <option value="Poor" <?php if(isset($ICN_Q5) && $ICN_Q5 == 'Poor') { echo "selected"; } ?>  onclick="javascript:yesnoCheckICN_C5a();" id="yesCheckICN_C5">Poor</option>
+                            </select>
+                        </p>
+
+                        <div id="ifYesICN_C5" >
+                            <textarea class="form-control"id="ICN_C5" name="ICN_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($ICN_C5)) { echo $ICN_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#ICN_C5').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>                        
                         
                     </div>
                 </div>               

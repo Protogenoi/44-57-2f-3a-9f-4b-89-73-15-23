@@ -147,6 +147,9 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                 
             }
         }
+        if($RETURN == 'AuditEditFailed') {
+                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> ERROR: Audit not saved!!</strong></div>";            
+        }
         }
         ?>        
         

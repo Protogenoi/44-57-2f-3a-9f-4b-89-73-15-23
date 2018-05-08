@@ -56,19 +56,19 @@
                 $assign21=$assign21d['Assigned'];
                 
                 $task48="48 hour";
-                $WeekDay48 = date("Y-m-d", strtotime("+2 weekdays"));
+                $WeekDay48 = date("Y-m-d", strtotime("+3 weekdays"));
                 $deadline48=$WeekDay48;
                 
                 $task5="7 day";
-                $WeekDay5 = date("Y-m-d", strtotime("+7 weekdays"));
+                $WeekDay5 = date("Y-m-d", strtotime("+8 weekdays"));
                 $deadline5=$WeekDay5;
                 
                 $task18="18 day";
-                $WeekDay18 = date("Y-m-d", strtotime("+18 weekdays"));
+                $WeekDay18 = date("Y-m-d", strtotime("+19 weekdays"));
                 $deadline18=$WeekDay18;
                 
                 $task21="21 day";
-                $WeekDay21 = date("Y-m-d", strtotime("+21 weekdays"));
+                $WeekDay21 = date("Y-m-d", strtotime("+22 weekdays"));
                 $deadline21=$WeekDay21;
                 
      /*   if($TYPE !='VITALITY WOL') {                

@@ -3286,6 +3286,7 @@ WHERE
                                             break;
 
                                         case "Client Note":
+                                        case "lifenotes":
                                         case "Policy Details Updated":
                                         case "Policy Update":
                                             $TMicon = "fa-pencil";

@@ -3171,8 +3171,6 @@ WHERE
                                 <label class="col-md-12 control-label" for="textarea"></label>
                                 <div class="col-md-12"> 
                                     <textarea id="notes" name="notes" id="message" class="summernote" id="contents" title="Contents" maxlength="2000" required></textarea>
-
-                                    <center><font color="red"><i><span id="chars">2000</span> characters remaining</i></font></center>
                                 </div>
                             </div>
 
@@ -3723,12 +3721,6 @@ if($ffcallbacks==1) { ?>
 
         </script>
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
-        <script>var maxLength = 2000;
-            $('textarea').keyup(function () {
-                var length = $(this).val().length;
-                var length = maxLength - length;
-                $('#chars').text(length);
-            });</script>
         <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script>
             $(function () {
@@ -3820,7 +3812,7 @@ if($ffcallbacks==1) { ?>
                     // Animation complete
                 });
             });
-        </script>
+        </script>     
         <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
         <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
         <script type="text/javascript" src="/resources/lib/summernote-master/dist/summernote.js"></script>

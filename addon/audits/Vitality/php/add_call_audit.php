@@ -288,6 +288,8 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
                     
                 }
                 
+                
+                
     $database->query("SELECT 
                             client_id
                         FROM 
@@ -298,14 +300,14 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $database->execute();
     $row=$database->single();  
     
-    if ($database->rowCount()>=0) { 
+    if ($database->rowCount()> 0) { 
     
     if(isset($row['client_id'])) {
         
         $CID=$row['client_id'];
         
     }    
-    
+
                 
         $MSG = "$INSURER audit ($LAST_AUDITID) submitted.";
 
@@ -314,8 +316,7 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
         $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
         $query->bindParam(':MSG', $MSG, PDO::PARAM_STR, 2500);
         $query->execute();   
-        
-        
+
     }
                 
             $database->query("INSERT INTO 

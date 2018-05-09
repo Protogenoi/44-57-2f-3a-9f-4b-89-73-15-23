@@ -3284,7 +3284,9 @@ WHERE
                                         case stristr($result['note_type'], "Callback"):
                                             $TMicon = "fa-calendar-check-o";
                                             break;
-
+                                        case "Audit Submitted":
+                                            $TMicon= "fa-headphones";
+                                            break;
                                         case "Client Note":
                                         case "lifenotes":
                                         case "Policy Details Updated":

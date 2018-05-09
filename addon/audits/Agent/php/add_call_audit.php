@@ -216,7 +216,7 @@ if (isset($EXECUTE)) {
     $VITALITY_AUDIT_QRY->execute()or die(print_r($VITALITY_AUDIT_QRY->errorInfo(), true));
     $LAST_AUDITID = $pdo->lastInsertId();  
     
-    if(isset($LAST_AUDITID)) {
+    if(isset($LAST_AUDITID)) {        
 
      $VITALITY_QUES_QRY = $pdo->prepare("INSERT INTO 
                                             adl_audit_lead
@@ -275,6 +275,33 @@ if (isset($EXECUTE)) {
     $VITALITY_QUES_QRY->bindParam(':Q1S3Q1', $Q1S3Q1, PDO::PARAM_STR);
     $LAST_AUDITID = $pdo->lastInsertId();  
     $VITALITY_QUES_QRY->execute()or die(print_r($VITALITY_QUES_QRY->errorInfo(), true));  
+    
+                        $query = $pdo->prepare("SELECT 
+                            client_id
+                        FROM 
+                            client_details 
+                        WHERE 
+                            phone_number=:REF");
+                        $query->bindParam(':REF', $REFERENCE, PDO::PARAM_INT);
+                        $query->execute();
+                        $row = $query->fetch(PDO::FETCH_ASSOC);
+                        if ($query->rowCount() > 0) {    
+    
+    if(isset($row['client_id'])) {
+        
+        $CID=$row['client_id'];
+        
+    }      
+
+        $MSG = "$INSURER audit ($LAST_AUDITID) submitted.";
+
+        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name='ADL Alert', sent_by=:SENT, note_type='Audit Submitted', message=:MSG");
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $query->bindParam(':MSG', $MSG, PDO::PARAM_STR, 2500);
+        $query->execute();                
+        
+    }    
         
     }
     

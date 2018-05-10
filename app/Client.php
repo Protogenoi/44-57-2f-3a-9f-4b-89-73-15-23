@@ -3272,6 +3272,8 @@ WHERE
                                         case "Closer and Agent Call Recording":
                                         case"Agent Call Recording";
                                         case"Admin Call Recording";
+                                            case "LifeCloserAudit":
+                                        case "LifeLeadAudit":
                                             case"Other";
                                             $TMicon = "fa-upload";
                                             break;
@@ -3332,12 +3334,20 @@ WHERE
                                     endswitch;                                   
 
                                     $TIMELINE_MESSAGE = html_entity_decode($result['message']);
+                                    
+                                    if($result['note_type'] == 'LifeCloserAudit') {
+                                        $TIME_LINE_NOTE_TYPE='Closer Audit Upload';
+                                    } elseif ($result['note_type'] == 'LifeLeadAudit') {
+                                        $TIME_LINE_NOTE_TYPE='Lead Audit Upload';
+                                    } else {
+                                        $TIME_LINE_NOTE_TYPE = $result['note_type'];
+                                    }
 
                                     echo '<tr>';
                                     echo "<td>" . $result['date_sent'] . "</td>";
                                     echo "<td>" . $result['sent_by'] . "</td>";
                                     echo "<td>" . $result['client_name'] . "</td>";
-                                    echo "<td><i class='fa $TMicon'></i> " . $result['note_type'] . "</td>";
+                                    echo "<td><i class='fa $TMicon'></i> $TIME_LINE_NOTE_TYPE</td>";
 
                                     if (in_array($hello_name, $Level_3_Access, true)) {
 

@@ -63,7 +63,10 @@ if(isset($hello_name)) {
              break;
                   case "Molly":
              $hello_name_full="Molly Grove";
-             break;   
+             break;  
+         case "Jacs":
+             $hello_name_full="Jaclyn Haford";
+             break; 
          default:
              $hello_name_full=$hello_name;
              

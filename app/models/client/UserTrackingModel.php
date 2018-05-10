@@ -24,6 +24,8 @@ WHERE
     tracking_history_url like :SEARCH
 AND
     tracking_history_user !='Michael'
+ORDER BY
+    tracking_history_date DESC
     ");
         $stmt->bindParam(':SEARCH', $SEARCH_URL, PDO::PARAM_STR);
         $stmt->execute();

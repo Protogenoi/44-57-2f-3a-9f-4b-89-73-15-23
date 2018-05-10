@@ -522,11 +522,33 @@ $WORKFLOW_DEADLINE_NOTICE->bindParam(':CID', $search, PDO::PARAM_INT);
                             while ($result=$WORKFLOW_DEADLINE_NOTICE->fetch(PDO::FETCH_ASSOC)){    ?>
 
          
-    <div class="notice notice-default" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Workflow tasks To Do:</strong> <?php 
+    <div class="notice notice-danger" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Workflow tasks To Do:</strong> <?php 
 foreach ($result as $value) {
     echo "$value ";
 }
 ?> deadline expired<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
+         
+                          <?php  }   }  
+
+$WORKFLOW_EXPIRES_NOTICE = $pdo->prepare("SELECT 
+    adl_workflows_name
+FROM
+    adl_workflows
+WHERE
+    adl_workflows_client_id_fk = :CID
+        AND adl_workflows_complete = '0'
+        AND adl_workflows_reminder = CURDATE()");
+$WORKFLOW_EXPIRES_NOTICE->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $WORKFLOW_EXPIRES_NOTICE->execute();
+                            if ($WORKFLOW_EXPIRES_NOTICE->rowCount()>0) { 
+                            while ($result=$WORKFLOW_EXPIRES_NOTICE->fetch(PDO::FETCH_ASSOC)){    ?>
+
+         
+    <div class="notice notice-warning" role="alert" id='HIDELGKEY'><strong><i class="fa fa-tasks fa-lg"></i> Workflow tasks To Do:</strong> <?php 
+foreach ($result as $value) {
+    echo "$value ";
+}
+?> reminder<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>   
          
                           <?php  }   }                            
                           

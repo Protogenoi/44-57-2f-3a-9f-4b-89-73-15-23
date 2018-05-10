@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */ 
 
@@ -124,6 +125,7 @@ if (isset($fferror)) {
                 <th>Client Name</th>
                 <th>Assigned</th>
                 <th>Task</th>
+                <th>Reminder</th>
                 <th>Deadline</th>
             </tr>
         </thead>
@@ -135,6 +137,7 @@ if (isset($fferror)) {
                 <th>Client Name</th>
                 <th>Assigned</th>
                 <th>Task</th>
+                <th>Reminder</th>
                 <th>Deadline</th>
             </tr>
         </tfoot>
@@ -197,12 +200,23 @@ $(document).ready(function() {
     var table = $('#task').DataTable( {
 "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
     if ( aData["deadline"] <= aData["today"] )  {
-          $('td', nRow).eq(6).addClass( 'red' );
+          $('td', nRow).eq(7).addClass( 'red' );
     }
    else if ( aData["deadline"] >= aData["today"] )  {
-          $('td', nRow).eq(6).addClass( 'green' );
+          $('td', nRow).eq(7).addClass( 'green' );
 
     }
+    if ( aData["reminder"] < aData["today"] )  {
+          $('td', nRow).eq(6).addClass( 'red' );
+    }
+   else if ( aData["reminder"] === aData["today"] )  {
+          $('td', nRow).eq(6).addClass( 'amber' );
+
+    } 
+       else if ( aData["reminder"] > aData["today"] )  {
+          $('td', nRow).eq(6).addClass( 'green' );
+
+    } 
 },
 "response":true,
 					"processing": true,
@@ -228,9 +242,10 @@ $(document).ready(function() {
             { "data": "name" },
             { "data": "adl_workflows_assigned" },
             { "data": "adl_workflows_name" },
+            { "data": "reminder" },
             { "data": "deadline" }
          ],
-        "order": [[6, 'asc']]
+        "order": [[7, 'asc']]
     } ); $('#min, #max').keyup( function() {
         table.draw();
     } );

@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
             
                 $TASK_ARRAY = ['Happy with policy','Had email from us','Had post from insurer','Cancelled old DD','Confirmed 1st DD','TPS','Trust'];    
             
@@ -57,24 +58,29 @@
                 
                 $task48="48 hour";
                 $WeekDay48 = date("Y-m-d", strtotime("+3 weekdays"));
+                $EXPIRES_48 = date("Y-m-d", strtotime("+2 weekdays"));
                 $deadline48=$WeekDay48;
                 
                 $task5="7 day";
                 $WeekDay5 = date("Y-m-d", strtotime("+8 weekdays"));
+                $EXPIRES_5 = date("Y-m-d", strtotime("+7 weekdays"));
                 $deadline5=$WeekDay5;
                 
                 $task18="18 day";
                 $WeekDay18 = date("Y-m-d", strtotime("+19 weekdays"));
+                $EXPIRES_18 = date("Y-m-d", strtotime("+18 weekdays"));
                 $deadline18=$WeekDay18;
                 
                 $task21="21 day";
                 $WeekDay21 = date("Y-m-d", strtotime("+22 weekdays"));
+                $EXPIRES_21 = date("Y-m-d", strtotime("+21 weekdays"));
                 $deadline21=$WeekDay21;
  
-        $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
+        $database->query("INSERT INTO adl_workflows SET adl_workflows_reminder=:EXPIRES, adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign48, PDO::PARAM_STR);
         $database->bind(':task', $task48, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline48, PDO::PARAM_STR); 
+        $database->bind(':EXPIRES', $EXPIRES_48, PDO::PARAM_STR);
         $database->bind(':CID', $CID); 
         $database->execute();
         
@@ -98,10 +104,11 @@
         
         }        
         
-        $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
+        $database->query("INSERT INTO adl_workflows SET adl_workflows_reminder=:EXPIRES, adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign5, PDO::PARAM_STR);
         $database->bind(':task', $task5, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline5, PDO::PARAM_STR); 
+        $database->bind(':EXPIRES', $EXPIRES_5, PDO::PARAM_STR);
         $database->bind(':CID', $CID); 
         $database->execute();
         
@@ -125,10 +132,11 @@
         
         }         
         
-        $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
+        $database->query("INSERT INTO adl_workflows SET adl_workflows_reminder=:EXPIRES, adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign18, PDO::PARAM_STR);
         $database->bind(':task', $task18, PDO::PARAM_STR);
         $database->bind(':deadline', $deadline18, PDO::PARAM_STR); 
+        $database->bind(':EXPIRES', $EXPIRES_18, PDO::PARAM_STR);
         $database->bind(':CID', $CID); 
         $database->execute();
         
@@ -152,10 +160,11 @@
         
         }        
         
-        $database->query("INSERT INTO adl_workflows SET adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
+        $database->query("INSERT INTO adl_workflows SET adl_workflows_reminder=:EXPIRES, adl_workflows_client_id_fk=:CID, adl_workflows_assigned=:assign, adl_workflows_name=:task, adl_workflows_deadline=:deadline");
         $database->bind(':assign', $assign21, PDO::PARAM_STR);
         $database->bind(':task', $task21, PDO::PARAM_STR);
-        $database->bind(':deadline', $deadline21, PDO::PARAM_STR); 
+        $database->bind(':deadline', $deadline21, PDO::PARAM_STR);
+        $database->bind(':EXPIRES', $EXPIRES_21, PDO::PARAM_STR);
         $database->bind(':CID', $CID); 
         $database->execute();  
         

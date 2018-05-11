@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/
 
 require_once(__DIR__ . '../../includes/ADL_PDO_CON.php');
 require_once(__DIR__ . '../../includes/adl_features.php');
@@ -147,7 +148,7 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/addon/audits/LV/Menu.php">LV Audits</a></li>
                             <li><a href="/addon/audits/Vitality/Menu.php">Vitality Audits</a></li>
                             <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
-                            <li><a href="/addon/audits/RoyalLondon/Menu.php">Royal London Audits</a></li>
+                            <li><a href="/addon/audits/RoyalLondon/Search.php">Search Old Royal London Audits</a></li>
                             <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>
                             <li><a href="/addon/audits/WOL/Menu.php">One Family Audits</a></li>
                         <?php } ?>

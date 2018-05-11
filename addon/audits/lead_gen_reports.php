@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -94,7 +95,7 @@ if ($ffaudits=='0') {
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
 <title>ADL | Lead Gen Report</title>
@@ -170,8 +171,7 @@ print("<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa
     <select id="step" name="step" class="form-control">
         <?php if(isset($step)) { echo "<option value='$step'>$step</option>";} ?>
         <option value=" ">Select..</option>
-      <option value="Search">Search New Audits</option>
-      <option value="Searchold">Search Old Audits</option>
+      <option value="Search">Search Old Audits</option>
     </select>
 </div>
 
@@ -300,38 +300,6 @@ if ($step =='Search') {
 
 }
 
-if ($step =='Searchold') {
-    
-    ?>
-    <table id="oldclients" width="auto" cellspacing="0" class="table-condensed">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Submitted</th>
-                <th>ID</th>
-                <th>Lead Gen</th>
-                <th>Auditor</th>
-                <th>Grade</th>
-                <th>Edit</th>
-                <th>View</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Submitted</th>
-                <th>ID</th>
-                <th>Lead Gen</th>
-                <th>Auditor</th>
-                <th>Grade</th>
-                <th>Edit</th>
-                <th>View</th>
-            </tr>
-        </tfoot>
-    </table>
-<?php
-
-}
 ?>
 
 </div>
@@ -441,71 +409,6 @@ function format ( d ) {
         '</tr>'+
     '</table>';
 }
- 
-$(document).ready(function() {
-    var table = $('#oldclients').DataTable( {
-"fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
-   if ( aData["grade"] === "Red" )  {
-          $(nRow).addClass( 'Red' );
-}
-   else  if ( aData["grade"] === "Amber" )  {
-          $(nRow).addClass( 'Amber' );
-    }
-   else if ( aData["grade"] === "Green" )  {
-          $(nRow).addClass( 'Green' );
-    }
-   else if ( aData["grade"] === "SAVED" )  {
-          $(nRow).addClass( 'Purple' );
-    }
-},
-
-"response":true,
-					"processing": true,
-"iDisplayLength": 50,
-"aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 500], [5, 10, 25, 50, 100, 125, 150, 200, 500]],
-				"language": {
-					"processing": "<div></div><div></div><div></div><div></div><div></div>"
-
-        },
-        "ajax": "datatables/AuditSearch.php?AuditType=OldLeadGen&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
-        "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "date_submitted" },
-            { "data": "id"},
-            { "data": "lead_gen_name" },
-            { "data": "auditor" },
-            { "data": "grade" },
-  { "data": "id",
-            "render": function(data, type, full, meta) {
-                return '<a href="lead_gen_form_edit.php?auditid=' + data + '"><button type=\'submit\' class=\'btn btn-warning btn-xs\'><span class=\'glyphicon glyphicon-pencil\'></span> </button></a>';
-            } },
- { "data": "id",
-            "render": function(data, type, full, meta) {
-                return '<a href="LandG/View.php?EXECUTE=1&AID=' + data + '"><button type=\'submit\' class=\'btn btn-info btn-xs\'><span class=\'glyphicon glyphicon-eye-open\'></span> </button></a>';
-            } }
-        ],
-        "order": [[1, 'desc']]
-    } );
-
-    $('#oldclients tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
- 
-        if ( row.child.isShown() ) {
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
-} );
 		</script>
     <?php
     require_once(__DIR__ . '/../../app/Holidays.php');

@@ -146,8 +146,8 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/addon/audits/search_audits.php">Search Audits</a></li>
                             <li><a href="/addon/audits/lead_gen_reports.php?step=New">Lead Audits</a></li>
                             <li><a href="/addon/audits/LV/Menu.php">LV Audits</a></li>
-                            <li><a href="/addon/audits/Vitality/Menu.php">Vitality Audits</a></li>
                             <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
+                            <li><a href="/addon/audits/Vitality/Search.php">Search Old Vitality Audits</a></li>
                             <li><a href="/addon/audits/RoyalLondon/Search.php">Search Old Royal London Audits</a></li>
                             <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>
                             <li><a href="/addon/audits/WOL/Menu.php">One Family Audits</a></li>

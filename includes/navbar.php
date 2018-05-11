@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -142,7 +142,6 @@ $companynamere = $companydetailsq['company_name'];
                             <li><a href="/addon/compliance/Compliance.php?SCID=1"> Uploaded Docs</a></li>
                             <li class="divider"></li>
                         <?php } if($ffaudits == 1) { ?>  
-                            <li><a href="/addon/audits/main_menu.php">Audit Menu</a></li>
                             <li><a href="/addon/audits/search_audits.php">Search Audits</a></li>
                             <li><a href="/addon/audits/auditor_menu.php">Legal and General Audits</a></li>
                             <li><a href="/addon/audits/Aviva/Menu.php">Aviva Audits</a></li>

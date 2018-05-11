@@ -104,6 +104,7 @@ if (isset($EXECUTE)) {
 
     $query = $pdo->prepare("SELECT 
     adl_policy_policy_holder,
+    adl_policy_insurer,
     adl_policy_closer,
     adl_policy_agent,
     adl_policy_sale_date,
@@ -160,6 +161,45 @@ WHERE
     $query2->bindParam(':CID', $CID, PDO::PARAM_INT);
     $query2->execute();
     $data3 = $query2->fetch(PDO::FETCH_ASSOC);
+    
+ if (isset($hello_name)) {
+
+        switch ($hello_name) {
+            case "Michael":
+                $hello_name_full = "Michael Owen";
+                break;
+            case "Jakob":
+                $hello_name_full = "Jakob Lloyd";
+                break;
+            case "leighton":
+                $hello_name_full = "Leighton Morris";
+                break;
+            case "Nicola":
+                $hello_name_full = "Nicola Griffiths";
+                break;
+            case "Jacs":
+                $hello_name_full = "Jaclyn Haford";
+                break;
+            case "carys":
+                $hello_name_full = "Carys Riley";
+                break;
+            case "Matt":
+                $hello_name_full = "Matthew Jones";
+                break;
+            case "Tina":
+                $hello_name_full = "Tina Dennis";
+                break;
+            case "Nick":
+                $hello_name_full = "Nick Dennis";
+                break;
+            case "Ryan":
+                $hello_name_full = "Ryan Lloyd";
+                break;
+            default:
+                $hello_name_full = $hello_name;
+        }
+}   
+    
         ?>
 <!DOCTYPE html>
 <!-- 
@@ -463,7 +503,17 @@ WHERE
          <a href="edit_policy.php?EXECUTE=1&PID=<?php echo $PID; ?>&CID=<?php echo $CID; ?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
          </center>
      </div>
- </div>                
+ </div>   
+                
+ <div class="col-sm-12">
+
+                                <div class="list-group">
+                                    <span class="label label-primary">Policy Emails</span>
+                                    <a class="list-group-item" data-toggle="modal" data-target="#myModal2"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client (With Policy Number)</a>
+                                    <a class="list-group-item" data-toggle="modal" data-target="#myModal3"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp; Uncontactable Client (Awaiting Policy Number)</a>
+                                </div>
+
+                            </div>                
                
             
             </div>
@@ -519,12 +569,87 @@ WHERE
         </div>
                         </div>
                     </div>
+                    
                 </div>
                 
             </form>
         </div>
     </div>
 
+    <div id="myModal2" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Email uncontactable client</h4>
+                </div>
+                <div class="modal-body">
+                    
+                    <form action="/addon/Life/Emails/SendUncontactable.php?EXECUTE=1&search=<?php echo $CID; ?>&insurer=<?php echo $data2["adl_policy_insurer"]; ?>&recipient=<?php echo $data2['adl_policy_policy_holder']; ?>&policy=<?php echo $data2['adl_policy_ref']; ?>" method="POST">                         
+                        <select class="form-control" name="email">  
+                            <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
+                            <?php if (!empty($data3['email2'])) { ?>
+                                <option value="<?php echo $data3['email2']; ?>"><?php echo $data3['email2']; ?></option>
+<?php } ?>
+                        </select>  
+                        <p>Dear <?php echo $data2['adl_policy_policy_holder']; ?>,</p>
+                        <p>           
+                            There is an issue with your <strong><?php if(isset($data2["adl_policy_insurer"])) { echo $data2["adl_policy_insurer"]; } ?></strong> direct debit <strong><?php echo $data2["adl_policy_ref"] ?></strong>. </p>
+
+                        <p>
+                            We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+                        </p>
+                        <p>Please contact us on <strong>[COMPANY_TEL]</strong> or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        Many thanks,<br>
+<?php echo $hello_name_full; ?><br>
+                        <strong>[COMPANY_NAME]</strong>
+                        </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success confirmation"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send uncontactable email</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="myModal3" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Email Awaiting uncontactable client</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/addon/Life/Emails/SendUncontactable.php?EXECUTE=2&search=<?php echo $CID; ?>&insurer=<?php echo $data2["adl_policy_insurer"]; ?>&recipient=<?php echo $data2['adl_policy_policy_holder']; ?>&policy=<?php echo $data2['adl_policy_ref']; ?>" method="POST">                         
+                        <select class="form-control" name="email">  
+                            <option value="<?php echo $data3['email']; ?>"><?php echo $data3['email']; ?></option>
+                            <?php if (!empty($data3['email2'])) { ?>
+                                <option value="<?php echo $data3['email2']; ?>"><?php echo $data3['email2']; ?></option>
+<?php } ?>
+                        </select>  
+                        <p>Dear <?php echo $data2['adl_policy_policy_holder']; ?>,</p>
+                        <p>           
+                            There is an issue with your <strong><?php if(isset($data2["adl_policy_insurer"])) { echo $data2["adl_policy_insurer"]; } ?></strong> life insurance application. </p>
+
+                        <p>
+                            We have tried contacting you on numerous occasions but have been unsuccessful, It is very important we speak to you.
+                        </p>
+                        <p>Please contact us on <strong>[COMPANY_TEL]</strong> or email us back with a preferred contact time and number for us to call you. Office hours are between Monday to Friday 10:00 - 18:30.</p>
+                        Many thanks,<br>
+<?php echo $hello_name_full; ?><br>
+        <strong>[COMPANY_NAME]</strong>
+                        </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success confirmation"><i class="fa fa-envelope-o fa-fw"></i>&nbsp; Send Awaiting uncontactable email</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>             
+            
 </body>
 </html>
 <?php } } ?>

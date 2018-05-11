@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -98,8 +99,7 @@ if ($ffanalytics == '1') {
         <br>
         <center>
             <div class="btn-group">
-                <a href="Menu.php" class="btn btn-info"><i class="fa fa-folder-open"></i> LV Audits</a>
-                <a href="/addon/audits/WOL/Search.php" class="btn btn-info"><i class="fa fa-search"></i> WOL Audits</a>
+                <a href="/addon/audits/WOL/Search.php" class="btn btn-default"><i class="fa fa-search"></i> WOL Audits</a>
                 <a href="/addon/audits/audit_search.php" class="btn btn-default"><i class="fa fa-search"></i> Search Life Audits</a>
                 <a href="/addon/audits/lead_gen_reports.php?step=Search" class="btn btn-default"><i class="fa fa-search"></i> Search Lead Audits</a>
             </div>

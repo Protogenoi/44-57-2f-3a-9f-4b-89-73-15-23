@@ -210,7 +210,7 @@ $(document).ready(function() {
           $('td', nRow).eq(6).addClass( 'red' );
     }
    else if ( aData["reminder"] === aData["today"] )  {
-          $('td', nRow).eq(6).addClass( 'amber' );
+          $('td', nRow).eq(6).addClass( 'yellow' );
 
     } 
        else if ( aData["reminder"] > aData["today"] )  {

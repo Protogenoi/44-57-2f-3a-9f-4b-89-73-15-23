@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -1326,42 +1327,45 @@ if($EXECUTE=='11') {
     
     do {
         if (isset($data[0])) {
-            if ($data[0] != 'Name') {
+            if ($data[0] != 'Agency Name') {
             
-$NAME=$data[0];
-$POLICY_NUMBER=$data[1];
-$TYPE=$data[2];
-$STATUS=$data[3];
-$COMMISSION_FROM=$data[4];
-$COMMISSION_TO=$data[5];
-$COMMISSION_MONTH=$data[6];
-$PREMIUMS=$data[7];
-$INDEMNITY=$data[8];
-$INITIAL=$data[9];
+$NAME=$data[12];
+$POLICY_NUMBER=$data[13];
+$TYPE=$data[14];
+$STATUS=$data[15];
+$COMMISSION_FROM=$data[16];
+$COMMISSION_TO=$data[17];
+$COMMISSION_MONTH=0;
+$PREMIUMS=$data[18];
+$INDEMNITY=$data[19];
+
+echo "INDEM $INDEMNITY";
+
+$INITIAL=$data[20];
 
 
 if(empty($INITIAL)) {
     $INITIAL=0;
 }
-$RENEWAL=$data[10];
+$RENEWAL=$data[21];
 
 if(empty($RENEWAL)) {
     $RENEWAL=0;
 }
 
-$LEVEL = $data[11];
+$LEVEL = $data[22];
 
 if(empty($LEVEL)) {
     $LEVEL=0;
 }
 
-$TOTAL=$data[12];
+$TOTAL=$data[19];
 
 if(empty($TOTAL)) {
     $TOTAL=0;
 }
 
-$POLICY_NUMBER_CHECK=substr($data[1], 0, -6);
+$POLICY_NUMBER_CHECK=substr($data[13], 0, -6);
 
 if ($INDEMNITY > 0) {
     $POLICY_STATUS="Live";

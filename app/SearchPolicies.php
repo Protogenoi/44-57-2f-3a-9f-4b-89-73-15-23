@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -61,7 +62,7 @@ if (isset($fferror)) {
 }
 
 if(!in_array($hello_name,$GOOD_SEARH_ACCESS,true)) {
-    header('Location: /../../Life/Search.php');
+    header('Location: /../../addon/Life/Search.php');
 }
 
 if ($fflife == '0') {
@@ -129,6 +130,16 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 </div>
                             </a>
                         </li>
+                        
+                        <li>
+                            <a href="/app/SearchPolicies.php?EXECUTE=1">
+                                <span class="ca-icon"><i class="fa fa-search"></i></span>
+                                <div class="ca-content">
+                                    <h2 class="ca-main">Search<br/>New Vitality Policies</h2>
+                                    <h3 class="ca-sub"></h3>
+                                </div>
+                            </a>
+                        </li>                        
 
                     </ul>
                 </div>
@@ -232,7 +243,37 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                     </table>
 
                     <?php
-                }                
+                }  
+                if ($EXECUTE == 1 ) {
+                    ?>
+
+                    <table id="ADL_POLICY" class="display" width="auto" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Sub date</th>
+                                <th>Holder</th>
+                                <th>Policy</th>
+                                <th>Insurer</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Sub date</th>
+                                <th>Holder</th>
+                                <th>Policy</th>
+                                <th>Insurer</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <?php
+                }
             }
             ?>
 
@@ -413,7 +454,74 @@ if ($EXECUTE == 'Home') {
                     });
                 </script>
                 <?php
-            }            
+            }  
+            if ($EXECUTE == 1 ) {
+                ?>
+                <script type="text/javascript" language="javascript" >
+                    function format(d) {
+                        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                                '<tr>' +
+                                '<td>Insurer:</td>' +
+                                '<td>' + d.insurer + ' </td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td>Application Number:</td>' +
+                                '<td>' + d.application_number + ' </td>' +
+                                '</tr>' +
+                                '<tr>' +
+                                '<td>Policy Type:</td>' +
+                                '<td>' + d.type + ' </td>' +
+                                '</tr>' +
+                                '</table>';
+                    }
+
+                    $(document).ready(function () {
+                        var table = $('#ADL_POLICY').DataTable({
+                            "response": true,
+                            "processing": true,
+                            "iDisplayLength": 10,
+                            "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 500], [5, 10, 25, 50, 100, 125, 150, 200, 500]],
+                            "language": {
+                                "processing": "<div></div><div></div><div></div><div></div><div></div>"
+
+                            },
+                            "ajax": "/app/JSON/Policies.php?EXECUTE=3&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                            "columns": [
+                                {
+                                    "className": 'details-control',
+                                    "orderable": false,
+                                    "data": null,
+                                    "defaultContent": ''
+                                },
+                                {"data": "adl_policy_sub_date"},
+                                {"data": "adl_policy_policy_holder"},
+                                {"data": "adl_policy_ref"},
+                                {"data": "adl_policy_insurer"},
+                                {"data": "adl_policy_status"},
+                                {"data": "client_id",
+                                    "render": function (data, type, full, meta) {
+                                        return '<a href="Client.php?search=' + data + '">View</a>';
+                                    }}
+                            ],
+                            "order": [[1, 'asc']]
+                        });
+
+                        $('#policy tbody').on('click', 'td.details-control', function () {
+                            var tr = $(this).closest('tr');
+                            var row = table.row(tr);
+
+                            if (row.child.isShown()) {
+                                row.child.hide();
+                                tr.removeClass('shown');
+                            } else {
+                                row.child(format(row.data())).show();
+                                tr.addClass('shown');
+                            }
+                        });
+                    });
+                </script>
+                <?php
+            }
         }
         ?>
     </body>

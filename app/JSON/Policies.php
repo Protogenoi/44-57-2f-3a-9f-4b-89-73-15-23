@@ -67,6 +67,21 @@ if (isset($EXECUTE)) {
         json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);
         
+    }
+
+    if ($EXECUTE == '3') {
+
+        $query = $pdo->prepare("SELECT
+                adl_policy_sub_date, 
+                adl_policy_policy_holder, 
+                adl_policy_ref, 
+                adl_policy_insurer,
+                adl_policy_status
+            FROM 
+                adl_policy");
+        $query->execute()or die(print_r($query->errorInfo(), true));
+        json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
+        echo json_encode($results);
     }    
 
 }

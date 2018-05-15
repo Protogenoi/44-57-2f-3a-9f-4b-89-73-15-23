@@ -498,7 +498,7 @@ if ($EXECUTE == 'Home') {
                                 {"data": "adl_policy_ref"},
                                 {"data": "adl_policy_insurer"},
                                 {"data": "adl_policy_status"},
-                                {"data": "client_id",
+                                {"data": "adl_policy_client_id_fk",
                                     "render": function (data, type, full, meta) {
                                         return '<a href="Client.php?search=' + data + '">View</a>';
                                     }}

@@ -42,7 +42,9 @@ FROM
     vitality_income_benefit ON adl_policy.adl_policy_id = vitality_income_benefit.vitality_income_benefit_id_fk
 WHERE
     adl_policy_client_id_fk = :CID
-        AND adl_policy.adl_policy_insurer = 'Vitality'");
+        AND adl_policy.adl_policy_insurer = 'Vitality'
+GROUP BY
+adl_policy_ref");
         $stmt->bindParam(':CID', $search, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

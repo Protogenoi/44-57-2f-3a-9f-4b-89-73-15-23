@@ -1339,8 +1339,6 @@ $COMMISSION_MONTH=0;
 $PREMIUMS=$data[18];
 $INDEMNITY=$data[19];
 
-echo "INDEM $INDEMNITY";
-
 $INITIAL=$data[20];
 
 

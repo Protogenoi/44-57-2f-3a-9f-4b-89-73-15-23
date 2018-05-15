@@ -2528,6 +2528,16 @@ WHERE
                             
                             }
                             
+                            if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/Vitality/vitality_financial-model.php');
+                            $VIT_NEW_TRAN = new VIT_NEW_TRANModel($pdo);
+                            $VIT_NEW_TRANList = $VIT_NEW_TRAN->getVIT_NEW_TRAN($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/Vitality/vitality_financial_view.php');                                      
+                                    
+                                } 
+                        
+                            
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
                                 
                             if($COMPANY_ENTITY=='First Priority Group') {

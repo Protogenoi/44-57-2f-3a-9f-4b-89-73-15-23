@@ -504,6 +504,8 @@ WHERE
                                         <option value="Declined" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Declined') { echo "selected";  } ?>>Declined</option>
                                         <option value="Redrawn" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Redrawn') { echo "selected";  } ?>>Redrawn</option>
                                         <option value="On Hold" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'On Hold') { echo "selected";  } ?>>On Hold</option>
+                                        <option value="Cancelled" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Cancelled') { echo "selected";  } ?>>Cancelled</option>
+                                        <option value="Clawback" <?php if(isset($data2['adl_policy_status']) && $data2['adl_policy_status'] == 'Clawback') { echo "selected";  } ?>>Clawback</option>
                         </select>
                     </div>
                 </div>

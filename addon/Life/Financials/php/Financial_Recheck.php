@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/
 
 include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
@@ -389,6 +390,70 @@ if(isset($EXECUTE) && $EXECUTE==10) {
                        $delete->execute();  
                        
                 }
+                
+                $NEW_VITAL = $pdo->prepare("
+                    SELECT
+                        adl_policy_id, 
+                        adl_policy_client_id_fk, 
+                        adl_policy_ref, 
+                        adl_policy_status 
+                    FROM 
+                        adl_policy 
+                    WHERE 
+                        adl_policy_ref = :polhold");
+                $NEW_VITAL->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $NEW_VITAL->execute();
+                $row=$NEW_VITAL->fetch(PDO::FETCH_ASSOC);   
+                if ($NEW_VITAL->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                    $CID=$row['adl_policy_client_id_fk'];
+                    $PID=$row['adl_policy_id'];
+                    $policynumber=$row['adl_policy_ref'];
+                    $ref= "$policynumber ($PID)";
+                    $polstat=$row['adl_policy_status'];     
+                    
+                    $note="Vitality Financial Uploaded";
+                    
+                    if($AMOUNT >= 0) {  
+                    
+                    $message="COMM (Status changed from $polstat to Live)";
+                    $POL_STATUS='Live';
+                    
+                    } elseif($AMOUNT < 0) {
+                        
+                        $message="COMM (Status changed from $polstat to Clawback)";
+                        $POL_STATUS='Clawback';
+                        
+                    } else {
+                        
+                        $message="ERROR";
+                        $POL_STATUS='ERROR';                        
+                        
+                    }
+                        
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE adl_policy set adl_policy_status=:STATUS, adl_policy_updated_by=:EDIT WHERE adl_policy_id=:PID");
+                    $update->bindParam(':PID', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':EDIT', $hello_name, PDO::PARAM_STR, 250);
+                    $update->bindParam(':STATUS', $POL_STATUS, PDO::PARAM_STR, 50);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM vitality_financial_nomatch WHERE vitality_financial_nomatch_policy_number=:pol AND vitality_financial_nomatch_id=:ID LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
+                       $delete->execute();  
+                       
+                }                
                     
                 }
             }

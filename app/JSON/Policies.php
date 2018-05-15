@@ -76,7 +76,8 @@ if (isset($EXECUTE)) {
                 adl_policy_policy_holder, 
                 adl_policy_ref, 
                 adl_policy_insurer,
-                adl_policy_status
+                adl_policy_status,
+                adl_policy_client_id_fk
             FROM 
                 adl_policy");
         $query->execute()or die(print_r($query->errorInfo(), true));

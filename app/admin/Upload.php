@@ -154,47 +154,7 @@ if (isset($fferror)) {
                                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
                                 </form>
 
-                            </div>
-                            
-                            <div class="col-xs-6 col-md-6">
-                                <h3>Upload FPG Client data</h3>
-                                <form action="/upload/FPG.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                    <input name="csv" type="file" id="csv" />
-
-                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-
-                            </div>   
-                            
-                            <div class="col-xs-6 col-md-6">
-                                <h3>Upload FPG Client data NOTES</h3>
-                                <form action="/upload/FPG.php?EXECUTE=4" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                    <input name="csv" type="file" id="csv" />
-
-                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-
-                            </div>                             
-                            
-                            <div class="col-xs-6 col-md-6">
-                                <h3>Upload FPG Client data POLS</h3>
-                                <form action="/upload/FPG.php?EXECUTE=3" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                    <input name="csv" type="file" id="csv" />
-
-                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-
-                            </div>                             
-                            
-                            <div class="col-xs-6 col-md-6">
-                                <h3>Upload FPG Client data 2</h3>
-                                <form action="/upload/FPG.php?EXECUTE=2" method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                    <input name="csv" type="file" id="csv" />
-
-                                    <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-
-                            </div>                             
+                            </div>                            
 
                             <div class="col-xs-6 col-md-6">
                                 <h3>Upload PBA Details</h3>

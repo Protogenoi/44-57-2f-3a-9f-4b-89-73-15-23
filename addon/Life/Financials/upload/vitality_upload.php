@@ -150,7 +150,7 @@ if ($AMOUNT > 0) {
     $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
     $insert->execute();
     
-        $update = $pdo->prepare("UPDATE adl_policy set adl_policy_status=:STATUS, edited=:sent WHERE adl_policy_id=:polid");
+        $update = $pdo->prepare("UPDATE adl_policy set adl_policy_status=:STATUS, adl_policy_updated_by=:sent WHERE adl_policy_id=:polid");
         $update->bindParam(':polid', $polid, PDO::PARAM_INT);
         $update->bindParam(':STATUS', $POLICY_STATUS, PDO::PARAM_STR);
         $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);

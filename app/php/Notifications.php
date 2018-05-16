@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -28,7 +28,7 @@
  *  Twitter API - https://developer.twitter.com
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 if(isset($ffsms) && $ffsms=='1') {
     
@@ -723,7 +723,7 @@ if(empty($HAS_LV_LEAD_AUDIT)) {
          
      }
      
-    $database->query("select uploadtype from tbl_uploads where uploadtype='WOLkeyfacts' and file like :search");
+    $database->query("select uploadtype from tbl_uploads where uploadtype='WOLpolicy' and file like :search");
     $database->bind(':search', $likesearch);
     $database->execute();
     $database->single();

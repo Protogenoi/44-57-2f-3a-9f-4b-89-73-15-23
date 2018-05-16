@@ -875,32 +875,32 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             if (isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
 
-                                    $LGquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLpolicy'");
-                                    $LGquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGquery->execute();
+                                    $WOLquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLpolicy'");
+                                    $WOLquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
+                                    $WOLquery->execute();
 
-                                    while ($result = $LGquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGPOLFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
+                                    while ($result = $WOLquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $WOLPOLFILE = $result['file'];
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$WOLPOLFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                            <a href="/uploads/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Policy</a>
                                             <?php
                                         }
                                     }
 
-                                    $LGKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLkeyfacts'");
-                                    $LGKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
-                                    $LGKeyfactsquery->execute();
+                                    $WOLKeyfactsquery = $pdo->prepare("SELECT file FROM tbl_uploads WHERE file like :CID and uploadtype ='WOLkeyfacts'");
+                                    $WOLKeyfactsquery->bindParam(':CID', $likesearch, PDO::PARAM_STR);
+                                    $WOLKeyfactsquery->execute();
 
-                                    while ($result = $LGKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
-                                        $LGFILE = $result['file'];
-                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
+                                    while ($result = $WOLKeyfactsquery->fetch(PDO::FETCH_ASSOC)) {
+                                        $WOLFILE = $result['file'];
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$WOLFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> WOL Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -2112,7 +2112,9 @@ WHERE
                                             case "Zurichpolicy":
                                                 case "Zurichkeyfacts":           
                                             case "Vitalitypolicy":
-                                                case "Vitalitykeyfacts":        
+                                                case "Vitalitykeyfacts":  
+                                            case "WOLpolicy":
+                                                case "WOLkeyfacts":        
                                             case "SWpolicy":
                                                 case "SWkeyfacts":                                                    
                                             $typeimage = "fa-file-pdf-o";
@@ -2163,6 +2165,12 @@ WHERE
                                          case "Vitalitypolicy":
                                             $uploadtype = "Vitality Policy";
                                             break;   
+                                        case "WOLkeyfacts":
+                                            $uploadtype = "One Family Keyfacts";
+                                            break;
+                                         case "WOLpolicy":
+                                            $uploadtype = "One Family Policy";
+                                            break;                                         
                                         case "SWkeyfacts":
                                             $uploadtype = "SW Keyfacts";
                                             break;
@@ -2230,7 +2238,17 @@ WHERE
                                             <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
                                             <?php
                                         }
-                                    }                                      
+                                    }      
+                                    
+                                     if ($row['uploadtype'] == 'WOLpolicy' || $row['uploadtype'] =='WOLkeyfacts') {
+                                        if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
+                                            ?>
+                                            <a class="list-group-item" href="/uploads/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                        <?php } else { ?>
+                                            <a class="list-group-item" href="/uploads/life/<?php echo $search; ?>/<?php echo $file; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                            <?php
+                                        }
+                                    }                                    
 
                                      if ($row['uploadtype'] == 'Zurichpolicy' || $row['uploadtype'] =='Zurichkeyfacts') {
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {

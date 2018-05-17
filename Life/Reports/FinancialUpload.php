@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
@@ -27,16 +27,6 @@ if (isset($fferror)) {
 if($fffinancials=='0') {
     header('Location: /../../../CRMmain.php?FEATURE=FINANCIALS');
 }
-
-if ($companynamere == 'Bluestone Protect') {
-
-    $Level_2_Access = array("Michael", "Matt", "leighton", "Jade");
-    if (!in_array($hello_name, $Level_2_Access, true)) {
-
-        header('Location: /../../../CRMmain.php?AccessDenied');
-        die;
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,19 +42,15 @@ if ($companynamere == 'Bluestone Protect') {
 </head>
 <body>
 
-    <?php
-    if ($hello_name != 'Jade') {
-        require_once(__DIR__ . '/../../includes/navbar.php');
-    }
-    ?>
+    <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
 
     <div class="container">
 
         <?php
-        $query = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
+        $EXECUTE = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if (!isset($query)) {
-            $query = 'Life';
+        if (!isset($EXECUTE)) {
+            $EXECUTE = 'Life';
         }
 
         $uploaded = filter_input(INPUT_GET, 'uploaded', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -100,38 +86,38 @@ if ($companynamere == 'Bluestone Protect') {
                         <select id="query" name="query" class="form-control" onchange="this.form.submit()" required>
 
                             <option value="">Select...</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'Life') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'Life') {
                 echo "selected";
             }
         } ?> value="Life">Legal & General Financials</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'Home') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'Home') {
                 echo "selected";
             }
         } ?> value="Home">Home Financials</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'Vitality') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'Vitality') {
                 echo "selected";
             }
         } ?> value="Vitality">Vitality Financials</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'Aviva') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'Aviva') {
                 echo "selected";
             }
         } ?> value="Aviva">Aviva Financials</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'WOL') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'WOL') {
                 echo "selected";
             }
         } ?> value="WOL">One Family Financials</option>
-                            <option <?php if (isset($query)) {
-            if ($query == 'RoyalLondon') {
+                            <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'RoyalLondon') {
                 echo "selected";
             }
         } ?> value="RoyalLondon">Royal London Financials</option>
-             <option <?php if (isset($query)) {
-            if ($query == 'LV') {
+             <option <?php if (isset($EXECUTE)) {
+            if ($EXECUTE == 'LV') {
                 echo "selected";
             }
         } ?> value="LV">LV Financials</option>                
@@ -142,8 +128,8 @@ if ($companynamere == 'Bluestone Protect') {
                 </fieldset>
             </form>
 
-            <form id="upload" id="upload" class="form-horizontal" method="post" enctype="multipart/form-data" action="../php/FinFileUpload.php?<?php if (isset($query)) {
-            echo "query=$query";
+            <form id="upload" id="upload" class="form-horizontal" method="post" enctype="multipart/form-data" action="../php/FinFileUpload.php?<?php if (isset($EXECUTE)) {
+            echo "query=$EXECUTE";
         } else {
             echo "query=Life";
         } ?>"> 
@@ -158,8 +144,8 @@ if ($companynamere == 'Bluestone Protect') {
                     <div class="form-group">
                         <label class="col-md-3 control-label" for=""></label>
                         <div class="col-md-3">
-                            <button id="" name="" class="btn btn-primary btn-block"><i class="fa fa-upload"></i> <?php if (isset($query)) {
-                echo "$query";
+                            <button id="" name="" class="btn btn-primary btn-block"><i class="fa fa-upload"></i> <?php if (isset($EXECUTE)) {
+                echo "$EXECUTE";
             } else {
                 echo $companynamere;
             } ?> Upload</button>
@@ -175,45 +161,44 @@ if ($companynamere == 'Bluestone Protect') {
         <div class="row">
 
             <?php
-            if (in_array($hello_name, $Level_10_Access, true)) {
-                try {
 
-                    if (isset($query)) {
+                    if (isset($EXECUTE)) {
 
-                        switch ($query) {
+                        switch ($EXECUTE) {
                             case "Life":
-                                $type = "Financial Comms";
+                                $TYPE = "Financial Comms";
                                 break;
                             case "Home":
-                                $type = "Home Financials";
+                                $TYPE = "Home Financials";
                                 break;
                             case "Vitality":
-                                $type = "Vitality Financials";
+                                $TYPE = "Vitality Financials";
                                 break;
                             case "WOL":
-                                $type = "WOL Financials";
+                                $TYPE = "WOL Financials";
                                 break;
                             case "Aviva":
-                                $type = "Aviva Financials";
+                                $TYPE = "Aviva Financials";
                                 break;
                             case "RoyalLondon":
-                                $type = "Royal London Financials";
+                                $TYPE = "Royal London Financials";
+                                break;
                             case "LV":
-                                $type = "LV Financials";    
+                                $TYPE = "LV Financials";    
                                 break;
                             default:
-                                $type = "Financial Comms";
+                                $TYPE = "Financial Comms";
                         }
 
                         $filesloaded = $pdo->prepare("select DATE(added_date) as added_date, file, uploadtype from tbl_uploads where uploadtype=:type ORDER BY id DESC LIMIT 4");
-                        $filesloaded->bindParam(':type', $type, PDO::PARAM_STR);
+                        $filesloaded->bindParam(':type', $TYPE, PDO::PARAM_STR);
                     } else {
                         $filesloaded = $pdo->prepare("select DATE(added_date) as added_date, file, uploadtype from tbl_uploads where uploadtype='Financial Comms' ORDER BY id DESC LIMIT 4");
                     }
                     ?>
 
-                    <span class="label label-primary"><?php if (isset($query)) {
-                echo "$query";
+                    <span class="label label-primary"><?php if (isset($EXECUTE)) {
+                echo $TYPE;
             } else {
                 echo $companynamere;
             } ?> Uploads</span>
@@ -227,44 +212,39 @@ if ($companynamere == 'Bluestone Protect') {
                             $uploadtype = $row['uploadtype'];
                             $added_dates = $row['added_date'];
 
-                            if (isset($query)) {
-                                if ($query == 'Life') {
-
-                                    if ($added_dates < "2017-03-14") {
-                                        ?>
-                                        <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file (OLD)"; ?></a>
-                                    <?php } else { ?>  
+                            if (isset($EXECUTE)) {
+                                if ($EXECUTE == 'Life') {
+ ?>  
                                         <a class="list-group-item" href="../FinUploads/LANDG/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file (NEW)"; ?></a>
-
-                                    <?php }
+                                    <?php 
                                 }
-                                if ($query == 'Home') {
+                                if ($EXECUTE == 'Home') {
                                     ?>
                                     <a class="list-group-item" href="../FinUploads/Home/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
-                                if ($query == 'Vitality') {
+                                if ($EXECUTE == 'Vitality') {
                                     ?>
                                     <a class="list-group-item" href="../FinUploads/Vitality/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
-                                if ($query == 'Aviva') {
+                                if ($EXECUTE == 'Aviva') {
                                     ?>
                                     <a class="list-group-item" href="../FinUploads/Aviva/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
-                                if ($query == 'WOL') {
+                                if ($EXECUTE == 'WOL') {
                                     ?>
                                     <a class="list-group-item" href="../FinUploads/WOL/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                     <?php }
-                    if ($query == 'RoyalLondon') {
+                    if ($EXECUTE == 'RoyalLondon') {
                         ?>
                                     <a class="list-group-item" href="../FinUploads/RoyalLondon/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                     <?php
                     }
-                    if ($query == 'LV') {
+                    if ($EXECUTE == 'LV') {
                         ?>
                                     <a class="list-group-item" href="../FinUploads/LV/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
@@ -283,13 +263,6 @@ if ($companynamere == 'Bluestone Protect') {
         ?>
 
                     </table>
-
-    <?php
-    } catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-    }
-}
-?>
 
         </div>
 

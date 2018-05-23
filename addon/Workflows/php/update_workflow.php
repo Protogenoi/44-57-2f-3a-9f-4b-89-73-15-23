@@ -282,7 +282,7 @@ ORDER BY adl_workflows_updated_date DESC");
     
         if($VAR_THREE != $WORKFLOW_POST) {
             
-            $VAR_THREE="| Cancelled DDs - $WORKFLOW_POST |";
+            $VAR_THREE="| Post from insurer - $WORKFLOW_POST |";
         
     }
     

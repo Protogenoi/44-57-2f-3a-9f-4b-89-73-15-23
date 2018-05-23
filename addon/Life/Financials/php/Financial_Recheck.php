@@ -166,25 +166,15 @@ if(isset($EXECUTE) && $EXECUTE==10) {
             $Icheck = $pdo->prepare("SELECT lv_financial_nomatch_id, lv_financial_nomatch_policy_number, lv_financial_nomatch_indemnity FROM lv_financial_nomatch");
             $Icheck->execute();
             if ($Icheck->rowCount() >= 1) {  
-            while ($result=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
+            while ($row=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
             
-            $POL_NUM=$result['lv_financial_nomatch_policy_number'];
-            $FID=$result['lv_financial_nomatch_id'];
-            $AMOUNT=$result['lv_financial_nomatch_indemnity'];
-            
-            
-            
-            if(strlen($POLICY_NUMBER_CHECK) > 7) {
-            $POLICY_NUMBER_CHECK=substr($POL_NUM, 0, -6);
-            
-            }
-            
-            else {
-                $POLICY_NUMBER_CHECK =$POL_NUM;
-            }
+            $POL_NUM=$row['lv_financial_nomatch_policy_number'];
+            $FID=$row['lv_financial_nomatch_id'];
+            $AMOUNT=$row['lv_financial_nomatch_indemnity'];
+
                     
                 $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
-                $SELECT_Q->bindParam(':polhold', $POLICY_NUMBER_CHECK, PDO::PARAM_STR);
+                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
                 $SELECT_Q->execute();
                 $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
                 if ($SELECT_Q->rowCount() >= 1) {  

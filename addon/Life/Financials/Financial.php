@@ -84,6 +84,10 @@ $LV_DATE_FROM = filter_input(INPUT_GET, 'LV_datefrom', FILTER_SANITIZE_SPECIAL_C
 $LV_DATE_TO = filter_input(INPUT_GET, 'LV_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 $LV_COMM_DATE = filter_input(INPUT_GET, 'LV_commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
+$ZURICH_DATE_FROM = filter_input(INPUT_GET, 'Zurich_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$ZURICH_DATE_TO = filter_input(INPUT_GET, 'Zurich_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$ZURICH_COMM_DATE = filter_input(INPUT_GET, 'Zurich_commdate', FILTER_SANITIZE_SPECIAL_CHARS);
+
 $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
                     if($COMPANY_ENTITY=='Bluestone Protect') {
@@ -426,6 +430,62 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                         $LV_COM_DATE->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
                                         if ($LV_COM_DATE->rowCount() > 0) {
                                             while ($row = $LV_COM_DATE->fetch(PDO::FETCH_ASSOC)) {
+                                                if (isset($row['lv_financial_uploaded_date'])) {
+                                                    ?>
+                                                    <option value="<?php echo $row['lv_financial_uploaded_date']; ?>"><?php echo $row['lv_financial_uploaded_date']; ?></option>
+
+                                                    <?php
+                                                }
+                                            }
+                                        }
+                                        ?>   
+                                    </select>
+                                </div>
+                            </div>                    
+                 </div>   
+                             
+<div class="col-md-12">
+                                 
+                                 
+                                  <div class="form-group">
+                                      <label>Zurich</label>
+                             </div>
+                                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="Zurich_datefrom" name="Zurich_datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
+                                    if (isset($ZURICH_DATE_FROM)) {
+                                        echo $ZURICH_DATE_FROM;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <input type="text" id="Zurich_dateto" name="Zurich_dateto" class="form-control" placeholder="DATE TO:" value="<?php
+                                    if (isset($ZURICH_DATE_TO)) {
+                                        echo $ZURICH_DATE_TO;
+                                    } else { echo $DATE_FROM; }
+                                    ?>" required>
+                                </div>
+                            </div>                 
+                 
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <select class="form-control" name="Zurich_commdate">
+                                        <?php
+                                        $Zurich_COM_DATE = $pdo->prepare("SELECT 
+                                                        DATE(lv_financial_uploaded_date) AS lv_financial_uploaded_date
+                                                    FROM 
+                                                        lv_financial 
+                                                    group by 
+                                                        DATE(lv_financial_uploaded_date) 
+                                                    ORDER BY 
+                                                        lv_financial_uploaded_date DESC");
+                                        $Zurich_COM_DATE->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
+                                        if ($Zurich_COM_DATE->rowCount() > 0) {
+                                            while ($row = $Zurich_COM_DATE->fetch(PDO::FETCH_ASSOC)) {
                                                 if (isset($row['lv_financial_uploaded_date'])) {
                                                     ?>
                                                     <option value="<?php echo $row['lv_financial_uploaded_date']; ?>"><?php echo $row['lv_financial_uploaded_date']; ?></option>
@@ -6515,6 +6575,1223 @@ WHERE
             </div>
              </div>
         </div>
+                      
+        <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h3 class="panel-title"><a data-toggle="collapse" href="#ZURICHcollapse1">Zurich Financial Statistics</a></h3>
+             </div>
+             <div id="ZURICHcollapse1" class="panel-collapse collapse">
+             <div class="panel-body">
+                 
+                 <ul class="nav nav-pills">
+                     <li class="active"><a data-toggle="pill" href="#ZURICH_home">Financials</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_PENDING">Unpaid</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_MISSING">Total Missing</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_AWAITING">Awaiting</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_EXPECTED">Expected</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_POLINDATE">Policies on Time</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_POLOUTDATE">Late Policies</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_COMMIN">Total Gross</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_COMMOUT">Total Loss</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_RAW">RAW</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_EXPORT">Export</a></li>
+                     <li><a data-toggle="pill" href="#ZURICH_NOMATCH">Unmatched Policies <span class="badge alert-warning">
+                        <?php
+                        $ZURICH_nomatchbadge = $pdo->query("SELECT 
+                                                        COUNT(lv_financial_nomatch_id) AS badge
+                                                        FROM 
+                                                            lv_financial_nomatch");
+                        $ZURICH_NO_MATCH_row = $ZURICH_nomatchbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($ZURICH_NO_MATCH_row['badge']);
+                        ?>
+                    </span></a></li>
+                 </ul>
+
+
+
+    <div class="tab-content">
+
+        <div id="ZURICH_home" class="tab-pane fade in active">
+
+                
+                        <?php
+
+//CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
+    require_once(__DIR__ . '/models/financials/ZURICH/TotalMissingWithDates.php');
+    $ZURICH_TotalMissingWithDates = new ZURICH_TotalMissingWithDatesModal($pdo);
+    $ZURICH_TotalMissingWithDatesList = $ZURICH_TotalMissingWithDates->ZURICH_getTotalMissingWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
+    require_once(__DIR__ . '/views/financials/ZURICH/Total-Missing-With-Dates.php');
+                       //END OF CALCULATION
+    
+//CALCULATE AWAITING AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/financials/ZURICH/TotalAwaitingWithDates.php');
+    $ZURICH_TotalAwaitingWithDates = new ZURICH_TotalAwaitingWithDatesModal($pdo);
+    $ZURICH_TotalAwaitingWithDatesList = $ZURICH_TotalAwaitingWithDates->ZURICH_getTotalAwaitingWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
+    require_once(__DIR__ . '/views/financials/ZURICH/Total-Awaiting-With-Dates.php');                            
+    //END OF CALCULATION
+    
+//CALCULATE EXPECTED AMOUNT WITH DATES
+    require_once(__DIR__ . '/models/financials/ZURICH/TotalExpectedWithDates.php');
+    $ZURICH_TotalExpectedWithDates = new ZURICH_TotalExpectedWithDatesModal($pdo);
+    $ZURICH_TotalExpectedWithDatesList = $ZURICH_TotalExpectedWithDates->ZURICH_getTotalExpectedWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
+    require_once(__DIR__ . '/views/financials/ZURICH/Total-Expected-With-Dates.php');  
+    
+
+//CALCULATE NET| GROSS
+$TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+//END OF CALCULATION    
+                                $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
+    SUM(commission) AS commission
+FROM
+    client_policy
+WHERE
+    DATE(submitted_date) BETWEEN :datefrom AND :dateto
+        AND insurer = 'Zurich'
+        AND client_policy.policystatus NOT LIKE '%CANCELLED%'
+        AND client_policy.policystatus NOT IN ('Clawback' , 'SUBMITTED-NOT-LIVE',
+        'DECLINED',
+        'On hold')
+        ");
+                            $EXPECTED_SUM_QRY->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
+                            $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                            $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
+
+                            $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
+                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
+    //END OF CALCULATION          
+                           
+
+                            $POL_ON_TM_QRY = $pdo->prepare("SELECT 
+    SUM(CASE WHEN lv_financial.lv_financial_indemnity >= 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as PAID_TOTAL_PLUS,
+    SUM(CASE WHEN lv_financial.lv_financial_indemnity < 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as PAID_TOTAL_LOSS 
+    FROM 
+        lv_financial 
+    LEFT JOIN 
+        client_policy 
+    ON 
+        lv_financial.lv_financial_policy_number=client_policy.policy_number 
+    WHERE 
+        DATE(lv_financial_uploaded_date) = :commdate
+    AND 
+        client_policy.policy_number IN(SELECT 
+                                            client_policy.policy_number 
+                                        FROM 
+                                            client_policy 
+                                        WHERE 
+                                            DATE(client_policy.sale_date) 
+                                        BETWEEN 
+                                            :datefrom
+                                        AND 
+                                            :dateto 
+                                        AND 
+                                            client_policy.insurer='Zurich')
+                                            ");
+                            $POL_ON_TM_QRY->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
+                            $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
+                            
+                            $POL_ON_TM_SUM = $POL_ON_TM_SUM_QRY_RS['PAID_TOTAL_PLUS'];
+                            $POL_ON_TM_SUM_LS = $POL_ON_TM_SUM_QRY_RS['PAID_TOTAL_LOSS'];
+
+                            $POL_NOT_TM_QRY = $pdo->prepare("
+                                SELECT
+                                    SUM(CASE WHEN lv_financial.lv_financial_indemnity >= 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
+                                    SUM(CASE WHEN lv_financial.lv_financial_indemnity < 0 THEN lv_financial.lv_financial_indemnity ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
+                                FROM 
+                                    lv_financial
+                                LEFT JOIN 
+                                    client_policy 
+                                ON 
+                                    lv_financial.lv_financial_policy_number=client_policy.policy_number
+                                WHERE 
+                                    DATE(lv_financial_uploaded_date) = :commdate 
+                                AND 
+                                    client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Zurich')");
+                            $POL_NOT_TM_QRY->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
+                            $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
+                            
+                            $POL_NOT_TM_SUM = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_PLUS'];
+                            $POL_NOT_TM_SUM_LS = $POL_NOT_TM_SUM_QRY_RS['NOT_PAID_TOTAL_LOSS'];
+
+                            $MISSING_SUM_DISPLAY_QRY = $pdo->prepare("SELECT
+                                        SUM(commission) AS commission 
+                                    FROM 
+                                        client_policy 
+                                    WHERE 
+                                        DATE(sale_date) BETWEEN '2017-01-01' AND :dateto
+                                    AND 
+                                        policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial)
+                                    AND 
+                                        insurer='Zurich'
+                                    AND 
+                                        policystatus NOT like '%CANCELLED%'
+                                    AND 
+                                        policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')");
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
+                            $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
+                            
+                            $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
+
+                            $simply_EXP_ZURICH_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
+                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_ZURICH_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
+                       
+                        ?>       
+
+                        <table  class="table table-hover">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan="8"><?php echo "ADL Projections for $ZURICH_COMM_DATE";?></th>
+                                </tr>
+                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO"; ?>.
+                                                   
+ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($ZURICH_DATE_FROM)) { echo "within 2017-01-01 - $ZURICH_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($ZURICH_DATE_FROM)) { echo "within $ZURICH_DATE_FROM - $ZURICH_DATE_TO"; } ?>.
+
+ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+
+                            </tr>
+                            </thead>
+
+                            <?php
+                             $query = $pdo->prepare("SELECT 
+                                                    SUM(CASE WHEN lv_financial_indemnity < 0 THEN lv_financial_indemnity ELSE 0 END) AS totalloss,
+                                                    SUM(CASE WHEN lv_financial_indemnity >= 0 THEN lv_financial_indemnity ELSE 0 END) as totalgross
+                                                    FROM 
+                                                        lv_financial
+                                                    WHERE
+                                                        DATE(lv_financial_uploaded_date)=:commdate");
+                            $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                           
+                            
+                            $query->execute()or die(print_r($query->errorInfo(), true));
+                            if ($query->rowCount() > 0) {
+                                while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                    $totalgross = $result['totalgross'];
+                                    $totalloss = abs($result['totalloss']);
+
+                                           $totalrate = "5.00"; 
+
+                                        $totaldifference = $EXPECTED_SUM - $totalgross;
+                                    }
+
+                                    $totalnet = $totalgross - $totalloss;
+
+                                    $hwifsd = ($totalrate / 100) * $totalnet;
+                                    $netcom = $totalnet - $hwifsd;
+
+                                   
+                                        $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
+                                        
+                                        echo '<tr>';
+                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$MISSING_SUM_DISPLAY</td>";    
+                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "</tr>";
+                                        echo "\n";
+                                }
+                                ?>
+                        </table>
+                        
+                        <!-- RAW COMM TABLE  -->
+                                <table  class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="8"><?php echo "RAW COMMS statistics for $ZURICH_COMM_DATE";?></th>
+                                        </tr>
+                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>.
+
+ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_MISSING_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_MISSING_SUM_FORMAT; ?>"
+></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    </tr>
+                                    </thead>
+                                    
+                                    <?php
+                                    
+                                    $TOTAL_GROSS_RAW = number_format($totalgross, 2);
+                                    $TOTAL_LOSS_RAW = number_format($totalloss, 2);
+                                    $TOTAL_NET_RAW = number_format($totalnet, 2);
+                                    $HWIFS_RAW = number_format($hwifsd, 2);
+                                    $NET_COMM_RAW = number_format($netcom, 2); 
+                                    $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
+                                    
+                                    ?>
+
+                                    <tr>
+                                        <td><?php echo "£$TOTAL_GROSS_RAW"; ?></td>
+                                        <td><?php echo "£$TOTAL_LOSS_RAW"; ?></td>
+                                        <td><?php echo "£$TOTAL_NET_RAW"; ?></td>
+                                        <td><?php echo "£$HWIFS_RAW"; ?></td>
+                                        <td><?php echo "£$NET_COMM_RAW"; ?></td>
+                                        <td><?php echo "£$ADL_vs_RAW_RAW"; ?></td>
+                                        <td><?php echo "£$ADL_MISSING_SUM_FORMAT"; ?></td>
+                                    </tr>
+
+                                </table> 
+                        
+                        <!-- END RAW COMM TABLE -->
+                        
+<?php 
+
+$PAY_ON_TIME = number_format($POL_ON_TM_SUM, 2);
+$PAY_LATE = number_format($POL_NOT_TM_SUM, 2);
+$PAY_ON_TIME_LS = number_format($POL_ON_TM_SUM_LS, 2);
+$PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
+
+?>
+                        <!-- COMPARISON TABLE -->
+                        
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><?php echo "RAW COMMS breakdown $ZURICH_COMM_DATE"; ?></th>
+                                </tr>
+                                <tr>
+                                    <th>Payments on Time</th> 
+                                    <th>Deductions on Time</th>
+                                    <th>Late Payments</th>   
+                                    <th>Late Deductions</th> 
+                                </tr>
+                            </thead>
+                            
+                            <tr>
+                                <td><?php echo "£$PAY_ON_TIME"; ?></td>
+                                <td><?php echo "£$PAY_ON_TIME_LS"; ?></td>
+                                <td><?php echo "£$PAY_LATE"; ?></td>
+                                <td><?php echo "£$PAY_LATE_LS"; ?></td>
+                            </tr>
+                        </table>
+                        
+                        <!-- END OF COMPARISON TABLE -->
+  
+            </div>
+        
+        <div id="ZURICH_RAW" class="tab-pane fade">
+
+                <?php
+
+                    $query = $pdo->prepare("SELECT 
+                        client_policy.id AS PID, 
+                        client_policy.client_id AS CID, 
+                        client_policy.policy_number, 
+                        client_policy.commission, 
+                        DATE(client_policy.sale_date) AS SALE_DATE, 
+                        lv_financial.lv_financial_name, 
+                        lv_financial.lv_financial_policy_number, 
+                        lv_financial.lv_financial_indemnity, 
+                        DATE(lv_financial_uploaded_date) AS COMM_DATE
+                    FROM
+                        lv_financial
+                    LEFT JOIN 
+                        client_policy
+                    ON 
+                        lv_financial.lv_financial_policy_number=client_policy.policy_number
+                    WHERE 
+                        DATE(lv_financial_uploaded_date) = :commdate
+                    AND
+                        client_policy.insurer='Zurich'
+                    ORDER BY 
+                        lv_financial.lv_financial_indemnity DESC");
+                    $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>RAW COMMS for <?php echo "$ZURICH_COMM_DATE ($count records)"; ?></th>
+                                </tr>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>COMM Amount</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                echo '<tr>';
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['vitality_financial_name'] . "</td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                }
+
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>                                       
+        </div>
+
+
+        <div id="ZURICH_EXPECTED" class="tab-pane fade">
+                <?php
+
+                    $EXPECTED_QUERY = $pdo->prepare("
+SELECT 
+    id AS PID,
+    client_id AS CID,
+    client_name,
+    policy_number,
+    policystatus,
+    commission,
+    DATE(sale_date) AS SALE_DATE
+FROM
+    client_policy
+WHERE
+    DATE(sale_date) BETWEEN :datefrom AND :dateto
+        AND insurer = 'ZURICH'
+        AND policystatus = 'Live'
+        OR DATE(client_policy.submitted_date) BETWEEN :datefrom2 AND :dateto2
+        AND client_policy.insurer = 'ZURICH'
+        AND policystatus = 'Awaiting'");
+                    $EXPECTED_QUERY->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':datefrom2', $ZURICH_DATE_FROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':dateto2', $ZURICH_DATE_TO, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
+                    if ($EXPECTED_QUERY->rowCount() > 0) {
+                        $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+                                <tr>
+                                    <th colspan='3'>EXPECTED for <?php echo "$ZURICH_COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                </tr>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>ADL Amount</th>
+                            <th>ADL Status</th>
+                            </tr>
+                            </thead>
+
+                            <?php
+                            while ($row = $EXPECTED_QUERY->fetch(PDO::FETCH_ASSOC)) {
+
+                                $ORIG_EXP_COMMISSION = $row['commission'];
+
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+
+                                echo '<tr>';
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+        </div>
+
+        <div id="ZURICH_PENDING" class="tab-pane fade">
+
+                <?php
+
+                    $query = $pdo->prepare("
+                        SELECT 
+                            DATE(sale_date) AS SALE_DATE, 
+                            policystatus, client_name, 
+                            id AS PID, client_id AS CID, 
+                            policy_number, 
+                            commission
+                            FROM
+                                client_policy
+                            WHERE 
+                                DATE(sale_date) BETWEEN '2017-01-01' AND :dateto 
+                            AND
+                                policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
+                            AND
+                                insurer='Zurich'
+                            AND
+                                policystatus NOT like '%CANCELLED%' 
+                            AND
+                                policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED','On hold') 
+                            ORDER BY 
+                                commission DESC");
+                    $query->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $ZURICH_DATE_TO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                </tr>
+                            <th>Sale Date</th>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>ADL Amount</th>
+                            <th>ADL Status</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                $ORIG_EXP_COMMISSION = $row['commission'];
+
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+
+                                echo '<tr>';
+                                echo "<td>" . $row['SALE_DATE'] . "</td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Unpaid Policies Found!</div>";
+                    }
+                    
+?>
+        </div>        
+
+
+        <div id="ZURICH_MISSING" class="tab-pane fade">
+                <?php
+                
+                    $query = $pdo->prepare("
+                        SELECT
+                            DATE(client_policy.sale_date) AS SALE_DATE,
+                            client_policy.policystatus,
+                            client_policy.client_name,
+                            client_policy.id AS PID,
+                            client_policy.client_id AS CID,
+                            client_policy.policy_number,
+                            client_policy.commission,
+                            DATE(client_policy.sale_date) AS SALE_DATE,
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
+                        FROM
+                            client_policy
+                        LEFT JOIN 
+                            lv_financial
+                        ON 
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
+                        WHERE 
+                            DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
+                        AND 
+                            client_policy.policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial) 
+                        AND
+                            client_policy.policy_number NOT IN(select lv_financial.lv_financial_policy_number FROM lv_financial)
+                        AND 
+                            client_policy.insurer='Zurich'
+                        AND 
+                            client_policy.policystatus NOT like '%CANCELLED%'
+                        AND
+                            client_policy.policystatus NOT IN ('Awaiting','Clawback','SUBMITTED-NOT-LIVE','DECLINED')");
+                    $query->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>Missing for <?php echo "$ZURICH_COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
+                                </tr>
+                            <th>Sale Date</th>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>ADL Amount</th>
+                            <th>ADL Status</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                $ORIG_EXP_COMMISSION = $row['commission'];
+
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+
+                                echo '<tr>';
+                                echo "<td>" . $row['SALE_DATE'] . "</td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+        </div>
+
+
+        <div id="ZURICH_AWAITING" class="tab-pane fade">
+                <?php
+
+                    $query = $pdo->prepare("
+                        SELECT
+                            client_policy.application_number,
+                            DATE(client_policy.submitted_date) AS submitted_date,
+                            client_policy.policystatus,
+                            client_policy.client_name,
+                            client_policy.id AS PID,
+                            client_policy.client_id AS CID,
+                            client_policy.policy_number,
+                            client_policy.commission,
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
+                        FROM
+                            client_policy
+                        LEFT JOIN 
+                            lv_financial
+                        ON 
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
+                        WHERE 
+                            DATE(client_policy.submitted_date) between :datefrom AND :dateto 
+                        AND 
+                            client_policy.insurer='Zurich'
+                        AND 
+                            client_policy.policystatus ='Awaiting' 
+                        ORDER BY 
+                            DATE(client_policy.sale_date)");
+                    $query->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>Awaiting for <?php echo "$ZURICH_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                </tr>
+                            <th>Sale Date</th>
+                            <th>Policy</th>
+                            <th>App</th>
+                            <th>Client</th>
+                            <th>ADL Amount</th>
+                            <th>ADL Status</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                $ORIG_EXP_COMMISSION = $row['commission'];
+                                $AWAITING_SUB_DATE = $row['submitted_date'];
+                                $AWAITING_APP = $row['application_number'];
+
+                                $simply_EXP_COMMISSION = ($simply_biz / 100) * $ORIG_EXP_COMMISSION;
+                                $EXP_COMMISSION = $ORIG_EXP_COMMISSION - $simply_EXP_COMMISSION;
+
+                                echo '<tr>';
+                                echo "<td>$AWAITING_SUB_DATE</td>";
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>$AWAITING_APP</td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($EXP_COMMISSION) > 0) {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                } else if (intval($EXP_COMMISSION) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$EXP_COMMISSION</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$EXP_COMMISSION</span></td>";
+                                }
+                                echo "<td><span class=\"label label-default\">" . $row['policystatus'] . "</span></td>";
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Awaiting Policies found</div>";
+                    }
+                ?>
+        </div>        
+
+        <div id="ZURICH_POLINDATE" class="tab-pane fade">
+
+                <?php
+                
+                    $POLIN_SUM_QRY = $pdo->prepare("
+                        SELECT 
+                            sum(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity 
+                        FROM 
+                            lv_financial
+                        LEFT JOIN 
+                            client_policy ON lv_financial.lv_financial_policy_number=client_policy.policy_number
+                        WHERE 
+                            DATE(lv_financial_uploaded_date) = :commdate
+                        AND 
+                            client_policy.policy_number 
+                        IN
+                            (select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Zurich')");
+                    $POLIN_SUM_QRY->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
+                    $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                    
+                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['lv_financial_indemnity'];
+
+                    $query = $pdo->prepare("
+                        SELECT 
+                            client_policy.client_name,
+                            client_policy.id AS PID,
+                            client_policy.client_id AS CID,
+                            client_policy.policy_number,
+                            client_policy.commission,
+                            DATE(client_policy.sale_date) AS SALE_DATE,
+                            lv_financial.lv_financial_policy_number,
+                            lv_financial.lv_financial_indemnity,
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
+                        FROM 
+                            lv_financial
+                        LEFT JOIN 
+                            client_policy ON lv_financial.lv_financial_policy_number=client_policy.policy_number
+                        WHERE 
+                            DATE(lv_financial_uploaded_date) = :commdate
+                        AND
+                            client_policy.policy_number 
+                        IN
+                            (select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Zurich')");
+                    $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR);
+                    $query->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR);
+                    $query->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>Policies in date range <?php echo "$ZURICH_DATE_TO - $ZURICH_DATE_FROM with COMM date of $ZURICH_COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                </tr>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>COMM Amount</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                echo '<tr>';
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                }
+
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+        </div> 
+
+        <div id="ZURICH_POLOUTDATE" class="tab-pane fade">
+
+               <?php
+
+                    $query = $pdo->prepare("
+                        SELECT 
+                            client_policy.client_name,
+                            client_policy.id AS PID, 
+                            client_policy.client_id AS CID, 
+                            client_policy.policy_number, 
+                            client_policy.commission, 
+                            DATE(client_policy.sale_date) AS SALE_DATE, 
+                            lv_financial.lv_financial_policy_number, 
+                            lv_financial.lv_financial_indemnity, 
+                            DATE(lv_financial_uploaded_date) AS COMM_DATE
+                        FROM 
+                            lv_financial
+                        LEFT JOIN 
+                            client_policy
+                        ON 
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number
+                        WHERE 
+                            DATE(lv_financial_uploaded_date) = :commdate
+                        AND
+                            client_policy.policy_number 
+                        IN
+                            (SELECT client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Zurich')");
+                    $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':dateto', $ZURICH_DATE_TO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':datefrom', $ZURICH_DATE_FROM, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$ZURICH_DATE_TO - $ZURICH_DATE_FROM with COMM date of $ZURICH_COMM_DATE ($count records)"; ?></th>
+                                </tr>
+                            <th>Policy</th>
+                            <th>Client</th>
+                            <th>COMM Amount</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                echo '<tr>';
+                                echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                if (intval($row['lv_financial_indemnity']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else if (intval($row["lv_financial_indemnity"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">" . $row['lv_financial_indemnity'] . "</span></td>";
+                                }
+
+
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+        </div>   
+
+        <div id="ZURICH_COMMIN" class="tab-pane fade">
+
+                <?php
+
+                    $COMMIN_SUM_QRY = $pdo->prepare("
+                            SELECT 
+                                SUM(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity
+                            FROM 
+                                lv_financial 
+                            LEFT JOIN 
+                                client_policy
+                            ON 
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number
+                            WHERE 
+                                lv_financial.lv_financial_indemnity >= 0 
+                            AND 
+                                DATE(lv_financial_uploaded_date) =:commdate 
+                            AND 
+                                client_policy.insurer ='ZURICH'");
+                    $COMMIN_SUM_QRY->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
+                    $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                    
+                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['lv_financial_indemnity'];
+                    $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
+
+                    $query = $pdo->prepare("
+                        SELECT
+                            lv_financial.lv_financial_indemnity, 
+                            client_policy.CommissionType, 
+                            DATE(client_policy.sale_date) AS sale_date, 
+                            client_policy.policy_number, 
+                            lv_financial.lv_financial_policy_number, 
+                            client_policy.client_name, 
+                            client_policy.client_id 
+                        FROM 
+                            lv_financial 
+                        LEFT JOIN
+                            client_policy 
+                        ON 
+                            lv_financial.lv_financial_policy_number=client_policy.policy_number 
+                        WHERE 
+                            lv_financial.lv_financial_indemnity >= 0 
+                        AND 
+                            DATE(lv_financial_uploaded_date) =:commdate
+                        AND 
+                            client_policy.insurer='Zurich'");
+                    $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $ZURICH_COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
+                                </tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Policy</th>
+                            <th>COMM Amount</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                $policy = $row['lv_financial_policy_number'];
+                                $PAY_AMOUNT = number_format($row['lv_financial_indemnity'], 2);
+
+                                echo '<tr>';
+                                echo "<td>" . $row['sale_date'] . "</td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                                if (intval($PAY_AMOUNT) > 0) {
+                                    echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                                } else if (intval($PAY_AMOUNT) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                                }
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+            </div>                
+
+
+        <div id="ZURICH_COMMOUT" class="tab-pane fade">
+
+                <?php
+                
+                    $COMMOUT_SUM_QRY = $pdo->prepare("
+                            SELECT 
+                                sum(lv_financial.lv_financial_indemnity) AS lv_financial_indemnity 
+                            FROM 
+                                lv_financial 
+                            LEFT JOIN 
+                                client_policy 
+                            ON 
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number
+                            WHERE 
+                                lv_financial.lv_financial_indemnity < 0
+                            AND 
+                                DATE(lv_financial_uploaded_date) =:commdate
+                            AND 
+                                client_policy.insurer='Zurich'");
+                    $COMMOUT_SUM_QRY->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
+                    $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
+                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['lv_financial_indemnity'];
+                    $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
+
+                    $query = $pdo->prepare("
+                            SELECT 
+                                lv_financial.lv_financial_indemnity, 
+                                client_policy.CommissionType, 
+                                DATE(client_policy.sale_date) AS sale_date, 
+                                client_policy.policy_number, 
+                                lv_financial.lv_financial_policy_number, 
+                                client_policy.client_name, 
+                                client_policy.client_id 
+                            FROM 
+                                lv_financial
+                            LEFT JOIN 
+                                client_policy
+                            ON 
+                                lv_financial.lv_financial_policy_number=client_policy.policy_number 
+                            WHERE 
+                                lv_financial.lv_financial_indemnity < 0 
+                            AND 
+                                DATE(lv_financial_uploaded_date) =:commdate
+                            AND 
+                                client_policy.insurer='Zurich'");
+                    $query->bindParam(':commdate', $ZURICH_COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $count = $query->rowCount();
+                        ?>
+
+                        <table  class="table table-hover table-condensed">
+
+                            <thead>
+
+                                <tr>
+                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $ZURICH_COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
+                                </tr>
+                            <th>Date</th>
+                            <th>Client</th>
+                            <th>Policy</th>
+                            <th>COMM Amount</th>
+                            </tr>
+                            </thead>
+                            <?php
+                            while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                $policy = $row['lv_financial_policy_number'];
+                                $PAY_AMOUNT = number_format($row['lv_financial_indemnity'], 2);
+
+                                echo '<tr>';
+                                echo "<td>" . $row['sale_date'] . "</td>";
+                                echo "<td>" . $row['client_name'] . "</td>";
+                                echo "<td><a href='/app/Client.php?search=" . $row['client_id'] . "' target='_blank'>$policy</a></td>";
+                                if (intval($PAY_AMOUNT) > 0) {
+                                    echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                                } else if (intval($PAY_AMOUNT) < 0) {
+                                    echo "<td><span class=\"label label-danger\">$PAY_AMOUNT</span></td>";
+                                } else {
+                                    echo "<td><span class=\"label label-success\">$PAY_AMOUNT</span></td>";
+                                }
+                                echo "</tr>";
+                                echo "\n";
+                            }
+                            ?>
+                        </table>
+
+                        <?php
+                    } else {
+                        echo "<br><div class=\"notice notice-warning\" role=\"alert\"><strong>Info!</strong> No Data/Information Available</div>";
+                    }
+                ?>
+            </div>                                
+
+        <div id="ZURICH_NOMATCH" class="tab-pane fade">   
+
+                <?php
+                $query = $pdo->prepare("
+                        SELECT
+                            lv_financial_nomatch_id, 
+                            lv_financial_nomatch_indemnity, 
+                            lv_financial_nomatch_uploaded_date, 
+                            lv_financial_nomatch_policy_number
+                        FROM
+                            lv_financial_nomatch");
+                ?>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th colspan="4">Unmatched Policies (Not on ADL)</th>
+                        </tr>
+                    <th>Row</th>
+                    <th>Entry Date</th>
+                    <th>Policy</th>
+                    <th>Premium</th>
+                    <th>Re-check all</th>
+                    </thead>
+                    <?php
+                    $query->execute()or die(print_r($query->errorInfo(), true));
+                    if ($query->rowCount() > 0) {
+                        $i=0;
+                        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                            
+                            $i++;
+
+                            $policy = $row['lv_financial_nomatch_policy_number'];
+                            $paytype = $row['lv_financial_nomatch_indemnity'];
+                            $iddd = $row['lv_financial_nomatch_id'];
+                            echo "<tr>
+                            <td>$i</td>
+                            ";
+                            
+                            echo"<td>" . $row['lv_financial_nomatch_uploaded_date'] . "</td>";
+                            echo "<td>$policy</td>";
+                            if (intval($paytype) > 0) {
+                                echo "<td><span class=\"label label-success\">$paytype</span></td>";
+                            } else if (intval($paytype) < 0) {
+                                echo "<td><span class=\"label label-danger\">$paytype</span></td>";
+                            } else {
+                                echo "<td>$paytype</td>";
+                            }
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=ZURICH' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "</tr>";
+                            echo "\n";
+                        }
+                    } else {
+                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong>Info!</strong> No unmatched policies!</div>";
+                    }
+                    ?>   
+                </table>
+            </div>
+
+        <div id="ZURICH_EXPORT" class="tab-pane fade">
+                        
+                            <center>
+                                <div class="col-md-12">
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO&commdate=$ZURICH_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                        </div>
+
+
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=2<?php echo "&commdate=$ZURICH_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
+                                        </div>
+
+
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-md-12">
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO&commdate=$ZURICH_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                        </div>
+
+
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=5<?php echo "&commdate=$ZURICH_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
+                                        </div>
+
+
+                                        <div class="col-xs-4">
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+
+                                <div class="col-md-12"><br>
+                                    <div class="col-xs-4">
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+
+                                    </div>
+                                    <div class="col-xs-4">
+
+                                    </div>
+                                    <div class="col-xs-4">
+
+                                    </div>
+                                </div>
+
+                            </center> 
+        </div>                   
+
+                </div>
+            </div>
+             </div>
+        </div>                      
          
         <?php } ?>
 

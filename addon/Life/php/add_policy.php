@@ -534,9 +534,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->query("INSERT INTO aegon_policy SET 
  aegon_policy_id_fk=:PID,
  aegon_policy_ref=:REF,
- aegon_policy_plan=:PLAN,
  aegon_policy_type=:TYPE,
- aegon_policy_cover=:COVER,
  aegon_policy_premium=:PREMIUM,
  aegon_policy_comms_type=:COMM_TYPE,
  aegon_policy_comms=:COMM,
@@ -547,9 +545,7 @@ $database->query("INSERT INTO adl_policy SET
  aegon_policy_drip=:DRIP");
             $database->bind(':PID', $lastid);
             $database->bind(':REF', $dupepol);
-            $database->bind(':PLAN', $PLAN);
             $database->bind(':TYPE',$TYPE);
-            $database->bind(':COVER',$COVER);
             $database->bind(':PREMIUM', $PREMIUM);
             $database->bind(':COMM_TYPE', $COMM_TYPE);
             $database->bind(':COMM', $COMMS);
@@ -613,9 +609,7 @@ $database->query("INSERT INTO adl_policy SET
             $database->query("INSERT INTO aegon_policy SET 
  aegon_policy_id_fk=:PID,
  aegon_policy_ref=:REF,
- aegon_policy_plan=:PLAN,
  aegon_policy_type=:TYPE,
- aegon_policy_cover=:COVER,
  aegon_policy_premium=:PREMIUM,
  aegon_policy_comms_type=:COMM_TYPE,
  aegon_policy_comms=:COMM,
@@ -626,9 +620,7 @@ $database->query("INSERT INTO adl_policy SET
  aegon_policy_drip=:DRIP");
             $database->bind(':PID', $lastid);
             $database->bind(':REF', $POLICY_REF);
-            $database->bind(':PLAN', $PLAN);
             $database->bind(':TYPE',$TYPE);
-            $database->bind(':COVER',$COVER);
             $database->bind(':PREMIUM', $PREMIUM);
             $database->bind(':COMM_TYPE', $COMM_TYPE);
             $database->bind(':COMM', $COMMS);

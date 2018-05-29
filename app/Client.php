@@ -307,6 +307,44 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         
                         }                        
 
+                        $AEG_CHECK = $pdo->prepare("SELECT adl_policy_id  FROM adl_policy WHERE adl_policy_insurer='Aegon' AND adl_policy_client_id_fk=:CID");
+                        $AEG_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $AEG_CHECK->execute();
+                        if ($AEG_CHECK->rowCount() > 0) {
+                            $HAS_AEG_POL='1';
+                            
+                            $GET_AEG_AN = $pdo->prepare("SELECT adl_policy_ref from adl_policy where adl_policy_client_id_fk=:CID AND adl_policy_insurer='Aegon'");
+                            $GET_AEG_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_AEG_AN->execute();
+                            $GET_AEG_row = $GET_AEG_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $AEG_POL_number = $GET_AEG_row['adl_policy_ref'];   
+
+                            $GET_AEG_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_vitality_id_fk AS CLOSER FROM adl_audit_vitality WHERE adl_audit_vitality_ref=:PHONE");
+                            $GET_AEG_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_AEG_CLOSER_AUDIT->execute();
+                            $GET_AEG_CLOSERrow = $GET_AEG_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_AEG_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_AEG_CLOSER_AUDIT_CHECK=1;
+                                $HAS_NEW_AEG_CLOSE_AUDIT=1;
+                                $AEG_NEW_closeraudit = $GET_AEG_CLOSERrow['CLOSER']; 
+                                } 
+                                
+                                $GET_AEG_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_AEG_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_AEG_LEAD_AUDIT->execute();
+                                $GET_AEG_LEADrow = $GET_AEG_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_AEG_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_AEG_LEAD_AUDIT=1;
+                                    $HAS_NEW_LEAD_AUDIT=1;
+                                    $NEW_LEAD_AUDIT_ID = $GET_AEG_LEADrow['LEAD']; 
+                                    
+                                }                                 
+                       
+                        
+                        }                        
                                 
                         $LV_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='LV' AND client_id=:CID");
                         $LV_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -779,6 +817,20 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                 
                             }
                             
+                            if(isset($HAS_AEG_POL) && $HAS_AEG_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Policy-model.php');
+                            $AEG_POL = new AEG_POL_Modal($pdo);
+                            $AEG_POLList = $AEG_POL->getAEG_POL($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Policy-view.php');                                       
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Keyfacts-model.php');
+                            $AEG_KF = new AEG_KFModal($pdo);
+                            $AEG_KFList = $AEG_KF->getAEG_KF($likesearch);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Keyfacts-view.php');                                  
+                                
+                            }                            
+                            
                             if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/LV/Policy-model.php');
@@ -964,7 +1016,16 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policies-view.php');        
                                 
-                        }                        
+                        }   
+                        
+                        if(isset($HAS_AEG_POL) && $HAS_AEG_POL == 1) {
+                                
+                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Policies-modal.php');
+                            $AEGONPolicies = new AEGON_PoliciesModal($pdo);
+                            $AEGONPoliciesList = $AEGONPolicies->getAEGONPolicies($search);
+                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Policies-view.php');        
+                                
+                        }                         
                         
                         if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                             
@@ -1461,6 +1522,9 @@ if (isset($fileuploadedfail)) {
                                     <option disabled>──────────</option>                                  
                                     <option value="Vitalitypolicy">Vitality App</option>
                                     <option value="Vitalitykeyfacts">Vitality Keyfacts</option>
+                                    <option disabled>──────────</option>                                  
+                                    <option value="Aegonpolicy">Aegon App</option>
+                                    <option value="Aegonkeyfacts">Aegon Keyfacts</option>
                                     <option disabled>──────────</option>
                                     <option value="RLpolicy">Royal London App</option>
                                     <option value="RLkeyfacts">Royal London Keyfacts</option>
@@ -3286,10 +3350,12 @@ WHERE
                                         case"LGpolicy";
                                             case"Zurichpolicy";
                                                 case"Vitalitypolicy";
+                                                    case"Aegonpolicy";
                                                     case"LVpolicy";
                                                     case"SWpolicy";
                                                         case"SWkeyfacts";
                                         case"LGkeyfacts";
+                                            case"Aegonkeyfacts";
                                             case"Avivakeyfacts";
                                                 case"LVkeyfacts";
                                                 case"Zurichkeyfacts";

@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -530,7 +531,7 @@ WHERE
 </body>
 </html>
 <script>
-    document.querySelector('#EDIT_FORM').addEventListener('submit', function (e) {
+    document.querySelector('#DELETE_FORM').addEventListener('submit', function (e) {
         var form = this;
         e.preventDefault();
         swal({

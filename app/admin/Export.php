@@ -329,6 +329,9 @@ if (isset($fferror)) {
                         <option value="LV">LV</option>
                         <option value="One Family">One Family</option>
                         <option value="Aviva">Aviva</option>
+                        <option value="Zurich">Zurich</option>
+                        <option value="Scottish Widows">Scottish Widows</option>
+                        <option value="Aegon">Aegon</option>
                     </select>
                 </p>
 

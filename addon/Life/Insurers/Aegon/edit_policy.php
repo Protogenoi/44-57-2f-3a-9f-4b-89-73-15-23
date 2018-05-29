@@ -308,14 +308,12 @@ WHERE
                     </div>
                 </div>
                 
-                <div class="form-group" style="display: block;">
+                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="CB_TERM">Clawback Term</label>
                     <div class="controls col-sm-5">
-                        <select id="CB_TERM" class="form-control"  selected="selected" name="CB_TERM">
-                            <option value="<?php if(isset($data2['aegon_policy_cb_term'])) { echo "selected";  } ?>"><?php if(isset($data2['aegon_policy_cb_term'])) { echo $data2['aegon_policy_cb_term'];  } ?></option>
-                        </select>
+                        <input id="CB_TERM" name="CB_TERM" value="<?php if(isset($data2['aegon_policy_cb_term'])) { echo $data2['aegon_policy_cb_term'];  } ?>" type="text" class="form-control k-textbox" data-role="text"  >
                     </div>
-                </div>
+                </div>    
                 
                 <div class="form-group" style="display: block;">
                     <label class="control-label control-label-left col-sm-4" for="DRIP">Drip</label>

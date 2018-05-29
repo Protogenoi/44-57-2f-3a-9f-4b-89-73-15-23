@@ -460,6 +460,226 @@ $database->query("INSERT INTO adl_policy SET
 
 } 
 
+    if ($EXECUTE == '2') {
+
+        $CLIENT_NAME = filter_input(INPUT_POST, 'CLIENT_NAME', FILTER_SANITIZE_SPECIAL_CHARS);
+        $POLICY_REF = filter_input(INPUT_POST, 'POLICY_REF', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TYPE = filter_input(INPUT_POST, 'TYPE', FILTER_SANITIZE_SPECIAL_CHARS);
+                
+        $PREMIUM = filter_input(INPUT_POST, 'PREMIUM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COMM_TYPE = filter_input(INPUT_POST, 'COMMS_TYPE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COMMS = filter_input(INPUT_POST, 'COMM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $NON_INDEM_COMM = filter_input(INPUT_POST, 'NON_INDEM_COMM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $COVER_AMOUNT = filter_input(INPUT_POST, 'COVER_AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
+        $TERM = filter_input(INPUT_POST, 'TERM', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $CB_TERM = filter_input(INPUT_POST, 'CB_TERM', FILTER_SANITIZE_SPECIAL_CHARS);
+        $DRIP = filter_input(INPUT_POST, 'DRIP', FILTER_SANITIZE_SPECIAL_CHARS);
+        $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+        $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $SALE_DATE = filter_input(INPUT_POST, 'SALE_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $SUB_DATE = filter_input(INPUT_POST, 'SUB_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
+        $POLICY_STATUS = filter_input(INPUT_POST, 'POLICY_STATUS', FILTER_SANITIZE_SPECIAL_CHARS);         
+
+        if ($POLICY_STATUS == "Awaiting" || $POLICY_REF=="TBC") {
+            $sale_date = "TBC";
+            $DATE = date("Y/m/d h:i:s");
+            $DATE_FOR_TBC_POL = preg_replace("/[^0-9]/", "", $DATE);
+            $POLICY_STATUS="Awaiting";
+
+            $POLICY_REF = "TBC $DATE_FOR_TBC_POL";
+        }
+        
+        if(isset($INSURER)) {
+            
+            if($INSURER == 'Aegon') {
+                
+        $database->query("SELECT aegon_policy_ref from aegon_policy where aegon_policy_ref=:REF");
+        $database->bind(':REF', $POLICY_REF);
+        $database->execute();           
+        
+        if ($database->rowCount()>=1) {
+            $row = $database->single();
+            
+            $dupepol="$row[aegon_policy_ref] DUPE";
+            $POLICY_STATUS = "On Hold";
+
+$database->query("INSERT INTO adl_policy SET 
+ adl_policy_client_id_fk=:CID,
+ adl_policy_ref=:REF,
+ adl_policy_insurer=:INSURER,
+ adl_policy_policy_holder=:HOLDER,
+ adl_policy_added_by=:WHO,
+ adl_policy_closer=:CLOSER,
+ adl_policy_agent=:AGENT,
+ adl_policy_sale_date=:SALE_DATE,
+ adl_policy_sub_date=:SUB_DATE,
+ adl_policy_status=:STATUS");
+            $database->bind(':CID', $CID);
+            $database->bind(':REF', $dupepol);
+            $database->bind(':INSURER', $INSURER);
+            $database->bind(':HOLDER',$CLIENT_NAME);
+            $database->bind(':WHO',$hello_name);
+            $database->bind(':CLOSER',$CLOSER);
+            $database->bind(':AGENT',$AGENT);
+            $database->bind(':SALE_DATE',$SALE_DATE);
+            $database->bind(':SUB_DATE',$SUB_DATE);
+            $database->bind(':STATUS', $POLICY_STATUS);
+            $database->execute();
+            $lastid =  $database->lastInsertId();     
+            
+     if ($database->rowCount()> 0) {         
+
+            $database->query("INSERT INTO aegon_policy SET 
+ aegon_policy_id_fk=:PID,
+ aegon_policy_ref=:REF,
+ aegon_policy_plan=:PLAN,
+ aegon_policy_type=:TYPE,
+ aegon_policy_cover=:COVER,
+ aegon_policy_premium=:PREMIUM,
+ aegon_policy_comms_type=:COMM_TYPE,
+ aegon_policy_comms=:COMM,
+ aegon_policy_non_indem_comms=:NON_IDEM_COMM,
+ aegon_policy_cover_amount=:COVER_AMOUNT,
+ aegon_policy_policy_term=:POLICY_TERM,
+ aegon_policy_cb_term=:CB_TERM,
+ aegon_policy_drip=:DRIP");
+            $database->bind(':PID', $lastid);
+            $database->bind(':REF', $dupepol);
+            $database->bind(':PLAN', $PLAN);
+            $database->bind(':TYPE',$TYPE);
+            $database->bind(':COVER',$COVER);
+            $database->bind(':PREMIUM', $PREMIUM);
+            $database->bind(':COMM_TYPE', $COMM_TYPE);
+            $database->bind(':COMM', $COMMS);
+            $database->bind(':NON_IDEM_COMM', $NON_INDEM_COMM);
+            $database->bind(':COVER_AMOUNT', $COVER_AMOUNT);
+            $database->bind(':POLICY_TERM', $TERM);         
+            $database->bind(':CB_TERM', $CB_TERM);
+            $database->bind(':DRIP', $DRIP);
+            $database->execute(); 
+            $lastid =  $database->lastInsertId(); 
+            
+            $database->endTransaction();  
+
+        $messagedata = "Policy added $dupepol duplicate of $POLICY_REF";
+
+        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $query->bindParam(':HOLDER', $CLIENT_NAME, PDO::PARAM_STR, 500);
+        $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
+        $query->execute();
+
+            $client_type = $pdo->prepare("UPDATE client_details SET client_type='Life' WHERE client_id =:client_id");
+            $client_type->bindParam(':client_id', $CID, PDO::PARAM_STR);
+            $client_type->execute();
+            
+            
+
+                    header('Location: ../../../app/Client.php?policyadded=y&search=' . $CID . '&dupepolicy=' . $dupepol . '&origpolicy=' . $POLICY_REF);
+                    die;
+     }
+            
+        }
+            
+$database->query("INSERT INTO adl_policy SET 
+ adl_policy_client_id_fk=:CID,
+ adl_policy_ref=:REF,
+ adl_policy_insurer=:INSURER,
+ adl_policy_policy_holder=:HOLDER,
+ adl_policy_added_by=:WHO,
+ adl_policy_closer=:CLOSER,
+ adl_policy_agent=:AGENT,
+ adl_policy_sale_date=:SALE_DATE,
+ adl_policy_sub_date=:SUB_DATE,
+ adl_policy_status=:STATUS");
+            $database->bind(':CID', $CID);
+            $database->bind(':REF', $POLICY_REF);
+            $database->bind(':INSURER', $INSURER);
+            $database->bind(':HOLDER',$CLIENT_NAME);
+            $database->bind(':WHO',$hello_name);
+            $database->bind(':CLOSER',$CLOSER);
+            $database->bind(':AGENT',$AGENT);
+            $database->bind(':SALE_DATE',$SALE_DATE);
+            $database->bind(':SUB_DATE',$SUB_DATE);
+            $database->bind(':STATUS', $POLICY_STATUS);
+            $database->execute();
+            $lastid =  $database->lastInsertId();            
+    
+            if ($database->rowCount()> 0) { 
+
+            $database->query("INSERT INTO aegon_policy SET 
+ aegon_policy_id_fk=:PID,
+ aegon_policy_ref=:REF,
+ aegon_policy_plan=:PLAN,
+ aegon_policy_type=:TYPE,
+ aegon_policy_cover=:COVER,
+ aegon_policy_premium=:PREMIUM,
+ aegon_policy_comms_type=:COMM_TYPE,
+ aegon_policy_comms=:COMM,
+ aegon_policy_non_indem_comms=:NON_IDEM_COMM,
+ aegon_policy_cover_amount=:COVER_AMOUNT,
+ aegon_policy_policy_term=:POLICY_TERM,
+ aegon_policy_cb_term=:CB_TERM,
+ aegon_policy_drip=:DRIP");
+            $database->bind(':PID', $lastid);
+            $database->bind(':REF', $POLICY_REF);
+            $database->bind(':PLAN', $PLAN);
+            $database->bind(':TYPE',$TYPE);
+            $database->bind(':COVER',$COVER);
+            $database->bind(':PREMIUM', $PREMIUM);
+            $database->bind(':COMM_TYPE', $COMM_TYPE);
+            $database->bind(':COMM', $COMMS);
+            $database->bind(':NON_IDEM_COMM', $NON_INDEM_COMM);
+            $database->bind(':COVER_AMOUNT', $COVER_AMOUNT);
+            $database->bind(':POLICY_TERM', $TERM);         
+            $database->bind(':CB_TERM', $CB_TERM);
+            $database->bind(':DRIP', $DRIP);
+            $database->execute(); 
+            $lastid =  $database->lastInsertId(); 
+
+        $messagedata = "Policy $POLICY_REF added";
+
+        $query = $pdo->prepare("INSERT INTO client_note SET client_id=:CID, client_name=:HOLDER, sent_by=:SENT, note_type='Policy Added', message=:MSG");
+        $query->bindParam(':CID', $CID, PDO::PARAM_INT);
+        $query->bindParam(':SENT', $hello_name, PDO::PARAM_STR, 100);
+        $query->bindParam(':HOLDER', $CLIENT_NAME, PDO::PARAM_STR, 500);
+        $query->bindParam(':MSG', $messagedata, PDO::PARAM_STR, 2500);
+        $query->execute();
+
+        if(isset($POLICY_STATUS) && $POLICY_STATUS != 'On Hold') {  
+                
+        $database->query("SELECT adl_workflows_id FROM adl_workflows WHERE adl_workflows_client_id_fk=:CID");
+        $database->bind(':CID', $CID);
+        $database->execute();
+        
+        if ($database->rowCount() <=0 ) {
+
+        require_once(__DIR__ . '/../../../addon/Workflows/php/add_workflows.php');     
+                    
+        } 
+        
+        }
+        
+        $database->endTransaction(); 
+        
+       header('Location: /../../../../../app/Client.php?CLIENT_POLICY=1&search=' . $CID . '&CLIENT_POLICY_POL_NUM=' . $POLICY_REF);
+       die;                      
+            }           
+                
+                
+                
+            }
+            
+         
+            
+        }
+
+
+} 
+
         }
         
 ?>

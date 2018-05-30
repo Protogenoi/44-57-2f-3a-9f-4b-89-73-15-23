@@ -114,7 +114,6 @@
         echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=$PID&search=$search&WHICH_COMPANY=$WHICH_COMPANY' class='btn btn-info btn-xs'><i class='fa fa-eye'></i> </a></td>";
         echo "<td><a href='/addon/Life/EditPolicy.php?id=$PID&search=$search&name=$POL_HOLDER' class='btn btn-warning btn-xs'><i class='fa fa-edit'></i> </a></td>";
 
-        if ($companynamere == 'Bluestone Protect') {
             if (in_array($hello_name, $Level_10_Access, true)) {
 
 
@@ -125,7 +124,6 @@
                                                                                             </form>
                                                                                             </td>";
             }
-        }
 
 
         if (!empty($EWSSTATUS)) {

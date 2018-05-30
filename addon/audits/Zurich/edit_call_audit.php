@@ -3253,7 +3253,7 @@ $database->query("SELECT
         e.preventDefault();
         swal({
             title: "Update Zurich audit?",
-            text: "Save and update vitality audit!",
+            text: "Save and update Zurich audit!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',

@@ -943,19 +943,19 @@ if(isset($AUDITID)) {
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o1'])) {
         
-        $OTHER_C1=$VIT_C_AUDIT['adl_audit_zurich_c_o1'];
+        $O_C1=$VIT_C_AUDIT['adl_audit_zurich_c_o1'];
         
     }  
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o2'])) {
         
-        $OTHER_C2=$VIT_C_AUDIT['adl_audit_zurich_c_o2'];
+        $O_C2=$VIT_C_AUDIT['adl_audit_zurich_c_o2'];
         
     }
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o3'])) {
         
-        $OTHER_C3=$VIT_C_AUDIT['adl_audit_zurich_c_o3'];
+        $O_C3=$VIT_C_AUDIT['adl_audit_zurich_c_o3'];
         
     }     
     
@@ -1129,7 +1129,7 @@ $database->query("SELECT
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>ADL | Vitality Call Audit</title>
+    <title>ADL | Zurich Call Audit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
@@ -1162,7 +1162,7 @@ $database->query("SELECT
             <fieldset>
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Edit Vitality Closer Call Audit</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-headphones"></span> Edit Zurich Closer Call Audit</h3>
                     </div>
 
                     <div class="panel-body">
@@ -1567,7 +1567,7 @@ $database->query("SELECT
                         </script>
 
                         <p>
-                            <label for="ICN_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed this policy will be set up with Vitality?</label>
+                            <label for="ICN_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed this policy will be set up with Zurich?</label>
                             <input type="radio" name="ICN_Q5" 
 <?php if (isset($ICN_Q5) && $ICN_Q5 == "1") {
     echo "checked";
@@ -2211,16 +2211,8 @@ $database->query("SELECT
                         
                         <p>
                             <label for="O_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer works in the armed or reserve forces?</label>
-                            <input type="radio" name="O_Q1" 
-                                   <?php if (isset($O_Q1) && $O_Q1 == "1") {
-                                       echo "checked";
-                                   } ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="1" id="yesCheckO_C1" required >Yes
-                            <input type="radio" name="O_Q1"
-<?php if (isset($O_Q1) && $O_Q1 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="0" id="noCheckO_C1">No
+                            <input type="radio" name="O_Q1" <?php if (isset($O_Q1) && $O_Q1 == 1) { echo "checked"; } ?> onclick="javascript:yesnoCheckO_C1();" value="1" id="yesCheckO_C1" required >Yes
+                            <input type="radio" name="O_Q1" <?php if (isset($O_Q1) && $O_Q1 == 0) { echo "checked"; } ?> onclick="javascript:yesnoCheckO_C1();" value="0" id="noCheckO_C1"> No
                         </p>
 
                         <div id="ifYesO_C1" >
@@ -2375,133 +2367,7 @@ $database->query("SELECT
                        
                     </div>
                 </div>               
-                
- <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Occupation</h3>
-                    </div>
-                    <div class="panel-body">
-                        
-                        <p>
-                            <label for="O_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer works in the armed or reserve forces?</label>
-                            <input type="radio" name="O_Q1" 
-                                   <?php if (isset($O_Q1) && $O_Q1 == "1") {
-                                       echo "checked";
-                                   } ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="1" id="yesCheckO_C1" required >Yes
-                            <input type="radio" name="O_Q1"
-<?php if (isset($O_Q1) && $O_Q1 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C1();"
-                                   value="0" id="noCheckO_C1">No
-                        </p>
-
-                        <div id="ifYesO_C1" >
-                            <textarea class="form-control"id="O_C1" name="O_C1" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C1)) { echo $O_C1; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C1').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="O_Q2">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer job involves travelling more than 25k miles per annum?</label>
-                            <input type="radio" name="O_Q2" 
-<?php if (isset($O_Q2) && $O_Q2 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C2();"
-                                   value="1" id="yesCheckO_C2" required >Yes
-                            <input type="radio" name="O_Q2"
-<?php if (isset($O_Q2) && $O_Q2 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C2();"
-                                   value="0" id="noCheckO_C2">No
- <input type="radio" name="O_Q2" 
-<?php if (isset($O_Q2) && $O_Q2 == "N/A") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C2();"
-                                   value="N/A" id="yesCheckO_C2" required >N/A                            
-                        </p>
-
-                        <div id="ifYesO_C2" >
-                            <textarea class="form-control"id="O_C2" name="O_C2" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C2)) { echo $O_C2; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C2').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                        <p>
-                            <label for="O_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask if the customer works less than 16 hours per week?</label>
-                            <input type="radio" name="O_Q3" 
-<?php if (isset($O_Q3) && $O_Q3 == "1") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C3();"
-                                   value="1" id="yesCheckO_C3" required >Yes
-                            <input type="radio" name="O_Q3"
-<?php if (isset($O_Q3) && $O_Q3 == "0") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C3();"
-                                   value="0" id="noCheckO_C3">No
-                            <input type="radio" name="O_Q3" 
-<?php if (isset($O_Q3) && $O_Q3 == "N/A") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckO_C3();"
-                                   value="N/A" id="yesCheckO_C3" >N/A                            
-                        </p>
-
-                        <div id="ifYesO_C3" >
-                            <textarea class="form-control"id="O_C3" name="O_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($O_C3)) { echo $O_C3; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
-                        </div>
-                        <script>
-                            $(document).ready(function () {
-                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
-                                $('#O_C3').keydown(function () {
-                                    var max = 1000;
-                                    var len = $(this).val().length;
-                                    if (len >= max) {
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
-                                        $('#btnSubmit').addClass('disabled');
-                                    } else {
-                                        var ch = max - len;
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
-                                        $('#btnSubmit').removeClass('disabled');
-                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
-                                    }
-                                });
-                            });
-                        </script>
-                    </div>
-                </div>                
+                             
                 
 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -3023,7 +2889,7 @@ $database->query("SELECT
                         </script>
 
                         <p>
-                            <label for="DEC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Vitality will write to them with a more specific date?</label>
+                            <label for="DEC_Q6">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Zurich will write to them with a more specific date?</label>
                             <input type="radio" name="DEC_Q6" 
 <?php if (isset($DEC_Q6) && $DEC_Q6 == "1") {
     echo "checked";
@@ -3112,7 +2978,7 @@ $database->query("SELECT
                     <div class="panel-body">
                         
                         <p>
-                            <label for="QC_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Vitality with client information?</label>
+                            <label for="QC_Q1">Q<?php echo $QUESTION_NUMBER++; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Zurich with client information?</label>
                             <input type="radio" name="QC_Q1" 
 <?php if (isset($QC_Q1) && $QC_Q1 == "1") {
     echo "checked";
@@ -3386,7 +3252,7 @@ $database->query("SELECT
         var form = this;
         e.preventDefault();
         swal({
-            title: "Update Vitality audit?",
+            title: "Update Zurich audit?",
             text: "Save and update vitality audit!",
             type: "warning",
             showCancelButton: true,
@@ -3400,7 +3266,7 @@ $database->query("SELECT
                     if (isConfirm) {
                         swal({
                             title: 'Complete!',
-                            text: 'Vitality audit updated!',
+                            text: 'Zurich audit updated!',
                             type: 'success'
                         }, function () {
                             form.submit();

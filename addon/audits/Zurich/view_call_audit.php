@@ -943,19 +943,19 @@ if(isset($AUDITID)) {
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o1'])) {
         
-        $OTHER_C1=$VIT_C_AUDIT['adl_audit_zurich_c_o1'];
+        $O_C1=$VIT_C_AUDIT['adl_audit_zurich_c_o1'];
         
     }  
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o2'])) {
         
-        $OTHER_C2=$VIT_C_AUDIT['adl_audit_zurich_c_o2'];
+        $O_C2=$VIT_C_AUDIT['adl_audit_zurich_c_o2'];
         
     }
     
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_o3'])) {
         
-        $OTHER_C3=$VIT_C_AUDIT['adl_audit_zurich_c_o3'];
+        $O_C3=$VIT_C_AUDIT['adl_audit_zurich_c_o3'];
         
     }     
     

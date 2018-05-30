@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -108,7 +109,11 @@ if(isset($AUDITID)) {
         elseif($INSUER == 'LV') {
          header('Location: LV/edit_call_audit.php?AUDITID='.$AUDITID);
         die;           
-        }        
+        } 
+        elseif($INSUER == 'Zurich') {
+         header('Location: Zurich/edit_call_audit.php?AUDITID='.$AUDITID);
+        die;           
+        }         
         elseif($INSUER == 'Lead') {
          header('Location: Agent/edit_call_audit.php?AUDITID='.$AUDITID);
         die;                
@@ -129,7 +134,11 @@ if(isset($AUDITID)) {
         elseif($INSUER == 'LV') {
          header('Location: LV/view_call_audit.php?AUDITID='.$AUDITID);
         die;           
-        }        
+        }  
+        elseif($INSUER == 'Zurich') {
+         header('Location: Zurich/view_call_audit.php?AUDITID='.$AUDITID);
+        die;           
+        }          
         elseif($INSUER == 'Lead') {
          header('Location: Agent/view_call_audit.php?EXECUTE=1&AUDITID='.$AUDITID);
         die;                

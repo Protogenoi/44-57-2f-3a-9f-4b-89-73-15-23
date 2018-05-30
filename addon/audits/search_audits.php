@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -157,6 +158,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         <div class="btn-group">
             <a href="/addon/audits/Agent/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Agent Audit</a>
             <a href="/addon/audits/Vitality/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Vitality Audit</a>
+            <a href="/addon/audits/Zurich/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Zurich Audit</a>
             <a href="/addon/audits/RoyalLondon/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> Royal London Audit</a>
             <a href="/addon/audits/LV/call_audit.php" class="btn btn-default"><i class="fa fa-plus"></i> LV Audit</a>
         </div>

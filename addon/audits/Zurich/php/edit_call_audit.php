@@ -180,57 +180,58 @@ if (isset($EXECUTE)) {
                                             adl_audit_vitality
                                         SET 
   adl_audit_vitality_ref=:REF,
-  adl_audit_vitality_od1=:OD1,
-  adl_audit_vitality_od2=:OD2,
-  adl_audit_vitality_od3=:OD3,
-  adl_audit_vitality_od4=:OD4,
-  adl_audit_vitality_od5=:OD5,
-  adl_audit_vitality_icn1=:ICN1,
-  adl_audit_vitality_icn2=:ICN2,
-  adl_audit_vitality_icn3=:ICN3,
-  adl_audit_vitality_icn4=:ICN4,
-  adl_audit_vitality_icn5=:ICN5,
-  adl_audit_vitality_cd1=:CD1,
-  adl_audit_vitality_cd2=:CD2,
-  adl_audit_vitality_cd3=:CD3,
-  adl_audit_vitality_cd4=:CD4,
-  adl_audit_vitality_cd5=:CD5,
-  adl_audit_vitality_cd6=:CD6,
-  adl_audit_vitality_cd7=:CD7,
-  adl_audit_vitality_cd8=:CD8,
-  adl_audit_vitality_cd9=:CD9,
-  adl_audit_vitality_cd10=:CD10,
-  adl_audit_vitality_other1=:OTHER1,
-  adl_audit_vitality_o1=:O1,
-  adl_audit_vitality_o2=:O2,
-  adl_audit_vitality_o3=:O3,
-  adl_audit_vitality_t1=:T1,
-  adl_audit_vitality_t2=:T2,
-  adl_audit_vitality_haz1=:HAZ1,
-  adl_audit_vitality_fam1=:FAM1,
-  adl_audit_vitality_h1=:H1,
-  adl_audit_vitality_h2=:H2,
-  adl_audit_vitality_h3=:H3,
-  adl_audit_vitality_h3=:H4,
-  adl_audit_vitality_bd1=:BD1,
-  adl_audit_vitality_bd2=:BD2,
-  adl_audit_vitality_bd3=:BD3,
-  adl_audit_vitality_bd4=:BD4,
-  adl_audit_vitality_bd5=:BD5,
-  adl_audit_vitality_dec1=:DEC1,
-  adl_audit_vitality_dec2=:DEC2,
-  adl_audit_vitality_dec3=:DEC3,
-  adl_audit_vitality_dec4=:DEC4,
-  adl_audit_vitality_dec5=:DEC5,
-  adl_audit_vitality_dec6=:DEC6,
-  adl_audit_vitality_dec7=:DEC7,
-  adl_audit_vitality_qc1=:QC1,
-  adl_audit_vitality_qc2=:QC2,
-  adl_audit_vitality_qc3=:QC3,
-  adl_audit_vitality_qc4=:QC4,
-  adl_audit_vitality_qc5=:QC5,
-  adl_audit_vitality_qc6=:QC6,
-  adl_audit_vitality_qc7=:QC7
+  adl_audit_zurich_ref=:REF,
+  adl_audit_zurich_od1=:OD1,
+  adl_audit_zurich_od2=:OD2,
+  adl_audit_zurich_od3=:OD3,
+  adl_audit_zurich_od4=:OD4,
+  adl_audit_zurich_od5=:OD5,
+  adl_audit_zurich_icn1=:ICN1,
+  adl_audit_zurich_icn2=:ICN2,
+  adl_audit_zurich_icn3=:ICN3,
+  adl_audit_zurich_icn4=:ICN4,
+  adl_audit_zurich_icn5=:ICN5,
+  adl_audit_zurich_cd1=:CD1,
+  adl_audit_zurich_cd2=:CD2,
+  adl_audit_zurich_cd3=:CD3,
+  adl_audit_zurich_cd4=:CD4,
+  adl_audit_zurich_cd5=:CD5,
+  adl_audit_zurich_cd6=:CD6,
+  adl_audit_zurich_cd7=:CD7,
+  adl_audit_zurich_cd8=:CD8,
+  adl_audit_zurich_cd9=:CD9,
+  adl_audit_zurich_cd10=:CD10,
+  adl_audit_zurich_other1=:OTHER1,
+  adl_audit_zurich_o1=:O1,
+  adl_audit_zurich_o2=:O2,
+  adl_audit_zurich_o3=:O3,
+  adl_audit_zurich_t1=:T1,
+  adl_audit_zurich_t2=:T2,
+  adl_audit_zurich_haz1=:HAZ1,
+  adl_audit_zurich_fam1=:FAM1,
+  adl_audit_zurich_h1=:H1,
+  adl_audit_zurich_h2=:H2,
+  adl_audit_zurich_h3=:H3,
+  adl_audit_zurich_h4=:H4,
+  adl_audit_zurich_bd1=:BD1,
+  adl_audit_zurich_bd2=:BD2,
+  adl_audit_zurich_bd3=:BD3,
+  adl_audit_zurich_bd4=:BD4,
+  adl_audit_zurich_bd5=:BD5,
+  adl_audit_zurich_dec1=:DEC1,
+  adl_audit_zurich_dec2=:DEC2,
+  adl_audit_zurich_dec3=:DEC3,
+  adl_audit_zurich_dec4=:DEC4,
+  adl_audit_zurich_dec5=:DEC5,
+  adl_audit_zurich_dec6=:DEC6,
+  adl_audit_zurich_dec7=:DEC7,
+  adl_audit_zurich_qc1=:QC1,
+  adl_audit_zurich_qc2=:QC2,
+  adl_audit_zurich_qc3=:QC3,
+  adl_audit_zurich_qc4=:QC4,
+  adl_audit_zurich_qc5=:QC5,
+  adl_audit_zurich_qc6=:QC6,
+  adl_audit_zurich_qc7=:QC7
   WHERE
     adl_audit_vitality_id_fk=:ID_FK");
     $ZURICH_QUES_QRY->bindParam(':ID_FK', $AID, PDO::PARAM_INT);
@@ -311,32 +312,60 @@ if (isset($EXECUTE)) {
     $CD_C9 = filter_input(INPUT_POST, 'CD_C9', FILTER_SANITIZE_SPECIAL_CHARS);
     $CD_C10 = filter_input(INPUT_POST, 'CD_C10', FILTER_SANITIZE_SPECIAL_CHARS);
     
+    $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS);     
+    
     $OTHER_C1 = filter_input(INPUT_POST, 'OTHER_C1', FILTER_SANITIZE_SPECIAL_CHARS);  
+    
+    $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $O_C2 = filter_input(INPUT_POST, 'O_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $O_C3 = filter_input(INPUT_POST, 'O_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $T_C1 = filter_input(INPUT_POST, 'T_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $T_C2 = filter_input(INPUT_POST, 'T_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $HAZ_C1 = filter_input(INPUT_POST, 'HAZ_C1', FILTER_SANITIZE_SPECIAL_CHARS);   
+    
+    $FAM_C1 = filter_input(INPUT_POST, 'FAMC1', FILTER_SANITIZE_SPECIAL_CHARS);       
 
 $ZURICH_COM_QRY = $pdo->prepare("UPDATE
                                             adl_audit_vitality_c
                                         SET 
-  adl_audit_vitality_c_od1=:OD1,
-  adl_audit_vitality_c_od2=:OD2,
-  adl_audit_vitality_c_od3=:OD3,
-  adl_audit_vitality_c_od4=:OD4,
-  adl_audit_vitality_c_od5=:OD5,
-  adl_audit_vitality_c_icn1=:ICN1,
-  adl_audit_vitality_c_icn2=:ICN2,
-  adl_audit_vitality_c_icn3=:ICN3,
-  adl_audit_vitality_c_icn4=:ICN4,
-  adl_audit_vitality_c_icn5=:ICN5,
-  adl_audit_vitality_c_cd1=:CD1,
-  adl_audit_vitality_c_cd2=:CD2,
-  adl_audit_vitality_c_cd3=:CD3,
-  adl_audit_vitality_c_cd4=:CD4,
-  adl_audit_vitality_c_cd5=:CD5,
-  adl_audit_vitality_c_cd6=:CD6,
-  adl_audit_vitality_c_cd7=:CD7,
-  adl_audit_vitality_c_cd8=:CD8,
-  adl_audit_vitality_c_cd9=:CD9,
-  adl_audit_vitality_c_cd10=:CD10,
-  adl_audit_vitality_c_other1=:OTHER1
+  
+  adl_audit_zurich_c_od1=:OD1,
+  adl_audit_zurich_c_od2=:OD2,
+  adl_audit_zurich_c_od3=:OD3,
+  adl_audit_zurich_c_od4=:OD4,
+  adl_audit_zurich_c_od5=:OD5,
+  adl_audit_zurich_c_icn1=:ICN1,
+  adl_audit_zurich_c_icn2=:ICN2,
+  adl_audit_zurich_c_icn3=:ICN3,
+  adl_audit_zurich_c_icn4=:ICN4,
+  adl_audit_zurich_c_icn5=:ICN5,
+  adl_audit_zurich_c_cd1=:CD1,
+  adl_audit_zurich_c_cd2=:CD2,
+  adl_audit_zurich_c_cd3=:CD3,
+  adl_audit_zurich_c_cd4=:CD4,
+  adl_audit_zurich_c_cd5=:CD5,
+  adl_audit_zurich_c_cd6=:CD6,
+  adl_audit_zurich_c_cd7=:CD7,
+  adl_audit_zurich_c_cd8=:CD8,
+  adl_audit_zurich_c_cd9=:CD9,
+  adl_audit_zurich_c_cd10=:CD10,
+  adl_audit_zurich_c_h1=:H1,
+  adl_audit_zurich_c_h2=:H2,
+  adl_audit_zurich_c_h3=:H3,
+  adl_audit_zurich_c_h4=:H4,
+  adl_audit_zurich_c_fam1=:FAM1,
+  adl_audit_zurich_c_o1=:O1,
+  adl_audit_zurich_c_o2=:O2,
+  adl_audit_zurich_c_o3=:O3,
+  adl_audit_zurich_c_other1=:OTHER1,
+  adl_audit_zurich_c_t1=:T1,
+  adl_audit_zurich_c_t2=:T2,
+  adl_audit_zurich_c_haz1=:HAZ1
   WHERE
     adl_audit_vitality_c_id_fk=:FK");
     $ZURICH_COM_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
@@ -359,25 +388,20 @@ $ZURICH_COM_QRY = $pdo->prepare("UPDATE
     $ZURICH_COM_QRY->bindParam(':CD7', $CD_C7, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':CD8', $CD_C8, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':CD9', $CD_C9, PDO::PARAM_STR);
-    $ZURICH_COM_QRY->bindParam(':CD10', $CD_C10, PDO::PARAM_STR);    
+    $ZURICH_COM_QRY->bindParam(':CD10', $CD_C10, PDO::PARAM_STR); 
+    $ZURICH_C_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
+    $ZURICH_C_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
+    $ZURICH_C_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);  
+    $ZURICH_C_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':OTHER1', $OTHER_C1, PDO::PARAM_STR);
-    $ZURICH_COM_QRY->execute()or die(print_r($ZURICH_COM_QRY->errorInfo(), true));  
-    
-    $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $O_C2 = filter_input(INPUT_POST, 'O_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $O_C3 = filter_input(INPUT_POST, 'O_C3', FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    $T_C1 = filter_input(INPUT_POST, 'T_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $T_C2 = filter_input(INPUT_POST, 'T_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
-    
-    $HAZ_C1 = filter_input(INPUT_POST, 'HAZ_C1', FILTER_SANITIZE_SPECIAL_CHARS);   
-    
-    $FAM_C1 = filter_input(INPUT_POST, 'FAMC1', FILTER_SANITIZE_SPECIAL_CHARS);    
-    
-    $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
-    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
-    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $ZURICH_C_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
+    $ZURICH_C_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);
+    $ZURICH_C_QRY->bindParam(':O3', $O_C3, PDO::PARAM_STR);   
+    $ZURICH_C_QRY->bindParam(':T1', $T_C1, PDO::PARAM_STR);
+    $ZURICH_C_QRY->bindParam(':T2', $T_C2, PDO::PARAM_STR);   
+    $ZURICH_C_QRY->bindParam(':HAZ1', $HAZ_C1, PDO::PARAM_STR); 
+    $ZURICH_C_QRY->bindParam(':FAM1', $FAM_C1, PDO::PARAM_STR);    
+    $ZURICH_COM_QRY->execute()or die(print_r($ZURICH_COM_QRY->errorInfo(), true));   
     
     $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -404,50 +428,29 @@ $ZURICH_COM_QRY = $pdo->prepare("UPDATE
     $ZURICH_C_EXTRA_QRY = $pdo->prepare("UPDATE
                                             adl_audit_vitality_ce
                                         SET
-  adl_audit_vitality_ce_o1=:O1,
-  adl_audit_vitality_ce_o2=:O2,
-  adl_audit_vitality_ce_o3=:O3,
-  adl_audit_vitality_ce_t1=:T1,
-  adl_audit_vitality_ce_t2=:T2,
-  adl_audit_vitality_ce_haz1=:HAZ1,
-  adl_audit_vitality_ce_fam1=:FAM1,
-  adl_audit_vitality_ce_h1=:H1,
-  adl_audit_vitality_ce_h2=:H2,
-  adl_audit_vitality_ce_h3=:H3,
-  adl_audit_vitality_ce_h4=:H4,
-  adl_audit_vitality_ce_bd1=:BD1,
-  adl_audit_vitality_ce_bd2=:BD2,
-  adl_audit_vitality_ce_bd3=:BD3,
-  adl_audit_vitality_ce_bd4=:BD4,
-  adl_audit_vitality_ce_bd5=:BD5,
-  adl_audit_vitality_ce_dec1=:DEC1,
-  adl_audit_vitality_ce_dec2=:DEC2,
-  adl_audit_vitality_ce_dec3=:DEC3,
-  adl_audit_vitality_ce_dec4=:DEC4,
-  adl_audit_vitality_ce_dec5=:DEC5,
-  adl_audit_vitality_ce_dec6=:DEC6,
-  adl_audit_vitality_ce_dec7=:DEC7,
-  adl_audit_vitality_ce_qc1=:QC1,
-  adl_audit_vitality_ce_qc2=:QC2,
-  adl_audit_vitality_ce_qc3=:QC3,
-  adl_audit_vitality_ce_qc4=:QC4,
-  adl_audit_vitality_ce_qc5=:QC5,
-  adl_audit_vitality_ce_qc6=:QC6,
-  adl_audit_vitality_ce_qc7=:QC7
+  
+  adl_audit_zurich_ce_bd1=:BD1,
+  adl_audit_zurich_ce_bd2=:BD2,
+  adl_audit_zurich_ce_bd3=:BD3,
+  adl_audit_zurich_ce_bd4=:BD4,
+  adl_audit_zurich_ce_bd5=:BD5,
+  adl_audit_zurich_ce_dec1=:DEC1,
+  adl_audit_zurich_ce_dec2=:DEC2,
+  adl_audit_zurich_ce_dec3=:DEC3,
+  adl_audit_zurich_ce_dec4=:DEC4,
+  adl_audit_zurich_ce_dec5=:DEC5,
+  adl_audit_zurich_ce_dec6=:DEC6,
+  adl_audit_zurich_ce_dec7=:DEC7,
+  adl_audit_zurich_ce_qc1=:QC1,
+  adl_audit_zurich_ce_qc2=:QC2,
+  adl_audit_zurich_ce_qc3=:QC3,
+  adl_audit_zurich_ce_qc4=:QC4,
+  adl_audit_zurich_ce_qc5=:QC5,
+  adl_audit_zurich_ce_qc6=:QC6,
+  adl_audit_zurich_ce_qc7=:QC7
   WHERE
      adl_audit_vitality_ce_id_fk =:FK");
   $ZURICH_C_EXTRA_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
-  $ZURICH_C_EXTRA_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
-  $ZURICH_C_EXTRA_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);
-  $ZURICH_C_EXTRA_QRY->bindParam(':O3', $O_C3, PDO::PARAM_STR);   
-  $ZURICH_C_EXTRA_QRY->bindParam(':T1', $T_C1, PDO::PARAM_STR);
-  $ZURICH_C_EXTRA_QRY->bindParam(':T2', $T_C2, PDO::PARAM_STR);   
-  $ZURICH_C_EXTRA_QRY->bindParam(':HAZ1', $HAZ_C1, PDO::PARAM_STR); 
-  $ZURICH_C_EXTRA_QRY->bindParam(':FAM1', $FAM_C1, PDO::PARAM_STR);  
-  $ZURICH_C_EXTRA_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
-  $ZURICH_C_EXTRA_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
-  $ZURICH_C_EXTRA_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);  
-  $ZURICH_C_EXTRA_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR);    
   $ZURICH_C_EXTRA_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
   $ZURICH_C_EXTRA_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
   $ZURICH_C_EXTRA_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);

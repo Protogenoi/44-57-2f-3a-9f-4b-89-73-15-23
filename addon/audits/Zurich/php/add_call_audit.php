@@ -82,7 +82,7 @@ if (isset($EXECUTE)) {
     $REFERENCE = filter_input(INPUT_POST, 'REFERENCE', FILTER_SANITIZE_SPECIAL_CHARS);
     $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
     
-    $INSURER='Vitality';
+    $INSURER='Zurich';
     
     $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -300,61 +300,61 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     }
                 
             $database->query("INSERT INTO 
-                                            adl_audit_vitality
+                                            adl_audit_zurich
                                         SET 
-  adl_audit_vitality_id_fk=:ID,
-  adl_audit_vitality_ref=:REF,
-  adl_audit_vitality_od1=:OD1,
-  adl_audit_vitality_od2=:OD2,
-  adl_audit_vitality_od3=:OD3,
-  adl_audit_vitality_od4=:OD4,
-  adl_audit_vitality_od5=:OD5,
-  adl_audit_vitality_icn1=:ICN1,
-  adl_audit_vitality_icn2=:ICN2,
-  adl_audit_vitality_icn3=:ICN3,
-  adl_audit_vitality_icn4=:ICN4,
-  adl_audit_vitality_icn5=:ICN5,
-  adl_audit_vitality_cd1=:CD1,
-  adl_audit_vitality_cd2=:CD2,
-  adl_audit_vitality_cd3=:CD3,
-  adl_audit_vitality_cd4=:CD4,
-  adl_audit_vitality_cd5=:CD5,
-  adl_audit_vitality_cd6=:CD6,
-  adl_audit_vitality_cd7=:CD7,
-  adl_audit_vitality_cd8=:CD8,
-  adl_audit_vitality_cd9=:CD9,
-  adl_audit_vitality_cd10=:CD10,
-  adl_audit_vitality_other1=:OTHER1,
-  adl_audit_vitality_o1=:O1,
-  adl_audit_vitality_o2=:O2,
-  adl_audit_vitality_o3=:O3,
-  adl_audit_vitality_t1=:T1,
-  adl_audit_vitality_t2=:T2,
-  adl_audit_vitality_haz1=:HAZ1,
-  adl_audit_vitality_fam1=:FAM1,
-  adl_audit_vitality_h1=:H1,
-  adl_audit_vitality_h2=:H2,
-  adl_audit_vitality_h3=:H3,
-  adl_audit_vitality_h4=:H4,
-  adl_audit_vitality_bd1=:BD1,
-  adl_audit_vitality_bd2=:BD2,
-  adl_audit_vitality_bd3=:BD3,
-  adl_audit_vitality_bd4=:BD4,
-  adl_audit_vitality_bd5=:BD5,
-  adl_audit_vitality_dec1=:DEC1,
-  adl_audit_vitality_dec2=:DEC2,
-  adl_audit_vitality_dec3=:DEC3,
-  adl_audit_vitality_dec4=:DEC4,
-  adl_audit_vitality_dec5=:DEC5,
-  adl_audit_vitality_dec6=:DEC6,
-  adl_audit_vitality_dec7=:DEC7,
-  adl_audit_vitality_qc1=:QC1,
-  adl_audit_vitality_qc2=:QC2,
-  adl_audit_vitality_qc3=:QC3,
-  adl_audit_vitality_qc4=:QC4,
-  adl_audit_vitality_qc5=:QC5,
-  adl_audit_vitality_qc6=:QC6,
-  adl_audit_vitality_qc7=:QC7");
+  adl_audit_zurich_id_fk=:ID,
+  adl_audit_zurich_ref=:REF,
+  adl_audit_zurich_od1=:OD1,
+  adl_audit_zurich_od2=:OD2,
+  adl_audit_zurich_od3=:OD3,
+  adl_audit_zurich_od4=:OD4,
+  adl_audit_zurich_od5=:OD5,
+  adl_audit_zurich_icn1=:ICN1,
+  adl_audit_zurich_icn2=:ICN2,
+  adl_audit_zurich_icn3=:ICN3,
+  adl_audit_zurich_icn4=:ICN4,
+  adl_audit_zurich_icn5=:ICN5,
+  adl_audit_zurich_cd1=:CD1,
+  adl_audit_zurich_cd2=:CD2,
+  adl_audit_zurich_cd3=:CD3,
+  adl_audit_zurich_cd4=:CD4,
+  adl_audit_zurich_cd5=:CD5,
+  adl_audit_zurich_cd6=:CD6,
+  adl_audit_zurich_cd7=:CD7,
+  adl_audit_zurich_cd8=:CD8,
+  adl_audit_zurich_cd9=:CD9,
+  adl_audit_zurich_cd10=:CD10,
+  adl_audit_zurich_other1=:OTHER1,
+  adl_audit_zurich_o1=:O1,
+  adl_audit_zurich_o2=:O2,
+  adl_audit_zurich_o3=:O3,
+  adl_audit_zurich_t1=:T1,
+  adl_audit_zurich_t2=:T2,
+  adl_audit_zurich_haz1=:HAZ1,
+  adl_audit_zurich_fam1=:FAM1,
+  adl_audit_zurich_h1=:H1,
+  adl_audit_zurich_h2=:H2,
+  adl_audit_zurich_h3=:H3,
+  adl_audit_zurich_h4=:H4,
+  adl_audit_zurich_bd1=:BD1,
+  adl_audit_zurich_bd2=:BD2,
+  adl_audit_zurich_bd3=:BD3,
+  adl_audit_zurich_bd4=:BD4,
+  adl_audit_zurich_bd5=:BD5,
+  adl_audit_zurich_dec1=:DEC1,
+  adl_audit_zurich_dec2=:DEC2,
+  adl_audit_zurich_dec3=:DEC3,
+  adl_audit_zurich_dec4=:DEC4,
+  adl_audit_zurich_dec5=:DEC5,
+  adl_audit_zurich_dec6=:DEC6,
+  adl_audit_zurich_dec7=:DEC7,
+  adl_audit_zurich_qc1=:QC1,
+  adl_audit_zurich_qc2=:QC2,
+  adl_audit_zurich_qc3=:QC3,
+  adl_audit_zurich_qc4=:QC4,
+  adl_audit_zurich_qc5=:QC5,
+  adl_audit_zurich_qc6=:QC6,
+  adl_audit_zurich_qc7=:QC7");
     $database->bind(':ID', $LAST_AUDITID);
     $database->bind(':REF', $REFERENCE);
     $database->bind(':OD1', $OD_Q1);
@@ -384,9 +384,6 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $database->bind(':T1', $T_Q1);
     $database->bind(':T2', $T_Q2);   
     $database->bind(':HAZ1', $HAZ_Q1);
-    $database->bind(':L1', $L_Q1);
-    $database->bind(':L2', $L_Q2);   
-    $database->bind(':L3', $L_Q3);  
     $database->bind(':FAM1', $FAM_Q1);  
     $database->bind(':H1', $H_Q1);
     $database->bind(':H2', $H_Q2);
@@ -415,30 +412,41 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $LAST_AUDITID_TWO =  $database->lastInsertId();   
     
             $database->query("INSERT INTO 
-                                            adl_audit_vitality_c
+                                            adl_audit_zurich_c
                                         SET 
-  adl_audit_vitality_c_id_fk=:FK,
-  adl_audit_vitality_c_od1=:OD1,
-  adl_audit_vitality_c_od2=:OD2,
-  adl_audit_vitality_c_od3=:OD3,
-  adl_audit_vitality_c_od4=:OD4,
-  adl_audit_vitality_c_od5=:OD5,
-  adl_audit_vitality_c_icn1=:ICN1,
-  adl_audit_vitality_c_icn2=:ICN2,
-  adl_audit_vitality_c_icn3=:ICN3,
-  adl_audit_vitality_c_icn4=:ICN4,
-  adl_audit_vitality_c_icn5=:ICN5,
-  adl_audit_vitality_c_cd1=:CD1,
-  adl_audit_vitality_c_cd2=:CD2,
-  adl_audit_vitality_c_cd3=:CD3,
-  adl_audit_vitality_c_cd4=:CD4,
-  adl_audit_vitality_c_cd5=:CD5,
-  adl_audit_vitality_c_cd6=:CD6,
-  adl_audit_vitality_c_cd7=:CD7,
-  adl_audit_vitality_c_cd8=:CD8,
-  adl_audit_vitality_c_cd9=:CD9,
-  adl_audit_vitality_c_cd10=:CD10,
-  adl_audit_vitality_c_other1=:OTHER1");
+  adl_audit_zurich_c_id_fk=:FK,
+  adl_audit_zurich_c_od1=:OD1,
+  adl_audit_zurich_c_od2=:OD2,
+  adl_audit_zurich_c_od3=:OD3,
+  adl_audit_zurich_c_od4=:OD4,
+  adl_audit_zurich_c_od5=:OD5,
+  adl_audit_zurich_c_icn1=:ICN1,
+  adl_audit_zurich_c_icn2=:ICN2,
+  adl_audit_zurich_c_icn3=:ICN3,
+  adl_audit_zurich_c_icn4=:ICN4,
+  adl_audit_zurich_c_icn5=:ICN5,
+  adl_audit_zurich_c_cd1=:CD1,
+  adl_audit_zurich_c_cd2=:CD2,
+  adl_audit_zurich_c_cd3=:CD3,
+  adl_audit_zurich_c_cd4=:CD4,
+  adl_audit_zurich_c_cd5=:CD5,
+  adl_audit_zurich_c_cd6=:CD6,
+  adl_audit_zurich_c_cd7=:CD7,
+  adl_audit_zurich_c_cd8=:CD8,
+  adl_audit_zurich_c_cd9=:CD9,
+  adl_audit_zurich_c_cd10=:CD10,
+  adl_audit_zurich_c_h1=:H1,
+  adl_audit_zurich_c_h2=:H2,
+  adl_audit_zurich_c_h3=:H3,
+  adl_audit_zurich_c_h4=:H4,
+  adl_audit_zurich_c_fam1=:FAM1,
+    adl_audit_zurich_c_o1=:O1,
+  adl_audit_zurich_c_o2=:O2,
+  adl_audit_zurich_c_o3=:O3,
+  adl_audit_zurich_c_other1=:OTHER1,
+    adl_audit_zurich_c_t1=:T1,
+  adl_audit_zurich_c_t2=:T2,
+  adl_audit_zurich_c_haz1=:HAZ1");
     $database->bind(':FK', $LAST_AUDITID_TWO);
     $database->bind(':OD1', $OD_C1);
     $database->bind(':OD2', $OD_C2);
@@ -460,55 +468,44 @@ $O_C1 = filter_input(INPUT_POST, 'O_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $database->bind(':CD8', $CD_C8);
     $database->bind(':CD9', $CD_C9);
     $database->bind(':CD10', $CD_C10);
+    $database->bind(':H1', $H_C1);
+    $database->bind(':H2', $H_C2);
+    $database->bind(':H3', $H_C3); 
+    $database->bind(':H4', $H_C4); 
+    $database->bind(':FAM1', $FAM_C1);  
+    $database->bind(':O1', $O_C1);
+    $database->bind(':O2', $O_C2);
+    $database->bind(':O3', $O_C3);   
     $database->bind(':OTHER1', $OTHER_C1);
-            $database->execute();    
+    $database->bind(':T1', $T_C1);
+    $database->bind(':T2', $T_C2);   
+    $database->bind(':HAZ1', $HAZ_C1); 
+    $database->execute();    
             
             $database->query("INSERT INTO 
-                                            adl_audit_vitality_ce
+                                            adl_audit_zurich_ce
                                         SET 
-  adl_audit_vitality_ce_id_fk =:FK,
-  adl_audit_vitality_ce_o1=:O1,
-  adl_audit_vitality_ce_o2=:O2,
-  adl_audit_vitality_ce_o3=:O3,
-  adl_audit_vitality_ce_t1=:T1,
-  adl_audit_vitality_ce_t2=:T2,
-  adl_audit_vitality_ce_haz1=:HAZ1,
-  adl_audit_vitality_ce_fam1=:FAM1,
-  adl_audit_vitality_ce_h1=:H1,
-  adl_audit_vitality_ce_h2=:H2,
-  adl_audit_vitality_ce_h3=:H3,
-  adl_audit_vitality_ce_h4=:H4,
-  adl_audit_vitality_ce_bd1=:BD1,
-  adl_audit_vitality_ce_bd2=:BD2,
-  adl_audit_vitality_ce_bd3=:BD3,
-  adl_audit_vitality_ce_bd4=:BD4,
-  adl_audit_vitality_ce_bd5=:BD5,
-  adl_audit_vitality_ce_dec1=:DEC1,
-  adl_audit_vitality_ce_dec2=:DEC2,
-  adl_audit_vitality_ce_dec3=:DEC3,
-  adl_audit_vitality_ce_dec4=:DEC4,
-  adl_audit_vitality_ce_dec5=:DEC5,
-  adl_audit_vitality_ce_dec6=:DEC6,
-  adl_audit_vitality_ce_dec7=:DEC7,
-  adl_audit_vitality_ce_qc1=:QC1,
-  adl_audit_vitality_ce_qc2=:QC2,
-  adl_audit_vitality_ce_qc3=:QC3,
-  adl_audit_vitality_ce_qc4=:QC4,
-  adl_audit_vitality_ce_qc5=:QC5,
-  adl_audit_vitality_ce_qc6=:QC6,
-  adl_audit_vitality_ce_qc7=:QC7");
-    $database->bind(':FK', $LAST_AUDITID_TWO);
-  $database->bind(':O1', $O_C1);
-  $database->bind(':O2', $O_C2);
-  $database->bind(':O3', $O_C3);   
-  $database->bind(':T1', $T_C1);
-  $database->bind(':T2', $T_C2);   
-  $database->bind(':HAZ1', $HAZ_C1); 
-  $database->bind(':FAM1', $FAM_C1);  
-  $database->bind(':H1', $H_C1);
-  $database->bind(':H2', $H_C2);
-  $database->bind(':H3', $H_C3); 
-  $database->bind(':H4', $H_C4); 
+  adl_audit_zurich_ce_id_fk =:FK,
+  adl_audit_zurich_ce_bd1=:BD1,
+  adl_audit_zurich_ce_bd2=:BD2,
+  adl_audit_zurich_ce_bd3=:BD3,
+  adl_audit_zurich_ce_bd4=:BD4,
+  adl_audit_zurich_ce_bd5=:BD5,
+  adl_audit_zurich_ce_dec1=:DEC1,
+  adl_audit_zurich_ce_dec2=:DEC2,
+  adl_audit_zurich_ce_dec3=:DEC3,
+  adl_audit_zurich_ce_dec4=:DEC4,
+  adl_audit_zurich_ce_dec5=:DEC5,
+  adl_audit_zurich_ce_dec6=:DEC6,
+  adl_audit_zurich_ce_dec7=:DEC7,
+  adl_audit_zurich_ce_qc1=:QC1,
+  adl_audit_zurich_ce_qc2=:QC2,
+  adl_audit_zurich_ce_qc3=:QC3,
+  adl_audit_zurich_ce_qc4=:QC4,
+  adl_audit_zurich_ce_qc5=:QC5,
+  adl_audit_zurich_ce_qc6=:QC6,
+  adl_audit_zurich_ce_qc7=:QC7");
+    $database->bind(':FK', $LAST_AUDITID_TWO);  
   $database->bind(':BD1', $BD_C1);
   $database->bind(':BD2', $BD_C2);
   $database->bind(':BD3', $BD_C3);

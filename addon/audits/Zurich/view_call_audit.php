@@ -1129,7 +1129,7 @@ $database->query("SELECT
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <title>ADL | View Vitality Call Audit</title>
+    <title>ADL | View Zurich Call Audit</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -1154,7 +1154,7 @@ $database->query("SELECT
                 <thead>
 
                     <tr>
-                        <td colspan=2><b>Vitality Call Audit ID: <?php echo $AUDITID ?></b></td>
+                        <td colspan=2><b>Zurich Call Audit ID: <?php echo $AUDITID ?></b></td>
                     </tr>
 
                     <tr>
@@ -1291,7 +1291,7 @@ $database->query("SELECT
 
 
 <p>
-<label for="ICN5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with Vitality?</label><br>
+<label for="ICN5">Q<?php $i++; echo $i; ?>. Closer confirmed this policy will be set up with Zurich?</label><br>
 <input type="radio" name="ICN5" <?php if (isset($ICN_Q5) && $ICN_Q5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="1" id="yesCheckICN5">Yes
 <input type="radio" name="ICN5" <?php if (isset($ICN_Q5) && $ICN_Q5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckICN5();" value="0" id="noCheckICN5"><label for="No">No</label>
 </p>
@@ -1623,7 +1623,7 @@ $database->query("SELECT
 
 
 <p>
-<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Vitality will write to them with a more specific date?</label><br>
+<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Zurich will write to them with a more specific date?</label><br>
 <input type="radio" name="CDE7" <?php if (isset($DEC_Q7) && $DEC_Q7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
 <input type="radio" name="CDE7" <?php if (isset($DEC_Q7) && $DEC_Q7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7"><label for="No">No</label>
 
@@ -1645,7 +1645,7 @@ $database->query("SELECT
  <h3 class="panel-title">Quality Control</h3>
  
  <p>
-     <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Vitality with client information?</label><br>
+     <label for="QC1">Q<?php $i++; echo $i; ?>. Closer confirmed that they have set up the client on a level/decreasing/CIC term policy with Zurich with client information?</label><br>
 <input type="radio" name="QC1" <?php if (isset($QC_Q1) && $QC_Q1=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="1" id="yesCheckQCT1">Yes
 <input type="radio" name="QC1" <?php if (isset($QC_Q1) && $QC_Q1=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckQCT1();" value="0" id="noCheckQCT1"><label for="No">No</label>
 </p>

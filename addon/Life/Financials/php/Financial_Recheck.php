@@ -539,7 +539,7 @@ if(isset($EXECUTE) && $EXECUTE==10) {
             if ($Icheck->rowCount() >= 1) {  
             while ($row=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
             
-            $POL_NUM=$row['aviva_financial_nomatch_plan_number'];
+            $POL_NUM=$row['aviva_financial_nomatch_policy'];
             $FID=$row['aviva_financial_nomatch_id'];
             $AMOUNT=$row['aviva_financial_nomatch_amount'];
                     

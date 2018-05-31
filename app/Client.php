@@ -585,14 +585,47 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         if ($EngageMutual_CHECK->rowCount() > 0) {
                             $HAS_ENG_POL = "1";
                         }   
-                        
-                        $Zurich_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Zurich' AND client_id=:CID");
-                        $Zurich_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
-                        $Zurich_CHECK->execute();
-                        if ($Zurich_CHECK->rowCount() > 0) {
+
+                        $NEW_ZURICH_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Zurich' AND client_id=:CID");
+                        $NEW_ZURICH_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
+                        $NEW_ZURICH_CHECK->execute();
+                        if ($NEW_ZURICH_CHECK->rowCount() > 0) {
+                            
                             $HAS_ZURICH_POL='1';
                             
-                        }  
+                            $GET_ZURICH_AN = $pdo->prepare("SELECT adl_policy_ref from adl_policy where adl_policy_client_id_fk=:CID AND adl_policy_insurer='Zurich'");
+                            $GET_ZURICH_AN->bindParam(':CID', $search, PDO::PARAM_INT);
+                            $GET_ZURICH_AN->execute();
+                            $GET_ZURICH_row = $GET_ZURICH_AN->fetch(PDO::FETCH_ASSOC);
+                            
+                            $ZURICH_POL_number = $GET_ZURICH_row['adl_policy_ref'];   
+
+                            $GET_ZURICH_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_zurich_id_fk AS CLOSER FROM adl_audit_zurich WHERE adl_audit_zurich_ref=:PHONE");
+                            $GET_ZURICH_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
+                            $GET_ZURICH_CLOSER_AUDIT->execute();
+                            $GET_ZURICH_CLOSERrow = $GET_ZURICH_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
+                            
+                            if ($GET_ZURICH_CLOSER_AUDIT->rowCount() > 0) {
+                                $HAS_ZURICH_CLOSER_AUDIT_CHECK=1;
+                                $HAS_ZURICH_CLOSE_AUDIT=1;
+                                $ZURICH_closeraudit = $GET_ZURICH_CLOSERrow['CLOSER']; 
+                                
+                                } 
+
+                                    
+                                $GET_ZURICH_LEAD_AUDIT = $pdo->prepare("SELECT adl_audit_lead_id_fk AS LEAD FROM adl_audit_lead where adl_audit_lead_ref=:PHONE");
+                                $GET_ZURICH_LEAD_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_STR);
+                                $GET_ZURICH_LEAD_AUDIT->execute();
+                                $GET_ZURICH_LEADrow = $GET_ZURICH_LEAD_AUDIT->fetch(PDO::FETCH_ASSOC);  
+                                
+                                if ($GET_ZURICH_LEAD_AUDIT->rowCount() > 0) {
+                                    $HAS_ZURICH_LEAD_AUDIT=1;
+                                    $HAS_NEW_LEAD_AUDIT=1;
+                                    $NEW_LEAD_AUDIT_ID = $GET_ZURICH_LEADrow['LEAD']; 
+                                    
+                                }                                                      
+                        
+                        }                        
                         
                         $ScottishWidows_CHECK = $pdo->prepare("SELECT client_policy.id  FROM client_policy WHERE insurer='Scottish Widows' AND client_id=:CID");
                         $ScottishWidows_CHECK->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -1944,6 +1977,12 @@ if (isset($fileuploadedfail)) {
 <a class="list-group-item" href="/addon/audits/LV/View.php?EXECUTE=VIEW&AUDITID=<?php echo $LV_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; LV Closer Audit</a>                                    
             
         <?php }
+        
+        if(isset($HAS_ZURICH_CLOSE_AUDIT) && $HAS_ZURICH_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/Zurich/view_call_audit.php?AUDITID=<?php echo $ZURICH_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Zurich Closer Audit</a>                                    
+            
+        <?php }        
         
         
         if(isset($HAS_LV_LEAD_AUDIT) && $HAS_LV_LEAD_AUDIT == 1  && empty($HAS_NEW_LEAD_AUDIT)) {  ?>

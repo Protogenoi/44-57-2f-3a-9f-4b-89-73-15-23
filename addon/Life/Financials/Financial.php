@@ -4227,7 +4227,7 @@ WHERE
                      <li><a data-toggle="pill" href="#AVI_EXPORT">Export</a></li>
                      <li><a data-toggle="pill" href="#AVI_NOMATCH">Unmatched Policies <span class="badge alert-warning">
                         <?php
-                        $nomatchbadge = $pdo->query("SELECT COUNT(financials_nomatch_id) AS badge from financials_nomatch");
+                        $nomatchbadge = $pdo->query("SELECT COUNT(aviva_financial_nomatch_id) AS badge from aviva_financial_nomatch");
                         $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
                         echo htmlentities($row['badge']);
                         ?>
@@ -5299,12 +5299,12 @@ WHERE
                 <?php
                 $query = $pdo->prepare("
                         SELECT
-                            vitality_financial_nomatch_id, 
-                            vitality_financial_nomatch_amount, 
-                            vitality_financial_nomatch_uploaded_date, 
-                            vitality_financial_nomatch_policy_number
+                            aviva_financial_nomatch_id, 
+                            aviva_financial_nomatch_amount, 
+                            aviva_financial_nomatch_uploaded_date, 
+                            aviva_financial_nomatch_policy
                         FROM
-                            vitality_financial_nomatch");
+                            aviva_financial_nomatch");
                 ?>
                 <table class="table table-hover">
                     <thead>
@@ -5315,7 +5315,6 @@ WHERE
                     <th>Entry Date</th>
                     <th>Policy</th>
                     <th>Premium</th>
-                    <th>Re-check ADL</th>
                     <th>Re-check all</th>
                     </thead>
                     <?php
@@ -5326,23 +5325,22 @@ WHERE
                             
                             $i++;
 
-                            $policy = $row['vitality_financial_nomatch_policy_number'];
-                            $paytype = $row['vitality_financial_nomatch_amount'];
-                            $iddd = $row['vitality_financial_nomatch_id'];
+                            $policy = $row['aviva_financial_nomatch_policy'];
+                            $paytype = $row['aviva_financial_nomatch_amount'];
+                            $iddd = $row['aviva_financial_nomatch_id'];
                             echo "<tr>
                             <td>$i</td>
                             ";
                             
-                            echo"<td>" . $row['vitality_financial_nomatch_uploaded_date'] . "</td>";
+                            echo"<td>" . $row['aviva_financial_nomatch_uploaded_date'] . "</td>";
                             echo "<td>$policy</td>";
-                            if (intval($row['vitality_financial_nomatch_policy_number']) > 0) {
-                                echo "<td><span class=\"label label-success\">" . $row['vitality_financial_nomatch_policy_number'] . "</span></td>";
-                            } else if (intval($row["vitality_financial_nomatch_amount"]) < 0) {
-                                echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_nomatch_amount'] . "</span></td>";
+                            if (intval($row['aviva_financial_nomatch_amount']) > 0) {
+                                echo "<td><span class=\"label label-success\">" . $row['aviva_financial_nomatch_amount'] . "</span></td>";
+                            } else if (intval($row["aviva_financial_nomatch_amount"]) < 0) {
+                                echo "<td><span class=\"label label-danger\">" . $row['aviva_financial_nomatch_amount'] . "</span></td>";
                             } else {
-                                echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
+                                echo "<td>" . $row['aviva_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Aviva&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
                             echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Aviva' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";

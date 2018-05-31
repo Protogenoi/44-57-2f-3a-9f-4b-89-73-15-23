@@ -179,6 +179,17 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                     </div>                                     
                                     
                                     <div class="col-xs-6 col-md-6">
+                                        <h3>Upload Aviva Financials</h3>
+
+
+                                        <form action="/addon/Life/Financials/upload/aviva_upload.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                            <input class="form-control" name="csv" type="file" id="csv" required>
+                                            <br>
+                                            <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        </form>
+                                    </div>                                     
+                                    
+                                    <div class="col-xs-6 col-md-6">
                                         <h3>Upload Royal London Financials</h3>
 
 
@@ -260,7 +271,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="text-center">
-                                    <center><img src="img/loading.gif" class="icon" /></center>
+                                    <center><img src="/img/loading.gif" class="icon" /></center>
                                     <h4>Uploading... <button type="button" class="close" style="float: none;" data-dismiss="modal" aria-hidden="true">×</button></h4>
                                 </div>
                             </div>
@@ -367,21 +378,9 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script> 
-    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" language="javascript" src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
     <script type="text/javascript" language="javascript" src="/resources/lib/DataTable/datatables.min.js"></script>
-    <script>
-        $("#CLICKTOHIDEFINFOUND").click(function () {
-            $("#HIDEFINFOUND").fadeOut("slow", function () {
 
-            });
-        });
-
-        $("#CLICKTOHIDEFINNOTFOUND").click(function () {
-            $("#HIDEFINNOTFOUND").fadeOut("slow", function () {
-
-            });
-        });
-    </script>
     <script>
 
         $(document).ready(function () {

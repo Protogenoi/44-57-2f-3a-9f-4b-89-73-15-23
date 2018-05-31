@@ -530,6 +530,82 @@ if(isset($EXECUTE) && $EXECUTE==10) {
         
     }    
     
+     if($INSURER=='Aviva') {
+        
+        $i=0;
+        
+            $Icheck = $pdo->prepare("SELECT aviva_financial_nomatch_id, aviva_financial_nomatch_policy, aviva_financial_nomatch_amount FROM aviva_financial_nomatch");
+            $Icheck->execute();
+            if ($Icheck->rowCount() >= 1) {  
+            while ($row=$Icheck->fetch(PDO::FETCH_ASSOC)){ 
+            
+            $POL_NUM=$row['aviva_financial_nomatch_plan_number'];
+            $FID=$row['aviva_financial_nomatch_id'];
+            $AMOUNT=$row['aviva_financial_nomatch_amount'];
+                    
+                $SELECT_Q = $pdo->prepare("SELECT id, client_id, policy_number, policystatus FROM client_policy where policy_number = :polhold");
+                $SELECT_Q->bindParam(':polhold', $POL_NUM, PDO::PARAM_STR);
+                $SELECT_Q->execute();
+                $result=$SELECT_Q->fetch(PDO::FETCH_ASSOC);   
+                if ($SELECT_Q->rowCount() >= 1) {  
+                    
+                    $i++;
+                
+                    $CID=$result['client_id'];
+                    $PID=$result['id'];
+                    $policynumber=$result['policy_number'];
+                    $ref= "$policynumber ($PID)";
+                    $polstat=$result['policystatus'];     
+                    
+                    $note="Aviva Financial Uploaded";
+                    
+                    if($AMOUNT > 0) {  
+                    
+                    $message="COMM (Status changed from $polstat to Live)";
+                    $POL_STATUS='Live';
+                    
+                    } elseif($AMOUNT < 0) { 
+                        
+                        $message="COMM (Status changed from $polstat to Clawback)";
+                        $POL_STATUS='Clawback';
+                        
+                    } else {
+                        
+                        $message="ERROR";
+                        $POL_STATUS='ERROR';                        
+                        
+                    }
+                        
+                        
+                    $insert = $pdo->prepare("INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent");
+                    $insert->bindParam(':CID', $CID, PDO::PARAM_INT);
+                    $insert->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':note', $note, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':message', $message, PDO::PARAM_STR, 250);
+                    $insert->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $insert->execute();
+                        
+                    $update = $pdo->prepare("UPDATE client_policy set policystatus=:policystatus, edited=:sent WHERE id=:PID");
+                    $update->bindParam(':PID', $PID, PDO::PARAM_INT);
+                    $update->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
+                    $update->bindParam(':policystatus', $POL_STATUS, PDO::PARAM_STR, 50);
+                    $update->execute();
+                        
+                       $delete = $pdo->prepare("DELETE FROM aviva_financial_nomatch WHERE aviva_financial_nomatch_policy=:pol AND aviva_financial_nomatch_id=:ID LIMIT 1");
+                       $delete->bindParam(':pol', $policynumber, PDO::PARAM_STR, 250);
+                       $delete->bindParam(':ID', $FID, PDO::PARAM_INT);
+                       $delete->execute();  
+                       
+                }
+                    
+                }
+            }
+           
+                                        header('Location: /addon/Life/Financials/Financial.php?UPDATED='.$i); die;    
+
+        
+    }       
+    
     }
 
 if(isset($INSURER)) {

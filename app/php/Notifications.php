@@ -575,7 +575,16 @@ if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 ) {
     echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Zurich App not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
          
-     }    
+     }  
+ 
+if(empty($HAS_ZURICH_CLOSER_AUDIT_CHECK)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Zurich Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}      
+
+if(empty($HAS_ZURICH_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Zurich Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}       
+     
 }  
 
      if(isset($HAS_RL_POL) && $HAS_RL_POL == 1 ) {

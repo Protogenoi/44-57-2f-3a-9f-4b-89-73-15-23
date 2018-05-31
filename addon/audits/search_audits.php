@@ -171,7 +171,6 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                 <tr>
                     <th></th>
                     <th>Submitted</th>
-                    <th>ID</th>
                     <th>Reference</th>
                     <th>Closer</th>
                     <th>Agent</th>
@@ -187,7 +186,6 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                 <tr>
                     <th></th>
                     <th>Submitted</th>
-                    <th>ID</th>
                     <th>Reference</th>
                     <th>Closer</th>
                     <th>Agent</th>
@@ -256,7 +254,6 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                         "defaultContent": ''
                     },
                     {"data": "adl_audits_date_added"},
-                    {"data": "adl_audits_id"},
                     {"data": "adl_audits_ref"},
                     {"data": "adl_audits_closer"},
                     {"data": "adl_audits_agent"},

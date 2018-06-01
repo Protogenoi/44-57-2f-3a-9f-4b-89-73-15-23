@@ -16,11 +16,9 @@ class AvivaPoliciesModal {
                 client_policy.type, 
                 client_policy.CommissionType, 
                 client_policy.polterm, 
-                financials.financials_payment, 
-                ews_data.ews_status_status AS ADLSTATUS, 
+                aviva_financial.aviva_financial_amount,
                 client_policy.id, 
                 client_policy.polterm, 
-                ews_data.warning, 
                 client_policy.covera, 
                 client_policy.client_id, 
                 client_policy.client_name, 
@@ -31,13 +29,9 @@ class AvivaPoliciesModal {
             FROM 
                 client_policy
             LEFT JOIN 
-                financials 
+                aviva_financial
             ON 
-                client_policy.policy_number = financials.financials_policy 
-            LEFT JOIN 
-                ews_data
-            ON 
-                client_policy.policy_number = ews_data.policy_number 
+                client_policy.policy_number = aviva_financial.aviva_financial_policy
             WHERE 
                 client_policy.client_id =:CID
             AND 

@@ -122,8 +122,8 @@ if (in_array($hello_name, $Closer_Access, true)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
@@ -168,7 +168,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                             if ($ACCESS_LEVEL >= 3) { ?>
                             <li>
                                 <a href="/app/AddClient.php">
-                                    <span class="ca-icon"><i class="fa fa-user-plus"></i></span>
+                                    <span class="ca-icon"><i class="fas fa-user-plus"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Add New<br/> Client</h2>
                                         <h3 class="ca-sub"></h3>
@@ -178,7 +178,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                         <li>
                             <a href="/app/SearchClients.php">
-                                <span class="ca-icon"><i class="fa fa-search"></i></span>
+                                <span class="ca-icon"><i class="fas fa-search"></i></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">Search<br/>All Clients</h2>
                                     <h3 class="ca-sub"></h3>
@@ -253,7 +253,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                                 ?>
                                 <li>
                                     <a href="/addon/compliance/dash.php?EXECUTE=1">
-                                        <span class="ca-icon"><i class="fa fa-folder-open"></i></span>
+                                        <span class="ca-icon"><i class="far fa-folder-open"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Compliance</h2>
                                             <h3 class="ca-sub"></h3>

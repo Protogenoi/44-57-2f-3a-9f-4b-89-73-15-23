@@ -235,7 +235,7 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { ?>
                     <li class='dropdown'>
-                        <a data-toggle='dropdown' class='dropdown-toggle' href='#'><span class="badge alert-info"><i class="fa fa-exclamation"><strong> <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { echo "$TOTAL_NOTIFICATIONS"; } ?></strong></i></span></a>
+                        <a data-toggle='dropdown' class='dropdown-toggle' href='#'><span class="badge alert-info"><i class="fa fa-exclamation"></i> <strong> <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { echo "$TOTAL_NOTIFICATIONS"; } ?></strong></span></a>
                         <ul role='menu' class='dropdown-menu'>
                             <?php 
                             
@@ -322,7 +322,7 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
                     </li> 
                         <?php } ?>
                 
-                <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out"></i> Logout</a></li>
+                <li><a href="/CRMmain.php?action=log_out"><i class="fa fa-sign-out-alt"></i> Logout</a></li>
             </ul>
 
 <ul class="nav navbar-nav navbar-right">

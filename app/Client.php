@@ -2694,11 +2694,22 @@ WHERE
                             }                            
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
+                                
+                             if($COMPANY_ENTITY=='First Priority Group') {
+                                    
+                            require_once(__DIR__ . '/../addon/Life/models/financials/Aviva/aviva_financial-model.php');
+                            $AVIVA_trans = new AVIVA_transModel($pdo);
+                            $AVIVA_transList = $AVIVA_trans->getAVIVA_trans($search);
+                            require_once(__DIR__ . '/../addon/Life/views/financials/Aviva/aviva_financial-view.php');                                      
+                                    
+                                } else {                                 
                             
                             require_once(__DIR__ . '/../addon/Life/models/financials/transactions/AVIModel.php');
                             $AVItrans = new AVItransModel($pdo);
                             $AVItransList = $AVItrans->getAVItrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/avi-view.php');             
+                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/avi-view.php');    
+                            
+                                }
                             
                             }  
                             

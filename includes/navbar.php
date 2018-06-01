@@ -79,12 +79,12 @@ $companynamere = $companydetailsq['company_name'];
         
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/CRMmain.php"><i class="fa fa-home"> Home</i></a></li>
+                <li class="active"><a href="/CRMmain.php"><i class="fa fa-home"></i> Home</a></li>
                 
                 <?php if(in_array($hello_name, $Level_3_Access, true)) { ?>
                 
-                <li><a href="/app/AddClient.php"><i class="fa fa-user-plus"> Add</i></a></li>
-                <li><a href="/app/SearchClients.php"><i class="fa fa-search"> Search</i></a></li>
+                <li><a href="/app/AddClient.php"><i class="fas fa-user-plus"></i> Add</a></li>
+                <li><a href="/app/SearchClients.php"><i class="fas fa-search"></i> Search</a></li>
 
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">CRM <b class="caret"></b></a>

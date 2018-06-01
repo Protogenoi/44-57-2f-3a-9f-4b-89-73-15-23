@@ -28,7 +28,7 @@
  *  Twitter API - https://developer.twitter.com
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -109,8 +109,8 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
         <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
         <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+        <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
     </head>
     <body>
 

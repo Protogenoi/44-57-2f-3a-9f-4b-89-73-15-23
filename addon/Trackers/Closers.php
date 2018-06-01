@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -104,11 +105,11 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/ADL/Notices.css">
-    <link rel="stylesheet" type="text/css" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />  
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
     <body>
 
         <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>

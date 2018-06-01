@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 ?>
@@ -39,8 +40,8 @@ $test= filter_input(INPUT_GET, 'test', FILTER_SANITIZE_SPECIAL_CHARS);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="imagetoolbar" content="no" />
 <link rel="stylesheet" href="/resources/templates/ADL/wallboard.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="icon" type="/image/x-icon" href="/img/favicon.ico"  />
+<script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 <style>
     @import url('http://getbootstrap.com/dist/css/bootstrap.css');
  html, body, .container-table {

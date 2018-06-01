@@ -3391,7 +3391,7 @@ WHERE
                                         case "Vitality Financial Uploaded":
                                         case "One Family Financial Uploaded":
                                         case "WOL Financial Uploaded":
-                                            $TMicon = "fa-gbp";
+                                            $TMicon = "fa-pound-sign";
                                             break;
                                         case"LGPolicy Summary";
                                             case "RLpolicy":

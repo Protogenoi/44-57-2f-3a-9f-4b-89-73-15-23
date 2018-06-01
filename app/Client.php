@@ -936,9 +936,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $LGPOLFILE = $result['file'];
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGPOLFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> Royal London Policy</a>
+                                            <a href="/uploads/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> Royal London Policy</a>
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> Royal London Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> Royal London Policy</a>
                                             <?php
                                         }
                                     }
@@ -951,9 +951,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $LGFILE = $result['file'];
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$LGFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> Royal London Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> Royal London Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> Royal London Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $LGFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> Royal London Keyfacts</a> 
                                             <?php
                                         }
                                     }
@@ -969,9 +969,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $WOLPOLFILE = $result['file'];
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$WOLPOLFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> WOL Policy</a>
+                                            <a href="/uploads/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> WOL Policy</a>
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> WOL Policy</a>
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLPOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> WOL Policy</a>
                                             <?php
                                         }
                                     }
@@ -984,9 +984,9 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                         $WOLFILE = $result['file'];
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$WOLFILE")) {
                                             ?>
-                                            <a href="/uploads/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> WOL Keyfacts</a> 
                                         <?php } else { ?>
-                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="fa far fa-file-pdf"></i> WOL Keyfacts</a> 
+                                            <a href="/uploads/life/<?php echo $search; ?>/<?php echo $WOLFILE; ?>" target="_blank" class="btn btn-default"><i class="far fa-file-pdf"></i> WOL Keyfacts</a> 
                                             <?php
                                         }
                                     }

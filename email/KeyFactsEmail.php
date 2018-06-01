@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -88,7 +89,7 @@ if ($ffkeyfactsemail == '0') {
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
     <title>ADL | KeyFacts Email</title>
@@ -96,10 +97,10 @@ if ($ffkeyfactsemail == '0') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 </head>
 <body>
 

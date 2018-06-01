@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -79,11 +80,10 @@ if ($ffintemails=='0') {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
 <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
+<script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
 <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>

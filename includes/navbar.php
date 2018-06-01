@@ -222,7 +222,6 @@ $companynamere = $companydetailsq['company_name'];
              <li class='dropdown'>
                  <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                  <ul role='menu' class='dropdown-menu'>
-                     <li><a href="https://www20.landg.com/PolicyEnquiriesIFACentre/ENTRY_POINT_RESOURCE?domain=adviser" target="_blank">LG Policy Summary Search</a></li>
                             <?php if(in_array($hello_name, $Level_10_Access, true)) { 
                                 if ($fffinancials == '1') { ?>
                      <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li>

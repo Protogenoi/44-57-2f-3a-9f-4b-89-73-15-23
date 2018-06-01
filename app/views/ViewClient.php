@@ -7,30 +7,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" id="FullName" name="FullName" value="<?php echo $Single_Client['title'] ?> <?php echo $Single_Client['first_name'] ?> <?php echo $Single_Client['last_name'] ?>" readonly >
                             <span class="input-group-btn">
-                                <?php if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
-                                    <form target='_blank' action='//www10.landg.com/ProtectionPortal/home.htm' method='post'>
-
-                                        <input type='hidden' name='searchCriteria.surname' id='searchCriteria.surname' value='<?php echo $Single_Client['last_name']; ?>'>
-                                        <input type='hidden' name='searchCriteria.forename' id='searchCriteria.forename' value='<?php echo $Single_Client['first_name']; ?> '>
-                                        <input type='hidden' name='searchCriteria.dob' id='searchCriteria.dob' value=''>
-                                        <input type='hidden' name='searchCriteria.postcode' id='searchCriteria.postcode' value='NULL'>
-                                        <input type='hidden' name='searchCriteria.referenceType' id='searchCriteria.referenceType' value='NULL'>
-                                        <input type='hidden' name='searchCriteria.reference' id='searchCriteria.reference' value=''>
-                                        <input type='hidden' name='searchCriteria.period' id='searchCriteria.period' value='' >
-                                        <input type='hidden' name='searchCriteria.agentNumber' id='searchCriteria.agentNumber' value='' >
-                                        <input type='hidden' name='searchCriteria.status' id='searchCriteria.status' value='NULL' >
-                                        <input type='hidden' name='searchCriteria.oiiType' id='searchCriteria.oiiType' value='' >
-
-                                        <input type='hidden' name='searchCriteria.includeLife' value='true' >
-                                        <input type='hidden' name='searchCriteria.includeGI' id='searchCriteria.includeGI' value='false' > 
-                                        <input type='hidden' name='selectedAgencyNumberForSearch' id='selectedAgencyNumberForSearch.oiiType' value='7168529' >
-                                        <button type='submit' value='SEARCH' name='command'class="btn btn-success"><i class="fa fa-search"></i></button>
-                                    </form>
-                                <?php } else { ?>
                                     <a href="#" data-toggle="tooltip" data-placement="right" title="Client Name"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-info-sign"></span></button></a> </span>
-
-                            <?php } ?>
-
                         </div>
                         </p>
 

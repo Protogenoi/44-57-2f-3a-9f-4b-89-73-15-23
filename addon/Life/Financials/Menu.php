@@ -111,7 +111,7 @@ if($fffinancials=='0') {
                     </li>   
                     
                                 <li>
-                                    <a href="/Life/Reports/FinancialUpload.php">
+                                    <a href="/addon/Life/Financials/upload_financials.php">
                                         <span class="ca-icon"><i class="fa fa-upload"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Financial<br/>Uploads</h2>

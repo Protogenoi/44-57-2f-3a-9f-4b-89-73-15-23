@@ -19,12 +19,6 @@ use Twilio\Rest\Client;
     $SID=$SMS_RESULT['twilio_account_sid'];
     $TOKEN=$SMS_RESULT['twilio_account_token'];
 
-$cnquery = $pdo->prepare("select company_name from company_details limit 1");
-                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
-                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-                            
-                            $companynamere=$companydetailsq['company_name'];  
-
 if(isset($fferror)) {
     if($fferror=='1') {
         
@@ -55,7 +49,7 @@ if(isset($query)) {
 
 if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
     
-    header('Location: ../Reports/FinancialUpload.php?uploaded=0&Reason=FileType'); die;
+    header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&Reason=FileType'); die;
   
 }              
         
@@ -91,11 +85,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Home'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Home'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Home'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Home'); die;
             
             }
             
@@ -132,11 +126,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Vitality'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Vitality'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Vitality'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Vitality'); die;
             
             }
             
@@ -173,11 +167,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=LV'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=LV'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=LV'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=LV'); die;
             
             }            
 
@@ -236,11 +230,11 @@ $client->messages->create(
 }                
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Life'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Life'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Life'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Life'); die;
             
             }
             
@@ -278,11 +272,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=Aviva'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Aviva'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=Aviva'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Aviva'); die;
             
             } 
             
@@ -319,11 +313,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=WOL'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=WOL'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=WOL'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=WOL'); die;
             
             }  
             
@@ -360,11 +354,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../Reports/FinancialUpload.php?uploaded=1&query=RoyalLondon'); die;
+                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=RoyalLondon'); die;
                 
             }
             
-            header('Location: ../Reports/FinancialUpload.php?uploaded=0&query=RoyalLondon'); die;
+            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=RoyalLondon'); die;
             
             }              
             

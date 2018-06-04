@@ -302,7 +302,7 @@ if($CHK_POLICY_HAS_ZERO != 0) {
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../FinancialUploads.php?success=1'); die;
+    header('Location: /../upload_raw.php?success=1'); die;
 }
 
 }
@@ -484,7 +484,7 @@ $DUPECHK->bindParam(':wol_type', $wol_type , PDO::PARAM_STR, 200);
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../FinancialUploads.php?success=1&FiancialType=WOL'); die;
+    header('Location: /../upload_raw.php?success=1&FiancialType=WOL'); die;
 }    
     
     
@@ -672,7 +672,7 @@ if ($query->rowCount() == 0) {
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../FinancialUploads.php?success=1&FiancialType=RoyalLondon'); die;
+    header('Location: /../upload_raw.php?success=1&FiancialType=RoyalLondon'); die;
 }    
     
     
@@ -866,7 +866,7 @@ $DUPECHK = $pdo->prepare("SELECT vitality_id from vitality_financials WHERE vita
 
         }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../FinancialUploads.php?success=1&FiancialType=RoyalLondon'); die;
+    header('Location: /../upload_raw.php?success=1&FiancialType=RoyalLondon'); die;
 }    
     
     
@@ -1034,7 +1034,7 @@ if ($query->rowCount() <= 0) {
     } 
     
     while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../../../../../addon/Life/FinancialUploads.php?success=1'); die;
+    header('Location: /../../../../../addon/Life/upload_raw.php?success=1'); die;
 }
 
 }
@@ -1178,7 +1178,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
         }
     }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=Royal London'); die;
+    header('Location: /../../../../addon/Life/Financials/upload_raw.php?success=1&FiancialType=Royal London'); die;
 }    
       
 }
@@ -1318,7 +1318,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
         }
     }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=LV'); die;
+    header('Location: /../../../../addon/Life/Financials/upload_raw.php?success=1&FiancialType=LV'); die;
 }    
     
     
@@ -1466,7 +1466,7 @@ if ($query->rowCount() <= 0) { // NO MATCH
       
     }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=ONEFAMILY'); die;
+    header('Location: /../../../../addon/Life/Financials/upload_raw.php?success=1&FiancialType=ONEFAMILY'); die;
 }    
     
     

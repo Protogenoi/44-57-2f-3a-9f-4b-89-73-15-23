@@ -759,7 +759,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                 <ul class="dropdown-menu">
                     <div class="list-group">
                         <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                            <li><a class="list-group-item" href="/addon/Life/EditClient.php?search=<?php echo $search ?>&life"><i class="fa fa-pencil-alt-square-o fa-fw"></i> &nbsp; Edit Client</a></li> 
+                            <li><a class="list-group-item" href="/addon/Life/EditClient.php?search=<?php echo $search ?>&life"><i class="far far fa-edit fa-fw"></i> &nbsp; Edit Client</a></li> 
                         <?php } ?>
                         <?php if (in_array($hello_name, $Level_10_Access, true)) { ?>
                             <li><a class="list-group-item" href="/app/admin/deleteclient.php?search=<?php echo $search ?>&life"><i class="fa fa-trash fa-fw"></i> &nbsp; Delete Client</a></li>
@@ -3320,7 +3320,7 @@ WHERE
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton"></label>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary btn-block"><i class="fa fa-pencil-alt-square-o"></i> Submit </button>
+                                    <button class="btn btn-primary btn-block"><i class="fa far fa-edit"></i> Submit </button>
                                 </div>
                             </div>
                         </form>

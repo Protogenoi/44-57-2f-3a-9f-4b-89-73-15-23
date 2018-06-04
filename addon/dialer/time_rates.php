@@ -198,7 +198,7 @@ h1 {
                                                         </div>
     
  <div class="btn-group">
-                                                        <button class="btn btn-primary"><i class='fa  fa-check-circle-o'></i> Set time and date</button>
+                                                        <button class="btn btn-primary"><i class='fa fa-check-circle'></i> Set time and date</button>
                                                     </div>    
 
 </fieldset>
@@ -551,7 +551,7 @@ ORDER BY Sales, Leads");
                                                         </div>
     
  <div class="btn-group">
-                                                        <button class="btn btn-warning"><i class='fa  fa-check-circle-o'></i> Update</button>
+                                                        <button class="btn btn-warning"><i class='fa  fa-check-circle'></i> Update</button>
                                                     </div>    
 
 </fieldset>

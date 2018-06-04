@@ -410,7 +410,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
       <?php  }
     
                         echo "<td>$NOTE</td>";
-                        echo "<td><a href='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."&SENDER=" . $result['messenger_date'] . "' class='btn btn-success'><i class='fa fa-check-circle-o'></i></a></td>";
+                        echo "<td><a href='php/msg.php?EXECUTE=2&MID=".$result['messenger_id']."&SENDER=" . $result['messenger_date'] . "' class='btn btn-success'><i class='fa fa-check-circle'></i></a></td>";
                         echo "</tr>";
                  ?>  
                  

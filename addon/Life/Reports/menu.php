@@ -95,23 +95,97 @@ if (isset($fferror)) {
     <div class="container">        
         <div class="row">
             <div class="twelve columns">
-                <ul class="ca-menu">
+                <ul class="ca-menu">                   
 
                     <?php
                     if ($fflife == '1') {
-                        if ($ACCESS_LEVEL >= 8) {
-                            if($fffinancials=='1' || $ffews=='1') {
-                            ?>
+                        if ($ACCESS_LEVEL >= 10) {
+                            if($fffinancials=='1') { ?>
+                            
                             <li>
-                                <a href="/Life/Reports_Menu.php">
-                                    <span class="ca-icon"><i class="fa fa-warning"></i></span>
+                                <a href="/addon/Life/Financials/Financial.php">
+                                    <span class="ca-icon"><i class="fa fa-pound-sign"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">EWS/Financials<br/></h2>
+                                        <h2 class="ca-main">All Financial<br/> Reports</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>                                  
+                                
+                        <?php   
+                        
+                        
+                            }
+                            }
+                            
+                            
+                        if ($ACCESS_LEVEL >= 8) {
+                            if($ffews=='1') {
+                                
+                            ?>
+
+                            <li>
+                                <a href="/Life/Reports/EWSMaster.php">
+                                    <span class="ca-icon"><i class="fa fa-archive"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Archive<br/> EWS</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>
                             </li>
-                            <?php } ?>
+
+                            <li>
+                                <a href="/Life/Reports/EWS.php">
+                                    <span class="ca-icon"><i class="fa fa-exclamation"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Early Warning<br/> System</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Life/Reports/EWSWhite.php">
+                                    <span class="ca-icon"><i class="fa fa-exclamation"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">EWS<br/> White</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>                    
+
+                            <li>
+                                <a href="/Life/Reports/EWSModify.php">
+                                    <span class="ca-icon"><i class="fas fa-edit"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">Correct<br/> EWS Record</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Life/Reports/EWSOverview.php">
+                                    <span class="ca-icon"><i class="fa fa-chart-line"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">EWS<br/>Overview</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Life/Reports/EWSAgentPerformance.php">
+                                    <span class="ca-icon"><i class="fa fa-chart-pie"></i></span>
+                                    <div class="ca-content">
+                                        <h2 class="ca-main">EWS<br/>Agent Performance</h2>
+                                        <h3 class="ca-sub"></h3>
+                                    </div>
+                                </a>
+                            </li>
+
+                        <?php
+                        } ?>
                             <li>
                                 <a href="/app/calendar/All_Callbacks.php">
                                     <span class="ca-icon"><i class="fa fa-phone"></i></span>
@@ -140,7 +214,7 @@ if (isset($fferror)) {
 
                                 <li>
                                     <a href="/app/admin/Export.php">
-                                        <span class="ca-icon"><i class="fa fa-cloud-download"></i></span>
+                                        <span class="ca-icon"><i class="fas fa-cloud-download-alt"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Export<br/>Data</h2>
                                             <h3 class="ca-sub"></h3>
@@ -150,7 +224,7 @@ if (isset($fferror)) {
 
                                 <li>
                                     <a href="/app/admin/Upload.php">
-                                        <span class="ca-icon"><i class="fa fa-cloud-upload"></i></span>
+                                        <span class="ca-icon"><i class="fas fa-cloud-upload-alt"></i></span>
                                         <div class="ca-content">
                                             <h2 class="ca-main">Upload<br/>Data</h2>
                                             <h3 class="ca-sub"></h3>

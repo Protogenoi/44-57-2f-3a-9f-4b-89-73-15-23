@@ -165,7 +165,7 @@ $Today_TIME = date("h:i:s");
                                 
                              <div class="col-md-4">
                                  <div class="btn-group">
-                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search old data</button> 
+                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-alt"></i> Search old data</button> 
                                  </div>
                                  </form>  
                             </div>

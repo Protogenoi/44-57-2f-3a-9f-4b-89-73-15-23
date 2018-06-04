@@ -191,7 +191,7 @@ if ($CLO_QRY->rowCount() > 0) {
                                 
                              <div class="col-md-4">
                                  <div class="btn-group">
-                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Search old data</button> 
+                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-alt"></i> Search old data</button> 
                                  <a href="SearchSurvey.php" class="btn btn-danger btn-sm"><i class="fa fa-refresh"></i> Reset</a>
                                  </div>
                                  </form>  

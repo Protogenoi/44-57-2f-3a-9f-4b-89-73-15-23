@@ -124,7 +124,7 @@ $Today_TIME = date("h:i:s");
 
                         <div class="col-md-4">
                                  <div class="btn-group">
-                                     <a class="btn btn-default btn-sm" href="Agent.php?EXECUTE=1"><i class="fa fa-check-circle-o"></i> Agent Trackers</a>
+                                     <a class="btn btn-default btn-sm" href="Agent.php?EXECUTE=1"><i class="fa fa-check-circle"></i> Agent Trackers</a>
                                  </div>   
                             
                         </div>
@@ -170,6 +170,8 @@ if ($CLO_QRY->rowCount() > 0) {
                                             $CLOSER_NAME="Ryan Tidball";
                                         } elseif($CLOSER_NAME == 'Jade BLANK') {
                                             $CLOSER_NAME="Jade";
+                                        } elseif($CLOSER_NAME == 'Aron') {
+                                            $CLOSER_NAME="Aron Davies";
                                         }
                                         
                                         }
@@ -188,9 +190,9 @@ if ($CLO_QRY->rowCount() > 0) {
                                 
                              <div class="col-md-4">
                                  <div class="btn-group">
-                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-check-o"></i> Set Dates</button> 
+                                 <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-calendar-alt"></i> Set Dates</button> 
                                  </form>
-                                 <a class="btn btn-default btn-sm" href="Export/Closers.php?EXECUTE=1&DATE=<?php if(isset($datefrom)) { echo "$datefrom"; } else { echo date("Y-m-d"); } ?>"><i class="fa fa-file-excel-o"></i> Export</a>
+                                 <a class="btn btn-default btn-sm" href="Export/Closers.php?EXECUTE=1&DATE=<?php if(isset($datefrom)) { echo "$datefrom"; } else { echo date("Y-m-d"); } ?>"><i class="fa fa-file-excel"></i> Export</a>
                                  <a class="btn btn-danger btn-sm" href="?EXECUTE=1"><i class="fa fa-recycle"></i> RESET</a>
                                  </div>
                           </div>

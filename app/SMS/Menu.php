@@ -109,17 +109,6 @@ if(isset($ffsms) && $ffsms == 0) {
                                     </div>
                                 </a>
                             </li>
-                        
-                                    <li>
-                                        <a href="/Life/SMS/Bulk.php">
-                                            <span class="ca-icon"><i class="fa fa-share-square"></i></span>
-                                            <div class="ca-content">
-                                                <h2 class="ca-main">Send<br/>Bulk SMS</h2>
-                                                <h3 class="ca-sub"></h3>
-                                            </div>
-                                        </a>
-                                    </li>
-              
                 </ul>
             </div>
         </div>        

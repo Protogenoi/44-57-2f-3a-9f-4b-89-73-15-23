@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -91,7 +92,6 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
 <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
@@ -133,13 +133,14 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
             .fa-phone {
                 color: #2A6598;
             }
-            .fa-gbp {
+            .fa-pound-sign {
                 color: red;
             }
-             .fa-check {
+             .fa-check-circle {
                 color: green;
             }
         </style>
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>        
 </head>
 <body>
     
@@ -218,7 +219,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                 if($RETURN=='ALREADYBOOKED') { ?>
                         <a class="btn btn-success" href="php/Employee.php?EXECUTE=<?php if(isset($HOL_REF)) { echo 7; } else { echo 7; }?>&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-check-o"></i> Authorise Holiday</a> 
             <?php } } ?>
-                        <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check-o"></i> Add Holidays</a>                        
+                        <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check"></i> Add Holidays</a>                        
                                            
                        
                         <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit"></i> Edit</a>                        

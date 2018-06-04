@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -87,8 +88,8 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
     
@@ -122,7 +123,7 @@ if (isset($fferror)) {
                         
                         <li>
                             <a href="Reports/RAG.php">
-			<span class="ca-icon"><i class="fa fa-area-chart"></i></span>
+			<span class="ca-icon"><i class="fa fa-chart-line"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Manager Reports<br/></h2>
 				<h3 class="ca-sub"></h3>
@@ -142,7 +143,7 @@ if (isset($fferror)) {
                         
                                                 <li>
                             <a href="#">
-			<span class="ca-icon"><i class="fa fa-gbp"></i></span>
+			<span class="ca-icon"><i class="fa fa-pound-sign"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Wages<br/></h2>
 				<h3 class="ca-sub"></h3>

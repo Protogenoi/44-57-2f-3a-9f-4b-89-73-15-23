@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -100,8 +101,8 @@ if (isset($fferror)) {
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico"  />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
     
@@ -616,7 +617,7 @@ if (isset($fferror)) {
         </div>
         </div>
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Save</button>
               
 <script>
         document.querySelector('#editform').addEventListener('submit', function(e) {
@@ -651,7 +652,7 @@ if (isset($fferror)) {
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
     </div>

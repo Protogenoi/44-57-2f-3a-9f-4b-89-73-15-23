@@ -114,15 +114,15 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
     <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?> 
 
     <div class="container">
-        <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> Send private messages to your colleagues! Click send message, select the recipient(s) and enter your message (Emoji support) and send!</div>
+        <div class='notice notice-info' role='alert'><strong><i class='fa fa-question-circle'></i> Info:</strong> Send private messages to your colleagues! Click send message, select the recipient(s) and enter your message (Emoji support) and send!</div>
                 <?php
         if(isset($RETURN)) {
             if($RETURN=='MSGADDED'){
-                echo "<div class='notice notice-success' role='alert'><strong><i class='fa fa-edit fa-send'></i> Success:</strong> Message sent!</div>";
+                echo "<div class='notice notice-success' role='alert'><strong><i class='fa fa-share-square'></i> Success:</strong> Message sent!</div>";
                 
             }
             if($RETURN=='MSGUPDATED') {
-                echo "<div class='notice notice-success' role='alert'><strong><i class='fa fa-check-circle-o'></i> Success:</strong> Message marked as read!</div>";
+                echo "<div class='notice notice-success' role='alert'><strong><i class='far fa-check-circle'></i> Success:</strong> Message marked as read!</div>";
                 
             }
         }
@@ -157,7 +157,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
                             
                             <li>
                                 <a href="Main.php?EXECUTE=1">
-                                    <span class="ca-icon"><i class="far fa-inbox"></i></span>
+                                    <span class="ca-icon"><i class="fa fa-inbox"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Check<br/> Sent</h2>
                                         <h3 class="ca-sub"></h3>
@@ -185,7 +185,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
     <form action="php/msg.php?EXECUTE=1" method="POST">
         
-  <div class='notice notice-info' role='alert'><strong><i class='fa fa-edit fa-question-circle-o'></i> Info:</strong> Select who to send your message to or hold 'ctrl/command and click' to send to a group of people.</div>      
+  <div class='notice notice-info' role='alert'><strong><i class='fa fa-question-circle'></i> Info:</strong> Select who to send your message to or hold 'ctrl/command and click' to send to a group of people.</div>      
         
 <div class="form-group">
     <select class="form-control" name="MSG_TO[]" id="MSG_TO" multiple="yes" required="yes">
@@ -199,7 +199,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 </div>
 
  
-        <button type="submit" class="btn btn-success"><i class="fa fa-send-o"></i> Send</button>
+        <button type="submit" class="btn btn-success"><i class="fas fa-share-square"></i> Send</button>
 </form>              
               
           </p>
@@ -323,12 +323,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
                                 <td>
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='Bluestone Protect'>Bluestone Protect</option>
-        <option value='Protect Family Plans'>Protect Family Plans</option>
-        <option value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option value='We Insure'>We Insure</option>
-        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+        <option value='<?php echo $COMPANY_ENTITY; ?>'><?php echo $COMPANY_ENTITY; ?></option>
     </select>
                                 </td>
  
@@ -336,7 +331,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
       <?php  }
     
                         echo "<td>$NOTE</td>";
-                        echo "<td><button type='submit' class='btn btn-success'><i class='fa fa-check-circle-o'></i></button></td>";
+                        echo "<td><button type='submit' class='btn btn-success'><i class='far fa-check-circle'></i></button></td>";
                         echo "</tr>";
                     }
             ?> </table>  <?php  } 
@@ -397,12 +392,7 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         
                                 <td>
     <select class="form-control" name='COMPANY_ENTITY'>
-        <option value='Bluestone Protect'>Bluestone Protect</option>
-        <option value='Protect Family Plans'>Protect Family Plans</option>
-        <option value='Protected Life Ltd'>Protected Life Ltd</option>
-        <option value='We Insure'>We Insure</option>
-        <option value='The Financial Assessment Centre'>The Financial Assessment Centre</option>
-        <option value='Assured Protect and Mortgages'>Assured Protect and Mortgages</option>
+        <option value='<?php echo $COMPANY_ENTITY; ?>'><?php echo $COMPANY_ENTITY; ?></option>
     </select>
                                 </td>
  

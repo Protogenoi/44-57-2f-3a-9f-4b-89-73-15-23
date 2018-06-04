@@ -97,7 +97,7 @@ $companynamere = $companydetailsq['company_name'];
                         <?php } ?>
                         <li class="divider"></li>
                         <?php if(in_array($hello_name, $Level_8_Access, true)) { ?>
-                        <li><a href="/Life/CRMReports.php">Reports</a></li>                        
+                        <li><a href="/addon/Life/Reports/menu.php">Reports</a></li>                        
                         <li><a href="/addon/Life/Tasks/Tasks.php">Tasks</a></li>
                         <?php if ($ffsms == '1') { ?>
                         <li><a href="/app/SMS/Menu.php">SMS Report</a></li>

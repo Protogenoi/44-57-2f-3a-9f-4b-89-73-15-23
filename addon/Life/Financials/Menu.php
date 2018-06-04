@@ -1,4 +1,35 @@
 <?php
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2018 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
+ * 
+*/
+
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
@@ -37,8 +68,8 @@ if($fffinancials=='0') {
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
 
@@ -51,7 +82,7 @@ if($fffinancials=='0') {
                     
                     <li>
                         <a href="Financial.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <span class="ca-icon"><i class="fas fa-pound-sign"></i></span>
                             <div class="ca-content">
                                 <h2 class="ca-main">FPG<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
@@ -61,61 +92,17 @@ if($fffinancials=='0') {
                     
                     <li>
                         <a href="Financials.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <span class="ca-icon"><i class="fas fa-pound-sign"></i></span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Legal and General<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
-                    </li>  
-                    
-                    <?php if($COMPANY_ENTITY == "Bluestone Protect") { ?>
-
-                    <li>
-                        <a href="OneFamily.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Bedrock One Family<br/>Financials</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
                     </li>
-
-                    <li>
-                        <a href="Aviva.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Bedrock Aviva<br/>Financials</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="RoyalLondon.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Bedrock Royal London<br/>Financials</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>
-                    
-                    <li>
-                        <a href="Vitality.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Bedrock Vitality<br/>Financials</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>        
-                    
-                    <?php } ?>
                     
                     <li>
                         <a href="Vitality_Financials.php">
-                            <span class="ca-icon"><i class="fa fa-gbp"></i></span>
+                            <span class="ca-icon"><i class="fas fa-pound-sign"></i></span>
                             <div class="ca-content">
                                 <h2 class="ca-main">Vitality<br/>Financials</h2>
                                 <h3 class="ca-sub"></h3>

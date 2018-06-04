@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -82,10 +83,9 @@ $YEAR= filter_input(INPUT_GET, 'YEAR', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
     <link rel="stylesheet" href="/resources/templates/ADL/LargeIcons.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 </head>
 <body>
     
@@ -115,8 +115,8 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                 <div class="col-xs-7">
                     <div class="text-right">   
                         <a class="btn btn-primary" href='/Staff/Export/Export.php?EXECUTE=1&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-download"></i> Export</a>
-                        <a class="btn btn-warning" href='?RETURN=AVERAGESTATS&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-bar-chart "></i> Average Stats</a>
-                        <a class="btn btn-info" href='?RETURN=REGISTERSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-calendar-check-o"></i> Employee Register</a>
+                        <a class="btn btn-warning" href='?RETURN=AVERAGESTATS&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-chart-line "></i> Average Stats</a>
+                        <a class="btn btn-info" href='?RETURN=REGISTERSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-calendar-alt"></i> Employee Register</a>
                     </div>
                 </div>
             </div>
@@ -185,8 +185,8 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                 </div>
                 <div class="col-xs-7">
                     <div class="text-right">           
-                        <a class="btn btn-warning" href='?RETURN=WEEKSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-bar-chart"></i> Week Stats</a>
-                        <a class="btn btn-info" href='?RETURN=REGISTERSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-calendar-check-o"></i> Employee Register</a> 
+                        <a class="btn btn-warning" href='?RETURN=WEEKSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-chart-line"></i> Week Stats</a>
+                        <a class="btn btn-info" href='?RETURN=REGISTERSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-calendar-alt"></i> Employee Register</a> 
                     </div>
                 </div>
             </div>
@@ -254,8 +254,8 @@ $END_DATE= filter_input(INPUT_GET, 'END_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                 </div>
                 <div class="col-xs-7">
                     <div class="text-right">           
-                        <a class="btn btn-warning" href='?RETURN=WEEKSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-bar-chart"></i> Week Stats</a>
-                        <a class="btn btn-warning" href='?RETURN=AVERAGESTATS&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-bar-chart "></i> Average Stats</a>
+                        <a class="btn btn-warning" href='?RETURN=WEEKSTATS&START_DATE=<?php echo $START_DATE; ?>&END_DATE=<?php echo $END_DATE; ?>'><i class="fa fa-chart-line"></i> Week Stats</a>
+                        <a class="btn btn-warning" href='?RETURN=AVERAGESTATS&START_DATE=<?php echo "$START_DATE&END_DATE=$END_DATE";?>'><i class="fa fa-chart-line "></i> Average Stats</a>
                     </div>
                 </div>
             </div>
@@ -316,14 +316,14 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     
     <div class="row">
         <div class="col-sm-6">
-            <th><a href="?MONTH=JAN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JAN <br>2017</a></th>
-            <th><a href="?MONTH=FEB&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> FEB <br>2017</a></th>
-            <th><a href="?MONTH=MAR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> MAR <br>2017</a></th>
+            <th><a href="?MONTH=JAN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> JAN <br>2017</a></th>
+            <th><a href="?MONTH=FEB&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-alt"></i><br> FEB <br>2017</a></th>
+            <th><a href="?MONTH=MAR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> MAR <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
-            <th><a href="?MONTH=JUL&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUL <br>2017</a></th>
-            <th><a href="?MONTH=AUG&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> AUG <br>2017</a></th>            
-            <th><a href="?MONTH=SEP&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> SEP <br>2017</a></th>
+            <th><a href="?MONTH=JUL&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> JUL <br>2017</a></th>
+            <th><a href="?MONTH=AUG&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-alt"></i><br> AUG <br>2017</a></th>            
+            <th><a href="?MONTH=SEP&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> SEP <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
 
@@ -331,14 +331,14 @@ while ($result=$RAG_WEEK_QRY->fetch(PDO::FETCH_ASSOC)){
     </div>
     <div class="row">
         <div class="col-sm-6">
-            <th><a href="?MONTH=APR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> APR <br>2017</a></th>
-            <th><a href="?MONTH=MAY&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> MAY <br>2017</a></th>
-            <th><a href="?MONTH=JUN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> JUN <br>2017</a></th>
+            <th><a href="?MONTH=APR&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> APR <br>2017</a></th>
+            <th><a href="?MONTH=MAY&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-alt"></i><br> MAY <br>2017</a></th>
+            <th><a href="?MONTH=JUN&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> JUN <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
-                    <th><a href="?MONTH=OCT&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> OCT <br>2017</a></th>
-                    <th><a href="?MONTH=NOV&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-o"></i><br> NOV <br>2017</a></th>
-                    <th><a href="?MONTH=DEC&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-o"></i><br> DEC <br>2017</a></th>
+                    <th><a href="?MONTH=OCT&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> OCT <br>2017</a></th>
+                    <th><a href="?MONTH=NOV&YEAR=<?php echo date('Y'); ?>" class="btn btn-warning btn-lg"><i class="fa fa-calendar-alt"></i><br> NOV <br>2017</a></th>
+                    <th><a href="?MONTH=DEC&YEAR=<?php echo date('Y'); ?>" class="btn btn-default btn-lg"><i class="fa fa-calendar-alt"></i><br> DEC <br>2017</a></th>
         </div>
                 <div class="col-sm-6">
             
@@ -471,7 +471,7 @@ for($d=1; $d<=31; $d++)
                 <div class="col-xs-7">
                     <div class="text-right">           
                         <a class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-user-plus"></i> Add Agent</a>                        
-                        <a class="btn btn-warning" data-toggle="modal" data-target="#myModal2" data-backdrop="static" data-keyboard="false" href="#"><i class="fa fa-bar-chart "></i> Week Stats</a>                      
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#myModal2" data-backdrop="static" data-keyboard="false" href="#"><i class="fa fa-chart-line "></i> Week Stats</a>                      
                     </div>
                 </div>
             </div>
@@ -635,7 +635,7 @@ while ($result=$RAG_QRY->fetch(PDO::FETCH_ASSOC)){
             <option <?php if(isset($TRAINING)) { if($TRAINING>'0') { echo "selected"; } } ?>  value="6">Days Training</option>
             <option <?php if(isset($BANK)) { if($BANK>'0') { echo "selected"; } } ?>  value="7">Bank Holiday</option>
         </select></td>
-    <td><button type="submit" class="btn btn-success btn-md"><i class="fa fa-check-circle-o"></i> Update</button></td>     
+    <td><button type="submit" class="btn btn-success btn-md"><i class="fa fa-check-circle"></i> Update</button></td>     
     </tr> 
     </form>
 <?php } ?> </table><?php }?>
@@ -706,7 +706,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Add Agent!</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Add Agent!</button>
 <script>
         document.querySelector('#addform').addEventListener('submit', function(e) {
             var form = this;
@@ -740,7 +740,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
     </div>
@@ -791,7 +791,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Search!</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Search!</button>
 <script>
         document.querySelector('#searchform').addEventListener('submit', function(e) {
             var form = this;
@@ -825,7 +825,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
     </div>
@@ -862,7 +862,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
     <td><input type="text" class="form-control" readonly value="<?php if(isset($LEADS) && isset($SALES)) { if($LEADS > 0) { $var=$SALES/$LEADS; echo number_format((float)$var, 2, '.', ''); } } ?>" name="CR"></td>
     <td><input type="text" class="form-control" value="<?php if(isset($HOURS)) { echo $HOURS; } ?>" name="HOURS"></td>
     <td><input type="text" class="form-control" value="<?php if(isset($MINUS)) { echo $MINUS; }?>" name="MINUS"></td>
-    <td><button type="submit" class="btn btn-success btn-md"><i class="fa fa-check-circle-o"></i> Update</button></td>     
+    <td><button type="submit" class="btn btn-success btn-md"><i class="fa fa-check-circle"></i> Update</button></td>     
     </tr> 
 
 </table>
@@ -877,7 +877,7 @@ while ($result=$ADD_RAG_QRY->fetch(PDO::FETCH_ASSOC)){
           
           <div class="modal-footer">
 
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
     </div>

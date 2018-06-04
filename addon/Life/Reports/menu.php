@@ -185,7 +185,7 @@ if (isset($fferror)) {
                             </li>
 
                         <?php
-                        } if ($ffcalendar=='0') {
+                        } if ($ffcalendar == 1 ) {
                             ?>
                             <li>
                                 <a href="/app/calendar/All_Callbacks.php">

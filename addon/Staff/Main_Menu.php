@@ -131,8 +131,8 @@ if (isset($fferror)) {
 			</a>
 			</li>
                         
-                                                <li>
-                                                    <a href="Assets/Assets.php">
+                         <li>
+                            <a href="Assets/Assets.php">
 			<span class="ca-icon"><i class="fa fa-list-ul"></i></span>
 			<div class="ca-content">
 				<h2 class="ca-main">Inventory<br/></h2>
@@ -140,17 +140,6 @@ if (isset($fferror)) {
 			</div>
 			</a>
 			</li>
-                        
-                                                <li>
-                            <a href="#">
-			<span class="ca-icon"><i class="fa fa-pound-sign"></i></span>
-			<div class="ca-content">
-				<h2 class="ca-main">Wages<br/></h2>
-				<h3 class="ca-sub"></h3>
-			</div>
-			</a>
-			</li>
-
 		</ul>
         
         </div>

@@ -53,9 +53,9 @@ if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../app/analyticstracking.php');
 }
 
-if ($ffcalendar=='0') {
+if ($ffcalendar== 0 ) {
         
-        header('Location: /../../../CRMmain.php'); die;
+        header('Location: /../../../CRMmain.php?FEATURE=DISABLED'); die;
     }
 
 if (isset($fferror)) {

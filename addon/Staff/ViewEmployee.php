@@ -217,7 +217,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                     <div class="text-right">
             <?php if(isset($RETURN)) {
                 if($RETURN=='ALREADYBOOKED') { ?>
-                        <a class="btn btn-success" href="php/Employee.php?EXECUTE=<?php if(isset($HOL_REF)) { echo 7; } else { echo 7; }?>&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-check-o"></i> Authorise Holiday</a> 
+                        <a class="btn btn-success" href="php/Employee.php?EXECUTE=<?php if(isset($HOL_REF)) { echo 7; } else { echo 7; }?>&HOL_START=<?php echo $HOL_START;?>&HOL_END=<?php echo $HOL_END;?>&NAME=<?php echo "$FIRSTNAME $LASTNAME"; ?>&HOL_REASON=<?php echo $HOL_REASON;?>&REF=<?php echo $REF;?>"><i class="fa fa-calendar-alt"></i> Authorise Holiday</a> 
             <?php } } ?>
                         <a class="btn btn-info" data-toggle="modal" data-target="#BookModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-calendar-check"></i> Add Holidays</a>                        
                                            
@@ -414,7 +414,7 @@ $HOL_REF= filter_input(INPUT_GET, 'HOL_REF', FILTER_SANITIZE_SPECIAL_CHARS);
                                                     <td class='font-bold'><?php if(isset($NI_NUM)) { echo $NI_NUM;} ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class='hint-text col-xs-5 col-sm-4'><i class="fa fa-calendar-check-o"></i> Employment Dates</td>
+                                                    <td class='hint-text col-xs-5 col-sm-4'><i class="fa fa-calendar-alt"></i> Employment Dates</td>
                                                     <td class='font-bold'><?php if(isset($START_DATE)) { echo "<strong>$START_DATE</strong>"; } if(isset($END_DATE)) { echo "<strong> - $END_DATE</strong>"; } ?></td>
                                                 </tr>
                                                 
@@ -527,7 +527,7 @@ while ($result=$clientnote->fetch(PDO::FETCH_ASSOC)){
                 $TMicon="fa-pencil";
                 break;
             case stristr($TLnotetype,"Callback"):
-                $TMicon="fa-calendar-check-o";
+                $TMicon="fa-calendar-alt";
                 break;
             case "Email Sent":
                 $TMicon="fa-envelope-o";
@@ -1122,7 +1122,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Save</button>
 <script>
         document.querySelector('#editform').addEventListener('submit', function(e) {
             var form = this;
@@ -1156,7 +1156,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -1272,7 +1272,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> HIRE!</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> HIRE!</button>
 <script>
         document.querySelector('#hireform').addEventListener('submit', function(e) {
             var form = this;
@@ -1306,7 +1306,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -1422,7 +1422,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> FIRE!</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> FIRE!</button>
 <script>
         document.querySelector('#fireform').addEventListener('submit', function(e) {
             var form = this;
@@ -1456,7 +1456,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -1519,7 +1519,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Edit Booked Holiday</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Edit Booked Holiday</button>
 <script>
         document.querySelector('#EditHOL').addEventListener('submit', function(e) {
             var form = this;
@@ -1553,7 +1553,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -1624,7 +1624,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Authorise</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Authorise</button>
 <script>
         document.querySelector('#HOLform').addEventListener('submit', function(e) {
             var form = this;
@@ -1658,7 +1658,7 @@ while ($result=$HOL_QRY->fetch(PDO::FETCH_ASSOC)){
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>

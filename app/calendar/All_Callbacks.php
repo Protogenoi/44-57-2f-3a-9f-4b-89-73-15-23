@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -46,7 +47,7 @@ if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
 
 require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../includes/Access_Levels.php');
 
 if ($ffanalytics == '1') {
     require_once(__DIR__ . '/../../app/analyticstracking.php');
@@ -54,7 +55,7 @@ if ($ffanalytics == '1') {
 
 if ($ffcalendar=='0') {
         
-        header('Location: /CRMmain.php'); die;
+        header('Location: /../../../CRMmain.php'); die;
     }
 
 if (isset($fferror)) {
@@ -88,7 +89,7 @@ if (isset($fferror)) {
  Copyright (C) ADL CRM - All Rights Reserved
  Unauthorised copying of this file, via any medium is strictly prohibited
  Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
+ Written by Michael Owen <michael@adl-crm.uk>, 2018
 -->
 <html lang="en">
 <title>ADL | Active Callbacks</title>
@@ -97,7 +98,6 @@ if (isset($fferror)) {
 <head>
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -116,7 +116,7 @@ if (isset($fferror)) {
   margin: 0 auto;
   }
 </style>
-
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>

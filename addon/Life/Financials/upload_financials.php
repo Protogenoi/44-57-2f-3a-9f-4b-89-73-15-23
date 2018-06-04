@@ -30,21 +30,21 @@
  * 
 */ 
 
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -56,7 +56,7 @@ if (isset($fferror)) {
 }
 
 if($fffinancials=='0') {
-    header('Location: /../../../CRMmain.php?FEATURE=FINANCIALS');
+    header('Location: /../../../../CRMmain.php?FEATURE=FINANCIALS');
 }
 ?>
 <!DOCTYPE html>
@@ -73,7 +73,7 @@ if($fffinancials=='0') {
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
 
     <div class="container">
 

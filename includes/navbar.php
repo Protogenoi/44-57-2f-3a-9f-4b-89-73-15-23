@@ -186,7 +186,6 @@ $companynamere = $companydetailsq['company_name'];
             if(isset($ffdealsheets) && $ffdealsheets == '1') {  ?>
             <li class="divider"></li>
             <?php if(in_array($hello_name, $QA_Access) || in_array($hello_name, $Level_9_Access, true)) { ?>
-            <li class="divider"></li>
             <li><a href="/Life/Dealsheet.php?query=QADealSheets">Dealsheets for QA</a></li>
             <li><a href="/Life/Dealsheet.php?query=CompletedDeals">Completed Dealsheets</a></li>
             <?php } } ?>

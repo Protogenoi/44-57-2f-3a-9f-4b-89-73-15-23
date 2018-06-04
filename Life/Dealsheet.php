@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -125,7 +126,6 @@ $Today_TIME = date("h:i:s");
     <link rel="stylesheet" type="text/css" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/templates/ADL/Notices.css">
-    <link rel="stylesheet" type="text/css" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
@@ -148,6 +148,7 @@ $Today_TIME = date("h:i:s");
             z-index: 3;
         }
     </style>
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
     <body>
 
 <?php     require_once(__DIR__ . '/../includes/navbar.php'); ?>
@@ -773,7 +774,7 @@ $Today_TIME = date("h:i:s");
                             <div class="col-md-12"><br></div> 
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> SEND TO CLOSER</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> SEND TO CLOSER</button>
                             </div>
 
                         </center>
@@ -1882,7 +1883,7 @@ $Today_TIME = date("h:i:s");
                             <div class="col-md-12"><br></div> 
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> MARK AS COMPLETE</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> MARK AS COMPLETE</button>
                             </div>
 
                         </center>
@@ -2989,7 +2990,7 @@ $Today_TIME = date("h:i:s");
                             <div class="col-md-12"><br></div> 
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> ALREADY SAVED TO ADL</button>
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> ALREADY SAVED TO ADL</button>
                             </div>
 
                         </center>
@@ -4356,7 +4357,7 @@ $Today_TIME = date("h:i:s");
                         <div class="col-md-12"><br></div> 
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> SEND TO ADL</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> SEND TO ADL</button>
                         </div>
 
                     </center>
@@ -5470,7 +5471,7 @@ $Today_TIME = date("h:i:s");
                     <div class="col-md-12"><br></div> 
 
                     <div class="col-md-12">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> SALE SEND TO QA/Set as Callback</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> SALE SEND TO QA/Set as Callback</button>
                     </div>
 
                 </center>
@@ -6098,7 +6099,7 @@ $Today_TIME = date("h:i:s");
             <div class="col-md-12"><br></div> 
 
             <div class="col-md-12">
-                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> SAVE DEALSHEET</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> SAVE DEALSHEET</button>
             </div>
 
         </center>

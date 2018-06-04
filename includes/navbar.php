@@ -100,7 +100,7 @@ $companynamere = $companydetailsq['company_name'];
                         <li><a href="/addon/Life/Reports/menu.php">Reports</a></li>                        
                         <li><a href="/addon/Workflows/Workflows.php?EXECUTE=1">Workflows</a></li>
                         <?php if ($ffsms == '1') { ?>
-                        <li><a href="/app/SMS/Menu.php">SMS Report</a></li>
+                        <li><a href="/app/SMS/Report.php?SEARCH_BY=Sent">SMS Report</a></li>
                         <?php }
                         }
                         if ($ffcalendar == '1') { ?>

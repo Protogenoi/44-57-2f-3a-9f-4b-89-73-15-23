@@ -70,6 +70,7 @@ $TRACKED_IP= getRealIpAddr();
 $ALLOWED_IP_RANGE=array('81.145.167.66','80.229.0.67');
 
 if(!in_array($TRACKED_IP,$ALLOWED_IP_RANGE,true)) {
+    
     require_once(__DIR__ . '/../classes/database_class.php');
         $database = new Database();
         $database->beginTransaction();
@@ -141,7 +142,7 @@ $client->messages->create(
                     
                 if($USER_TRACKING_RESULT['user_tracking_user'] != $hello_name) {    
                 ?>
-<div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa fa-user-secret"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
+<div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa <?php if($hello_name == 'Michael') { echo "fa-crown"; } else  { echo "fa-user-secret"; } ?>"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
                         
                <?php } }
     }

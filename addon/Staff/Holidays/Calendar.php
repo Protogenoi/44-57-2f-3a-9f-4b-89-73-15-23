@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -70,7 +71,6 @@ $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/cosmo/bootstrap.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
@@ -79,7 +79,7 @@ $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 		margin: 0 auto;
 	}
 </style>
-
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>
@@ -115,7 +115,6 @@ $REF= filter_input(INPUT_GET, 'REF', FILTER_SANITIZE_SPECIAL_CHARS);
 	});
 
 </script>
-
 
 <div class="col-md-4"><h1>Holidays</h1></div>
 <div class="col-md-12">

@@ -185,7 +185,8 @@ if (isset($fferror)) {
                             </li>
 
                         <?php
-                        } ?>
+                        } if ($ffcalendar=='0') {
+                            ?>
                             <li>
                                 <a href="/app/calendar/All_Callbacks.php">
                                     <span class="ca-icon"><i class="fa fa-phone"></i></span>
@@ -195,7 +196,7 @@ if (isset($fferror)) {
                                     </div>
                                 </a>
                             </li>
-
+                        <?php } ?>
                             <li>
                                 <a href="/addon/Life/Reports/policy_statuses.php">
                                     <span class="ca-icon"><i class="fa fa-list-alt"></i></span>

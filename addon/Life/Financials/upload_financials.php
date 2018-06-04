@@ -67,9 +67,9 @@ if($fffinancials=='0') {
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
 
@@ -246,45 +246,45 @@ if($fffinancials=='0') {
                             if (isset($EXECUTE)) {
                                 if ($EXECUTE == 'Life') {
  ?>  
-                                        <a class="list-group-item" href="../FinUploads/LANDG/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file (NEW)"; ?></a>
+                                        <a class="list-group-item" href="../FinUploads/LANDG/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file (NEW)"; ?></a>
                                     <?php 
                                 }
                                 if ($EXECUTE == 'Home') {
                                     ?>
-                                    <a class="list-group-item" href="../FinUploads/Home/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/Home/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
                                 if ($EXECUTE == 'Vitality') {
                                     ?>
-                                    <a class="list-group-item" href="../FinUploads/Vitality/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/Vitality/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
                                 if ($EXECUTE == 'Aviva') {
                                     ?>
-                                    <a class="list-group-item" href="../FinUploads/Aviva/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/Aviva/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                                 <?php }
                                 if ($EXECUTE == 'WOL') {
                                     ?>
-                                    <a class="list-group-item" href="../FinUploads/WOL/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/WOL/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                     <?php }
                     if ($EXECUTE == 'RoyalLondon') {
                         ?>
-                                    <a class="list-group-item" href="../FinUploads/RoyalLondon/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/RoyalLondon/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                     <?php
                     }
                     if ($EXECUTE == 'LV') {
                         ?>
-                                    <a class="list-group-item" href="../FinUploads/LV/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                    <a class="list-group-item" href="../FinUploads/LV/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
 
                     <?php
                     }                    
                 } else {
                     ?>
 
-                                <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel-o fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
+                                <a class="list-group-item" href="../FinUploads/<?php echo $file; ?>" target="_blank"><i class="fa fa-file-excel fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <?php echo "$uploadtype | $file"; ?></a>
                 <?php
                 }
             }

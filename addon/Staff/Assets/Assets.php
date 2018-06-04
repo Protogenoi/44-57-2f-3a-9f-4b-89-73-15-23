@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -109,11 +110,11 @@ $SEARCH= filter_input(INPUT_GET, 'SEARCH', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
 
@@ -374,7 +375,7 @@ while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Save</button>
                   
 <script>
         document.querySelector('#ASSETform').addEventListener('submit', function(e) {
@@ -410,7 +411,7 @@ while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){
 </script>
           </form>
                             
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -787,7 +788,7 @@ if($SEARCH=='9') { ?>
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Save</button>
 <script>
         document.querySelector('#Addform').addEventListener('submit', function(e) {
             var form = this;
@@ -821,7 +822,7 @@ if($SEARCH=='9') { ?>
 
 </script>
           </form>
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>
@@ -1543,7 +1544,7 @@ while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){
         </div>
           
           <div class="modal-footer">
-              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Save</button>
+              <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> Save</button>
                   
 <script>
         document.querySelector('#UPDATEASSETform').addEventListener('submit', function(e) {
@@ -1579,7 +1580,7 @@ while ($result=$head_QRY->fetch(PDO::FETCH_ASSOC)){
 </script>
           </form>
                             
-              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
           </div>
       </div>
     </div>

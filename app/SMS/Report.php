@@ -142,7 +142,7 @@ if(isset($ffsms) && $ffsms == 0) {
         
         if (isset($SEARCH_BY)) {
             if ($SEARCH_BY == 'Sent' || 'Failed') { ?>
-            <div class="col-md-2"><a class="btn btn-default btn-sm" href="Update.php?EXECUTE=2&TYPE=<?php if(isset($SEARCH_BY)) { if($SEARCH_BY=='Sent') { echo "SMS Delivered"; } elseif($SEARCH_BY=='Failed') { echo "SMS Failed"; } } ?>"><i class="fa fa-check-circle-o"></i> Check all</a></div>
+            <div class="col-md-2"><a class="btn btn-default btn-sm" href="Update.php?EXECUTE=2&TYPE=<?php if(isset($SEARCH_BY)) { if($SEARCH_BY=='Sent') { echo "SMS Delivered"; } elseif($SEARCH_BY=='Failed') { echo "SMS Failed"; } } ?>"><i class="fa fa-check-circle"></i> Check all</a></div>
                 
         <?php    }
         }
@@ -209,7 +209,7 @@ WHERE
                         echo "<tr class='clickable-row' data-href='../Client.php?search=" . $result['sms_inbound_client_id'] . "#menu4'><td>" . $result['sms_inbound_date'] . "</td>";
                         echo "<td>" . $result['sms_inbound_type'] . "</td>";
                         echo "<td>" . $result['sms_inbound_msg'] . "</td>";
-                        echo "<td><a href='Update.php?EXECUTE=1&NID=".$result['sms_inbound_id']."&TYPE=".$result['sms_inbound_type']."&PHONE=".$result['sms_inbound_phone']."&CID=".$result['sms_inbound_client_id']."'><i class='fa fa-check-circle-o'></i></a></td>";
+                        echo "<td><a href='Update.php?EXECUTE=1&NID=".$result['sms_inbound_id']."&TYPE=".$result['sms_inbound_type']."&PHONE=".$result['sms_inbound_phone']."&CID=".$result['sms_inbound_client_id']."'><i class='fa fa-check-circle'></i></a></td>";
                         echo "</tr>";
                     }
                 } else {

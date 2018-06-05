@@ -4265,7 +4265,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$TOTAL_NET_GROSS = $AVI_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
 $TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -4287,8 +4287,8 @@ WHERE
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
 
-                            $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
-                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
+                            $AVI_simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
+                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $AVI_simply_EXPECTED_SUM;
     //END OF CALCULATION          
                             
 
@@ -4395,11 +4395,11 @@ WHERE
                                 </tr>
                                 <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO"; ?>.
                                                    
-ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+ADL <?php echo $AVI_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
-Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+Insurer Percentage: <?php echo $AVI_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+Total: <?php echo $AVI_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
                                 <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
@@ -4435,7 +4435,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
                                         
                                         echo '<tr>';
-                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$AVI_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
@@ -4636,7 +4636,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$COMM_DATE ($EXPECTEDcount records) | ADL £$AVI_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$AVI_ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>

@@ -142,7 +142,7 @@ $client->messages->create(
                     
                 if($USER_TRACKING_RESULT['user_tracking_user'] != $hello_name) {    
                 ?>
-<div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa <?php if($hello_name == 'Michael') { echo "fa-crown"; } else  { echo "fa-user-secret"; } ?>"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
+<div class='notice notice-info' role='alert'><strong> <center> <h2><i class="fa fa-user-secret"></i> <?php echo $USER_TRACKING_RESULT['user_tracking_user']; ?> is also viewing this page.</h2></center></strong> </div>
                         
                <?php } }
     }

@@ -2631,22 +2631,12 @@ WHERE
                             }
                             
                             if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
-                                
-                                if($COMPANY_ENTITY=='First Priority Group') {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/financials/Vitality/Financial-model.php');
                             $VITtrans = new VITtransModel($pdo);
                             $VITtransList = $VITtrans->getVITtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/Vitality/Financial-view.php');                                      
-                                    
-                                } else {
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/VitModel.php');
-                            $VITtrans = new VITtransModel($pdo);
-                            $VITtransList = $VITtrans->getVITtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/vit-view.php');             
-                            
-                                }
+
                             
                             }
                             
@@ -2661,77 +2651,41 @@ WHERE
                         
                             
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
-                                
-                            if($COMPANY_ENTITY=='First Priority Group') {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/financials/RoyalLondon/Financial-model.php');
                             $RLtrans = new RLtransModel($pdo);
                             $RLtransList = $RLtrans->getRLtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/RoyalLondon/Financial-view.php');                                      
-                                    
-                                } else {                                
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/RLModel.php');
-                            $RLtrans = new RLtransModel($pdo);
-                            $RLtransList = $RLtrans->getRLtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/rl-view.php');             
-                            
-                            }   
+                               
                             
                             }
                             
                             if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
-                                
-                            if($COMPANY_ENTITY=='First Priority Group') {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/financials/LV/Financial-model.php');
                             $LVtrans = new LVtransModel($pdo);
                             $LVtransList = $LVtrans->getLVtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/LV/Financial-view.php');                                      
-                                    
-                                } 
                             
                             }                            
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
-                                
-                             if($COMPANY_ENTITY=='First Priority Group') {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/financials/Aviva/aviva_financial-model.php');
                             $AVIVA_trans = new AVIVA_transModel($pdo);
                             $AVIVA_transList = $AVIVA_trans->getAVIVA_trans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/Aviva/aviva_financial-view.php');                                      
-                                    
-                                } else {                                 
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/AVIModel.php');
-                            $AVItrans = new AVItransModel($pdo);
-                            $AVItransList = $AVItrans->getAVItrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/avi-view.php');    
-                            
-                                }
+                               
                             
                             }  
                             
                             if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
-                                
-                             if($COMPANY_ENTITY=='First Priority Group') {
                                     
                             require_once(__DIR__ . '/../addon/Life/models/financials/WOL/Financial-model.php');
                             $WOLtrans = new WOLtransModel($pdo);
                             $WOLtransList = $WOLtrans->getWOLtrans($search);
                             require_once(__DIR__ . '/../addon/Life/views/financials/WOL/Financial-view.php');                                      
-                                    
-                                } 
-                                
-                            else {    
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/WOLModel.php');
-                            $WOLtrans = new WOLtransModel($pdo);
-                            $WOLtransList = $WOLtrans->getWOLtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/wol-view.php');             
-                            
-                            }    
+  
                             
                             }
                        ?>                 </div>

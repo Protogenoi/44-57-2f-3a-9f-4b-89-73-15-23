@@ -634,8 +634,8 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $VIT_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$VIT_TOTAL_NEW_GROSS = $VIT_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$VIT_TOTAL_NEW_GROSS_DISPLAY = number_format($VIT_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(vitality_policy_comms) AS commission
@@ -767,7 +767,7 @@ ADL <?php echo $VIT_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $VIT_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $VIT_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $VIT_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
 
@@ -811,7 +811,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$VIT_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$VIT_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -1715,7 +1715,7 @@ WHERE
              </div>
         </div>
          
-         <div class="panel panel-default">
+       <div class="panel panel-default">
              <div class="panel-heading">
                  <h3 class="panel-title"><a data-toggle="collapse" href="#RLcollapse1">Royal London Financial Statistics</a></h3>
              </div>
@@ -1774,8 +1774,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $RL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$RL_TOTAL_NEW_GROSS = $RL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$RL_TOTAL_NEW_GROSS_DISPLAY = number_format($RL_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -1912,7 +1912,7 @@ ADL <?php echo $RL_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $RL_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $RL_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$RL_DATE_FROM - $RL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$RL_DATE_FROM - $RL_DATE_TO  $RL_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($RL_DATE_FROM)) { echo "within 2017-01-01 - $RL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($RL_DATE_FROM)) { echo "within $RL_DATE_FROM - $RL_DATE_TO"; } ?>.
 
@@ -1948,7 +1948,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$RL_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$RL_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -3028,8 +3028,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $WOL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$WOL_TOTAL_NEW_GROSS = $WOL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$WOL_TOTAL_NEW_GROSS_DISPLAY = number_format($WOL_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -3162,7 +3162,7 @@ ADL <?php echo $WOL_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $WOL_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $WOL_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO  $WOL_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($WOL_DATE_FROM)) { echo "within 2017-01-01 - $WOL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($WOL_DATE_FROM)) { echo "within $WOL_DATE_FROM - $WOL_DATE_TO"; } ?>.
 
@@ -3198,7 +3198,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$WOL_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$WOL_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -4260,8 +4260,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $AVI_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$AVI_TOTAL_NEW_GROSS = $AVI_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$AVI_TOTAL_NEW_GROSS_DISPLAY = number_format($AVI_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -4395,7 +4395,7 @@ ADL <?php echo $AVI_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $AVI_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $AVI_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $AVI_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
 
@@ -4431,7 +4431,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$AVI_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$AVI_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -5473,8 +5473,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $LV_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$LV_TOTAL_NEW_GROSS = $LV_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$LV_TOTAL_NEW_GROSS_DISPLAY = number_format($LV_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -5598,7 +5598,7 @@ ADL <?php echo $LV_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $AVI_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $LV_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$LV_DATE_FROM - $LV_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$LV_DATE_FROM - $LV_DATE_TO  $LV_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($LV_DATE_FROM)) { echo "within 2017-01-01 - $LV_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($LV_DATE_FROM)) { echo "within $LV_DATE_FROM - $LV_DATE_TO"; } ?>.
 
@@ -5644,7 +5644,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$LV_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$LV_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -6691,8 +6691,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $ZURICH_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$ZURICH_TOTAL_NEW_GROSS = $ZURICH_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$ZURICH_TOTAL_NEW_GROSS_DISPLAY = number_format($ZURICH_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -6815,7 +6815,7 @@ ADL <?php echo $ZURICH_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $ZURICH_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ZURICH_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO  $ZURICH_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($ZURICH_DATE_FROM)) { echo "within 2017-01-01 - $ZURICH_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($ZURICH_DATE_FROM)) { echo "within $ZURICH_DATE_FROM - $ZURICH_DATE_TO"; } ?>.
 
@@ -6861,7 +6861,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$ZURICH_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$ZURICH_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -7908,8 +7908,8 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $SW_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
-$TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
+$SW_TOTAL_NEW_GROSS = $SW_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$SW_TOTAL_NEW_GROSS_DISPLAY = number_format($SW_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
     SUM(commission) AS commission
@@ -8032,7 +8032,7 @@ ADL <?php echo $SW_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 Insurer Percentage: <?php echo $SW_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $SW_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO  $SW_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within 2017-01-01 - $SCOTTISH_WIDOWS_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within $SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; } ?>.
 
@@ -8078,7 +8078,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         
                                         echo '<tr>';
                                         echo "<td>£$SW_ADL_EXPECTED_SUM_FORMAT</td>";
-                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$SW_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
@@ -9080,7 +9080,9 @@ WHERE
             
             $OVER_simply_EXPECTED_SUM = $SW_simply_EXPECTED_SUM + $VIT_simply_EXPECTED_SUM + $WOL_simply_EXPECTED_SUM  + $ZURICH_simply_EXPECTED_SUM + $RL_simply_EXPECTED_SUM + $LV_simply_EXPECTED_SUM + $AVI_simply_EXPECTED_SUM;
             $OVER_simply_EXPECTED_SUM_FORMAT = number_format($OVER_simply_EXPECTED_SUM, 2);
-                    
+            
+            $OVER_TOTAL_NEW_GROSS = $SW_TOTAL_NEW_GROSS + $VIT_TOTAL_NEW_GROSS + $WOL_TOTAL_NEW_GROSS + $ZURICH_TOTAL_NEW_GROSS  + $RL_TOTAL_NEW_GROSS + $LV_TOTAL_NEW_GROSS + $AVI_TOTAL_NEW_GROSS;
+            $OVER_TOTAL_NET_GROSS_DISPLAY = number_format($OVER_TOTAL_NEW_GROSS, 2);
             ?>
 
                         <table  class="table table-hover">
@@ -9112,7 +9114,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                         <td><?php echo "£$OVER_ADL_EXPECTED_SUM_FORMAT"; ?></td>
                                         <td><?php echo "£$OVER_simply_EXPECTED_SUM_FORMAT"; ?></td>
-                                        <td><?php echo "£$TOTAL_NET_GROSS_DISPLAY"; ?></td>
+                                        <td><?php echo "£$OVER_TOTAL_NET_GROSS_DISPLAY"; ?></td>
                                         <td><?php echo "£$MISSING_SUM_DISPLAY"; ?></td>  
                                         <td><?php echo "£$ADL_AWAITING_SUM_FORMAT"; ?></td>
                                         </tr>

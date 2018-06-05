@@ -1536,7 +1536,7 @@ if (isset($fileuploadedfail)) {
                 <div class="container">
 
                     <form action="/addon/Life/php/upload.php?EXECUTE=1&CID=<?php echo $search; ?>" method="POST" enctype="multipart/form-data">
-                        <label for="file">Select file...<input type="file" name="file" /></label> 
+                        <label for="file"><input type="file" name="file" /></label> 
 
                         <label for="uploadtype">
                             <div class="form-group">
@@ -1588,7 +1588,7 @@ if (isset($fileuploadedfail)) {
                             </div>
                         </label>
                         
-                        <button type="submit" class="btn btn-success" name="btn-upload"><span class="glyphicon glyphicon-arrow-up"> </span></button>
+                        <button type="submit" class="btn btn-success" name="btn-upload"><i class="fa fa-upload"></i> Upload file</button>
                     </form>
                     <br /><br />
 

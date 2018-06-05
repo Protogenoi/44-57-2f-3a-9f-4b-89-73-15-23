@@ -244,7 +244,7 @@ if ($fflife=='0') {
                             }},
                                                 {"data": "email",
                             "render": function (data, type, full, meta) {
-                                return '<a href="/addon/Life/php/Keyfacts.php?EXECUTE=1&EMAIL=' + data + ' " target="_blank"><i class="fa fa-check-circle-o"></i></a>';
+                                return '<a href="/addon/Life/php/Keyfacts.php?EXECUTE=1&EMAIL=' + data + ' " target="_blank"><i class="fa fa-check-circle"></i></a>';
                             }}                        
 
                     ]

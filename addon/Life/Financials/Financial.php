@@ -110,9 +110,9 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
 
@@ -639,7 +639,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$TOTAL_NET_GROSS = $VIT_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
 $TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -661,8 +661,8 @@ WHERE
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
 
-                            $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
-                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
+                            $VIT_simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
+                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $VIT_simply_EXPECTED_SUM;
     //END OF CALCULATION          
 
                             $POL_ON_TM_QRY = $pdo->prepare("SELECT 
@@ -765,16 +765,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
                                                    
-ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+ADL <?php echo $VIT_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
-Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+Insurer Percentage: <?php echo $VIT_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $VIT_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -815,7 +815,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
                                         
                                         echo '<tr>';
-                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$VIT_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
@@ -831,13 +831,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -1001,7 +1001,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED (Live Policies) for <?php echo "$datefrom - $dateto ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED (Live Policies) for <?php echo "$datefrom - $dateto ($EXPECTEDcount records) | ADL £$VIT_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$VIT_ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1779,7 +1779,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$TOTAL_NET_GROSS = $ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$TOTAL_NET_GROSS = $RL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
 $TOTAL_NET_GROSS_DISPLAY = number_format($TOTAL_NET_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -1801,8 +1801,8 @@ WHERE
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
 
-                            $simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
-                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $simply_EXPECTED_SUM;
+                            $RL_simply_EXPECTED_SUM = ($simply_biz / 100) * $ORIG_EXPECTED_SUM;
+                            $EXPECTED_SUM = $ORIG_EXPECTED_SUM - $RL_simply_EXPECTED_SUM;
     //END OF CALCULATION          
                             
 
@@ -1910,16 +1910,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $RL_COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$RL_DATE_FROM - $RL_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$RL_DATE_FROM - $RL_DATE_TO"; ?>.
                                                    
-ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+ADL <?php echo $RL_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
-Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+Insurer Percentage: <?php echo $RL_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$RL_DATE_FROM - $RL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($RL_DATE_FROM)) { echo "within 2017-01-01 - $RL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($RL_DATE_FROM)) { echo "within $RL_DATE_FROM - $RL_DATE_TO"; } ?>.
+Total: <?php echo $RL_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$RL_DATE_FROM - $RL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($RL_DATE_FROM)) { echo "within 2017-01-01 - $RL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($RL_DATE_FROM)) { echo "within $RL_DATE_FROM - $RL_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -1952,7 +1952,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
                                         
                                         echo '<tr>';
-                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$RL_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
                                         echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
@@ -1968,13 +1968,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $RL_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$RL_COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$RL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $RL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$RL_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -2162,7 +2162,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$RL_COMM_DATE ($EXPECTEDcount records) | ADL £$ADL_EXPECTED_SUM_DATES_FORMAT | Total £$ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$RL_COMM_DATE ($EXPECTEDcount records) | ADL £$RL_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$RL_ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -3160,16 +3160,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $WOL_COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($WOL_DATE_FROM)) { echo "within 2017-01-01 - $WOL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($WOL_DATE_FROM)) { echo "within $WOL_DATE_FROM - $WOL_DATE_TO"; } ?>.
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$WOL_DATE_FROM - $WOL_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($WOL_DATE_FROM)) { echo "within 2017-01-01 - $WOL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($WOL_DATE_FROM)) { echo "within $WOL_DATE_FROM - $WOL_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -3218,13 +3218,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $WOL_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$WOL_COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$WOL_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $WOL_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$WOL_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -4393,16 +4393,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -4451,13 +4451,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -5596,16 +5596,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $LV_COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$LV_DATE_FROM - $LV_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$LV_DATE_FROM - $LV_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$LV_DATE_FROM - $LV_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($LV_DATE_FROM)) { echo "within 2017-01-01 - $LV_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($LV_DATE_FROM)) { echo "within $LV_DATE_FROM - $LV_DATE_TO"; } ?>.
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$LV_DATE_FROM - $LV_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($LV_DATE_FROM)) { echo "within 2017-01-01 - $LV_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($LV_DATE_FROM)) { echo "within $LV_DATE_FROM - $LV_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -5664,13 +5664,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $LV_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$LV_COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$LV_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $LV_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$LV_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -6813,16 +6813,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $ZURICH_COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($ZURICH_DATE_FROM)) { echo "within 2017-01-01 - $ZURICH_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($ZURICH_DATE_FROM)) { echo "within $ZURICH_DATE_FROM - $ZURICH_DATE_TO"; } ?>.
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$ZURICH_DATE_FROM - $ZURICH_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($ZURICH_DATE_FROM)) { echo "within 2017-01-01 - $ZURICH_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($ZURICH_DATE_FROM)) { echo "within $ZURICH_DATE_FROM - $ZURICH_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -6881,13 +6881,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $ZURICH_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$ZURICH_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $ZURICH_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$ZURICH_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -8030,16 +8030,16 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $SCOTTISH_WIDOWS_COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; ?>.
                                                    
 ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies that have not been paid <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within 2017-01-01 - $SCOTTISH_WIDOWS_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle-o" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within $SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; } ?>.
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within 2017-01-01 - $SCOTTISH_WIDOWS_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within $SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; } ?>.
 
 ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
@@ -8098,13 +8098,13 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <tr>
                                             <th colspan="8"><?php echo "RAW COMMS statistics for $SCOTTISH_WIDOWS_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Paid for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
-                                    <th>INSURER % <i class="fa fa-question-circle-o" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle-o" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle-o" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle-o" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>.
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $SCOTTISH_WIDOWS_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$SCOTTISH_WIDOWS_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
@@ -9066,7 +9066,96 @@ WHERE
                 </div>
             </div>
              </div>
-        </div>                        
+        </div>    
+                      
+         <div class="panel panel-default">
+             <div class="panel-heading">
+                 <h3 class="panel-title"><a data-toggle="collapse" href="#OVERVIEWcollapse1">Financial Statistics Overview</a></h3>
+             </div>
+             <div id="OVERVIEWcollapse1" class="panel-collapse collapse">
+             <div class="panel-body">
+                 
+                 <ul class="nav nav-pills">
+                     <li class="active"><a data-toggle="pill" href="#OVERVIEW_home">Financials</a></li>
+                 </ul>
+
+
+
+    <div class="tab-content">
+
+        <div id="OVERVIEW_home" class="tab-pane fade in active">  
+
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
+                                </tr>
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                                   
+ADL <?php echo $ADL_EXPECTED_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_EXPECTED_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+
+ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+
+Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
+
+Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+
+                            </tr>
+                            </thead>
+
+                            <?php
+                            $query = $pdo->prepare("SELECT 
+    SUM(CASE WHEN vitality_financial_amount < 0 THEN vitality_financial_amount ELSE 0 END) as totalloss,
+    SUM(CASE WHEN vitality_financial_amount >= 0 THEN vitality_financial_amount ELSE 0 END) as totalgross
+    FROM vitality_financial 
+    WHERE 
+        DATE(vitality_financial_uploaded_date)=:commdate");
+                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);                            
+                            
+                            $query->execute()or die(print_r($query->errorInfo(), true));
+                            if ($query->rowCount() > 0) {
+                                while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+
+                                    $totalgross = $result['totalgross'];
+                                    $totalloss = abs($result['totalloss']);
+
+                                           $totalrate = "5.00"; 
+
+                                        $totaldifference = $EXPECTED_SUM - $totalgross;
+                                    }
+
+                                    $totalnet = $totalgross - $totalloss;
+
+                                    $hwifsd = ($totalrate / 100) * $totalnet;
+                                    $netcom = $totalnet - $hwifsd;
+
+                                   
+                                        $ADL_vs_RAW_RAW = number_format($totaldifference, 2);
+                                        
+                                        echo '<tr>';
+                                        echo "<td>£$ADL_EXPECTED_SUM_FORMAT</td>";
+                                        echo "<td>£$TOTAL_NET_GROSS_DISPLAY</td>";
+                                        echo "<td>£$MISSING_SUM_DISPLAY</td>";    
+                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "</tr>";
+                                        echo "\n";
+                                }
+                                ?>
+                        </table>
+  
+            </div>             
+
+                </div>
+            </div>
+             </div>
+        </div>                      
          
         <?php } ?>
 

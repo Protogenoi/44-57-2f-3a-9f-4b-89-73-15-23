@@ -3320,7 +3320,7 @@ WHERE
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton"></label>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary btn-block"><i class="fa far fa-edit"></i> Submit </button>
+                                    <button class="btn btn-primary btn-block"><i class="fas fa-edit"></i> Submit </button>
                                 </div>
                             </div>
                         </form>

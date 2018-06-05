@@ -3,14 +3,14 @@
 
 
         <?php
-                $EXPECTED_WITH_DATES_COMMISSION = $RL_TotalExpectedWithDatesList_Resuts['commission'];
+                $RL_EXPECTED_WITH_DATES_COMMISSION = $RL_TotalExpectedWithDatesList_Resuts['commission'];
                 
-                            $simply_EXPECTED_SUM = ($simply_biz / 100) * $EXPECTED_WITH_DATES_COMMISSION;
-                            $ADL_EXPECTED_SUM = $EXPECTED_WITH_DATES_COMMISSION - $simply_EXPECTED_SUM;
+                            $RL_simply_EXPECTED_SUM = ($simply_biz / 100) * $RL_EXPECTED_WITH_DATES_COMMISSION;
+                            $RL_ADL_EXPECTED_SUM = $RL_EXPECTED_WITH_DATES_COMMISSION - $RL_simply_EXPECTED_SUM;
                             
-                            $ADL_EXPECTED_SUM_DATES_FORMAT = number_format($EXPECTED_WITH_DATES_COMMISSION, 2);
-                            $simply_EXPECTED_SUM_FORMAT = number_format($simply_EXPECTED_SUM, 2);
-                            $ADL_EXPECTED_SUM_FORMAT = number_format($ADL_EXPECTED_SUM, 2);
+                            $RL_ADL_EXPECTED_SUM_DATES_FORMAT = number_format($RL_EXPECTED_WITH_DATES_COMMISSION, 2);
+                            $RL_simply_EXPECTED_SUM_FORMAT = number_format($RL_simply_EXPECTED_SUM, 2);
+                            $RL_ADL_EXPECTED_SUM_FORMAT = number_format($RL_ADL_EXPECTED_SUM, 2);
                             
                         ?>
 

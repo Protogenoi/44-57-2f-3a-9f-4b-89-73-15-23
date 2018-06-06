@@ -634,7 +634,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
     
 
 //CALCULATE NET| GROSS
-$VIT_TOTAL_NEW_GROSS = $VIT_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$VIT_TOTAL_NEW_GROSS = $VIT_ADL_EXPECTED_SUM - $VIT_ADL_AWAITING_SUM; 
 $VIT_TOTAL_NEW_GROSS_DISPLAY = number_format($VIT_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -747,8 +747,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_VIT_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_VIT_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $VIT_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_VIT_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($VIT_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -771,11 +771,11 @@ Total: <?php echo $VIT_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fin
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $VIT_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $VIT_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -813,7 +813,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$VIT_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$VIT_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$VIT_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -1221,7 +1221,7 @@ ORDER BY DATE(adl_policy_sub_date)");
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$VIT_ADL_AWAITING_SUM_DATES_FORMAT | Total £$VIT_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sub Date</th>
                             <th>Policy</th>
@@ -1774,7 +1774,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$RL_TOTAL_NEW_GROSS = $RL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$RL_TOTAL_NEW_GROSS = $RL_ADL_EXPECTED_SUM - $RL_ADL_AWAITING_SUM; 
 $RL_TOTAL_NEW_GROSS_DISPLAY = number_format($RL_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -1892,8 +1892,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_RL_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_RL_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $RL_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_RL_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($RL_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -1916,11 +1916,11 @@ Total: <?php echo $RL_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fina
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($RL_DATE_FROM)) { echo "within 2017-01-01 - $RL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($RL_DATE_FROM)) { echo "within $RL_DATE_FROM - $RL_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $RL_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $RL_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $RL_DATE_FROM; ?>&dateto=<?php echo $RL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -1950,7 +1950,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$RL_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$RL_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$RL_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -2415,7 +2415,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$RL_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$RL_COMM_DATE ($count records) | ADL £$RL_ADL_AWAITING_SUM_DATES_FORMAT | Total £$RL_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -3028,7 +3028,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$WOL_TOTAL_NEW_GROSS = $WOL_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$WOL_TOTAL_NEW_GROSS = $WOL_ADL_EXPECTED_SUM - $WOL_ADL_AWAITING_SUM; 
 $WOL_TOTAL_NEW_GROSS_DISPLAY = number_format($WOL_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -3142,8 +3142,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_WOL_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_WOL_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $WOL_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_WOL_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($WOL_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -3166,11 +3166,11 @@ Total: <?php echo $WOL_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fin
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($WOL_DATE_FROM)) { echo "within 2017-01-01 - $WOL_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($WOL_DATE_FROM)) { echo "within $WOL_DATE_FROM - $WOL_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $WOL_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $WOL_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $WOL_DATE_FROM; ?>&dateto=<?php echo $WOL_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -3200,7 +3200,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$WOL_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$WOL_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$WOL_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -3658,7 +3658,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$WOL_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$WOL_COMM_DATE ($count records) | ADL £$WOL_ADL_AWAITING_SUM_DATES_FORMAT | Total £$WOL_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -4260,7 +4260,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$AVI_TOTAL_NEW_GROSS = $AVI_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$AVI_TOTAL_NEW_GROSS = $AVI_ADL_EXPECTED_SUM - $AVI_ADL_AWAITING_SUM; 
 $AVI_TOTAL_NEW_GROSS_DISPLAY = number_format($AVI_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -4375,8 +4375,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_AVI_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_AVI_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $AVI_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_AVI_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($AVI_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -4399,11 +4399,11 @@ Total: <?php echo $AVI_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fin
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($AVI_DATE_FROM)) { echo "within 2017-01-01 - $AVI_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($AVI_DATE_FROM)) { echo "within $AVI_DATE_FROM - $AVI_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $AVI_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $AVI_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $AVI_DATE_FROM; ?>&dateto=<?php echo $AVI_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -4433,7 +4433,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$AVI_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$AVI_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$AVI_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -4889,7 +4889,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$AVI_ADL_AWAITING_SUM_DATES_FORMAT | Total £$AVI_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -5473,7 +5473,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$LV_TOTAL_NEW_GROSS = $LV_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$LV_TOTAL_NEW_GROSS = $LV_ADL_EXPECTED_SUM - $LV_ADL_AWAITING_SUM; 
 $LV_TOTAL_NEW_GROSS_DISPLAY = number_format($LV_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -5578,8 +5578,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_LV_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_LV_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $LV_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_LV_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($LV_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -5602,11 +5602,11 @@ Total: <?php echo $LV_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fina
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($LV_DATE_FROM)) { echo "within 2017-01-01 - $LV_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($LV_DATE_FROM)) { echo "within $LV_DATE_FROM - $LV_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $LV_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $LV_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $LV_DATE_FROM; ?>&dateto=<?php echo $LV_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -5646,7 +5646,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$LV_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$LV_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$LV_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -6099,7 +6099,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$LV_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$LV_COMM_DATE ($count records) | ADL £$LV_ADL_AWAITING_SUM_DATES_FORMAT | Total £$LV_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -6691,7 +6691,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$ZURICH_TOTAL_NEW_GROSS = $ZURICH_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$ZURICH_TOTAL_NEW_GROSS = $ZURICH_ADL_EXPECTED_SUM - $ZURICH_ADL_AWAITING_SUM; 
 $ZURICH_TOTAL_NEW_GROSS_DISPLAY = number_format($ZURICH_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -6795,8 +6795,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_ZURICH_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_ZURICH_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $ZURICH_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_ZURICH_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($ZURICH_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -6819,11 +6819,11 @@ Total: <?php echo $ZURICH_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($ZURICH_DATE_FROM)) { echo "within 2017-01-01 - $ZURICH_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($ZURICH_DATE_FROM)) { echo "within $ZURICH_DATE_FROM - $ZURICH_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $ZURICH_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $ZURICH_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $ZURICH_DATE_FROM; ?>&dateto=<?php echo $ZURICH_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -6863,7 +6863,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$ZURICH_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$ZURICH_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$ZURICH_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -7316,7 +7316,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$ZURICH_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$ZURICH_COMM_DATE ($count records) | ADL £$ZURICH_ADL_AWAITING_SUM_DATES_FORMAT | Total £$ZURICH_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -7908,7 +7908,7 @@ WHERE
     
 
 //CALCULATE NET| GROSS
-$SW_TOTAL_NEW_GROSS = $SW_ADL_EXPECTED_SUM - $ADL_AWAITING_SUM; 
+$SW_TOTAL_NEW_GROSS = $SW_ADL_EXPECTED_SUM - $SW_ADL_AWAITING_SUM; 
 $SW_TOTAL_NEW_GROSS_DISPLAY = number_format($SW_TOTAL_NEW_GROSS, 2);                                       
 //END OF CALCULATION    
                                 $EXPECTED_SUM_QRY = $pdo->prepare("SELECT 
@@ -8012,8 +8012,8 @@ WHERE
                             $ORIG_MISSING_SUM = $MISSING_SUM_DISPLAY_QRY_RS['commission'];
 
                             $simply_EXP_SCOTTISH_WIDOWS_PENDING = ($simply_biz / 100) * $ORIG_MISSING_SUM;
-                            $MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_SCOTTISH_WIDOWS_PENDING;
-                            $MISSING_SUM_DISPLAY = number_format($MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+                            $SW_MISSING_SUM_DISPLAY_UNFORMATTED = $ORIG_MISSING_SUM - $simply_EXP_SCOTTISH_WIDOWS_PENDING;
+                            $MISSING_SUM_DISPLAY = number_format($SW_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
                             $ORIG_MISSING_SUM_FOR = number_format($ORIG_MISSING_SUM, 2);
                        
                         ?>       
@@ -8036,11 +8036,11 @@ Total: <?php echo $SW_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fina
                                 <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within 2017-01-01 - $SCOTTISH_WIDOWS_DATE_TO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
                             <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($SCOTTISH_WIDOWS_DATE_FROM)) { echo "within $SCOTTISH_WIDOWS_DATE_FROM - $SCOTTISH_WIDOWS_DATE_TO"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $SW_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $SW_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $SCOTTISH_WIDOWS_DATE_FROM; ?>&dateto=<?php echo $SCOTTISH_WIDOWS_DATE_TO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -8080,7 +8080,7 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         echo "<td>£$SW_ADL_EXPECTED_SUM_FORMAT</td>";
                                         echo "<td>£$SW_TOTAL_NEW_GROSS_DISPLAY</td>";
                                         echo "<td>£$MISSING_SUM_DISPLAY</td>";    
-                                        echo "<td>£$ADL_AWAITING_SUM_FORMAT</td>";
+                                        echo "<td>£$SW_ADL_AWAITING_SUM_FORMAT</td>";
                                         echo "</tr>";
                                         echo "\n";
                                 }
@@ -8533,7 +8533,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$SCOTTISH_WIDOWS_COMM_DATE ($count records) | ADL £$ADL_AWAITING_SUM_DATES_FORMAT | Total £$ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$SCOTTISH_WIDOWS_COMM_DATE ($count records) | ADL £$SW_ADL_AWAITING_SUM_DATES_FORMAT | Total £$SW_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -9083,6 +9083,13 @@ WHERE
             
             $OVER_TOTAL_NEW_GROSS = $SW_TOTAL_NEW_GROSS + $VIT_TOTAL_NEW_GROSS + $WOL_TOTAL_NEW_GROSS + $ZURICH_TOTAL_NEW_GROSS  + $RL_TOTAL_NEW_GROSS + $LV_TOTAL_NEW_GROSS + $AVI_TOTAL_NEW_GROSS;
             $OVER_TOTAL_NET_GROSS_DISPLAY = number_format($OVER_TOTAL_NEW_GROSS, 2);
+            
+            $OVER_MISSING_SUM_DISPLAY_UNFORMATTED = $SW_MISSING_SUM_DISPLAY_UNFORMATTED + $VIT_MISSING_SUM_DISPLAY_UNFORMATTED + $WOL_MISSING_SUM_DISPLAY_UNFORMATTED + $ZURICH_MISSING_SUM_DISPLAY_UNFORMATTED  + $RL_MISSING_SUM_DISPLAY_UNFORMATTED + $LV_MISSING_SUM_DISPLAY_UNFORMATTED + $AVI_MISSING_SUM_DISPLAY_UNFORMATTED;
+            $OVER_MISSING_SUM_DISPLAY = number_format($OVER_MISSING_SUM_DISPLAY_UNFORMATTED, 2);
+            
+            $OVER_ADL_AWAITING_SUM_DATES_FORMAT = $SW_ADL_AWAITING_SUM + $VIT_ADL_AWAITING_SUM + $WOL_ADL_AWAITING_SUM + $ZURICH_ADL_AWAITING_SUM  + $RL_ADL_AWAITING_SUM + $LV_ADL_AWAITING_SUM + $AVI_ADL_AWAITING_SUM;
+            $OVER_ADL_AWAITING_SUM_FORMAT = number_format($OVER_ADL_AWAITING_SUM_DATES_FORMAT, 2);
+            
             ?>
 
                         <table  class="table table-hover">
@@ -9097,16 +9104,17 @@ ADL <?php echo $OVER_ADL_EXPECTED_SUM_FORMAT; ?>
 Insurer Percentage: <?php echo $OVER_simply_EXPECTED_SUM_FORMAT; ?>
 
 Total: <?php echo $OVER_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Insurer %</th>
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+                                
+        <th>Insurer <?php echo "($simply_biz%)"; ?></th>
+        <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $OVER_TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+        <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+        <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
 
-ADL <?php echo $ADL_AWAITING_SUM_DATES_FORMAT; ?>
+ADL <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>
 
 Insurer Percentage: <?php echo $OVER_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -9115,8 +9123,8 @@ Total: <?php echo $ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financi
                                         <td><?php echo "£$OVER_ADL_EXPECTED_SUM_FORMAT"; ?></td>
                                         <td><?php echo "£$OVER_simply_EXPECTED_SUM_FORMAT"; ?></td>
                                         <td><?php echo "£$OVER_TOTAL_NET_GROSS_DISPLAY"; ?></td>
-                                        <td><?php echo "£$MISSING_SUM_DISPLAY"; ?></td>  
-                                        <td><?php echo "£$ADL_AWAITING_SUM_FORMAT"; ?></td>
+                                        <td><?php echo "£$OVER_MISSING_SUM_DISPLAY"; ?></td>  
+                                        <td><?php echo "£$OVER_ADL_AWAITING_SUM_FORMAT"; ?></td>
                                         </tr>
                         </table>
   

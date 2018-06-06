@@ -181,7 +181,7 @@ aviva_financial_uploader=:UPLOADER");
       
     }
     } while ($data = fgetcsv($handle,1000,",","'"));
-    header('Location: /../../../../addon/Life/Financials/FinancialUploads.php?success=1&FiancialType=Aviva'); die;
+    header('Location: /../../../../addon/Life/Financials/upload_raw.php?success=1&FiancialType=Aviva'); die;
 }    
       
 }

@@ -140,7 +140,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
          $database->single();
          if ($database->rowCount()<=0) {  
          
-    echo "<div class='notice notice-danger' role='alert' id='HIDECLOSERKF'><strong><i class='fa fa-envelope-o  fa-lg'></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
+    echo "<div class='notice notice-danger' role='alert' id='HIDECLOSERKF'><strong><i class='far fa-envelope  fa-lg'></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";    
          
      }      

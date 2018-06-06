@@ -159,7 +159,7 @@ if($fffinancials=='0') {
                 </fieldset>
             </form>
 
-            <form id="upload" id="upload" class="form-horizontal" method="post" enctype="multipart/form-data" action="../php/FinFileUpload.php?<?php if (isset($EXECUTE)) {
+            <form id="upload" id="upload" class="form-horizontal" method="post" enctype="multipart/form-data" action="/Life/php/FinFileUpload.php?<?php if (isset($EXECUTE)) {
             echo "query=$EXECUTE";
         } else {
             echo "query=Life";

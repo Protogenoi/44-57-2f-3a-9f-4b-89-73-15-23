@@ -9190,7 +9190,71 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                                         <td><?php if(isset($ZURICH_POLICIES_SOLD)) { echo "$ZURICH_POLICIES_SOLD"; } ?></td>
                                         <td><?php if(isset($SW_POLICIES_SOLD)) { echo "$SW_POLICIES_SOLD"; } ?></td>
                                         </tr>
-                        </table>                         
+                        </table>         
+                         
+ <?php
+                         
+                            require_once(__DIR__ . '/models/financials/VITALITY/total_ni_policies_sold-model.php');
+                            $VIT_Total_NI_Policies_Sold = new VIT_Total_NI_Policies_SoldModal($pdo);
+                            $VIT_Total_NI_Policies_Sold_VARS = $VIT_Total_NI_Policies_Sold->VIT_getTotal_NI_Policies_Sold($DATEFROM, $DATETO);
+                            require_once(__DIR__ . '/views/financials/VITALITY/total_ni_policies_sold-view.php');                          
+                         
+                            require_once(__DIR__ . '/models/financials/ROYAL/total_ni_policies_sold-model.php');
+                            $RL_Total_NI_Policies_Sold = new RL_Total_NI_Policies_SoldModal($pdo);
+                            $RL_Total_NI_Policies_Sold_VARS = $RL_Total_NI_Policies_Sold->RL_getTotal_NI_Policies_Sold($RL_DATE_FROM, $RL_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/ROYAL/total_ni_policies_sold-view.php'); 
+                            
+                            require_once(__DIR__ . '/models/financials/WOL/total_ni_policies_sold-model.php');
+                            $WOL_Total_NI_Policies_Sold = new WOL_Total_NI_Policies_SoldModal($pdo);
+                            $WOL_Total_NI_Policies_Sold_VARS = $WOL_Total_NI_Policies_Sold->WOL_getTotal_NI_Policies_Sold($WOL_DATE_FROM, $WOL_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/WOL/total_ni_policies_sold-view.php');                             
+                         
+                            require_once(__DIR__ . '/models/financials/AVIVA/total_ni_policies_sold-model.php');
+                            $AVI_Total_NI_Policies_Sold = new AVI_Total_NI_Policies_SoldModal($pdo);
+                            $AVI_Total_NI_Policies_Sold_VARS = $AVI_Total_NI_Policies_Sold->AVI_getTotal_NI_Policies_Sold($AVI_DATE_FROM, $AVI_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/AVIVA/total_ni_policies_sold-view.php');       
+                            
+                            require_once(__DIR__ . '/models/financials/LV/total_ni_policies_sold-model.php');
+                            $LV_Total_NI_Policies_Sold = new LV_Total_NI_Policies_SoldModal($pdo);
+                            $LV_Total_NI_Policies_Sold_VARS = $LV_Total_NI_Policies_Sold->LV_getTotal_NI_Policies_Sold($LV_DATE_FROM, $LV_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/LV/total_ni_policies_sold-view.php');               
+                            
+                            require_once(__DIR__ . '/models/financials/ZURICH/total_ni_policies_sold-model.php');
+                            $ZURICH_Total_NI_Policies_Sold = new ZURICH_Total_NI_Policies_SoldModal($pdo);
+                            $ZURICH_Total_NI_Policies_Sold_VARS = $ZURICH_Total_NI_Policies_Sold->ZURICH_getTotal_NI_Policies_Sold($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/ZURICH/total_ni_policies_sold-view.php');    
+                            
+                            require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-model.php');
+                            $SW_Total_NI_Policies_Sold = new SW_Total_NI_Policies_SoldModal($pdo);
+                            $SW_Total_NI_Policies_Sold_VARS = $SW_Total_NI_Policies_Sold->SW_getTotal_NI_Policies_Sold($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-view.php');                                
+                         
+                         ?>
+                         
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><?php echo "Non-Indemnity Policies sold for $DATEFROM - $DATETO";?></th>
+                                </tr>
+                                <th>Vitality</th> 
+                                <th>Royal London</th> 
+                                <th>One Family</th> 
+                                <th>Aviva</th> 
+                                <th>LV</th> 
+                                <th>Zurich</th>
+                                <th>Scottish Widows</th>
+                            </thead>
+                                        
+                                        <tr>
+                                        <td><?php if(isset($VIT_NI_POLICIES_SOLD)) { echo "$VIT_NI_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($RL_NI_POLICIES_SOLD)) { echo "$RL_NI_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($WOL_NI_POLICIES_SOLD)) { echo "$WOL_NI_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($AVI_NI_POLICIES_SOLD)) { echo "$AVI_NI_POLICIES_SOLD"; } ?></td>  
+                                        <td><?php if(isset($LV_NI_POLICIES_SOLD)) { echo "$LV_NI_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($ZURICH_NI_POLICIES_SOLD)) { echo "$ZURICH_NI_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($SW_NI_POLICIES_SOLD)) { echo "$SW_NI_POLICIES_SOLD"; } ?></td>
+                                        </tr>
+                        </table>                          
   
             </div>             
 

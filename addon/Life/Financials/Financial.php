@@ -65,8 +65,8 @@ if ($fffinancials == '0') {
 
 $DATE_FROM=date("Y-m-d");
 
-$dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
-$datefrom = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
+$DATETO = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$DATEFROM = filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $RL_DATE_FROM = filter_input(INPUT_GET, 'RL_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $RL_DATE_TO = filter_input(INPUT_GET, 'RL_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -175,8 +175,8 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             <div class="form-group">
                                 <div class="col-xs-4">
                                     <input type="text" id="datefrom" name="datefrom" placeholder="DATE FROM:" class="form-control" value="<?php
-                                    if (isset($datefrom)) {
-                                        echo $datefrom;
+                                    if (isset($DATEFROM)) {
+                                        echo $DATEFROM;
                                     } else { echo $DATE_FROM; }
                                     ?>" required>
                                 </div>
@@ -185,8 +185,8 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             <div class="form-group">
                                 <div class="col-xs-4">
                                     <input type="text" id="dateto" name="dateto" class="form-control" placeholder="DATE TO:" value="<?php
-                                    if (isset($dateto)) {
-                                        echo $dateto;
+                                    if (isset($DATETO)) {
+                                        echo $DATETO;
                                     } else { echo $DATE_FROM; }
                                     ?>" required>
                                 </div>
@@ -571,7 +571,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                   </div>
                       <br><br>
          
-        <?php if(isset($datefrom)) { ?> 
+        <?php if(isset($DATEFROM)) { ?> 
          
          <div class="panel panel-default">
              <div class="panel-heading">
@@ -615,21 +615,21 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
     require_once(__DIR__ . '/models/financials/VITALITY/TotalMissingWithDates.php');
     $TotalMissingWithDates = new TotalMissingWithDatesModal($pdo);
-    $TotalMissingWithDatesList = $TotalMissingWithDates->getTotalMissingWithDates($datefrom, $dateto);
+    $TotalMissingWithDatesList = $TotalMissingWithDates->getTotalMissingWithDates($DATEFROM, $DATETO);
     require_once(__DIR__ . '/views/financials/VITALITY/Total-Missing-With-Dates.php');
 //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/VITALITY/TotalAwaitingWithDates.php');
     $TotalAwaitingWithDates = new TotalAwaitingWithDatesModal($pdo);
-    $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($datefrom, $dateto);
+    $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($DATEFROM, $DATETO);
     require_once(__DIR__ . '/views/financials/VITALITY/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
     require_once(__DIR__ . '/models/financials/VITALITY/TotalExpectedWithDates.php');
     $TotalExpectedWithDates = new TotalExpectedWithDatesModal($pdo);
-    $TotalExpectedWithDatesList = $TotalExpectedWithDates->getTotalExpectedWithDates($datefrom, $dateto);
+    $TotalExpectedWithDatesList = $TotalExpectedWithDates->getTotalExpectedWithDates($DATEFROM, $DATETO);
     require_once(__DIR__ . '/views/financials/VITALITY/Total-Expected-With-Dates.php');  
     
 
@@ -650,8 +650,8 @@ WHERE
         'Cancelled''DECLINED',
         'On hold');
         ");
-                           $EXPECTED_SUM_QRY->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR);
-                            $EXPECTED_SUM_QRY->bindParam(':DATETO', $dateto, PDO::PARAM_STR);
+                           $EXPECTED_SUM_QRY->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR);
+                            $EXPECTED_SUM_QRY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR);
                             $EXPECTED_SUM_QRY->execute()or die(print_r($EXPECTED_SUM_QRY->errorInfo(), true));
                             $EXPECTED_SUM_QRY_RS = $EXPECTED_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                             $ORIG_EXPECTED_SUM = $EXPECTED_SUM_QRY_RS['commission'];
@@ -684,8 +684,8 @@ WHERE
                 AND adl_policy_insurer = 'Vitality')
                                             ");
                             $POL_ON_TM_QRY->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
-                            $POL_ON_TM_QRY->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
                             $POL_ON_TM_SUM_QRY_RS = $POL_ON_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -715,8 +715,8 @@ WHERE
             DATE(adl_policy_sale_date) NOT BETWEEN :DATEFROM AND :DATETO
                 AND adl_policy_insurer = 'Vitality');");
                             $POL_NOT_TM_QRY->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
-                            $POL_NOT_TM_QRY->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
                             $POL_NOT_TM_SUM_QRY_RS = $POL_NOT_TM_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -740,7 +740,7 @@ WHERE
         'SUBMITTED-NOT-LIVE',
         'DECLINED',
         'On Hold');");
-                            $MISSING_SUM_DISPLAY_QRY->bindParam(':DATETO', $dateto, PDO::PARAM_STR); 
+                            $MISSING_SUM_DISPLAY_QRY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR); 
                             $MISSING_SUM_DISPLAY_QRY->execute()or die(print_r($MISSING_SUM_DISPLAY_QRY->errorInfo(), true));
                             $MISSING_SUM_DISPLAY_QRY_RS = $MISSING_SUM_DISPLAY_QRY->fetch(PDO::FETCH_ASSOC);
                             
@@ -760,22 +760,22 @@ WHERE
                                 <tr>
                                     <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$DATEFROM - $DATETO"; ?>.
                                                    
 ADL <?php echo $VIT_ADL_EXPECTED_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $VIT_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $VIT_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $VIT_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+Total: <?php echo $VIT_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$DATEFROM - $DATETO  $VIT_TOTAL_NEW_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($DATEFROM)) { echo "within 2017-01-01 - $DATETO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                            <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($DATEFROM)) { echo "within $DATEFROM - $DATETO"; } ?>.
 
 ADL <?php echo $VIT_ADL_AWAITING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_AWAITING_SUM_FORMAT; ?>
 
-Total: <?php echo $VIT_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $VIT_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -985,8 +985,8 @@ WHERE
     DATE(adl_policy_sub_date) BETWEEN :DATEFROM AND :DATETO
         AND adl_policy_insurer = 'Vitality'
         AND adl_policy_status = 'Live'");
-                    $EXPECTED_QUERY->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR);
-                    $EXPECTED_QUERY->bindParam(':DATETO', $dateto, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR);
+                    $EXPECTED_QUERY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR);
                     $EXPECTED_QUERY->execute()or die(print_r($EXPECTED_QUERY->errorInfo(), true));
                     if ($EXPECTED_QUERY->rowCount() > 0) {
                         $EXPECTEDcount = $EXPECTED_QUERY->rowCount();
@@ -996,7 +996,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED (Live Policies) for <?php echo "$datefrom - $dateto ($EXPECTEDcount records) | ADL £$VIT_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$VIT_ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED (Live Policies) for <?php echo "$DATEFROM - $DATETO ($EXPECTEDcount records) | ADL £$VIT_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$VIT_ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1057,7 +1057,7 @@ WHERE
         'DECLINED',
         'On hold')
 ORDER BY vitality_policy_comms DESC");
-                    $query->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1068,7 +1068,7 @@ ORDER BY vitality_policy_comms DESC");
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $dateto ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
+                                    <th colspan='3'>Unpaid for <?php echo "2017-01-01 to $DATETO ($count records) | Total £$MISSING_SUM_DISPLAY | ADL £$ORIG_MISSING_SUM_FOR"; ?></th>
                                 </tr>
                                 
                             <th>Sub Date</th>
@@ -1138,8 +1138,8 @@ WHERE
             vitality_financial)
         AND adl_policy_insurer = 'Vitality'
         AND adl_policy_status NOT IN ('Awaiting' , 'Clawback', 'DECLINED', 'On Hold')");
-                    $query->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1209,8 +1209,8 @@ WHERE
         AND adl_policy_insurer = 'Vitality'
         AND adl_policy_status = 'Awaiting'
 ORDER BY DATE(adl_policy_sub_date)");
-                    $query->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
-                    $query->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1280,8 +1280,8 @@ WHERE
             DATE(adl_policy_sub_date) BETWEEN :DATEFROM AND :DATETO
                 AND adl_policy_insurer = 'Vitality')");
                     $POLIN_SUM_QRY->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
-                    $POLIN_SUM_QRY->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
@@ -1312,8 +1312,8 @@ WHERE
             DATE(adl_policy_sub_date) BETWEEN :DATEFROM AND :DATETO
                 AND adl_policy_insurer = 'Vitality')");
                     $query->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR);
-                    $query->bindParam(':DATETO', $dateto, PDO::PARAM_STR);
-                    $query->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR);
+                    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR);
+                    $query->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1324,7 +1324,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$DATETO - $DATEFROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1390,8 +1390,8 @@ WHERE
             DATE(adl_policy_sub_date) NOT BETWEEN :DATEFROM AND :DATETO
                 AND adl_policy_insurer = 'Vitality');");
                     $query->bindParam(':COMMDATE', $COMM_DATE, PDO::PARAM_STR, 100);
-                    $query->bindParam(':DATETO', $dateto, PDO::PARAM_STR, 100);
-                    $query->bindParam(':DATEFROM', $datefrom, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATETO', $DATETO, PDO::PARAM_STR, 100);
+                    $query->bindParam(':DATEFROM', $DATEFROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -1402,7 +1402,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$dateto - $datefrom with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$DATETO - $DATEFROM with COMM date of $COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -1658,7 +1658,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$DATEFROM&dateto=$DATETO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
@@ -1668,7 +1668,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=3<?php echo "&datefrom=$DATEFROM&dateto=$DATETO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Sale Date (Missing and Policies on Time)</a>
                                         </div>
                                     </div>
                                     <br>
@@ -1677,7 +1677,7 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$datefrom&dateto=$dateto&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$DATEFROM&dateto=$DATETO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
@@ -1687,7 +1687,7 @@ WHERE
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=6<?php echo "&datefrom=$DATEFROM&dateto=$DATETO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> Awaiting</a>
 
                                         </div>
                                     </div>
@@ -1696,7 +1696,7 @@ WHERE
 
                                 <div class="col-md-12"><br>
                                     <div class="col-xs-4">
-                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$datefrom&dateto=$dateto"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
+                                        <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$DATEFROM&dateto=$DATETO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
                                     </div>
                                     <div class="col-xs-4">
@@ -9095,26 +9095,26 @@ WHERE
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
+                                    <th colspan="8"><?php echo "ADL Projections for $DATEFROM - $DATETO";?></th>
                                 </tr>
-                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$datefrom - $dateto"; ?>.
+                                <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$DATEFROM - $DATETO"; ?>.
                                                    
 ADL <?php echo $OVER_ADL_EXPECTED_SUM_FORMAT; ?>
 
 Insurer Percentage: <?php echo $OVER_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $OVER_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+Total: <?php echo $OVER_ADL_EXPECTED_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_TOTALGROSS&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
                                 
         <th>Insurer <?php echo "($simply_biz%)"; ?></th>
-        <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$datefrom - $dateto  $OVER_TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-        <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($datefrom)) { echo "within 2017-01-01 - $dateto"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-        <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($datefrom)) { echo "within $datefrom - $dateto"; } ?>.
+        <th>Net Gross <i class="fa fa-question-circle" style="color:skyblue" title="Projected Total Gross - Awaiting Policies within <?php echo "$DATEFROM - $DATETO  $OVER_TOTAL_NET_GROSS_DISPLAY"; ?>." ></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_NETGROSS&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+        <th>Unpaid <i class="fa fa-question-circle" style="color:skyblue" title="Policies that have not been paid <?php if (isset($DATEFROM)) { echo "within 2017-01-01 - $DATETO"; } ?>."></i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_UNPAID&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+        <th>Awaiting <i class="fa fa-question-circle" style="color:skyblue" title="Policies awaiting to be submitted <?php if (isset($DATEFROM)) { echo "within $DATEFROM - $DATETO"; } ?>.
 
 ADL <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>
 
 Insurer Percentage: <?php echo $OVER_simply_EXPECTED_SUM_FORMAT; ?>
 
-Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Financials/export/Export.php?EXECUTE=ADL_AWAITING&datefrom=<?php echo $DATEFROM; ?>&dateto=<?php echo $DATETO; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
 
                             </tr>
                             </thead>
@@ -9127,6 +9127,70 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                                         <td><?php echo "£$OVER_ADL_AWAITING_SUM_FORMAT"; ?></td>
                                         </tr>
                         </table>
+                         
+                         <?php
+                         
+                            require_once(__DIR__ . '/models/financials/VITALITY/total_policies_sold-model.php');
+                            $VIT_Total_Policies_Sold = new VIT_Total_Policies_SoldModal($pdo);
+                            $VIT_Total_Policies_Sold_VARS = $VIT_Total_Policies_Sold->VIT_getTotal_Policies_Sold($DATEFROM, $DATETO);
+                            require_once(__DIR__ . '/views/financials/VITALITY/total_policies_sold-view.php');                          
+                         
+                            require_once(__DIR__ . '/models/financials/ROYAL/total_policies_sold-model.php');
+                            $RL_Total_Policies_Sold = new RL_Total_Policies_SoldModal($pdo);
+                            $RL_Total_Policies_Sold_VARS = $RL_Total_Policies_Sold->RL_getTotal_Policies_Sold($RL_DATE_FROM, $RL_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/ROYAL/total_policies_sold-view.php'); 
+                            
+                            require_once(__DIR__ . '/models/financials/WOL/total_policies_sold-model.php');
+                            $WOL_Total_Policies_Sold = new WOL_Total_Policies_SoldModal($pdo);
+                            $WOL_Total_Policies_Sold_VARS = $WOL_Total_Policies_Sold->WOL_getTotal_Policies_Sold($WOL_DATE_FROM, $WOL_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/WOL/total_policies_sold-view.php');                             
+                         
+                            require_once(__DIR__ . '/models/financials/AVIVA/total_policies_sold-model.php');
+                            $AVI_Total_Policies_Sold = new AVI_Total_Policies_SoldModal($pdo);
+                            $AVI_Total_Policies_Sold_VARS = $AVI_Total_Policies_Sold->AVI_getTotal_Policies_Sold($AVI_DATE_FROM, $AVI_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/AVIVA/total_policies_sold-view.php');       
+                            
+                            require_once(__DIR__ . '/models/financials/LV/total_policies_sold-model.php');
+                            $LV_Total_Policies_Sold = new LV_Total_Policies_SoldModal($pdo);
+                            $LV_Total_Policies_Sold_VARS = $LV_Total_Policies_Sold->LV_getTotal_Policies_Sold($LV_DATE_FROM, $LV_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/LV/total_policies_sold-view.php');               
+                            
+                            require_once(__DIR__ . '/models/financials/ZURICH/total_policies_sold-model.php');
+                            $ZURICH_Total_Policies_Sold = new ZURICH_Total_Policies_SoldModal($pdo);
+                            $ZURICH_Total_Policies_Sold_VARS = $ZURICH_Total_Policies_Sold->ZURICH_getTotal_Policies_Sold($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/ZURICH/total_policies_sold-view.php');    
+                            
+                            require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/total_policies_sold-model.php');
+                            $SW_Total_Policies_Sold = new SW_Total_Policies_SoldModal($pdo);
+                            $SW_Total_Policies_Sold_VARS = $SW_Total_Policies_Sold->SW_getTotal_Policies_Sold($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
+                            require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/total_policies_sold-view.php');                                
+                         
+                         ?>
+                         
+                        <table  class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th colspan="8"><?php echo "Indemnity Policies sold for $DATEFROM - $DATETO";?></th>
+                                </tr>
+                                <th>Vitality</th> 
+                                <th>Royal London</th> 
+                                <th>One Family</th> 
+                                <th>Aviva</th> 
+                                <th>LV</th> 
+                                <th>Zurich</th>
+                                <th>Scottish Widows</th>
+                            </thead>
+                                        
+                                        <tr>
+                                        <td><?php if(isset($VIT_POLICIES_SOLD)) { echo "$VIT_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($RL_POLICIES_SOLD)) { echo "$RL_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($WOL_POLICIES_SOLD)) { echo "$WOL_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($AVI_POLICIES_SOLD)) { echo "$AVI_POLICIES_SOLD"; } ?></td>  
+                                        <td><?php if(isset($LV_POLICIES_SOLD)) { echo "$LV_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($ZURICH_POLICIES_SOLD)) { echo "$ZURICH_POLICIES_SOLD"; } ?></td>
+                                        <td><?php if(isset($SW_POLICIES_SOLD)) { echo "$SW_POLICIES_SOLD"; } ?></td>
+                                        </tr>
+                        </table>                         
   
             </div>             
 

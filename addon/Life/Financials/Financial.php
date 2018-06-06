@@ -146,7 +146,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
             if ($RECHECK == 'y') {
 
-                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Success:</strong> Policy found on recheck!</div>");
+                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle\"></i> Success:</strong> Policy found on recheck!</div>");
             }
 
             if ($RECHECK == 'n') {
@@ -1639,8 +1639,8 @@ WHERE
                             } else {
                                 echo "<td>" . $row['vitality_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle-o'></i></a></td>";
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Recheck.php?EXECUTE=1&INSURER=Vitality&BRID=$iddd&AMOUNT=$paytype&POLICY=$policy' class='btn btn-success btn-sm'><i class='fa fa-check-circle'></i></a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Vitality' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -2893,7 +2893,7 @@ WHERE
                             } else {
                                 echo "<td>$RL_DEBITS</td>";
                             }                          
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Royal London' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Royal London' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -4126,7 +4126,7 @@ WHERE
                             } else {
                                 echo "<td>" . $row['one_family_financial_nomatch_commission_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=One Family' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=One Family' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -5336,7 +5336,7 @@ WHERE
                             } else {
                                 echo "<td>" . $row['aviva_financial_nomatch_amount'] . "</td>";
                             }
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Aviva' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=Aviva' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -6554,7 +6554,7 @@ WHERE
                             } else {
                                 echo "<td>$paytype</td>";
                             }
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LV' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=LV' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -7771,7 +7771,7 @@ WHERE
                             } else {
                                 echo "<td>$paytype</td>";
                             }
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=ZURICH' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=ZURICH' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }
@@ -8988,7 +8988,7 @@ WHERE
                             } else {
                                 echo "<td>$paytype</td>";
                             }
-                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=SCOTTISH_WIDOWS' class='btn btn-default btn-sm'><i class='fa fa-check-circle-o'></i> Check all non matching policies</a></td>";
+                            echo "<td><a href='php/Financial_Recheck.php?EXECUTE=10&INSURER=SCOTTISH_WIDOWS' class='btn btn-default btn-sm'><i class='fa fa-check-circle'></i> Check all non matching policies</a></td>";
                             echo "</tr>";
                             echo "\n";
                         }

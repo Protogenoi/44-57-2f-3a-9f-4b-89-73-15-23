@@ -49,7 +49,7 @@ if(isset($query)) {
 
 if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
     
-    header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&Reason=FileType'); die;
+    header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&Reason=FileType'); die;
   
 }              
         
@@ -85,11 +85,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Home'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=Home'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Home'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=Home'); die;
             
             }
             
@@ -126,11 +126,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Vitality'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=Vitality'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Vitality'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=Vitality'); die;
             
             }
             
@@ -167,11 +167,11 @@ if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=LV'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=LV'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=LV'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=LV'); die;
             
             }            
 
@@ -230,11 +230,11 @@ $client->messages->create(
 }                
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Life'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=Life'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Life'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=Life'); die;
             
             }
             
@@ -272,11 +272,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=Aviva'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=Aviva'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=Aviva'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=Aviva'); die;
             
             } 
             
@@ -313,11 +313,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=WOL'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=WOL'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=WOL'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=WOL'); die;
             
             }  
             
@@ -354,11 +354,11 @@ $client->messages->create(
                     
                 }
                 
-                header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=1&query=RoyalLondon'); die;
+                header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=1&query=RoyalLondon'); die;
                 
             }
             
-            header('Location: ../../addon/Life/Financials/upload_financial.php?uploaded=0&query=RoyalLondon'); die;
+            header('Location: ../../addon/Life/Financials/upload_financials.php?uploaded=0&query=RoyalLondon'); die;
             
             }              
             

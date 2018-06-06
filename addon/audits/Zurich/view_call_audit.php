@@ -1337,7 +1337,7 @@ $database->query("SELECT
 
 
 <p>
-<label for="E5">Q<?php $i++; echo $i; ?>. Did the closer ask the customers martial status?</label><br>
+<label for="E5">Q<?php $i++; echo $i; ?>. Did the closer ask the customers marital status?</label><br>
 <input type="radio" name="E5" <?php if (isset($CD_Q5) && $CD_Q5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="1" id="yesCheckET5">Yes
 <input type="radio" name="E5" <?php if (isset($CD_Q5) && $CD_Q5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckET5();" value="0" id="noCheckET5"><label for="No">No</label>
 </p>

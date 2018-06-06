@@ -336,9 +336,9 @@ ews_data.policy_number
                                             <div class="form-group">
                                                 <div class="col-md-10">
                                                     <?php if (in_array($hello_name, $Level_3_Access, true)) { ?>
-                                                        <button id="button1id" name="button1id" class="btn btn-success"><i class="fa fa-check-circle-o"></i> Update</button>
+                                                        <button id="button1id" name="button1id" class="btn btn-success"><i class="far fa-check-circle"></i> Update</button>
                                                     <?php } ?>
-                                                    <a href="/app/Client.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-arrow-circle-o-left"></i> Back</a>
+                                                    <a href="/app/Client.php?search=<?php echo $search; ?>" class="btn btn-warning "><i class="far fa-arrow-alt-circle-left"></i> Back</a>
                                                     <a href="EditPolicy.php?id=<?php echo $policyID; ?>&search=<?php echo $search; ?>" class="btn btn-warning "><i class="fa fa-edit"></i> Edit Policy</a>
                                                     <br><br>
                                                 </div>

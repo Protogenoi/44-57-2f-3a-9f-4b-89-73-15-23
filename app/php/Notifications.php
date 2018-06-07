@@ -30,6 +30,15 @@
  * 
 */ 
 
+    $CLIENT_VAR= filter_input(INPUT_GET, 'CLIENT', FILTER_SANITIZE_SPECIAL_CHARS);
+                                    if(isset($CLIENT_VAR)){
+                                        if ($CLIENT_VAR == "ADDED" ) { ?>
+
+              <div class="notice notice-success" role="alert"><strong><i class="fas fa-user-plus fa-lg"></i> Success:</strong> Client added!</div>
+                                            
+                                    <?php    }
+                                    }
+
 if(isset($ffsms) && $ffsms=='1') {
     
                 $database->query("SELECT 

@@ -123,7 +123,8 @@ if (isset($EXECUTE)) {
     $H_Q1 = filter_input(INPUT_POST, 'H_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_Q2 = filter_input(INPUT_POST, 'H_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_Q3 = filter_input(INPUT_POST, 'H_Q3', FILTER_SANITIZE_SPECIAL_CHARS); 
-    $H_Q4 = filter_input(INPUT_POST, 'H_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_Q4 = filter_input(INPUT_POST, 'H_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_Q5 = filter_input(INPUT_POST, 'H_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
     
     $BD_Q1 = filter_input(INPUT_POST, 'BD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_Q2 = filter_input(INPUT_POST, 'BD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -187,6 +188,7 @@ if (isset($EXECUTE)) {
     $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
     $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_C5 = filter_input(INPUT_POST, 'H_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -336,6 +338,7 @@ if (isset($EXECUTE)) {
   adl_audit_zurich_h2=:H2,
   adl_audit_zurich_h3=:H3,
   adl_audit_zurich_h4=:H4,
+  adl_audit_zurich_h5=:H5,  
   adl_audit_zurich_bd1=:BD1,
   adl_audit_zurich_bd2=:BD2,
   adl_audit_zurich_bd3=:BD3,
@@ -388,7 +391,8 @@ if (isset($EXECUTE)) {
     $database->bind(':H1', $H_Q1);
     $database->bind(':H2', $H_Q2);
     $database->bind(':H3', $H_Q3);
-    $database->bind(':H4', $H_Q4);    
+    $database->bind(':H4', $H_Q4); 
+    $database->bind(':H5', $H_Q5); 
     $database->bind(':BD1', $BD_Q1);
     $database->bind(':BD2', $BD_Q2);
     $database->bind(':BD3', $BD_Q3);
@@ -439,6 +443,7 @@ if (isset($EXECUTE)) {
   adl_audit_zurich_c_h2=:H2,
   adl_audit_zurich_c_h3=:H3,
   adl_audit_zurich_c_h4=:H4,
+  adl_audit_zurich_c_h5=:H5,
   adl_audit_zurich_c_fam1=:FAM1,
     adl_audit_zurich_c_o1=:O1,
   adl_audit_zurich_c_o2=:O2,
@@ -471,7 +476,8 @@ if (isset($EXECUTE)) {
     $database->bind(':H1', $H_C1);
     $database->bind(':H2', $H_C2);
     $database->bind(':H3', $H_C3); 
-    $database->bind(':H4', $H_C4); 
+    $database->bind(':H4', $H_C4);
+    $database->bind(':H5', $H_C5);
     $database->bind(':FAM1', $FAM_C1);  
     $database->bind(':O1', $O_C1);
     $database->bind(':O2', $O_C2);

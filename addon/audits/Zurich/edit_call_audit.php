@@ -178,6 +178,7 @@ if(isset($AUDITID)) {
   adl_audit_zurich_h2,
   adl_audit_zurich_h3,
   adl_audit_zurich_h4,
+  adl_audit_zurich_h5,
   adl_audit_zurich_bd1,
   adl_audit_zurich_bd2,
   adl_audit_zurich_bd3,
@@ -551,6 +552,16 @@ if(isset($AUDITID)) {
             $SCORE ++;
         }        
         
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_zurich_h5'])) {
+        
+        $H_Q5=$VIT_Q_AUDIT['adl_audit_zurich_h5'];
+        
+         if($H_Q5 == "0") {
+            $SCORE ++;
+        }        
+        
     }     
     
    if(isset($VIT_Q_AUDIT['adl_audit_zurich_bd1'])) {
@@ -767,7 +778,8 @@ if(isset($AUDITID)) {
   adl_audit_zurich_c_h1,
   adl_audit_zurich_c_h2,
   adl_audit_zurich_c_h3, 
-  adl_audit_zurich_c_h4,   
+  adl_audit_zurich_c_h4,
+  adl_audit_zurich_c_h5, 
    adl_audit_zurich_c_fam1,
   adl_audit_zurich_c_o1,
   adl_audit_zurich_c_o2,
@@ -928,7 +940,12 @@ if(isset($AUDITID)) {
         
     }     
     
-     
+    if(isset($VIT_C_AUDIT['adl_audit_zurich_c_h5'])) {
+        
+        $H_C5=$VIT_C_AUDIT['adl_audit_zurich_c_h5'];
+        
+    } 
+    
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_fam1'])) {
         
         $FAM_C1=$VIT_C_AUDIT['adl_audit_zurich_c_fam1'];
@@ -2152,6 +2169,47 @@ $database->query("SELECT
                             });
                         </script>                        
                       
+<p>
+                            <label for="H_Q5">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customers 'height and weight' and did they record the answer correctly?</label>
+                            <input type="radio" name="H_Q5" 
+<?php if (isset($H_Q5) && $H_Q5 == "1") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckH_C5();"
+                                   value="1" id="yesCheckH_C5" required >Yes
+                            <input type="radio" name="H_Q5"
+<?php if (isset($H_Q5) && $H_Q5 == "0") {
+    echo "checked";
+} ?> onclick="javascript:yesnoCheckH_C5();"
+                                   value="0" id="noCheckH_C5">No
+                            <input type="radio" name="H_Q5" 
+<?php if (isset($H_Q5) && $H_Q5 == "N/A") {
+    echo "checked";
+} ?>
+                                   value="N/A" >N/A
+                        </p>
+
+                        <div id="ifYesH_C5" >
+                            <textarea class="form-control"id="H_C5" name="H_C5" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($H_C5)) { echo $H_C5; } ?></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('1000 characters left');
+                                $('#H_C5').keydown(function () {
+                                    var max = 1000;
+                                    var len = $(this).val().length;
+                                    if (len >= max) {
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text('You have reached the limit');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').addClass('red');
+                                        $('#btnSubmit').addClass('disabled');
+                                    } else {
+                                        var ch = max - len;
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').text(ch + ' characters left');
+                                        $('#btnSubmit').removeClass('disabled');
+                                        $('#CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>').removeClass('red');
+                                    }
+                                });
+                            });
+                        </script>  
                         
                     </div>
                 </div>   

@@ -178,6 +178,7 @@ if(isset($AUDITID)) {
   adl_audit_zurich_h2,
   adl_audit_zurich_h3,
   adl_audit_zurich_h4,
+  adl_audit_zurich_h5,
   adl_audit_zurich_bd1,
   adl_audit_zurich_bd2,
   adl_audit_zurich_bd3,
@@ -551,6 +552,16 @@ if(isset($AUDITID)) {
             $SCORE ++;
         }        
         
+    } 
+
+    if(isset($VIT_Q_AUDIT['adl_audit_zurich_h5'])) {
+        
+        $H_Q5=$VIT_Q_AUDIT['adl_audit_zurich_h5'];
+        
+         if($H_Q5 == "0") {
+            $SCORE ++;
+        }        
+        
     }     
     
    if(isset($VIT_Q_AUDIT['adl_audit_zurich_bd1'])) {
@@ -767,7 +778,8 @@ if(isset($AUDITID)) {
   adl_audit_zurich_c_h1,
   adl_audit_zurich_c_h2,
   adl_audit_zurich_c_h3, 
-  adl_audit_zurich_c_h4,   
+  adl_audit_zurich_c_h4,
+  adl_audit_zurich_c_h5,
    adl_audit_zurich_c_fam1,
   adl_audit_zurich_c_o1,
   adl_audit_zurich_c_o2,
@@ -928,7 +940,12 @@ if(isset($AUDITID)) {
         
     }     
     
-     
+    if(isset($VIT_C_AUDIT['adl_audit_zurich_c_h5'])) {
+        
+        $H_C5=$VIT_C_AUDIT['adl_audit_zurich_c_h5'];
+        
+    }
+    
     if(isset($VIT_C_AUDIT['adl_audit_zurich_c_fam1'])) {
         
         $FAM_C1=$VIT_C_AUDIT['adl_audit_zurich_c_fam1'];
@@ -1426,6 +1443,16 @@ $database->query("SELECT
     
             <div class="phpcomments">
                 <?php if(isset($H_C4)) { echo $H_C4; } ?>
+            </div>    
+</p>
+
+<p>
+    <label for="H5">Q<?php $i++; echo $i; ?>. Did the closer ask the customers 'height and weight' and did they record the answer correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($H_Q5)) {  if ($H_Q5 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q5)) {  if ($H_Q5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($H_C5)) { echo $H_C5; } ?>
             </div>    
 </p>
 

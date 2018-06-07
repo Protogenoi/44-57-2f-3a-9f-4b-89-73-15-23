@@ -153,6 +153,7 @@ if (isset($EXECUTE)) {
     $H_Q2 = filter_input(INPUT_POST, 'H_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_Q3 = filter_input(INPUT_POST, 'H_Q3', FILTER_SANITIZE_SPECIAL_CHARS); 
     $H_Q4 = filter_input(INPUT_POST, 'H_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_Q5 = filter_input(INPUT_POST, 'H_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
     
     $BD_Q1 = filter_input(INPUT_POST, 'BD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
     $BD_Q2 = filter_input(INPUT_POST, 'BD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -212,6 +213,7 @@ if (isset($EXECUTE)) {
   adl_audit_zurich_h2=:H2,
   adl_audit_zurich_h3=:H3,
   adl_audit_zurich_h4=:H4,
+  adl_audit_zurich_h5=:H5,
   adl_audit_zurich_bd1=:BD1,
   adl_audit_zurich_bd2=:BD2,
   adl_audit_zurich_bd3=:BD3,
@@ -267,6 +269,7 @@ if (isset($EXECUTE)) {
     $ZURICH_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR);
     $ZURICH_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR); 
     $ZURICH_QUES_QRY->bindParam(':H4', $H_Q4, PDO::PARAM_STR); 
+    $ZURICH_QUES_QRY->bindParam(':H5', $H_Q5, PDO::PARAM_STR); 
     $ZURICH_QUES_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
     $ZURICH_QUES_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
     $ZURICH_QUES_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
@@ -314,7 +317,8 @@ if (isset($EXECUTE)) {
     $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
     $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
-    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS);     
+    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $H_C5 = filter_input(INPUT_POST, 'H_C5', FILTER_SANITIZE_SPECIAL_CHARS);     
     
     $OTHER_C1 = filter_input(INPUT_POST, 'OTHER_C1', FILTER_SANITIZE_SPECIAL_CHARS);  
     
@@ -357,6 +361,7 @@ $ZURICH_COM_QRY = $pdo->prepare("UPDATE
   adl_audit_zurich_c_h2=:H2,
   adl_audit_zurich_c_h3=:H3,
   adl_audit_zurich_c_h4=:H4,
+  adl_audit_zurich_c_h5=:H5,
   adl_audit_zurich_c_fam1=:FAM1,
   adl_audit_zurich_c_o1=:O1,
   adl_audit_zurich_c_o2=:O2,
@@ -392,6 +397,7 @@ $ZURICH_COM_QRY = $pdo->prepare("UPDATE
     $ZURICH_COM_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR);  
     $ZURICH_COM_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR);
+    $ZURICH_COM_QRY->bindParam(':H5', $H_C5, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':OTHER1', $OTHER_C1, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':O1', $O_C1, PDO::PARAM_STR);
     $ZURICH_COM_QRY->bindParam(':O2', $O_C2, PDO::PARAM_STR);

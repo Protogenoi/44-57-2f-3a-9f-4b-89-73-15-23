@@ -34,7 +34,7 @@
                                     if(isset($CLIENT_VAR)){
                                         if ($CLIENT_VAR == "ADDED" ) { ?>
 
-              <div class="notice notice-success" role="alert"><strong><i class="fas fa-user-plus fa-lg"></i> Success:</strong> Client added!</div>
+              <div class="notice notice-success" role="alert"><strong><i class="fas fa-user-plus fa-lg"></i> Success:</strong> New client added!</div>
                                             
                                     <?php    }
                                     }

@@ -9095,7 +9095,7 @@ WHERE
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "ADL Projections for $DATEFROM - $DATETO";?></th>
+                                    <th colspan="8"><?php echo "ADL Projections"; ?></th>
                                 </tr>
                                 <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$DATEFROM - $DATETO"; ?>.
                                                    
@@ -9170,7 +9170,7 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "Indemnity Policies sold for $DATEFROM - $DATETO";?></th>
+                                    <th colspan="8"><?php echo "Indemnity Policies";?></th>
                                 </tr>
                                 <th>Vitality</th> 
                                 <th>Royal London</th> 
@@ -9234,7 +9234,7 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "Non-Indemnity Policies sold for $DATEFROM - $DATETO";?></th>
+                                    <th colspan="8"><?php echo "Non-Indemnity Policies";?></th>
                                 </tr>
                                 <th>Vitality</th> 
                                 <th>Royal London</th> 

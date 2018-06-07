@@ -108,12 +108,6 @@ if (in_array($hello_name, $Closer_Access, true)) {
 }    
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
 <html lang="en">
     <title>ADL</title>
     <meta charset="UTF-8">
@@ -186,21 +180,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
                             </a>
                         </li>
 
-                       <?php if($fflife == '1') {
-                                ?>
-                                <li>
-                                    <a href="Life/Main_Menu.php">
-                                        <span class="ca-icon"><i class="fa fa-medkit"></i></span>
-                                        <div class="ca-content">
-                                            <h2 class="ca-main">Life<br/> Insurance</h2>
-                                            <h3 class="ca-sub"></h3>
-                                        </div>
-                                    </a>
-                                </li>
-
-                                <?php
-                            }
-                            if($ACCESS_LEVEL == 10) {  ?>
+                       <?php if($ACCESS_LEVEL == 10) {  ?>
                             <li>
                                 <a href="https://164.39.13.58/ConnexReports/dashboard.php" target="_blank">
                                     <span class="ca-icon"><i class="fa fa-headphones"></i></span>

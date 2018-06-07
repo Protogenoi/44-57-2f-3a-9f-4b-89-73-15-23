@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -76,12 +77,12 @@ $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 <title>ADL | Aviva Menu</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>   
 </head>
 <body>
 
@@ -131,7 +132,7 @@ require_once(__DIR__ . '/../../../includes/navbar.php');
         <br>
         <center>
             <div class="btn-group">
-                <a href="/addon/audits/search_audits.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
+                <a href="/addon/audits/search_audits.php" class="btn btn-default"><i class="fas fa-arrow-left"></i> Audit Menu</a>
                 <a href="/addon/audits/Aviva/Audit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Aviva Audit</a>
                 <a href="Search.php" class="btn btn-info "><i class="fa fa-search"></i> Search Audits</a>
             </div>

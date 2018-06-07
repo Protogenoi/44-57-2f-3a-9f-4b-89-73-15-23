@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -165,30 +166,22 @@ $jsonTable4 = json_encode($table);
 
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
--->
 <html>
 <title>ADL | Legal and General Audits</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
-<script type="text/javascript" src="//www.google.com/jsapi"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-
- <script type="text/javascript">
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript">
 
 
     google.load('visualization', '1', {'packages':['corechart']});
@@ -209,7 +202,7 @@ backgroundColor: '#FFFFFF'
       chart.draw(data, options);
     }
     </script>
-	<script type="text/javascript">
+    <script type="text/javascript">
 
     google.load('visualization', '1', {'packages':['corechart']});
 
@@ -350,7 +343,7 @@ $RETURN= filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 
 <center>
     <div class="btn-group">
-        <a href="main_menu.php" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Audit Menu</a>
+        <a href="main_menu.php" class="btn btn-default"><i class="fas fa-arrow-left"></i> Audit Menu</a>
         <a href="CloserAudit.php" class="btn btn-primary"><i class="fa fa-plus"></i> Legal and General Audit</a>
         <a href="audit_search.php" class="btn btn-info "><span class="glyphicon glyphicon-search"></span> Search Audits</a>
     </div>

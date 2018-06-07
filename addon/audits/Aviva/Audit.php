@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -524,9 +525,8 @@ WHERE
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap/css/bootstrap.css">
-    <link href="/resources/templates/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 </head>
 <body>
 
@@ -558,16 +558,12 @@ WHERE
                             <?php if(isset($EXECUTE) && $EXECUTE=='EDIT' && isset($AUDITID)) { ?>
                              <option value='<?php echo $CLOSER; ?>'><?php echo $CLOSER; ?></option>
                                             <option value="Carys">Carys</option>
-                                            <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Nathan">Nathan</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Martin">Martin</option> 
                                             <option value="Sarah">Sarah</option>
                                             <option value="Nicola">Nicola</option>  
-                                            <option value="Gavin">Gavin</option>
                             <?php } ?>
                         </select>      
                     </div>

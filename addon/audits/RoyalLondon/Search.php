@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -76,12 +76,12 @@ if ($ffanalytics == '1') {
 <title>ADL | Search Royal London Audits</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 
 <?php require_once(__DIR__ . '/../../../app/Holidays.php'); ?>
 </head>

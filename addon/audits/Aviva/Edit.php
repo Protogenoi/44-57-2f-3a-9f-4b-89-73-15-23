@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -89,18 +90,18 @@ if (isset($_GET["auditid"])) {
     <link rel="stylesheet" href="/resources/templates/ADL/audit_layout.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-    <link  rel="stylesheet" href="../resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script src="/js/jquery-2.1.4.min.js"></script>
-    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
+    <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <style type="text/css">
         .editclient{
             margin: 20px;
         }
-    </style>
+    </style>    
+    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>   
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>    
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="/resources/lib/sweet-alert/sweet-alert.min.js"></script>
     <script>
         function textAreaAdjust(o) {
             o.style.height = "1px";
@@ -154,16 +155,12 @@ if (isset($_GET["auditid"])) {
                                     <select class='form-control' name='closer' id='full_name' required>
                                         <?php echo "<option value='" . $result['closer'] . "'>" . $result['closer'] . "</option>"; ?>
                                             <option value="Carys">Carys</option>
-                                            <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Martin">Martin</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
                                             <option value="Nicola">Nicola</option>  
-                                            <option value="Gavin">Gavin</option>
                                     </select>
                                 </div>
                             </div>
@@ -175,16 +172,12 @@ if (isset($_GET["auditid"])) {
                                     <select class='form-control' name='closer2' id='closer2' > 
                                         <?php echo "<option value='" . $result['closer2'] . "'>" . $result['closer2'] . "</option>"; ?>
                                             <option value="Carys">Carys</option>
-                                            <option value="Hayley">Hayley</option>
                                             <option value="James">James</option>
                                             <option value="Kyle">Kyle</option>  
                                             <option value="Mike">Mike</option> 
-                                            <option value="Martin">Martin</option> 
                                             <option value="Richard">Richard</option>
-                                            <option value="Ricky">Ricky</option> 
                                             <option value="Sarah">Sarah</option>
-                                            <option value="Nicola">Nicola</option>  
-                                            <option value="Gavin">Gavin</option>
+                                            <option value="Nicola">Nicola</option> 
                                     </select>
                                 </div>
                             </div>

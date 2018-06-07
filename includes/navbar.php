@@ -205,7 +205,6 @@ $companynamere = $companydetailsq['company_name'];
             <li class="dropdown">
                 <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Agents<b class='caret'></b></a>
                 <ul role='menu' class='dropdown-menu'>
-            <li><button class="list-group-item" onclick="CALLMANANGER();"><i class="fa fa-bullhorn fa-fw"></i>&nbsp; Call Manager/Cancel Call</button></li>
             <li><a href="/Life/Dealsheet.php"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets</a></li>
             <li><a href="/Life/Dealsheet.php?query=ListCallbacks"><?php if(isset($hello_name)) { echo $hello_name; } ?> Dealsheets Callbacks</a></li>
       </ul>

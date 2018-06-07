@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -26,6 +26,7 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */  
 
@@ -228,7 +229,7 @@ if (isset($EXECUTE)) {
   adl_audit_vitality_h1=:H1,
   adl_audit_vitality_h2=:H2,
   adl_audit_vitality_h3=:H3,
-  adl_audit_vitality_h3=:H4,
+  adl_audit_vitality_h4=:H4,
   adl_audit_vitality_bd1=:BD1,
   adl_audit_vitality_bd2=:BD2,
   adl_audit_vitality_bd3=:BD3,

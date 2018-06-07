@@ -8,6 +8,31 @@ $USER_TRACKING=0;
 
 require_once(__DIR__ . '/../../includes/user_tracking.php'); 
 
+    require_once(__DIR__ . '/../../classes/database_class.php');
+    require_once(__DIR__ . '/../../class/login/login.php');
+
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->SelectToken();
+        $OUT=$CHECK_USER_LOGIN->SelectToken();
+        
+        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
+        
+        $TOKEN=$OUT['TOKEN_SELECT'];
+                
+        }
+        
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 3) {
+            
+        header('Location: index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        } 
+
 include('../../includes/adl_features.php');
 include('../../includes/Access_Levels.php');
 include('../../includes/ADL_PDO_CON.php');
@@ -26,19 +51,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $dateto= filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
 $datefrom= filter_input(INPUT_GET, 'datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
-
-    require_once(__DIR__ . '/../../classes/database_class.php');
-    require_once(__DIR__ . '/../../class/login/login.php');
-
-        $SELECT_USER_TOKEN = new UserActions($hello_name,"NoToken");
-        $SELECT_USER_TOKEN->SelectToken();
-        $OUT=$SELECT_USER_TOKEN->SelectToken();
-        
-        if(isset($OUT['TOKEN_SELECT']) && $OUT['TOKEN_SELECT']!='NoToken') {
-        
-        $TOKEN=$OUT['TOKEN_SELECT'];
-                
-        }
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,9 +60,9 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">    
-    <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">  
+    <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>   
+    <link rel="stylesheet" type="text/css" href="/datatables/css/jquery-ui.css">  
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />   
         <style>
         div.smallcontainer {
@@ -203,7 +215,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?>
+                                    <th colspan="8"><?php echo "RAW EWS Statistics for $EWS_DATE";?> 
                                         <i class="fa fa-question-circle-o" style="color:skyblue" title="Download EWS <?php echo "$datefrom - $dateto"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS_DATES&datefrom=<?php echo $datefrom; ?>&dateto=<?php echo $dateto; ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> EWS</a>
                                         <i class="fa fa-question-circle-o" style="color:skyblue" title="Download complete RAW EWS <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> RAW</a>
                                         <i class="fa fa-question-circle-o" style="color:skyblue" title="Download RAW EWS for Assigned user <?php echo "$EWS_DATE"; ?>."></i> <a href="../Export/EWS.php?EXECUTE=ASSIGNED_RAW_EWS&EWS_DATE=<?php echo $EWS_DATE; ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i> Assigned RAW</a>
@@ -480,8 +492,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                         <tr>
                             <th></th>
                             <th>Date Added</th>
-                            <th>Updated Date</th>
-                            <th>ID</th>
                             <th>Master No</th>
                             <th>Agent No</th>
                             <th>Policy</th>
@@ -504,6 +514,8 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>frn</th>
                             <th>Reqs</th>
                             <th>EWS Warning</th>
+                            <th>Updated Date</th>
+                            <th>ID</th>
                             <th>ADL Warning</th>
                             <th>Our Notes</th>
                             <th>Colour</th>
@@ -515,8 +527,6 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                         <tr>
                             <th></th>
                             <th>Date Added</th>
-                            <th>Updated Date</th>
-                            <th>ID</th>
                             <th>Master No</th>
                             <th>Agent No</th>
                             <th>Policy</th>
@@ -539,6 +549,8 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                             <th>frn</th>
                             <th>Reqs</th>
                             <th>EWS Warning</th>
+                            <th>Updated Date</th>
+                            <th>ID</th>
                             <th>ADL Warning</th>
                             <th>Our Notes</th>
                             <th>Colour</th>
@@ -574,12 +586,9 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                                 <div class="col-xs-6 col-md-6">
                                     <h3>Upload EWS data</h3>
                                         
-                                    <form action="../../upload/ewsupload.php?REDIRECT=EWS" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                    <form action="upload/EWS.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                         <input name="csv" type="file" id="csv" />                                        
                                         <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#processing-modal"><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                    </form>
-                                    <form action="../../export/ewstemp.php?REDIRECT=EWS" method="post"><br>
-                                        <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
                                     </form>
                                 </div>
                             </div>
@@ -600,6 +609,8 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
         <script src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
         <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> 
 
+    
+
     <script type="text/javascript" language="javascript" >
                
         $(document).ready(function() {
@@ -617,13 +628,13 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
     },
                 "response":true,
                 "processing": true,
-                "iDisplayLength": 25,
-                "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000], [5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000]],
+                "iDisplayLength": 2000,
+                "aLengthMenu": [[5, 10, 25, 50, 100, 125, 150, 200, 2500, 3000], [5, 10, 25, 50, 100, 125, 150, 200, 2000, 2500, 3000]],
                 "language": {
                     "processing": "<div></div><div></div><div></div><div></div><div></div>"
 
                 },
-                "ajax": "/Life/EWS/JSON/EWSData.php?EWS=7&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                "ajax": "datatables/EWS.php?EWS=1&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                  
                 "columns": [
                     {
@@ -632,12 +643,7 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                         "deferRender": true,                        
                         "defaultContent": ''
                     },
-                    { "data": "date_added"},
-                    { "data": "updated_date"},
-                    { "data": "client_id",
-                        "render": function(data, type, full, meta) {
-                            return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
-                        } },                    
+                    { "data": "date_added"},                   
                     { "data": "master_agent_no"},
                     { "data": "agent_no"},
                     { "data": "policy_number"},
@@ -660,6 +666,11 @@ $EWS_DATE= filter_input(INPUT_GET, 'EWS_DATE', FILTER_SANITIZE_SPECIAL_CHARS);
                     { "data": "frn" },
                     { "data": "reqs" },
                     { "data": "ews_status_status" },
+                    { "data": "updated_date"},
+                    { "data": "client_id",
+                        "render": function(data, type, full, meta) {
+                            return '<a href="/Life/ViewClient.php?search=' + data + '" target="_blank">"' + data + '"</a>';
+                        } },                     
                     { "data": "warning" },
                     { "data": "ournotes" },
                     { "data": "color_status" },

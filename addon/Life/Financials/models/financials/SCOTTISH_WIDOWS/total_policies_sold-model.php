@@ -17,7 +17,7 @@ FROM
 WHERE
     DATE(client_policy.sale_date) BETWEEN :DATEFROM AND :DATETO
         AND policystatus = 'Live'
-        AND insurer = 'Zurich'
+        AND insurer = 'Scottish Widows'
         AND CommissionType='Indemnity'");
         $stmt->bindParam(':DATEFROM', $SW_DATE_FROM, PDO::PARAM_STR);
         $stmt->bindParam(':DATETO', $SW_DATE_TO, PDO::PARAM_STR);

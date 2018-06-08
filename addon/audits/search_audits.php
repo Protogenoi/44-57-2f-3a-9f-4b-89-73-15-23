@@ -152,7 +152,16 @@ require_once(__DIR__ . '/../../includes/navbar.php');
                 echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle\"></i> ERROR: Audit not saved!!</strong></div>";            
         }
         }
-        ?>        
+        ?>    
+        
+        <?php
+        
+    require_once(__DIR__ . '/models/todays_audit_count-model.php');
+    $AUDIT_COUNT_Model = new AUDIT_COUNT_Model($pdo);
+    $AUDIT_COUNT_VARS_LIST = $AUDIT_COUNT_Model->getSingleClient();
+    require_once(__DIR__ . '/views/todays_audit_count-view.php');
+    
+    ?>        
         
         <center>
         <div class="btn-group">
@@ -165,7 +174,7 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         </center>
 
         <br>
-
+        
         <table id="clients" width="auto" cellspacing="0" class="table-condensed">
             <thead>
                 <tr>

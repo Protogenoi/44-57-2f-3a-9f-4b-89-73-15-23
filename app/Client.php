@@ -3411,7 +3411,7 @@ WHERE
                                             $TMicon = "fa-tasks";
                                             break;
                                         case "Email Sent":
-                                            $TMicon = "fa-envelope-o";
+                                            $TMicon = "fa-envelope";
                                             break;
                                         case "Client Edited":
                                         case "TONIC Acount Updates ":

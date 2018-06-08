@@ -239,7 +239,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                         if(isset($policydetailsadded)){
                             $policydetailsadded= filter_input(INPUT_GET, 'policydetailsadded', FILTER_SANITIZE_SPECIAL_CHARS);
                             if ($policydetailsadded =='y') {
-                                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client Pension Details Added!</div>");
+                                print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Client Pension Details Added!</div>");
                                 
                             }
                             if ($policydetailsadded =='failed') {
@@ -254,7 +254,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                             if(isset($taskedited)){
                                 $taskedited= filter_input(INPUT_GET, 'taskedited', FILTER_SANITIZE_SPECIAL_CHARS);
                                 if ($taskedited =='y') {
-                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Task notes updated!</div>");
+                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Task notes updated!</div>");
                                     
                                 }
                                 if ($taskedited =='n') {
@@ -268,7 +268,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                 if(isset($policyedited)){
                                     $policyedited= filter_input(INPUT_GET, 'policyedited', FILTER_SANITIZE_SPECIAL_CHARS);
                                     if ($policyedited =='y') {
-                                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Policy details updated!</div>");
+                                        print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Policy details updated!</div>");
                                         
                                     }
                                     if ($policyedited =='n') {
@@ -315,14 +315,14 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                    
                                                 $taskcompleted= filter_input(INPUT_GET, 'taskcompleted', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($taskcompleted)){
-                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Task completed!</div>");
+                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Task completed!</div>");
                                                     
                                                 }
                                                 
                                                 $CLIENT_NOTE= filter_input(INPUT_GET, 'CLIENT_NOTE', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($CLIENT_NOTE)){
                                                     if($CLIENT_NOTE == 'ADDED') {
-                                                    echo '<div class="notice notice-success" role="alert"><strong><i class="fa fa-pencil fa-lg"></i> Success:</strong> Client notes added!</div>';
+                                                    echo '<div class="notice notice-success" role="alert"><strong><i class="fa fa-pencil-alt fa-lg"></i> Success:</strong> Client notes added!</div>';
                                                     }
                                                 }
                                                 
@@ -428,7 +428,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                     $CLIENT_EDIT= filter_input(INPUT_GET, 'CLIENT_EDIT', FILTER_SANITIZE_SPECIAL_CHARS);
                                     if(isset($CLIENT_EDIT)){
                                         if ($CLIENT_EDIT == 1 ) {
-                                            print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client details updated!</div>");
+                                            print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Client details updated!</div>");
                                             
                                         }
                                         if ($CLIENT_EDIT == 0 ) {
@@ -806,7 +806,7 @@ if(empty($HAS_AVI_LEAD_AUDIT)) {
                                     
  $clientnotesadded = filter_input(INPUT_GET, 'clientnotesadded', FILTER_SANITIZE_SPECIAL_CHARS);
                 if (isset($clientnotesadded)) {
-                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil fa-lg\"></i> Success:</strong> Client notes added!</div>");
+                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Client notes added!</div>");
                 }
 
                 $TaskSelect = filter_input(INPUT_GET, 'TaskSelect', FILTER_SANITIZE_SPECIAL_CHARS);

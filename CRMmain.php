@@ -228,7 +228,7 @@ if (in_array($hello_name, $Closer_Access, true)) {
 
                         <?php
                             if ($ffcompliance == '1') {
-                                if (in_array($hello_name, $Level_10_Access, true)) {
+                                if ($ACCESS_LEVEL == 10) { 
                             
                                 ?>
                                 <li>

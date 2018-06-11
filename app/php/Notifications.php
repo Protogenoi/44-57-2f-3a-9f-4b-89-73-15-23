@@ -53,7 +53,7 @@ WHERE
             
                  if ($database->rowCount()>0) {  ?>
          
-    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-exclamation"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
+    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fas fa-exclamation-triangle"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
           
           <?php
@@ -75,7 +75,7 @@ WHERE
             
                  if ($database->rowCount()>0) {  ?>
          
-    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
+    <div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fas fa-exclamation-triangle"></i> Info:</strong> <?php echo $Single_Client["phone_number"]; ?> has a failed SMS delivery response! The number may no longer be active, if the client cannot be contacted via phone either. 
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>            
           
    <?php  $NUMBER_BAD='1'; 
@@ -159,7 +159,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
     
      if($client_date_added <= "2017-03-07 16:25:00") {
         if(empty($leadid1)) {
-        echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
+        echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fas fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
         
      } } else {
          
@@ -175,7 +175,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Closer call recording not uploaded!"
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Closer call recording not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
@@ -186,7 +186,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
     $database->single();
      if ($database->rowCount()<=0) {  
          
-    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Agent call recording not uploaded!"
+    echo "<div class=\"notice notice-danger\" role=\"alert\" id='HIDEDEALSHEET'><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Alert:</strong> Agent call recording not uploaded!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDEALSHEET'>&times;</a></div>";    
          
      }
@@ -216,7 +216,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
          if(!empty($dupepolicy)) {
    $origpolicy= filter_input(INPUT_GET, 'origpolicy', FILTER_SANITIZE_SPECIAL_CHARS);
      
-    echo "<div class='notice notice-danger' role='alert' id='HIDEDUPEPOL'><strong><i class='fa fa-exclamation-triangle fa-lg'></i> Warning:</strong> Duplicate $origpolicy number found! Policy number changed to $dupepolicy<br><br><strong><i class='fa fa-exclamation-triangle fa-lg'></i> $hello_name:</strong> If you are replacing an old policy change old policy to $origpolicy OLD and remove DUPE from the newer updated policy.<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDUPEPOL'>&times;</a></div>";  
+    echo "<div class='notice notice-danger' role='alert' id='HIDEDUPEPOL'><strong><i class='fas fa-exclamation-triangle fa-lg'></i> Warning:</strong> Duplicate $origpolicy number found! Policy number changed to $dupepolicy<br><br><strong><i class='fas fa-exclamation-triangle fa-lg'></i> $hello_name:</strong> If you are replacing an old policy change old policy to $origpolicy OLD and remove DUPE from the newer updated policy.<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDEDUPEPOL'>&times;</a></div>";  
 
          }
      }      
@@ -229,7 +229,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                     
                 }
                 if ($Callback =='fail') {
-                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes were made!</div>");
+                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes were made!</div>");
                     
                 }
                 
@@ -243,7 +243,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                 
                             }
                             if ($policydetailsadded =='failed') {
-                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes were made!</div>");
+                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> No changes were made!</div>");
 
                                 
                             }
@@ -258,7 +258,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                     
                                 }
                                 if ($taskedited =='n') {
-                                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Task notes NOT updated!</div>");
+                                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> Task notes NOT updated!</div>");
                                     
                                 }
                                 
@@ -272,7 +272,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                         
                                     }
                                     if ($policyedited =='n') {
-                                        print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Policy details updated!</div>");
+                                        print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> Policy details updated!</div>");
                                         
                                     }
                                     
@@ -286,7 +286,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                 
                                             }
                                             if ($checklistupdatedd =='n') {
-                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Checklist not updated!</div>");
+                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> Checklist not updated!</div>");
                                                 
                                             } 
                                             
@@ -348,14 +348,14 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                 $workflow= filter_input(INPUT_GET, 'workflow', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($workflow)){
                                                     $stepcom= filter_input(INPUT_GET, 'workflow', FILTER_SANITIZE_SPECIAL_CHARS);
-                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong>  $stepcom updated</div>");
+                                                    print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fas fa-exclamation-circle fa-lg\"></i> Success:</strong>  $stepcom updated</div>");
                                                     
                                                 }
                                             
                                                 
                                                 $deletedpolicy= filter_input(INPUT_GET, 'deletedpolicy', FILTER_SANITIZE_SPECIAL_CHARS);
                                                 if(isset($deletedpolicy)){
-                                                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Policy deleted</strong></div>");
+                                                    print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Policy deleted</strong></div>");
                                                     
                                                 }
 
@@ -366,14 +366,14 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                         $CallbackTime= filter_input(INPUT_GET, 'CallbackTime', FILTER_SANITIZE_SPECIAL_CHARS);
                                                         $CallbackDate= filter_input(INPUT_GET, 'CallbackDate', FILTER_SANITIZE_SPECIAL_CHARS);
                                                         
-                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Callback set for $CallbackTime $CallbackDate</strong></div>";
+                                                        echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fas fa-exclamation-circle fa-lg\"></i> Callback set for $CallbackTime $CallbackDate</strong></div>";
 
                                
                                                       }
                                                       
                                                       if($CallbackSet=='0') {
                                                           
-                                                          echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> No call back changes made</strong></div>";
+                                                          echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> No call back changes made</strong></div>";
        
                                                                 }
                                                     }
@@ -389,16 +389,16 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                 print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-upload fa-lg\"></i> Success:</strong> $CLIENT_FILE uploaded!</div>");        
                                                     }
                                                     if($CLIENT_UPLOAD== 0) {
-                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> $CLIENT_FILE <b>upload failed!</b></div>");   
+                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> $CLIENT_FILE <b>upload failed!</b></div>");   
                                                 } 
                                                     if($CLIENT_UPLOAD== 2) {
                                                 print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-cloud-upload fa-lg\"></i> UPLOAD FAILED:</strong> $CLIENT_FILE <b>File size to big!</b></div>");   
                                                 }  
                                                     if($CLIENT_UPLOAD== 3) {
-                                                echo("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> File ($CLIENT_FILE_COUNT) $CLIENT_FILE deleted</strong></div>\n");
+                                                echo("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> File ($CLIENT_FILE_COUNT) $CLIENT_FILE deleted</strong></div>\n");
                                                     }          
                                                     if($CLIENT_UPLOAD== 4) {
-                                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error file $CLIENT_FILE NOT deleted</strong></div>";
+                                                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error file $CLIENT_FILE NOT deleted</strong></div>";
                                                 } 
                                                 
                                                 }
@@ -432,7 +432,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                             
                                         }
                                         if ($CLIENT_EDIT == 0 ) {
-                                            print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-exclamation-triangle fa-lg\"></i> Error:</strong> Client details not updated!</div>");
+                                            print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> Client details not updated!</div>");
                                             
                                         }
                                         
@@ -442,13 +442,13 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                 if(isset($CLIENT_POLICY)){
                                                     $CLIENT_POLICY_POL_NUM= filter_input(INPUT_GET, 'CLIENT_POLICY_POL_NUM', FILTER_SANITIZE_NUMBER_INT);
                                                     if($CLIENT_POLICY == 1 ){
-                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM added<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
+                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fas fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM added<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
                                                     }
                                                     if($CLIENT_POLICY == 2 ){
-                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM updated!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
+                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fas fa-exclamation-circle fa-lg\"></i> Success:</strong> Policy $CLIENT_POLICY_POL_NUM updated!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
                                                     }  
                                                     if($CLIENT_POLICY == 3 ){
-                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fa fa-exclamation-circle fa-lg\"></i> Success:</strong> Income benefit for policy $CLIENT_POLICY_POL_NUM added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
+                                                    print("<div class=\"notice notice-success\" role=\"alert\" id='HIDENEWPOLICY'><strong><i class=\"fas fa-exclamation-circle fa-lg\"></i> Success:</strong> Income benefit for policy $CLIENT_POLICY_POL_NUM added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDENEWPOLICY'>&times;</a></div>");                                                   
                                                     }                                                      
                                                 }    
                                                 

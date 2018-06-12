@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -103,6 +104,18 @@ if (isset($EXECUTE)) {
     $S2AQ9 = filter_input(INPUT_POST, 'S2AQ9', FILTER_SANITIZE_SPECIAL_CHARS);
     $S2AQ10 = filter_input(INPUT_POST, 'S2AQ10', FILTER_SANITIZE_SPECIAL_CHARS);
     $S2AQ11 = filter_input(INPUT_POST, 'S2AQ11', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $S2AC1 = filter_input(INPUT_POST, 'S2AC1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC2 = filter_input(INPUT_POST, 'S2AC2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC3 = filter_input(INPUT_POST, 'S2AC3', FILTER_SANITIZE_SPECIAL_CHARS);      
+    $S2AC4 = filter_input(INPUT_POST, 'S2AC4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC5 = filter_input(INPUT_POST, 'S2AC5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC6 = filter_input(INPUT_POST, 'S2AC6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC7 = filter_input(INPUT_POST, 'S2AC7', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC8 = filter_input(INPUT_POST, 'S2AC8', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC9 = filter_input(INPUT_POST, 'S2AC9', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC10 = filter_input(INPUT_POST, 'S2AC10', FILTER_SANITIZE_SPECIAL_CHARS);
+    $S2AC11 = filter_input(INPUT_POST, 'S2AC11', FILTER_SANITIZE_SPECIAL_CHARS);    
     
     $S2BQ1 = filter_input(INPUT_POST, 'S2BQ1', FILTER_SANITIZE_SPECIAL_CHARS);
     $S2BQ2 = filter_input(INPUT_POST, 'Q2S2BQ2', FILTER_SANITIZE_SPECIAL_CHARS);    

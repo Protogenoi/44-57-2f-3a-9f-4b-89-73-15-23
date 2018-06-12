@@ -255,6 +255,17 @@ if (isset($EXECUTE)) {
                                         adl_audit_lead_qua_a_9=:S2AQ9,
                                         adl_audit_lead_qua_a_10=:S2AQ10,
                                         adl_audit_lead_qua_a_11=:S2AQ11,
+                                        adl_audit_lead_qua_a_c1=:S2AC1,
+                                        adl_audit_lead_qua_a_c2=:S2AC2,
+                                        adl_audit_lead_qua_a_c3=:S2AC3,
+                                        adl_audit_lead_qua_a_c4=:S2AC4,
+                                        adl_audit_lead_qua_a_c5=:S2AC5,
+                                        adl_audit_lead_qua_a_c6=:S2AC6,
+                                        adl_audit_lead_qua_a_c7=:S2AC7,
+                                        adl_audit_lead_qua_a_c8=:S2AC8,
+                                        adl_audit_lead_qua_a_c9=:S2AC9,
+                                        adl_audit_lead_qua_a_c10=:S2AC10,
+                                        adl_audit_lead_qua_a_c11=:S2AC11,                                        
                                         adl_audit_lead_qua_b_1=:S2BQ1,
                                         adl_audit_lead_qua_b_2=:S2BQ2,
                                         adl_audit_lead_qua_sec3_1=:Q1S4Q1n,
@@ -283,6 +294,17 @@ if (isset($EXECUTE)) {
     $VITALITY_QUES_QRY->bindParam(':S2AQ9', $S2AQ9, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':S2AQ10', $S2AQ10, PDO::PARAM_STR);
     $VITALITY_QUES_QRY->bindParam(':S2AQ11', $S2AQ11, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC1', $S2AC1, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC2', $S2AC2, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC3', $S2AC3, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC4', $S2AC4, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC5', $S2AC5, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC6', $S2AC6, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC7', $S2AC7, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC8', $S2AC8, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC9', $S2AC9, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC10', $S2AC10, PDO::PARAM_STR);
+    $VITALITY_QUES_QRY->bindParam(':S2AC11', $S2AC11, PDO::PARAM_STR);    
     $VITALITY_QUES_QRY->bindParam(':S2BQ1', $S2BQ1, PDO::PARAM_STR); 
     $VITALITY_QUES_QRY->bindParam(':S2BQ2', $S2BQ2, PDO::PARAM_STR); 
     $VITALITY_QUES_QRY->bindParam(':Q1S4Q1n', $Q1S4Q1n, PDO::PARAM_STR); 

@@ -475,7 +475,7 @@ if ($EXECUTE == '1') {
                         echo "checked";
                     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) {  echo "<h3><strong>$SEC2_A_C2</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C2)) {  echo "<h3><strong>$SEC2_A_C2</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -487,7 +487,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C3</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C3)) { echo "<h3><strong>$SEC2_A_C3</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -499,7 +499,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C4</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C4)) { echo "<h3><strong>$SEC2_A_C4</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -511,7 +511,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C5</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C5)) { echo "<h3><strong>$SEC2_A_C5</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -523,7 +523,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C6</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C6)) { echo "<h3><strong>$SEC2_A_C6</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -535,7 +535,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C7</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C7)) { echo "<h3><strong>$SEC2_A_C7</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -547,7 +547,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C8</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C8)) { echo "<h3><strong>$SEC2_A_C8</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -559,7 +559,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C9</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C9)) { echo "<h3><strong>$SEC2_A_C9</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -571,7 +571,7 @@ if ($EXECUTE == '1') {
                     echo "checked";
                 } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C10</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C10)) { echo "<h3><strong>$SEC2_A_C10</strong></h3>"; } ?>
                     </div> 
                     <br>
 
@@ -583,7 +583,7 @@ if ($EXECUTE == '1') {
         echo "checked";
     } ?>><label for="No">No</label>
                     <div class="phpcomments">
-    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C11</strong></h3>"; } ?>
+    <?php if(isset($SEC2_A_C11)) { echo "<h3><strong>$SEC2_A_C11</strong></h3>"; } ?>
                     </div> 
                     <br>
 

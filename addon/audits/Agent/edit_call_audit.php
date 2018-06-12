@@ -165,6 +165,17 @@ if(isset($AUDITID)) {
         adl_audit_lead_qua_a_9,
         adl_audit_lead_qua_a_10,
         adl_audit_lead_qua_a_11,
+        adl_audit_lead_qua_a_c1,
+        adl_audit_lead_qua_a_c2,
+        adl_audit_lead_qua_a_c3,
+        adl_audit_lead_qua_a_c4,
+        adl_audit_lead_qua_a_c5,
+        adl_audit_lead_qua_a_c6,
+        adl_audit_lead_qua_a_c7,
+        adl_audit_lead_qua_a_c8,
+        adl_audit_lead_qua_a_c9,
+        adl_audit_lead_qua_a_c10,
+        adl_audit_lead_qua_a_c11,        
         adl_audit_lead_qua_b_1,
         adl_audit_lead_qua_b_2,
         adl_audit_lead_qua_sec3_1,
@@ -256,7 +267,51 @@ if(isset($AUDITID)) {
     
     if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_11'])) {
         $SEC2_A_11=$VIT_Q_AUDIT['adl_audit_lead_qua_a_11'];
-    }        
+    } 
+    
+if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c1'])) {
+        $SEC2_A_C1=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c1'];
+    }     
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c2'])) {
+        $SEC2_A_C2=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c2'];
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c3'])) {
+        $SEC2_A_C3=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c3'];
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c4'])) {
+        $SEC2_A_C4=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c4'];
+    } 
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c5'])) {
+        $SEC2_A_C5=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c5'];
+    }       
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c6'])) {
+        $SEC2_A_C6=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c6'];
+    }     
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c7'])) {
+        $SEC2_A_C7=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c7'];
+    }      
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c8'])) {
+        $SEC2_A_C8=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c8'];
+    }      
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c9'])) {
+        $SEC2_A_C9=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c9'];
+    }    
+
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c10'])) {
+        $SEC2_A_C10=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c10'];
+    }       
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c11'])) {
+        $SEC2_A_C11=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c11'];
+    }      
     
     if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_b_1'])) {
         $SEC2_B_1=$VIT_Q_AUDIT['adl_audit_lead_qua_b_1'];
@@ -570,6 +625,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC2_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC2"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC2" name="S2AC2" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C2)) { echo $SEC2_A_C2; } ?></textarea>
+    <span class="help-block"><p id="S2AC2_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC2_LEFT').text('1000 characters left');
+    $('#S2AC2').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC2_LEFT').text('You have reached the limit');
+            $('#S2AC2_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC2_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC2_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ2">Q3. Repayment or interest only?</label>
@@ -584,6 +669,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC3_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC3"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC3" name="S2AC3" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C3)) { echo $SEC2_A_C3; } ?></textarea>
+    <span class="help-block"><p id="S2AC3_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC3_LEFT').text('1000 characters left');
+    $('#S2AC3').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC3_LEFT').text('You have reached the limit');
+            $('#S2AC3_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC3_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC3_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ4">Q4. When was your last review on the policy?</label>
@@ -598,6 +713,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC4_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC4"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC4" name="S2AC4" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C4)) { echo $SEC2_A_C4; } ?></textarea>
+    <span class="help-block"><p id="S2AC4_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC4_LEFT').text('1000 characters left');
+    $('#S2AC4').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC4_LEFT').text('You have reached the limit');
+            $('#S2AC4_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC4_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC4_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ5">Q5. How did you take out the policy?</label>
@@ -612,6 +757,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC5_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC5"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC5" name="S2AC5" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C5)) { echo $SEC2_A_C5; } ?></textarea>
+    <span class="help-block"><p id="S2AC5_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC5_LEFT').text('1000 characters left');
+    $('#S2AC5').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC5_LEFT').text('You have reached the limit');
+            $('#S2AC5_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC5_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC5_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ6">Q6. How much are you paying on a monthly basis?</label>
@@ -626,6 +801,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC6_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC6"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC6" name="S2AC6" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C6)) { echo $SEC2_A_C6; } ?></textarea>
+    <span class="help-block"><p id="S2AC6_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC6_LEFT').text('1000 characters left');
+    $('#S2AC6').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC6_LEFT').text('You have reached the limit');
+            $('#S2AC6_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC6_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC6_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ7">Q7. How much are you covered for?</label>
@@ -640,6 +845,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC7_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC7"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC7" name="S2AC7" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C7)) { echo $SEC2_A_C7; } ?></textarea>
+    <span class="help-block"><p id="S2AC7_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC7_LEFT').text('1000 characters left');
+    $('#S2AC7').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC7_LEFT').text('You have reached the limit');
+            $('#S2AC7_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC7_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC7_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ8">Q8. How long do you have left on the policy?</label>
@@ -654,6 +889,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC8_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC8"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC8" name="S2AC8" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C8)) { echo $SEC2_A_C8; } ?></textarea>
+    <span class="help-block"><p id="S2AC8_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC8_LEFT').text('1000 characters left');
+    $('#S2AC8').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC8_LEFT').text('You have reached the limit');
+            $('#S2AC8_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC8_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC8_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ9">Q9. Is your policy single, joint or separate?</label>
@@ -668,6 +933,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC9_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC9"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC9" name="S2AC9" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C9)) { echo $SEC2_A_C9; } ?></textarea>
+    <span class="help-block"><p id="S2AC9_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC9_LEFT').text('1000 characters left');
+    $('#S2AC9').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC9_LEFT').text('You have reached the limit');
+            $('#S2AC9_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC9_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC9_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ10">Q10. Have you or your partner smoked in the last 12 months?</label>
@@ -682,6 +977,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC10_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC10"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC10" name="S2AC10" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C10)) { echo $SEC2_A_C10; } ?></textarea>
+    <span class="help-block"><p id="S2AC10_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC10_LEFT').text('1000 characters left');
+    $('#S2AC10').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC10_LEFT').text('You have reached the limit');
+            $('#S2AC10_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC10_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC10_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ11">Q11. Have you or your partner got or has had any health issues?</label>
@@ -696,6 +1021,36 @@ $(document).ready(function(){
     </label> 
   </div>
 </div>
+    
+<div id="S2AC11_DIV" style="display:block">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC11"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC11" name="S2AC11" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"><?php if(isset($SEC2_A_C11)) { echo $SEC2_A_C11; } ?></textarea>
+    <span class="help-block"><p id="S2AC11_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC11_LEFT').text('1000 characters left');
+    $('#S2AC11').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC11_LEFT').text('You have reached the limit');
+            $('#S2AC11_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC11_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC11_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+  </div>
+</div>
+</div>      
 
 </div>
 

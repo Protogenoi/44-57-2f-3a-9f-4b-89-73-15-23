@@ -433,7 +433,7 @@ function SHOW_MORE_QUESTIONS() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC2"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC2" name="S2AC2" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC2" name="S2AC2" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC2_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -487,7 +487,7 @@ function S2AC2_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC3"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC3" name="S2AC3" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC3" name="S2AC3" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC3_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -541,7 +541,7 @@ function S2AC3_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC4"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC4" name="S2AC4" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC4" name="S2AC4" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC4_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -595,7 +595,7 @@ function S2AC4_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC5"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC5" name="S2AC5" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC5" name="S2AC5" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC5_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -649,7 +649,7 @@ function S2AC5_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC6"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC6" name="S2AC6" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC6" name="S2AC6" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC6_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -703,7 +703,7 @@ function S2AC6_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC7"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC7" name="S2AC7" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC7" name="S2AC7" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC7_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -757,7 +757,7 @@ function S2AC7_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC8"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC8" name="S2AC8" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC8" name="S2AC8" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC8_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -811,7 +811,7 @@ function S2AC8_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC9"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC9" name="S2AC9" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC9" name="S2AC9" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC9_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -865,7 +865,7 @@ function S2AC9_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC10"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC10" name="S2AC10" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC10" name="S2AC10" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC10_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 
@@ -919,7 +919,7 @@ function S2AC10_JAVA() {
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AC11"></label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="S2AC11" name="S2AC11" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <textarea class="form-control" id="S2AC11" name="S2AC11" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
     <span class="help-block"><p id="S2AC11_LEFT" class="help-block ">You have reached the limit</p></span>
     <script>
 $(document).ready(function(){ 

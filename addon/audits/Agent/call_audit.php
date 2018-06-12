@@ -401,6 +401,17 @@ function q4JAVA() {
   </div>
 </div>
 
+<script type="text/javascript">
+
+function yesnoqual() {
+    if (document.getElementById('S2AQ1yes').checked) {
+        document.getElementById('Qualifyyes').style.display = 'none';
+    }
+    else document.getElementById('Qualifyyes').style.display = 'block';
+
+}
+</script>    
+    
 <div id="Qualifyyes" style="display:none">
 
 
@@ -545,16 +556,7 @@ function q4JAVA() {
 </div>
 
 </div>
-<script type="text/javascript">
 
-function yesnoqual() {
-    if (document.getElementById('S2AQ1yes').checked) {
-        document.getElementById('Qualifyyes').style.display = 'none';
-    }
-    else document.getElementById('Qualifyyes').style.display = 'block';
-
-}
-</script>
 </div>
     
 </div>

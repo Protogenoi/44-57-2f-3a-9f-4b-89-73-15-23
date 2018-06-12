@@ -428,16 +428,56 @@ function SHOW_MORE_QUESTIONS() {
     </label> 
   </div>
 </div>
+    
+<div id="S2AC2_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC2"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC2" name="S2AC2" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea>
+    <span class="help-block"><p id="S2AC2_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC2_LEFT').text('1000 characters left');
+    $('#S2AC2').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC2_LEFT').text('You have reached the limit');
+            $('#S2AC2_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC2_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC2_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function q4JAVA() {
+    if (document.getElementById('S2AC2').checked) {
+        document.getElementById('S2AC2_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC2_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>    
 
 <div class="form-group">
-  <label class="col-md-4 control-label" for="S2AQ2">Q3. Repayment or interest only?</label>
+  <label class="col-md-4 control-label" for="S2AQ3">Q3. Repayment or interest only?</label>
   <div class="col-md-4"> 
-    <label class="radio-inline" for="S2AQ2">
+    <label class="radio-inline" for="S2AQ3">
       <input name="S2AQ3" id="Q7RADIO" value="Yes" checked="checked" type="radio" onclick="javascript:q7JAVA();" >
       Yes
     </label> 
-    <label class="radio-inline" for="S2AQ2">
-      <input name="S2AQ3" id="S2AQ2" value="No"  type="radio" onclick="javascript:q7JAVA();" >
+    <label class="radio-inline" for="S2AQ3">
+      <input name="S2AQ3" id="S2AQ3" value="No"  type="radio" onclick="javascript:q7JAVA();" >
       No
     </label> 
   </div>

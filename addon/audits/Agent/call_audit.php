@@ -95,7 +95,7 @@ if ($ffaudits=='0') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<title>ADL | L&G Lead Audit</title>
+<title>ADL | Lead Audit</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">

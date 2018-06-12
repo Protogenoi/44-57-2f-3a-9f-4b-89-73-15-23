@@ -527,113 +527,433 @@ function S2AC3_JAVA() {
   <label class="col-md-4 control-label" for="S2AQ4">Q4. When was your last review on the policy?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ4">
-      <input name="S2AQ4" id="S2AQ4" value="Yes" checked="checked" type="radio" onclick="javascript:q8JAVA();" >
+      <input name="S2AQ4" id="S2AQ4" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC4_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ4">
-      <input name="S2AQ4" id="S2AQ4" value="No" type="radio" onclick="javascript:q8JAVA();" >
+      <input name="S2AQ4" id="S2AQ4" value="No" type="radio" onclick="javascript:S2AC4_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC4_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC4"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC4" name="S2AC4" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC4_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC4_LEFT').text('1000 characters left');
+    $('#S2AC4').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC4_LEFT').text('You have reached the limit');
+            $('#S2AC4_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC4_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC4_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC4_JAVA() {
+    if (document.getElementById('S2AQ4').checked) {
+        document.getElementById('S2AC4_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC4_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ5">Q5. How did you take out the policy?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ5">
-      <input name="S2AQ5" id="S2AQ5" value="Yes" checked="checked" type="radio" onclick="javascript:q9JAVA();" >
+      <input name="S2AQ5" id="S2AQ5" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC5_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ5">
-      <input name="S2AQ5" id="S2AQ5" value="No" type="radio" onclick="javascript:q9JAVA();" >
+      <input name="S2AQ5" id="S2AQ5" value="No" type="radio" onclick="javascript:S2AC5_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC5_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC5"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC5" name="S2AC5" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC5_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC5_LEFT').text('1000 characters left');
+    $('#S2AC5').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC5_LEFT').text('You have reached the limit');
+            $('#S2AC5_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC5_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC5_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC5_JAVA() {
+    if (document.getElementById('S2AQ5').checked) {
+        document.getElementById('S2AC5_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC5_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>    
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ6">Q6. How much are you paying on a monthly basis?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ6">
-      <input name="S2AQ6" id="S2AQ6" value="Yes" checked="checked" type="radio" onclick="javascript:q10JAVA();" >
+      <input name="S2AQ6" id="S2AQ6" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC6_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="radios-Yes">
-      <input name="S2AQ6" id="S2AQ6" value="No" type="radio" onclick="javascript:q10JAVA();" >
+      <input name="S2AQ6" id="S2AQ6" value="No" type="radio" onclick="javascript:S2AC6_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC6_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC6"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC6" name="S2AC6" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC6_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC6_LEFT').text('1000 characters left');
+    $('#S2AC6').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC6_LEFT').text('You have reached the limit');
+            $('#S2AC6_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC6_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC6_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC6_JAVA() {
+    if (document.getElementById('S2AQ6').checked) {
+        document.getElementById('S2AC6_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC6_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>      
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ7">Q7. How much are you covered for?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ7">
-      <input name="S2AQ7" id="S2AQ7" value="Yes" checked="checked" type="radio" onclick="javascript:q11JAVA();" >
+      <input name="S2AQ7" id="S2AQ7" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC7_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="radios-Yes">
-      <input name="S2AQ7" id="S2AQ7" value="No" type="radio" onclick="javascript:q11JAVA();" >
+      <input name="S2AQ7" id="S2AQ7" value="No" type="radio" onclick="javascript:S2AC7_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC7_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC7"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC7" name="S2AC7" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC7_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC7_LEFT').text('1000 characters left');
+    $('#S2AC7').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC7_LEFT').text('You have reached the limit');
+            $('#S2AC7_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC7_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC7_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC7_JAVA() {
+    if (document.getElementById('S2AQ7').checked) {
+        document.getElementById('S2AC7_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC7_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>       
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ8">Q8. How long do you have left on the policy?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="radios-0">
-      <input name="S2AQ8" id="S2AQ8" value="Yes" checked="checked" type="radio" onclick="javascript:q12JAVA();">
+      <input name="S2AQ8" id="S2AQ8" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC8_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ8">
-      <input name="S2AQ8" id="S2AQ8" value="No" type="radio" onclick="javascript:q12JAVA();">
+      <input name="S2AQ8" id="S2AQ8" value="No" type="radio" onclick="javascript:S2AC8_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC8_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC8"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC8" name="S2AC8" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC8_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC8_LEFT').text('1000 characters left');
+    $('#S2AC8').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC8_LEFT').text('You have reached the limit');
+            $('#S2AC8_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC8_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC8_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC8_JAVA() {
+    if (document.getElementById('S2AQ8').checked) {
+        document.getElementById('S2AC8_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC8_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>       
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ9">Q9. Is your policy single, joint or separate?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ9">
-      <input name="S2AQ9" id="S2AQ9" value="Yes" checked="checked" type="radio" onclick="javascript:q13JAVA();">
+      <input name="S2AQ9" id="S2AQ9" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC9_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ9">
-      <input name="S2AQ9" id="S2AQ9" value="No" type="radio" onclick="javascript:q13JAVA();">
+      <input name="S2AQ9" id="S2AQ9" value="No" type="radio" onclick="javascript:S2AC9_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC9_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC9"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC9" name="S2AC9" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC9_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC9_LEFT').text('1000 characters left');
+    $('#S2AC9').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC9_LEFT').text('You have reached the limit');
+            $('#S2AC9_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC9_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC9_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC9_JAVA() {
+    if (document.getElementById('S2AQ9').checked) {
+        document.getElementById('S2AC9_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC9_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>       
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ10">Q10. Have you or your partner smoked in the last 12 months?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ10">
-      <input name="S2AQ10" id="S2AQ10" value="Yes" checked="checked" type="radio" onclick="javascript:q14JAVA();" >
+      <input name="S2AQ10" id="S2AQ10" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC10_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ10">
-      <input name="S2AQ10" id="S2AQ10" value="No" type="radio" onclick="javascript:q14JAVA();" >
+      <input name="S2AQ10" id="S2AQ10" value="No" type="radio" onclick="javascript:S2AC10_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC10_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC10"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC10" name="S2AC10" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC10_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC10_LEFT').text('1000 characters left');
+    $('#S2AC10').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC10_LEFT').text('You have reached the limit');
+            $('#S2AC10_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC10_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC10_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC10_JAVA() {
+    if (document.getElementById('S2AQ10').checked) {
+        document.getElementById('S2AC10_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC10_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>       
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="S2AQ11">Q11. Have you or your partner got or has had any health issues?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ11">
-      <input name="S2AQ11" id="S2AQ11" value="Yes" checked="checked" type="radio" onclick="javascript:q15JAVA();">
+      <input name="S2AQ11" id="S2AQ11" value="Yes" checked="checked" type="radio" onclick="javascript:S2AC11_JAVA();" >
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ11">
-      <input name="S2AQ11" id="S2AQ11" value="No" type="radio" onclick="javascript:q15JAVA();">
+      <input name="S2AQ11" id="S2AQ11" value="No" type="radio" onclick="javascript:S2AC11_JAVA();" >
       No
     </label> 
   </div>
 </div>
+    
+<div id="S2AC11_DIV" style="display:none">
+<div class="form-group">
+  <label class="col-md-4 control-label" for="S2AC11"></label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="S2AC11" name="S2AC11" rows="1" cols="74" maxlength="1000" onkeyup="textAreaAdjust(this)">NOT READY</textarea>
+    <span class="help-block"><p id="S2AC11_LEFT" class="help-block ">You have reached the limit</p></span>
+    <script>
+$(document).ready(function(){ 
+    $('#S2AC11_LEFT').text('1000 characters left');
+    $('#S2AC11').keydown(function () {
+        var max = 1000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#S2AC11_LEFT').text('You have reached the limit');
+            $('#S2AC11_LEFT').addClass('red');
+            $('#btnSubmit').addClass('disabled');            
+        } 
+        else {
+            var ch = max - len;
+            $('#S2AC11_LEFT').text(ch + ' characters left');
+            $('#btnSubmit').removeClass('disabled');
+            $('#S2AC11_LEFT').removeClass('red');            
+        }
+    });    
+});
+</script>
+<script type="text/javascript">
+
+function S2AC11_JAVA() {
+    if (document.getElementById('S2AQ11').checked) {
+        document.getElementById('S2AC11_DIV').style.display = 'none';
+    }
+    else document.getElementById('S2AC11_DIV').style.display = 'block';
+
+}
+</script>
+  </div>
+</div>
+</div>       
 
 </div>
 

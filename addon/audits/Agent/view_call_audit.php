@@ -151,6 +151,17 @@ if(isset($AUDITID)) {
         adl_audit_lead_qua_a_9,
         adl_audit_lead_qua_a_10,
         adl_audit_lead_qua_a_11,
+        adl_audit_lead_qua_a_c1,
+        adl_audit_lead_qua_a_c2,
+        adl_audit_lead_qua_a_c3,
+        adl_audit_lead_qua_a_c4,
+        adl_audit_lead_qua_a_c5,
+        adl_audit_lead_qua_a_c6,
+        adl_audit_lead_qua_a_c7,
+        adl_audit_lead_qua_a_c8,
+        adl_audit_lead_qua_a_c9,
+        adl_audit_lead_qua_a_c10,
+        adl_audit_lead_qua_a_c11,        
         adl_audit_lead_qua_b_1,
         adl_audit_lead_qua_b_2,
         adl_audit_lead_qua_sec3_1,
@@ -242,7 +253,51 @@ if(isset($AUDITID)) {
     
     if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_11'])) {
         $SEC2_A_11=$VIT_Q_AUDIT['adl_audit_lead_qua_a_11'];
-    }        
+    } 
+    
+ if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c1'])) {
+        $SEC2_A_C1=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c1'];
+    }     
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c2'])) {
+        $SEC2_A_C2=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c2'];
+    }    
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c3'])) {
+        $SEC2_A_C3=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c3'];
+    }  
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c4'])) {
+        $SEC2_A_C4=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c4'];
+    } 
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c5'])) {
+        $SEC2_A_C5=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c5'];
+    }       
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c6'])) {
+        $SEC2_A_C6=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c6'];
+    }     
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c7'])) {
+        $SEC2_A_C7=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c7'];
+    }      
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c8'])) {
+        $SEC2_A_C8=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c8'];
+    }      
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c9'])) {
+        $SEC2_A_C9=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c9'];
+    }    
+
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c10'])) {
+        $SEC2_A_C10=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c10'];
+    }       
+    
+    if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c11'])) {
+        $SEC2_A_C11=$VIT_Q_AUDIT['adl_audit_lead_qua_a_c11'];
+    }     
     
     if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_b_1'])) {
         $SEC2_B_1=$VIT_Q_AUDIT['adl_audit_lead_qua_b_1'];
@@ -407,6 +462,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_1 == "No") {
                         echo "checked";
                     } ?>><label for="No">No</label>
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C1</strong></h3>"; } ?>
+                    </div>                    
                     <br>
 
                     <label for="obj_handled">Q2. What was the main reason you took out the policy?</label>
@@ -416,7 +474,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_2 == "No") {
                         echo "checked";
                     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) {  echo "<h3><strong>$SEC2_A_C2</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="rapport">Q3. Repayment or interest only?</label>
@@ -426,7 +486,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_3 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C3</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="dealsheet_questions">Q4. When was your last review on the policy?</label>
@@ -436,7 +498,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_4 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C4</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="full_info">Q5. How did you take out the policy?</label>
@@ -446,7 +510,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_5 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C5</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="obj_handled">Q6. How much are you paying on a monthly basis?</label>
@@ -456,7 +522,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_6 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C6</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="rapport">Q7. How much are you covered for?</label>
@@ -466,7 +534,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_7 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C7</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="dealsheet_questions">Q8. How long do you have left on the policy?</label>
@@ -476,7 +546,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_8 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C8</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="full_info">Q9. Is your policy single, joint or separate?</label>
@@ -486,7 +558,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_9 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C9</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="obj_handled">Q10. Have you or your partner smoked in the last 12 months?</label>
@@ -496,7 +570,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_10 == "No") {
                     echo "checked";
                 } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C10</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <label for="rapport">Q11. Have you or your partner got or has had any health issues?</label>
@@ -506,7 +582,9 @@ if ($EXECUTE == '1') {
                     <input type="radio" value="No" onclick="return false"onclick="return false"<?php if ($SEC2_A_11 == "No") {
         echo "checked";
     } ?>><label for="No">No</label>
-
+                    <div class="phpcomments">
+    <?php if(isset($SEC2_A_C1)) { echo "<h3><strong>$SEC2_A_C11</strong></h3>"; } ?>
+                    </div> 
                     <br>
 
                     <br>

@@ -405,14 +405,14 @@ function q4JAVA() {
 
 function SHOW_MORE_QUESTIONS() {
     if (document.getElementById('S2AQ1yes').checked) {
-        document.getElementById('Qualifyyes').style.display = 'none';
+        document.getElementById('SHOW_MORE_QUESTIONS_DIV').style.display = 'none';
     }
-    else document.getElementById('Qualifyyes').style.display = 'block';
+    else document.getElementById('SHOW_MORE_QUESTIONS_DIV').style.display = 'block';
 
 }
 </script>    
     
-<div id="Qualifyyes" style="display:none">
+<div id="SHOW_MORE_QUESTIONS_DIV" style="display:none">
 
 
 <div class="form-group">

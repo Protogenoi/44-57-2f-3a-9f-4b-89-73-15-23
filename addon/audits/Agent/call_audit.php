@@ -391,11 +391,11 @@ function q4JAVA() {
   <label class="col-md-4 control-label" for="S2AQ1">Q1. Were all the questions asked?</label>
   <div class="col-md-4"> 
     <label class="radio-inline" for="S2AQ1">
-      <input name="S2AQ1" id="S2AQ1yes" value="Yes" type="radio" onclick="javascript:yesnoqual();" required>
+      <input name="S2AQ1" id="S2AQ1yes" value="Yes" type="radio" onclick="javascript:SHOW_MORE_QUESTIONS();" required>
       Yes
     </label> 
     <label class="radio-inline" for="S2AQ1">
-      <input name="S2AQ1" id="S2AQ1no" value="No" type="radio" onclick="javascript:yesnoqual();">
+      <input name="S2AQ1" id="S2AQ1no" value="No" type="radio" onclick="javascript:SHOW_MORE_QUESTIONS();">
       No
     </label> 
   </div>
@@ -403,7 +403,7 @@ function q4JAVA() {
 
 <script type="text/javascript">
 
-function yesnoqual() {
+function SHOW_MORE_QUESTIONS() {
     if (document.getElementById('S2AQ1yes').checked) {
         document.getElementById('Qualifyyes').style.display = 'none';
     }

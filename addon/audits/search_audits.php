@@ -122,29 +122,29 @@ require_once(__DIR__ . '/../../includes/navbar.php');
         if(isset($RETURN)) {
             if($RETURN=='EDIT'){
                 if($GRADE == 'Green') {
-                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> $INSURER Audit Updated!</div>";
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Green Audit:</strong> $INSURER Audit Updated!</div>";
                 
                 
             } elseif($GRADE == 'Red') {
-                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> $INSURER Audit Updated!</div>";
+                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Red Audit:</strong> $INSURER Audit Updated!</div>";
                 
             }
             elseif($GRADE == 'Amber') {
-                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> $INSURER Audit Updated!</div>";
+                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Amber Audit:</strong> $INSURER Audit Updated!</div>";
                 
             }                
             }
             if($RETURN == 'ADDED') {
                 if($GRADE == 'Green') {
-                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Green Audit:</strong> $INSURER Audit Added!</div>";
+                echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Green Audit:</strong> $INSURER Audit Added!</div>";
                 
                 
             } elseif($GRADE == 'Red') {
-                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Red Audit:</strong> $INSURER Audit Added!</div>";
+                echo "<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Red Audit:</strong> $INSURER Audit Added!</div>";
                 
             }
             elseif($GRADE == 'Amber') {
-                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"fa fa-check-circle-o\"></i> Amber Audit:</strong> $INSURER Audit Added!</div>";
+                echo "<div class=\"notice notice-warning\" role=\"alert\"><strong><i class=\"far fa-check-circle\"></i> Amber Audit:</strong> $INSURER Audit Added!</div>";
                 
             }
         }

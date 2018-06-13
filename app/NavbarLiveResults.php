@@ -305,11 +305,11 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
                             if ($ffsms == '1') {
                                 if (in_array($hello_name, $Level_3_Access, true)) {
                                     if ($RPY_stmtresult['badge'] >= '1') { ?>
-                            <li><div class="notice notice-success" role="alert" id="HIDELGKEY"><strong><i class="fa fa-commenting-o"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> There are <?php echo $RPY_stmtresult['badge']; ?> client responses!</a></div></li>
+                            <li><div class="notice notice-success" role="alert" id="HIDELGKEY"><strong><i class="far fa-comments"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> There are <?php echo $RPY_stmtresult['badge']; ?> client responses!</a></div></li>
                             <?php }
                             
                             if(isset($RPY_stmtresult2['badge']) && $RPY_stmtresult2['badge'] >= '1') { ?>
-                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fa fa-commenting-o"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <?php echo $RPY_stmtresult2['badge']; ?> messages have failed to be delivered!</a></div></li>
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="far fa-comments"></i> SMS:</strong><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <?php echo $RPY_stmtresult2['badge']; ?> messages have failed to be delivered!</a></div></li>
                             <?php } 
                             
                             } 
@@ -375,12 +375,12 @@ if ($ACT_CBS['badge'] > 0) { ?>
             if (in_array($hello_name, $Level_8_Access, true)) { 
             if ($RPY_stmtresult['badge'] >= '1') {
                 ?>
-                <li><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> <span class="badge alert-success"> <i class='fa fa-commenting-o'></i> <?php echo $RPY_stmtresult['badge']; ?> </span></a></li>
+                <li><a href="/app/SMS/Report.php?SEARCH_BY=Responses"> <span class="badge alert-success"> <i class='far fa-comments'></i> <?php echo $RPY_stmtresult['badge']; ?> </span></a></li>
 
                 <?php
             }
             if ($RPY_stmtresult2['badge'] >= '1') {
-                ?>                <li><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-danger"> <i class='fa fa-comment-o'></i> <?php echo $RPY_stmtresult2['badge']; ?> </span> </a></li>
+                ?>                <li><a href="/app/SMS/Report.php?SEARCH_BY=Failed"> <span class="badge alert-danger"> <i class='far fa-comments'></i> <?php echo $RPY_stmtresult2['badge']; ?> </span> </a></li>
 
                 <?php
             }

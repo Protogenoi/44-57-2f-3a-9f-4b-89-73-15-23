@@ -36,6 +36,10 @@
                     $FONT_AWESOME_AUDIT_ICON = "far fa-star-half";
                 }
                 
+                elseif($AUDIT_COUNT_VARS['adl_audits_count'] >= 2 ) {
+                    $FONT_AWESOME_AUDIT_ICON = "far fa-meh";
+                }                
+                
                 else {
                     
                     $FONT_AWESOME_AUDIT_ICON = "fa fa-poo";

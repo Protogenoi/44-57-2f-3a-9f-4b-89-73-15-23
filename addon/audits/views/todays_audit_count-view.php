@@ -44,7 +44,7 @@
                 
                 ?>                
                 
-                <th><i class="<?php echo $FONT_AWESOME_AUDIT_ICON; ?>"></i> <?php echo $AUDIT_COUNT_VARS['adl_audits_count']; ?></th>
+                <th><i class="<?php echo $FONT_AWESOME_AUDIT_ICON; ?> fa-4x"></i> <?php echo $AUDIT_COUNT_VARS['adl_audits_count']; ?></th>
 
 <?php endforeach ?>                
 

@@ -79,6 +79,7 @@ $WOL_COMM_DATE = filter_input(INPUT_GET, 'WOL_commdate', FILTER_SANITIZE_SPECIAL
 
 $AVI_DATE_FROM = filter_input(INPUT_GET, 'AVI_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $AVI_DATE_TO = filter_input(INPUT_GET, 'AVI_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
+$AVI_COMM_DATE = filter_input(INPUT_GET, 'AVI_commdate', FILTER_SANITIZE_SPECIAL_CHARS);
 
 $LV_DATE_FROM = filter_input(INPUT_GET, 'LV_datefrom', FILTER_SANITIZE_SPECIAL_CHARS);
 $LV_DATE_TO = filter_input(INPUT_GET, 'LV_dateto', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -363,19 +364,19 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                                     <select class="form-control" name="AVI_commdate">
                                         <?php
                                         $COM_DATE_query = $pdo->prepare("SELECT 
-                                                        DATE(vitality_financial_uploaded_date) AS vitality_financial_uploaded_date
+                                                        DATE(aviva_financial_uploaded_date) AS aviva_financial_uploaded_date
                                                     FROM 
-                                                        vitality_financial 
+                                                        aviva_financial 
                                                     group by 
-                                                        DATE(vitality_financial_uploaded_date) 
+                                                        DATE(aviva_financial_uploaded_date) 
                                                     ORDER BY 
-                                                        vitality_financial_uploaded_date DESC");
+                                                        aviva_financial_uploaded_date DESC");
                                         $COM_DATE_query->execute()or die(print_r($_COM_DATE_query->errorInfo(), true));
                                         if ($COM_DATE_query->rowCount() > 0) {
                                             while ($row = $COM_DATE_query->fetch(PDO::FETCH_ASSOC)) {
-                                                if (isset($row['vitality_financial_uploaded_date'])) {
+                                                if (isset($row['aviva_financial_uploaded_date'])) {
                                                     ?>
-                                                    <option value="<?php echo $row['vitality_financial_uploaded_date']; ?>"><?php echo $row['vitality_financial_uploaded_date']; ?></option>
+                                                    <option value="<?php echo $row['aviva_financial_uploaded_date']; ?>"><?php echo $row['aviva_financial_uploaded_date']; ?></option>
 
                                                     <?php
                                                 }
@@ -4288,25 +4289,25 @@ WHERE
                             
 
                             $query = $pdo->prepare("SELECT 
-    SUM(CASE WHEN vitality_financial_amount < 0 THEN vitality_financial_amount ELSE 0 END) as totalloss,
-    SUM(CASE WHEN vitality_financial_amount >= 0 THEN vitality_financial_amount ELSE 0 END) as totalgross
-    FROM vitality_financial 
+    SUM(CASE WHEN aviva_financial_amount < 0 THEN aviva_financial_amount ELSE 0 END) as totalloss,
+    SUM(CASE WHEN aviva_financial_amount >= 0 THEN aviva_financial_amount ELSE 0 END) as totalgross
+    FROM aviva_financial 
     WHERE 
-        DATE(vitality_financial_uploaded_date)=:commdate");
-                            $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+        DATE(aviva_financial_uploaded_date)=:commdate");
+                            $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
 
 
                             $POL_ON_TM_QRY = $pdo->prepare("select 
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_PLUS,
-    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as PAID_TOTAL_LOSS 
+    SUM(CASE WHEN aviva_financial.aviva_financial_amount >= 0 THEN aviva_financial.aviva_financial_amount ELSE 0 END) as PAID_TOTAL_PLUS,
+    SUM(CASE WHEN aviva_financial.aviva_financial_amount < 0 THEN aviva_financial.aviva_financial_amount ELSE 0 END) as PAID_TOTAL_LOSS 
     FROM 
-        vitality_financial 
+        aviva_financial 
     LEFT JOIN 
         client_policy 
     ON 
-        vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+        aviva_financial.aviva_financial_policy=client_policy.policy_number 
     WHERE 
-        DATE(vitality_financial_uploaded_date) = :commdate
+        DATE(aviva_financial_uploaded_date) = :commdate
     AND 
         client_policy.policy_number IN(SELECT 
                                             client_policy.policy_number 
@@ -4321,7 +4322,7 @@ WHERE
                                         AND 
                                             client_policy.insurer='Aviva')
                                             ");
-                            $POL_ON_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                            $POL_ON_TM_QRY->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_ON_TM_QRY->execute()or die(print_r($POL_ON_TM_QRY->errorInfo(), true));
@@ -4332,19 +4333,19 @@ WHERE
 
                             $POL_NOT_TM_QRY = $pdo->prepare("
                                 SELECT
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount >= 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
-                                    SUM(CASE WHEN vitality_financial.vitality_financial_amount < 0 THEN vitality_financial.vitality_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
+                                    SUM(CASE WHEN aviva_financial.aviva_financial_amount >= 0 THEN aviva_financial.aviva_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_PLUS,
+                                    SUM(CASE WHEN aviva_financial.aviva_financial_amount < 0 THEN aviva_financial.aviva_financial_amount ELSE 0 END) as NOT_PAID_TOTAL_LOSS   
                                 FROM 
-                                    vitality_financial
+                                    aviva_financial
                                 LEFT JOIN 
                                     client_policy 
                                 ON 
-                                    vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                    aviva_financial.aviva_financial_policy=client_policy.policy_number
                                 WHERE 
-                                    DATE(vitality_financial_uploaded_date) = :commdate 
+                                    DATE(aviva_financial_uploaded_date) = :commdate 
                                 AND 
                                     client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Aviva')");
-                            $POL_NOT_TM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                            $POL_NOT_TM_QRY->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                             $POL_NOT_TM_QRY->execute()or die(print_r($POL_NOT_TM_QRY->errorInfo(), true));
@@ -4360,7 +4361,7 @@ WHERE
                                     WHERE 
                                         DATE(sale_date) BETWEEN '2017-01-01' AND :dateto
                                     AND 
-                                        policy_number NOT IN(select vitality_financial_policy_number from vitality_financial)
+                                        policy_number NOT IN(select aviva_financial_policy from aviva_financial)
                                     AND 
                                         insurer='Aviva'
                                     AND 
@@ -4386,7 +4387,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan="8"><?php echo "ADL Projections for $COMM_DATE";?></th>
+                                    <th colspan="8"><?php echo "ADL Projections for $AVI_COMM_DATE";?></th>
                                 </tr>
                                 <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="ADL COMM Amount for policies that should be paid within <?php echo "$AVI_DATE_FROM - $AVI_DATE_TO"; ?>.
                                                    
@@ -4444,22 +4445,22 @@ Total: <?php echo $AVI_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fin
                                 <table  class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th colspan="8"><?php echo "RAW COMMS statistics for $COMM_DATE";?></th>
+                                            <th colspan="8"><?php echo "RAW COMMS statistics for $AVI_COMM_DATE";?></th>
                                         </tr>
-                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
+                                    <th>Total Gross <i class="fa fa-question-circle" style="color:skyblue" title="Total Paid for COMM date <?php echo "$AVI_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>Total Loss <i class="fa fa-question-circle" style="color:skyblue" title="Total Clawbacks for COMM date <?php echo "$AVI_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Total Net <i class="fa fa-question-circle" style="color:skyblue" title="Total Gross - Total Loss for COMM date <?php echo "$AVI_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>   
                                     <th>INSURER % <i class="fa fa-question-circle" style="color:skyblue" title="Percentage deduction <?php echo "$totalrate%"; ?>."></i></th> 
-                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
-                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
-                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$COMM_DATE"; ?>.
+                                    <th>Net COMM <i class="fa fa-question-circle" style="color:skyblue" title="Total Net - INSURER % for COMM date <?php echo "$AVI_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+                                    <th>ADL vs RAW DIFF <i class="fa fa-question-circle" style="color:skyblue" title="Difference between ADL Projected Gross - RAW Total Gross COMM date <?php echo "$AVI_COMM_DATE"; ?>."></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th>
+                                    <th>Missing <i class="fa fa-question-circle" style="color:skyblue" title="Polciies that were not paid for COMM date <?php echo "$AVI_COMM_DATE"; ?>.
 
 ADL <?php echo $ADL_MISSING_SUM_DATES_FORMAT; ?>
 
 Insurer Percentage: <?php echo $simply_MISSING_SUM_FORMAT; ?>
 
 Total: <?php echo $ADL_MISSING_SUM_FORMAT; ?>"
-></i> <a href="?commdate=<?php echo $COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
+></i> <a href="?commdate=<?php echo $AVI_COMM_DATE; ?>"><i class="fa fa-download" style="color:orange" title="Download"></i></a></th> 
                                     </tr>
                                     </thead>
                                     
@@ -4501,7 +4502,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                         <table  class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="8"><?php echo "RAW COMMS breakdown $COMM_DATE"; ?></th>
+                                    <th colspan="8"><?php echo "RAW COMMS breakdown $AVI_COMM_DATE"; ?></th>
                                 </tr>
                                 <tr>
                                     <th>Payments on Time</th> 
@@ -4533,23 +4534,23 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                         client_policy.policy_number, 
                         client_policy.commission, 
                         DATE(client_policy.sale_date) AS SALE_DATE, 
-                        vitality_financial.vitality_financial_life_assured_name, 
-                        vitality_financial.vitality_financial_policy_number, 
-                        vitality_financial.vitality_financial_amount, 
-                        DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                        aviva_financial.aviva_financial_client_name, 
+                        aviva_financial.aviva_financial_policy, 
+                        aviva_financial.aviva_financial_amount, 
+                        DATE(aviva_financial_uploaded_date) AS COMM_DATE
                     FROM
-                        vitality_financial
+                        aviva_financial
                     LEFT JOIN 
                         client_policy
                     ON 
-                        vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                        aviva_financial.aviva_financial_policy=client_policy.policy_number
                     WHERE 
-                        DATE(vitality_financial_uploaded_date) = :commdate
+                        DATE(aviva_financial_uploaded_date) = :commdate
                     AND
                         client_policy.insurer='Aviva'
                     ORDER BY 
-                        vitality_financial.vitality_financial_amount DESC");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
+                        aviva_financial.aviva_financial_amount DESC");
+                    $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -4561,7 +4562,7 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>RAW COMMS for <?php echo "$COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>RAW COMMS for <?php echo "$AVI_COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -4573,13 +4574,13 @@ $PAY_LATE_LS = number_format($POL_NOT_TM_SUM_LS, 2);
 
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
-                                echo "<td>" . $row['vitality_financial_life_assured_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                echo "<td>" . $row['aviva_financial_client_name'] . "</td>";
+                                if (intval($row['aviva_financial_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
+                                } else if (intval($row["aviva_financial_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 }
 
 
@@ -4631,7 +4632,7 @@ WHERE
 
                             <thead>
                                 <tr>
-                                    <th colspan='3'>EXPECTED for <?php echo "$COMM_DATE ($EXPECTEDcount records) | ADL £$AVI_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$AVI_ADL_EXPECTED_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>EXPECTED for <?php echo "$AVI_COMM_DATE ($EXPECTEDcount records) | ADL £$AVI_ADL_EXPECTED_SUM_DATES_FORMAT | Total £$AVI_ADL_EXPECTED_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -4689,7 +4690,7 @@ WHERE
                             WHERE 
                                 DATE(sale_date) BETWEEN '2017-01-01' AND :dateto 
                             AND
-                                policy_number NOT IN(select vitality_financial_policy_number FROM vitality_financial) 
+                                policy_number NOT IN(select aviva_financial_policy FROM aviva_financial) 
                             AND
                                 insurer='Aviva'
                             AND
@@ -4768,21 +4769,21 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            aviva_financial.aviva_financial_policy,
+                            aviva_financial.aviva_financial_amount,
+                            DATE(aviva_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            aviva_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            aviva_financial.aviva_financial_policy=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.sale_date) BETWEEN :datefrom AND :dateto
                         AND 
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial) 
+                            client_policy.policy_number NOT IN(select aviva_financial.aviva_financial_policy from aviva_financial) 
                         AND
-                            client_policy.policy_number NOT IN(select vitality_financial.vitality_financial_policy_number from vitality_financial)
+                            client_policy.policy_number NOT IN(select aviva_financial.aviva_financial_policy from aviva_financial)
                         AND 
                             client_policy.insurer='Aviva'
                         AND 
@@ -4803,7 +4804,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Missing for <?php echo "$COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Missing for <?php echo "$AVI_COMM_DATE ($count records) | ADL £$ADL_MISSING_SUM_DATES_FORMAT | Total £$ADL_MISSING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -4860,15 +4861,15 @@ WHERE
                             client_policy.client_id AS CID,
                             client_policy.policy_number,
                             client_policy.commission,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            aviva_financial.aviva_financial_policy,
+                            aviva_financial.aviva_financial_amount,
+                            DATE(aviva_financial_uploaded_date) AS COMM_DATE
                         FROM
                             client_policy
                         LEFT JOIN 
-                            vitality_financial
+                            aviva_financial
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            aviva_financial.aviva_financial_policy=client_policy.policy_number
                         WHERE 
                             DATE(client_policy.submitted_date) between :datefrom AND :dateto 
                         AND 
@@ -4889,7 +4890,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Awaiting for <?php echo "$COMM_DATE ($count records) | ADL £$AVI_ADL_AWAITING_SUM_DATES_FORMAT | Total £$AVI_ADL_AWAITING_SUM_FORMAT"; ?></th>
+                                    <th colspan='3'>Awaiting for <?php echo "$AVI_COMM_DATE ($count records) | ADL £$AVI_ADL_AWAITING_SUM_DATES_FORMAT | Total £$AVI_ADL_AWAITING_SUM_FORMAT"; ?></th>
                                 </tr>
                             <th>Sale Date</th>
                             <th>Policy</th>
@@ -4942,22 +4943,22 @@ WHERE
                 
                     $POLIN_SUM_QRY = $pdo->prepare("
                         SELECT 
-                            sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                            sum(aviva_financial.aviva_financial_amount) AS aviva_financial_amount 
                         FROM 
-                            vitality_financial
+                            aviva_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON aviva_financial.aviva_financial_policy=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(aviva_financial_uploaded_date) = :commdate
                         AND 
                             client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Aviva')");
-                    $POLIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $POLIN_SUM_QRY->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                     $POLIN_SUM_QRY->execute()or die(print_r($POLIN_SUM_QRY->errorInfo(), true));
                     $POLIN_SUM_QRY_RS = $POLIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_POLIN_SUM = $POLIN_SUM_QRY_RS['aviva_financial_amount'];
 
                     $query = $pdo->prepare("
                         SELECT 
@@ -4967,18 +4968,18 @@ WHERE
                             client_policy.policy_number,
                             client_policy.commission,
                             DATE(client_policy.sale_date) AS SALE_DATE,
-                            vitality_financial.vitality_financial_policy_number,
-                            vitality_financial.vitality_financial_amount,
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            aviva_financial.aviva_financial_policy,
+                            aviva_financial.aviva_financial_amount,
+                            DATE(aviva_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            aviva_financial
                         LEFT JOIN 
-                            client_policy ON vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            client_policy ON aviva_financial.aviva_financial_policy=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(aviva_financial_uploaded_date) = :commdate
                         AND
                             client_policy.policy_number IN(select client_policy.policy_number from client_policy WHERE DATE(client_policy.sale_date) between :datefrom AND :dateto AND insurer='Aviva')");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR);
+                    $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR);
                     $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR);
                     $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -4991,7 +4992,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Policies in date range <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
+                                    <th colspan='3'>Policies in date range <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $AVI_COMM_DATE ($count records) | Total £$ORIG_POLIN_SUM"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -5004,12 +5005,12 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['aviva_financial_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
+                                } else if (intval($row["aviva_financial_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 }
 
 
@@ -5038,20 +5039,20 @@ WHERE
                             client_policy.policy_number, 
                             client_policy.commission, 
                             DATE(client_policy.sale_date) AS SALE_DATE, 
-                            vitality_financial.vitality_financial_policy_number, 
-                            vitality_financial.vitality_financial_amount, 
-                            DATE(vitality_financial_uploaded_date) AS COMM_DATE
+                            aviva_financial.aviva_financial_policy, 
+                            aviva_financial.aviva_financial_amount, 
+                            DATE(aviva_financial_uploaded_date) AS COMM_DATE
                         FROM 
-                            vitality_financial
+                            aviva_financial
                         LEFT JOIN 
                             client_policy
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                            aviva_financial.aviva_financial_policy=client_policy.policy_number
                         WHERE 
-                            DATE(vitality_financial_uploaded_date) = :commdate
+                            DATE(aviva_financial_uploaded_date) = :commdate
                         AND
                             client_policy.policy_number IN(select client_policy.policy_number FROM client_policy WHERE DATE(client_policy.sale_date) NOT BETWEEN :datefrom AND :dateto AND insurer='Aviva')");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->bindParam(':dateto', $AVI_DATE_TO, PDO::PARAM_STR, 100);
                     $query->bindParam(':datefrom', $AVI_DATE_FROM, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
@@ -5064,7 +5065,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>Back Dated Policies <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $COMM_DATE ($count records)"; ?></th>
+                                    <th colspan='3'>Back Dated Policies <?php echo "$AVI_DATE_TO - $AVI_DATE_FROM with COMM date of $AVI_COMM_DATE ($count records)"; ?></th>
                                 </tr>
                             <th>Policy</th>
                             <th>Client</th>
@@ -5077,12 +5078,12 @@ WHERE
                                 echo '<tr>';
                                 echo "<td><a href='/addon/Life/ViewPolicy.php?policyID=" . $row['PID'] . "&search=" . $row['CID'] . "' target='_blank'>" . $row['policy_number'] . "</a></td>";
                                 echo "<td>" . $row['client_name'] . "</td>";
-                                if (intval($row['vitality_financial_amount']) > 0) {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
-                                } else if (intval($row["vitality_financial_amount"]) < 0) {
-                                    echo "<td><span class=\"label label-danger\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                if (intval($row['aviva_financial_amount']) > 0) {
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
+                                } else if (intval($row["aviva_financial_amount"]) < 0) {
+                                    echo "<td><span class=\"label label-danger\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 } else {
-                                    echo "<td><span class=\"label label-success\">" . $row['vitality_financial_amount'] . "</span></td>";
+                                    echo "<td><span class=\"label label-success\">" . $row['aviva_financial_amount'] . "</span></td>";
                                 }
 
 
@@ -5105,48 +5106,48 @@ WHERE
 
                     $COMMIN_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                sum(vitality_financial.vitality_financial_amount) AS vitality_financial_amount
+                                sum(aviva_financial.aviva_financial_amount) AS aviva_financial_amount
                             FROM 
-                                vitality_financial 
+                                aviva_financial 
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                aviva_financial.aviva_financial_policy=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount >= 0 
+                                aviva_financial.aviva_financial_amount >= 0 
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate 
+                                DATE(aviva_financial_uploaded_date) =:commdate 
                             AND 
                                 client_policy.insurer ='Aviva'");
-                    $COMMIN_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMIN_SUM_QRY->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMIN_SUM_QRY->execute()or die(print_r($COMMIN_SUM_QRY->errorInfo(), true));
                     $COMMIN_SUM_QRY_RS = $COMMIN_SUM_QRY->fetch(PDO::FETCH_ASSOC);
                     
-                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_COMMIN_SUM = $COMMIN_SUM_QRY_RS['aviva_financial_amount'];
                     $COMMIN_SUM_FORMATTED = number_format($ORIG_COMMIN_SUM, 2);
 
                     $query = $pdo->prepare("
                         SELECT
-                            vitality_financial.vitality_financial_amount, 
+                            aviva_financial.aviva_financial_amount, 
                             client_policy.CommissionType, 
                             DATE(client_policy.sale_date) AS sale_date, 
                             client_policy.policy_number, 
-                            vitality_financial.vitality_financial_policy_number, 
+                            aviva_financial.aviva_financial_policy, 
                             client_policy.client_name, 
                             client_policy.client_id 
                         FROM 
-                            vitality_financial 
+                            aviva_financial 
                         LEFT JOIN
                             client_policy 
                         ON 
-                            vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                            aviva_financial.aviva_financial_policy=client_policy.policy_number 
                         WHERE 
-                            vitality_financial.vitality_financial_amount >= 0 
+                            aviva_financial.aviva_financial_amount >= 0 
                         AND 
-                            DATE(vitality_financial_uploaded_date) =:commdate
+                            DATE(aviva_financial_uploaded_date) =:commdate
                         AND 
                             client_policy.insurer='Aviva'");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5157,7 +5158,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM IN <?php echo "with COMM date of $AVI_COMM_DATE ($count records) | Total £$COMMIN_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
@@ -5168,8 +5169,8 @@ WHERE
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['aviva_financial_policy'];
+                                $PAY_AMOUNT = number_format($row['aviva_financial_amount'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -5202,45 +5203,45 @@ WHERE
                 
                     $COMMOUT_SUM_QRY = $pdo->prepare("
                             SELECT 
-                                SUM(vitality_financial.vitality_financial_amount) AS vitality_financial_amount 
+                                SUM(aviva_financial.aviva_financial_amount) AS aviva_financial_amount 
                             FROM 
-                                vitality_financial 
+                                aviva_financial 
                             LEFT JOIN 
                                 client_policy 
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number
+                                aviva_financial.aviva_financial_policy=client_policy.policy_number
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0
+                                aviva_financial.aviva_financial_amount < 0
                             AND 
-                                DATE(vitality_financial_uploaded_date) =:commdate
+                                DATE(aviva_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Aviva'");
-                    $COMMOUT_SUM_QRY->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $COMMOUT_SUM_QRY->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $COMMOUT_SUM_QRY->execute()or die(print_r($COMMOUT_SUM_QRY->errorInfo(), true));
                     $COMMOUT_SUM_QRY_RS = $COMMOUT_SUM_QRY->fetch(PDO::FETCH_ASSOC);
-                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['vitality_financial_amount'];
+                    $ORIG_COMMOUT_SUM = $COMMOUT_SUM_QRY_RS['aviva_financial_amount'];
                     $COMMOUT_SUM_FORMATTED = number_format($ORIG_COMMOUT_SUM, 2);
 
                     $query = $pdo->prepare("
                             SELECT 
-                                vitality_financial.vitality_financial_amount, 
+                                aviva_financial.aviva_financial_amount, 
                                 client_policy.CommissionType, 
                                 DATE(client_policy.sale_date) AS sale_date, 
                                 client_policy.policy_number, 
-                                vitality_financial.vitality_financial_policy_number, 
+                                aviva_financial.aviva_financial_policy, 
                                 client_policy.client_name, 
                                 client_policy.client_id 
                             FROM 
-                                vitality_financial
+                                aviva_financial
                             LEFT JOIN 
                                 client_policy
                             ON 
-                                vitality_financial.vitality_financial_policy_number=client_policy.policy_number 
+                                aviva_financial.aviva_financial_policy=client_policy.policy_number 
                             WHERE 
-                                vitality_financial.vitality_financial_amount < 0 AND DATE(vitality_financial_uploaded_date) =:commdate
+                                aviva_financial.aviva_financial_amount < 0 AND DATE(aviva_financial_uploaded_date) =:commdate
                             AND 
                                 client_policy.insurer='Aviva'");
-                    $query->bindParam(':commdate', $COMM_DATE, PDO::PARAM_STR, 100);
+                    $query->bindParam(':commdate', $AVI_COMM_DATE, PDO::PARAM_STR, 100);
                     $query->execute()or die(print_r($query->errorInfo(), true));
                     if ($query->rowCount() > 0) {
                         $count = $query->rowCount();
@@ -5251,7 +5252,7 @@ WHERE
                             <thead>
 
                                 <tr>
-                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
+                                    <th colspan='3'>COMM OUT  <?php echo "with COMM date of $AVI_COMM_DATE ($count records) | Total £$COMMOUT_SUM_FORMATTED"; ?></th>
                                 </tr>
                             <th>Date</th>
                             <th>Client</th>
@@ -5262,8 +5263,8 @@ WHERE
                             <?php
                             while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
-                                $policy = $row['vitality_financial_policy_number'];
-                                $PAY_AMOUNT = number_format($row['vitality_financial_amount'], 2);
+                                $policy = $row['aviva_financial_policy'];
+                                $PAY_AMOUNT = number_format($row['aviva_financial_amount'], 2);
 
                                 echo '<tr>';
                                 echo "<td>" . $row['sale_date'] . "</td>";
@@ -5354,12 +5355,12 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=1<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$AVI_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM & SALE (Policies on Time)</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=2<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=2<?php echo "&commdate=$AVI_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> COMM Date (JUST COMMS)</a>
                                         </div>
 
 
@@ -5373,12 +5374,12 @@ WHERE
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=4<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO&commdate=$AVI_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> GROSS</a>
                                         </div>
 
 
                                         <div class="col-xs-4">
-                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=5<?php echo "&commdate=$COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
+                                            <a href='/addon/Life/Financials/export/Export.php?EXECUTE=5<?php echo "&commdate=$AVI_COMM_DATE"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> LOSS</a>
                                         </div>
 
 

@@ -169,7 +169,7 @@ $companynamere = $companydetailsq['company_name'];
             <li><a href="/addon/Trackers/Tracker.php?query=CloserTrackers"><?php if(isset($hello_name)) { echo $hello_name; } ?> Trackers</a></li>
             <?php } if ($ffdealsheets == '1') { 
                 if (in_array($hello_name, $Closer_Access, true) || in_array($hello_name, $Manager_Access, true)) { ?>
-            <li><a href="/Life/Dealsheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
+            <li><a href="/addon/Life/Dealsheet/Dealsheet.php?query=CloserDealSheets"><?php if(isset($hello_name)) { echo $hello_name; } ?> Closer Dealsheets</a></li>
             <?php } } ?>
             <li class="divider"></li> 
             <?php if(isset($fftrackers) && $fftrackers == '1') { 

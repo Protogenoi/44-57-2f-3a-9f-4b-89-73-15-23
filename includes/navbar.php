@@ -180,7 +180,7 @@ $companynamere = $companydetailsq['company_name'];
             <?php } } 
             if(isset($ffdealsheets) && $ffdealsheets == '1') { 
                 if(in_array($hello_name, $Manager_Access, true)) { ?> 
-            <li><a href="/Life/Dealsheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
+            <li><a href="/addon/Dealsheet/Life/Dealsheet.php?query=AllCloserDealSheets">Search Dealsheets</a></li>
             <?php } } 
             if(isset($ffdealsheets) && $ffdealsheets == '1') {  ?>
             <li class="divider"></li>

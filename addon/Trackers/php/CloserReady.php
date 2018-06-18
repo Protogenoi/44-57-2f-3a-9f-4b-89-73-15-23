@@ -58,7 +58,7 @@ if (isset($fferror)) {
             
         }
 
-if(isset($ffdealsheets) && $ffdealsheets=='0') {
+if(isset($fftrackers) && $fftrackers=='0') {
     header('Location: /../../../../CRMmain.php?Feature=NotEnabled'); die;
 }
 

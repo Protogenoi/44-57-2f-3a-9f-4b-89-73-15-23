@@ -191,10 +191,10 @@ $companynamere = $companydetailsq['company_name'];
             <?php if(in_array($hello_name, $Level_10_Access, true)) { ?>
             <li class="divider"></li>
             <li><a href="/addon/dialer/CloseRates.php" target="_blank">Tracker Wallboard (Full)</a></li>
-            <li><a href="/addon/dialer/time_rates.php?">Time Tracker Wallboard</a></li>
             <li><a href="/addon/dialer/Admin_Tracker.php" target="_blank">Tracker Wallboard (Admin)</a></li>
             <li><a href="/addon/dialer/Tracker.php" target="_blank">Tracker Wallboard (Limited)</a></li>
             <li><a href="http://192.168.1.184/Wallboards/Life.php" target="_blank">Wallboard</a></li>
+            <li><a href="/addon/dialer/time_rates.php?">Time Tracker Wallboard</a></li>            
             <?php } ?>
       </ul>
                 <?php } }

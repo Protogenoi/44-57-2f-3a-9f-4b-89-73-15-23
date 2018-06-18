@@ -80,7 +80,7 @@ if (isset($fferror)) {
         }
 
 
-if ($ffdealsheets == '0') {
+if ($fftrackers == '0') {
     header('Location: /../../../CRMmain.php?Feature=NotEnabled');
     die;
 }

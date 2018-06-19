@@ -28,7 +28,7 @@
  *  Twitter API - https://developer.twitter.com
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/ 
+*/  
 
 $USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -55,9 +55,7 @@ require_once(__DIR__ . '/../../includes/Access_Levels.php');
 $ClientSearch= filter_input(INPUT_GET, 'ClientSearch', FILTER_SANITIZE_NUMBER_INT);
 
 if(isset($ClientSearch)) {
-    
-    require_once(__DIR__ . '/../../includes/database_connection.php');
-    
+    require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
     if($ClientSearch=='1') { 
 
         $query = $pdo->prepare("SELECT

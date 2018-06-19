@@ -294,6 +294,10 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                             $TRK_sale = "Insurer";
                             $TRK_BG = "#ff33cc";
                             break;
+                         case "Info all wrong":
+                            $TRK_sale = "Info all wrong";
+                            $TRK_BG = "#ff33cc";
+                            break;                        
                          case "Hangup on XFER":
                             $TRK_sale = "Hang Up";
                             $TRK_BG = "#ff33cc";

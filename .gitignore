@@ -6,3 +6,4 @@ addon/PBA/TONIC/
 addon/PBA/financial.echosign.com/
 nbproject/
 addon/Insurers/LV/dashboard/
+includes/adl_database_config.php

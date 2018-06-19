@@ -125,14 +125,19 @@ ORDER BY Sales, Leads");
                             $SALES = $Sales + 0;
                             break;
                         case("Kyle"):
-                            $LEADS = $Leads - 0;
+                            $LEADS = $Leads + 0;
                             $SALES = $Sales + 0;
                             break;
                         case("Kyle Barnett"):
-                            $LEADS = $Leads - 0;
+                            $LEADS = $Leads + 0;
                             $SALES = $Sales + 0;
                             $CLOSER_NAME = "Kyle";  
-                            break;                        
+                            break;   
+                        case("Corey"):
+                            $LEADS = $Leads + 0;
+                            $SALES = $Sales - 0;
+                            $CLOSER_NAME = "Corey";  
+                            break;                           
                         case("Sarah"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0;
@@ -147,24 +152,20 @@ ORDER BY Sales, Leads");
                             $SALES = $Sales + 0;
                             break;
                         case("Aron Davies"):
-                            $LEADS = $Leads - 0;
+                            $LEADS = $Leads + 3;
                             $SALES = $Sales - 0; 
                             $CLOSER_NAME = "Aron";  
                             break;
+                        case("Mike"):
+                            $LEADS = $Leads + 0;
+                            $SALES = $Sales - 0; 
+                            $CLOSER_NAME = "Mike";  
+                            break;                        
                         case("Ryan Tidball"):
-                            $LEADS = $Leads - 0;
+                            $LEADS = $Leads + 0;
                             $SALES = $Sales - 0; 
                             $CLOSER_NAME = "Ryan";  
-                            break;                        
-                        case("Molly Grove"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0; 
-                            $CLOSER_NAME = "Molly";  
-                            break;               
-                        case("David Bebee"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0; 
-                            $CLOSER_NAME = "Bebee";                         
+                            break;                                              
                         default:
                             $LEADS = $Leads;
                             $SALES = $Sales;

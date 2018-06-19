@@ -181,12 +181,6 @@ AND closer=:closer");
 }
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
--->
 <html lang="en">
     <title>ADL | Trackers</title>
     <meta charset="UTF-8">
@@ -442,7 +436,12 @@ WHERE
                     if ($TRK_EDIT_sale == 'Thought we were an insurer') {
                         echo "selected";
                     }
-                } ?> value="Thought we were an insurer">Thought we were an insurer</option>                         
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option>
+                                <option <?php if (isset($TRK_EDIT_sale)) {
+                    if ($TRK_EDIT_sale == 'Info all wrong') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Info all wrong</option>                                
                                         <option <?php if (isset($TRK_EDIT_sale)) {
                     if ($TRK_EDIT_sale == 'Other') {
                         echo "selected";
@@ -505,6 +504,7 @@ WHERE
                                     <option value="DETRA">Declined but passed to upsale</option>
                                     <option value="Hangup on XFER">Hangup on XFER</option>
                                     <option value="Thought we were an insurer">Thought we were an insurer</option>
+                                    <option value="Info all wrong">Info all wrong</option>
                                     <option value="Other">Other</option>
                                 </select></td>
                               <td>
@@ -649,7 +649,12 @@ WHERE
                     if ($TRK_sale == 'Thought we were an insurer') {
                         echo "selected";
                     }
-                } ?> value="Thought we were an insurer">Thought we were an insurer</option>                                                   
+                } ?> value="Thought we were an insurer">Thought we were an insurer</option>  
+                                <option <?php if (isset($TRK_sale)) {
+                    if ($TRK_sale == 'Info all wrong') {
+                        echo "selected";
+                    }
+                } ?> value="Thought we were an insurer">Info all wrong</option>                                  
                                         <option <?php if (isset($TRK_sale)) {
                     if ($TRK_sale == 'Other') {
                         echo "selected";

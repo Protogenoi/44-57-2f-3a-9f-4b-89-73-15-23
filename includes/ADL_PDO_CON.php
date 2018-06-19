@@ -30,18 +30,33 @@
  * 
 */
 
- try {
- 
-include('config.php');
-    
- $pdo = new PDO('mysql:host='.$DB_SERVER.';dbname='.$DB_DATABASE, $DB_ADL_USER, $DB_ADL_PASS);
+$ADL_DB_CONFIG = require_once(__DIR__ . '/../includes/adl_database_config.php');
 
- $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//  echo "ADL connected successfully";
-  }
-catch(PDOException $e) 
-   { echo "Connection failed: " . $e->getMessage();
- }
+class DatabaseConnection {
+    
+    public static function make($ADL_DB_CONFIG) {
+        
+        try {
+            
+            return new PDO (
+                    
+                    $ADL_DB_CONFIG['connection'].';dbname='.$ADL_DB_CONFIG['name'],
+                    $ADL_DB_CONFIG['username'],
+                    $ADL_DB_CONFIG['password'],
+                    $ADL_DB_CONFIG['options']
+                    
+                    );
+
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+
+        }
+        
+    }
+    
+}
+
+$pdo = DatabaseConnection::make($ADL_DB_CONFIG['database']);
 
  
 ?>

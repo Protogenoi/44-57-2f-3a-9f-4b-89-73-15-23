@@ -152,7 +152,7 @@ ORDER BY Sales, Leads");
                             $SALES = $Sales + 0;
                             break;
                         case("Aron Davies"):
-                            $LEADS = $Leads + 3;
+                            $LEADS = $Leads + 0;
                             $SALES = $Sales - 0; 
                             $CLOSER_NAME = "Aron";  
                             break;

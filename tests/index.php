@@ -174,7 +174,8 @@ if($TRACKED_IP=='81.145.167.66') {
 ?>
             
             <div class="footer navbar-fixed-bottom">
-                <center>         
+                <center>  
+                    <a class="btn btn-success btn-sm" href="https://extranet.secure.aegon.co.uk/login/userPwdLoginAction.do?method=upLogin" target="_blank">Aegon</a>
                     <a class="btn btn-success btn-sm" href="https://www10.landg.com/SAuthGateWeb/login.html?domain=olpc&ut=z&entryPoint=https%3A%2F%2Fwww10.landg.com%2FProtectionPortal%2Fsecure%2FHome" target="_blank">Legal and General</a>
                     <a class="btn btn-success btn-sm" href="https://protection.royallondon.com/extranet/do/rlLogin" target="_blank">Royal London</a> 
                     <a class="btn btn-success btn-sm" href="https://portal.onefamilyadviser.com/Intermediaries/Portal/WebLogin.aspx" target="_blank">One Family</a> 

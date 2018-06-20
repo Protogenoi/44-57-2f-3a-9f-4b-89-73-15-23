@@ -195,7 +195,7 @@ $companynamere = $companydetailsq['company_name'];
             <li><a href="/addon/dialer/Tracker.php" target="_blank">Closer Tracker Wallboard (Limited)</a></li>
             <li><a href="/addon/dialer/LeadRates.php" target="_blank">Agent Tracker Wallboard</a></li>
             <li><a href="http://192.168.1.184/Wallboards/Life.php" target="_blank">Wallboard</a></li>
-            <li><a href="/addon/dialer/time_rates.php?">Closer Time Tracker Wallboard</a></li>            
+            <li><a href="/addon/dialer/time_rates.php?" target="_blank">Closer Time Tracker Wallboard</a></li>            
             <?php } ?>
       </ul>
                 <?php } }

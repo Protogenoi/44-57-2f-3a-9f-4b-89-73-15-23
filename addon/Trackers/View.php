@@ -120,9 +120,9 @@ $Today_TIME = date("h:i:s");
     $CLO_CHK->execute();
     if ($CLO_CHK->rowCount() > 0) {
 
-        require_once(__DIR__ . '/models/trackers/CLOSER/CloserALLPAD.php');
-        $CloserPad = new CLOSERAllPadModal($pdo);
-        $CloserPadList = $CloserPad->getCLOSERALLPad();
+        require_once(__DIR__ . '/models/trackers/CLOSER/view_closer_tracker-model.php');
+        $CloserPad = new view_closer_tracker_model($pdo);
+        $CloserPadList = $CloserPad->get_view_closer_tracker_model();
         require_once(__DIR__ . '/views/trackers/CLOSER/View-Closer-PAD.php');
     }
 ?>  

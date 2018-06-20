@@ -122,7 +122,7 @@ $error = $my_access->the_msg;
 
         <div class="container">
             <div class="card card-container">
-                <center><img src="img/bluestone_protect_logo.png" width="250"/></center>
+                <center><img src="img/fpg_logo.png" width="250"/></center>
                 <p id="profile-name" class="profile-name-card"></p>
                 <form class="form-signin" name="form1" method="post" action="<?php echo filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS); ?>">
                     <span id="reauth-email" class="reauth-email"></span>

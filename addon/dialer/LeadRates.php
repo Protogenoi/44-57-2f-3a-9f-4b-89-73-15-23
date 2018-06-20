@@ -69,7 +69,8 @@
 <body class="backcolour">
    <div class="container-fluid">
         <?php
-        include("../includes/ADL_PDO_CON.php");
+        
+        require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 
 
         $query = $pdo->prepare("SELECT 
@@ -77,21 +78,13 @@ agent,
     COUNT(IF(sale = 'SALE',
         1,
         NULL)) AS Sales,
- COUNT(IF(sale IN ('SALE' , 'NoCard',
-            'QDE',
-            'DEC',
-            'QUN',
-            'DIDNO',
-            'QCBK',
-            'QQQ',
-            'QML'),
-        1,
-        NULL)) AS Leads
+    COUNT(sale) AS Leads       
 FROM
     closer_trackers
 
 WHERE
 date_added > DATE(NOW())
+AND agent NOT IN ('','Upsell Upsell','Upsell')
 GROUP BY agent
 ORDER BY Sales, Leads");
         ?>

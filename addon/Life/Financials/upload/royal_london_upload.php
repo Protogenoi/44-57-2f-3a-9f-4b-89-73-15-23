@@ -97,11 +97,14 @@ $PREMIUM=str_replace("£","",$data[7]);
 $FREQUENCY=filter_var($data[8], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $DUE_DATE = $data[9];
+
+echo "3) $data[3]<br>";
+echo "8) $data[8]<br>";
+echo "9) $data[9]";
+
 $DUE_DATE_NEW= Datetime::createFromFormat('d/m/Y', $DUE_DATE)->format('Y-m-d');
 
 $CREDIT=str_replace("£","",$data[10]);
-
-echo "11 $data[11]";
 
 $TYPE=filter_var($data[11], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $DEBIT=str_replace("£","",$data[12]);

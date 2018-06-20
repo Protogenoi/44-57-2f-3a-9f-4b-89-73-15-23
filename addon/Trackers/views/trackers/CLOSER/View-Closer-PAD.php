@@ -8,8 +8,6 @@
                                             <th>Agent</th>
                                             <th>Client</th>
                                             <th>Phone</th>
-                                            <th>Premium</th>
-                                            <th>Our Premium</th>
                                             <th>Comments</th>
                                         </tr>
                                     </thead>
@@ -18,14 +16,10 @@
 
                                             <?php
                 $i++;
-                                        $TRK_EDIT_tracker_id = $TRACKER_EDIT_result['tracker_id'];
                                         $TRK_EDIT_agent = $TRACKER_EDIT_result['agent'];
                                         $TRK_EDIT_closer = $TRACKER_EDIT_result['closer'];
                                         $TRK_EDIT_client = $TRACKER_EDIT_result['client'];
                                         $TRK_EDIT_phone = $TRACKER_EDIT_result['phone'];
-                                        $TRK_EDIT_current_premium = $TRACKER_EDIT_result['current_premium'];
-
-                                        $TRK_EDIT_our_premium = $TRACKER_EDIT_result['our_premium'];
                                         $TRK_EDIT_comments = $TRACKER_EDIT_result['comments'];
 ?>
                     <tr>
@@ -34,8 +28,6 @@
                         <td><?php if (isset($TRK_EDIT_agent)) { echo $TRK_EDIT_agent; } ?></td>                                            
                         <td><?php if (isset($TRK_EDIT_client)) { echo $TRK_EDIT_client; } ?></td>
                         <td><?php if (isset($TRK_EDIT_phone)) { echo $TRK_EDIT_phone; } ?></td>
-                        <td><?php if (isset($TRK_EDIT_current_premium)) { echo $TRK_EDIT_current_premium; } ?></td>
-                        <td><?php if (isset($TRK_EDIT_our_premium)) { echo $TRK_EDIT_our_premium; } ?></td>
                         <td><?php if (isset($TRK_EDIT_comments)) { echo $TRK_EDIT_comments; } ?></td>                                  
                     </tr>
 

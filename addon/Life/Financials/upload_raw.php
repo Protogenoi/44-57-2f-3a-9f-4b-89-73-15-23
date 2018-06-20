@@ -177,7 +177,7 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
                                         <h3>Upload Royal London Financials</h3>
 
 
-                                        <form action="/addon/Life/Financials/upload/finrupload.php?EXECUTE=10" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                        <form action="/addon/Life/Financials/upload/royal_london_upload.php?EXECUTE=10" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                             <input class="form-control" name="csv" type="file" id="csv" required>
                                             <br>
                                             <button type="submit" name="Submit" value="Submit" data-toggle="modal" data-target="#processing-modal" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>

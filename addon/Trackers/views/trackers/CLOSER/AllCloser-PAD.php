@@ -71,6 +71,7 @@
                 } ?>"></td>
  <td><select name="INSURER" class="form-control" required>
                                                 <option value="NA">N/A</option>
+                                                <option value="Aegon" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Aegon") { echo "selected"; } ?> >Aegon</option>                                                
                                                 <option value="Royal London" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
                                                 <option value="LV" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "LV") { echo "selected"; } ?> >LV</option>
                                                 <option value="Vitality" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>

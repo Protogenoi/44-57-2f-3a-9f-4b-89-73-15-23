@@ -116,16 +116,7 @@ switch ($hello_name):
                 break;
             case "Richard";
                 $CLOSER_NAME = "Richard Michaels";
-                break;
-            case "Hayley":
-                $CLOSER_NAME = "Hayley Hutchinson";
-                break;
-            case "Martin";
-                $CLOSER_NAME="Martin Smith";
-                break;
-            case "Corey";
-                $CLOSER_NAME="Corey Divetta";
-                break;    
+                break;  
             case "Kyle";
                 $CLOSER_NAME="Kyle Barnett";
                 break; 
@@ -366,6 +357,7 @@ WHERE
                 } ?>"></td>
                                         <td><select name="INSURER" class="form-control" required>
                                                 <option value="NA">N/A</option>
+                                                <option value="Aegon" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Aegon") { echo "selected"; } ?> >Aegon</option>                                                
                                                 <option value="Royal London" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
                                                 <option value="LV" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "LV") { echo "selected"; } ?> >LV</option>
                                                 <option value="Vitality" <?php if (isset($TRK_EDIT_INSURER) && $TRK_EDIT_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>
@@ -481,6 +473,7 @@ WHERE
                             <td><input type="text" class="form-control" name="comments"></td>
                              <td><select name="INSURER" class="form-control" required>
                                                 <option value="NA">N/A</option>
+                                                <option value="Aegon">Aegon</option>
                                                 <option value="Royal London">Royal London</option>
                                                 <option value="LV">LV</option>
                                                 <option value="Vitality">Vitality</option>
@@ -579,6 +572,7 @@ WHERE
                                 <td><?php echo $TRK_comments; ?></td>
 <td><select name="INSURER" class="form-control" required>
                                                 <option value="NA">N/A</option>
+                                                <option value="Aegon" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Aegon") { echo "selected"; } ?> >Aegon</option>                                                
                                                 <option value="Royal London" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Royal London") { echo "selected"; } ?> >Royal London</option>
                                                 <option value="LV" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "LV") { echo "selected"; } ?> >LV</option>
                                                 <option value="Vitality" <?php if (isset($TRK_INSURER) && $TRK_INSURER == "Vitality") { echo "selected"; } ?> >Vitality</option>

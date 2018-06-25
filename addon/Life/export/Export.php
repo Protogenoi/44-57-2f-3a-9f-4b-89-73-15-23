@@ -746,11 +746,11 @@ WHERE
             $query = $pdo->prepare("SELECT 
     vitality_financial.vitality_financial_amount AS FIN_AMOUNT,
     '' AS application_number,
-    vitality_policy.vitality_policy_ref AS POLICY_NUMBER,
+    adl_policy.adl_policy_ref AS POLICY_NUMBER,
     CONCAT(DATE(adl_policy.adl_policy_sale_date),
             ' - ',
             DATE(adl_policy.adl_policy_sub_date)) AS sale_sub,
-    vitality_policy.vitality_policy_comms AS commission,
+    aegon_policy.aegon_policy_comms AS commission,
     DATE(vitality_financial.vitality_financial_uploaded_date) AS insert_date,
     '' AS empty_col,
     adl_policy.adl_policy_policy_holder AS client_name,
@@ -767,8 +767,8 @@ WHERE
             ' ',
             client_details.town) AS TOWN,
     client_details.post_code,
-    vitality_policy.vitality_policy_premium AS premium,
-    vitality_policy.vitality_policy_type AS type,
+    aegon_policy.aegon_policy_premium AS premium,
+    aegon_policy.aegon_policy_type AS type,
     '' AS empty_col,
     '' AS empty_col2,
     CONCAT(adl_policy.adl_policy_agent,
@@ -779,13 +779,13 @@ WHERE
     adl_policy.adl_policy_added_by AS submitted_by,
     client_details.company,
     client_details.submitted_date,
-    vitality_policy.vitality_policy_non_indem_comms AS non_indem_com
+    aegon_policy.aegon_policy_non_indem_comms AS non_indem_com
 FROM
     adl_policy
         LEFT JOIN
     client_details ON adl_policy.adl_policy_client_id_fk = client_details.client_id
         LEFT JOIN
-    vitality_policy ON adl_policy.adl_policy_id = vitality_policy.vitality_policy_id_fk
+    aegon_policy ON adl_policy.adl_policy_id = aegon_policy.aegon_policy_id_fk
         LEFT JOIN
     vitality_financial ON vitality_financial.vitality_financial_policy_number = adl_policy.adl_policy_ref
 WHERE

@@ -74,7 +74,7 @@ $SMS_MESSAGE= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS)
 $SMS_INSURER= filter_input(INPUT_POST, 'SMS_INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
 $MESSAGE_OPTION= filter_input(INPUT_POST, 'selectopt', FILTER_SANITIZE_SPECIAL_CHARS);
 
-$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London","Zurich","Scottish Widows","LV");
+$INSURER_ARRAY=array("Legal and General","Aviva","One Family","Vitality","Royal London","Zurich","Scottish Widows","LV","Aegon");
 $COMPANY_ARRAY=array("The Review Bureau","Bluestone Protect","First Priority Group");
 
 if(!in_array($WHICH_COMPANY, $COMPANY_ARRAY)) {

@@ -1246,7 +1246,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }
                                                     if ($WHICH_COMPANY == 'Zurich') {
                                                         $SMS_INSURER = 'Zurich';
-                                                    }   
+                                                    }  
+                                                    if ($WHICH_COMPANY == 'Aegon') {
+                                                        $SMS_INSURER = 'Aegon';
+                                                    }                                                      
                                                     if ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
                                                     }                                                       
@@ -1286,6 +1289,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 <option value="Royal London">Royal London</option>
                                                 <option value="LV">LV</option>
                                                 <option value="One Family">One Family</option>
+                                                <option value="Aegon">Aegon</option>
                                                
                                             </select>
                                         </div>
@@ -1438,7 +1442,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                     }   
                                                     if ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
-                                                    }                                                       
+                                                    }  
+                                                    if ($WHICH_COMPANY == 'Aegon') {
+                                                        $SMS_INSURER = 'Aegon';
+                                                    }                                                      
                                                     if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
@@ -1475,7 +1482,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                                                 <option value="Royal London">Royal London</option>
                                                 <option value="LV">LV</option>
                                                 <option value="One Family">One Family</option>
-                                               
+                                                <option value="Aegon">Aegon</option>
                                             </select>
                                         </div>
                                         

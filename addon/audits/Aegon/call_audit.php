@@ -1664,11 +1664,6 @@ $QUESTION_NUMBER=1;
     echo "checked";
 } ?> onclick="javascript:yesnoCheckH_C2();"
                                    value="0" id="noCheckH_C2">No
-                            <input type="radio" name="H_Q2" 
-<?php if (isset($H_Q2) && $H_Q2 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
                         </p>
 
                         <div id="ifYesH_C2" style="display:none">
@@ -1717,11 +1712,6 @@ $QUESTION_NUMBER=1;
     echo "checked";
 } ?> onclick="javascript:yesnoCheckH_C3();"
                                    value="0" id="noCheckH_C3">No
-                            <input type="radio" name="H_Q3" 
-<?php if (isset($H_Q3) && $H_Q3 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
                         </p>
 
                         <div id="ifYesH_C3" style="display:none">
@@ -1770,11 +1760,6 @@ $QUESTION_NUMBER=1;
     echo "checked";
 } ?> onclick="javascript:yesnoCheckH_C4();"
                                    value="0" id="noCheckH_C4">No
-                            <input type="radio" name="H_Q4" 
-<?php if (isset($H_Q4) && $H_Q4 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
                         </p>
 
                         <div id="ifYesH_C4" style="display:none">
@@ -1823,11 +1808,6 @@ $QUESTION_NUMBER=1;
     echo "checked";
 } ?> onclick="javascript:yesnoCheckH_C5();"
                                    value="0" id="noCheckH_C5">No
-                            <input type="radio" name="H_Q5" 
-<?php if (isset($H_Q5) && $H_Q5 == "N/A") {
-    echo "checked";
-} ?>
-                                   value="N/A" >N/A
                         </p>
 
                         <div id="ifYesH_C5" style="display:none">
@@ -1931,12 +1911,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($D_Q2) && $D_Q2 == "0") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckD_C2();"
-                                   value="0" id="noCheckD_C2">No
-                            <input type="radio" name="D_Q2" 
-<?php if (isset($D_Q2) && $D_Q2 == "N/A") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckD_C2();"
-                                   value="N/A" id="yesCheckD_C2" >N/A                            
+                                   value="0" id="noCheckD_C2">No                           
                         </p>
 
                         <div id="ifYesD_C2" style="display:none">
@@ -1983,12 +1958,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($D_Q3) && $D_Q3 == "0") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckD_C3();"
-                                   value="0" id="noCheckD_C3">No
-                            <input type="radio" name="D_Q3" 
-<?php if (isset($D_Q3) && $D_Q3 == "N/A") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckD_C3();"
-                                   value="N/A" id="yesCheckD_C3" >N/A                            
+                                   value="0" id="noCheckD_C3">No                          
                         </p>
 
                         <div id="ifYesD_C3" style="display:none">
@@ -2035,12 +2005,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($D_Q4) && $D_Q4 == "0") {
     echo "checked";
 } ?> onclick="javascript:yesnoCheckD_C4();"
-                                   value="0" id="noCheckD_C4">No
-                            <input type="radio" name="D_Q4" 
-<?php if (isset($D_Q4) && $D_Q4 == "N/A") {
-    echo "checked";
-} ?> onclick="javascript:yesnoCheckD_C4();"
-                                   value="N/A" id="yesCheckD_C4" >N/A                            
+                                   value="0" id="noCheckD_C4">No                           
                         </p>
 
                         <div id="ifYesD_C4" style="display:none">

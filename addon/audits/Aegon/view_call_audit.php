@@ -1767,33 +1767,33 @@ if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h1'])) {
 <div class="phpcomments"><?php if(isset($DEC_C4)) { echo $DEC_C4; } ?></div>
 
 <p>
-<label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label><br>
+<label for="CDE5">Q<?php $i++; echo $i; ?>. Closer confirmed the check your details procedure?</label><br>
+<input type="radio" name="CDE5" <?php if (isset($DEC_Q5) && $DEC_Q5=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="1" id="yesCheckCDET5">Yes
+<input type="radio" name="CDE5" <?php if (isset($DEC_Q5) && $DEC_Q5=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET5();" value="0" id="noCheckCDET5"><label for="No">No</label>
+</p>
+
+<div class="phpcomments"><?php if(isset($DEC_C5)) { echo $DEC_C5; } ?></div>
+
+
+
+<p>
+<label for="CDE6">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Aegon will write to them with a more specific date?</label><br>
 <input type="radio" name="CDE6" <?php if (isset($DEC_Q6) && $DEC_Q6=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="1" id="yesCheckCDET6">Yes
 <input type="radio" name="CDE6" <?php if (isset($DEC_Q6) && $DEC_Q6=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET6();" value="0" id="noCheckCDET6"><label for="No">No</label>
+
 </p>
 
 <div class="phpcomments"><?php if(isset($DEC_C6)) { echo $DEC_C6; } ?></div>
 
 
-
 <p>
-<label for="CDE7">Q<?php $i++; echo $i; ?>. Closer confirmed an approximate direct debit date and informed the customer it is not an exact date, but Aegon will write to them with a more specific date?</label><br>
+<label for="CDE7">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
 <input type="radio" name="CDE7" <?php if (isset($DEC_Q7) && $DEC_Q7=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="1" id="yesCheckCDET7">Yes
 <input type="radio" name="CDE7" <?php if (isset($DEC_Q7) && $DEC_Q7=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="0" id="noCheckCDET7"><label for="No">No</label>
-
+<input type="radio" name="CDE7" <?php if (isset($DEC_Q7) && $DEC_Q7=="N/A") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET7();" value="N/A" id="yesCheckCDET7">N/A
 </p>
 
 <div class="phpcomments"><?php if(isset($DEC_C7)) { echo $DEC_C7; } ?></div>
-
-
-<p>
-<label for="CDE8">Q<?php $i++; echo $i; ?>. Did the closer confirm to the customer to cancel any existing direct debit?</label><br>
-<input type="radio" name="CDE8" <?php if (isset($DEC_Q8) && $DEC_Q8=="1") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="1" id="yesCheckCDET8">Yes
-<input type="radio" name="CDE8" <?php if (isset($DEC_Q8) && $DEC_Q8=="0") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="0" id="noCheckCDET8"><label for="No">No</label>
-<input type="radio" name="CDE8" <?php if (isset($DEC_Q8) && $DEC_Q8=="N/A") { echo "checked"; } ?> onclick="javascript:yesnoCheckCDET8();" value="N/A" id="yesCheckCDET8">N/A
-</p>
-
-<div class="phpcomments"><?php if(isset($DEC_C8)) { echo $DEC_C8; } ?></div>
 
 
  <h3 class="panel-title">Quality Control</h3>

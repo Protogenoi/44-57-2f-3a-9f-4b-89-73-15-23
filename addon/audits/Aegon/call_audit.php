@@ -1503,18 +1503,18 @@ $QUESTION_NUMBER=1;
 
                         <p>
                             <label for="MD_Q3">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer how much alcohol they drink a week?</label>
-                            <input type="radio" name="MD_Q3" onclick="javascript:yesnoCheck();"
+                            <input type="radio" name="MD_Q3" onclick="javascript:yesnoCheck_MD_C3();"
 <?php if (isset($MD_Q3) && $MD_Q3 == "1") {
     echo "checked";
 } ?>
                                    value="1" id="yesCheck_MD_C3" required >Yes
-                            <input type="radio" name="MD_Q3" onclick="javascript:yesnoCheck();"
+                            <input type="radio" name="MD_Q3" onclick="javascript:yesnoCheck_MD_C3();"
 <?php if (isset($MD_Q3) && $MD_Q3 == "0") {
     echo "checked";
 } ?>
                                    value="0" id="noCheck">No
                         </p>
-                        <div id="ifYes" style="display:none">
+                        <div id="IfYes_MD_C3" style="display:none">
                             <textarea class="form-control"id="MD_C3" name="MD_C3" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1538,11 +1538,11 @@ $QUESTION_NUMBER=1;
                         </script>
                         <script type="text/javascript">
 
-                            function yesnoCheck() {
+                            function yesnoCheck_MD_C3() {
                                 if (document.getElementById('yesCheck_MD_C3').checked) {
-                                    document.getElementById('ifYes').style.display = 'none';
+                                    document.getElementById('IfYes_MD_C3').style.display = 'none';
                                 } else
-                                    document.getElementById('ifYes').style.display = 'block';
+                                    document.getElementById('IfYes_MD_C3').style.display = 'block';
 
                             }
 
@@ -1550,18 +1550,18 @@ $QUESTION_NUMBER=1;
                         
  <p>
                             <label for="MD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer if they have ever been advised to reduce or stop their alcohol consumption by a doctor, nurse or other medical profession?</label>
-                            <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck();"
+                            <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck_MD_C4();"
 <?php if (isset($MD_Q4) && $MD_Q4 == "1") {
     echo "checked";
 } ?>
                                    value="1" id="yesCheck_MD_C4" required >Yes
-                            <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck();"
+                            <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck_MD_C4();"
 <?php if (isset($MD_Q4) && $MD_Q4 == "0") {
     echo "checked";
 } ?>
                                    value="0" id="noCheck">No
                         </p>
-                        <div id="ifYes" style="display:none">
+                        <div id="IfYes_MD_C4" style="display:none">
                             <textarea class="form-control"id="MD_C4" name="MD_C4" rows="1" cols="75" maxlength="1000" onkeyup="textAreaAdjust(this)"></textarea><span class="help-block"><p id="CHARS_LEFT_ID_<?php echo $QUESTION_NUMBER; ?>" class="help-block ">You have reached the limit</p></span>
                         </div>
                         <script>
@@ -1585,11 +1585,11 @@ $QUESTION_NUMBER=1;
                         </script>
                         <script type="text/javascript">
 
-                            function yesnoCheck() {
+                            function yesnoCheck_MD_C4() {
                                 if (document.getElementById('yesCheck_MD_C4').checked) {
-                                    document.getElementById('ifYes').style.display = 'none';
+                                    document.getElementById('IfYes_MD_C4').style.display = 'none';
                                 } else
-                                    document.getElementById('ifYes').style.display = 'block';
+                                    document.getElementById('IfYes_MD_C4').style.display = 'block';
 
                             }
 

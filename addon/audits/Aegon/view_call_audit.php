@@ -1570,7 +1570,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h1'])) {
 
 
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer how much alcohol they drink a week?</label><br>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer if they have ever been advised to reduce or stop their alcohol consumption by a doctor, nurse or other medical profession?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($MD_Q4)) {  if ($MD_Q4 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($MD_Q4)) {  if ($MD_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     

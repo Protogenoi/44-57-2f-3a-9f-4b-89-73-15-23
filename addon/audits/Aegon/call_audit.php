@@ -1759,7 +1759,7 @@ $QUESTION_NUMBER=1;
                         </script>      
                         
                          <p>
-                            <label for="H_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Were all the health questions - continued, asked and recorded correclty?</label>
+                            <label for="H_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Were all the health questions - continued, asked and recorded correctly?</label>
                             <input type="radio" name="H_Q4" 
 <?php if (isset($H_Q4) && $H_Q4 == "1") {
     echo "checked";

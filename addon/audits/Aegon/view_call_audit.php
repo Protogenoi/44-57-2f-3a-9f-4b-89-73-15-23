@@ -1046,57 +1046,57 @@ $database->query("SELECT
     $database->execute();
     $VIT_CE_AUDIT=$database->single();   
     
-if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h1'])) {
+if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h1'])) {
         
-        $H_C1=$VIT_CE_AUDIT['adl_audit_aeghn_ce_h1'];
+        $H_C1=$VIT_CE_AUDIT['adl_audit_aegon_ce_h1'];
         
     }  
     
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h2'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h2'])) {
         
-        $H_C2=$VIT_CE_AUDIT['adl_audit_aeghn_ce_h2'];
+        $H_C2=$VIT_CE_AUDIT['adl_audit_aegon_ce_h2'];
         
     }
     
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h3'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h3'])) {
         
-        $H_C3=$VIT_CE_AUDIT['adl_audit_aeghn_ce_h3'];
-        
-    }   
-
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h4'])) {
-        
-        $H_C4=$VIT_CE_AUDIT['adl_audit_aeghn_ce_h4'];
+        $H_C3=$VIT_CE_AUDIT['adl_audit_aegon_ce_h3'];
         
     }   
 
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h5'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h4'])) {
         
-        $H_C5=$VIT_CE_AUDIT['adl_audit_aeghn_ce_h5'];
+        $H_C4=$VIT_CE_AUDIT['adl_audit_aegon_ce_h4'];
+        
+    }   
+
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_h5'])) {
+        
+        $H_C5=$VIT_CE_AUDIT['adl_audit_aegon_ce_h5'];
         
     } 
     
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_d1'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_d1'])) {
         
-        $D_C1=$VIT_CE_AUDIT['adl_audit_aeghn_ce_d1'];
+        $D_C1=$VIT_CE_AUDIT['adl_audit_aegon_ce_d1'];
         
     }  
     
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_d2'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_d2'])) {
         
-        $D_C2=$VIT_CE_AUDIT['adl_audit_aeghn_ce_d2'];
+        $D_C2=$VIT_CE_AUDIT['adl_audit_aegon_ce_d2'];
         
     }
     
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_d3'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_d3'])) {
         
-        $D_C3=$VIT_CE_AUDIT['adl_audit_aeghn_ce_d3'];
+        $D_C3=$VIT_CE_AUDIT['adl_audit_aegon_ce_d3'];
         
     }   
 
-    if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_d4'])) {
+    if(isset($VIT_CE_AUDIT['adl_audit_aegon_ce_d4'])) {
         
-        $D_C4=$VIT_CE_AUDIT['adl_audit_aeghn_ce_d4'];
+        $D_C4=$VIT_CE_AUDIT['adl_audit_aegon_ce_d4'];
         
     }     
     

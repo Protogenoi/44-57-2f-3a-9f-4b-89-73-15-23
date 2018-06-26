@@ -1216,7 +1216,7 @@ if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h1'])) {
     
     $database->endTransaction();  
  
-    $TOTAL= 59 - $SCORE;
+    $TOTAL= 57 - $SCORE;
     
     
     

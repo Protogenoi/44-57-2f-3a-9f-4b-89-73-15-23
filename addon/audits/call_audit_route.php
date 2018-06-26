@@ -138,7 +138,11 @@ if(isset($AUDITID)) {
         elseif($INSUER == 'Zurich') {
          header('Location: Zurich/view_call_audit.php?AUDITID='.$AUDITID);
         die;           
-        }          
+        }   
+        elseif($INSUER == 'Aegon') {
+         header('Location: Aegon/view_call_audit.php?AUDITID='.$AUDITID);
+        die;           
+        }           
         elseif($INSUER == 'Lead') {
          header('Location: Agent/view_call_audit.php?EXECUTE=1&AUDITID='.$AUDITID);
         die;                

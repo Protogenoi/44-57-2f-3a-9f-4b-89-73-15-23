@@ -2079,7 +2079,7 @@ $QUESTION_NUMBER=1;
                     </div>
                 </div>                
          
-                <div class="panel panel-info">
+ <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Bank details</h3>
                     </div>

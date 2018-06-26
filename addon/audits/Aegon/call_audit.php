@@ -1507,7 +1507,7 @@ $QUESTION_NUMBER=1;
 <?php if (isset($MD_Q3) && $MD_Q3 == "1") {
     echo "checked";
 } ?>
-                                   value="1" id="yesCheck" required >Yes
+                                   value="1" id="yesCheck_MD_C3" required >Yes
                             <input type="radio" name="MD_Q3" onclick="javascript:yesnoCheck();"
 <?php if (isset($MD_Q3) && $MD_Q3 == "0") {
     echo "checked";
@@ -1539,7 +1539,7 @@ $QUESTION_NUMBER=1;
                         <script type="text/javascript">
 
                             function yesnoCheck() {
-                                if (document.getElementById('yesCheck').checked) {
+                                if (document.getElementById('yesCheck_MD_C3').checked) {
                                     document.getElementById('ifYes').style.display = 'none';
                                 } else
                                     document.getElementById('ifYes').style.display = 'block';
@@ -1549,12 +1549,12 @@ $QUESTION_NUMBER=1;
                         </script>
                         
  <p>
-                            <label for="MD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer how much alcohol they drink a week?</label>
+                            <label for="MD_Q4">Q<?php echo $QUESTION_NUMBER++; ?>. Did the closer ask the customer if they have ever been advised to reduce or stop their alcohol consumption by a doctor, nurse or other medical profession?</label>
                             <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck();"
 <?php if (isset($MD_Q4) && $MD_Q4 == "1") {
     echo "checked";
 } ?>
-                                   value="1" id="yesCheck" required >Yes
+                                   value="1" id="yesCheck_MD_C4" required >Yes
                             <input type="radio" name="MD_Q4" onclick="javascript:yesnoCheck();"
 <?php if (isset($MD_Q4) && $MD_Q4 == "0") {
     echo "checked";
@@ -1586,7 +1586,7 @@ $QUESTION_NUMBER=1;
                         <script type="text/javascript">
 
                             function yesnoCheck() {
-                                if (document.getElementById('yesCheck').checked) {
+                                if (document.getElementById('yesCheck_MD_C4').checked) {
                                     document.getElementById('ifYes').style.display = 'none';
                                 } else
                                     document.getElementById('ifYes').style.display = 'block';

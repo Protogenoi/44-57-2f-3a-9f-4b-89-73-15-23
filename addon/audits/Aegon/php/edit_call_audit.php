@@ -1,0 +1,519 @@
+<?php
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2018 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
+ * 
+*/  
+
+require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
+$page_protect = new Access_user;
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 2);
+$hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
+
+$USER_TRACKING=0;
+
+require_once(__DIR__ . '/../../../../includes/user_tracking.php'); 
+
+require_once(__DIR__ . '/../../../../includes/time.php');
+
+if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
+    $page_protect->log_out();
+}
+
+require_once(__DIR__ . '/../../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../../includes/adlfunctions.php');
+
+require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
+
+if ($ffanalytics == '1') {
+    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
+}
+
+        require_once(__DIR__ . '/../../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../../class/login/login.php');
+        
+        $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
+        $CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $USER_ACCESS_LEVEL=$CHECK_USER_LOGIN->CheckAccessLevel();
+        
+        $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
+        
+        if($ACCESS_LEVEL < 2) {
+            
+        header('Location: /../../../../../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        die;    
+            
+        }
+
+$EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
+$AID = filter_input(INPUT_GET, 'AID', FILTER_SANITIZE_NUMBER_INT);
+$AIDFK = filter_input(INPUT_GET, 'AIDFK', FILTER_SANITIZE_NUMBER_INT);
+
+if (isset($EXECUTE)) {
+    if($EXECUTE=="1") {
+        
+    $CLOSER = filter_input(INPUT_POST, 'CLOSER', FILTER_SANITIZE_SPECIAL_CHARS);
+    $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
+    $REFERENCE = filter_input(INPUT_POST, 'REFERENCE', FILTER_SANITIZE_SPECIAL_CHARS);
+    $GRADE = filter_input(INPUT_POST, 'GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $INSURER='Aegon';
+    
+    $GRADE_ARRAY=array("Red","Amber","Green","Saved");
+    
+    if(isset($GRADE) && !in_array($GRADE,$GRADE_ARRAY)) {
+        $GRADE="Saved";
+    } 
+    
+    $AEGON_AUDIT_QRY = $pdo->prepare("UPDATE
+                                            adl_audits
+                                        SET 
+                                            adl_audits_auditor_edit=:HELLO,
+                                            adl_audits_grade=:GRADE, 
+                                            adl_audits_closer=:CLOSER, 
+                                            adl_audits_agent=:AGENT, 
+                                            adl_audits_ref=:PLAN
+                                        WHERE
+                                            adl_audits_insurer=:INSURER
+                                        AND
+                                            adl_audits_id=:AID");
+    $AEGON_AUDIT_QRY->bindParam(':AID', $AID, PDO::PARAM_INT);
+    $AEGON_AUDIT_QRY->bindParam(':HELLO', $hello_name, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->bindParam(':GRADE', $GRADE, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->bindParam(':CLOSER', $CLOSER, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->bindParam(':AGENT', $AGENT, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->bindParam(':PLAN', $REFERENCE, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->bindParam(':INSURER', $INSURER, PDO::PARAM_STR, 100);
+    $AEGON_AUDIT_QRY->execute()or die(print_r($AEGON_AUDIT_QRY->errorInfo(), true));
+        
+    $OD_Q1 = filter_input(INPUT_POST, 'OD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_Q2 = filter_input(INPUT_POST, 'OD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_Q3 = filter_input(INPUT_POST, 'OD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_Q4 = filter_input(INPUT_POST, 'OD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_Q5 = filter_input(INPUT_POST, 'OD_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $ICN_Q1 = filter_input(INPUT_POST, 'ICN_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_Q2 = filter_input(INPUT_POST, 'ICN_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_Q3 = filter_input(INPUT_POST, 'ICN_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_Q4 = filter_input(INPUT_POST, 'ICN_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_Q5 = filter_input(INPUT_POST, 'ICN_Q5', FILTER_SANITIZE_SPECIAL_CHARS);      
+    
+    $CD_Q1 = filter_input(INPUT_POST, 'CD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q2 = filter_input(INPUT_POST, 'CD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q3 = filter_input(INPUT_POST, 'CD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q4 = filter_input(INPUT_POST, 'CD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q5 = filter_input(INPUT_POST, 'CD_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q6 = filter_input(INPUT_POST, 'CD_Q6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q7 = filter_input(INPUT_POST, 'CD_Q7', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q8 = filter_input(INPUT_POST, 'CD_Q8', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q9 = filter_input(INPUT_POST, 'CD_Q9', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_Q10 = filter_input(INPUT_POST, 'CD_Q10', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $PD_Q1 = filter_input(INPUT_POST, 'PD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_Q2 = filter_input(INPUT_POST, 'PD_Q2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_Q3 = filter_input(INPUT_POST, 'PD_Q3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_Q4 = filter_input(INPUT_POST, 'PD_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_Q5 = filter_input(INPUT_POST, 'PD_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $MD_Q1 = filter_input(INPUT_POST, 'MD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_Q2 = filter_input(INPUT_POST, 'MD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_Q3 = filter_input(INPUT_POST, 'MD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_Q4 = filter_input(INPUT_POST, 'MD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $H_Q1 = filter_input(INPUT_POST, 'H_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_Q2 = filter_input(INPUT_POST, 'H_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_Q3 = filter_input(INPUT_POST, 'H_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_Q4 = filter_input(INPUT_POST, 'H_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_Q5 = filter_input(INPUT_POST, 'H_Q5', FILTER_SANITIZE_SPECIAL_CHARS);    
+    
+    $D_Q1 = filter_input(INPUT_POST, 'D_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $D_Q2 = filter_input(INPUT_POST, 'D_Q2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $D_Q3 = filter_input(INPUT_POST, 'D_Q3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $D_Q4 = filter_input(INPUT_POST, 'D_Q4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $BD_Q1 = filter_input(INPUT_POST, 'BD_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_Q2 = filter_input(INPUT_POST, 'BD_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_Q3 = filter_input(INPUT_POST, 'BD_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_Q4 = filter_input(INPUT_POST, 'BD_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_Q5 = filter_input(INPUT_POST, 'BD_Q5', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $DEC_Q1 = filter_input(INPUT_POST, 'DEC_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q2 = filter_input(INPUT_POST, 'DEC_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q3 = filter_input(INPUT_POST, 'DEC_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q4 = filter_input(INPUT_POST, 'DEC_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q5 = filter_input(INPUT_POST, 'DEC_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q6 = filter_input(INPUT_POST, 'DEC_Q6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_Q7 = filter_input(INPUT_POST, 'DEC_Q7', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $QC_Q1 = filter_input(INPUT_POST, 'QC_Q1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q2 = filter_input(INPUT_POST, 'QC_Q2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q3 = filter_input(INPUT_POST, 'QC_Q3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q4 = filter_input(INPUT_POST, 'QC_Q4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q5 = filter_input(INPUT_POST, 'QC_Q5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q6 = filter_input(INPUT_POST, 'QC_Q6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_Q7 = filter_input(INPUT_POST, 'QC_Q7', FILTER_SANITIZE_SPECIAL_CHARS);  
+    
+    $OD_C1 = filter_input(INPUT_POST, 'OD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C2 = filter_input(INPUT_POST, 'OD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C3 = filter_input(INPUT_POST, 'OD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C4 = filter_input(INPUT_POST, 'OD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $OD_C5 = filter_input(INPUT_POST, 'OD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $ICN_C1 = filter_input(INPUT_POST, 'ICN_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C2 = filter_input(INPUT_POST, 'ICN_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C3 = filter_input(INPUT_POST, 'ICN_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C4 = filter_input(INPUT_POST, 'ICN_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $ICN_C5 = filter_input(INPUT_POST, 'ICN_C5', FILTER_SANITIZE_SPECIAL_CHARS);      
+    
+    $CD_C1 = filter_input(INPUT_POST, 'CD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C2 = filter_input(INPUT_POST, 'CD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C3 = filter_input(INPUT_POST, 'CD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C4 = filter_input(INPUT_POST, 'CD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C5 = filter_input(INPUT_POST, 'CD_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C6 = filter_input(INPUT_POST, 'CD_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C7 = filter_input(INPUT_POST, 'CD_C7', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C8 = filter_input(INPUT_POST, 'CD_C8', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C9 = filter_input(INPUT_POST, 'CD_C9', FILTER_SANITIZE_SPECIAL_CHARS);
+    $CD_C10 = filter_input(INPUT_POST, 'CD_C10', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $PD_C1 = filter_input(INPUT_POST, 'PD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $PD_C2 = filter_input(INPUT_POST, 'PD_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_C3 = filter_input(INPUT_POST, 'PD_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_C4 = filter_input(INPUT_POST, 'PD_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $PD_C5 = filter_input(INPUT_POST, 'PD_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $MD_C1 = filter_input(INPUT_POST, 'MD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_C2 = filter_input(INPUT_POST, 'MD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_C3 = filter_input(INPUT_POST, 'MD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $MD_C4 = filter_input(INPUT_POST, 'MD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    
+    $H_C1 = filter_input(INPUT_POST, 'H_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C2 = filter_input(INPUT_POST, 'H_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C3 = filter_input(INPUT_POST, 'H_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C4 = filter_input(INPUT_POST, 'H_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $H_C5 = filter_input(INPUT_POST, 'H_C5', FILTER_SANITIZE_SPECIAL_CHARS);    
+    
+    $D_C1 = filter_input(INPUT_POST, 'D_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $D_C2 = filter_input(INPUT_POST, 'D_C2', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $D_C3 = filter_input(INPUT_POST, 'D_C3', FILTER_SANITIZE_SPECIAL_CHARS); 
+    $D_C4 = filter_input(INPUT_POST, 'D_C4', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $BD_C1 = filter_input(INPUT_POST, 'BD_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C2 = filter_input(INPUT_POST, 'BD_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C3 = filter_input(INPUT_POST, 'BD_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C4 = filter_input(INPUT_POST, 'BD_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $BD_C5 = filter_input(INPUT_POST, 'BD_C5', FILTER_SANITIZE_SPECIAL_CHARS); 
+    
+    $DEC_C1 = filter_input(INPUT_POST, 'DEC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C2 = filter_input(INPUT_POST, 'DEC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C3 = filter_input(INPUT_POST, 'DEC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C4 = filter_input(INPUT_POST, 'DEC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C5 = filter_input(INPUT_POST, 'DEC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C6 = filter_input(INPUT_POST, 'DEC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $DEC_C7 = filter_input(INPUT_POST, 'DEC_C7', FILTER_SANITIZE_SPECIAL_CHARS);
+
+    $QC_C1 = filter_input(INPUT_POST, 'QC_C1', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C2 = filter_input(INPUT_POST, 'QC_C2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C3 = filter_input(INPUT_POST, 'QC_C3', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C4 = filter_input(INPUT_POST, 'QC_C4', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C5 = filter_input(INPUT_POST, 'QC_C5', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C6 = filter_input(INPUT_POST, 'QC_C6', FILTER_SANITIZE_SPECIAL_CHARS);
+    $QC_C7 = filter_input(INPUT_POST, 'QC_C7', FILTER_SANITIZE_SPECIAL_CHARS);   
+    
+     $AEGON_QUES_QRY = $pdo->prepare("UPDATE
+                                            adl_audit_aegon
+                                        SET 
+  adl_audit_aegon_ref=:REF,
+  adl_audit_aegon_ref=:REF,
+  adl_audit_aegon_od1=:OD1, 
+  adl_audit_aegon_od2=:OD2, 
+  adl_audit_aegon_od3=:OD3, 
+  adl_audit_aegon_od4=:OD4, 
+  adl_audit_aegon_od5=:OD5, 
+  adl_audit_aegon_icn1=:ICN1,
+  adl_audit_aegon_icn2=:ICN2,
+  adl_audit_aegon_icn3=:ICN3,
+  adl_audit_aegon_icn4=:ICN4, 
+  adl_audit_aegon_icn5=:ICN5, 
+  adl_audit_aegon_cd1=:CD1, 
+  adl_audit_aegon_cd2=:CD2, 
+  adl_audit_aegon_cd3=:CD3, 
+  adl_audit_aegon_cd4=:CD4, 
+  adl_audit_aegon_cd5=:CD5, 
+  adl_audit_aegon_cd6=:CD6, 
+  adl_audit_aegon_cd7=:CD7, 
+  adl_audit_aegon_cd8=:CD8, 
+  adl_audit_aegon_cd9=:CD9, 
+  adl_audit_aegon_cd10=:CD10, 
+  adl_audit_aegon_pd1=:PD1, 
+  adl_audit_aegon_pd2=:PD2, 
+  adl_audit_aegon_pd3=:PD3, 
+  adl_audit_aegon_pd4=:PD4, 
+  adl_audit_aegon_pd5=:PD5, 
+  adl_audit_aegon_md1=:MD1, 
+  adl_audit_aegon_md2=:MD2, 
+  adl_audit_aegon_md3=:MD3, 
+  adl_audit_aegon_md4=:MD4, 
+  adl_audit_aegon_h1=:H1, 
+  adl_audit_aegon_h2=:H2,
+  adl_audit_aegon_h3=:H3,
+  adl_audit_aegon_h4=:H4, 
+  adl_audit_aegon_h5=:H5, 
+  adl_audit_aegon_d1=:D1, 
+  adl_audit_aegon_d2=:D2, 
+  adl_audit_aegon_d3=:D3, 
+  adl_audit_aegon_d4=:D4, 
+  adl_audit_aegon_bd1=:BD1, 
+  adl_audit_aegon_bd2=:BD2, 
+  adl_audit_aegon_bd3=:BD3, 
+  adl_audit_aegon_bd4=:BD4, 
+  adl_audit_aegon_bd5=:BD5, 
+  adl_audit_aegon_dec1=:DEC1,
+  adl_audit_aegon_dec2=:DEC2, 
+  adl_audit_aegon_dec3=:DEC3, 
+  adl_audit_aegon_dec4=:DEC4, 
+  adl_audit_aegon_dec5=:DEC5, 
+  adl_audit_aegon_dec6=:DEC6, 
+  adl_audit_aegon_dec7=:DEC7, 
+  adl_audit_aegon_qc1=:QC1, 
+  adl_audit_aegon_qc2=:QC2, 
+  adl_audit_aegon_qc3=:QC3, 
+  adl_audit_aegon_qc4=:QC4, 
+  adl_audit_aegon_qc5=:QC5, 
+  adl_audit_aegon_qc6=:QC6, 
+  adl_audit_aegon_qc7=:QC7
+  WHERE
+    adl_audit_aegon_id_fk=:ID_FK");
+    $AEGON_QUES_QRY->bindParam(':ID_FK', $AID, PDO::PARAM_INT);
+    $AEGON_QUES_QRY->bindParam(':REF', $REFERENCE, PDO::PARAM_INT);
+    $AEGON_QUES_QRY->bindParam(':OD1', $OD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':OD1', $OD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':OD2', $OD_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':OD3', $OD_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':OD4', $OD_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':OD5', $OD_Q5, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':ICN1', $ICN_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':ICN2', $ICN_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':ICN3', $ICN_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':ICN4', $ICN_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':ICN5', $ICN_Q5, PDO::PARAM_STR);  
+    $AEGON_QUES_QRY->bindParam(':CD1', $CD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD2', $CD_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD3', $CD_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD4', $CD_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD5', $CD_Q5, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD6', $CD_Q6, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD7', $CD_Q7, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD8', $CD_Q8, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD9', $CD_Q9, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':CD10', $CD_Q10, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':PD1', $PD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':PD2', $PD_Q2, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':PD3', $PD_Q3, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':PD4', $PD_Q4, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':PD5', $PD_Q5, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':MD1', $MD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':MD2', $MD_Q2, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':MD3', $MD_Q3, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':MD4', $MD_Q4, PDO::PARAM_STR);   
+    $AEGON_QUES_QRY->bindParam(':H1', $H_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':H2', $H_Q2, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':H3', $H_Q3, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':H4', $H_Q4, PDO::PARAM_STR);      
+    $AEGON_QUES_QRY->bindParam(':H5', $H_Q5, PDO::PARAM_STR);      
+    $AEGON_QUES_QRY->bindParam(':D1', $D_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':D2', $D_Q2, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':D3', $D_Q3, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':D4', $D_Q4, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':BD1', $BD_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':BD2', $BD_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':BD3', $BD_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':BD4', $BD_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':BD5', $BD_Q5, PDO::PARAM_STR);   
+    $AEGON_QUES_QRY->bindParam(':DEC1', $DEC_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC2', $DEC_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC3', $DEC_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC4', $DEC_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC5', $DEC_Q5, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC6', $DEC_Q6, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':DEC7', $DEC_Q7, PDO::PARAM_STR); 
+    $AEGON_QUES_QRY->bindParam(':QC1', $QC_Q1, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC2', $QC_Q2, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC3', $QC_Q3, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC4', $QC_Q4, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC5', $QC_Q5, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC6', $QC_Q6, PDO::PARAM_STR);
+    $AEGON_QUES_QRY->bindParam(':QC7', $QC_Q7, PDO::PARAM_STR);    
+    $AEGON_QUES_QRY->execute()or die(print_r($AEGON_QUES_QRY->errorInfo(), true));      
+    
+
+$AEGON_COM_QRY = $pdo->prepare("UPDATE
+                                            adl_audit_aegon_c
+                                        SET 
+  adl_audit_aegon_c_od1=:OD1, 
+  adl_audit_aegon_c_od2=:OD2, 
+  adl_audit_aegon_c_od3=:OD3, 
+  adl_audit_aegon_c_od4=:OD4, 
+  adl_audit_aegon_c_od5=:OD5, 
+  adl_audit_aegon_c_icn1=:ICN1,
+  adl_audit_aegon_c_icn2=:ICN2,
+  adl_audit_aegon_c_icn3=:ICN3,
+  adl_audit_aegon_c_icn4=:ICN4, 
+  adl_audit_aegon_c_icn5=:ICN5, 
+  adl_audit_aegon_c_cd1=:CD1, 
+  adl_audit_aegon_c_cd2=:CD2, 
+  adl_audit_aegon_c_cd3=:CD3, 
+  adl_audit_aegon_c_cd4=:CD4, 
+  adl_audit_aegon_c_cd5=:CD5, 
+  adl_audit_aegon_c_cd6=:CD6, 
+  adl_audit_aegon_c_cd7=:CD7, 
+  adl_audit_aegon_c_cd8=:CD8, 
+  adl_audit_aegon_c_cd9=:CD9, 
+  adl_audit_aegon_c_cd10=:CD10, 
+  adl_audit_aegon_c_pd1=:PD1, 
+  adl_audit_aegon_c_pd2=:PD2, 
+  adl_audit_aegon_c_pd3=:PD3, 
+  adl_audit_aegon_c_pd4=:PD4, 
+  adl_audit_aegon_c_pd5=:PD5, 
+  adl_audit_aegon_c_md1=:MD1, 
+  adl_audit_aegon_c_md2=:MD2, 
+  adl_audit_aegon_c_md3=:MD3, 
+  adl_audit_aegon_c_md4=:MD4
+  WHERE
+    adl_audit_aegon_c_id_fk=:FK");
+    $AEGON_COM_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
+    $AEGON_COM_QRY->bindParam(':OD1', $OD_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':OD2', $OD_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':OD3', $OD_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':OD4', $OD_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':OD5', $OD_C5, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':ICN1', $ICN_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':ICN2', $ICN_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':ICN3', $ICN_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':ICN4', $ICN_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':ICN5', $ICN_C5, PDO::PARAM_STR);  
+    $AEGON_COM_QRY->bindParam(':CD1', $CD_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD2', $CD_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD3', $CD_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD4', $CD_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD5', $CD_C5, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD6', $CD_C6, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD7', $CD_C7, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD8', $CD_C8, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD9', $CD_C9, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':CD10', $CD_C10, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':PD1', $PD_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':PD2', $PD_C2, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':PD3', $PD_C3, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':PD4', $PD_C4, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':PD5', $PD_C5, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':MD1', $MD_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':MD2', $MD_C2, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':MD3', $MD_C3, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':MD4', $MD_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->execute()or die(print_r($AEGON_COM_QRY->errorInfo(), true));  
+        
+    
+    $AEGON_C_EXTRA_QRY = $pdo->prepare("UPDATE
+                                            adl_audit_aegon_ce
+                                        SET
+  adl_audit_aegon_ce_h1=:H1, 
+  adl_audit_aegon_ce_h2=:H2,
+  adl_audit_aegon_ce_h3=:H3,
+  adl_audit_aegon_ce_h4=:H4, 
+  adl_audit_aegon_ce_h5=:H5, 
+  adl_audit_aegon_ce_d1=:D1, 
+  adl_audit_aegon_ce_d2=:D2, 
+  adl_audit_aegon_ce_d3=:D3, 
+  adl_audit_aegon_ce_d4=:D4, 
+  adl_audit_aegon_ce_bd1=:BD1, 
+  adl_audit_aegon_ce_bd2=:BD2, 
+  adl_audit_aegon_ce_bd3=:BD3, 
+  adl_audit_aegon_ce_bd4=:BD4, 
+  adl_audit_aegon_ce_bd5=:BD5, 
+  adl_audit_aegon_ce_dec1=:DEC1,
+  adl_audit_aegon_ce_dec2=:DEC2, 
+  adl_audit_aegon_ce_dec3=:DEC3, 
+  adl_audit_aegon_ce_dec4=:DEC4, 
+  adl_audit_aegon_ce_dec5=:DEC5, 
+  adl_audit_aegon_ce_dec6=:DEC6, 
+  adl_audit_aegon_ce_dec7=:DEC7, 
+  adl_audit_aegon_ce_qc1=:QC1, 
+  adl_audit_aegon_ce_qc2=:QC2, 
+  adl_audit_aegon_ce_qc3=:QC3, 
+  adl_audit_aegon_ce_qc4=:QC4, 
+  adl_audit_aegon_ce_qc5=:QC5, 
+  adl_audit_aegon_ce_qc6=:QC6, 
+  adl_audit_aegon_ce_qc7=:QC7
+  WHERE
+     adl_audit_aegon_ce_id_fk =:FK");
+  $AEGON_C_EXTRA_QRY->bindParam(':FK', $AIDFK, PDO::PARAM_INT);
+  $AEGON_COM_QRY->bindParam(':H1', $H_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':H2', $H_C2, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':H3', $H_C3, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':H4', $H_C4, PDO::PARAM_STR);      
+    $AEGON_COM_QRY->bindParam(':H5', $H_C5, PDO::PARAM_STR);      
+    $AEGON_COM_QRY->bindParam(':D1', $D_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':D2', $D_C2, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':D3', $D_C3, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':D4', $D_C4, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':BD1', $BD_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':BD2', $BD_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':BD3', $BD_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':BD4', $BD_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':BD5', $BD_C5, PDO::PARAM_STR);   
+    $AEGON_COM_QRY->bindParam(':DEC1', $DEC_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC2', $DEC_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC3', $DEC_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC4', $DEC_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC5', $DEC_C5, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC6', $DEC_C6, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':DEC7', $DEC_C7, PDO::PARAM_STR); 
+    $AEGON_COM_QRY->bindParam(':QC1', $QC_C1, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC2', $QC_C2, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC3', $QC_C3, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC4', $QC_C4, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC5', $QC_C5, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC6', $QC_C6, PDO::PARAM_STR);
+    $AEGON_COM_QRY->bindParam(':QC7', $QC_C7, PDO::PARAM_STR);
+  $AEGON_C_EXTRA_QRY->execute()or die(print_r($AEGON_C_EXTRA_QRY->errorInfo(), true));     
+        
+    }
+
+    if ($AID >= '1') {
+        header('Location: ../../search_audits.php?RETURN=ADDED&GRADE=' . $GRADE.'&INSURER='.$INSURER);
+        die;
+    } else {
+        header('Location: ../../search_audits.php?RETURN=AuditEditFailed&Error');
+        die;
+    }
+}
+
+?>

@@ -1482,187 +1482,107 @@ if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h1'])) {
 <div class="phpcomments"><?php if(isset($CD_C10)) { echo $CD_C10; } ?></div>
 
             
-             <h3 class="panel-title">Owner details</h3>
+             <h3 class="panel-title">Personal details</h3>
              
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customers 'height and weight' and did they record the answer correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q1)) {  if ($OWD_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q1)) {  if ($OWD_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customers employment basis?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q1)) {  if ($PD_Q1 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q1)) {  if ($PD_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OWD_C1)) { echo $OWD_C1; } ?>
+                <?php if(isset($PD_C1)) { echo $PD_C1; } ?>
             </div>    
 </p>
 
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customers smoking status and did they record the answer correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q2)) {  if ($OWD_Q2 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q2)) {  if ($OWD_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customers total yearly earnings?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q2)) {  if ($PD_Q2 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q2)) {  if ($PD_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OWD_C2)) { echo $OWD_C2; } ?>
+                <?php if(isset($PD_C2)) { echo $PD_C2; } ?>
             </div>     
 </p>
 
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer read the declaration?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q3)) {  if ($OWD_Q3 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OWD_Q3)) {  if ($OWD_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask in the next 12 months does the customer intend to live, work or travel abroad, or have they done so in the past five years?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q3)) {  if ($PD_Q3 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q3)) {  if ($PD_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OWD_C3)) { echo $OWD_C3; } ?>
+                <?php if(isset($PD_C3)) { echo $PD_C3; } ?>
+            </div>     
+</p>
+
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer if they intend to take part in any hazardous activity?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q4)) {  if ($PD_Q4 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q4)) {  if ($PD_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($PD_C4)) { echo $PD_C4; } ?>
+            </div>     
+</p>
+
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer if the total amount of protection under all their existing policies, together with this application any any pending or concurrent applications, exceed £800k for life cover or £500k critical illness or total permanent disability?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q5)) {  if ($PD_Q5 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($PD_Q5)) {  if ($PD_Q5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($PD_C5)) { echo $PD_C5; } ?>
             </div>     
 </p>
          
-            
-<h3 class="panel-title">Other/existing cover</h3>   
-
+             <h3 class="panel-title">Medical details</h3>
+             
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer is covered by Aegon and did they record the answer correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q1)) {  if ($OTHER_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q1)) {  if ($OTHER_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Was the customers height and weight asked and recorded correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q1)) {  if ($MD_Q1 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q1)) {  if ($MD_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OTHER_C1)) { echo $OTHER_C1; } ?>
+                <?php if(isset($MD_C1)) { echo $MD_C1; } ?>
             </div>    
 </p>
 
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer had applied for cover with Aegon in the last 12 months?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q2)) {  if ($OTHER_Q2 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q2)) {  if ($OTHER_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customers the average amount they have smoked or used a day over the year?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q2)) {  if ($MD_Q2 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q2)) {  if ($MD_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OTHER_C2)) { echo $OTHER_C2; } ?>
+                <?php if(isset($MD_C2)) { echo $MD_C2; } ?>
             </div>     
 </p>
 
 <p>
-    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer had exiting life cover exceeding £1.5m or £500k critical illness?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q3)) {  if ($OTHER_Q3 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($OTHER_Q3)) {  if ($OTHER_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer how much alcohol they drink a week?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q3)) {  if ($MD_Q3 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q3)) {  if ($MD_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($OTHER_C3)) { echo $OTHER_C3; } ?>
+                <?php if(isset($MD_C3)) { echo $MD_C3; } ?>
             </div>     
 </p>
 
-<h3 class="panel-title">Occupation</h3>   
 
 <p>
-    <label for="O1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer works in the armed or reserve forces?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($O_Q1)) {  if ($O_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($O_Q1)) {  if ($O_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer how much alcohol they drink a week?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q4)) {  if ($MD_Q4 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($MD_Q4)) {  if ($MD_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($O_C1)) { echo $O_C1; } ?>
-            </div>    
+                <?php if(isset($MD_C4)) { echo $MD_C4; } ?>
+            </div>     
 </p>
 
+             <h3 class="panel-title">Health</h3>
+             
 <p>
-    <label for="O2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer job involves travelling more than 25k miles per annum?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    <input type="radio" onclick="return false" <?php if(isset($O_Q2)) {  if ($O_Q2 == "N/A") { echo "checked"; } } ?> >N/A
-    
-            <div class="phpcomments">
-                <?php if(isset($O_C2)) { echo $O_C2; } ?>
-            </div>    
-</p>
-         
-<p>
-    <label for="O3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer works less than 16 hours per week?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    <input type="radio" onclick="return false" <?php if(isset($O_Q3)) {  if ($O_Q3 == "N/A") { echo "checked"; } } ?> >N/A
-    
-            <div class="phpcomments">
-                <?php if(isset($O_C3)) { echo $O_C3; } ?>
-            </div>    
-</p>
-
-<h3 class="panel-title">Travel/residency</h3>   
-
-<p>
-    <label for="T1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer intends on spending more than 4 weeks overall in the listed countries?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($T_Q1)) {  if ($T_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($T_Q1)) {  if ($T_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($T_C1)) { echo $T_C1; } ?>
-            </div>    
-</p>
-
-<p>
-    <label for="T2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has spent more than 3 consecutive months in the listed countries in the last 5 years?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($T_Q2)) {  if ($T_Q2 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($T_Q2)) {  if ($T_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($T_C2)) { echo $T_C2; } ?>
-            </div>    
-</p>
-
-<h3 class="panel-title">Hazardous pursuit/hobbies</h3>   
-
-<p>
-    <label for="HAZ1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer intends to take part in any hazardous activities in the last 12 months?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($HAZ_Q1)) {  if ($HAZ_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($HAZ_Q1)) {  if ($HAZ_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($HAZ_C1)) { echo $HAZ_C1; } ?>
-            </div>    
-</p>
-
-<h3 class="panel-title">Lifestyle</h3>   
-
-<p>
-    <label for="L1">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has been advised to reduce alcohol consumption?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($L_Q1)) {  if ($L_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($L_Q1)) {  if ($L_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($L_C1)) { echo $L_C1; } ?>
-            </div>    
-</p>
-
-<p>
-    <label for="L2">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has taken any drugs in the last 10 years?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($L_Q2)) {  if ($L_Q2 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($L_Q2)) {  if ($L_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($L_C2)) { echo $L_C2; } ?>
-            </div>    
-</p>
-
-<p>
-    <label for="L3">Q<?php $i++; echo $i; ?>. Did the closer ask if the customer has ever tested positive to HIV?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($L_Q3)) {  if ($L_Q3 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($L_Q3)) {  if ($L_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($L_C3)) { echo $L_C3; } ?>
-            </div>    
-</p>
-
-<h3 class="panel-title">Family History</h3>   
-
-<p>
-    <label for="FAM1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer's family history?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($FAM_Q1)) {  if ($FAM_Q1 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($FAM_Q1)) {  if ($FAM_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    
-            <div class="phpcomments">
-                <?php if(isset($FAM_C1)) { echo $FAM_C1; } ?>
-            </div>    
-</p>
-
-<h3 class="panel-title">Health</h3>   
-
-<p>
-    <label for="H1">Q<?php $i++; echo $i; ?>. Did the closer ask all the "Have you ever had or do you currently have" health questions and did they record the answers correctly?</label><br>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all the health questions asked and recorded correctly?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($H_Q1)) {  if ($H_Q1 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($H_Q1)) {  if ($H_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
@@ -1672,34 +1592,88 @@ if(isset($VIT_CE_AUDIT['adl_audit_aeghn_ce_h1'])) {
 </p>
 
 <p>
-    <label for="H2">Q<?php $i++; echo $i; ?>. Did the closer ask all the "any condition in the last 5 years" health questions and did the closer record the answers correctly?</label><br>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all the health questions - ever had, asked and recorded correctly?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($H_Q2)) {  if ($H_Q2 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($H_Q2)) {  if ($H_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
                 <?php if(isset($H_C2)) { echo $H_C2; } ?>
-            </div>    
+            </div>     
 </p>
 
 <p>
-    <label for="H3">Q<?php $i++; echo $i; ?>. Did the closer ask all the "Recent and current" health questions and did the closer record the answers correctly?</label><br>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all the health questions - last five years, asked and recorded correctly?</label><br>
     <input type="radio" onclick="return false" <?php if(isset($H_Q3)) {  if ($H_Q3 == "1") { echo "checked"; } } ?> >Yes
     <input type="radio" onclick="return false" <?php if(isset($H_Q3)) {  if ($H_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
                 <?php if(isset($H_C3)) { echo $H_C3; } ?>
+            </div>     
+</p>
+
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all the health questions - continued, asked and recorded correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($H_C4)) { echo $H_C4; } ?>
+            </div>     
+</p>
+
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all the family history questions asked and recorded correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($H_Q5)) {  if ($H_Q5 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($H_Q5)) {  if ($H_Q5 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($H_C5)) { echo $H_C5; } ?>
+            </div>     
+</p>    
+
+           <h3 class="panel-title">Decision</h3>
+             
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. If appropriate did the closer confirm the exclusions on the policy?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($D_Q1)) {  if ($D_Q1 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($D_Q1)) {  if ($D_Q1 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($D_C1)) { echo $D_C1; } ?>
             </div>    
 </p>
 
 <p>
-    <label for="H4">Q<?php $i++; echo $i; ?>. Did the closer ask for the customers doctor details and did the closer record the answers correctly?</label><br>
-    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "1") { echo "checked"; } } ?> >Yes
-    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
-    <input type="radio" onclick="return false" <?php if(isset($H_Q4)) {  if ($H_Q4 == "N/A") { echo "checked"; } } ?> ><label for="N/A">N/A</label>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Were all of the doctor details asked and recorded correctly?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($D_Q2)) {  if ($D_Q2 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($D_Q2)) {  if ($D_Q2 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
     
             <div class="phpcomments">
-                <?php if(isset($H_C4)) { echo $H_C4; } ?>
-            </div>    
+                <?php if(isset($D_C2)) { echo $D_C2; } ?>
+            </div>     
+</p>
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer if they have been registered with their current doctor for more than 12 months?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($D_Q3)) {  if ($D_Q3 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($D_Q3)) {  if ($D_Q3 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($D_C3)) { echo $D_C3; } ?>
+            </div>     
+</p>
+
+
+<p>
+    <label for="CI1">Q<?php $i++; echo $i; ?>. Did the closer ask the customer if they want to see any medical report before it's supplied to Aegon?</label><br>
+    <input type="radio" onclick="return false" <?php if(isset($D_Q4)) {  if ($D_Q4 == "1") { echo "checked"; } } ?> >Yes
+    <input type="radio" onclick="return false" <?php if(isset($D_Q4)) {  if ($D_Q4 == "0") { echo "checked"; } } ?> ><label for="No">No</label>
+    
+            <div class="phpcomments">
+                <?php if(isset($D_C4)) { echo $D_C4; } ?>
+            </div>     
 </p>
 
 <h3 class="panel-title">Bank Details</h3>   

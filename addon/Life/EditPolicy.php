@@ -96,12 +96,6 @@ if (isset($fferror)) {
         require_once(__DIR__ . '/../../includes/ADL_PDO_CON.php');
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
 <html lang="en">
     <title>ADL | Edit Policy</title>
     <meta charset="UTF-8">
@@ -135,7 +129,7 @@ if (isset($fferror)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT non_indem_com, client_policy.extra_charge, CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name AS POL_NAME, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
+    $query = $pdo->prepare("SELECT sic_cover_amount, non_indem_com, client_policy.extra_charge, CONCAT(client_details.title, ' ',client_details.first_name,' ',client_details.last_name) AS NAME, CONCAT(client_details.title2, ' ',client_details.first_name2,' ',client_details.last_name2) AS NAME2, client_policy.client_id, client_policy.id, client_policy.polterm, client_policy.client_name AS POL_NAME, client_policy.sale_date, client_policy.application_number, client_policy.policy_number, client_policy.premium, client_policy.type, client_policy.insurer, client_policy.submitted_by, client_policy.commission, client_policy.CommissionType, client_policy.policystatus, client_policy.submitted_date, client_policy.edited, client_policy.date_edited, client_policy.drip, client_policy.comm_term, client_policy.soj, client_policy.closer, client_policy.lead, client_policy.covera FROM client_policy JOIN client_details on client_details.client_id = client_policy.client_id WHERE client_policy.id =:search");
     $query->bindParam(':search', $id, PDO::PARAM_INT);
     $query->execute();
     $data2 = $query->fetch(PDO::FETCH_ASSOC);
@@ -304,6 +298,11 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                     <label for="insurer">Insurer:</label>
                                     <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
                                         <option <?php
+                                            if ($data2["insurer"] == 'Aegon') {
+                                                echo "selected";
+                                            }
+                                            ?> value="Aegon">Aegon</option>                                        
+                                        <option <?php
                                             if ($data2["insurer"] == 'One Family') {
                                                 echo "selected";
                                             }
@@ -451,6 +450,14 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                         <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['covera'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" />
                                     </div> 
                                     </p>
+                                    
+                                <p>
+                                    <label for="SIC_COVER_AMOUNT">SIC Cover Amount</label>
+                                    <div class="input-group"> 
+                                        <span class="input-group-addon">£</span>
+                                        <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['sic_cover_amount'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" />
+                                    </div> 
+                                    </p>                                    
 
                                     <p>
                                     <div class="form-row">

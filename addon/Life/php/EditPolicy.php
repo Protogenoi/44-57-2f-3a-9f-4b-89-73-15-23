@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
@@ -87,6 +88,8 @@ $LEAD = filter_input(INPUT_POST, 'lead', FILTER_SANITIZE_SPECIAL_CHARS);
 $covera = filter_input(INPUT_POST, 'covera', FILTER_SANITIZE_SPECIAL_CHARS);
 $polterm = filter_input(INPUT_POST, 'polterm', FILTER_SANITIZE_SPECIAL_CHARS);
 
+$SIC_COVER_AMOUNT = filter_input(INPUT_POST, 'SIC_COVER_AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
+
 $EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_SPECIAL_CHARS);
 $NonIdem = filter_input(INPUT_POST, 'NonIdem', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -121,11 +124,12 @@ if ($count = $dupeck->rowCount() >= 1) {
     
     $ORIG_POLICY_STATUS = $origdetails['policystatus'];
 
-    $update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+    $update = $pdo->prepare("UPDATE client_policy SET sic_cover_amount-:SIC_COVER, non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
     $update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
     $update->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
     $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
     $update->bindParam(':covera', $covera, PDO::PARAM_INT);
+    $update->bindParam(':SIC_COVER', $SIC_COVER_AMOUNT, PDO::PARAM_INT);
     $update->bindParam(':sub', $submitted_date, PDO::PARAM_STR);
     $update->bindParam(':soj', $soj, PDO::PARAM_STR);
     $update->bindParam(':client_name', $NAME, PDO::PARAM_STR);
@@ -238,9 +242,10 @@ $oname = $origdetails['orig_policy'];
 
 $ORIG_POLICY_STATUS = $origdetails['policystatus'];
 
-$update = $pdo->prepare("UPDATE client_policy SET non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
+$update = $pdo->prepare("UPDATE client_policy SET sic_cover_amount=:SIC_COVER, non_indem_com=:NONIDEM, extra_charge=:CHARGE, submitted_date=:sub, covera=:covera, soj=:soj, client_name=:client_name, sale_date=:sale_date, application_number=:application_number, policy_number=:policy_number, premium=:premium, type=:type, insurer=:insurer, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, edited=:edited, comm_term=:comm_term, drip=:drip, closer=:closer, lead=:lead, polterm=:polterm WHERE id=:OCID");
 $update->bindParam(':NONIDEM', $NonIdem, PDO::PARAM_INT);
 $update->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
+$update->bindParam(':SIC_COVER', $SIC_COVER_AMOUNT, PDO::PARAM_INT);
 $update->bindParam(':OCID', $policyunid, PDO::PARAM_INT);
 $update->bindParam(':covera', $covera, PDO::PARAM_INT);
 $update->bindParam(':soj', $soj, PDO::PARAM_STR);
@@ -364,4 +369,3 @@ if (isset($changereason)) {
 
         header('Location: /../../../../../../app/Client.php?CLIENT_POLICY=2&search=' . $CID .'&CLIENT_POLICY_POL_NUM='.$policy_number);
         die;
-?>

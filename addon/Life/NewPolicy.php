@@ -105,13 +105,6 @@ if (isset($EXECUTE)) {
             $NAME2=$data2['Name2'];
         }
         ?>
-        <!DOCTYPE html>
-        <!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
         <html lang="en">
             <title>ADL | Add Policy</title>
             <meta charset="UTF-8">
@@ -281,6 +274,13 @@ if (isset($EXECUTE)) {
                                         <label for="insurer">Insurer:</label>
                                         <select class="form-control" name="insurer" id="insurer" style="width: 170px" required>
                                             <option value="">Select...</option>
+                                            <option value="Aegon" <?php
+                                            if (isset($INSURER)) {
+                                                if ($INSURER == 'Aegon') {
+                                                    echo "selected";
+                                                }
+                                            }
+                                            ?>>Aegon</option>
                                             <option value="Legal and General" <?php
                                             if (isset($INSURER)) {
                                                 if ($INSURER == 'LANDG') {
@@ -427,6 +427,19 @@ if (isset($EXECUTE)) {
                                                 ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="covera" name="covera" required/>
                                             </div> 
                                             </p>
+                                            
+                                        <p>
+       
+                                            <label for="SIC_COVER_AMOUNT">SIC Cover Amount</label>
+                                            <div class="input-group"> 
+                                                <span class="input-group-addon">£</span>
+                                                <input <?php
+                                                if ($INSURER == 'ARCHIVE') {
+                                                    echo "value='0'";
+                                                }
+                                                ?> style="width: 140px" autocomplete="off" type="number" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" required/>
+                                            </div> 
+                                            </p>                                            
 
                                             <p>
                                             <div class="form-row">

@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/
 
 include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
@@ -94,6 +95,8 @@ if (isSET($EXECUTE)) {
         $submitted_date = filter_input(INPUT_POST, 'submitted_date', FILTER_SANITIZE_SPECIAL_CHARS);
         $NonIndem = filter_input(INPUT_POST, 'NonIndem', FILTER_SANITIZE_SPECIAL_CHARS);
         
+        $SIC_COVER_AMOUNT = filter_input(INPUT_POST, 'SIC_COVER_AMOUNT', FILTER_SANITIZE_SPECIAL_CHARS);
+        
         $EXTRA_CHARGE = filter_input(INPUT_POST, 'EXTRA_CHARGE', FILTER_SANITIZE_NUMBER_FLOAT);
 
         if ($POLICY_STATUS == "Awaiting" || $policy_number=="TBC") {
@@ -121,6 +124,7 @@ if (isSET($EXECUTE)) {
             $insert = $pdo->prepare("INSERT INTO client_policy SET 
  client_id=:CID,
  extra_charge=:CHARGE,
+ sic_cover_amount=:SIC_COVER
  client_name=:name,
  sale_date=:sale,
  application_number=:an_num,
@@ -144,6 +148,7 @@ if (isSET($EXECUTE)) {
  non_indem_com=:NONIDEM");
             $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_INT);
             $insert->bindParam(':CHARGE', $EXTRA_CHARGE, PDO::PARAM_INT);
+            $insert->bindParam(':SIC_COVER', $SIC_COVER_AMOUNT, PDO::PARAM_INT);
             $insert->bindParam(':CID', $CID, PDO::PARAM_STR);
             $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
             $insert->bindParam(':sale', $sale_date, PDO::PARAM_STR);
@@ -185,9 +190,10 @@ if (isSET($EXECUTE)) {
 
         }
 
-        $insert = $pdo->prepare("INSERT INTO client_policy SET non_indem_com=:NONIDEM, client_id=:CID, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
+        $insert = $pdo->prepare("INSERT INTO client_policy SET sic_cover_amount=:SIC_COVER, non_indem_com=:NONIDEM, client_id=:CID, client_name=:name, sale_date=:sale, application_number=:an_num, policy_number=:policy, premium=:premium, type=:type, insurer=:insurer, submitted_by=:hello, edited=:helloed, commission=:commission, CommissionType=:CommissionType, PolicyStatus=:PolicyStatus, comm_term=:comm_term, drip=:drip, submitted_date=:date, soj=:soj, closer=:closer, lead=:lead, covera=:covera, polterm=:polterm");
         $insert->bindParam(':CID', $CID, PDO::PARAM_STR);
         $insert->bindParam(':NONIDEM', $NonIndem, PDO::PARAM_STR);
+        $insert->bindParam(':SIC_COVER', $SIC_COVER_AMOUNT, PDO::PARAM_STR);
         $insert->bindParam(':name', $client_name, PDO::PARAM_STR);
         $insert->bindParam(':sale', $sale_date, PDO::PARAM_STR);
         $insert->bindParam(':an_num', $application_number, PDO::PARAM_STR);
@@ -256,4 +262,3 @@ if (isSET($EXECUTE)) {
      header('Location: /../../../../../CRMmain.php?AccessDenied');
     die;
 }
-?>

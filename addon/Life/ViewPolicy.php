@@ -124,7 +124,7 @@ if (isset($hello_name)) {
     $tracking_search= "%search=$search%";
 }
 
-    $query = $pdo->prepare("SELECT non_indem_com, extra_charge, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
+    $query = $pdo->prepare("SELECT sic_cover_amount, non_indem_com, extra_charge, id, polterm, client_name, sale_date, application_number, policy_number, premium, type, insurer, submitted_by, commission, CommissionType, policystatus, submitted_date, edited, date_edited, drip, comm_term, soj, closer, lead, covera FROM client_policy WHERE id =:PID and client_id=:CID");
     $query->bindParam(':PID', $policyID, PDO::PARAM_INT);
     $query->bindParam(':CID', $search, PDO::PARAM_INT);
     $query->execute();
@@ -136,6 +136,7 @@ if (isset($hello_name)) {
         $data2['covera']=0;
     }
     $COVER_AMOUNT = number_format($data2['covera'],2);
+    $SIC_COVER_AMOUNT = number_format($data2['sic_cover_amount'],2);
 
     $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
     $query2->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -143,12 +144,6 @@ if (isset($hello_name)) {
     $data3 = $query2->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
 <html lang="en">
     <title>ADL | View Policy</title>
     <meta charset="UTF-8">
@@ -492,6 +487,15 @@ ews_data.policy_number
                                         <div class="input-group"> 
                                             <span class="input-group-addon">£</span>
                                             <input style="width: 170px" type="text" value="<?php echo $COVER_AMOUNT; ?>" class="form-control currency" id="covera" name="covera" class="form-control" readonly style="width: 200px"/>
+                                        </div> 
+                                        </p>
+                                        
+                                    <p>
+                                    <div class="form-row">
+                                        <label for="SIC_COVER_AMOUNT">SIC Cover Amount</label>
+                                        <div class="input-group"> 
+                                            <span class="input-group-addon">£</span>
+                                            <input style="width: 170px" type="text" value="<?php echo $SIC_COVER_AMOUNT; ?>" class="form-control currency" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" class="form-control" readonly style="width: 200px"/>
                                         </div> 
                                         </p>
 

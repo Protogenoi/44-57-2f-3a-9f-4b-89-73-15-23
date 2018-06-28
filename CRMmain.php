@@ -106,11 +106,11 @@ if (in_array($hello_name, $Closer_Access, true)) {
     header('Location: /addon/Trackers/Tracker.php?query=CloserTrackers');
     die;
 }    
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL</title>
-        <?php require_once(__DIR__ . '/app/core/head.html'); ?>
+
+        $ADL_PAGE_TITLE = "Main";
+        require_once(__DIR__ . '/app/core/head.php'); 
+        
+        ?>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/external/jquery/jquery.js"></script>

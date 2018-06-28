@@ -657,10 +657,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
         }
 
                         }                       
-?>
-<html lang="en">
-    <title>ADL | Client</title>
-    <?php require_once(__DIR__ . '/../app/core/head.html'); ?>
+
+        $ADL_PAGE_TITLE = "Client";
+        require_once(__DIR__ . '/../app/core/head.php'); 
+        
+        
+        ?>
+
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css" />
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">

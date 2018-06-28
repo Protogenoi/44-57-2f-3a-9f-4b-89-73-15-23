@@ -455,7 +455,7 @@ $AN_NUMBER_ARRAY=array("Legal and General","Zurich","Scottish Widows","LV");
                                     <label for="SIC_COVER_AMOUNT">SIC Cover Amount</label>
                                     <div class="input-group"> 
                                         <span class="input-group-addon">£</span>
-                                        <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php echo $data2['sic_cover_amount'] ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" />
+                                        <input  class="form-control currency"style="width: 140px" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" type="number" value="<?php if(isset($data2['sic_cover_amount'])) { echo $data2['sic_cover_amount']; } else { echo 0; } ?>" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="SIC_COVER_AMOUNT" name="SIC_COVER_AMOUNT" />
                                     </div> 
                                     </p>                                    
 

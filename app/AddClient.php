@@ -73,19 +73,14 @@ if ($ffpost_code == '1') {
     $PDre = $PostcodeQuery->fetch(PDO::FETCH_ASSOC);
     $PostCodeKey = $PDre['api_key'];
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL | Add Client</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        $ADL_PAGE_TITLE = "Add Client";
+        require_once(__DIR__ . '/../app/core/head.php'); 
+        
+        ?>
+
     <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
     <link rel="stylesheet" href="/resources/templates/ADL/PostCode.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>

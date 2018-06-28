@@ -669,7 +669,6 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/dist/jquery-clockpicker.min.css">
     <link rel="stylesheet" type="text/css" href="/resources/lib/clockpicker-gh-pages/assets/css/github.min.css">
     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .label-purple {
             background-color: #8e44ad;

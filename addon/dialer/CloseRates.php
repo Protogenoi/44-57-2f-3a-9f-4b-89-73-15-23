@@ -327,17 +327,7 @@ while ($result=$NEWLEAD->fetch(PDO::FETCH_ASSOC)){
                         case("Ryan Tidball"):
                             $LEADS = $Leads - 0;
                             $SALES = $Sales - 0; 
-                            $TRK_closer = "Ryan";  
-                            break;                        
-                        case("Molly Grove"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0; 
-                            $TRK_closer = "Molly";  
-                            break;               
-                        case("David Bebee"):
-                            $LEADS = $Leads - 0;
-                            $SALES = $Sales - 0; 
-                            $TRK_closer = "Bebee";                         
+                            $TRK_closer = "Ryan";                        
                         default:
                             $LEADS = $Leads;
                             $SALES = $Sales;

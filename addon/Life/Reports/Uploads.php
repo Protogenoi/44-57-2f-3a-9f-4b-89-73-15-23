@@ -84,22 +84,17 @@ $ACCESS_LEVEL = $USER_ACCESS_LEVEL['ACCESS_LEVEL'];
 
 if ($ACCESS_LEVEL < 3) {
 
-    header('Location: /../../../index.php?AccessDenied&USER=' . $hello_name . '&COMPANY=' . $COMPANY_ENTITY);
+    header('Location: /../../../../index.php?AccessDenied&USER=' . $hello_name . '&COMPANY=' . $COMPANY_ENTITY);
     die;
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL | Missing Client Uploads</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+
+        $ADL_PAGE_TITLE = "Missing Client Uploads";
+        require_once(__DIR__ . '/../../../app/core/head.php'); 
+        
+        ?>
+
     <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
 </head>
 <body>
 
@@ -138,7 +133,7 @@ if ($ACCESS_LEVEL < 3) {
 <?php if (isset($SEARCH)) { ?>
                         <option <?php if ($SEARCH == 'Insurer Keyfacts') {
         echo "selected";
-    } ?> value="Insurer Keyfacts">Insurer Keyfacts</option>
+    } ?> value="Insurer Keyfacts">Insurer Keyfacts</option>                        
                         <option <?php if ($SEARCH == 'Dealsheet') {
             echo "selected";
         } ?> value="Dealsheet">Dealsheet</option>
@@ -160,6 +155,9 @@ if ($ACCESS_LEVEL < 3) {
                         <option <?php if ($SEARCH == 'SW App') {
             echo "selected";
         } ?> value="SW App">Scottish Widows App</option>  
+                        <option <?php if ($SEARCH == 'Aegon App') {
+            echo "selected";
+        } ?> value="Aegon App">Aegon App</option>                          
                         <option <?php if ($SEARCH == 'Vitality App') {
             echo "selected";
         } ?> value="Vitality App">Vitality App</option>                          
@@ -235,6 +233,12 @@ if ($ACCESS_LEVEL < 3) {
         if ($SEARCH == 'LG App') {
             echo "5";
         } 
+        if ($SEARCH == 'Welcome SMS') {
+            echo "6";
+        }   
+        if ($SEARCH == 'Missing Policy') {
+            echo "7";
+        }          
         if ($SEARCH == 'Vitality App') {
             echo "8";
         }  
@@ -246,13 +250,10 @@ if ($ACCESS_LEVEL < 3) {
         } 
         if ($SEARCH == 'Royal London App') {
             echo "11";
+        } 
+        if ($SEARCH == 'Aegon App') {
+            echo "12";
         }         
-        if ($SEARCH == 'Welcome SMS') {
-            echo "6";
-        }   
-        if ($SEARCH == 'Missing Policy') {
-            echo "7";
-        }           
     } ?>&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                                      "columns": [
                                          {

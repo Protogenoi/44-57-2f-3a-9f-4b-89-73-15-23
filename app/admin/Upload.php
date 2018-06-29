@@ -76,16 +76,10 @@ if (isset($fferror)) {
         die;    
             
         }
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL | Upload</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
+        $ADL_PAGE_TITLE = "Upload";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        ?>
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
     <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>

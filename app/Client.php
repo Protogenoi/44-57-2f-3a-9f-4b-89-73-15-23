@@ -320,7 +320,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             
                             $AEG_POL_number = $GET_AEG_row['adl_policy_ref'];   
 
-                            $GET_AEG_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_vitality_id_fk AS CLOSER FROM adl_audit_vitality WHERE adl_audit_vitality_ref=:PHONE");
+                            $GET_AEG_CLOSER_AUDIT = $pdo->prepare("SELECT adl_audit_aegon_id_fk AS CLOSER FROM adl_audit_aegon WHERE adl_audit_aegon_ref=:PHONE");
                             $GET_AEG_CLOSER_AUDIT->bindParam(':PHONE', $PHONE_NUMBER, PDO::PARAM_INT);
                             $GET_AEG_CLOSER_AUDIT->execute();
                             $GET_AEG_CLOSERrow = $GET_AEG_CLOSER_AUDIT->fetch(PDO::FETCH_ASSOC);
@@ -1999,6 +1999,12 @@ if (isset($fileuploadedfail)) {
 <a class="list-group-item" href="/addon/audits/Vitality/view_call_audit.php?AUDITID=<?php echo $VIT_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Vitality Closer Audit</a>                                    
             
         <?php }
+        
+        if(isset($HAS_NEW_AEG_CLOSE_AUDIT) && $HAS_NEW_AEG_CLOSE_AUDIT == 1) {   ?>
+                                    
+<a class="list-group-item" href="/addon/audits/Aegon/view_call_audit.php?AUDITID=<?php echo $AEG_NEW_closeraudit; ?>" target="_blank"><i class="fa fa-folder-open fa-fw" aria-hidden="true"></i> &nbsp; Aegon Closer Audit</a>                                    
+            
+        <?php }        
         
         if(isset($HAS_NEW_RL_CLOSE_AUDIT) && $HAS_NEW_RL_CLOSE_AUDIT == 1) {   ?>
                                     

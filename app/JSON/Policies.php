@@ -28,7 +28,7 @@
  *  Twitter API - https://developer.twitter.com
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 $USER= filter_input(INPUT_GET, 'USER', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $TOKEN= filter_input(INPUT_GET, 'TOKEN', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -94,4 +94,3 @@ else {
     header('Location: /../../../CRMmain.php');
     die;
 }
-?>

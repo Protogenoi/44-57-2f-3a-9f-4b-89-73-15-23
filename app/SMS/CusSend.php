@@ -125,4 +125,3 @@ header('Location: ../Client.php?CLIENT_SMS=1&search='.$CID); die;
 
 }
 header('Location: /../../../CRMmain.php'); die;    
-    ?>

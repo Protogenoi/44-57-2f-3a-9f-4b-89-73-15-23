@@ -657,6 +657,41 @@ if(empty($HAS_RL_LEAD_AUDIT)) {
      }    
 }
 
+     if(isset($HAS_AEG_POL) && $HAS_AEG_POL == 1) {
+    
+           $database->query("select uploadtype from tbl_uploads where uploadtype='Aegonkeyfacts' and file like :search");
+            $database->bind(':search', $likesearch);
+            $database->execute();
+            $database->single();
+                
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGKEY'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Aegon Keyfacts not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>";    
+         
+     }
+     
+    $database->query("select uploadtype from tbl_uploads where uploadtype='Aegonpolicy' and file like :search");
+    $database->bind(':search', $likesearch);
+    $database->execute();
+    $database->single();
+     if ($database->rowCount()<=0) {  
+         
+    echo "<div class=\"notice notice-warning\" role=\"alert\" id='HIDELGAPP'><strong><i class=\"fa fa-upload fa-lg\"></i> Alert:</strong> Aegon App not uploaded!"
+            . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGAPP'>&times;</a></div>";    
+         
+     }   
+     
+if(empty($HAS_AEG_CLOSER_AUDIT_CHECK)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Aegon Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+} 
+
+if(empty($HAS_AEG_LEAD_AUDIT)) {  
+ echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No Aegon Lead audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   
+}    
+     
+}
+
      if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1 || isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1 ) {
     
            $database->query("select uploadtype from tbl_uploads where uploadtype='Vitalitykeyfacts' and file like :search");

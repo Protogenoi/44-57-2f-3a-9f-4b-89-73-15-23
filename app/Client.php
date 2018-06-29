@@ -3594,7 +3594,9 @@ if($ffcallbacks==1) { ?>
                                                                 <div class='form-group'>
                                                                     <select id='getcallback_client' name='callbackclient' class='form-control'>
                                                                         <option value='<?php echo $clientonefull; ?>'><?php echo $clientonefull; ?></option>
+                                                                        <?php if(isset($clienttwofull)) { ?>
                                                                         <option value='<?php echo $clienttwofull; ?>'><?php echo $clienttwofull; ?></option>
+                                                                        <?php } ?>
                                                                     </select>
                                                                 </div>
                                                             </div>

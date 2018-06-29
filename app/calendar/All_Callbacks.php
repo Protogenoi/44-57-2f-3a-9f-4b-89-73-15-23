@@ -124,7 +124,7 @@ if (isset($fferror)) {
     right: 'month,agendaWeek,agendaDay'
    },
    
-   events: "events.php",
+   events: "/events.php",
    
    // Convert the allDay from string to boolean
    eventRender: function(event, element, view) {
@@ -143,7 +143,7 @@ if (isset($fferror)) {
    var start = $.fullCalendar.moment(start).format();
    var end = $.fullCalendar.moment(end).format();
    $.ajax({
-   url: 'add_events.php',
+   url: 'add_/events.php',
    data: 'title='+ title+'&start='+ start +'&end='+ end +'&url='+ url ,
    type: "POST",
    success: function(json) {
@@ -168,7 +168,7 @@ if (isset($fferror)) {
    var start = $.fullCalendar.moment(event.start).format();
    var end = $.fullCalendar.moment(event.end).format();
    $.ajax({
-   url: 'update_events.php',
+   url: 'update_/events.php',
    data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
    type: "POST",
    success: function(json) {
@@ -180,7 +180,7 @@ if (isset($fferror)) {
    var start = $.fullCalendar.moment(event.start).format();
    var end = $.fullCalendar.moment(event.end).format();
    $.ajax({
-    url: 'update_events.php',
+    url: 'update_/events.php',
     data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
     type: "POST",
     success: function(json) {
@@ -194,7 +194,7 @@ if (isset($fferror)) {
 //if (decision) {
 //$.ajax({
 //type: "POST",
-//url: "delete_events.php",
+//url: "delete_/events.php",
 
 //data: "&id=" + event.id
 //});

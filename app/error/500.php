@@ -4,7 +4,7 @@
  *                               ADL CRM
  * ------------------------------------------------------------------------
  * 
- * Copyright © 2017 ADL CRM All rights reserved.
+ * Copyright © 2018 ADL CRM All rights reserved.
  * 
  * Unauthorised copying of this file, via any medium is strictly prohibited.
  * Unauthorised distribution of this file, via any medium is strictly prohibited.
@@ -12,7 +12,7 @@
  * 
  * Proprietary and confidential
  * 
- * Written by Michael Owen <michael@adl-crm.uk>, 2017
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
  * 
  * ADL CRM makes use of the following third party open sourced software/tools:
  *  DataTables - https://github.com/DataTables/DataTables
@@ -26,8 +26,9 @@
  *  jQuery UI - https://github.com/jquery/jquery-ui
  *  Google Dev Tools - https://developers.google.com
  *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
-*/  
+*/ 
 
 require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
@@ -52,23 +53,11 @@ if (isset($fferror)) {
         error_reporting(E_ALL);
     }
 }
-?>
-<!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2017
--->
-<html lang="en">
-<title>ADL | 500 Internal Server Error</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/resources/templates/font-awesome/css/font-awesome.min.css">
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
+
+        $ADL_PAGE_TITLE = "500 Internal Server Error";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        ?>
 </head>
 <body>
 
@@ -95,19 +84,8 @@ if (isset($fferror)) {
                 <div class="jumbotron">
 <h1><span class="glyphicon glyphicon-fire red"></span> 500</h1>
 
-<p>Report this immediately to Michael.
+<p>Internal Server Error.
 
-
-            <center>
-                <p>Info Logged<br><?php echo $_SERVER['REMOTE_ADDR'] ?><br>
-<?php loggedhostnameip();?> 
-<br>
-<?php
-date_default_timezone_set("Europe/London");
-echo date('m/d/y h:i a', time());
-?> 
-</p>
-</center>
         </div>
     </div>
 </div>

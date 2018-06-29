@@ -1,4 +1,35 @@
 <?php 
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2018 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
+ * 
+*/ 
+
 include(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/classes/access_user/access_user_class.php");  
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
@@ -40,16 +71,9 @@ $message= filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS);
 $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $recipient= filter_input(INPUT_POST, 'recipient', FILTER_SANITIZE_SPECIAL_CHARS);               
 $subject= filter_input(INPUT_POST, 'subject', FILTER_SANITIZE_SPECIAL_CHARS);                     
-    
-    $cnquery = $pdo->prepare("select company_name from company_details limit 1");
-    $cnquery->execute()or die(print_r($query->errorInfo(), true));
-    $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);
-    $companynamere=$companydetailsq['company_name'];
         
     if(isset($life)) {
         if($life=='y' ) {
-            
-            if(isset($companynamere)) {
                 
     $query = $pdo->prepare("select email_signatures.sig, email_accounts.email, email_accounts.emailfrom, email_accounts.emailreply, email_accounts.emailbcc, email_accounts.emailsubject, email_accounts.smtp, email_accounts.smtpport, email_accounts.displayname, AES_DECRYPT(email_accounts.password, UNHEX(:key)) AS password from email_accounts LEFT JOIN email_signatures ON email_accounts.id = email_signatures.email_id where email_accounts.emailaccount='account3'");
     $query->bindParam(':key', $EN_KEY, PDO::PARAM_STR);
@@ -173,8 +197,6 @@ $NEW_MSG="Custom email sent ($email  - $message)";
                 $noteq->execute()or die(print_r($noteq->errorInfo(), true));
                 
 header('Location: /../../../app/Client.php?search='.$CID.'&EMAIL_SENT=1&CLIENT_EMAIL=Custom Email&EMAIL_SENT_TO='.$email); die;
-
-}
 
 }
 

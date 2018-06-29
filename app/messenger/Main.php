@@ -90,24 +90,12 @@ if (isset($fferror)) {
         
 $RETURN = filter_input(INPUT_GET, 'RETURN', FILTER_SANITIZE_SPECIAL_CHARS);
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
-?>
-<!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
-<html lang="en">
-    <title>ADL | Messenger Centre</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
+
+        $ADL_PAGE_TITLE = "Message Centre";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        ?>
+     <link rel="stylesheet" href="/resources/lib/summernote-master/dist/summernote.css"> 
 </head>
 <body>
 

@@ -1,4 +1,35 @@
 <?php
+/*
+ * ------------------------------------------------------------------------
+ *                               ADL CRM
+ * ------------------------------------------------------------------------
+ * 
+ * Copyright © 2018 ADL CRM All rights reserved.
+ * 
+ * Unauthorised copying of this file, via any medium is strictly prohibited.
+ * Unauthorised distribution of this file, via any medium is strictly prohibited.
+ * Unauthorised modification of this code is strictly prohibited.
+ * 
+ * Proprietary and confidential
+ * 
+ * Written by Michael Owen <michael@adl-crm.uk>, 2018
+ * 
+ * ADL CRM makes use of the following third party open sourced software/tools:
+ *  DataTables - https://github.com/DataTables/DataTables
+ *  EasyAutocomplete - https://github.com/pawelczak/EasyAutocomplete
+ *  PHPMailer - https://github.com/PHPMailer/PHPMailer
+ *  ClockPicker - https://github.com/weareoutman/clockpicker
+ *  fpdf17 - http://www.fpdf.org
+ *  summernote - https://github.com/summernote/summernote
+ *  Font Awesome - https://github.com/FortAwesome/Font-Awesome
+ *  Bootstrap - https://github.com/twbs/bootstrap
+ *  jQuery UI - https://github.com/jquery/jquery-ui
+ *  Google Dev Tools - https://developers.google.com
+ *  Twitter API - https://developer.twitter.com
+ *  Webshim - https://github.com/aFarkas/webshim/releases/latest
+ * 
+*/
+
 require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
@@ -420,10 +451,45 @@ json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
 
 echo json_encode($results);
 
-    }    
+    }  
+    
+    if($EXECUTE=='12') {
+
+        $query = $pdo->prepare("
+SELECT 
+    client_details.client_id,
+    client_details.submitted_date,
+    CONCAT(title, ' ', first_name, ' ', last_name) AS Name,
+    CONCAT(title2,
+            ' ',
+            first_name2,
+            ' ',
+            last_name2) AS Name2,
+    post_code,
+    client_details.company
+FROM
+    client_details
+        JOIN
+    client_note ON client_note.client_id = client_details.client_id
+WHERE
+    client_details.client_id NOT IN (SELECT 
+            client_id
+        FROM
+            client_note
+        WHERE
+            note_type = 'Aegonpolicy')
+        AND DATE(client_details.submitted_date) >= '2018-01-01'
+        AND client_details.company ='Aegon'
+GROUP BY client_id
+    ORDER BY client_details.submitted_date DESC");
+$query->execute()or die(print_r($query->errorInfo(), true));
+json_encode($results['aaData']=$query->fetchAll(PDO::FETCH_ASSOC));
+
+echo json_encode($results);
+
+    }       
     
 }
 
         }
 }
-?>

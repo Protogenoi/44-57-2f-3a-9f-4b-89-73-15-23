@@ -83,25 +83,14 @@ if (isset($fferror)) {
         die;    
             
         }
-?>
-<!DOCTYPE html>
-<!-- 
- Copyright (C) ADL CRM - All Rights Reserved
- Unauthorised copying of this file, via any medium is strictly prohibited
- Proprietary and confidential
- Written by Michael Owen <michael@adl-crm.uk>, 2018
--->
-<html lang="en">
-<title>ADL | Active Callbacks</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<head>
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.css">
+        
+        $ADL_PAGE_TITLE = "Active Callbacks";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        ?>
 <link rel="stylesheet" href="/resources/templates/ADL/Notices.css" />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.css' rel='stylesheet' />
 <link href='/resources/lib/fullcalendar-3.0.0/fullcalendar.print.css' rel='stylesheet' media='print' />
-<link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
 <style>
  body {
   text-align: center;
@@ -116,7 +105,6 @@ if (isset($fferror)) {
   margin: 0 auto;
   }
 </style>
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/moment.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/lib/jquery.min.js'></script>
 <script src='/resources/lib/fullcalendar-3.0.0/fullcalendar.min.js'></script>

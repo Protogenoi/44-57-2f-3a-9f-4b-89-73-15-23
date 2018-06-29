@@ -831,5 +831,4 @@ if(empty($HAS_AVI_LEAD_AUDIT)) {
 
                         echo "<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check\"></i> Success:</strong> 18 Day Task Updated!</div>";
                     }
-                }                                   
-?>
+                }

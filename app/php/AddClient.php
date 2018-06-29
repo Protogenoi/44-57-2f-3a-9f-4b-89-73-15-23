@@ -255,8 +255,7 @@ if ($ffanalytics == '1') {
 </html>
     <?php   }  else { 
             
-            header('Location: ../Client.php?CLIENT=ADDED&search='.$lastid); die;
-            
+            header('Location: ../Client.php?CLIENT=ADDED&search='.$lastid); die;   
             
         } 
             

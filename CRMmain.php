@@ -94,6 +94,12 @@ if($TRACKED_IP!='81.145.167.66') {
         die;    
             
         }  
+        
+if (!in_array($hello_name, $Level_1_Access, true)) {
+
+    header('Location: /index.php?EXECUTE=1');
+    die;
+}        
 
 if (in_array($hello_name, $Agent_Access, true)) {
 

@@ -124,7 +124,7 @@ if (isSET($EXECUTE)) {
             $insert = $pdo->prepare("INSERT INTO client_policy SET 
  client_id=:CID,
  extra_charge=:CHARGE,
- sic_cover_amount=:SIC_COVER
+ sic_cover_amount=:SIC_COVER,
  client_name=:name,
  sale_date=:sale,
  application_number=:an_num,

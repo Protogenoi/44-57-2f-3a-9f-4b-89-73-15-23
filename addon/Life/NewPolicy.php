@@ -103,24 +103,20 @@ if (isset($EXECUTE)) {
 
         if(isset($data2['Name2'])) {
             $NAME2=$data2['Name2'];
-        }
-        ?>
-        <html lang="en">
-            <title>ADL | Add Policy</title>
-            <meta charset="UTF-8">
-            <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
+        } 
+        
+        $ADL_PAGE_TITLE = "Add Policy";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        ?>            
             <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-            <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-            <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
             <link  rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
             <link rel="stylesheet" href="/resources/lib/EasyAutocomplete-1.3.3/easy-autocomplete.min.css"> 
-            <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-            <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
             <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
             <script type="text/javascript" language="javascript" src="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.js"></script>
             <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
             <script src="/resources/lib/EasyAutocomplete-1.3.3/jquery.easy-autocomplete.min.js"></script> 
-            <script src="//afarkas.github.io/webshim/js-webshim/minified/polyfiller.js"></script>
+            <script src="/resources/lib/js-webshim/minified/polyfiller.js"></script>
             <script>
                 $(function () {
                     $("#sale_date").datepicker({

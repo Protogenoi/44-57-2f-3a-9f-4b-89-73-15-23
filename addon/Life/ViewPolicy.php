@@ -92,9 +92,6 @@ if (isset($hello_name)) {
             case "Nicola":
                 $hello_name_full = "Nicola Griffiths";
                 break;
-            case "Ciara":
-                $hello_name_full = "Ciara Begley";
-                break;
             case "carys":
                 $hello_name_full = "Carys Riley";
                 break;
@@ -142,22 +139,13 @@ if (isset($hello_name)) {
     $query2->bindParam(':CID', $search, PDO::PARAM_INT);
     $query2->execute();
     $data3 = $query2->fetch(PDO::FETCH_ASSOC);
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL | View Policy</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+        $ADL_PAGE_TITLE = "View Policy";
+        require_once(__DIR__ . '/../../app/core/head.php'); 
+        
+        
+        ?>
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
-    <style type="text/css">
-        .policyview{
-            margin: 20px;
-        }
-    </style>
 </head>
 <body>
 

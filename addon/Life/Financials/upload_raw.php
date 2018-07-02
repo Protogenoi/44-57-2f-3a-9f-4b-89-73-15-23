@@ -86,21 +86,13 @@ $dateto = filter_input(INPUT_GET, 'dateto', FILTER_SANITIZE_SPECIAL_CHARS);
         die;    
             
         }
-?>
-<!DOCTYPE html>
-<html>
-    <title>ADL | RAW COMM Upload</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+        
+        $ADL_PAGE_TITLE = "RAW COMM Upload";
+        require_once(__DIR__ . '/../../../app/core/head.php'); 
+        
+        ?> 
+
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <style>
-        .panel-body .btn:not(.btn-block) { width:120px;margin-bottom:10px; }
-    </style>
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>
 </head>
 <body>
 

@@ -58,18 +58,12 @@ if (isset($fferror)) {
 if($fffinancials=='0') {
     header('Location: /../../../../CRMmain.php?FEATURE=FINANCIALS');
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-    <title>ADL | Financial Uploads</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/resources/templates/ADL/main.css" type="text/css" />
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/resources/templates/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
-    <script type="text/javascript" language="javascript" src="/resources/templates/fontawesome/svg-with-js/js/fontawesome-all.js"></script>    
+
+        $ADL_PAGE_TITLE = "Financial Uploads";
+        require_once(__DIR__ . '/../../../app/core/head.php'); 
+        
+        ?> 
+    <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />   
 </head>
 <body>
 

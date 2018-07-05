@@ -224,7 +224,7 @@ $companynamere = $companydetailsq['company_name'];
                      <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li>
                          <?php }
                          if ($ffews == '1') { ?>
-                     <li><a href="/Life/Reports/EWS.php">EWS</a></li> 
+                     <li><a href="/addon/Life/EWS/menu.php">EWS</a></li> 
                             <?php } 
                             if ($ffemployee == '1') { ?>    
                      <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 

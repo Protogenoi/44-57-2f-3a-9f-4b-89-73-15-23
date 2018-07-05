@@ -157,6 +157,19 @@ if ($ffaudits=='0') {
 };
 
 $("#AGENT").easyAutocomplete(options);</script>
+    
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for='AUDITOR_GRADE'>Grade:</label>
+                            <div class="col-md-4">
+                            <select class="form-control" name="AUDITOR_GRADE" required>
+                                <option value="">Select...</option>
+                                <option value="SAVED">Incomplete Audit (SAVE)</option>
+                                <option value="Green">Green</option>
+                                <option value="Amber">Amber</option>
+                                <option value="Red">Red</option>
+                            </select>
+                            </div>
+                        </div>    
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="name">Q1. Agent said their name</label>

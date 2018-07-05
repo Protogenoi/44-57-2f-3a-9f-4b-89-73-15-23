@@ -79,6 +79,7 @@ if (isset($EXECUTE)) {
 
     $AGENT = filter_input(INPUT_POST, 'AGENT', FILTER_SANITIZE_SPECIAL_CHARS);
     $REFERENCE = filter_input(INPUT_POST, 'REFERENCE', FILTER_SANITIZE_SPECIAL_CHARS);
+    $AUDITOR_GRADE = filter_input(INPUT_POST, 'AUDITOR_GRADE', FILTER_SANITIZE_SPECIAL_CHARS);
     $CLOSER="Lead";
 
     $INSURER='Lead';
@@ -209,7 +210,9 @@ if (isset($EXECUTE)) {
     
     if(isset($AUTO_RED) && $AUTO_RED == 1) {
         $GRADE = "Red";
-    }    
+    }   
+    
+    $GRADE = $AUDITOR_GRADE;
 
     $VITALITY_AUDIT_QRY = $pdo->prepare("INSERT INTO 
                                             adl_audits

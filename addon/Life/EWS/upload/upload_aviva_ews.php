@@ -30,19 +30,19 @@
  * 
 */ 
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", 6);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../classes/database_class.php');
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(__DIR__ . '/../../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../../classes/database_class.php');
+require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -53,8 +53,8 @@ if (isset($fferror)) {
     }
 }
 
-    require_once(__DIR__ . '../../classes/database_class.php');
-    require_once(__DIR__ . '../../class/login/login.php');
+    require_once(__DIR__ . '/../../../../classes/database_class.php');
+    require_once(__DIR__ . '/../../../../class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
@@ -70,8 +70,10 @@ if (isset($fferror)) {
             
         }
 
-$REDIRECT= filter_input(INPUT_GET, 'REDIRECT', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+if(isset($EXECUTE) && $EXECUTE==1) {
+echo "eree";
 if ($_FILES["csv"]["size"] > 0) {
 
     
@@ -80,7 +82,7 @@ if ($_FILES["csv"]["size"] > 0) {
     
             $date=date("y-m-d-G:i:s");
             
-            $fileup = $date."-".$hello_name."-EWS";
+            $fileup = $date."-".$hello_name."-".NEW_EWS;
             $file_loc = $_FILES["csv"]["tmp_name"];
             $file_size = $_FILES["csv"]["size"];
             $file_type = $_FILES["csv"]["type"];
@@ -93,7 +95,7 @@ if ($_FILES["csv"]["size"] > 0) {
             if(move_uploaded_file($file_loc,$folder.$final_file)) {
 
                 
-                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype='EWS Upload'");
+                $query= $pdo->prepare("INSERT INTO tbl_uploads set file=:file, type=:type, size=:size, uploadtype='EWS Upload NEW'");
                 $query->bindParam(':file',$final_file, PDO::PARAM_STR);
                 $query->bindParam(':type',$file_type, PDO::PARAM_STR);
                 $query->bindParam(':size',$new_size, PDO::PARAM_STR);
@@ -195,7 +197,13 @@ if ($_FILES["csv"]["size"] > 0) {
             $ASSIGNED=filter_var($data[22],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
             }
             
+                        if(!empty($data[23])){
+            $color_status=filter_var($data[23],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            } else {
+            
             $color_status='Black';
+            
+            }
 
 // CHECK THERE IS DATA            
             if(isset($data[0])) {
@@ -203,7 +211,7 @@ if ($_FILES["csv"]["size"] > 0) {
 
 //CHECK IF POL ALREADY EXISTS AND CHECK ADL STATUS TO SET COLOURS WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN','FUTURE CALLBACK
 
-                    $CHK_ADL_WARNINGS = $pdo->prepare("SELECT warning, policy_number from ews_data where policy_number=:POLICY AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN')");
+                    $CHK_ADL_WARNINGS = $pdo->prepare("SELECT warning, policy_number from ews where policy_number=:POLICY AND warning IN ('WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN')");
                     $CHK_ADL_WARNINGS->bindParam(':POLICY',$policy_number, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->execute()or die(print_r($ewsdata->errorInfo(), true)); 
                     $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);
@@ -231,7 +239,7 @@ if ($_FILES["csv"]["size"] > 0) {
 
 //UPDATE EWS AND KEEP OLD WARNINGS
                 
-                $UPDATE_EWS = $pdo->prepare('UPDATE ews_data set color_status=:COLOUR, processor=:HELLO, ews_status_status=:UP_WARNING WHERE policy_number=:POLICY');     
+                $UPDATE_EWS = $pdo->prepare('UPDATE ews set color_status=:COLOUR, processor=:HELLO, ews_status_status=:UP_WARNING WHERE policy_number=:POLICY');     
                 $UPDATE_EWS->bindParam(':POLICY',$ORIG_POL_NUM, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':COLOUR',$color, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':UP_WARNING',$warning, PDO::PARAM_STR);
@@ -241,7 +249,7 @@ if ($_FILES["csv"]["size"] > 0) {
 // ALLWAYS INSERT INTO MASTER
                 
         $INSERT_MASTER = $pdo->prepare('INSERT INTO
-                ews_data_history 
+                ews_history 
                 SET
                 assigned=:ASSIGNED,
                 warning=:warning, 
@@ -298,7 +306,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true)); 
         
 //MATCH POLICY TO ADL TO GET CLIENT ID        
-        
+        if(isset($X) && $X=='Z') {
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
     $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
     $SELECT_CID->execute();
@@ -315,20 +323,20 @@ if ($_FILES["csv"]["size"] > 0) {
     
 //INSERT NOTE INTO CLIENT TIMELINE    
     
-    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
-    $INSERT_TIMELINE->bindParam(':clientid', $CID, PDO::PARAM_INT);
+    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
+    $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':message', $messageEWS, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR);
     $INSERT_TIMELINE->execute();
-}
+        }}
 
     } //END OF UPDATES
     
     if ($CHK_ADL_WARNINGS->rowCount() <= 0) { // INSERT THE REST
         
-        $INSERT_EWS = $pdo->prepare('INSERT INTO ews_data 
+        $INSERT_EWS = $pdo->prepare('INSERT INTO ews 
             SET 
             assigned=:ASSIGNED,
             master_agent_no=:master, 
@@ -437,7 +445,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_EWS->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);        
         $INSERT_EWS->execute()or die(print_r($INSERT_EWS->errorInfo(), true));
         
-        $INSERT_MASTER = $pdo->prepare('INSERT INTO ews_data_history SET assigned=:ASSIGNED, master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, warning=:warning, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, color_status=:color_status');     
+        $INSERT_MASTER = $pdo->prepare('INSERT INTO ews_history SET assigned=:ASSIGNED, master_agent_no=:master, agent_no=:agent, policy_number=:policy_number, client_name=:name, dob=:dob, address1=:add1, address2=:add2, address3=:add3, address4=:add4, post_code=:post, policy_type=:policy_type, warning=:warning, last_full_premium_paid=:last_full_premium_paid, net_premium=:net_premium,premium_os=:premium_os, clawback_due=:clawback_due, clawback_date=:clawback_date, policy_start_date=:policy_start_date, off_risk_date=:off_risk_date, seller_name=:seller_name, frn=:frn, reqs=:reqs, processor=:processor, ews_status_status=:ews_status_status, color_status=:color_status');     
         $INSERT_MASTER->bindParam(':master',$master, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':agent',$agent, PDO::PARAM_INT);
         $INSERT_MASTER->bindParam(':ASSIGNED',$ASSIGNED, PDO::PARAM_STR);
@@ -467,7 +475,7 @@ if ($_FILES["csv"]["size"] > 0) {
         $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true)); 
              
     //INSERT INTO CLIENT TIMELINE 
-        
+        if(isset($X) && $X=='Z') {
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
     $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
     $SELECT_CID->execute();
@@ -481,13 +489,15 @@ if ($_FILES["csv"]["size"] > 0) {
     $note="EWS Uploaded";
     $ref= "$POL_NUMBER ($PID)";
     
-    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:clientid, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
-    $INSERT_TIMELINE->bindParam(':clientid', $CID, PDO::PARAM_STR, 12);
+    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
+    $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_STR, 12);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR, 250);
     $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR, 250);
     $INSERT_TIMELINE->bindParam(':message', $warning, PDO::PARAM_STR, 250);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR, 250);
     $INSERT_TIMELINE->execute();
+    
+    }
 }
 
     }  
@@ -499,14 +509,9 @@ if ($_FILES["csv"]["size"] > 0) {
     } 
     
     while ($data = fgetcsv($handle,1000,",",'"'));
-    
-    if(isset($REDIRECT)) {
-    if($REDIRECT=='EWS') {
- header('Location: ../Life/Reports/EWS.php?RETURN=EWSUploaded'); die;   
-}
-}
-    
-    
-}
 
+ header('Location: /Life/EWS/EWS.php?RETURN=Uploaded'); die;       
+    
+}
+}
 ?>

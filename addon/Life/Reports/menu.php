@@ -222,16 +222,7 @@ if (isset($fferror)) {
                                         </div>
                                     </a>
                                 </li>
-
-                                <li>
-                                    <a href="/app/admin/Upload.php">
-                                        <span class="ca-icon"><i class="fas fa-cloud-upload-alt"></i></span>
-                                        <div class="ca-content">
-                                            <h2 class="ca-main">Upload<br/>Data</h2>
-                                            <h3 class="ca-sub"></h3>
-                                        </div>
-                                    </a>
-                                </li>
+                                
                                 <?php
                         }
                     }

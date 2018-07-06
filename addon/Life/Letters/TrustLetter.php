@@ -75,10 +75,7 @@ if(isset($hello_name)) {
     $POSTCODE=$data2['post_code'];
     
     $TODAY = date("Y-m-d");
-        
-if($companynamere=='First Priority Group') {
- 
-
+   
 class PDF extends FPDF
 {
 protected $B = 0;
@@ -289,5 +286,3 @@ $pdf->Ln( 10 );
 $pdf->Cell(0,12,"$hello_name_full", 0, 0,'L');
 
 $pdf->Output();
-
-        }

@@ -401,6 +401,19 @@ if(isset($VIT_Q_AUDIT['adl_audit_lead_qua_a_c1'])) {
 };
 
 $("#AGENT").easyAutocomplete(options);</script>
+    
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for='AUDITOR_GRADE'>Grade:</label>
+                            <div class="col-md-4">
+                            <select class="form-control" name="AUDITOR_GRADE" required>
+                                <option value="">Select...</option>
+                                <option value="SAVED" <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'SAVED') { echo "selected"; } ?> >Incomplete Audit (SAVE)</option>
+                                <option value="Green" <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Green') { echo "selected"; } ?> >Green</option>
+                                <option value="Amber" <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Amber') { echo "selected"; } ?> >Amber</option>
+                                <option value="Red" <?php if(isset($VIT_GRADE) && $VIT_GRADE == 'Red') { echo "selected"; } ?> >Red</option>
+                            </select>
+                            </div>
+                        </div>       
 
 <div class="form-group">
   <label class="col-md-4 control-label" for="name">Q1. Agent said their name</label>

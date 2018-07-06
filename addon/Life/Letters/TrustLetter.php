@@ -20,13 +20,6 @@ $search= filter_input(INPUT_GET, 'search', FILTER_SANITIZE_SPECIAL_CHARS);
 $clientone =filter_input(INPUT_GET, 'clientone', FILTER_SANITIZE_SPECIAL_CHARS);
 $clienttwo =filter_input(INPUT_GET, 'clienttwo', FILTER_SANITIZE_SPECIAL_CHARS);
 $joint =filter_input(INPUT_GET, 'joint', FILTER_SANITIZE_SPECIAL_CHARS);
-
-$cnquery = $pdo->prepare("select company_name from company_details limit 1");
-                            $cnquery->execute()or die(print_r($query->errorInfo(), true));
-                            $companydetailsq=$cnquery->fetch(PDO::FETCH_ASSOC);                            
-                            $companynamere=$companydetailsq['company_name'];
-                            
-                            if(isset($companynamere)) {
                                 
 if(isset($hello_name)) {
     
@@ -61,12 +54,6 @@ if(isset($hello_name)) {
                   case "Ryan":
              $hello_name_full="Ryan Lloyd";
              break;
-                  case "Molly":
-             $hello_name_full="Molly Grove";
-             break;   
-         case "Jacs":
-             $hello_name_full="Jaclyn Haford";
-             break; 
          default:
              $hello_name_full=$hello_name;
              
@@ -303,5 +290,4 @@ $pdf->Cell(0,12,"$hello_name_full", 0, 0,'L');
 
 $pdf->Output();
 
-        }        
         }

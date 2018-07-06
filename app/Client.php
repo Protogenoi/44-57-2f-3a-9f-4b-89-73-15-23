@@ -173,7 +173,7 @@ if(isset($Single_Client['alt_number'])) {
     $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
 }
 
-$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul");
+$NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul","Aegon");
 $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
     if($ffhome == 1 ) {

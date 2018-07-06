@@ -57,7 +57,3 @@ class DatabaseConnection {
 }
 
 $pdo = DatabaseConnection::make($ADL_DB_CONFIG['database']);
-
- 
-?>
-

@@ -18,9 +18,6 @@ if(isset($fferror)) {
     if(isset($EXECUTE)) {
         if($EXECUTE=='1') {
             if(isset($Body)) {
-      
-                    
-                    include('../../includes/ADL_PDO_CON.php');
                     include('../../classes/database_class.php');
                     
                     $database = new Database(); 

@@ -555,7 +555,7 @@ if(empty($PID)) {
                         {"data": "adl_ews_insurer"},
                         {"data": "adl_ews_orig_status"},
                         {"data": "adl_ews_status"},
-                        {"data": "client_id",
+                        {"data": "adl_ews_client_id",
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}

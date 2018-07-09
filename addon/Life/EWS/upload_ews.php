@@ -30,27 +30,27 @@
  * 
 */
 
-require_once(__DIR__ . '/../../classes/access_user/access_user_class.php');
+require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../includes/user_tracking.php'); 
+require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../includes/time.php');
+require_once(__DIR__ . '/../../../includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../../includes/adl_features.php');
-require_once(__DIR__ . '/../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../includes/adlfunctions.php');
+require_once(__DIR__ . '/../../../includes/adl_features.php');
+require_once(__DIR__ . '/../../../includes/Access_Levels.php');
+require_once(__DIR__ . '/../../../includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../app/analyticstracking.php');
+    require_once(__DIR__ . '/../../../app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -61,8 +61,8 @@ if (isset($fferror)) {
     }
 }
 
-        require_once(__DIR__ . '/../../classes/database_class.php');
-        require_once(__DIR__ . '/../../class/login/login.php');
+        require_once(__DIR__ . '/../../../classes/database_class.php');
+        require_once(__DIR__ . '/../../../class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -77,11 +77,10 @@ if (isset($fferror)) {
             
         }
         $ADL_PAGE_TITLE = "Upload";
-        require_once(__DIR__ . '/../../app/core/head.php'); 
+        require_once(__DIR__ . '/../../../app/core/head.php'); 
         
         ?>
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">
-    <link href="/img/favicon.ico" rel="icon" type="image/x-icon" />
     <style>
         .container2{
             margin: 20px;
@@ -91,19 +90,10 @@ if (isset($fferror)) {
     </style>
 </head>
 <body>
-    <?php require_once(__DIR__ . '/../../includes/navbar.php'); ?>
+    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
 
     <br>
-    <div class="container2">
-
-        <?php
-        if (!empty($_GET['success'])) {
-            echo "<div class=\"notice notice-success fade in\">
-            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>
-            <strong>Success!</strong> File Uploaded to Database.
-            </div><br><br>";
-        }
-        ?>
+    <div class="container">
 
         <div class="row">
             <div class="col-md-6">
@@ -119,11 +109,8 @@ if (isset($fferror)) {
                                 <h3>Upload EWS data</h3>
                                 <form action="/upload/ewsupload.php" method="post" enctype="multipart/form-data" name="form1" id="form1" target="POPUPW" onsubmit="POPUPW = window.open('about:blank', 'POPUPW', 'width=1024,height=700');">
                                     <input name="csv" type="file" id="csv" />
-                                    <input type="hidden" name="Processor" value="<?php echo $hello_name ?>"><br>
+                                    <br>
                                     <button type="submit" class="btn btn-success "><span class="glyphicon glyphicon-open"></span> Upload</button>
-                                </form>
-                                <form action="/export/ewstemp.php" method="post"><br>
-                                    <button type="submit" class="btn btn-info "><span class="glyphicon glyphicon-save"></span> Template</button>
                                 </form>
                             </div>
 

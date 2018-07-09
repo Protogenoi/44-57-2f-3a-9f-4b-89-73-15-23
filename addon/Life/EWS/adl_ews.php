@@ -473,7 +473,7 @@ if(empty($PID)) {
                                         
                                     <form action="/addon/Life/EWS/upload/upload_aviva_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                         <input name="csv" type="file" id="csv" />                                        
-                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#processing-modal"><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
                                     </form>                                    
                                 </div>
                                 
@@ -482,7 +482,7 @@ if(empty($PID)) {
                                         
                                     <form action="upload/EWS.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                         <input name="csv" type="file" id="csv" />                                        
-                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#processing-modal"><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
                                     </form>                                    
                                 </div>                                
                                 

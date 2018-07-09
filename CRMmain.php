@@ -30,14 +30,16 @@
  * 
 */
 
-require_once(__DIR__ . '/classes/access_user/access_user_class.php');
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
+
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 1);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/includes/user_tracking.php');
+require_once(BASE_URL.'/includes/user_tracking.php');
 
 $LOGOUT_ACTION = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_SPECIAL_CHARS);
 $FEATURE = filter_input(INPUT_GET, 'FEATURE', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -46,18 +48,18 @@ if (isset($LOGOUT_ACTION) && $LOGOUT_ACTION == "log_out") {
 	$page_protect->log_out();
 }
 
-require_once(__DIR__ . '/includes/time.php');
+require_once(BASE_URL.'/includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/includes/adl_features.php');
-require_once(__DIR__ . '/includes/Access_Levels.php');
-require_once(__DIR__ . '/includes/adlfunctions.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -78,8 +80,8 @@ if($TRACKED_IP!='81.145.167.66') {
 }
 }
 
-        require_once(__DIR__ . '/classes/database_class.php');
-        require_once(__DIR__ . '/class/login/login.php');
+        require_once(BASE_URL.'/classes/database_class.php');
+        require_once(BASE_URL.'/class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->UpdateToken();
         $CHECK_USER_LOGIN->CheckAccessLevel();
@@ -115,7 +117,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
 } 
 
         $ADL_PAGE_TITLE = "Main";
-        require_once(__DIR__ . '/app/core/head.php'); 
+        require_once(BASE_URL.'/app/core/head.php'); 
         
         ?>
     <script type="text/javascript" language="javascript" src="/resources/lib/jquery/jquery-3.0.0.min.js"></script>
@@ -124,7 +126,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
     <script src="/resources/templates/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <?php require_once(__DIR__ . '/includes/navbar.php');
+    <?php require_once(BASE_URL.'/includes/navbar.php');
            
     ?> 
     <div class="col-md-4">
@@ -383,7 +385,7 @@ if (!in_array($hello_name, $Level_1_Access, true)) {
         </div>
     </div>
     <?php
-    require_once(__DIR__ . '/app/Holidays.php');
+    require_once(BASE_URL.'/app/Holidays.php');
 
     if (isset($hello_name)) {
 

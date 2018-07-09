@@ -1,0 +1,3 @@
+<?php
+
+define("BASE_URL", (filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)));

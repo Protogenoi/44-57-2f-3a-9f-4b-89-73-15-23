@@ -30,19 +30,21 @@
  * 
 */ 
 
-require_once(__DIR__ . '/../../../../classes/access_user/access_user_class.php');
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
+
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", 6);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_FULL_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
-require_once(__DIR__ . '/../../../../includes/adl_features.php');
-require_once(__DIR__ . '/../../../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../../../classes/database_class.php');
-require_once(__DIR__ . '/../../../../includes/ADL_PDO_CON.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
+require_once(BASE_URL.'/classes/database_class.php');
+require_once(BASE_URL.'/includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../../app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -53,8 +55,8 @@ if (isset($fferror)) {
     }
 }
 
-    require_once(__DIR__ . '/../../../../classes/database_class.php');
-    require_once(__DIR__ . '/../../../../class/login/login.php');
+    require_once(BASE_URL.'/classes/database_class.php');
+    require_once(BASE_URL.'/class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
@@ -63,9 +65,9 @@ if (isset($fferror)) {
         
         $ACCESS_LEVEL=$USER_ACCESS_LEVEL['ACCESS_LEVEL'];
         
-        if($ACCESS_LEVEL < 6) {
+        if($ACCESS_LEVEL < 8) {
             
-        header('Location: /../index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
+        header('Location: '.BASE_URL.'/index.php?AccessDenied&USER='.$hello_name.'&COMPANY='.$COMPANY_ENTITY);
         die;    
             
         }
@@ -73,20 +75,18 @@ if (isset($fferror)) {
 $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 if(isset($EXECUTE) && $EXECUTE==1) {
-echo "eree";
-if ($_FILES["csv"]["size"] > 0) {
-
+    if ($_FILES["csv"]["size"] > 0) {
     
     $file = $_FILES["csv"]["tmp_name"];
     $handle = fopen($file,"r");
     
             $date=date("y-m-d-G:i:s");
             
-            $fileup = $date."-".$hello_name."-".NEW_EWS;
+            $fileup = $date."-".$hello_name."-AVIVA_EWS";
             $file_loc = $_FILES["csv"]["tmp_name"];
             $file_size = $_FILES["csv"]["size"];
             $file_type = $_FILES["csv"]["type"];
-            $folder="../addon/Life/EWS/uploads/";
+            $folder=BASE_URL."/addon/Life/EWS/uploads/";
             
             $new_size = $file_size/1024;  
             $new_file_name = strtolower($fileup);
@@ -141,13 +141,15 @@ if ($_FILES["csv"]["size"] > 0) {
                             FROM 
                                 adl_ews 
                             WHERE 
-                                adl_ews_client_name-:NAME, 
-                                adl_ews_orig_status=:STATUS, 
-                                adl_ews_insurer:INSURER");
+                                adl_ews_client_name=:NAME
+                            AND    
+                                adl_ews_orig_status=:STATUS
+                            AND    
+                                adl_ews_insurer=:INSURER");
                     $CHK_ADL_WARNINGS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
-                    $CHK_ADL_WARNINGS->execute()or die(print_r($ewsdata->errorInfo(), true)); 
+                    $CHK_ADL_WARNINGS->execute()or die(print_r($CHK_ADL_WARNINGS->errorInfo(), true)); 
                     $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);
                     
                     if($CHK_ADL_WARNINGS->rowCount() >= 1) {
@@ -188,7 +190,7 @@ if ($_FILES["csv"]["size"] > 0) {
     $messageEWS="$STATUS already on as $ORIG_WARNING";
     
 //INSERT NOTE INTO CLIENT TIMELINE    
-    
+    /*
     $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
     $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR);
@@ -196,7 +198,7 @@ if ($_FILES["csv"]["size"] > 0) {
     $INSERT_TIMELINE->bindParam(':message', $messageEWS, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR);
     $INSERT_TIMELINE->execute();
-    
+    */
         }
 
     } //END OF UPDATES
@@ -220,15 +222,19 @@ if ($_FILES["csv"]["size"] > 0) {
                 $UPDATE_EWS->bindParam(':NEW',$ADL_STATUS, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':WHO',$hello_name, PDO::PARAM_STR);          
-                $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));        
+                $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));     
+                
+                $LID = $pdo->lastInsertId();
         
         $INSERT_EWS = $pdo->prepare('INSERT INTO adl_ews_aviva 
             SET 
+            adl_ews_aviva_id_fk=:LID,
             adl_ews_aviva_client_name=:CLIENT, 
-            adl_ews_aviva_policy_number:POLICY, 
+            adl_ews_aviva_policy_number=:POLICY, 
             adl_ews_aviva_description=:DESC, 
             adl_ews_aviva_reported_date=:DATE, 
             adl_ews_aviva_more_info=:INFO');     
+        $INSERT_EWS->bindParam(':LID',$LID, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':CLIENT',$CLIENT, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':POLICY',$POLICY, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':DESC',$STATUS, PDO::PARAM_STR);
@@ -250,7 +256,7 @@ if ($_FILES["csv"]["size"] > 0) {
     
     $note="Aviva EWS Uploaded";
     $ref= "$POL_NUMBER ($PID)";
-    
+    /*
     $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
     $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR, 100);
@@ -258,7 +264,7 @@ if ($_FILES["csv"]["size"] > 0) {
     $INSERT_TIMELINE->bindParam(':message', $STATUS, PDO::PARAM_STR, 500);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR, 100);
     $INSERT_TIMELINE->execute();
-    
+    */
 }
 
     }  
@@ -270,7 +276,7 @@ if ($_FILES["csv"]["size"] > 0) {
     
     while ($data = fgetcsv($handle,1000,",",'"'));
 
- header('Location: /addon/Life/EWS/ews_1.php?RETURN=UPLOADED'); die;       
+ header('Location: /../../../../addon/Life/EWS/adl_ews.php?RETURN=UPLOADED'); die;       
     
 }
 }

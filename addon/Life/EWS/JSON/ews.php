@@ -45,13 +45,9 @@ if(isset($EXECUTE)) {
             adl_ews_status, 
             adl_ews_insurer, 
             adl_ews_date_added,
-            client_policy.client_id
+            adl_ews_client_id
         FROM
-            adl_ews
-        LEFT JOIN
-            client_policy
-        ON
-            client_policy.policy_number = adl_ews.adl_ews_ref");
+            adl_ews");
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);

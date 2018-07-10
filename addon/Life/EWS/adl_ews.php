@@ -480,7 +480,7 @@ if(empty($PID)) {
                                 <div class="col-sm-2">
                                     <h3>Upload Royal London</h3>
                                         
-                                    <form action="upload/EWS.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                    <form action="/addon/Life/EWS/upload/upload_royal_london_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
                                         <input name="csv" type="file" id="csv" />                                        
                                         <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
                                     </form>                                    

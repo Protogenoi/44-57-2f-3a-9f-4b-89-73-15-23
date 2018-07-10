@@ -240,7 +240,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
             adl_ews_aviva_reported_date=:DATE, 
             adl_ews_aviva_more_info=:INFO');     
         $INSERT_EWS->bindParam(':LID',$LID, PDO::PARAM_INT);
-        $INSERT_EWS->bindParam(':CLIENT',$CLIENT, PDO::PARAM_STR);
+        $INSERT_EWS->bindParam(':CLIENT',$NAME, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':POLICY',$POLICY, PDO::PARAM_INT);
         $INSERT_EWS->bindParam(':DESC',$STATUS, PDO::PARAM_STR);
         $INSERT_EWS->bindParam(':DATE',$REPORTED_DATE, PDO::PARAM_STR);

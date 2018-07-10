@@ -39,6 +39,7 @@ if(isset($EXECUTE)) {
     if($EXECUTE == 1 ) {
 
         $query = $pdo->prepare("SELECT
+            adl_ews_aviva_date_added,
             adl_ews_aviva_client_name, 
             adl_ews_aviva_policy_number, 
             adl_ews_aviva_description, 

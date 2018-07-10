@@ -39,6 +39,7 @@ if(isset($EXECUTE)) {
     if($EXECUTE == 1 ) {
 
         $query = $pdo->prepare("SELECT
+            adl_ews_lv_dd_date_added,
             adl_ews_lv_dd_collection_date, 
             adl_ews_lv_dd_event_des, 
             adl_ews_lv_dd_reject_reason, 

@@ -110,6 +110,7 @@ if(empty($PID)) {
                         <tr>
                             <th></th>                          
                             <th>Date</th>
+                            <th>Updated</th>
                             <th>Client Name</th>
                             <th>Policy</th>
                             <th>Insurer</th>
@@ -122,6 +123,7 @@ if(empty($PID)) {
                         <tr>
                             <th></th>                          
                             <th>Date</th>
+                            <th>Updated</th>
                             <th>Client Name</th>
                             <th>Policy</th>
                             <th>Insurer</th>
@@ -568,6 +570,7 @@ if(empty($PID)) {
                             "defaultContent": ''
                         },
                         {"data": "adl_ews_date_added"},
+                        {"data": "adl_ews_updated_date"},
                         {"data": "adl_ews_client_name"},
                         {"data": "adl_ews_ref"},
                         {"data": "adl_ews_insurer"},

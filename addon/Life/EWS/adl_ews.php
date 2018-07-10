@@ -197,7 +197,8 @@ if(empty($PID)) {
             <table id="RL_EWS_TABLE" class="display table-condensed" width="auto" cellspacing="0">
                     <thead>
                         <tr>
-                            <th></th>          
+                            <th></th>  
+                            <th>Date</th>
                             <th>Policy</th>
                             <th>Product</th>
                             <th>Plan Start Date</th>
@@ -219,7 +220,8 @@ if(empty($PID)) {
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>       
+                            <th></th>  
+                            <th>Date</th>
                             <th>Policy</th>
                             <th>Product</th>
                             <th>Plan Start Date</th>
@@ -264,7 +266,8 @@ if(empty($PID)) {
             <table id="LV_EWS_TABLE" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>
-                            <th></th>                          
+                            <th></th>  
+                            <th>Date</th>
                             <th>RAG</th>
                             <th>Due Date</th>
                             <th>Event</th>
@@ -290,7 +293,8 @@ if(empty($PID)) {
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>                          
+                            <th></th>
+                            <th>Date</th>
                             <th>RAG</th>
                             <th>Due Date</th>
                             <th>Event</th>
@@ -335,7 +339,8 @@ if(empty($PID)) {
             <table id="LV_DD_EWS_TABLE" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>
-                            <th></th>                          
+                            <th></th>  
+                            <th>Date</th>
                             <th>Collection Date</th>
                             <th>Event</th>
                             <th>Reject Reason</th>
@@ -361,6 +366,7 @@ if(empty($PID)) {
                     <tfoot>
                         <tr>
                             <th></th>
+                            <th>Date</th>
                             <th>Collection Date</th>
                             <th>Event</th>
                             <th>Reject Reason</th>
@@ -404,7 +410,8 @@ if(empty($PID)) {
             <table id="LV_LAPSED_EWS_TABLE" class="display" width="auto" cellspacing="0">
                     <thead>
                         <tr>
-                            <th></th>                          
+                            <th></th> 
+                            <th>Date</th>
                             <th>Event Date</th>
                             <th>Event</th>
                             <th>Completion Date</th>
@@ -428,6 +435,7 @@ if(empty($PID)) {
                     <tfoot>
                         <tr>
                             <th></th>
+                            <th>Date</th>
                             <th>Event Date</th>
                             <th>Event</th>
                             <th>Completion Date</th>
@@ -569,7 +577,8 @@ if(empty($PID)) {
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           
@@ -597,7 +606,7 @@ if(empty($PID)) {
                             "data": null,
                             "defaultContent": ''
                         },
-                        {"data": "adl_ews_aviva_reported_date"},
+                        {"data": "adl_ews_aviva_date_added"},
                         {"data": "adl_ews_aviva_client_name"},
                         {"data": "adl_ews_aviva_policy_number"},
                         {"data": "adl_ews_aviva_description"},
@@ -607,7 +616,8 @@ if(empty($PID)) {
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           
@@ -633,6 +643,7 @@ if(isset($PID) && $PID == "RL_EWS") { ?>
                             "data": null,
                             "defaultContent": ''
                         },
+                        {"data": "adl_ews_royal_london_date_added"},
                         {"data": "adl_ews_royal_london_policyno"},
                         {"data": "adl_ews_royal_london_product"},
                         {"data": "adl_ews_royal_london_plan_start_date"},
@@ -653,7 +664,8 @@ if(isset($PID) && $PID == "RL_EWS") { ?>
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           
@@ -680,6 +692,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "data": null,
                             "defaultContent": ''
                         },
+                        {"data": "adl_ews_lv_date_added"},
                         {"data": "adl_ews_lv_rag_status"},
                         {"data": "adl_ews_lv_earliest_due_date"},
                         {"data": "adl_ews_lv_event_description"},
@@ -704,7 +717,8 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           
@@ -732,6 +746,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "data": null,
                             "defaultContent": ''
                         },
+                        {"data": "adl_ews_lv_dd_date_added"},
                         {"data": "adl_ews_lv_dd_collection_date"},
                         {"data": "adl_ews_lv_dd_event_des"},
                         {"data": "adl_ews_lv_dd_reject_reason"},
@@ -755,7 +770,8 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           
@@ -783,6 +799,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "data": null,
                             "defaultContent": ''
                         },
+                        {"data": "adl_ews_lv_lapsed_date_added"},
                         {"data": "adl_ews_lv_lapsed_event_date"},
                         {"data": "adl_ews_lv_lapsed_event_des"},
                         {"data": "adl_ews_lv_lapsed_completion_date"},
@@ -804,7 +821,8 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                             "render": function (data, type, full, meta) {
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
-                    ]
+                    ],
+                            "order": [[1, 'asc']]
                 });
 
             });           

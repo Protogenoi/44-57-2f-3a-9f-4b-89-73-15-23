@@ -189,6 +189,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                 adl_ews_client_name=:NAME
                             AND    
                                 adl_ews_orig_status=:STATUS
+                            AND 
+                                adl_ews_status = 'NEW'    
                             AND
                                 adl_ews_ref=:REF
                             AND    

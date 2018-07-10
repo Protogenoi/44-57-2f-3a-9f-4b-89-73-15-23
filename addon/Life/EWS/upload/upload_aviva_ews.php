@@ -144,10 +144,13 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                 adl_ews_client_name=:NAME
                             AND    
                                 adl_ews_orig_status=:STATUS
+                             AND
+                                adl_ews_ref=:REF    
                             AND    
                                 adl_ews_insurer=:INSURER");
                     $CHK_ADL_WARNINGS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':REF',$POLICY, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->execute()or die(print_r($CHK_ADL_WARNINGS->errorInfo(), true)); 
                     $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);

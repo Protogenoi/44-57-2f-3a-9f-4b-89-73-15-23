@@ -233,7 +233,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
     $PID=$result['id'];
     $POL_NUMBER=$result['policy_number'];
     
-    $note="Aviva EWS Uploaded";
+    $note="Royal London EWS Uploaded";
     $ref= "$POL_NUMBER ($PID)";
     $messageEWS="$STATUS already on as $ORIG_WARNING";
     

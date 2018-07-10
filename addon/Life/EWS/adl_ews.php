@@ -86,7 +86,7 @@ if(empty($PID)) {
             <li <?php if(isset($PID) && $PID == "LV_DD_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_DD_EWS">LV DD</a></li>
             <li <?php if(isset($PID) && $PID == "LV_LAPSED_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_LAPSED_EWS">LV Lapsed</a></li>
             <li <?php if(isset($PID) && $PID == "UPLOAD_EWS") { echo "class='active'"; } ?> ><a href="?PID=UPLOAD_EWS">Upload Data</a></li>
-            <li><a href="/addon/Life/EWS/php/recheck_missing_cids.php?EXECUTE=1">Recheck Client IDs </a></li>
+            <li><a href="/addon/Life/EWS/php/recheck_missing_cids.php?EXECUTE=1">Recheck Client IDs</a></li>
         </ul>
 
         </div>       
@@ -485,7 +485,16 @@ if(empty($PID)) {
                                         <input name="csv" type="file" id="csv" />                                        
                                         <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
                                     </form>                                    
-                                </div>                                
+                                </div>    
+                                
+                                <div class="col-sm-2">
+                                    <h3>Upload LV</h3>
+                                        
+                                    <form action="/addon/Life/EWS/upload/upload_lv_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                        <input name="csv" type="file" id="csv" />                                        
+                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                    </form>                                    
+                                </div>                                    
                                 
                             </div>
                         </div>

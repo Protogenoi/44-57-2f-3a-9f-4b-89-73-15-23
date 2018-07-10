@@ -82,7 +82,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
     
             $date=date("y-m-d-G:i:s");
             
-            $fileup = $date."-".$hello_name."-AVIVA_EWS";
+            $fileup = $date."-".$hello_name."-ROYAL_LONDON_EWS";
             $file_loc = $_FILES["csv"]["tmp_name"];
             $file_size = $_FILES["csv"]["size"];
             $file_type = $_FILES["csv"]["type"];

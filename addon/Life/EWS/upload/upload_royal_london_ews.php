@@ -215,7 +215,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                             UPDATE
                                                 adl_ews 
                                             SET 
-                                                adl_ews_updated_by=:WHO
+                                                adl_ews_updated_by=:WHO,
+                                                adl_ews_updated_date = CURRENT_TIMESTAMP
                                             WHERE 
                                                 adl_ews_id=:EID
                                             ');     

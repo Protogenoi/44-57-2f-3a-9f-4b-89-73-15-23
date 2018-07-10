@@ -290,7 +290,6 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                                 adl_ews_client_id=:CID,
                                                 adl_ews_client_name=:NAME, 
                                                 adl_ews_orig_status=:STATUS, 
-                                                adl_ews_status=:NEW, 
                                                 adl_ews_insurer=:INSURER, 
                                                 adl_ews_added_by=:WHO
                                             ');     
@@ -298,7 +297,6 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                 $UPDATE_EWS->bindParam(':CID',$CID, PDO::PARAM_INT);
                 $UPDATE_EWS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
-                $UPDATE_EWS->bindParam(':NEW',$ADL_STATUS, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':WHO',$hello_name, PDO::PARAM_STR);          
                 $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));     

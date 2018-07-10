@@ -51,9 +51,9 @@ $TRB_ACCESS= array("Michael","Matt");
     
     $Level_10_Access = array("Michael", "Matt");
     $Level_9_Access = array("Michael", "Matt");
-    $Level_8_Access = array("Michael", "Matt","Tina","carys");
-    $Level_3_Access = array("Archiver","Michael", "Matt","Tina","carys");
-    $Level_1_Access = array("Archiver","Michael", "Matt","Tina","carys");
+    $Level_8_Access = array("Michael", "Matt");
+    $Level_3_Access = array("Archiver","Michael", "Matt");
+    $Level_1_Access = array("Archiver","Michael", "Matt");
     
     $Task_Access = array("Bob Jones");
     
@@ -68,11 +68,11 @@ $TRB_ACCESS= array("Michael","Matt");
     $OLD_CLIENT_SEARCH=array("Bob Jones");
     
     ///Advanced Admin Search
-    $GOOD_SEARH_ACCESS=array("Michael","Matt","Tina","Archiver","carys");
+    $GOOD_SEARH_ACCESS=array("Michael","Matt","Tina","Archiver");
     //Basic Admin Search
-    $ADMIN_SEARCH_ACCESS=array("Michael","Tina","Matt");
+    $ADMIN_SEARCH_ACCESS=array("Michael","Matt");
     //View Dealsheets awaiting QA
-    $QA_Access = array("Michael","Tina");
+    $QA_Access = array("Michael");
     
     $AUDIT_SEARCH_ACCESS=array("Bob Jones");
 ?>

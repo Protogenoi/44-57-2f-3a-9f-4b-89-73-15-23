@@ -332,7 +332,7 @@ WHERE
     $PID=$result['id'];
     $POL_NUMBER=$result['policy_number'];
     
-    $note="Aviva EWS Uploaded";
+    $note="LV EWS Uploaded";
     $ref= "$POL_NUMBER ($PID)";
     /*
     $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');

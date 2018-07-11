@@ -809,7 +809,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                     "language": {
                         "processing": "<div></div><div></div><div></div><div></div><div></div>"
                     },
-                                        "ajax": "JSON/ews_lv_dd.php?EXECUTE=1&&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                                        "ajax": "JSON/ews_lv_lapsed.php?EXECUTE=1&&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
                     "columns": [
                         {
                             "className": 'details-control',

@@ -195,7 +195,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
             $REPORT_RUN_DATE=filter_var($data[24],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
         }    
         
-        $TRIMMED_POLICY= substr($POLICY,0,8);
+        $TRIMMED_POLICY= substr($POLICY,1,7);
         
         $INSURER='LV';
         

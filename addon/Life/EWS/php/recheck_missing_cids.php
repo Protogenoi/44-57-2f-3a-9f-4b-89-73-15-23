@@ -80,7 +80,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
 
                     $CHK_ADL_WARNINGS = $pdo->prepare("SELECT
                                 adl_ews_ref,
-                                adl_ews_id
+                                adl_ews_id,
+                                adl_ews_insurer
                             FROM 
                                 adl_ews 
                             WHERE 
@@ -92,6 +93,11 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                         
                         $POL_NUM=$result['adl_ews_ref'];
                         $EID=$result['adl_ews_id'];
+                        $INSURER=$result['adl_ews_insurer'];
+                        
+                        if(isset($INSURER) && $INSURER == 'LV') {
+                            $POL_NUM= substr($POL_NUM,1,7);
+                        }
                         
                 $SELECT = $pdo->prepare("SELECT client_id FROM client_policy WHERE policy_number =:POLICY");
                 $SELECT->bindParam(':POLICY', $POL_NUM, PDO::PARAM_STR);

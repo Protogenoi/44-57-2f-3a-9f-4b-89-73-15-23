@@ -189,34 +189,38 @@ if (isset($hello_name)) {
                                 $clientname = $data2['client_name'];
 
                                 $ews_stuff = $pdo->prepare("SELECT
-ews_data.policy_number
-, ews_data.id
-, ews_data.warning
-, ews_data.ournotes
-, ews_data.date_added
-, ews_data.ews_status_status
-, ews_data.client_name
-, ews_data.color_status
-	FROM ews_data
-	LEFT JOIN client_policy 
-	ON ews_data.policy_number=client_policy.policy_number
-	WHERE ews_data.policy_number=:policy AND client_policy.id=:polid");
-                                $ews_stuff->bindParam(':policy', $policy_number, PDO::PARAM_STR, 12);
-                                $ews_stuff->bindParam(':polid', $polid, PDO::PARAM_STR, 12);
+                                                                adl_ews_ref,
+                                                                adl_ews_id,
+                                                                adl_ews_notes,
+                                                                adl_ews_orig_status,
+                                                                adl_ews_status,
+                                                                adl_ews_colour
+                                                            FROM 
+                                                                adl_ews
+                                                            LEFT JOIN 
+                                                                client_policy
+                                                            ON 
+                                                                adl_ews_ref=client_policy.policy_number
+                                                            WHERE 
+                                                                adl_ews_ref=:POLICY 
+                                                            AND 
+                                                                client_policy.id=:PID");
+                                $ews_stuff->bindParam(':POLICY', $policy_number, PDO::PARAM_STR, 12);
+                                $ews_stuff->bindParam(':PID', $polid, PDO::PARAM_STR, 12);
                                 $ews_stuff->execute();
                                 $ewsresult = $ews_stuff->fetch(PDO::FETCH_ASSOC);
 
-                                $color_status = $ewsresult['color_status'];
-                                $warning = $ewsresult['warning'];
-                                $ournotes = $ewsresult['ournotes'];
-                                $ews_status_status = $ewsresult['ews_status_status'];
+                                $COLOUR = $ewsresult['adl_ews_colour'];
+                                $ORIG_STATUS = $ewsresult['adl_ews_orig_status'];
+                                $EWS_NOTES = $ewsresult['adl_ews_notes'];
+                                $NEW_STATUS = $ewsresult['adl_ews_status'];
                                 ?>
 
-                                <form action="php/EWSUpdate.php?EXECUTE=1" method="POST" id="from1" autocomplete="off" class="form-horizontal">
+                                <form action="/addon/Life/EWS/php/update_ews_policy.php?EXECUTE=1" method="POST" id="from1" class="form-horizontal">
 
-                                    <input type='hidden' name='client_id' value='<?php echo $search; ?>'>
-                                    <input type='hidden' name='policy_number' value='<?php echo $policy_number; ?>'>
-                                    <input type='hidden' name='client_name' value='<?php echo $clientname; ?>'>
+                                    <input type='hidden' name='CID' value='<?php echo $search; ?>'>
+                                    <input type='hidden' name='POLICY' value='<?php echo $policy_number; ?>'>
+                                    <input type='hidden' name='NAME' value='<?php echo $clientname; ?>'>
 
 
                                     <fieldset>
@@ -224,29 +228,33 @@ ews_data.policy_number
                                         <legend>Update EWS</legend>
 
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label" for="warning">Current Status</label>  
+                                            <label class="col-md-4 control-label" for="ORIG_STATUS">Current Status</label>  
                                             <div class="col-md-4">
-                                                <input id="warning" name="warning" class="form-control input-md" type="text" value='<?php echo $warning; ?>' readonly>
+                                                <input id="ORIG_STATUS" name="ORIG_STATUS" class="form-control input-md" type="text" value='<?php echo $ORIG_STATUS; ?>' readonly>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label" for="status">New Status</label>
+                                            <label class="col-md-4 control-label" for="NEW_STATUS">New Status</label>
                                             <div class="col-md-4">
-                                                <select id="status" name="status" class="form-control" required>
-                                                    <option value="<?php echo $ews_status_status; ?>"><?php echo $ews_status_status; ?></option>
-                                                    <option value="RE-INSTATED">RE-INSTATED</option>
-                                                    <option value="WILL CANCEL">WILL CANCEL</option>
-                                                    <option value="REDRAWN">REDRAWN</option>
-                                                    <option value="WILL REDRAW">WILL REDRAW</option>
-                                                    <option value="CANCELLED">CANCELLED</option>
-                                                    <option value="FUTURE CALLBACK">Future Callback</option>
+                                                <select id="NEW_STATUS" name="NEW_STATUS" class="form-control" required>
+                                                    <?php 
+                                                    if(empty($NEW_STATUS)) {
+                                                    ?>
+                                                    <option value="NEW" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='NEW') { echo "selected"; } ?> >NEW</option>
+                                                    <?php } ?>
+                                                    <option value="RE-INSTATED" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='RE-INSTATED') { echo "selected"; } ?> >RE-INSTATED</option>
+                                                    <option value="WILL CANCEL" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='WILL CANCEL') { echo "selected"; } ?> >WILL CANCEL</option>
+                                                    <option value="REDRAWN" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='REDRAWN') { echo "selected"; } ?> >REDRAWN</option>
+                                                    <option value="WILL REDRAW" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='WILL REDRAW') { echo "selected"; } ?> >WILL REDRAW</option>
+                                                    <option value="CANCELLED" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='CANCELLED') { echo "selected"; } ?> >CANCELLED</option>
+                                                    <option value="FUTURE CALLBACK" <?php if(isset($NEW_STATUS) && $NEW_STATUS =='Future Callback') { echo "selected"; } ?> >Future Callback</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <?php
-                                        switch ($color_status) {
+                                        switch ($COLOUR) {
                                             case("green"):
                                                 $SELECT_COLOR = 'style="background-color:green;color:white;"';
                                                 break;
@@ -276,20 +284,20 @@ ews_data.policy_number
 
 
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label" for="selectbasic">Set Colour</label>
+                                            <label class="col-md-4 control-label" for="COLOUR">Set colour</label>
                                             <div class="col-md-4">
-                                                <select id="colour" name="colour" class="form-control" required>
+                                                <select id="COLOUR" name="COLOUR" class="form-control" required>
                                                     <option <?php
-                                                    if (isset($color_status)) {
+                                                    if (isset($COLOUR)) {
                                                         echo $SELECT_COLOR;
                                                     }
                                                     ?> value="<?php
-                                                        if (isset($color_status)) {
-                                                            echo $color_status;
+                                                        if (isset($COLOUR)) {
+                                                            echo $COLOUR;
                                                         }
                                                         ?>" ><?php
-                                                            if (isset($color_status)) {
-                                                                echo $color_status;
+                                                            if (isset($COLOUR)) {
+                                                                echo $COLOUR;
                                                             }
                                                             ?></option>
                                                     <option value="green" style="background-color:green;color:white;">Green</option>
@@ -306,10 +314,9 @@ ews_data.policy_number
 
 
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label" for="textarea">Notes</label>
+                                            <label class="col-md-4 control-label" for="EWS_NOTES">Notes</label>
                                             <div class="col-md-4">                     
-                                                <textarea class="form-control" id="textarea" name="notes" maxlength="800" placeholder="800 CHARS Max"><?php echo $ournotes; ?></textarea>
-                                                <span id="chars">800</span> characters remaining
+                                                <textarea class="form-control" id="EWS_NOTES" name="EWS_NOTES"><?php if(isset($EWS_NOTES)) { echo $EWS_NOTES; } ?></textarea>
                                             </div>
                                         </div>
 

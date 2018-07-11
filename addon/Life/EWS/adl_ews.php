@@ -517,6 +517,15 @@ if(empty($PID)) {
                                         <input name="csv" type="file" id="csv" />                                        
                                         <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
                                     </form>                                    
+                                </div> 
+
+                                <div class="col-sm-4">
+                                    <h3>Upload LV Lapsed</h3>
+                                        
+                                    <form action="/addon/Life/EWS/upload/upload_lv_lapsed_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
+                                        <input name="csv" type="file" id="csv" />                                        
+                                        <button type="submit" class="btn btn-success " data-toggle="modal" data-target="#LOADING"><span class="glyphicon glyphicon-open"></span> Upload</button>
+                                    </form>                                    
                                 </div>                         
                         
                     </div>

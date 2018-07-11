@@ -132,28 +132,28 @@ if(isset($EXECUTE) && $EXECUTE==1) {
 
 //CHECK IF POL ALREADY EXISTS AND CHECK ADL STATUS TO SET COLOURS WILL CANCEL','WILL REDRAW','CANCELLED','REDRAWN','FUTURE CALLBACK
 
-                    $CHK_ADL_WARNINGS = $pdo->prepare("SELECT
-                                adl_ews_id, 
-                                adl_ews_client_id, 
-                                adl_ews_client_name, 
-                                adl_ews_orig_status, 
-                                adl_ews_ref 
-                            FROM 
-                                adl_ews 
-                            WHERE 
-                                adl_ews_client_name=:NAME
-                            AND    
-                                adl_ews_orig_status=:STATUS
-                            AND 
-                                adl_ews_status = 'NEW'    
-                            AND
-                                adl_ews_ref=:REF    
-                            AND    
-                                adl_ews_insurer=:INSURER");
+                    $CHK_ADL_WARNINGS = $pdo->prepare("SELECT 
+    adl_ews_id,
+    adl_ews_client_id,
+    adl_ews_client_name,
+    adl_ews_orig_status,
+    adl_ews_ref,
+    adl_ews_aviva_reported_date
+FROM
+    adl_ews
+        JOIN
+    adl_ews_aviva ON adl_ews_aviva_id_fk = adl_ews_id
+WHERE
+    adl_ews_client_name =:NAME
+        AND adl_ews_orig_status = :STATUS
+        AND adl_ews_ref =:REF
+        AND adl_ews_insurer =:INSURER
+        AND adl_ews_aviva_reported_date =:REPORT");
                     $CHK_ADL_WARNINGS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':REF',$POLICY, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':REPORT',$REPORTED_DATE, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->execute()or die(print_r($CHK_ADL_WARNINGS->errorInfo(), true)); 
                     $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);
                     

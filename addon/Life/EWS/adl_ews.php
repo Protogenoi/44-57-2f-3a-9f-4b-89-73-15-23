@@ -479,7 +479,7 @@ if(empty($PID)) {
                         <div class="row">
                             <div class="col-ms-12">
                                 
-                                <div class="col-sm-2">
+                                <div class="col-sm-4">
                                     <h3>Upload Avia</h3>
                                         
                                     <form action="/addon/Life/EWS/upload/upload_aviva_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
@@ -488,7 +488,7 @@ if(empty($PID)) {
                                     </form>                                    
                                 </div>
                                 
-                                <div class="col-sm-2">
+                                <div class="col-sm-4">
                                     <h3>Upload Royal London</h3>
                                         
                                     <form action="/addon/Life/EWS/upload/upload_royal_london_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">
@@ -497,7 +497,7 @@ if(empty($PID)) {
                                     </form>                                    
                                 </div>    
                                 
-                                <div class="col-sm-2">
+                                <div class="col-sm-4">
                                     <h3>Upload LV</h3>
                                         
                                     <form action="/addon/Life/EWS/upload/upload_lv_ews.php?EXECUTE=1" method="post" enctype="multipart/form-data" name="form1" id="form1">

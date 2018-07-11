@@ -212,6 +212,10 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                 adl_ews_ref 
                             FROM 
                                 adl_ews 
+                            JOIN 
+                                adl_ews_lv 
+                            ON
+                                adl_ews_lv_id_fk = adl_ews_id
                             WHERE 
                                 adl_ews_client_name=:NAME
                             AND    
@@ -221,11 +225,56 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                             AND
                                 adl_ews_ref=:REF
                             AND    
-                                adl_ews_insurer=:INSURER");
+                                adl_ews_insurer=:INSURER
+                            AND
+                                adl_ews_lv_rag_status=:RAG 
+                            AND 
+                                 adl_ews_lv_earliest_due_date=:DUE_DATE 
+                            AND 
+                                adl_ews_lv_event_description=:EVENT 
+                            AND 
+                                adl_ews_lv_completion_date=:COMP_DATE 
+                            AND 
+                                adl_ews_lv_duration_inforce_months=:INFORCE 
+                            AND 
+                                adl_ews_lv_cover_type=:COVER_TYPE 
+                            AND 
+                                adl_ews_lv_postcode=:POSTCODE 
+                            AND 
+                                adl_ews_lv_home_num=:HOME 
+                            AND 
+                                adl_ews_lv_mob_num=:MOB 
+                            AND 
+                                adl_ews_lv_ape=:APE 
+                            AND 
+                                adl_ews_lv_monthly_premium=:MTH_PREM 
+                            AND 
+                                adl_ews_lv_no_missed_prems=:MISSED_PREM 
+                            AND 
+                                adl_ews_lv_amount_due=:AMOUNT_DUE 
+                            AND 
+                                adl_ews_lv_comm_unearned_amount=:UNEARNED_AMOUNT 
+                            AND 
+                                adl_ews_lv_comm_cb_period=:CB_PERIOD");
                     $CHK_ADL_WARNINGS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':REF',$POLICY, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':RAG',$RAG, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':DUE_DATE',$DUE_DATE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':EVENT',$EVENT, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':COMP_DATE',$COMPLETION_DATE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':INFORCE',$IN_FORCE_MTHS, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':COVER_TYPE',$COVER_TYPE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':POSTCODE',$POSTCODE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':HOME',$HOME_NUM, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':MOB',$MOB_NUM, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':APE',$APE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':MTH_PREM',$MTH_PREM, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':MISSED_PREM',$MISSED_PREMS, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':AMOUNT_DUE',$AMOUNT_DUE, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':UNEARNED_AMOUNT',$COMM_UNEARNED, PDO::PARAM_STR);
+                    $CHK_ADL_WARNINGS->bindParam(':CB_PERIOD',$COMM_CB, PDO::PARAM_STR);                      
                     $CHK_ADL_WARNINGS->execute()or die(print_r($CHK_ADL_WARNINGS->errorInfo(), true)); 
                     $row=$CHK_ADL_WARNINGS->fetch(PDO::FETCH_ASSOC);
                     
@@ -248,7 +297,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                                 adl_ews_id=:EID
                                             ');     
                 $UPDATE_EWS->bindParam(':EID',$EID, PDO::PARAM_INT);
-                $UPDATE_EWS->bindParam(':WHO',$hello_name, PDO::PARAM_STR);          
+                $UPDATE_EWS->bindParam(':WHO',$hello_name, PDO::PARAM_STR);              
                 $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));          
         
 //MATCH POLICY TO ADL TO GET CLIENT ID        

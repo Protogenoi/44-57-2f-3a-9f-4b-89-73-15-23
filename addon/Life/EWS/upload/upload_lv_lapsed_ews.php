@@ -207,9 +207,9 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                             FROM 
                                 adl_ews 
                             JOIN 
-                                adl_ews_lv_dd 
+                                adl_ews_lv_lapsed 
                             ON
-                                adl_ews_lv_dd_id_fk = adl_ews_id
+                                adl_ews_lv_lapsed_id_fk = adl_ews_id
                             WHERE 
                                 adl_ews_client_name=:NAME
                             AND    
@@ -254,7 +254,6 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                     $CHK_ADL_WARNINGS->bindParam(':EVENT_DES',$EVENT_DES, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':COMP_DATE',$COMPLETION_DATE, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':INFORCE',$IN_FORCE_MTHS, PDO::PARAM_STR);
-                    $CHK_ADL_WARNINGS->bindParam(':POLICY',$POLICY, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':POSTCODE',$POSTCODE, PDO::PARAM_STR);
                     $CHK_ADL_WARNINGS->bindParam(':HOME',$HOME_NUM, PDO::PARAM_INT);
                     $CHK_ADL_WARNINGS->bindParam(':MOB',$MOB_NUM, PDO::PARAM_INT);
@@ -344,7 +343,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                 
                 $LID = $pdo->lastInsertId();
         
-        $INSERT_EWS = $pdo->prepare('INSERT INTO adl_ews_lv_dd
+        $INSERT_EWS = $pdo->prepare('INSERT INTO adl_ews_lv_lapsed
             SET 
                 adl_ews_lv_lapsed_id_fk=:LID,
                 adl_ews_lv_lapsed_event_date=:EVENT_DATE, 

@@ -193,7 +193,9 @@ if(isset($EXECUTE) && $EXECUTE==1) {
         }  
         if(isset($data[24])){
             $REPORT_RUN_DATE=filter_var($data[24],FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-        }          
+        }    
+        
+        $TRIMMED_POLICY= substr($POLICY,0,8);
         
         $INSURER='LV';
         
@@ -303,7 +305,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
 //MATCH POLICY TO ADL TO GET CLIENT ID        
 
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
-    $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
+    $SELECT_CID->bindParam(':POL_NUM', $TRIMMED_POLICY, PDO::PARAM_STR);
     $SELECT_CID->execute();
     $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC); 
     if ($SELECT_CID->rowCount() >= 1) {
@@ -414,7 +416,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
     //INSERT INTO CLIENT TIMELINE
         
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy WHERE policy_number=:POLICY');
-    $SELECT_CID->bindParam(':POLICY', $POLICY, PDO::PARAM_STR);
+    $SELECT_CID->bindParam(':POLICY', $TRIMMED_POLICY, PDO::PARAM_STR);
     $SELECT_CID->execute();
     $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC);
     if ($SELECT_CID->rowCount() >= 1) {

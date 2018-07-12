@@ -81,7 +81,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $AEID= filter_input(INPUT_POST, 'AEID', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $NOTE="EWS Status update";
-        $MESSAGE="$warning changed to $NEW_STATUS ($COLOUR) - $EWS_NOTES";
+        $MESSAGE="$ORIG_STATUS changed to $NEW_STATUS ($COLOUR) - $EWS_NOTES";
         
         $qnotes = $pdo->prepare("INSERT INTO
                                             client_note
@@ -107,7 +107,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
                                     adl_ews_updated_by=:HELLO,
                                     adl_ews_updated_date = CURRENT_TIMESTAMP
                                 WHERE 
-                                    adl_policy_id=:AEID");
+                                    adl_ews_id=:AEID");
         $qews->bindParam(':STATUS',$NEW_STATUS, PDO::PARAM_STR);
         $qews->bindParam(':NOTES',$EWS_NOTES, PDO::PARAM_STR);
         $qews->bindParam(':COLOUR',$COLOUR, PDO::PARAM_STR);

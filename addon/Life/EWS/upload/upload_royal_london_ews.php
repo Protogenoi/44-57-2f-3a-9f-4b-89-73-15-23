@@ -289,12 +289,12 @@ WHERE
                                             INSERT INTO
                                                 adl_ews 
                                             SET 
-                                                adl_ews_ref=:POLICY, 
-                                                adl_ews_client_id=:CID,
-                                                adl_ews_client_name=:NAME, 
-                                                adl_ews_orig_status=:STATUS, 
-                                                adl_ews_insurer=:INSURER, 
-                                                adl_ews_added_by=:WHO
+                                                adl_ews_master_ref=:POLICY, 
+                                                adl_ews_master_client_id=:CID,
+                                                adl_ews_master_client_name=:NAME, 
+                                                adl_ews_master_orig_status=:STATUS, 
+                                                adl_ews_master_insurer=:INSURER, 
+                                                adl_ews_master_added_by=:WHO
                                             ');     
                 $INSERT_MASTER->bindParam(':POLICY',$POLICY, PDO::PARAM_STR);
                 $INSERT_MASTER->bindParam(':CID',$CID, PDO::PARAM_INT);

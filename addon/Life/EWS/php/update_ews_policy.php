@@ -124,7 +124,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
                                     adl_ews_master_orig_status=:STATUS, 
                                     adl_ews_master_insurer=:INSURER, 
                                     adl_ews_master_added_by=:WHO,
-                                    adl_ews_master_notes=:NOTES
+                                    adl_ews_master_notes=:NOTES,
                                     adl_ews_master_colour=:COLOUR");
         $INSERT_MASTER->bindParam(':NAME',$NAME, PDO::PARAM_STR);
         $INSERT_MASTER->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);

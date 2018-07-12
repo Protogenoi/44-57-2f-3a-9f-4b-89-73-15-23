@@ -73,7 +73,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $CID= filter_input(INPUT_POST, 'CID', FILTER_SANITIZE_NUMBER_INT);
         $POLICY= filter_input(INPUT_POST, 'POLICY', FILTER_SANITIZE_SPECIAL_CHARS);
         $NAME= filter_input(INPUT_POST, 'NAME', FILTER_SANITIZE_SPECIAL_CHARS);
-        $EWS_NOTES= filter_input(INPUT_POST, '$EWS_NOTES', FILTER_SANITIZE_SPECIAL_CHARS);        
+        $EWS_NOTES= filter_input(INPUT_POST, 'EWS_NOTES', FILTER_SANITIZE_SPECIAL_CHARS);        
         $NEW_STATUS= filter_input(INPUT_POST, 'NEW_STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
         $COLOUR= filter_input(INPUT_POST, 'COLOUR', FILTER_SANITIZE_SPECIAL_CHARS);        
         $ORIG_STATUS= filter_input(INPUT_POST, 'ORIG_STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -81,7 +81,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $AEID= filter_input(INPUT_POST, 'AEID', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $NOTE="EWS Status update";
-        $MESSAGE="$ORIG_STATUS changed to $NEW_STATUS ($COLOUR) - $NOTE";
+        $MESSAGE="$POLICY is now $NEW_STATUS ($COLOUR) - $EWS_NOTES";
         
         $qnotes = $pdo->prepare("INSERT INTO
                                             client_note

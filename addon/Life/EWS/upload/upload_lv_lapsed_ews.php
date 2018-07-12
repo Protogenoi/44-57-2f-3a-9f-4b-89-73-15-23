@@ -322,6 +322,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
     
     if ($CHK_ADL_WARNINGS->rowCount() <= 0) { // INSERT THE REST
         
+        $i++;
+        
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
     $SELECT_CID->bindParam(':POL_NUM', $TRIMMED_POLICY, PDO::PARAM_STR);
     $SELECT_CID->execute();

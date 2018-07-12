@@ -102,6 +102,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                 $query->execute(); 
                 
             }
+            
+            $i=0;
  
 
     do {
@@ -255,6 +257,8 @@ WHERE
     
     if ($CHK_ADL_WARNINGS->rowCount() <= 0) { // INSERT THE REST
         
+        $i++;
+        
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
     $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
     $SELECT_CID->execute();
@@ -379,7 +383,7 @@ WHERE
     
     while ($data = fgetcsv($handle,1000,",",'"'));
 
- header('Location: /../../../../addon/Life/EWS/adl_ews.php?RETURN=UPLOADED'); die;       
+ header('Location: /../../../../addon/Life/EWS/adl_ews.php?UPLOADED='.$i); die;       
     
 }
 }

@@ -355,6 +355,25 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                 $UPDATE_EWS->execute()or die(print_r($UPDATE_EWS->errorInfo(), true));     
                 
                 $LID = $pdo->lastInsertId();
+                
+                $INSERT_MASTER = $pdo->prepare('
+                                            INSERT INTO
+                                                adl_ews 
+                                            SET 
+                                                adl_ews_ref=:POLICY, 
+                                                adl_ews_client_id=:CID,
+                                                adl_ews_client_name=:NAME, 
+                                                adl_ews_orig_status=:STATUS, 
+                                                adl_ews_insurer=:INSURER, 
+                                                adl_ews_added_by=:WHO
+                                            ');     
+                $INSERT_MASTER->bindParam(':POLICY',$POLICY, PDO::PARAM_STR);
+                $INSERT_MASTER->bindParam(':CID',$CID, PDO::PARAM_INT);
+                $INSERT_MASTER->bindParam(':NAME',$NAME, PDO::PARAM_STR);
+                $INSERT_MASTER->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);
+                $INSERT_MASTER->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
+                $INSERT_MASTER->bindParam(':WHO',$hello_name, PDO::PARAM_STR);          
+                $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true));                  
         
         $INSERT_EWS = $pdo->prepare('INSERT INTO adl_ews_lv_lapsed
             SET 

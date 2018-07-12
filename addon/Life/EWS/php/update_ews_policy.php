@@ -81,7 +81,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $AEID= filter_input(INPUT_POST, 'AEID', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $NOTE="EWS Status update";
-        $MESSAGE="$ORIG_STATUS changed to $NEW_STATUS ($COLOUR) - $EWS_NOTES";
+        $MESSAGE="$ORIG_STATUS changed to $NEW_STATUS ($COLOUR) - $NOTE";
         
         $qnotes = $pdo->prepare("INSERT INTO
                                             client_note

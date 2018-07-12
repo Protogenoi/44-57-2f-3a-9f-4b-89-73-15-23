@@ -247,6 +247,7 @@ if (isset($hello_name)) {
                                     <input type='hidden' name='POLICY' value='<?php echo $policy_number; ?>'>
                                     <input type='hidden' name='NAME' value='<?php echo $clientname; ?>'>
                                     <input type='hidden' name='AEID' value='<?php echo $AEID; ?>'>
+                                    <input type='hidden' name='INSURER' value='<?php echo $INSURER; ?>'>
 
 
                                     <fieldset>

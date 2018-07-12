@@ -258,8 +258,7 @@ WHERE
     $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
     $SELECT_CID->bindParam(':POL_NUM', $policy_number, PDO::PARAM_STR);
     $SELECT_CID->execute();
-    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC); 
-    if ($SELECT_CID->rowCount() >= 1) {
+    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC);    
 
     $CID=$result['client_id'];
     $PID=$result['id'];
@@ -331,11 +330,7 @@ WHERE
         $INSERT_EWS->execute()or die(print_r($INSERT_EWS->errorInfo(), true)); 
              
     //INSERT INTO CLIENT TIMELINE
-        
-    $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy WHERE policy_number=:POLICY');
-    $SELECT_CID->bindParam(':POLICY', $POLICY, PDO::PARAM_STR);
-    $SELECT_CID->execute();
-    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC);
+
     if ($SELECT_CID->rowCount() >= 1) {
 
     $CID=$result['client_id'];

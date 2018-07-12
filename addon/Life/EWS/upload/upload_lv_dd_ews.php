@@ -341,6 +341,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                                 adl_ews 
                                             SET 
                                                 adl_ews_ref=:POLICY, 
+                                                adl_ews_modified_ref=:MOD_POLICY,
                                                 adl_ews_client_id=:CID,
                                                 adl_ews_client_name=:NAME, 
                                                 adl_ews_orig_status=:STATUS, 
@@ -348,6 +349,7 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                                 adl_ews_added_by=:WHO
                                             ');     
                 $UPDATE_EWS->bindParam(':POLICY',$POLICY, PDO::PARAM_STR);
+                $UPDATE_EWS->bindParam(':MOD_POLICY',$TRIMMED_POLICY, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':CID',$CID, PDO::PARAM_INT);
                 $UPDATE_EWS->bindParam(':NAME',$NAME, PDO::PARAM_STR);
                 $UPDATE_EWS->bindParam(':STATUS',$STATUS, PDO::PARAM_STR);

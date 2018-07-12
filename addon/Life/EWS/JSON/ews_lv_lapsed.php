@@ -66,10 +66,13 @@ if(isset($EXECUTE)) {
             client_policy.client_id
         FROM
             adl_ews_lv_lapsed
+        JOIN
+            adl_ews
+        ON adl_ews_id = adl_ews_lv_lapsed_id_fk
         LEFT JOIN
             client_policy
         ON
-            client_policy.policy_number = adl_ews_lv_lapsed.adl_ews_lv_lapsed_policy_number");
+            client_policy.policy_number = adl_ews.adl_ews_modified_ref");
         $query->execute()or die(print_r($query->errorInfo(), true));
         json_encode($results['aaData'] = $query->fetchAll(PDO::FETCH_ASSOC));
         echo json_encode($results);

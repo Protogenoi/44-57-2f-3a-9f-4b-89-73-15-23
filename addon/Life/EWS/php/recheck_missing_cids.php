@@ -81,7 +81,8 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                     $CHK_ADL_WARNINGS = $pdo->prepare("SELECT
                                 adl_ews_ref,
                                 adl_ews_id,
-                                adl_ews_insurer
+                                adl_ews_insurer,
+                                adl_ews_orig_status
                             FROM 
                                 adl_ews 
                             WHERE 
@@ -94,17 +95,19 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                         $POL_NUM=$result['adl_ews_ref'];
                         $EID=$result['adl_ews_id'];
                         $INSURER=$result['adl_ews_insurer'];
+                        $ORIG_STATUS=$result['adl_ews_orig_status'];
                         
                         if(isset($INSURER) && $INSURER == 'LV') {
                             $POL_NUM= substr($POL_NUM,1,7);
                         }
                         
-                $SELECT = $pdo->prepare("SELECT client_id FROM client_policy WHERE policy_number =:POLICY");
+                $SELECT = $pdo->prepare("SELECT client_id, id FROM client_policy WHERE policy_number =:POLICY");
                 $SELECT->bindParam(':POLICY', $POL_NUM, PDO::PARAM_STR);
                 $SELECT->execute();
                 $row=$SELECT->fetch(PDO::FETCH_ASSOC);   
                 
                 $CID=$row['client_id'];
+                $PID=$row['id'];
                 
                 if ($SELECT->rowCount() >= 1) {  
                     
@@ -118,7 +121,19 @@ if(isset($EXECUTE) && $EXECUTE==1) {
                                             adl_ews_id =:EID");
                 $UPDATE->bindParam(':EID', $EID, PDO::PARAM_STR);
                 $UPDATE->bindParam(':CID', $CID, PDO::PARAM_INT);
-                $UPDATE->execute();    
+                $UPDATE->execute();               
+    
+    $note="$INSURER EWS Uploaded";
+    $ref= "$POL_NUM ($PID)"; 
+    $MESSAGE="$POL_NUM is now $ORIG_STATUS";
+                
+    $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
+    $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
+    $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR, 100);
+    $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR, 100);
+    $INSERT_TIMELINE->bindParam(':message', $MESSAGE, PDO::PARAM_STR);
+    $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR, 50);
+    $INSERT_TIMELINE->execute();                
          
                 
                 }

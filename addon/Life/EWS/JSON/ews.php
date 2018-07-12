@@ -40,6 +40,7 @@ if(isset($EXECUTE)) {
 
         $query = $pdo->prepare("SELECT
             adl_ews_ref, 
+            adl_ews_modified_ref,
             adl_ews_client_name, 
             adl_ews_orig_status, 
             adl_ews_status, 

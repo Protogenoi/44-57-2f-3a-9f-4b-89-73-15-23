@@ -135,6 +135,7 @@ if (isset($hello_name)) {
     }
     $COVER_AMOUNT = number_format($data2['covera'],2);
     $SIC_COVER_AMOUNT = number_format($data2['sic_cover_amount'],2);
+    $INSURER = $data2["insurer"];
 
     $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
     $query2->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -143,7 +144,6 @@ if (isset($hello_name)) {
     
         $ADL_PAGE_TITLE = "View Policy";
         require_once(BASE_URL.'/app/core/head.php'); 
-        
         
         ?>
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />
@@ -187,9 +187,29 @@ if (isset($hello_name)) {
                                 $polid = $data2['id'];
                                 $policy_number = $data2["policy_number"];
                                 $clientname = $data2['client_name'];
+                                
+                                if(isset($INSURER) && $INSURER == 'LV') {
+                                    
+                                $ews_stuff = $pdo->prepare("SELECT
+                                                                adl_ews_id,
+                                                                adl_ews_notes,
+                                                                adl_ews_orig_status,
+                                                                adl_ews_status,
+                                                                adl_ews_colour
+                                                            FROM 
+                                                                adl_ews
+                                                            LEFT JOIN 
+                                                                client_policy
+                                                            ON 
+                                                                adl_ews_modified_ref=client_policy.policy_number
+                                                            WHERE 
+                                                                adl_ews_modified_ref=:POLICY 
+                                                            AND 
+                                                                client_policy.id=:PID");                                    
+                                    
+                                } else {
 
                                 $ews_stuff = $pdo->prepare("SELECT
-                                                                adl_ews_ref,
                                                                 adl_ews_id,
                                                                 adl_ews_notes,
                                                                 adl_ews_orig_status,
@@ -205,6 +225,9 @@ if (isset($hello_name)) {
                                                                 adl_ews_ref=:POLICY 
                                                             AND 
                                                                 client_policy.id=:PID");
+                                
+                                }
+                                
                                 $ews_stuff->bindParam(':POLICY', $policy_number, PDO::PARAM_STR, 12);
                                 $ews_stuff->bindParam(':PID', $polid, PDO::PARAM_STR, 12);
                                 $ews_stuff->execute();
@@ -214,6 +237,7 @@ if (isset($hello_name)) {
                                 $ORIG_STATUS = $ewsresult['adl_ews_orig_status'];
                                 $EWS_NOTES = $ewsresult['adl_ews_notes'];
                                 $NEW_STATUS = $ewsresult['adl_ews_status'];
+                                $AEID = $ewsresult['adl_ews_id'];
                                 ?>
 
                                 <form action="/addon/Life/EWS/php/update_ews_policy.php?EXECUTE=1" method="POST" id="from1" class="form-horizontal">
@@ -221,6 +245,7 @@ if (isset($hello_name)) {
                                     <input type='hidden' name='CID' value='<?php echo $search; ?>'>
                                     <input type='hidden' name='POLICY' value='<?php echo $policy_number; ?>'>
                                     <input type='hidden' name='NAME' value='<?php echo $clientname; ?>'>
+                                    <input type='hidden' name='AEID' value='<?php echo $AEID; ?>'>
 
 
                                     <fieldset>
@@ -281,7 +306,6 @@ if (isset($hello_name)) {
                                                 break;
                                         }
                                         ?>
-
 
                                         <div class="form-group">
                                             <label class="col-md-4 control-label" for="COLOUR">Set colour</label>

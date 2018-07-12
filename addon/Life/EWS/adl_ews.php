@@ -611,6 +611,16 @@ if(empty($PID)) {
         <script type="text/javascript" language="javascript" >
              $(document).ready(function () {
                 var table = $('#clients').DataTable({
+                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( aData["color_status"] !== '' )  {
+                        $('td', nRow).css("color", aData["adl_ews_colour"]);
+                    }
+                    
+                     if ( aData["adl_ews_colour"] === "Black" )  {
+                        $('td', nRow).addClass( 'black' );
+                    }
+                
+    },               
                     "response": true,
                     "processing": true,
                     "iDisplayLength": 10,

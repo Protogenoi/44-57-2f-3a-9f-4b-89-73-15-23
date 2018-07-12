@@ -334,6 +334,16 @@ if(isset($EXECUTE) && $EXECUTE==1) {
     
     if ($CHK_ADL_WARNINGS->rowCount() <= 0) { // INSERT THE REST
         
+    $SELECT_CID = $pdo->prepare('SELECT id, client_id, policy_number FROM client_policy where policy_number=:POL_NUM');
+    $SELECT_CID->bindParam(':POL_NUM', $TRIMMED_POLICY, PDO::PARAM_STR);
+    $SELECT_CID->execute();
+    $result=$SELECT_CID->fetch(PDO::FETCH_ASSOC); 
+    if ($SELECT_CID->rowCount() >= 1) {
+
+    $CID=$result['client_id'];
+    $PID=$result['id'];
+    $POL_NUMBER=$result['policy_number'];        
+        
         $i++;
         
                 $UPDATE_EWS = $pdo->prepare('

@@ -697,7 +697,7 @@ if(isset($PID) && $PID == "MASTER") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -712,10 +712,10 @@ if(isset($PID) && $PID == "MASTER") { ?>
                 var table = $('#MASTER_EWS_TABLE').DataTable({
                 "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
                     if ( aData["color_status"] !== '' )  {
-                        $('td', nRow).css("color", aData["adl_ews_colour"]);
+                        $('td', nRow).css("color", aData["adl_ews_master_colour"]);
                     }
                     
-                     if ( aData["adl_ews_colour"] === "Black" )  {
+                     if ( aData["adl_ews_master_colour"] === "Black" )  {
                         $('td', nRow).addClass( 'black' );
                     }
                 
@@ -748,7 +748,7 @@ if(isset($PID) && $PID == "MASTER") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -787,7 +787,7 @@ if(isset($PID) && $PID == "MASTER") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -835,7 +835,7 @@ if(isset($PID) && $PID == "RL_EWS") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -888,7 +888,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -941,7 +941,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           
@@ -992,7 +992,7 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'asc']]
+                            "order": [[1, 'desc']]
                 });
 
             });           

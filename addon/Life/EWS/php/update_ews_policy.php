@@ -77,7 +77,7 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $NEW_STATUS= filter_input(INPUT_POST, 'NEW_STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
         $COLOUR= filter_input(INPUT_POST, 'COLOUR', FILTER_SANITIZE_SPECIAL_CHARS);        
         $ORIG_STATUS= filter_input(INPUT_POST, 'ORIG_STATUS', FILTER_SANITIZE_SPECIAL_CHARS);
-        
+        $INSURER= filter_input(INPUT_POST, 'INSURER', FILTER_SANITIZE_SPECIAL_CHARS);
         $AEID= filter_input(INPUT_POST, 'AEID', FILTER_SANITIZE_SPECIAL_CHARS);
         
         $NOTE="EWS Status update";
@@ -114,6 +114,28 @@ $EXECUTE= filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_NUMBER_INT);
         $qews->bindParam(':AEID',$AEID, PDO::PARAM_STR);
         $qews->bindParam(':HELLO',$hello_name, PDO::PARAM_STR);
         $qews->execute()or die(print_r($qews->errorInfo(), true));
+        
+        $INSERT_MASTER = $pdo->prepare("INSERT INTO
+                                    adl_ews_master
+                                SET     
+                                    adl_ews_master_ref=:POLICY, 
+                                    adl_ews_master_client_id=:CID,
+                                    adl_ews_master_client_name=:NAME, 
+                                    adl_ews_master_orig_status=:STATUS, 
+                                    adl_ews_master_insurer=:INSURER, 
+                                    adl_ews_master_added_by=:WHO,
+                                    adl_ews_master_notes=:NOTES
+                                    adl_ews_master_colour=:COLOUR");
+        $INSERT_MASTER->bindParam(':NAME',$NAME, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':INSURER',$INSURER, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':STATUS',$NEW_STATUS, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':NOTES',$EWS_NOTES, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':COLOUR',$COLOUR, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':POLICY',$POLICY, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':CID',$CID, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':WHO',$hello_name, PDO::PARAM_STR);
+        $INSERT_MASTER->bindParam(':COLOUR',$COLOUR, PDO::PARAM_STR);
+        $INSERT_MASTER->execute()or die(print_r($INSERT_MASTER->errorInfo(), true));        
         
         header('Location: /../../../../../../app/Client.php?search='.$CID.'&CLIENT_EWS=1&CLIENT_POLICY_POL_NUM='.$POLICY); die;
     }

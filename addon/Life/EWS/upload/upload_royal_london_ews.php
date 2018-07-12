@@ -240,7 +240,7 @@ WHERE
     $messageEWS="$STATUS already on as $ORIG_WARNING";
     
 //INSERT NOTE INTO CLIENT TIMELINE    
-    /*
+
     $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
     $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR);
@@ -248,7 +248,7 @@ WHERE
     $INSERT_TIMELINE->bindParam(':message', $messageEWS, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR);
     $INSERT_TIMELINE->execute();
-    */
+
         }
 
     } //END OF UPDATES
@@ -332,17 +332,18 @@ WHERE
     $PID=$result['id'];
     $POL_NUMBER=$result['policy_number'];
     
-    $note="LV EWS Uploaded";
+    $note="$INSURER EWS Uploaded";
     $ref= "$POL_NUMBER ($PID)";
-    /*
+    $MESSAGE = "$POLICY is now $STATUS";
+
     $INSERT_TIMELINE = $pdo->prepare('INSERT INTO client_note set client_id=:CID, client_name=:ref, note_type=:note, message=:message, sent_by=:sent');
     $INSERT_TIMELINE->bindParam(':CID', $CID, PDO::PARAM_INT);
     $INSERT_TIMELINE->bindParam(':ref', $ref, PDO::PARAM_STR, 100);
     $INSERT_TIMELINE->bindParam(':note', $note, PDO::PARAM_STR, 100);
-    $INSERT_TIMELINE->bindParam(':message', $STATUS, PDO::PARAM_STR, 500);
+    $INSERT_TIMELINE->bindParam(':message', $MESSAGE, PDO::PARAM_STR);
     $INSERT_TIMELINE->bindParam(':sent', $hello_name, PDO::PARAM_STR, 100);
     $INSERT_TIMELINE->execute();
-    */
+
 }
 
     }  

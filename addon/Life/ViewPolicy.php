@@ -135,7 +135,6 @@ if (isset($hello_name)) {
     }
     $COVER_AMOUNT = number_format($data2['covera'],2);
     $SIC_COVER_AMOUNT = number_format($data2['sic_cover_amount'],2);
-    $INSURER = $data2["insurer"];
 
     $query2 = $pdo->prepare("SELECT email, email2 FROM client_details WHERE client_id=:CID");
     $query2->bindParam(':CID', $search, PDO::PARAM_INT);
@@ -144,6 +143,7 @@ if (isset($hello_name)) {
     
         $ADL_PAGE_TITLE = "View Policy";
         require_once(BASE_URL.'/app/core/head.php'); 
+        
         
         ?>
     <link rel="stylesheet" href="/resources/lib/sweet-alert/sweet-alert.min.css" />

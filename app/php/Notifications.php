@@ -31,15 +31,17 @@
 */ 
 
     $CLIENT_VAR= filter_input(INPUT_GET, 'CLIENT', FILTER_SANITIZE_SPECIAL_CHARS);
-                                    if(isset($CLIENT_VAR)){
-                                        if ($CLIENT_VAR == "ADDED" ) { ?>
+    
+    if(isset($CLIENT_VAR)){
+        if ($CLIENT_VAR == "ADDED" ) { ?>
 
-              <div class="notice notice-success" role="alert"><strong><i class="fas fa-user-plus fa-lg"></i> Success:</strong> New client added!</div>
-                                            
-                                    <?php    }
-                                    }
-
-if(isset($ffsms) && $ffsms=='1') {
+<div class="notice notice-success" role="alert"><strong><i class="fas fa-user-plus fa-lg"></i> Success:</strong> New client added!</div>
+    
+    <?php }
+    
+        }
+        
+        if(isset($ffsms) && $ffsms=='1') {
     
                 $database->query("SELECT 
     sms_inbound_id, sms_inbound_client_id, sms_inbound_phone, sms_inbound_msg, sms_inbound_date, sms_inbound_type
@@ -90,6 +92,7 @@ WHERE
                          || isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1 
                          || isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1 
                          || isset($HAS_RL_POL) && $HAS_RL_POL == 1
+                         || isset($HAS_AEG_POL) && $HAS_AEG_POL == 1
                          || isset($HAS_WOL_POL) && $HAS_WOL_POL == 1 ) {
    
                 $database->query("SELECT 
@@ -122,21 +125,6 @@ OR
 
 }
 
-if(isset($WHICH_COMPANY)){     
-    if($WHICH_COMPANY=='TRB WOL') {
-
- if(empty($WOL_CLOSER_AUDIT)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDECLOSER'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No WOL Closer audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSER'>&times;</a></div>";   }
-
-  if(empty($WOL_LEAD_AUDIT)) {
-     echo "<div class='notice notice-info' role='alert' id='HIDELEAD'><strong><i class='fa fa-headphones fa-lg'></i> Alert:</strong> No WOL Lead Gen audit!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEAD'>&times;</a></div>";   
-     
- }        
-        
-    }
-
-}
-
 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY)) {
     
     
@@ -152,17 +140,8 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
     echo "<div class='notice notice-danger' role='alert' id='HIDECLOSERKF'><strong><i class='far fa-envelope  fa-lg'></i> Alert:</strong> Keyfacts Email not sent <i>(Send from Files & Uploads tab)</i>!"
             . "<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDECLOSERKF'>&times;</a></div>";    
          
-     }      
+     }   
      
-     }    
-    }
-    
-     if($client_date_added <= "2017-03-07 16:25:00") {
-        if(empty($leadid1)) {
-        echo "<div class='notice notice-danger' role='alert' id='HIDELEADID'><strong><i class='fas fa-exclamation-triangle fa-lg'></i> Alert:</strong> No Recording ID added!<a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELEADID'>&times;</a></div>";
-        
-     } } else {
-         
     $database->query("SELECT uploadtype FROM tbl_uploads WHERE uploadtype='Closer and Agent Call Recording' AND file like :search");
     $database->bind(':search', $likesearch);
     $database->execute();
@@ -191,11 +170,10 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
          
      }
      
-     }
-
+     }     
      
-     }
-     
+     }    
+    }
      
     if(!isset($dealsheet_id)) {
     $database->query("select uploadtype from tbl_uploads where uploadtype='Dealsheet' and file like :search");
@@ -223,7 +201,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
            
             $Callback= filter_input(INPUT_GET, 'Callback', FILTER_SANITIZE_SPECIAL_CHARS);
             if(isset($Callback)){   
-                $Callback= filter_input(INPUT_GET, 'Callback', FILTER_SANITIZE_SPECIAL_CHARS);
                 if ($Callback =='y') {
                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check fa-calendar\"></i> Success:</strong> Callback Set!</div>");
                     
@@ -237,7 +214,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                         
                         $policydetailsadded= filter_input(INPUT_GET, 'policydetailsadded', FILTER_SANITIZE_SPECIAL_CHARS);
                         if(isset($policydetailsadded)){
-                            $policydetailsadded= filter_input(INPUT_GET, 'policydetailsadded', FILTER_SANITIZE_SPECIAL_CHARS);
                             if ($policydetailsadded =='y') {
                                 print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Client Pension Details Added!</div>");
                                 

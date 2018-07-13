@@ -115,7 +115,7 @@ OR
             
                  if ($database->rowCount()<=0) {  ?>
          
-<div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fa fa-mobile-phone"></i> Alert:</strong> No Welcome SMS has been sent to this client! <a class="btn btn-xs btn-warning" href="/addon/Life/SMS/dismiss_notification.php?EXECUTE=1&CID=<?php echo $search; ?>">Dismiss</a>
+<div class="notice notice-warning" role="alert" id="HIDELGKEY"><strong><i class="fas fa-mobile-alt"></i> Alert:</strong> No Welcome SMS has been sent to this client! <a class="btn btn-xs btn-warning" href="/addon/Life/SMS/dismiss_notification.php?EXECUTE=1&CID=<?php echo $search; ?>">Dismiss</a>
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
          
    <?php  }   

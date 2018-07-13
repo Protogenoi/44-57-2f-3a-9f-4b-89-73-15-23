@@ -1015,24 +1015,13 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         }
 
                         if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
-                            
-                            if($COMPANY_ENTITY=='First Priority Group') {
                                 
                             require_once(__DIR__ . '/../addon/Life/models/Vitality/Policies-modal.php');
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/Vitality/Policies-view.php');        
                                 
-                            } else {
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/VITALITYPoliciesModal.php');
-                            $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
-                            $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/VITALITY-Policies.php');
-                            
-                            }
-
-                        }
+                            } 
                         
                         if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
                                 
@@ -1054,63 +1043,30 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                         
                         if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                             
-                            if($COMPANY_ENTITY=='First Priority Group') {
-                                
                             require_once(__DIR__ . '/../addon/Life/models/LV/Policies-modal.php');
                             $LVPolicies = new LVPoliciesModal($pdo);
                             $LVPoliciesList = $LVPolicies->getLVPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/LV/Policies-view.php');        
-                                
-                            } else {                            
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/LVPoliciesModal.php');
-                            $LVPolicies = new LVPoliciesModal($pdo);
-                            $LVPoliciesList = $LVPolicies->getLVPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LV-Policies.php');
 
-                        }      
-                        
                         }
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                             
-                            if($COMPANY_ENTITY=='First Priority Group') {
-                                
                             require_once(__DIR__ . '/../addon/Life/models/WOL/Policies-modal.php');
                             $WOLPolicies = new WOLPoliciesModal($pdo);
                             $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/WOL/Policies-view.php');        
-                                
-                            } else {                                
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/WOLPoliciesModal.php');
-                            $WOLPolicies = new WOLPoliciesModal($pdo);
-                            $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/WOL-Policies.php');
-                            
-                            }
 
                         }
 
                         if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
-                            
-                            if($COMPANY_ENTITY=='First Priority Group') {
                                 
                             require_once(__DIR__ . '/../addon/Life/models/RoyalLondon/Policies-modal.php');
                             $RLPolicies = new RLPoliciesModal($pdo);
                             $RLPoliciesList = $RLPolicies->getRLPolicies($search);
                             require_once(__DIR__ . '/../addon/Life/views/RoyalLondon/Policies-view.php');        
                                 
-                            } else {                            
-                            
-                            require_once(__DIR__ . '/../addon/Life/models/RLPoliciesModel.php');
-                            $RLPolicies = new RLPoliciesModal($pdo);
-                            $RLPoliciesList = $RLPolicies->getRLPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/RL-Policies.php');
-                            
-                        }
-                        
-                        }
+                            }
 
                         if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                             require_once(__DIR__ . '/../addon/Life/models/AvivaPoliciesModal.php');

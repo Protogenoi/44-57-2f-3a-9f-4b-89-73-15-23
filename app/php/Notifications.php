@@ -119,6 +119,27 @@ OR
           <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
          
    <?php  }   
+   
+$EWS_NEW = $pdo->prepare("SELECT 
+        adl_ews_ref,
+        adl_ews_orig_status
+    FROM
+        adl_ews
+    WHERE
+        adl_ews_status = 'NEW'
+    AND 
+        adl_ews_client_id=:CID");
+$EWS_NEW->bindParam(':CID', $search, PDO::PARAM_INT);
+$EWS_NEW->execute();
+if ($EWS_NEW->rowCount()>0) { 
+    while ($result=$EWS_NEW->fetch(PDO::FETCH_ASSOC)){  ?>  
+ 
+<div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fas fa-exclamation-triangle"></i> Alert:</strong> <?php echo $result['adl_ews_ref']; ?> policy is on EWS marked as <?php echo $result['adl_ews_orig_status']; ?> <a href='#' class='close' data-dismiss='alert' aria-label='close' id='CLICKTOHIDELGKEY'>&times;</a></div>  
+
+
+<?php    }
+    
+}   
     
     
 }

@@ -25,13 +25,19 @@ class LVPoliciesModal {
                 client_policy.premium,  
                 client_policy.CommissionType, 
                 client_policy.PolicyStatus, 
-                client_policy.commission 
+                client_policy.commission,
+                adl_ews_orig_status,
+                adl_ews_status
             FROM 
                 client_policy
             LEFT JOIN 
                 lv_financial
             ON 
                 client_policy.policy_number = lv_financial.lv_financial_policy
+            LEFT JOIN
+                adl_ews 
+            ON  
+                adl_ews_modified_ref = client_policy.policy_number
             WHERE 
                 client_policy.client_id =:CID
             AND 

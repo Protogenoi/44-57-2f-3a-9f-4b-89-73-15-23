@@ -12,6 +12,7 @@
             <th>Premium</th>
             <th>Cover</th>
             <th>Status</th>
+            <th>EWS</th>
             <th>Financial</th>
             <th colspan="3">Options</th>
         </tr>
@@ -55,6 +56,7 @@
         } else {
             echo "<td><span class=\"label label-default\">" . $LV_Policies['PolicyStatus'] . "</span></td>";
         }
+        echo "<td><span class='label label-warning'>" . $LV_Policies['adl_ews_orig_status'] . "</span></td>";
         if (!empty($LV_Policies['lv_financial_indemnity'])) {
             
         if ($LV_Policies['lv_financial_indemnity'] >= 0) {

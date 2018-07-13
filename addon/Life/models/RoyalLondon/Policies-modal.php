@@ -25,13 +25,19 @@ class RLPoliciesModal {
                 client_policy.premium,  
                 client_policy.CommissionType, 
                 client_policy.PolicyStatus, 
-                client_policy.commission 
+                client_policy.commission,
+                adl_ews_orig_status,
+                adl_ews_status                
             FROM 
                 client_policy
             LEFT JOIN 
                 royal_london_financial
             ON 
                 client_policy.policy_number = royal_london_financial.royal_london_financial_plan_number
+            LEFT JOIN
+                adl_ews 
+            ON  
+                adl_ews_ref = client_policy.policy_number                
             WHERE 
                 client_policy.client_id =:CID
             AND 

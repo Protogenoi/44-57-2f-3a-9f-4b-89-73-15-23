@@ -228,7 +228,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                             
                             $taskedited= filter_input(INPUT_GET, 'taskedited', FILTER_SANITIZE_SPECIAL_CHARS);
                             if(isset($taskedited)){
-                                $taskedited= filter_input(INPUT_GET, 'taskedited', FILTER_SANITIZE_SPECIAL_CHARS);
                                 if ($taskedited =='y') {
                                     print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Task notes updated!</div>");
                                     
@@ -242,7 +241,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                 
                                 $policyedited= filter_input(INPUT_GET, 'policyedited', FILTER_SANITIZE_SPECIAL_CHARS);
                                 if(isset($policyedited)){
-                                    $policyedited= filter_input(INPUT_GET, 'policyedited', FILTER_SANITIZE_SPECIAL_CHARS);
                                     if ($policyedited =='y') {
                                         print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-pencil-alt fa-lg\"></i> Success:</strong> Policy details updated!</div>");
                                         
@@ -256,7 +254,6 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                         
                                         $checklistupdated= filter_input(INPUT_GET, 'checklistupdated', FILTER_SANITIZE_SPECIAL_CHARS);
                                         if(isset($checklistupdated)){
-                                            $checklistupdatedd= filter_input(INPUT_GET, 'checklistupdated', FILTER_SANITIZE_SPECIAL_CHARS);
                                             if ($checklistupdatedd =='y') {
                                                 print("<div class=\"notice notice-success\" role=\"alert\"><strong><i class=\"fa fa-check fa-lg\"></i> Success:</strong> Checklist updated!</div>");
                                                 

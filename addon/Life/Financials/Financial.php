@@ -160,7 +160,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                      <form action=" " method="GET" class="">
                          <fieldset>
                              
-                         <div class="col-md-12">
+                         <div class="col-xs-12">
                              
                              <div class="form-group">
                                  <label>Vitality</label>
@@ -215,7 +215,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>
                          </div>
                              
-                 <div class="col-md-12">
+                 <div class="col-xs-12">
                      
                       <div class="form-group">
                           <label>Royal London</label>
@@ -270,7 +270,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div>
                              
- <div class="col-md-12">
+ <div class="col-xs-12">
      
       <div class="form-group">
           <label>One Family</label>
@@ -325,7 +325,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div>  
                              
- <div class="col-md-12">
+ <div class="col-xs-12">
      
       <div class="form-group">
           <label>Aviva</label>
@@ -381,7 +381,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div> 
                              
-                             <div class="col-md-12">
+                             <div class="col-xs-12">
                                  
                                  
                                   <div class="form-group">
@@ -437,7 +437,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div>   
                              
-<div class="col-md-12">
+<div class="col-xs-12">
                                  
                                  
                                   <div class="form-group">
@@ -493,7 +493,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div> 
                              
-<div class="col-md-12">
+<div class="col-xs-12">
                                  
                                  
                                   <div class="form-group">
@@ -549,7 +549,7 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                             </div>                    
                  </div>                              
                          
-                         <div class="col-md-12">
+                         <div class="col-xs-12">
                              
                              <br><br>
                              
@@ -1648,7 +1648,7 @@ WHERE
         <div id="VIT_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -1667,7 +1667,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -1688,7 +1688,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$DATEFROM&dateto=$DATETO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -2901,7 +2901,7 @@ WHERE
         <div id="RL_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -2920,7 +2920,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -2941,7 +2941,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$RL_DATE_FROM&dateto=$RL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -4134,7 +4134,7 @@ WHERE
         <div id="WOL_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -4153,7 +4153,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -4174,7 +4174,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$WOL_DATE_FROM&dateto=$WOL_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -5344,7 +5344,7 @@ WHERE
         <div id="AVI_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -5363,7 +5363,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -5384,7 +5384,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$AVI_DATE_FROM&dateto=$AVI_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -6562,7 +6562,7 @@ WHERE
         <div id="LV_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -6581,7 +6581,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -6602,7 +6602,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$LV_DATE_FROM&dateto=$LV_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -7779,7 +7779,7 @@ WHERE
         <div id="ZURICH_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -7798,7 +7798,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -7819,7 +7819,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$ZURICH_DATE_FROM&dateto=$ZURICH_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 
@@ -8996,7 +8996,7 @@ WHERE
         <div id="SCOTTISH_WIDOWS_EXPORT" class="tab-pane fade">
                         
                             <center>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -9015,7 +9015,7 @@ WHERE
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-xs-12">
                                     <br>
                                     <div class="form-group">
                                         <div class="col-xs-4">
@@ -9036,7 +9036,7 @@ WHERE
                                     <br>
                                 </div>
 
-                                <div class="col-md-12"><br>
+                                <div class="col-xs-12"><br>
                                     <div class="col-xs-4">
                                         <a href='/addon/Life/Financials/export/Export.php?EXECUTE=7<?php echo "&datefrom=$SCOTTISH_WIDOWS_DATE_FROM&dateto=$SCOTTISH_WIDOWS_DATE_TO"; ?>' class="btn btn-default"><i class="fa fa-cloud-download"></i> MISSING</a>
 

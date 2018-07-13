@@ -3332,8 +3332,10 @@ WHERE
                                         case "Client SMS Reply":
                                             $TMicon = "fa-phone-square";
                                             break;
+                                        case "LV EWS Uploaded":
+                                        case "Aviva EWS Uploaded":
+                                        case "Royal London EWS Uploaded":
                                         case "EWS Status update":
-                                        case"EWS Uploaded";
                                         case"SMS Failed";
                                         case "Compliant Logged":
                                         Case "Email Failed";

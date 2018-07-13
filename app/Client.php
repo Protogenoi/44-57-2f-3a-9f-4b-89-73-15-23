@@ -1069,10 +1069,10 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
                             }
 
                         if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/AvivaPoliciesModal.php');
+                            require_once(__DIR__ . '/../addon/Life/models/Aviva/aviva_policies-modal.php');
                             $AvivaPolicies = new AvivaPoliciesModal($pdo);
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Aviva-Policies.php');
+                            require_once(__DIR__ . '/../addon/Life/views/Aviva/aviva_policies-view.php');
                             
                         }
                         

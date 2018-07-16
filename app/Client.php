@@ -177,7 +177,7 @@ if(isset($Single_Client['alt_number'])) {
     $ALT_PHONE_NUMBER=$Single_Client['alt_number'];
 }
 
-$NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul","Aegon");
+$NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal and General","Zurich","Scottish Widows","LV","FPG Paul","Aegon");
 
     if($ffhome == 1 ) {
 
@@ -1181,13 +1181,13 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                                                     if ($WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
+                                                    if ($$WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'Aviva') {
+                                                    if ($WHICH_COMPANY == 'Aviva') {
                                                         $SMS_INSURER = 'Aviva';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
+                                                    if ($WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'Scottish Widows') {
@@ -1202,7 +1202,7 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                                                     if ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
                                                     }                                                       
-                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
+                                                    if ($WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }
@@ -1374,13 +1374,13 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                                                     if ($WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
+                                                    if ($WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Aviva' || $WHICH_COMPANY == 'Aviva') {
+                                                    if ($WHICH_COMPANY == 'Aviva') {
                                                         $SMS_INSURER = 'Aviva';
                                                     }
-                                                    if ($WHICH_COMPANY == 'TRB Vitality' || $WHICH_COMPANY == 'Vitality') {
+                                                    if ($WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
                                                     if ($WHICH_COMPANY == 'Scottish Widows') {
@@ -1395,7 +1395,7 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                                                     if ($WHICH_COMPANY == 'Aegon') {
                                                         $SMS_INSURER = 'Aegon';
                                                     }                                                      
-                                                    if ($WHICH_COMPANY == 'TRB Royal London' || $WHICH_COMPANY == 'Royal London') {
+                                                    if ($WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }
@@ -2486,7 +2486,7 @@ WHERE
                         
                         <?php
                         
-                        if($WHICH_COMPANY=='One Family' || $WHICH_COMPANY=='TRB WOL' || $WHICH_COMPANY=='TRB Aviva' || $WHICH_COMPANY=='Aviva') { ?>
+                        if($WHICH_COMPANY=='One Family' || $WHICH_COMPANY=='Aviva') { ?>
                         
                         <div class="btn-group">
                             <button data-toggle="collapse" data-target="#HappyPol" class="<?php

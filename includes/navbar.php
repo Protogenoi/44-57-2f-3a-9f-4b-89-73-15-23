@@ -258,4 +258,4 @@ $companynamere = $companydetailsq['company_name'];
 
         t = setInterval(refresh_div, 3000);
     </script>
-<?php }  } ?>
+<?php }  }

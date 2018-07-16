@@ -118,6 +118,7 @@ if(empty($PID)) {
             <li <?php if(isset($PID) && $PID == "LV_DD_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_DD_EWS">LV DD</a></li>
             <li <?php if(isset($PID) && $PID == "LV_LAPSED_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_LAPSED_EWS">LV Lapsed</a></li>
             <li <?php if(isset($PID) && $PID == "UPLOAD_EWS") { echo "class='active'"; } ?> ><a href="?PID=UPLOAD_EWS">Upload Data</a></li>
+            <li <?php if(isset($PID) && $PID == "EWS_STATS") { echo "class='active'"; } ?> ><a href="?PID=EWS_STATS">Stats</a></li>
             <li><a href="/addon/Life/EWS/php/recheck_missing_cids.php?EXECUTE=1">Recheck Client IDs</a></li>
         </ul>
 
@@ -614,6 +615,57 @@ if(isset($PID) && $PID == "MASTER") { ?>
                             
                         </div>
                         
+                </div>
+        </div>
+        
+        <?php } 
+        
+if(isset($PID) && $PID == "EWS_STATS") { ?>
+        
+        <div class="tab-pane fade <?php if(isset($PID) && $PID == "EWS_STATS") { echo "in active"; } ?>" id="EWS_STATS">
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Stats</h3>
+                    </div>
+                    <div class="panel-body">     
+                        
+    <?php        
+    
+    require_once(BASE_URL.'/addon/Life/EWS/models/get_new_count-model.php');
+    $EWS_COUNT_NEW = new ews_stats_model($pdo);
+    $EWS_COUNT_NEW_LIST = $EWS_COUNT_NEW->get_ews_stats_model();
+    require_once(BASE_URL.'/addon/Life/EWS/views/get_new_count-view.php');
+    
+    ?>         
+                        
+<table  class="table table-hover">
+    <thead>
+        <tr>
+            <th colspan="8">EWS Statistics</th>
+        </tr>
+    <th>New</th>
+    <th>Lapsed</th>
+    <th>DD Cancelled</th>
+    <th>DD Rejection</th>
+    <th>Outstanding Premium</th>
+    <th>Cancelled</th>
+    
+    </thead>
+    
+    <tr>
+        <th><?php if(isset($EWS_COUNTED_NEW)) { echo $EWS_COUNTED_NEW; } ?></th>
+        <th><?php if(isset($EWS_COUNTED_LAPSED)) { echo $EWS_COUNTED_LAPSED; } ?></th>
+        <th><?php if(isset($EWS_COUNTED_CANCELLED_DD)) { echo $EWS_COUNTED_CANCELLED_DD; } ?></th>
+        <th><?php if(isset($EWS_COUNTED_DD_REJECT)) { echo $EWS_COUNTED_DD_REJECT; } ?></th>
+        <th><?php if(isset($EWS_COUNTED_OUTSTANDING)) { echo $EWS_COUNTED_OUTSTANDING; } ?></th>
+        <th><?php if(isset($EWS_COUNTED_CANCELLED)) { echo $EWS_COUNTED_CANCELLED; } ?></th>
+        <th></th>
+    </tr>
+    
+</table>    
+                    
+                    </div>
                 </div>
         </div>
         

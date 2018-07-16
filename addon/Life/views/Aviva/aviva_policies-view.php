@@ -13,6 +13,7 @@
             <th>Premium</th>
             <th>Cover</th>
             <th>Status</th>
+            <th>EWS</th>
             <th>Financial</th>
             <th colspan="4">Options</th>
         </tr>
@@ -28,6 +29,9 @@
         $APP_NUMBER = $Aviva_Policies['application_number'];
 
         $COVER_AMOUNT = number_format($Aviva_Policies['covera'],2);
+        
+        $ADLSTATUS = $Aviva_Policies['adl_ews_status'];
+        $EWSSTATUS = $Aviva_Policies['adl_ews_orig_status'];         
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -59,7 +63,16 @@
             echo "<td><span class=\"label label-default\">" . $Aviva_Policies['PolicyStatus'] . "</span></td>";
         }
       
-
+        if(isset($ADLSTATUS) && $ADLSTATUS == 'NEW') {
+            
+        echo "<td><span class='label label-danger'>$EWSSTATUS</span></td>"; 
+        
+        } else {
+            
+        echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>"; 
+            
+        }
+        
         if (($Aviva_Policies['aviva_financial_amount'])) {
             echo "<td><span class='label label-success'>On Financials</span> </td>";
         } else {

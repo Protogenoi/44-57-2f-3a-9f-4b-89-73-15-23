@@ -176,7 +176,6 @@ if(isset($Single_Client['alt_number'])) {
 }
 
 $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul","Aegon");
-$OLD_COMPANY_ARRAY=array("TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
     if($ffhome == 1 ) {
 
@@ -1560,32 +1559,28 @@ if (isset($fileuploadedfail)) {
                             }                            
                         }
                         
-                        if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { ?>
+                        if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { ?>
 
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
                             <a class="list-group-item" href="/addon/Life/<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } ?>/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                             
                            
                             <a class="list-group-item" href="/addon/Life/<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } ?>/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                             
                             <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Freepost Trust Letter</a>                                
                                 
                             <a class="list-group-item" href="/addon/Life/<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } ?>/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
                                 <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                                 
                             <a class="list-group-item confirmation" href="/addon/Life/<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                             
                             <?php 
@@ -1597,8 +1592,7 @@ if (isset($fileuploadedfail)) {
                             <?php } 
                             if ($ffkeyfactsemail == '1') { ?>
                                 <a class="list-group-item confirmation" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                     <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Closer Keyfacts Email</a>
                             <?php } ?>
                                 
@@ -1607,14 +1601,12 @@ if (isset($fileuploadedfail)) {
                                 <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
                                 
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } ?>/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Post Pack Letter</a>
                                 
                                 
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } ?>/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Trust Letter</a>
                                     
                                 <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
@@ -1622,13 +1614,11 @@ if (isset($fileuploadedfail)) {
                                   
                                 
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } ?>/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Reinstate Letter</a>
                                
                                     <a class="list-group-item confirmation" href="/addon/Life/<?php 
-                                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
-                                    if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
+                                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } ?>/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
                                     echo $clienttwomail;
                                 } else {
@@ -1648,8 +1638,7 @@ if (isset($fileuploadedfail)) {
                             
                             if ($ffkeyfactsemail == '1') { ?>
                                     <a class="list-group-item confirmation" href="/addon/Life/<?php 
-                                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } 
-                                    if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
+                                    if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails"; } ?>/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
                         if (!empty($clienttwomail)) {
                             echo $clienttwomail;
                         } else {
@@ -1664,21 +1653,18 @@ if (isset($fileuploadedfail)) {
                                 <span class="label label-primary">Joint Letters/Emails</span>
                                 
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Letters"; } ?>/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Joint Post Pack Letter</a>
 
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } ?>/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Joint Trust Letter</a>
                                     
                                 <a class="list-group-item" href="/addon/Life/Letters/FreePostTrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Joint Freepost Trust Letter</a>                                    
                               
                                 <a class="list-group-item" href="/addon/Life/<?php 
-                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } 
-                                if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Templates"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
+                                if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Letters"; } ?>/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
                                     <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Joint Reinstate Letter</a>
                                     
                             <?php } ?>
@@ -3228,8 +3214,7 @@ WHERE
                     <div class="modal-body">
 
                             <form class="AddClient" method="post" action="<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails/"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "Emails/TRB"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data">
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails/"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data">
 
                                 <input type="hidden" name="search" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?>" readonly>
@@ -3276,8 +3261,7 @@ WHERE
                     <div class="modal-body">
 
                             <form class="AddClient" method="post" action="<?php 
-                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails/"; } 
-                            if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) {  echo "Emails/TRB"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data" novalidate>
+                            if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) {  echo "Emails/"; } ?>ViewClientEmail.php?life=y" enctype="multipart/form-data" novalidate>
 
                                 <input type="hidden" name="search" value="<?php echo $search; ?>">
                                 <input type="hidden" name="recipient" value="<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?>" readonly>

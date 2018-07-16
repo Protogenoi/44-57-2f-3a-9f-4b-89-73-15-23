@@ -30,22 +30,24 @@
  * 
 */
 
-require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
+
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
-$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
+$page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(BASE_URL.'/includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../../includes/adl_features.php');
-require_once(__DIR__ . '/../../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
+require_once(BASE_URL.'/includes/ADL_PDO_CON.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -56,18 +58,18 @@ if (isset($fferror)) {
     }
 }
 
-if($fffinancials=='0') {
+if($ffews=='0') {
     header('Location: /../../../../CRMmain.php?FEATURE=EWS');
 }
 
         $ADL_PAGE_TITLE = "EWS Menu";
-        require_once(__DIR__ . '/../../../app/core/head.php'); 
+        require_once(BASE_URL.'/app/core/head.php'); 
         
         ?>  
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
+    <?php require_once(BASE_URL.'/includes/navbar.php'); ?>
     
     <div class="container">        
         <div class="row">
@@ -75,24 +77,14 @@ if($fffinancials=='0') {
                 <ul class="ca-menu">
                     
                     <li>
-                        <a href="ews_overview.php">
+                        <a href="/addon/Life/EWS/adl_ews.php">
                             <span class="ca-icon"><i class="fas fa-exclamation-triangle"></i></span>
                             <div class="ca-content">
-                                <h2 class="ca-main">EWS<br/>Overview</h2>
+                                <h2 class="ca-main">Early<br/>Warning System</h2>
                                 <h3 class="ca-sub"></h3>
                             </div>
                         </a>
-                    </li>                       
-                    
-                    <li>
-                        <a href="/addon/Life/EWS/upload_ews.php">
-                            <span class="ca-icon"><i class="fas fa-upload"></i></span>
-                            <div class="ca-content">
-                                <h2 class="ca-main">Upload RAW<br/>EWS</h2>
-                                <h3 class="ca-sub"></h3>
-                            </div>
-                        </a>
-                    </li>                     
+                    </li>                                          
                     
                 </ul>
             </div>

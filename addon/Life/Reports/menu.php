@@ -121,7 +121,7 @@ if (isset($fferror)) {
                             ?>
                             
                             <li>
-                                <a href="/addon/Life/EWS/adl_ews.php">
+                                <a href="/addon/Life/EWS/menu.php">
                                     <span class="ca-icon"><i class="fa fa-exclamation"></i></span>
                                     <div class="ca-content">
                                         <h2 class="ca-main">Early Warning<br/> System</h2>

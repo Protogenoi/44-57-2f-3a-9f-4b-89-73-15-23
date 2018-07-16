@@ -1370,7 +1370,7 @@ $OLD_COMPANY_ARRAY=array("TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva"
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='Legal and General') {
+                                                    if ($WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
@@ -1558,199 +1558,7 @@ if (isset($fileuploadedfail)) {
                             if(empty($HAS_NEW_LG_POL)) {
                                 $HAS_NEW_LG_POL=0;
                             }                            
-                            if($HAS_OLD_LG_POL=='1' && $HAS_NEW_LG_POL=='1') {
-                                ?>
-                            <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
-                            
-                            <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
-                            <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                
-                            
-                           
-                            <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
-                                
-                            <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                
-
-                                
-                            <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
-                                
-                            <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?clientone=1&search=<?php echo $search; ?>" target="_blank">
-                                <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                
-                                
-                            <a class="list-group-item confirmation" href="Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
-                                
-                            <a class="list-group-item confirmation" href="/addon/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                
-                            
-                            <?php 
-                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
-                            
-                            <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
-                                
-                            <a class="list-group-item confirmation" href="/addon/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>                                
-                                    <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>                            
-                                    <?php } 
-                                
-                                if(isset($COMPANY_ENTITY) && $COMPANY_ENTITY == 'First Priority Group') { ?>
-                                    
-                            <?php    }
-                                    
-                                    ?>
-                            
-                            <?php if ($ffkeyfactsemail == '1') { ?>
-                            
-                                <a class="list-group-item confirmation" href="Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                    <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
-                                    
-                                <a class="list-group-item confirmation" href="/addon/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
-                                    <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                    
-                                    
-                                    
-                            <?php } ?>
-                                
-                            <!-- CLIENT TWO -->    
-                            <?php if (!empty($Single_Client['first_name2'])) { ?>
-                                <span class="label label-primary"><?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['last_name2']; ?> Letters/Emails</span> 
-                                
-                                <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Post Pack Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Post Pack Letter</a>                                    
-                                
-                                
-                                <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Trust Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Trust Letter</a>                                    
-                                  
-                                
-                                <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Reinstate Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?clienttwo=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Reinstate Letter</a>                                    
-                               
-                                    <a class="list-group-item confirmation" href="Emails/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
-                                if (!empty($clienttwomail)) {
-                                    echo $clienttwomail;
-                                } else {
-                                    echo $clientonemail;
-                                }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect Any Queries Call Us</a>
-                                        
-                                    <a class="list-group-item confirmation" href="/addon/Life/php/SendAnyQueriesCallUs.php?search=<?php echo $search; ?>&email=<?php
-                                if (!empty($clienttwomail)) {
-                                    echo $clienttwomail;
-                                } else {
-                                    echo $clientonemail;
-                                }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                        
-                                
-                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
-                                
-                                <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
-                                if (!empty($clienttwomail)) {
-                                    echo $clienttwomail;
-                                } else {
-                                    echo $clientonemail;
-                                }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
-                                
-                                <a class="list-group-item confirmation" href="/addon/Life/php/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
-                                if (!empty($clienttwomail)) {
-                                    echo $clienttwomail;
-                                } else {
-                                    echo $clientonemail;
-                                }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB My Account Details Email</a>
-                                                                
-                                <?php } 
-                                
-                                if(isset($COMPANY_ENTITY) && $COMPANY_ENTITY == 'First Priority Group') { ?>
-                                <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
-                                if (!empty($clienttwomail)) {
-                                    echo $clienttwomail;
-                                } else {
-                                    echo $clientonemail;
-                                }
-                                ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>"><i class="far fa-envelope" aria-hidden="true"></i> &nbsp; My Account Details Email</a>                                    
-                            <?php    }
-                                
-                                
-                                if ($ffkeyfactsemail == '1') { ?>
-                                
-                                    <a class="list-group-item confirmation" href="Emails/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
-                        if (!empty($clienttwomail)) {
-                            echo $clienttwomail;
-                        } else {
-                            echo $clientonemail;
                         }
-                        ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect Closer Keyfacts Email</a>
-                                        
-                                  <a class="list-group-item confirmation" href="/addon/Life/php/SendKeyFacts.php?search=<?php echo $search; ?>&email=<?php
-                        if (!empty($clienttwomail)) {
-                            echo $clienttwomail;
-                        } else {
-                            echo $clientonemail;
-                        }
-                        ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
-                                        <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Closer Keyfacts Email</a>                                        
-                                        
-                            <?php } ?>
-                                
-                                <!-- JOINT -->
-
-                                <span class="label label-primary">Joint Letters/Emails</span>
-                                
-                                <a class="list-group-item" href="/addon/Life/Letters/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Post Pack Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/PostPackLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Joint Post Pack Letter</a>                                    
-
-                                <a class="list-group-item" href="/addon/Life/Letters/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Trust Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/TrustLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Joint Trust Letter</a>                                    
-                              
-                                <a class="list-group-item" href="/addon/Life/Letters/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; Bluestone Protect Joint Reinstate Letter</a>
-                                    
-                                <a class="list-group-item" href="/addon/Life/Templates/ReinstateLetter.php?joint=1&search=<?php echo $search; ?>" target="_blank">
-                                    <i class="far fa-file-pdf" aria-hidden="true"></i> &nbsp; TRB Joint Reinstate Letter</a>                                    
-                                    
-                            <?php } ?>
-
-                            <script type="text/javascript">
-                                var elems = document.getElementsByClassName('confirmation');
-                                var confirmIt = function (e) {
-                                    if (!confirm('Are you sure you want to send this email? The email will be immediately sent.'))
-                                        e.preventDefault();
-                                };
-                                for (var i = 0, l = elems.length; i < l; i++) {
-                                    elems[i].addEventListener('click', confirmIt, false);
-                                }
-                            </script>
-
-                            <?php                              
-                                
-                            }
-                            
-                        } else {
                         
                         if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { ?>
 
@@ -1905,8 +1713,6 @@ if (isset($fileuploadedfail)) {
                             </script>
 
                             <?php
-                        }
-                        
                         }
 
                         if ($ffaudits == '1') {

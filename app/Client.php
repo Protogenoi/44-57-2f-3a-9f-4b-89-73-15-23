@@ -30,20 +30,22 @@
  * 
 */ 
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
+
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 3);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=1;
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
-require_once(__DIR__ . '/../classes/database_class.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
+require_once(BASE_URL.'/classes/database_class.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -82,8 +84,8 @@ if($search=='138583' && !(in_array($hello_name,$ACCESS_ALLOW))) {
     header('Location: ../app/SearchClients.php?ClientDeleted');
 }
 
-        require_once(__DIR__ . '/../classes/database_class.php');
-        require_once(__DIR__ . '/../class/login/login.php');
+        require_once(BASE_URL.'/classes/database_class.php');
+        require_once(BASE_URL.'/class/login/login.php');
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->CheckAccessLevel();
         
@@ -660,7 +662,7 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                         }                       
 
         $ADL_PAGE_TITLE = "Client";
-        require_once(__DIR__ . '/../app/core/head.php'); 
+        require_once(BASE_URL.'/app/core/head.php'); 
         
         
         ?>
@@ -681,11 +683,11 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
     </style>
 </head>
 <body>
-    <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
+    <?php require_once(BASE_URL.'/includes/navbar.php'); ?>
     <br>
     <div class="container">
 
-        <?php require_once(__DIR__ . '/../includes/user_tracking.php');  ?>
+        <?php require_once(BASE_URL.'/includes/user_tracking.php');  ?>
 
         <ul class="nav nav-pills">
             <li class="active"><a data-toggle="pill" href="#home">Client</a></li>
@@ -805,115 +807,115 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
 
                             if(isset($LANG_POL) && $LANG_POL  == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/LandG/OLP_Summary-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LandG/OLP_Summary-model.php');
                             $OLP_SUM = new OLP_SUMModal($pdo);
                             $OLP_SUMList = $OLP_SUM->getOLP_SUM($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LandG/OLP_Summary-view.php');       
+                            require_once(BASE_URL.'/addon/Life/views/LandG/OLP_Summary-view.php');       
                             
-                            require_once(__DIR__ . '/../addon/Life/models/LandG/Summary-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LandG/Summary-model.php');
                             $LG_SUM = new LG_SUMModal($pdo);
                             $LG_SUMList = $LG_SUM->getLG_SUM($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LandG/Summary-view.php'); 
+                            require_once(BASE_URL.'/addon/Life/views/LandG/Summary-view.php'); 
                             
-                            require_once(__DIR__ . '/../addon/Life/models/LandG/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LandG/Policy-model.php');
                             $LG_POL_SUM = new LG_POL_SUMModal($pdo);
                             $LG_POL_SUMList = $LG_POL_SUM->getLG_POL_SUM($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/LandG/Policy-view.php');    
+                            require_once(BASE_URL.'/addon/Life/views/LandG/Policy-view.php');    
                             
-                            require_once(__DIR__ . '/../addon/Life/models/LandG/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LandG/Keyfacts-model.php');
                             $LG_KF = new LG_KFModal($pdo);
                             $LG_KFList = $LG_KF->getLG_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/LandG/Keyfacts-view.php');                              
+                            require_once(BASE_URL.'/addon/Life/views/LandG/Keyfacts-view.php');                              
 
                             }
                             
                             if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1 || isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Vitality/Policy-model.php');
                             $VIT_POL = new VIT_NEW_POL_Modal($pdo);
                             $VIT_POLList = $VIT_POL->getVIT_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Vitality/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Vitality/Keyfacts-model.php');
                             $VI_KF = new VI_NEW_KFModal($pdo);
                             $VI_KFList = $VI_KF->getVI_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Keyfacts-view.php');                                  
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Vitality/Keyfacts-view.php');                                  
                                 
                             }
                             
                             if(isset($HAS_AEG_POL) && $HAS_AEG_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Aegon/Policy-model.php');
                             $AEG_POL = new AEG_POL_Modal($pdo);
                             $AEG_POLList = $AEG_POL->getAEG_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Aegon/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Aegon/Keyfacts-model.php');
                             $AEG_KF = new AEG_KFModal($pdo);
                             $AEG_KFList = $AEG_KF->getAEG_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Keyfacts-view.php');                                  
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Aegon/Keyfacts-view.php');                                  
                                 
                             }                            
                             
                             if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/LV/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LV/Policy-model.php');
                             $LV_POL = new LV_POL_Modal($pdo);
                             $LV_POLList = $LV_POL->getLV_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/LV/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/LV/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/LV/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LV/Keyfacts-model.php');
                             $LV_KF = new LV_KFModal($pdo);
                             $LV_KFList = $LV_KF->getLV_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/LV/Keyfacts-view.php');    
+                            require_once(BASE_URL.'/addon/Life/views/LV/Keyfacts-view.php');    
                             
-                            require_once(__DIR__ . '/../addon/Life/models/LV/dash-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/LV/dash-model.php');
                             $LV_DASH = new LV_DASH_Modal($pdo);
                             $LV_DASHList = $LV_DASH->getLV_DASH($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LV/dash-view.php');                             
+                            require_once(BASE_URL.'/addon/Life/views/LV/dash-view.php');                             
 
  
                             }                            
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Aviva/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Aviva/Policy-model.php');
                             $AVI_POL = new AVI_POL_Modal($pdo);
                             $AVI_POLList = $AVI_POL->getAVI_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Aviva/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/Aviva/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/Aviva/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Aviva/Keyfacts-model.php');
                             $AVI_KF = new AVI_KFModal($pdo);
                             $AVI_KFList = $AVI_KF->getAVI_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Aviva/Keyfacts-view.php');                                   
+                            require_once(BASE_URL.'/addon/Life/views/Aviva/Keyfacts-view.php');                                   
 
                             }
 
                             if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Zurich/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Zurich/Policy-model.php');
                             $ZURICH_POL = new ZURICH_POL_Modal($pdo);
                             $ZURICH_POLList = $ZURICH_POL->getZURICH_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Zurich/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/Zurich/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/Zurich/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Zurich/Keyfacts-model.php');
                             $ZURICH_KF = new ZURICH_KFModal($pdo);
                             $ZURICH_KFList = $ZURICH_KF->getZURICH_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/Zurich/Keyfacts-view.php');                                   
+                            require_once(BASE_URL.'/addon/Life/views/Zurich/Keyfacts-view.php');                                   
 
                             }      
                             
                             if(isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/ScottishWidows/Policy-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/ScottishWidows/Policy-model.php');
                             $SW_POL = new SW_POL_Modal($pdo);
                             $SW_POLList = $SW_POL->getSW_POL($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/ScottishWidows/Policy-view.php');                                       
+                            require_once(BASE_URL.'/addon/Life/views/ScottishWidows/Policy-view.php');                                       
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/ScottishWidows/Keyfacts-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/ScottishWidows/Keyfacts-model.php');
                             $SW_KF = new SW_KFModal($pdo);
                             $SW_KFList = $SW_KF->getSW_KF($likesearch);
-                            require_once(__DIR__ . '/../addon/Life/views/ScottishWidows/Keyfacts-view.php');                                   
+                            require_once(BASE_URL.'/addon/Life/views/ScottishWidows/Keyfacts-view.php');                                   
 
                             }                              
                             
@@ -992,110 +994,110 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                     <?php
                     
                      if(isset($HAS_HOME_AGEAS_POL) && $HAS_HOME_AGEAS_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Home/models/HOMEPoliciesModel.php');
+                            require_once(BASE_URL.'/addon/Home/models/HOMEPoliciesModel.php');
                             $HOMEPolicies = new HOMEPoliciesModal($pdo);
                             $HOMEPoliciesList = $HOMEPolicies->getHOMEPolicies($search);
-                            require_once(__DIR__ . '/../addon/Home/views/HOME-Policies.php');
+                            require_once(BASE_URL.'/addon/Home/views/HOME-Policies.php');
                         }                    
                        
                         if(isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/OldPoliciesModel.php');
+                            require_once(BASE_URL.'/addon/Life/models/OldPoliciesModel.php');
                             $OldPolicies = new OldPoliciesModal($pdo);
                             $OldPoliciesList = $OldPolicies->getOldPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Old-Policies.php');     
+                            require_once(BASE_URL.'/addon/Life/views/Old-Policies.php');     
                             
                         } 
 
                         if(isset($HAS_NEW_LG_POL) && $HAS_NEW_LG_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/LGPoliciesModel.php');
+                            require_once(BASE_URL.'/addon/Life/models/LGPoliciesModel.php');
                             $LGPolicies = new LGPoliciesModal($pdo);
                             $LGPoliciesList = $LGPolicies->getLGPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LG-Policies.php');
+                            require_once(BASE_URL.'/addon/Life/views/LG-Policies.php');
                         }
 
                         if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Vitality/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/Vitality/Policies-modal.php');
                             $VITALITYPolicies = new VITALITYPoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Vitality/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/Vitality/Policies-view.php');        
                                 
                             } 
                         
                         if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Vitality/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Vitality/Policies-modal.php');
                             $VITALITYPolicies = new VITALITY_NEW_PoliciesModal($pdo);
                             $VITALITYPoliciesList = $VITALITYPolicies->getVITALITYPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Vitality/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Vitality/Policies-view.php');        
                                 
                         }   
                         
                         if(isset($HAS_AEG_POL) && $HAS_AEG_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/Insurers/Aegon/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/Insurers/Aegon/Policies-modal.php');
                             $AEGONPolicies = new AEGON_PoliciesModal($pdo);
                             $AEGONPoliciesList = $AEGONPolicies->getAEGONPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Insurers/Aegon/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/Insurers/Aegon/Policies-view.php');        
                                 
                         }                         
                         
                         if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                             
-                            require_once(__DIR__ . '/../addon/Life/models/LV/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/LV/Policies-modal.php');
                             $LVPolicies = new LVPoliciesModal($pdo);
                             $LVPoliciesList = $LVPolicies->getLVPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/LV/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/LV/Policies-view.php');        
 
                         }
 
                         if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                             
-                            require_once(__DIR__ . '/../addon/Life/models/WOL/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/WOL/Policies-modal.php');
                             $WOLPolicies = new WOLPoliciesModal($pdo);
                             $WOLPoliciesList = $WOLPolicies->getWOLPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/WOL/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/WOL/Policies-view.php');        
 
                         }
 
                         if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
                                 
-                            require_once(__DIR__ . '/../addon/Life/models/RoyalLondon/Policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/RoyalLondon/Policies-modal.php');
                             $RLPolicies = new RLPoliciesModal($pdo);
                             $RLPoliciesList = $RLPolicies->getRLPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/RoyalLondon/Policies-view.php');        
+                            require_once(BASE_URL.'/addon/Life/views/RoyalLondon/Policies-view.php');        
                                 
                             }
 
                         if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/Aviva/aviva_policies-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/Aviva/aviva_policies-modal.php');
                             $AvivaPolicies = new AvivaPoliciesModal($pdo);
                             $AvivaPoliciesList = $AvivaPolicies->getAvivaPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Aviva/aviva_policies-view.php');
+                            require_once(BASE_URL.'/addon/Life/views/Aviva/aviva_policies-view.php');
                             
                         }
                         
                         if(isset($HAS_ZURICH_POL) && $HAS_ZURICH_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/Zurich-pol-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/Zurich-pol-model.php');
                             $ZurichPolicies = new ZurichPoliciesModal($pdo);
                             $ZurichPoliciesList = $ZurichPolicies->getZurichPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Zurich-pol-view.php');
+                            require_once(BASE_URL.'/addon/Life/views/Zurich-pol-view.php');
                             
                         }   
                         
                         if(isset($HAS_SCOTTISH_WIDOWS_POL) && $HAS_SCOTTISH_WIDOWS_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/SW-pol-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/SW-pol-model.php');
                             $SWPolicies = new SWPoliciesModal($pdo);
                             $SWPoliciesList = $SWPolicies->getSWPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/SW-pol-view.php');
+                            require_once(BASE_URL.'/addon/Life/views/SW-pol-view.php');
                             
                         }                        
                         
                         if(isset($HAS_ENG_POL) && $HAS_ENG_POL == 1) {
-                            require_once(__DIR__ . '/../addon/Life/models/EngageMutualPoliciesModal.php');
+                            require_once(BASE_URL.'/addon/Life/models/EngageMutualPoliciesModal.php');
                             $EngageMutualPolicies = new EngageMutualPoliciesModal($pdo);
                             $EngageMutualPoliciesList = $EngageMutualPolicies->getEngageMutualPolicies($search);
-                            require_once(__DIR__ . '/../addon/Life/views/EngageMutal-Policies.php');
+                            require_once(BASE_URL.'/addon/Life/views/EngageMutal-Policies.php');
                         }                        
 ?>
 
@@ -2357,68 +2359,68 @@ WHERE
 <?php
                             if(isset($HAS_NEW_LG_POL) && $HAS_NEW_LG_POL == 1 || isset($HAS_OLD_LG_POL) && $HAS_OLD_LG_POL == 1 ) {
 
-                            require_once(__DIR__ . '/../addon/Life/models/financials/transactions/LGModel.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/transactions/LGModel.php');
                             $LGtrans = new LGtransModel($pdo);
                             $LGtransList = $LGtrans->getLGtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/transactions/lg-view.php'); 
+                            require_once(BASE_URL.'/addon/Life/views/financials/transactions/lg-view.php'); 
                             
                             }
                             
                             if(isset($HAS_VIT_POL) && $HAS_VIT_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/Vitality/Financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/Vitality/Financial-model.php');
                             $VITtrans = new VITtransModel($pdo);
                             $VITtransList = $VITtrans->getVITtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/Vitality/Financial-view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/Vitality/Financial-view.php');                                      
 
                             
                             }
                             
                             if(isset($HAS_NEW_VIT_POL) && $HAS_NEW_VIT_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/Vitality/vitality_financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/Vitality/vitality_financial-model.php');
                             $VIT_NEW_TRAN = new VIT_NEW_TRANModel($pdo);
                             $VIT_NEW_TRANList = $VIT_NEW_TRAN->getVIT_NEW_TRAN($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/Vitality/vitality_financial_view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/Vitality/vitality_financial_view.php');                                      
                                     
                                 } 
                         
                             
                             if(isset($HAS_RL_POL) && $HAS_RL_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/RoyalLondon/Financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/RoyalLondon/Financial-model.php');
                             $RLtrans = new RLtransModel($pdo);
                             $RLtransList = $RLtrans->getRLtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/RoyalLondon/Financial-view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/RoyalLondon/Financial-view.php');                                      
                                
                             
                             }
                             
                             if(isset($HAS_LV_POL) && $HAS_LV_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/LV/Financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/LV/Financial-model.php');
                             $LVtrans = new LVtransModel($pdo);
                             $LVtransList = $LVtrans->getLVtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/LV/Financial-view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/LV/Financial-view.php');                                      
                             
                             }                            
                             
                             if(isset($HAS_AVI_POL) && $HAS_AVI_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/Aviva/aviva_financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/Aviva/aviva_financial-model.php');
                             $AVIVA_trans = new AVIVA_transModel($pdo);
                             $AVIVA_transList = $AVIVA_trans->getAVIVA_trans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/Aviva/aviva_financial-view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/Aviva/aviva_financial-view.php');                                      
                                
                             
                             }  
                             
                             if(isset($HAS_WOL_POL) && $HAS_WOL_POL == 1) {
                                     
-                            require_once(__DIR__ . '/../addon/Life/models/financials/WOL/Financial-model.php');
+                            require_once(BASE_URL.'/addon/Life/models/financials/WOL/Financial-model.php');
                             $WOLtrans = new WOLtransModel($pdo);
                             $WOLtransList = $WOLtrans->getWOLtrans($search);
-                            require_once(__DIR__ . '/../addon/Life/views/financials/WOL/Financial-view.php');                                      
+                            require_once(BASE_URL.'/addon/Life/views/financials/WOL/Financial-view.php');                                      
   
                             
                             }
@@ -2458,19 +2460,19 @@ WHERE
             
             if(isset($NEW_TASKS) && $NEW_TASKS == 1 ) {
                 
-                            require_once(__DIR__ . '/../addon/Life/models/Tasks/Tasks-modal.php');
+                            require_once(BASE_URL.'/addon/Life/models/Tasks/Tasks-modal.php');
                             $LifeTasks = new LifeTasksModel($pdo);
                             $LifeTasksList = $LifeTasks->getLifeTasks($search);
-                            require_once(__DIR__ . '/../addon/Life/views/Tasks/Tasks-view.php');                  
+                            require_once(BASE_URL.'/addon/Life/views/Tasks/Tasks-view.php');                  
                 
             }
             
             elseif($WORKFLOW_TASKS == 1 ) {
                 
-                            require_once(__DIR__ . '/../addon/Workflows/modals/Client/Workflow-modal.php');
+                            require_once(BASE_URL.'/addon/Workflows/modals/Client/Workflow-modal.php');
                             $LifeWorkflows = new LifeWorkflowsModel($pdo);
                             $LifeWorkflowsList = $LifeWorkflows->getLifeWorkflows($search);
-                            require_once(__DIR__ . '/../addon/Workflows/views/Client/Workflow-view.php');                 
+                            require_once(BASE_URL.'/addon/Workflows/views/Client/Workflow-view.php');                 
                 
             }
             
@@ -3693,6 +3695,6 @@ if($ffcallbacks==1) { ?>
                 });
             });
         </script>
-<?php require_once(__DIR__ . '/../app/Holidays.php'); ?>
+<?php require_once(BASE_URL.'/app/Holidays.php'); ?>
 </body>
 </html>

@@ -227,6 +227,7 @@ $companynamere = $companydetailsq['company_name'];
                             <?php } 
                             if ($ffemployee == '1') { ?>    
                      <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
+                            <?php }  ?>
                      <li class="divider"></li> 
                      <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php } ?>

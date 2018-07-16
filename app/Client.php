@@ -1944,25 +1944,23 @@ WHERE
                                         case "LGPolicy Summary":
                                         case "Dealsheet":
                                         case "LGpolicy":
-                                            case "RLpolicy":
+                                        case "RLpolicy":
                                         case "LGkeyfacts":
-                                        case "TONIC PDF":
-                                            case "Avivapolicy":
-                                                case "Avivakeyfacts":
-                                            case "Zurichpolicy":
-                                                case "Zurichkeyfacts":           
-                                            case "Vitalitypolicy":
-                                                case "Vitalitykeyfacts":  
-                                            case "WOLpolicy":
-                                                case "WOLkeyfacts":        
-                                            case "SWpolicy":
-                                                case "SWkeyfacts":                                                    
+                                        case "Avivapolicy":
+                                        case "Avivakeyfacts":
+                                        case "Zurichpolicy":
+                                        case "Zurichkeyfacts":           
+                                        case "Vitalitypolicy":
+                                        case "Vitalitykeyfacts":  
+                                        case "WOLpolicy":
+                                        case "WOLkeyfacts":        
+                                        case "SWpolicy":
+                                        case "SWkeyfacts":
                                             $typeimage = "fa-file-pdf";
                                             break;
                                         case "Happy Call":
                                         case "Recording":
                                         case "LGkeyfacts":
-                                        case "TONIC RECORDING":
                                         case "Closer Call Recording":
                                         case "Closer and Agent Call Recording":
                                         case "Agent Call Recording":
@@ -2041,24 +2039,6 @@ WHERE
                                         default:
                                             $uploadtype;
                                     endswitch;
-                                    
-                                    if ($uploadtype == 'TONIC RECORDING') {
-                                        $newfileholder = str_replace("$search-", "", "$file"); //remove quote
-                                        ?>
-
-                                        <a class="list-group-item" href="/uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholder"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
-
-                                        <?php
-                                    }
-
-                                    if ($uploadtype == 'TONIC PDF') {
-                                        $newfileholderPDF = str_replace("$search-", "", "$file"); //remove quote
-                                        ?>
-
-                                        <a class="list-group-item" href="/uploads/TONIC_FILES/hwifs.tonicpower.co.uk/archive/lifeprotectbureau/<?php echo "$search/$newfileholderPDF"; ?>" target="_blank"><i class="fa <?php echo $typeimage; ?> fa-fw" aria-hidden="true"></i> &nbsp; <?php echo "$uploadtype | $file"; ?></a>
-
-                                        <?php
-                                    }
                                     
                                      if ($row['uploadtype'] == 'Avivapolicy' || $row['uploadtype'] =='Avivakeyfacts') {
                                         if (file_exists(filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS)."/uploads/$file")) {
@@ -2342,11 +2322,7 @@ WHERE
                             
                             
                             ?>
-          
-          
-          
       </div>
-          
   </div>
             
                     <?php } 

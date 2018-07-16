@@ -102,7 +102,7 @@ if (isset($fferror)) {
                                 <a href="/addon/Life/Financials/Financial.php">
                                     <span class="ca-icon"><i class="fa fa-pound-sign"></i></span>
                                     <div class="ca-content">
-                                        <h2 class="ca-main">All Financial<br/> Reports</h2>
+                                        <h2 class="ca-main">Financial<br/> Report</h2>
                                         <h3 class="ca-sub"></h3>
                                     </div>
                                 </a>

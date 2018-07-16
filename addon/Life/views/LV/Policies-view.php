@@ -32,6 +32,9 @@
         }        
         
         $COVER_AMOUNT = number_format($LV_Policies['covera'],2);
+        
+        $ADLSTATUS = $LV_Policies['adl_ews_status'];
+        $EWSSTATUS = $LV_Policies['adl_ews_orig_status'];        
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -56,7 +59,17 @@
         } else {
             echo "<td><span class=\"label label-default\">" . $LV_Policies['PolicyStatus'] . "</span></td>";
         }
-        echo "<td><span class='label label-warning'>" . $LV_Policies['adl_ews_orig_status'] . "</span></td>";
+        
+        if(isset($ADLSTATUS) && $ADLSTATUS == 'NEW') {
+            
+        echo "<td><span class='label label-danger'>$EWSSTATUS</span></td>"; 
+        
+        } else {
+            
+        echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>"; 
+            
+        }
+        
         if (!empty($LV_Policies['lv_financial_indemnity'])) {
             
         if ($LV_Policies['lv_financial_indemnity'] >= 0) {

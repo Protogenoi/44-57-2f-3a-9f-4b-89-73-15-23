@@ -12,6 +12,7 @@
             <th>Premium</th>
             <th>Cover</th>
             <th>Status</th>
+            <th>EWS</th>
             <th colspan="2">Financials</th>
             <th colspan="4">Options</th>
         </tr>
@@ -30,6 +31,9 @@
         }        
         
         $COVER_AMOUNT = number_format($RL_Policies['covera'],2);
+        
+        $ADLSTATUS = $RL_Policies['adl_ews_status'];
+        $EWSSTATUS = $RL_Policies['adl_ews_orig_status'];        
 
         echo '<tr>';
         echo "<td>$POL_HOLDER</td>";
@@ -53,7 +57,17 @@
         } else {
             echo "<td><span class=\"label label-default\">" . $RL_Policies['PolicyStatus'] . "</span></td>";
         }
+        
+        if(isset($ADLSTATUS) && $ADLSTATUS == 'NEW') {
             
+        echo "<td><span class='label label-danger'>$EWSSTATUS</span></td>"; 
+        
+        } else {
+            
+        echo "<td><span class='label label-warning'>$ADLSTATUS</span></td>"; 
+            
+        }
+        
         if ($RL_Policies['royal_london_financial_commission_credit_amount'] > 0.00) {
             
             echo "<td><span class='label label-success'>PAID</span> </td>";

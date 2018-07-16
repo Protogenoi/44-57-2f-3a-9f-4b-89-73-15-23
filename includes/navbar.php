@@ -138,7 +138,6 @@ $companynamere = $companydetailsq['company_name'];
                         <?php if (in_array($hello_name, $Level_10_Access, true) && $ffcompliance == '1') { ?>   
                             <li><a href="/addon/compliance/dash.php?EXECUTE=1"> Compliance Hub</a></li>
                             <li><a href="/addon/compliance/dash.php?EXECUTE=3"> Sale Stats</a></li>
-                            <li><a href="/addon/compliance/CAR.php"> Compliance Audit and Review</a></li>
                             <li><a href="/addon/compliance/Compliance.php?SCID=1"> Uploaded Docs</a></li>
                             <li class="divider"></li>
                         <?php } if($ffaudits == 1) { ?>  
@@ -228,12 +227,6 @@ $companynamere = $companydetailsq['company_name'];
                             <?php } 
                             if ($ffemployee == '1') { ?>    
                      <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
-                            <?php } 
-                            if ($ffemployee == '1') { ?>    
-                     <li><a  href="/addon/Staff/Holidays/Calendar.php">Holidays</a></li> 
-                     <li><a  href="/addon/Staff/Reports/RAG.php">Register</a></li> 
-                     <li><a  href="/addon/Staff/Assets/Assets.php">Asset Management</a></li> 
-                            <?php } ?>
                      <li class="divider"></li> 
                      <li><a href='/app/admin/Admindash.php?admindash=y'>Control Panel</a></li>
                             <?php } ?>

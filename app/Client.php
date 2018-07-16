@@ -1177,32 +1177,33 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
                                                 <option value="">Select message...</option>
 
                                                 <?php
+                                                
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY=='Legal and General') {
+                                                    if ($WHICH_COMPANY == 'Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($$WHICH_COMPANY == 'One Family') {
+                                                    elseif ($WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Aviva') {
+                                                    elseif ($WHICH_COMPANY == 'Aviva') {
                                                         $SMS_INSURER = 'Aviva';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Vitality') {
+                                                    elseif ($WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Scottish Widows') {
+                                                    elseif ($WHICH_COMPANY == 'Scottish Widows') {
                                                         $SMS_INSURER = 'Scottish Widows';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Zurich') {
+                                                    elseif ($WHICH_COMPANY == 'Zurich') {
                                                         $SMS_INSURER = 'Zurich';
                                                     }  
-                                                    if ($WHICH_COMPANY == 'Aegon') {
+                                                    elseif ($WHICH_COMPANY == 'Aegon') {
                                                         $SMS_INSURER = 'Aegon';
                                                     }                                                      
-                                                    if ($WHICH_COMPANY == 'LV') {
+                                                    elseif ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
                                                     }                                                       
-                                                    if ($WHICH_COMPANY == 'Royal London') {
+                                                    elseif ($WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }
@@ -1371,31 +1372,31 @@ $NEW_COMPANY_ARRAY=array("Vitality","One Family","Royal London","Aviva","Legal a
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY=='Legal and General') {
+                                                    if ($WHICH_COMPANY == 'Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
-                                                    if ($WHICH_COMPANY == 'One Family') {
+                                                    elseif ($WHICH_COMPANY == 'One Family') {
                                                         $SMS_INSURER = 'One Family';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Aviva') {
+                                                    elseif ($WHICH_COMPANY == 'Aviva') {
                                                         $SMS_INSURER = 'Aviva';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Vitality') {
+                                                    elseif ($WHICH_COMPANY == 'Vitality') {
                                                         $SMS_INSURER = 'Vitality';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Scottish Widows') {
+                                                    elseif ($WHICH_COMPANY == 'Scottish Widows') {
                                                         $SMS_INSURER = 'Scottish Widows';
                                                     }
-                                                    if ($WHICH_COMPANY == 'Zurich') {
+                                                    elseif ($WHICH_COMPANY == 'Zurich') {
                                                         $SMS_INSURER = 'Zurich';
                                                     }   
-                                                    if ($WHICH_COMPANY == 'LV') {
+                                                    elseif ($WHICH_COMPANY == 'LV') {
                                                         $SMS_INSURER = 'LV';
                                                     }  
-                                                    if ($WHICH_COMPANY == 'Aegon') {
+                                                    elseif ($WHICH_COMPANY == 'Aegon') {
                                                         $SMS_INSURER = 'Aegon';
                                                     }                                                      
-                                                    if ($WHICH_COMPANY == 'Royal London') {
+                                                    elseif ($WHICH_COMPANY == 'Royal London') {
                                                         $SMS_INSURER = 'Royal London';
                                                     }
                                                 }

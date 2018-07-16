@@ -176,7 +176,7 @@ if(isset($Single_Client['alt_number'])) {
 }
 
 $NEW_COMPANY_ARRAY=array("Bluestone Protect","Vitality","One Family","Royal London","Aviva","Legal and General", "TRB Archive","Zurich","Scottish Widows","LV","FPG Paul","Aegon");
-$OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
+$OLD_COMPANY_ARRAY=array("TRB Vitality","TRB WOL","TRB Royal London","TRB Aviva", "TRB Archive");   
 
     if($ffhome == 1 ) {
 
@@ -1177,7 +1177,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
@@ -1370,7 +1370,7 @@ $OLD_COMPANY_ARRAY=array("The Review Bureau","TRB Vitality","TRB WOL","TRB Royal
 
                                                 <?php
                                                 if (isset($WHICH_COMPANY)) {
-                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General') {
+                                                    if ($WHICH_COMPANY == 'Bluestone Protect' || $WHICH_COMPANY=='Legal and General') {
                                                         $SMS_INSURER = 'Legal and General';
                                                     }
                                                     if ($WHICH_COMPANY == 'TRB WOL' || $WHICH_COMPANY == 'One Family') {
@@ -1551,14 +1551,14 @@ if (isset($fileuploadedfail)) {
 
                         <?php 
                         
-                        if(isset($HAS_OLD_LG_POL) && isset($HAS_NEW_LG_POL) || $WHICH_COMPANY=='The Review Bureau') {
+                        if(isset($HAS_OLD_LG_POL) && isset($HAS_NEW_LG_POL)) {
                             if(empty($HAS_OLD_LG_POL)) {
                                 $HAS_OLD_LG_POL=0;
                             }
                             if(empty($HAS_NEW_LG_POL)) {
                                 $HAS_NEW_LG_POL=0;
                             }                            
-                            if($HAS_OLD_LG_POL=='1' && $HAS_NEW_LG_POL=='1' || $WHICH_COMPANY=='The Review Bureau') {
+                            if($HAS_OLD_LG_POL=='1' && $HAS_NEW_LG_POL=='1') {
                                 ?>
                             <span class="label label-primary"><?php echo $Single_Client['title']; ?> <?php echo $Single_Client['last_name']; ?> Letters/Emails</span>
                             
@@ -1588,7 +1588,7 @@ if (isset($fileuploadedfail)) {
                                 <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                
                             
                             <?php 
-                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
                             
                             <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Bluestone Protect My Account Details Email</a>
@@ -1658,7 +1658,7 @@ if (isset($fileuploadedfail)) {
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; TRB Any Queries Call Us</a>                                        
                                 
-                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
                                 
                                 <a class="list-group-item confirmation" href="Emails/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
                                 if (!empty($clienttwomail)) {
@@ -1781,10 +1781,9 @@ if (isset($fileuploadedfail)) {
                                 <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                             
                             <?php 
-                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                            if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
                             <a class="list-group-item confirmation" href="/addon/Life/<?php 
-                            if($WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } 
-                            if($WHICH_COMPANY=='The Review Bureau') { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
+                            if($WHICH_COMPANY=='Bluestone Protect') { echo "Emails"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php echo $clientonemail; ?>&recipient=<?php echo $Single_Client['title']; ?> <?php echo $Single_Client['first_name']; ?> <?php echo $Single_Client['last_name']; ?>">
                                 <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; My Account Details Email</a>
                             <?php } 
                             
@@ -1835,7 +1834,7 @@ if (isset($fileuploadedfail)) {
                                 ?>&recipient=<?php echo $Single_Client['title2']; ?> <?php echo $Single_Client['first_name2']; ?> <?php echo $Single_Client['last_name2']; ?>">
                                         <i class="far fa-envelope" aria-hidden="true"></i> &nbsp; Any Queries Call Us</a>
                                 
-                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect' || $WHICH_COMPANY=='The Review Bureau') { ?>
+                                <?php if(isset($WHICH_COMPANY) && $WHICH_COMPANY=='Bluestone Protect') { ?>
                                 <a class="list-group-item confirmation" href="/addon/Life/<?php 
                                 if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true)) { echo "Emails"; } 
                                 if(in_array($WHICH_COMPANY,$OLD_COMPANY_ARRAY,true)) { echo "php"; } ?>/MyAccountDetailsEmail.php?search=<?php echo $search; ?>&email=<?php
@@ -3052,7 +3051,7 @@ WHERE
                                             Old DD Not Cancelled
                                         </label> 
                                         
-                                        <?php if($WHICH_COMPANY=='The Review Bureau' || $WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='Bluestone Protect') { ?>
+                                        <?php if($WHICH_COMPANY=='Legal and General' || $WHICH_COMPANY=='Bluestone Protect') { ?>
                                         <label class="radio-inline" for="RemindDD-2">
                                             <input name="RemindDD" id="RemindDD-2" value="Replacing Legal and General" type="radio" <?php
                                         if (isset($RemindDD)) {

@@ -111,6 +111,7 @@ if(empty($PID)) {
             
         <ul class="nav nav-pills">
             <li <?php if(isset($PID) && $PID == "OVERVIEW") { echo "class='active'"; } ?> ><a href="?PID=OVERVIEW">Overview</a></li>
+            <li <?php if(isset($PID) && $PID == "NEW") { echo "class='active'"; } ?> ><a href="?PID=NEW">New</a></li>
             <li <?php if(isset($PID) && $PID == "MASTER") { echo "class='active'"; } ?> ><a href="?PID=MASTER">Master</a></li>
             <li <?php if(isset($PID) && $PID == "AVI_EWS") { echo "class='active'"; } ?> ><a href="?PID=AVI_EWS">Aviva</a></li>
             <li <?php if(isset($PID) && $PID == "RL_EWS") { echo "class='active'"; } ?> ><a href="?PID=RL_EWS">Royal London</a></li>
@@ -174,6 +175,53 @@ if(empty($PID)) {
         </div>
         
         <?php }
+        
+if(isset($PID) && $PID == "NEW") { ?>
+        
+        <div class="tab-pane fade <?php if(isset($PID) && $PID == "NEW") { echo "in active"; } ?>" id="NEW">
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">New EWS</h3>
+                    </div>
+                    <div class="panel-body">        
+            
+            <table id="NEW_TABLE" class="display" width="auto" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>                          
+                            <th>Date</th>
+                            <th>Updated</th>
+                            <th>Client Name</th>
+                            <th>Policy</th>
+                            <th>Mod Pol</th>
+                            <th>Insurer</th>
+                            <th>Orig Status</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>                          
+                            <th>Date</th>
+                            <th>Updated</th>
+                            <th>Client Name</th>
+                            <th>Policy</th>
+                            <th>Mod Pol</th>
+                            <th>Insurer</th>
+                            <th>Orig Status</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </tfoot>
+                </table> 
+                    
+                    </div>
+                </div>
+        </div>
+        
+        <?php }        
         
 if(isset($PID) && $PID == "MASTER") { ?>
         
@@ -757,6 +805,57 @@ if(isset($PID) && $PID == "EWS_STATS") { ?>
         </script> 
         
        <?php }
+       
+       if(isset($PID) && $PID == "NEW") { ?>
+        
+        <script type="text/javascript" language="javascript" >
+             $(document).ready(function () {
+                var table = $('#NEW_TABLE').DataTable({
+                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( aData["color_status"] !== '' )  {
+                        $('td', nRow).css("color", aData["adl_ews_colour"]);
+                    }
+                    
+                     if ( aData["adl_ews_colour"] === "Black" )  {
+                        $('td', nRow).addClass( 'black' );
+                    }
+                
+    },               
+                    "response": true,
+                    "processing": true,
+                    "iDisplayLength": 10,
+                    "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+                    "language": {
+                        "processing": "<div></div><div></div><div></div><div></div><div></div>"
+                    },
+                                        "ajax": "JSON/ews_new.php?EXECUTE=1&&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {"data": "adl_ews_date_added"},
+                        {"data": "adl_ews_updated_date"},
+                        {"data": "adl_ews_client_name"},
+                        {"data": "adl_ews_ref"},
+                        {"data": "adl_ews_modified_ref"},
+                        {"data": "adl_ews_insurer"},
+                        {"data": "adl_ews_orig_status"},
+                        {"data": "adl_ews_status"},
+                        {"data": "adl_ews_client_id",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
+                            }}
+                    ],
+                            "order": [[1, 'desc']]
+                });
+
+            });           
+        </script> 
+        
+       <?php }       
        
        if(isset($PID) && $PID == "MASTER") { ?>
         

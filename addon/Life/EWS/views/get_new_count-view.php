@@ -14,7 +14,7 @@ endforeach; ?>
 <table  class="table table-hover">
     <thead>
         <tr>
-            <th colspan="8">Unresolved EWS Statistics</th>
+            <th colspan="8">Unresolved</th>
         </tr>
     <th>New</th>
     <th>Lapsed</th>

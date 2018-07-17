@@ -626,7 +626,7 @@ if(isset($PID) && $PID == "EWS_STATS") { ?>
             
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Stats</h3>
+                        <h3 class="panel-title">Statistics</h3>
                     </div>
                     <div class="panel-body">     
                         

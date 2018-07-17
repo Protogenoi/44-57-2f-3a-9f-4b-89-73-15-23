@@ -15,7 +15,7 @@ endforeach; ?>
 <table  class="table table-hover">
     <thead>
         <tr>
-            <th colspan="8">Updated EWS Statistics</th>
+            <th colspan="8">Updated=</th>
         </tr>
     <th>Re-Instated</th>
     <th>Will Cancel</th>

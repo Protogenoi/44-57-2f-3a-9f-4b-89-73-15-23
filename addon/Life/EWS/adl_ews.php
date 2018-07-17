@@ -635,35 +635,14 @@ if(isset($PID) && $PID == "EWS_STATS") { ?>
     require_once(BASE_URL.'/addon/Life/EWS/models/get_new_count-model.php');
     $EWS_COUNT_NEW = new ews_stats_model($pdo);
     $EWS_COUNT_NEW_LIST = $EWS_COUNT_NEW->get_ews_stats_model();
-    require_once(BASE_URL.'/addon/Life/EWS/views/get_new_count-view.php');
+    require_once(BASE_URL.'/addon/Life/EWS/views/get_new_count-view.php');      
     
-    ?>         
-                        
-<table  class="table table-hover">
-    <thead>
-        <tr>
-            <th colspan="8">EWS Statistics</th>
-        </tr>
-    <th>New</th>
-    <th>Lapsed</th>
-    <th>DD Cancelled</th>
-    <th>DD Rejection</th>
-    <th>Outstanding Premium</th>
-    <th>Cancelled</th>
+    require_once(BASE_URL.'/addon/Life/EWS/models/get_updated_count-model.php');
+    $EWS_COUNT_UPDATED = new ews_updated_stats_model($pdo);
+    $EWS_COUNT_UPDATED_LIST = $EWS_COUNT_UPDATED->get_ews_updated_stats_model();
+    require_once(BASE_URL.'/addon/Life/EWS/views/get_updated_count-view.php');
     
-    </thead>
-    
-    <tr>
-        <th><?php if(isset($EWS_COUNTED_NEW)) { echo $EWS_COUNTED_NEW; } ?></th>
-        <th><?php if(isset($EWS_COUNTED_LAPSED)) { echo $EWS_COUNTED_LAPSED; } ?></th>
-        <th><?php if(isset($EWS_COUNTED_CANCELLED_DD)) { echo $EWS_COUNTED_CANCELLED_DD; } ?></th>
-        <th><?php if(isset($EWS_COUNTED_DD_REJECT)) { echo $EWS_COUNTED_DD_REJECT; } ?></th>
-        <th><?php if(isset($EWS_COUNTED_OUTSTANDING)) { echo $EWS_COUNTED_OUTSTANDING; } ?></th>
-        <th><?php if(isset($EWS_COUNTED_CANCELLED)) { echo $EWS_COUNTED_CANCELLED; } ?></th>
-        <th></th>
-    </tr>
-    
-</table>    
+    ?>                         
                     
                     </div>
                 </div>

@@ -291,7 +291,7 @@ WHERE
                 
                 $INSERT_MASTER = $pdo->prepare('
                                             INSERT INTO
-                                                adl_ews 
+                                                adl_ews_master 
                                             SET 
                                                 adl_ews_master_ref=:POLICY, 
                                                 adl_ews_master_client_id=:CID,

@@ -3035,6 +3035,7 @@ WHERE
                                             break;
                                         case "CRM Alert":
                                         case "Policy Added":
+                                            case "ADL Alert":
                                             $TMicon = "fa-check";
                                             break;
                                         case "Client SMS Reply":
@@ -3043,6 +3044,8 @@ WHERE
                                         case "LV EWS Uploaded":
                                         case "Aviva EWS Uploaded":
                                         case "Royal London EWS Uploaded":
+                                        case "Aviva EWS Master Uploaded":
+                                        case "Royal London EWS Master Uploaded":
                                         case "EWS Status update":
                                         case"SMS Failed";
                                         case "Compliant Logged":

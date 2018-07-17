@@ -218,13 +218,15 @@ $companynamere = $companydetailsq['company_name'];
              <li class='dropdown'>
                  <a data-toggle='dropdown' class='dropdown-toggle' href='#'>Admin <b class='caret'></b></a>
                  <ul role='menu' class='dropdown-menu'>
+                     <?php if(in_array($hello_name, $Level_10_Access, true)) {
+                         if ($ffews == '1') { ?>
+                     <li><a href="/addon/Life/EWS/menu.php">EWS</a></li> 
+                            <?php }                      
+                      } ?>
                             <?php if(in_array($hello_name, $Level_10_Access, true)) { 
                                 if ($fffinancials == '1') { ?>
                      <li><a href="/addon/Life/Financials/Menu.php">Financials</a></li>
                          <?php }
-                         if ($ffews == '1') { ?>
-                     <li><a href="/addon/Life/EWS/menu.php">EWS</a></li> 
-                            <?php } 
                             if ($ffemployee == '1') { ?>    
                      <li><a href="/addon/Staff/Main_Menu.php">Staff Database</a></li> 
                             <?php }  ?>

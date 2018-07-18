@@ -857,7 +857,7 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'desc']]
+                            "order": [[2, 'desc']]
                 });
 
             });           
@@ -908,7 +908,7 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                                 return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
                             }}
                     ],
-                            "order": [[1, 'desc']]
+                            "order": [[2, 'desc']]
                 });
 
             });           
@@ -1250,7 +1250,7 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                         {"data": "adl_ews_orig_status"},
                         {"data": "adl_ews_status"}
                     ],
-                            "order": [[1, 'desc']]
+                            "order": [[2, 'desc']]
                 });
 
             });           

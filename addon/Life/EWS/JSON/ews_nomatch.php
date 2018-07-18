@@ -47,8 +47,7 @@ if(isset($EXECUTE)) {
             adl_ews_colour, 
             adl_ews_insurer, 
             adl_ews_date_added,
-            adl_ews_updated_date,
-            adl_ews_client_id
+            adl_ews_updated_date
         FROM
             adl_ews
         WHERE

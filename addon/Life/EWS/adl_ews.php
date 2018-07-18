@@ -756,7 +756,6 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                             <th>Insurer</th>
                             <th>Orig Status</th>
                             <th>Status</th>
-                            <th>View</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -770,7 +769,6 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                             <th>Insurer</th>
                             <th>Orig Status</th>
                             <th>Status</th>
-                            <th>View</th>
                         </tr>
                     </tfoot>
                 </table> 
@@ -1250,11 +1248,7 @@ if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
                         {"data": "adl_ews_modified_ref"},
                         {"data": "adl_ews_insurer"},
                         {"data": "adl_ews_orig_status"},
-                        {"data": "adl_ews_status"},
-                        {"data": "adl_ews_client_id",
-                            "render": function (data, type, full, meta) {
-                                return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
-                            }}
+                        {"data": "adl_ews_status"}
                     ],
                             "order": [[1, 'desc']]
                 });

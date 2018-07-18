@@ -137,8 +137,6 @@ $companynamere = $companydetailsq['company_name'];
                         <ul role="menu" class="dropdown-menu">
                         <?php if (in_array($hello_name, $Level_10_Access, true) && $ffcompliance == '1') { ?>   
                             <li><a href="/addon/compliance/dash.php?EXECUTE=1"> Compliance Hub</a></li>
-                            <li><a href="/addon/compliance/dash.php?EXECUTE=3"> Sale Stats</a></li>
-                            <li><a href="/addon/compliance/Compliance.php?SCID=1"> Uploaded Docs</a></li>
                             <li class="divider"></li>
                         <?php } if($ffaudits == 1) { ?>  
                             <li><a href="/addon/audits/search_audits.php">Search Audits</a></li>

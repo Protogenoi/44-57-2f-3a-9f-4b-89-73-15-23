@@ -29,8 +29,9 @@
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */ 
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
 
-require_once(__DIR__ . '/../includes/ADL_PDO_CON.php');
+require_once(BASE_URL.'/includes/ADL_PDO_CON.php');
 
 $GOOGLE_AN_QRY = $pdo->prepare("SELECT tracking_id FROM google_dev LIMIT 1");
 $GOOGLE_AN_QRY->execute()or die(print_r($GOOGLE_AN_QRY->errorInfo(), true));
@@ -44,8 +45,6 @@ $devtracking=$GOOGLE_AN_QRY->fetch(PDO::FETCH_ASSOC);
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//google-analytics.com/analytics.js','ga');
-
-  ga('create', '<?php echo $devtrackingid?>', 'auto');
+  ga('create', '<?php if(isset($devtrackingid)) { echo $devtrackingid; } ?>', 'auto');
   ga('send', 'pageview');
-
 </script>

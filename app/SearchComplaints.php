@@ -29,28 +29,29 @@
  *  Webshim - https://github.com/aFarkas/webshim/releases/latest
  * 
 */ 
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
 
-require_once(__DIR__ . '/../classes/access_user/access_user_class.php');
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 8);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../includes/user_tracking.php'); 
+require_once(BASE_URL.'/includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../includes/time.php');
+require_once(BASE_URL.'/includes/time.php');
 
 if(isset($FORCE_LOGOUT) && $FORCE_LOGOUT== 1) {
     $page_protect->log_out();
 }
 
-require_once(__DIR__ . '/../includes/adl_features.php');
-require_once(__DIR__ . '/../includes/Access_Levels.php');
-require_once(__DIR__ . '/../includes/adlfunctions.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -66,8 +67,8 @@ if (in_array($hello_name, $Level_8_Access, true)) {
 
 $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    require_once(__DIR__ . '/../classes/database_class.php');
-    require_once(__DIR__ . '/../class/login/login.php');
+    require_once(BASE_URL.'/classes/database_class.php');
+    require_once(BASE_URL.'/class/login/login.php');
 
         $CHECK_USER_LOGIN = new UserActions($hello_name,"NoToken");
         $CHECK_USER_LOGIN->SelectToken();
@@ -92,14 +93,14 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
         }        
         
         $ADL_PAGE_TITLE = "Search Compliants";
-        require_once(__DIR__ . '/../app/core/head.php'); 
+        require_once(BASE_URL.'/app/core/head.php'); 
         
         ?>
         <link rel="stylesheet" type="text/css" href="/resources/lib/DataTable/datatables.min.css"/>
     </head>
     <body>
 
-        <?php require_once(__DIR__ . '/../includes/navbar.php'); ?>
+        <?php require_once(BASE_URL.'/includes/navbar.php'); ?>
 
 
         <div class="container">
@@ -220,10 +221,9 @@ $EXECUTE = filter_input(INPUT_GET, 'EXECUTE', FILTER_SANITIZE_SPECIAL_CHARS);
 
             });
         </script>
-        <?php require_once(__DIR__ . '/../app/Holidays.php'); ?>        
+        <?php require_once(BASE_URL.'/app/Holidays.php'); ?>        
     </body>
 </html>
 <?php } else {    header('Location: /../../CRMmain.php?AccessDenied');
     die;
 }
-?>

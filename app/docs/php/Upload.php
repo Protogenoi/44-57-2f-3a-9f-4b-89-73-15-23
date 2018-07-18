@@ -80,6 +80,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                 'text/anytext',
                 'application/octet-stream',
                 'application/txt',
+                'application/pdf',
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 );
 

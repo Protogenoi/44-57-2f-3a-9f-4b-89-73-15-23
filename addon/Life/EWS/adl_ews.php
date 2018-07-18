@@ -120,7 +120,20 @@ if(empty($PID)) {
             <li <?php if(isset($PID) && $PID == "LV_LAPSED_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_LAPSED_EWS">LV Lapsed</a></li>
             <li <?php if(isset($PID) && $PID == "UPLOAD_EWS") { echo "class='active'"; } ?> ><a href="?PID=UPLOAD_EWS">Upload Data</a></li>
             <li <?php if(isset($PID) && $PID == "EWS_STATS") { echo "class='active'"; } ?> ><a href="?PID=EWS_STATS">Stats</a></li>
-            <li <?php if(isset($PID) && $PID == "EWS_NOMATCH") { echo "class='active'"; } ?> ><a href="?PID=EWS_NOMATCH">No Matches</a></li>
+            <li <?php if(isset($PID) && $PID == "EWS_NOMATCH") { echo "class='active'"; } ?> ><a href="?PID=EWS_NOMATCH">No Matches 
+            <span class="badge alert-warning">
+                        <?php
+                        $nomatchbadge = $pdo->query("SELECT 
+                                                        COUNT(adl_ews_id) AS badge
+                                                    FROM
+                                                        adl_ews
+                                                    WHERE
+                                                        adl_ews_client_id IS NULL");
+                        $row = $nomatchbadge->fetch(PDO::FETCH_ASSOC);
+                        echo htmlentities($row['badge']);
+                        ?>
+                    </span>    
+                </a></li>
             <li><a href="/addon/Life/EWS/php/recheck_missing_cids.php?EXECUTE=1">Recheck Client IDs</a></li>
         </ul>
 

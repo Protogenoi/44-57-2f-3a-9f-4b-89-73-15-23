@@ -386,7 +386,7 @@ if(in_array($WHICH_COMPANY,$NEW_COMPANY_ARRAY,true) || in_array($WHICH_COMPANY,$
                                                 print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> Error:</strong> $CLIENT_FILE <b>upload failed!</b></div>");   
                                                 } 
                                                     if($CLIENT_UPLOAD== 2) {
-                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fa fa-cloud-upload fa-lg\"></i> UPLOAD FAILED:</strong> $CLIENT_FILE <b>File size to big!</b></div>");   
+                                                print("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-upload fa-lg\"></i> UPLOAD FAILED:</strong> $CLIENT_FILE <b>File size to big!</b></div>");   
                                                 }  
                                                     if($CLIENT_UPLOAD== 3) {
                                                 echo("<div class=\"notice notice-danger\" role=\"alert\"><strong><i class=\"fas fa-exclamation-triangle fa-lg\"></i> File ($CLIENT_FILE_COUNT) $CLIENT_FILE deleted</strong></div>\n");

@@ -82,6 +82,7 @@ if (!in_array($hello_name,$Level_3_Access, true)) {
                 'application/txt',
                 'application/pdf',
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'text/xml'
                 );
 
 if (!in_array($_FILES['file']['type'], $csv_mimetypes)) {

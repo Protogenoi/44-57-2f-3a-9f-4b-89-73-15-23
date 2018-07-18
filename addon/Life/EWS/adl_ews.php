@@ -120,6 +120,7 @@ if(empty($PID)) {
             <li <?php if(isset($PID) && $PID == "LV_LAPSED_EWS") { echo "class='active'"; } ?> ><a href="?PID=LV_LAPSED_EWS">LV Lapsed</a></li>
             <li <?php if(isset($PID) && $PID == "UPLOAD_EWS") { echo "class='active'"; } ?> ><a href="?PID=UPLOAD_EWS">Upload Data</a></li>
             <li <?php if(isset($PID) && $PID == "EWS_STATS") { echo "class='active'"; } ?> ><a href="?PID=EWS_STATS">Stats</a></li>
+            <li <?php if(isset($PID) && $PID == "EWS_NOMATCH") { echo "class='active'"; } ?> ><a href="?PID=EWS_NOMATCH">No Matches</a></li>
             <li><a href="/addon/Life/EWS/php/recheck_missing_cids.php?EXECUTE=1">Recheck Client IDs</a></li>
         </ul>
 
@@ -718,8 +719,55 @@ if(isset($PID) && $PID == "EWS_STATS") { ?>
                 </div>
         </div>
         
-        <?php } ?>        
+        <?php } 
         
+if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
+        
+        <div class="tab-pane fade <?php if(isset($PID) && $PID == "EWS_NOMATCH") { echo "in active"; } ?>" id="EWS_NOMATCH">
+            
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Policies not found on ADL</h3>
+                    </div>
+                    <div class="panel-body">        
+            
+            <table id="EWS_NOMATCH_TABLE" class="display" width="auto" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>                          
+                            <th>Date</th>
+                            <th>Updated</th>
+                            <th>Client Name</th>
+                            <th>Policy</th>
+                            <th>Mod Pol</th>
+                            <th>Insurer</th>
+                            <th>Orig Status</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>                          
+                            <th>Date</th>
+                            <th>Updated</th>
+                            <th>Client Name</th>
+                            <th>Policy</th>
+                            <th>Mod Pol</th>
+                            <th>Insurer</th>
+                            <th>Orig Status</th>
+                            <th>Status</th>
+                            <th>View</th>
+                        </tr>
+                    </tfoot>
+                </table> 
+                    
+                    </div>
+                </div>
+        </div>
+        
+        <?php } ?>
+            
         </div>    
     
 
@@ -1150,7 +1198,59 @@ if(isset($PID) && $PID == "LV_EWS") { ?>
             });           
         </script> 
         
-       <?php } ?>        
+       <?php } 
+       
+if(isset($PID) && $PID == "EWS_NOMATCH") { ?>
+        
+        <script type="text/javascript" language="javascript" >
+             $(document).ready(function () {
+                var table = $('#EWS_NOMATCH_TABLE').DataTable({
+                "fnRowCallback": function(  nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
+                    if ( aData["color_status"] !== '' )  {
+                        $('td', nRow).css("color", aData["adl_ews_master_colour"]);
+                    }
+                    
+                     if ( aData["adl_ews_master_colour"] === "Black" )  {
+                        $('td', nRow).addClass( 'black' );
+                    }
+                
+    },               
+                    "response": true,
+                    "processing": true,
+                    "iDisplayLength": 10,
+                    "aLengthMenu": [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
+                    "language": {
+                        "processing": "<div></div><div></div><div></div><div></div><div></div>"
+                    },
+                                        "ajax": "JSON/ews_nomatch.php?EXECUTE=1&&USER=<?php echo $hello_name; ?>&TOKEN=<?php echo $TOKEN; ?>",
+                    "columns": [
+                        {
+                            "className": 'details-control',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": ''
+                        },
+                        {"data": "adl_ews_date_added"},
+                        {"data": "adl_ews_updated_date"},
+                        {"data": "adl_ews_client_name"},
+                        {"data": "adl_ews_ref"},
+                        {"data": "adl_ews_modified_ref"},
+                        {"data": "adl_ews_insurer"},
+                        {"data": "adl_ews_orig_status"},
+                        {"data": "adl_ews_status"},
+                        {"data": "adl_ews_client_id",
+                            "render": function (data, type, full, meta) {
+                                return '<a href="/app/Client.php?search=' + data + '" target="_blank">View</a>';
+                            }}
+                    ],
+                            "order": [[1, 'desc']]
+                });
+
+            });           
+        </script> 
+        
+       <?php }        
+       ?>        
        
     </body>
 </html>

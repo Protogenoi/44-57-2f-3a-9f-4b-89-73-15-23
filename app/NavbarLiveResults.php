@@ -196,6 +196,20 @@ WHERE
     }
 }
 
+if($ffews == 1) {
+if (in_array($hello_name, $Level_8_Access, true)) { 
+    $EWS_NEW_stmt = $pdo->prepare("SELECT 
+    COUNT(adl_ews_id) AS badge
+FROM
+    adl_ews
+WHERE
+    adl_ews_status = 'NEW'");
+    $EWS_NEW_stmt->execute();
+    $EWS_NEW_stmtresult = $EWS_NEW_stmt->fetch(PDO::FETCH_ASSOC);
+}
+    
+}
+
 if(!isset($UPLOAD_COUNT)) {
     $UPLOAD_COUNT=0;
 }
@@ -232,8 +246,11 @@ if(!isset($ON_HOLD_POLS_COUNT['badge'])) {
 if(!isset($AWAITING_POLS_COUNT['badge'])) {
     $AWAITING_POLS_COUNT['badge']=0;
 }
+if(!isset($EWS_NEW_stmtresult['badge'])) {
+    $EWS_NEW_stmtresult['badge']=0;
+}
 
-$TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
+$TOTAL_NOTIFICATIONS=$EWS_NEW_stmtresult['badge']+$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+$WORKFLOWS_COUNT['badge']+$NEW_TASKS_COUNT['badge']+$UPLOAD_COUNT+$ACT_CBS['badge']+$navbarresult['badge']+$navbarresult2['badge']+$KFS_stmtresult['badge']+$RPY_stmtresult['badge']+$RPY_stmtresult2['badge']+$MSG_stmtresult['badge'];
 ?>
             <ul class="nav navbar-nav navbar-right">
                 <?php if(isset($TOTAL_NOTIFICATIONS) && $TOTAL_NOTIFICATIONS > 0 ) { ?>
@@ -248,6 +265,14 @@ $TOTAL_NOTIFICATIONS=$AWAITING_POLS_COUNT['badge']+$ON_HOLD_POLS_COUNT['badge']+
                             <?php 
                             
                                 } 
+                                
+                                if($ffews == 1) {
+                                    if ($EWS_NEW_stmtresult['badge'] >= '1') { ?>
+                            <li><div class="notice notice-danger" role="alert" id="HIDELGKEY"><strong><i class="fas fa-exclamation-triangle"></i> EWS:</strong><a href="/addon/Life/EWS/adl_ews.php?PID=NEW"> <?php echo $EWS_NEW_stmtresult['badge']; ?> EWS classed as New!</a></div></li>
+                            <?php } 
+
+                                    
+                                    }                                
                             
                                 } 
                             
@@ -393,5 +418,18 @@ if ($ACT_CBS['badge'] > 0) { ?>
                 ?>
                 <li><a href="/app/messenger/Main.php"> <span class="badge alert-success"> <i class='fa fa-inbox'></i> <?php echo $MSG_stmtresult['badge']; ?> </span></a></li>
 
-                <?php } ?>
+                <?php } 
+                
+        if($ffews == 1) {
+            if (in_array($hello_name, $Level_8_Access, true)) { 
+            if ($EWS_NEW_stmtresult['badge'] >= '1') {
+                ?>
+        <li><a href="/addon/Life/EWS/adl_ews.php?PID=NEW"> <span class="badge alert-danger"> <i class='fas fa-exclamation-triangle'></i> <?php echo $EWS_NEW_stmtresult['badge']; ?> </span></a></li>
+
+                <?php
+            }          
+        }
+        }                
+                
+                ?>
 </ul>

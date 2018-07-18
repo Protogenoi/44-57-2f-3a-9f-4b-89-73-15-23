@@ -148,5 +148,3 @@ header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=0&&search='.$CID.'')
             header('Location: /../../../../app/Client.php?CLIENT_UPLOAD=2&search='.$CID.'&CLIENT_FILE='.$UPLOAD_TYPE); die;
         }
     }
-    
- ?>

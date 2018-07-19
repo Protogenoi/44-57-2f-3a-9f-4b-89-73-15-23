@@ -1,7 +1,7 @@
 <table  class="table table-hover">
     <thead>
         <tr>
-            <th colspan="8">Average Commission and Premiums (Live Indemnity Policies)</th>
+            <th colspan="8">Average Commission and Premiums (Live Indemnity Policies <?php echo "$DATEFROM - $DATETO"; ?>)</th>
         </tr>
         <tr>
             <th>Insurer</th>

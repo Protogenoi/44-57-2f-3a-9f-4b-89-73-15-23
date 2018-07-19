@@ -9255,7 +9255,12 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                             require_once(__DIR__ . '/models/financials/STATS/avg_commission_premium-model.php');
                             $COMM_PREM_STATS = new Comm_Prem_Stats_Model($pdo);
                             $COMM_PREM_STATS_VARS = $COMM_PREM_STATS->VIT_Comm_Prem_Stats($DATEFROM, $DATETO);
-                            require_once(__DIR__ . '/views/financials/STATS/avg_commission_premium-view.php');   
+                            require_once(__DIR__ . '/views/financials/STATS/avg_commission_premium-view.php');  
+                            
+                            require_once(__DIR__ . '/models/financials/STATS/most_cancels-model.php');
+                            $CANCELS_STATS = new Cancels_Stats_Model($pdo);
+                            $CANCELS_STATS_VARS = $CANCELS_STATS->VIT_Cancels_Stats($DATEFROM, $DATETO);
+                            require_once(__DIR__ . '/views/financials/STATS/most_cancels-view.php');                              
 
 ?>
   

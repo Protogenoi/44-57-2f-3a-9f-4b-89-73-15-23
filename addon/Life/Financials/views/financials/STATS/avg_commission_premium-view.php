@@ -7,7 +7,7 @@
             <th>Insurer</th>
             <th>Commission</th>
             <th>Premium</th>
-            <th>Policies sold</th>
+            <th>Live Policies</th>
         </tr>
     <?php foreach ($COMM_PREM_STATS_VARS as $COMM_PREM_STATS_Results): ?>
 
@@ -21,8 +21,8 @@
                 ?>
         <tr>
             <th><?php if(isset($STAT_INSURER)) { echo $STAT_INSURER; } ?></th>
-            <td><?php if(isset($STAT_AVG_COMM)) { echo $STAT_AVG_COMM; } ?></td>
-        <td><?php if(isset($STAT_AVG_PREM)) { echo $STAT_AVG_PREM; } ?></td>
+            <td><?php if(isset($STAT_AVG_COMM)) { echo "£$STAT_AVG_COMM"; } ?></td>
+        <td><?php if(isset($STAT_AVG_PREM)) { echo "£$STAT_AVG_PREM"; } ?></td>
         <td><?php if(isset($STAT_POLICIES_SOLD)) { echo $STAT_POLICIES_SOLD; } ?></td>     
         </tr>
     </thead>

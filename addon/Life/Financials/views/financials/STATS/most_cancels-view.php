@@ -7,7 +7,7 @@
             <th>Insurer</th>
             <th>Commission</th>
             <th>Premium</th>
-            <th>Policies Cancelled</th>
+            <th>Cancelled Policies</th>
         </tr>
     <?php foreach ($CANCELS_STATS_VARS as $CANCELS_STATS_Results): ?>
 
@@ -21,8 +21,8 @@
                 ?>
         <tr>
             <th><?php if(isset($CANCELS_STAT_INSURER)) { echo $CANCELS_STAT_INSURER; } ?></th>
-            <td><?php if(isset($CANCELS_STAT_AVG_COMM)) { echo $CANCELS_STAT_AVG_COMM; } ?></td>
-            <td><?php if(isset($CANCELS_STAT_AVG_PREM)) { echo $CANCELS_STAT_AVG_PREM; } ?></td>
+            <td><?php if(isset($CANCELS_STAT_AVG_COMM)) { echo "£$CANCELS_STAT_AVG_COMM"; } ?></td>
+            <td><?php if(isset($CANCELS_STAT_AVG_PREM)) { echo "£$CANCELS_STAT_AVG_PREM"; } ?></td>
             <td><?php if(isset($CANCELS_STAT_POLICIES_SOLD)) { echo $CANCELS_STAT_POLICIES_SOLD; } ?></td>     
         </tr> 
    

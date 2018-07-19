@@ -117,14 +117,6 @@ $companynamere = $companydetailsq['company_name'];
                     <?php if(in_array($hello_name, $Level_10_Access, true)) { ?>
                     <li><a href="/app/docs/DocStore.php"> Doc Store</a></li>
                     <?php } ?>
-                    <?php if ($ffews == '1' && in_array($hello_name, $Level_8_Access, true)) { ?>
-                    <li class="divider"></li>
-                    <li><a href="/Life/Reports/EWS.php"> Early Warning System</a></li>
-                    <li><a href="/Life/Reports/EWSModify.php"> Correct a EWS Record</a></li>
-                    <li><a href="/Life/Reports/EWSAgentPerformance.php"> EWS Agent Performance</a></li> 
-                    <li><a href="/Life/EWS/Search.php"> Search EWS To Work</a></li> 
-                    <li><a href="/Life/EWS/CallHistory.php"> Search EWS Timeline Notes</a></li> 
-                    <?php } ?>
                     </ul>
                 </li>
                 
@@ -218,7 +210,7 @@ $companynamere = $companydetailsq['company_name'];
                  <ul role='menu' class='dropdown-menu'>
                      <?php if(in_array($hello_name, $Level_10_Access, true)) {
                          if ($ffews == '1') { ?>
-                     <li><a href="/addon/Life/EWS/menu.php">EWS</a></li> 
+                     <li><a href="/addon/Life/EWS/adl_ews.php">EWS</a></li> 
                             <?php }                      
                       } ?>
                             <?php if(in_array($hello_name, $Level_10_Access, true)) { 

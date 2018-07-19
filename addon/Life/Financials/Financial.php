@@ -30,23 +30,25 @@
  * 
 */ 
 
-require_once(__DIR__ . '/../../../classes/access_user/access_user_class.php');
+require_once filter_input(INPUT_SERVER,'DOCUMENT_ROOT', FILTER_SANITIZE_SPECIAL_CHARS).'/app/core/doc_root.php';
+
+require_once(BASE_URL.'/classes/access_user/access_user_class.php');
 $page_protect = new Access_user;
 $page_protect->access_page(filter_input(INPUT_SERVER,'PHP_SELF', FILTER_SANITIZE_SPECIAL_CHARS), "", 10);
 $hello_name = ($page_protect->user_full_name != "") ? $page_protect->user_full_name : $page_protect->user;
 
 $USER_TRACKING=0;
 
-require_once(__DIR__ . '/../../../includes/user_tracking.php'); 
+require_once(BASE_URL.'/includes/user_tracking.php'); 
 
-require_once(__DIR__ . '/../../../includes/adl_features.php');
-require_once(__DIR__ . '/../../../includes/Access_Levels.php');
-require_once(__DIR__ . '/../../../includes/adlfunctions.php');
-require_once(__DIR__ . '/../../../includes/ADL_PDO_CON.php');
-require_once(__DIR__ . '/../../../classes/database_class.php');
+require_once(BASE_URL.'/includes/adl_features.php');
+require_once(BASE_URL.'/includes/Access_Levels.php');
+require_once(BASE_URL.'/includes/adlfunctions.php');
+require_once(BASE_URL.'/includes/ADL_PDO_CON.php');
+require_once(BASE_URL.'/classes/database_class.php');
 
 if ($ffanalytics == '1') {
-    require_once(__DIR__ . '/../../../app/analyticstracking.php');
+    require_once(BASE_URL.'/app/analyticstracking.php');
 }
 
 if (isset($fferror)) {
@@ -98,14 +100,14 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                     $simply_biz = "5.0";
 
         $ADL_PAGE_TITLE = "Financials";
-        require_once(__DIR__ . '/../../../app/core/head.php'); 
+        require_once(BASE_URL.'/app/core/head.php'); 
         
         ?> 
     <link rel="stylesheet" href="/resources/lib/jquery-ui-1.11.4/jquery-ui.min.css">  
 </head>
 <body>
 
-    <?php require_once(__DIR__ . '/../../../includes/navbar.php'); ?>
+    <?php require_once(BASE_URL.'/includes/navbar.php'); ?>
 
     <div class="container">
                 <?php 
@@ -607,24 +609,24 @@ $COMM_DATE = filter_input(INPUT_GET, 'commdate', FILTER_SANITIZE_SPECIAL_CHARS);
                         <?php
                                                      
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/VITALITY/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/VITALITY/TotalMissingWithDates.php');
     $TotalMissingWithDates = new TotalMissingWithDatesModal($pdo);
     $TotalMissingWithDatesList = $TotalMissingWithDates->getTotalMissingWithDates($DATEFROM, $DATETO);
-    require_once(__DIR__ . '/views/financials/VITALITY/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/VITALITY/Total-Missing-With-Dates.php');
 //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/VITALITY/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/VITALITY/TotalAwaitingWithDates.php');
     $TotalAwaitingWithDates = new TotalAwaitingWithDatesModal($pdo);
     $TotalAwaitingWithDatesList = $TotalAwaitingWithDates->getTotalAwaitingWithDates($DATEFROM, $DATETO);
-    require_once(__DIR__ . '/views/financials/VITALITY/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/VITALITY/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/VITALITY/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/VITALITY/TotalExpectedWithDates.php');
     $TotalExpectedWithDates = new TotalExpectedWithDatesModal($pdo);
     $TotalExpectedWithDatesList = $TotalExpectedWithDates->getTotalExpectedWithDates($DATEFROM, $DATETO);
-    require_once(__DIR__ . '/views/financials/VITALITY/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/VITALITY/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -1747,24 +1749,24 @@ WHERE
                         <?php
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/ROYAL/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ROYAL/TotalMissingWithDates.php');
     $RL_TotalMissingWithDates = new RL_TotalMissingWithDatesModal($pdo);
     $RL_TotalMissingWithDatesList = $RL_TotalMissingWithDates->RL_getTotalMissingWithDates($RL_DATE_FROM, $RL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ROYAL/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ROYAL/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/ROYAL/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ROYAL/TotalAwaitingWithDates.php');
     $RL_TotalAwaitingWithDates = new RL_TotalAwaitingWithDatesModal($pdo);
     $RL_TotalAwaitingWithDatesList = $RL_TotalAwaitingWithDates->RL_getTotalAwaitingWithDates($RL_DATE_FROM, $RL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ROYAL/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ROYAL/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/ROYAL/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ROYAL/TotalExpectedWithDates.php');
     $RL_TotalExpectedWithDates = new RL_TotalExpectedWithDatesModal($pdo);
     $RL_TotalExpectedWithDatesList = $RL_TotalExpectedWithDates->RL_getTotalExpectedWithDates($RL_DATE_FROM, $RL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ROYAL/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ROYAL/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -3001,24 +3003,24 @@ WHERE
 
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/WOL/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/WOL/TotalMissingWithDates.php');
     $WOL_TotalMissingWithDates = new WOL_TotalMissingWithDatesModal($pdo);
     $WOL_TotalMissingWithDatesList = $WOL_TotalMissingWithDates->WOL_getTotalMissingWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/WOL/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/WOL/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/WOL/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/WOL/TotalAwaitingWithDates.php');
     $WOL_TotalAwaitingWithDates = new WOL_TotalAwaitingWithDatesModal($pdo);
     $WOL_TotalAwaitingWithDatesList = $WOL_TotalAwaitingWithDates->WOL_getTotalAwaitingWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/WOL/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/WOL/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/WOL/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/WOL/TotalExpectedWithDates.php');
     $WOL_TotalExpectedWithDates = new WOL_TotalExpectedWithDatesModal($pdo);
     $WOL_TotalExpectedWithDatesList = $WOL_TotalExpectedWithDates->WOL_getTotalExpectedWithDates($WOL_DATE_FROM, $WOL_DATE_TO);
-    require_once(__DIR__ . '/views/financials/WOL/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/WOL/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -4233,24 +4235,24 @@ WHERE
                         <?php
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/AVIVA/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/AVIVA/TotalMissingWithDates.php');
     $AVI_TotalMissingWithDates = new AVI_TotalMissingWithDatesModal($pdo);
     $AVI_TotalMissingWithDatesList = $AVI_TotalMissingWithDates->AVI_getTotalMissingWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
-    require_once(__DIR__ . '/views/financials/AVIVA/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/AVIVA/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/AVIVA/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/AVIVA/TotalAwaitingWithDates.php');
     $AVI_TotalAwaitingWithDates = new AVI_TotalAwaitingWithDatesModal($pdo);
     $AVI_TotalAwaitingWithDatesList = $AVI_TotalAwaitingWithDates->AVI_getTotalAwaitingWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
-    require_once(__DIR__ . '/views/financials/AVIVA/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/AVIVA/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/AVIVA/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/AVIVA/TotalExpectedWithDates.php');
     $AVI_TotalExpectedWithDates = new AVI_TotalExpectedWithDatesModal($pdo);
     $AVI_TotalExpectedWithDatesList = $AVI_TotalExpectedWithDates->AVI_getTotalExpectedWithDates($AVI_DATE_FROM, $AVI_DATE_TO);
-    require_once(__DIR__ . '/views/financials/AVIVA/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/AVIVA/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -5446,24 +5448,24 @@ WHERE
                         <?php
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/LV/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/LV/TotalMissingWithDates.php');
     $LV_TotalMissingWithDates = new LV_TotalMissingWithDatesModal($pdo);
     $LV_TotalMissingWithDatesList = $LV_TotalMissingWithDates->LV_getTotalMissingWithDates($LV_DATE_FROM, $LV_DATE_TO);
-    require_once(__DIR__ . '/views/financials/LV/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/LV/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/LV/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/LV/TotalAwaitingWithDates.php');
     $LV_TotalAwaitingWithDates = new LV_TotalAwaitingWithDatesModal($pdo);
     $LV_TotalAwaitingWithDatesList = $LV_TotalAwaitingWithDates->LV_getTotalAwaitingWithDates($LV_DATE_FROM, $LV_DATE_TO);
-    require_once(__DIR__ . '/views/financials/LV/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/LV/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/LV/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/LV/TotalExpectedWithDates.php');
     $LV_TotalExpectedWithDates = new LV_TotalExpectedWithDatesModal($pdo);
     $LV_TotalExpectedWithDatesList = $LV_TotalExpectedWithDates->LV_getTotalExpectedWithDates($LV_DATE_FROM, $LV_DATE_TO);
-    require_once(__DIR__ . '/views/financials/LV/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/LV/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -6664,24 +6666,24 @@ WHERE
                         <?php
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/ZURICH/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ZURICH/TotalMissingWithDates.php');
     $ZURICH_TotalMissingWithDates = new ZURICH_TotalMissingWithDatesModal($pdo);
     $ZURICH_TotalMissingWithDatesList = $ZURICH_TotalMissingWithDates->ZURICH_getTotalMissingWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ZURICH/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ZURICH/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/ZURICH/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ZURICH/TotalAwaitingWithDates.php');
     $ZURICH_TotalAwaitingWithDates = new ZURICH_TotalAwaitingWithDatesModal($pdo);
     $ZURICH_TotalAwaitingWithDatesList = $ZURICH_TotalAwaitingWithDates->ZURICH_getTotalAwaitingWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ZURICH/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ZURICH/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/ZURICH/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/ZURICH/TotalExpectedWithDates.php');
     $ZURICH_TotalExpectedWithDates = new ZURICH_TotalExpectedWithDatesModal($pdo);
     $ZURICH_TotalExpectedWithDatesList = $ZURICH_TotalExpectedWithDates->ZURICH_getTotalExpectedWithDates($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
-    require_once(__DIR__ . '/views/financials/ZURICH/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/ZURICH/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -7881,24 +7883,24 @@ WHERE
                         <?php
 
 //CALCULATE MISSING AMOUNT WITH DATES. Polices on SALE DATE RANGE BUT NOT ON RAW COMMS
-    require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/TotalMissingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/SCOTTISH_WIDOWS/TotalMissingWithDates.php');
     $SCOTTISH_WIDOWS_TotalMissingWithDates = new SCOTTISH_WIDOWS_TotalMissingWithDatesModal($pdo);
     $SCOTTISH_WIDOWS_TotalMissingWithDatesList = $SCOTTISH_WIDOWS_TotalMissingWithDates->SCOTTISH_WIDOWS_getTotalMissingWithDates($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
-    require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/Total-Missing-With-Dates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/SCOTTISH_WIDOWS/Total-Missing-With-Dates.php');
                        //END OF CALCULATION
     
 //CALCULATE AWAITING AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/TotalAwaitingWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/SCOTTISH_WIDOWS/TotalAwaitingWithDates.php');
     $SCOTTISH_WIDOWS_TotalAwaitingWithDates = new SCOTTISH_WIDOWS_TotalAwaitingWithDatesModal($pdo);
     $SCOTTISH_WIDOWS_TotalAwaitingWithDatesList = $SCOTTISH_WIDOWS_TotalAwaitingWithDates->SCOTTISH_WIDOWS_getTotalAwaitingWithDates($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
-    require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/Total-Awaiting-With-Dates.php');                            
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/SCOTTISH_WIDOWS/Total-Awaiting-With-Dates.php');                            
     //END OF CALCULATION
     
 //CALCULATE EXPECTED AMOUNT WITH DATES
-    require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/TotalExpectedWithDates.php');
+    require_once(BASE_URL.'/addon/Life/Financials/models/financials/SCOTTISH_WIDOWS/TotalExpectedWithDates.php');
     $SCOTTISH_WIDOWS_TotalExpectedWithDates = new SCOTTISH_WIDOWS_TotalExpectedWithDatesModal($pdo);
     $SCOTTISH_WIDOWS_TotalExpectedWithDatesList = $SCOTTISH_WIDOWS_TotalExpectedWithDates->SCOTTISH_WIDOWS_getTotalExpectedWithDates($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
-    require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/Total-Expected-With-Dates.php');  
+    require_once(BASE_URL.'/addon/Life/Financials/views/financials/SCOTTISH_WIDOWS/Total-Expected-With-Dates.php');  
     
 
 //CALCULATE NET| GROSS
@@ -9124,40 +9126,40 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                          
                          <?php                        
                          
-                            require_once(__DIR__ . '/models/financials/VITALITY/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/VITALITY/total_policies_sold-model.php');
                             $VIT_Total_Policies_Sold = new VIT_Total_Policies_SoldModal($pdo);
                             $VIT_Total_Policies_Sold_VARS = $VIT_Total_Policies_Sold->VIT_getTotal_Policies_Sold($DATEFROM, $DATETO);
-                            require_once(__DIR__ . '/views/financials/VITALITY/total_policies_sold-view.php');                          
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/VITALITY/total_policies_sold-view.php');                          
                          
-                            require_once(__DIR__ . '/models/financials/ROYAL/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/ROYAL/total_policies_sold-model.php');
                             $RL_Total_Policies_Sold = new RL_Total_Policies_SoldModal($pdo);
                             $RL_Total_Policies_Sold_VARS = $RL_Total_Policies_Sold->RL_getTotal_Policies_Sold($RL_DATE_FROM, $RL_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/ROYAL/total_policies_sold-view.php'); 
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/ROYAL/total_policies_sold-view.php'); 
                             
-                            require_once(__DIR__ . '/models/financials/WOL/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/WOL/total_policies_sold-model.php');
                             $WOL_Total_Policies_Sold = new WOL_Total_Policies_SoldModal($pdo);
                             $WOL_Total_Policies_Sold_VARS = $WOL_Total_Policies_Sold->WOL_getTotal_Policies_Sold($WOL_DATE_FROM, $WOL_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/WOL/total_policies_sold-view.php');                             
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/WOL/total_policies_sold-view.php');                             
                          
-                            require_once(__DIR__ . '/models/financials/AVIVA/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/AVIVA/total_policies_sold-model.php');
                             $AVI_Total_Policies_Sold = new AVI_Total_Policies_SoldModal($pdo);
                             $AVI_Total_Policies_Sold_VARS = $AVI_Total_Policies_Sold->AVI_getTotal_Policies_Sold($AVI_DATE_FROM, $AVI_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/AVIVA/total_policies_sold-view.php');       
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/AVIVA/total_policies_sold-view.php');       
                             
-                            require_once(__DIR__ . '/models/financials/LV/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/LV/total_policies_sold-model.php');
                             $LV_Total_Policies_Sold = new LV_Total_Policies_SoldModal($pdo);
                             $LV_Total_Policies_Sold_VARS = $LV_Total_Policies_Sold->LV_getTotal_Policies_Sold($LV_DATE_FROM, $LV_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/LV/total_policies_sold-view.php');               
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/LV/total_policies_sold-view.php');               
                             
-                            require_once(__DIR__ . '/models/financials/ZURICH/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/ZURICH/total_policies_sold-model.php');
                             $ZURICH_Total_Policies_Sold = new ZURICH_Total_Policies_SoldModal($pdo);
                             $ZURICH_Total_Policies_Sold_VARS = $ZURICH_Total_Policies_Sold->ZURICH_getTotal_Policies_Sold($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/ZURICH/total_policies_sold-view.php');    
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/ZURICH/total_policies_sold-view.php');    
                             
-                            require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/total_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/SCOTTISH_WIDOWS/total_policies_sold-model.php');
                             $SW_Total_Policies_Sold = new SW_Total_Policies_SoldModal($pdo);
                             $SW_Total_Policies_Sold_VARS = $SW_Total_Policies_Sold->SW_getTotal_Policies_Sold($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/total_policies_sold-view.php');                                
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/SCOTTISH_WIDOWS/total_policies_sold-view.php');                                
                          
                          ?>
                          
@@ -9188,40 +9190,40 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                          
  <?php
                          
-                            require_once(__DIR__ . '/models/financials/VITALITY/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/VITALITY/total_ni_policies_sold-model.php');
                             $VIT_Total_NI_Policies_Sold = new VIT_Total_NI_Policies_SoldModal($pdo);
                             $VIT_Total_NI_Policies_Sold_VARS = $VIT_Total_NI_Policies_Sold->VIT_getTotal_NI_Policies_Sold($DATEFROM, $DATETO);
-                            require_once(__DIR__ . '/views/financials/VITALITY/total_ni_policies_sold-view.php');                          
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/VITALITY/total_ni_policies_sold-view.php');                          
                          
-                            require_once(__DIR__ . '/models/financials/ROYAL/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/ROYAL/total_ni_policies_sold-model.php');
                             $RL_Total_NI_Policies_Sold = new RL_Total_NI_Policies_SoldModal($pdo);
                             $RL_Total_NI_Policies_Sold_VARS = $RL_Total_NI_Policies_Sold->RL_getTotal_NI_Policies_Sold($RL_DATE_FROM, $RL_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/ROYAL/total_ni_policies_sold-view.php'); 
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/ROYAL/total_ni_policies_sold-view.php'); 
                             
-                            require_once(__DIR__ . '/models/financials/WOL/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/WOL/total_ni_policies_sold-model.php');
                             $WOL_Total_NI_Policies_Sold = new WOL_Total_NI_Policies_SoldModal($pdo);
                             $WOL_Total_NI_Policies_Sold_VARS = $WOL_Total_NI_Policies_Sold->WOL_getTotal_NI_Policies_Sold($WOL_DATE_FROM, $WOL_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/WOL/total_ni_policies_sold-view.php');                             
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/WOL/total_ni_policies_sold-view.php');                             
                          
-                            require_once(__DIR__ . '/models/financials/AVIVA/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/AVIVA/total_ni_policies_sold-model.php');
                             $AVI_Total_NI_Policies_Sold = new AVI_Total_NI_Policies_SoldModal($pdo);
                             $AVI_Total_NI_Policies_Sold_VARS = $AVI_Total_NI_Policies_Sold->AVI_getTotal_NI_Policies_Sold($AVI_DATE_FROM, $AVI_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/AVIVA/total_ni_policies_sold-view.php');       
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/AVIVA/total_ni_policies_sold-view.php');       
                             
-                            require_once(__DIR__ . '/models/financials/LV/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/LV/total_ni_policies_sold-model.php');
                             $LV_Total_NI_Policies_Sold = new LV_Total_NI_Policies_SoldModal($pdo);
                             $LV_Total_NI_Policies_Sold_VARS = $LV_Total_NI_Policies_Sold->LV_getTotal_NI_Policies_Sold($LV_DATE_FROM, $LV_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/LV/total_ni_policies_sold-view.php');               
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/LV/total_ni_policies_sold-view.php');               
                             
-                            require_once(__DIR__ . '/models/financials/ZURICH/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/ZURICH/total_ni_policies_sold-model.php');
                             $ZURICH_Total_NI_Policies_Sold = new ZURICH_Total_NI_Policies_SoldModal($pdo);
                             $ZURICH_Total_NI_Policies_Sold_VARS = $ZURICH_Total_NI_Policies_Sold->ZURICH_getTotal_NI_Policies_Sold($ZURICH_DATE_FROM, $ZURICH_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/ZURICH/total_ni_policies_sold-view.php');    
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/ZURICH/total_ni_policies_sold-view.php');    
                             
-                            require_once(__DIR__ . '/models/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-model.php');
                             $SW_Total_NI_Policies_Sold = new SW_Total_NI_Policies_SoldModal($pdo);
                             $SW_Total_NI_Policies_Sold_VARS = $SW_Total_NI_Policies_Sold->SW_getTotal_NI_Policies_Sold($SCOTTISH_WIDOWS_DATE_FROM, $SCOTTISH_WIDOWS_DATE_TO);
-                            require_once(__DIR__ . '/views/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-view.php');                                
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/SCOTTISH_WIDOWS/total_ni_policies_sold-view.php');                                
                          
                          ?>
                          
@@ -9252,15 +9254,15 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                          
 <?php
 
-                            require_once(__DIR__ . '/models/financials/STATS/avg_commission_premium-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/STATS/avg_commission_premium-model.php');
                             $COMM_PREM_STATS = new Comm_Prem_Stats_Model($pdo);
                             $COMM_PREM_STATS_VARS = $COMM_PREM_STATS->VIT_Comm_Prem_Stats($DATEFROM, $DATETO);
-                            require_once(__DIR__ . '/views/financials/STATS/avg_commission_premium-view.php');  
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/STATS/avg_commission_premium-view.php');  
                             
-                            require_once(__DIR__ . '/models/financials/STATS/most_cancels-model.php');
+                            require_once(BASE_URL.'/addon/Life/Financials/models/financials/STATS/most_cancels-model.php');
                             $CANCELS_STATS = new Cancels_Stats_Model($pdo);
                             $CANCELS_STATS_VARS = $CANCELS_STATS->VIT_Cancels_Stats($DATEFROM, $DATETO);
-                            require_once(__DIR__ . '/views/financials/STATS/most_cancels-view.php');                              
+                            require_once(BASE_URL.'/addon/Life/Financials/views/financials/STATS/most_cancels-view.php');                              
 
 ?>
   

@@ -9067,7 +9067,7 @@ WHERE
                  <div class="tab-content">
                      <div id="OVERVIEW_home" class="tab-pane fade in active">  
             
-            <?php
+            <?php           
             
             $OVER_ADL_EXPECTED_SUM = $VIT_ADL_EXPECTED_SUM + $RL_ADL_EXPECTED_SUM + $WOL_ADL_EXPECTED_SUM + $AVI_ADL_EXPECTED_SUM + $LV_ADL_EXPECTED_SUM + $ZURICH_ADL_EXPECTED_SUM + $SW_ADL_EXPECTED_SUM;
             $OVER_ADL_EXPECTED_SUM_FORMAT = number_format($OVER_ADL_EXPECTED_SUM, 2);
@@ -9122,7 +9122,7 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                                         </tr>
                         </table>
                          
-                         <?php
+                         <?php                        
                          
                             require_once(__DIR__ . '/models/financials/VITALITY/total_policies_sold-model.php');
                             $VIT_Total_Policies_Sold = new VIT_Total_Policies_SoldModal($pdo);
@@ -9248,7 +9248,16 @@ Total: <?php echo $OVER_ADL_AWAITING_SUM_FORMAT; ?>"</i> <a href="/addon/Life/Fi
                                         <td><?php if(isset($ZURICH_NI_POLICIES_SOLD)) { echo "$ZURICH_NI_POLICIES_SOLD"; } ?></td>
                                         <td><?php if(isset($SW_NI_POLICIES_SOLD)) { echo "$SW_NI_POLICIES_SOLD"; } ?></td>
                                         </tr>
-                        </table>                          
+                        </table>  
+                         
+<?php
+
+                            require_once(__DIR__ . '/models/financials/STATS/avg_commission_premium-model.php');
+                            $COMM_PREM_STATS = new Comm_Prem_Stats_Model($pdo);
+                            $COMM_PREM_STATS_VARS = $COMM_PREM_STATS->VIT_Comm_Prem_Stats($DATEFROM, $DATETO);
+                            require_once(__DIR__ . '/views/financials/STATS/avg_commission_premium-view.php');   
+
+?>
   
             </div>             
 
